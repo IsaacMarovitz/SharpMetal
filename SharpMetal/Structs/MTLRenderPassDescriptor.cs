@@ -2,7 +2,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using SharpMetal.ObjectiveC;
 
-namespace SharpMetal.Structs
+namespace SharpMetal
 {
     [SupportedOSPlatform("macos")]
     [StructLayout(LayoutKind.Sequential)]
@@ -11,5 +11,15 @@ namespace SharpMetal.Structs
         private static readonly ObjectiveCClass s_class = new ObjectiveCClass(nameof(MTLRenderPassDescriptor));
         public readonly IntPtr NativePtr;
         public static MTLRenderPassDescriptor New() => s_class.AllocInit<MTLRenderPassDescriptor>();
+
+        public MTLRenderPassColorAttachmentDescriptorArray colorAttachments => ObjectiveCRuntime.objc_msgSend<MTLRenderPassColorAttachmentDescriptorArray>(NativePtr, sel_colorAttachments);
+
+        // public MTLRenderPassDepthAttachmentDescriptor depthAttachment => ObjectiveCRuntime.objc_msgSend<MTLRenderPassDepthAttachmentDescriptor>(NativePtr, sel_depthAttachment);
+
+        // public MTLRenderPassStencilAttachmentDescriptor stencilAttachment => ObjectiveCRuntime.objc_msgSend<MTLRenderPassStencilAttachmentDescriptor>(NativePtr, sel_stencilAttachment);
+
+        private static readonly Selector sel_colorAttachments = "colorAttachments";
+        private static readonly Selector sel_depthAttachment = "depthAttachment";
+        private static readonly Selector sel_stencilAttachment = "stencilAttachment";
     }
 }
