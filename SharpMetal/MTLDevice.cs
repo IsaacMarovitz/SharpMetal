@@ -1,15 +1,37 @@
+using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 
 namespace SharpMetal
 {
     [SupportedOSPlatform("macos")]
-    public unsafe struct MTLDevice
+    public unsafe partial struct MTLDevice
     {
         private const string MetalFramework = "/System/Library/Frameworks/Metal.framework/Metal";
+
+        [LibraryImport(MetalFramework)]
+        public static partial MTLDevice MTLCreateSystemDefaultDevice();
 
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLDevice device) => device.NativePtr;
         public MTLDevice(IntPtr nativePtr) => NativePtr = nativePtr;
+
+        public ulong MaxThreadgroupMemoryLength => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxThreadgroupMemoryLength);
+
+        // public MTLSize MaxThreadsPerThreadgroup
+
+        public bool SupportsRaytracing => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsRaytracing);
+
+        public bool SupportsPrimitiveMotionBlur => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsPrimitiveMotionBlur);
+
+        public bool SupportsRaytracingFromRender => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsRaytracingFromRender);
+
+        public bool Supports32BitMSAA => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supports32BitMSAA);
+
+        public bool SupportsPullModelInterpolation => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsPullModelInterpolation);
+
+        public bool SupportsShaderBarycentricCoordinates => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsShaderBarycentricCoordinates);
+
+        public bool ProgrammableSamplePositionsSupported => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_programmableSamplePositionsSupported);
 
         public string Name => ObjectiveCRuntime.string_objc_msgSend(NativePtr, sel_name);
 
