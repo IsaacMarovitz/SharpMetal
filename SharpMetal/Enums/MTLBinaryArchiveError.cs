@@ -2,10 +2,10 @@ namespace SharpMetal
 {
     public enum MTLBinaryArchiveError: ulong
     {
-        MTLBinaryArchiveErrorNone = 0,
-        MTLBinaryArchiveErrorInvalidFile = 1,
-        MTLBinaryArchiveErrorCompilationFailure = 3,
-        MTLBinaryArchiveErrorUnexpectedElement = 2,
-        MTLBinaryArchiveErrorInternalError = 4
+        None = 0,
+        InvalidFile = 1,
+        CompilationFailure = 3,
+        UnexpectedElement = 2,
+        InternalError = 4
     }
 }

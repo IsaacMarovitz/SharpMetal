@@ -2,7 +2,7 @@ namespace SharpMetal
 {
     public enum MTLIOCompressionStatus: long
     {
-        MTLIOCompressionStatusComplete = 0,
-        MTLIOCompressionStatusError = 1
+        Complete = 0,
+        Error = 1
     }
 }

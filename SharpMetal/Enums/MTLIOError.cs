@@ -2,7 +2,7 @@ namespace SharpMetal
 {
     public enum MTLIOError: long
     {
-        MTLIOErrorURLInvalid = 1,
-        MTLIOErrorInternal = 2
+        URLInvalid = 1,
+        Internal = 2
     }
 }

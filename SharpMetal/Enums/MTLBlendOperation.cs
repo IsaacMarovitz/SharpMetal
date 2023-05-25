@@ -2,10 +2,10 @@ namespace SharpMetal
 {
     public enum MTLBlendOperation: ulong
     {
-        MTLBlendOperationAdd = 0,
-        MTLBlendOperationSubtract = 1,
-        MTLBlendOperationReverseSubtract = 2,
-        MTLBlendOperationMin = 3,
-        MTLBlendOperationMax = 4
+        Add = 0,
+        Subtract = 1,
+        ReverseSubtract = 2,
+        Min = 3,
+        Max = 4
     }
 }

@@ -2,8 +2,8 @@ namespace SharpMetal
 {
     public enum MTLBarrierScope: ulong
     {
-        MTLBarrierScopeBuffers = 1 << 0,
-        MTLBarrierScopeRenderTargets = 1 << 2,
-        MTLBarrierScopeTextures = 1 << 1
+        Buffers = 1 << 0,
+        RenderTargets = 1 << 2,
+        Textures = 1 << 1
     }
 }

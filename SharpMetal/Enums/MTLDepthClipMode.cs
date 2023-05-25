@@ -2,7 +2,7 @@ namespace SharpMetal
 {
     public enum MTLDepthClipMode: ulong
     {
-        MTLDepthClipModeClip = 0,
-        MTLDepthClipModeClamp = 1
+        Clip = 0,
+        Clamp = 1
     }
 }

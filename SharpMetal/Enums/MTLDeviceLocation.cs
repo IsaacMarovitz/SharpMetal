@@ -2,9 +2,9 @@ namespace SharpMetal
 {
     public enum MTLDeviceLocation: ulong
     {
-        MTLDeviceLocationBuiltIn = 0,
-        MTLDeviceLocationSlot = 1,
-        MTLDeviceLocationExternal = 2,
-        MTLDeviceLocationUnspecified = ulong.MaxValue
+        BuiltIn = 0,
+        Slot = 1,
+        External = 2,
+        Unspecified = ulong.MaxValue
     }
 }

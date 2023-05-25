@@ -2,8 +2,8 @@ namespace SharpMetal
 {
     public enum MTLLoadAction: ulong
     {
-        MTLLoadActionDontCare = 0,
-        MTLLoadActionLoad = 1,
-        MTLLoadActionClear = 2
+        DontCare = 0,
+        Load = 1,
+        Clear = 2
     }
 }

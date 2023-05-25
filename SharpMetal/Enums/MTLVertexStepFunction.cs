@@ -2,10 +2,10 @@ namespace SharpMetal
 {
     public enum MTLVertexStepFunction: ulong
     {
-        MTLVertexStepFunctionConstant = 0,
-        MTLVertexStepFunctionPerVertex = 1,
-        MTLVertexStepFunctionPerInstance = 2,
-        MTLVertexStepFunctionPerPatch = 3,
-        MTLVertexStepFunctionPerPatchControlPoint = 4
+        Constant = 0,
+        PerVertex = 1,
+        PerInstance = 2,
+        PerPatch = 3,
+        PerPatchControlPoint = 4
     }
 }

@@ -2,7 +2,7 @@ namespace SharpMetal
 {
     public enum MTLCompileSymbolVisibility: long
     {
-        MTLCompileSymbolVisibilityDefault = 0,
-        MTLCompileSymbolVisibilityHidden = 1
+        Default = 0,
+        Hidden = 1
     }
 }

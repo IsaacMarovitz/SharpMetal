@@ -2,7 +2,7 @@ namespace SharpMetal
 {
     public enum MTLIOCommandQueueType: long
     {
-        MTLIOCommandQueueTypeConcurrent = 0,
-        MTLIOCommandQueueTypeSerial = 1
+        Concurrent = 0,
+        Serial = 1
     }
 }

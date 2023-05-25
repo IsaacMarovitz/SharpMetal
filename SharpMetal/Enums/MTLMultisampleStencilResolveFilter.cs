@@ -2,7 +2,7 @@ namespace SharpMetal
 {
     public enum MTLMultisampleStencilResolveFilter: ulong
     {
-        MTLMultisampleStencilResolveFilterDepthResolvedSample = 1,
-        MTLMultisampleStencilResolveFilterSample0 = 0
+        DepthResolvedSample = 1,
+        Sample0 = 0
     }
 }
