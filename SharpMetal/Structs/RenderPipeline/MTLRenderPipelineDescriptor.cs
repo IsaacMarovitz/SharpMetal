@@ -47,6 +47,28 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxFragmentCallStackDepth, value);
         }
 
+        public MTLVertexDescriptor VertexDescriptor
+        {
+            get => new (ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_vertexDescriptor));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexDescriptor);
+        }
+
+        public MTLPipelineBufferDescriptorArray VertexBuffers => new (ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_vertexBuffers));
+        public MTLPipelineBufferDescriptorArray FragmentBuffers => new (ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_fragmentBuffers));
+        public MTLRenderPipelineColorAttachmentDescriptorArray ColorAttachments => new (ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_colorAttachments));
+
+        public MTLPixelFormat DepthAttachmentPixelFormat
+        {
+            get => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_depthAttachmentPixelFormat);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthAttachmentPixelFormat, (ulong)value);
+        }
+
+        public MTLPixelFormat StencilAttachmentPixelFormat
+        {
+            get => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stencilAttachmentPixelFormat);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStencilAttachmentPixelFormat, (ulong)value);
+        }
+
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_setLabel = "setLabel:";
 
@@ -64,5 +86,11 @@ namespace SharpMetal
 
         private static readonly Selector sel_vertexBuffers = "vertexBuffers";
         private static readonly Selector sel_fragmentBuffers = "fragmentBuffers";
+
+        private static readonly Selector sel_colorAttachments = "colorAttachments";
+        private static readonly Selector sel_depthAttachmentPixelFormat = "depthAttachmentPixelFormat";
+        private static readonly Selector sel_setDepthAttachmentPixelFormat = "setDepthAttachmentPixelFormat:";
+        private static readonly Selector sel_stencilAttachmentPixelFormat = "stencilAttachmentPixelFormat";
+        private static readonly Selector sel_setStencilAttachmentPixelFormat = "setStencilAttachmentPixelFormat:";
     }
 }
