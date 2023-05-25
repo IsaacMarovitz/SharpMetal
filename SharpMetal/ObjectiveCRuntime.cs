@@ -26,6 +26,22 @@ namespace SharpMetal
         [LibraryImport(ObjCRuntime)]
         public static partial void objc_msgSend(IntPtr receiver, Selector selector, double value);
 
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static partial bool bool_objc_msgSend(IntPtr receiver, Selector selector);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial long long_objc_msgSend(IntPtr receiver, Selector selector);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial ulong uint64_objc_msgSend(IntPtr receiver, Selector selector);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial uint uint32_objc_msgSend(IntPtr receiver, Selector selector);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend", StringMarshalling = StringMarshalling.Utf8)]
+        public static partial string string_objc_msgSend(IntPtr receiver, Selector selector);
+
         public struct Selector
         {
             public readonly IntPtr SelPtr;

@@ -1,8 +1,35 @@
+using System.Runtime.Versioning;
+
 namespace SharpMetal
 {
-    public unsafe class MTLDevice
+    [SupportedOSPlatform("macos")]
+    public unsafe struct MTLDevice
     {
         private const string MetalFramework = "/System/Library/Frameworks/Metal.framework/Metal";
+
+        public readonly IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLDevice device) => device.NativePtr;
+        public MTLDevice(IntPtr nativePtr) => NativePtr = nativePtr;
+
+        public string Name => ObjectiveCRuntime.string_objc_msgSend(NativePtr, sel_name);
+
+        public ulong RegistryID => ObjectiveCRuntime.uint64_objc_msgSend(NativePtr, sel_registryID);
+
+        // public MTLDeviceLocation Location => mtlDeviceLocation_objc_msgSend(NativePtr, sel_location);
+
+        public long LocationNumber => ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_locationNumber);
+
+        public bool LowPower => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_lowPower);
+
+        public bool Removable => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_removable);
+
+        public bool Headless => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_headless);
+
+        public ulong PeerGroupId => ObjectiveCRuntime.uint64_objc_msgSend(NativePtr, sel_peerGroupID);
+
+        public uint PeerCount => ObjectiveCRuntime.uint32_objc_msgSend(NativePtr, sel_peerCount);
+
+        public uint PeerIndex => ObjectiveCRuntime.uint32_objc_msgSend(NativePtr, sel_peerIndex);
 
         #region Device Inspection Selectors
 
@@ -81,5 +108,17 @@ namespace SharpMetal
 
         #endregion
 
+        #region Resource Creation Selectors
+
+        private static readonly ObjectiveCRuntime.Selector sel_newHeapWithDescriptor = "newHeapWithDescriptor:";
+        private static readonly ObjectiveCRuntime.Selector sel_heapBufferSizeAndAlignWithLengthOptions = "heapBufferSizeAndAlignWithLength:options:";
+        private static readonly ObjectiveCRuntime.Selector sel_heapTextureSizeAndAlignWithDescriptor = "heapTextureSizeAndAlignWithDescriptor:";
+        private static readonly ObjectiveCRuntime.Selector sel_heapAccelerationStructureSizeAndAlignWithSize = "heapAccelerationStructureSizeAndAlignWithSize:";
+        private static readonly ObjectiveCRuntime.Selector sel_heapAccelerationStructureSizeAndAlignWithDescriptor = "heapAccelerationStructureSizeAndAlignWithDescriptor:";
+        private static readonly ObjectiveCRuntime.Selector sel_maxBufferLength = "maxBufferLength";
+        private static readonly ObjectiveCRuntime.Selector sel_newBufferWithLengthOptions = "newBufferWithLength:options:";
+        private static readonly ObjectiveCRuntime.Selector sel_newBufferWithBytesLengthOptions = "newBufferWithBytes:length:options:";
+
+        #endregion
     }
 }
