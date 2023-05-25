@@ -1,6 +1,6 @@
 namespace SharpMetal.Enums
 {
-    public enum MTLDepthClipMode: long
+    public enum MTLDepthClipMode: ulong
     {
         MTLDepthClipModeClip = 0,
         MTLDepthClipModeClamp = 1

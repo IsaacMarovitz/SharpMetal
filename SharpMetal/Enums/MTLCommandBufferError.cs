@@ -1,6 +1,6 @@
 namespace SharpMetal.Enums
 {
-    public enum MTLCommandBufferError: long
+    public enum MTLCommandBufferError: ulong
     {
         MTLCommandBufferErrorNone = 0,
         MTLCommandBufferErrorTimeout = 2,

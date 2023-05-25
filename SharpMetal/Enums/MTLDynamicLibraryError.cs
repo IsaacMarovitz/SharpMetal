@@ -1,6 +1,6 @@
 namespace SharpMetal.Enums
 {
-    public enum MTLDynamicLibraryError: long
+    public enum MTLDynamicLibraryError: ulong
     {
         MTLDynamicLibraryErrorNone = 0,
         MTLDynamicLibraryErrorInvalidFile = 1,

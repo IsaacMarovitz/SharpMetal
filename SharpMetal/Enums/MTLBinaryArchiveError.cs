@@ -1,6 +1,6 @@
 namespace SharpMetal.Enums
 {
-    public enum MTLBinaryArchiveError: long
+    public enum MTLBinaryArchiveError: ulong
     {
         MTLBinaryArchiveErrorNone = 0,
         MTLBinaryArchiveErrorInvalidFile = 1,

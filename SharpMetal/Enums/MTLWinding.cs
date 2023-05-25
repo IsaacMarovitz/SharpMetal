@@ -1,6 +1,6 @@
 namespace SharpMetal.Enums
 {
-    public enum MTLWinding: long
+    public enum MTLWinding: ulong
     {
         MTLWindingClockwise = 0,
         MTLWindingCounterClockwise = 1

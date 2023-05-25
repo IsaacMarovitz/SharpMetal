@@ -1,6 +1,6 @@
 namespace SharpMetal.Enums
 {
-    public enum MTLSparseTextureRegionAlignmentMode: long
+    public enum MTLSparseTextureRegionAlignmentMode: ulong
     {
         MTLSparseTextureRegionAlignmentModeOutward = 0,
         MTLSparseTextureRegionAlignmentModeInward = 1

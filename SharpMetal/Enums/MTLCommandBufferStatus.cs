@@ -1,6 +1,6 @@
 namespace SharpMetal.Enums
 {
-    public enum MTLCommandBufferStatus: long
+    public enum MTLCommandBufferStatus: ulong
     {
         MTLCommandBufferStatusNotEnqueued = 0,
         MTLCommandBufferStatusEnqueued = 1,

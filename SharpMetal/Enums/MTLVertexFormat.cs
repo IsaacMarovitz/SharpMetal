@@ -1,6 +1,6 @@
 namespace SharpMetal.Enums
 {
-    public enum MTLVertexFormat: long
+    public enum MTLVertexFormat: ulong
     {
         MTLVertexFormatInvalid = 0,
         MTLVertexFormatUChar = 45,

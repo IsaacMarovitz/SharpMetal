@@ -1,6 +1,6 @@
 namespace SharpMetal.Enums
 {
-    public enum MTLCounterSamplingPoint: long
+    public enum MTLCounterSamplingPoint: ulong
     {
         MTLCounterSamplingPointAtBlitBoundary,
         MTLCounterSamplingPointAtDispatchBoundary,

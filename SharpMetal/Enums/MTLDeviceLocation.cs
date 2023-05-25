@@ -1,10 +1,10 @@
 namespace SharpMetal.Enums
 {
-    public enum MTLDeviceLocation: long
+    public enum MTLDeviceLocation: ulong
     {
         MTLDeviceLocationBuiltIn = 0,
         MTLDeviceLocationSlot = 1,
         MTLDeviceLocationExternal = 2,
-        MTLDeviceLocationUnspecified = long.MaxValue
+        MTLDeviceLocationUnspecified = ulong.MaxValue
     }
 }
