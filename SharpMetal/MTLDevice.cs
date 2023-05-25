@@ -34,7 +34,7 @@ namespace SharpMetal
 
         public bool ProgrammableSamplePositionsSupported => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_programmableSamplePositionsSupported);
 
-        public string Name => ObjectiveCRuntime.string_objc_msgSend(NativePtr, sel_name);
+        public NSString Name => ObjectiveCRuntime.nsString_objc_msgSend(NativePtr, sel_name);
 
         public ulong RegistryID => ObjectiveCRuntime.uint64_objc_msgSend(NativePtr, sel_registryID);
 

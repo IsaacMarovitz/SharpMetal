@@ -9,6 +9,7 @@ namespace SharpMetal.Examples
         public static void Main(string[] args)
         {
             ObjectiveCRuntime.dlopen("/System/Library/Frameworks/Metal.framework/Metal", 0);
+            ObjectiveCRuntime.dlopen("/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics", 0);
             var device = MTLDevice.MTLCreateSystemDefaultDevice();
 
             var descriptor = new MTLRenderPipelineDescriptor();
@@ -16,7 +17,7 @@ namespace SharpMetal.Examples
             descriptor.VertexFunction = new MTLFunction();
             descriptor.FragmentFunction = new MTLFunction();
 
-            Console.WriteLine(descriptor.Label);
+            Console.WriteLine(device.Name);
             // descriptor.colorAttachments[0].PixelFormat = MTLPixelFormat.MTLPixelFormatStencil8;
         }
     }
