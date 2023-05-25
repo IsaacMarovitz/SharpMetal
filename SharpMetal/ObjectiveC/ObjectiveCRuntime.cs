@@ -46,6 +46,9 @@ namespace SharpMetal.ObjectiveC
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial uint uint32_objc_msgSend(IntPtr receiver, Selector selector);
 
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial double double_objc_msgSend(IntPtr receiver, Selector selector);
+
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend", StringMarshalling = StringMarshalling.Utf8)]
         public static partial string string_objc_msgSend(IntPtr receiver, Selector selector);
 
