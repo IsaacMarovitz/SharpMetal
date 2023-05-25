@@ -5,6 +5,13 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Version>1.0.0-preview1</Version>
+        <Description>Handcrafted Metal bindings for C#</Description>
+        <PackageProjectUrl>https://github.com/IsaacMarovitz/SharpMetal</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/IsaacMarovitz/SharpMetal</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>metal</PackageTags>
     </PropertyGroup>
 
 </Project>
