@@ -17,12 +17,12 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
-        public MTLRenderPipelineColorAttachmentDescriptor this[uint index]
+        public MTLRenderPassColorAttachmentDescriptor this[uint index]
         {
             get
             {
                 IntPtr ptr = ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, Selectors.objectAtIndexedSubscript, index);
-                return new MTLRenderPipelineColorAttachmentDescriptor(ptr);
+                return new MTLRenderPassColorAttachmentDescriptor(ptr);
             }
             set
             {
