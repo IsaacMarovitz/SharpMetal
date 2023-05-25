@@ -1,4 +1,5 @@
 using System.Runtime.Versioning;
+using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
@@ -15,14 +16,14 @@ namespace SharpMetal
 
         public ulong GpuAddress => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_gpuAddress);
 
-        private static readonly ObjectiveCRuntime.Selector sel_newTextureWithDescriptorOffsetBytesPerRow = "newTextureWithDescriptor:offset:bytesPerRow:";
-        private static readonly ObjectiveCRuntime.Selector sel_contents = "contents";
-        private static readonly ObjectiveCRuntime.Selector sel_didModifyRange = "didModifyRange:";
-        private static readonly ObjectiveCRuntime.Selector sel_addDebugMarkerRange = "addDebugMarker:range:";
-        private static readonly ObjectiveCRuntime.Selector sel_removeAllDebugMarkers = "removeAllDebugMarkers";
-        private static readonly ObjectiveCRuntime.Selector sel_length = "length";
-        private static readonly ObjectiveCRuntime.Selector sel_newRemoteBufferViewForDevice = "newRemoteBufferViewForDevice:";
-        private static readonly ObjectiveCRuntime.Selector sel_remoteStorageBuffer = "remoteStorageBuffer";
-        private static readonly ObjectiveCRuntime.Selector sel_gpuAddress = "gpuAddress";
+        private static readonly Selector sel_newTextureWithDescriptorOffsetBytesPerRow = "newTextureWithDescriptor:offset:bytesPerRow:";
+        private static readonly Selector sel_contents = "contents";
+        private static readonly Selector sel_didModifyRange = "didModifyRange:";
+        private static readonly Selector sel_addDebugMarkerRange = "addDebugMarker:range:";
+        private static readonly Selector sel_removeAllDebugMarkers = "removeAllDebugMarkers";
+        private static readonly Selector sel_length = "length";
+        private static readonly Selector sel_newRemoteBufferViewForDevice = "newRemoteBufferViewForDevice:";
+        private static readonly Selector sel_remoteStorageBuffer = "remoteStorageBuffer";
+        private static readonly Selector sel_gpuAddress = "gpuAddress";
     }
 }

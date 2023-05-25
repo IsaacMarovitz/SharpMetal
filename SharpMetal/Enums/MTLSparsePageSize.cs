@@ -1,4 +1,4 @@
-namespace SharpMetal.Enums
+namespace SharpMetal
 {
     public enum MTLSparsePageSize: long
     {

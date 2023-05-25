@@ -10,13 +10,13 @@
         <Description>Handcrafted Metal bindings for C#</Description>
         <RepositoryUrl>https://github.com/IsaacMarovitz/SharpMetal</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <PackageTags>metal</PackageTags>
+        <PackageTags>Metal Graphics macOS</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="..\README.md" Pack="true" PackagePath="\"/>
+        <None Include="..\README.md" Pack="true" PackagePath="\" />
     </ItemGroup>
 
 </Project>
