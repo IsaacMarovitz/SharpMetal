@@ -55,5 +55,31 @@ namespace SharpMetal
         private static readonly ObjectiveCRuntime.Selector sel_newIndirectCommandBufferWithDescriptorMaxCommandCountOptions = "newIndirectCommandBufferWithDescriptor:maxCommandCount:options:";
 
         #endregion
+
+        #region Pipeline State Creation Selectors
+
+        private static readonly ObjectiveCRuntime.Selector sel_newComputePipelineStateWithDescriptorOptionsReflectionError = "newComputePipelineStateWithDescriptor:options:reflection:error:";
+        private static readonly ObjectiveCRuntime.Selector sel_newComputePipelineStateWithDescriptorOptionsCompletionHandler = "newComputePipelineStateWithDescriptor:options:completionHandler:";
+        private static readonly ObjectiveCRuntime.Selector sel_newComputePipelineStateWithFunctionError = "newComputePipelineStateWithFunction:error:";
+        private static readonly ObjectiveCRuntime.Selector sel_newComputePipelineStateWithFunctionCompletionHandler = "newComputePipelineStateWithFunction:completionHandler:";
+        private static readonly ObjectiveCRuntime.Selector sel_newComputePipelineStateWithFunctionOptionsReflectionError = "newComputePipelineStateWithFunction:options:reflection:error:";
+        private static readonly ObjectiveCRuntime.Selector sel_newComputePipelineStateWithFunctionOptionsCompletionHandler = "newComputePipelineStateWithFunction:options:completionHandler:";
+
+        private static readonly ObjectiveCRuntime.Selector sel_newRenderPipelineStateWithDescriptorError = "newRenderPipelineStateWithDescriptor:error:";
+        private static readonly ObjectiveCRuntime.Selector sel_newRenderPipelineStateWithDescriptorCompletionHandler = "newRenderPipelineStateWithDescriptor:completionHandler:";
+        private static readonly ObjectiveCRuntime.Selector sel_newRenderPipelineStateWithDescriptorOptionsReflectionError = "newRenderPipelineStateWithDescriptor:options:reflection:error:";
+        private static readonly ObjectiveCRuntime.Selector sel_newRenderPipelineStateWithDescriptorOptionsCompletionHandler = "newRenderPipelineStateWithDescriptor:options:completionHandler:";
+        private static readonly ObjectiveCRuntime.Selector sel_newRenderPipelineStateWithMeshDescriptorOptionsReflectionError = "newRenderPipelineStateWithMeshDescriptor:options:reflection:error:";
+        private static readonly ObjectiveCRuntime.Selector sel_newRenderPipelineStateWithMeshDescriptorOptionsCompletionHandler = "newRenderPipelineStateWithMeshDescriptor:options:completionHandler:";
+        private static readonly ObjectiveCRuntime.Selector sel_newRenderPipelineStateWithTileDescriptorOptionsReflectionError = "newRenderPipelineStateWithTileDescriptor:options:reflection:error:";
+        private static readonly ObjectiveCRuntime.Selector sel_newRenderPipelineStateWithTileDescriptorOptionsCompletionHandler = "newRenderPipelineStateWithTileDescriptor:options:completionHandler:";
+
+        private static readonly ObjectiveCRuntime.Selector sel_newDepthStencilStateWithDescriptor = "newDepthStencilStateWithDescriptor:";
+
+        private static readonly ObjectiveCRuntime.Selector sel_supportsRasterizationRateMapWithLayerCount = "supportsRasterizationRateMapWithLayerCount:";
+        private static readonly ObjectiveCRuntime.Selector sel_newRasterizationRateMapWithDescriptor = "newRasterizationRateMapWithDescriptor:";
+
+        #endregion
+
     }
 }
