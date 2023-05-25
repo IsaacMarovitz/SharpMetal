@@ -11,16 +11,15 @@ namespace SharpMetal
         public readonly IntPtr NativePtr;
         public MTLRenderPipelineDescriptor(IntPtr ptr) => NativePtr = ptr;
 
-        public static MTLRenderPipelineDescriptor New()
+        public MTLRenderPipelineDescriptor()
         {
             var cls = new ObjectiveCClass("MTLRenderPipelineDescriptor");
-            var ret = cls.AllocInit<MTLRenderPipelineDescriptor>();
-            return ret;
+            NativePtr = cls.AllocInit();
         }
 
-        public string Label
+        public NSString Label
         {
-            get => ObjectiveCRuntime.string_objc_msgSend(NativePtr, sel_label);
+            get => ObjectiveCRuntime.nsString_objc_msgSend(NativePtr, sel_label);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
         }
 

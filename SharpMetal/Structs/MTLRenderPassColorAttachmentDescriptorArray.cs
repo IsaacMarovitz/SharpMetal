@@ -9,6 +9,13 @@ namespace SharpMetal
     public struct MTLRenderPassColorAttachmentDescriptorArray
     {
         public readonly IntPtr NativePtr;
+        public MTLRenderPassColorAttachmentDescriptorArray(IntPtr ptr) => NativePtr = ptr;
+
+        public MTLRenderPassColorAttachmentDescriptorArray()
+        {
+            var cls = new ObjectiveCClass("MTLRenderPassColorAttachmentDescriptorArray");
+            NativePtr = cls.AllocInit();
+        }
 
         public MTLRenderPipelineColorAttachmentDescriptor this[uint index]
         {

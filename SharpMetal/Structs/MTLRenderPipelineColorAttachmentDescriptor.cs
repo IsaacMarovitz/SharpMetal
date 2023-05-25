@@ -9,7 +9,6 @@ namespace SharpMetal
     public struct MTLRenderPipelineColorAttachmentDescriptor
     {
         public readonly IntPtr NativePtr;
-
         public MTLRenderPipelineColorAttachmentDescriptor(IntPtr ptr) => NativePtr = ptr;
 
         public MTLPixelFormat PixelFormat

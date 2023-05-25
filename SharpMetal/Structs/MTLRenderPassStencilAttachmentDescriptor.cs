@@ -11,6 +11,12 @@ namespace SharpMetal
         public readonly IntPtr NativePtr;
         public MTLRenderPassStencilAttachmentDescriptor(IntPtr ptr) => NativePtr = ptr;
 
+        public MTLRenderPassStencilAttachmentDescriptor()
+        {
+            var cls = new ObjectiveCClass("MTLRenderPassStencilAttachmentDescriptor");
+            NativePtr = cls.AllocInit();
+        }
+
         public MTLMultisampleStencilResolveFilter StencilResolveFilter
         {
             get => (MTLMultisampleStencilResolveFilter)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stencilResolveFilter);

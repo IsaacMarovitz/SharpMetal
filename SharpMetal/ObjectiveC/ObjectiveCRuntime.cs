@@ -12,11 +12,11 @@ namespace SharpMetal.ObjectiveC
         [LibraryImport(ObjCRuntime, StringMarshalling = StringMarshalling.Utf8)]
         public static partial IntPtr objc_getClass(string name);
 
-        [LibraryImport(ObjCRuntime)]
-        public static partial void objc_msgSend(IntPtr receiver, Selector selector);
+        [LibraryImport("libdl.dylib", StringMarshalling = StringMarshalling.Utf8)]
+        public static partial void dlopen(string path, int mode);
 
         [LibraryImport(ObjCRuntime)]
-        public static partial void objc_msgSend(IntPtr receiver, Selector selector, byte value);
+        public static partial void objc_msgSend(IntPtr receiver, Selector selector);
 
         [LibraryImport(ObjCRuntime)]
         public static partial void objc_msgSend(IntPtr receiver, Selector selector, IntPtr value);
@@ -28,7 +28,7 @@ namespace SharpMetal.ObjectiveC
         public static partial void objc_msgSend(IntPtr receiver, Selector selector, double value);
 
         [LibraryImport(ObjCRuntime, StringMarshalling = StringMarshalling.Utf8)]
-        public static partial void objc_msgSend(IntPtr receiver, Selector selector, string value);
+        public static partial void objc_msgSend(IntPtr receiver, Selector selector, NSString value);
 
         [LibraryImport(ObjCRuntime)]
         public static partial void objc_msgSend(IntPtr receiver, Selector selector, [MarshalAs(UnmanagedType.Bool)] bool value);
@@ -56,7 +56,13 @@ namespace SharpMetal.ObjectiveC
         public static partial string string_objc_msgSend(IntPtr receiver, Selector selector);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial NSString nsString_objc_msgSend(IntPtr receiver, Selector selector);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend", StringMarshalling = StringMarshalling.Utf8)]
+        public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, string value);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, IntPtr a);

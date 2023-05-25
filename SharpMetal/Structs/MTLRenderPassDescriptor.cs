@@ -10,7 +10,12 @@ namespace SharpMetal
     {
         private static readonly ObjectiveCClass s_class = new(nameof(MTLRenderPassDescriptor));
         public readonly IntPtr NativePtr;
-        public static MTLRenderPassDescriptor New() => s_class.AllocInit<MTLRenderPassDescriptor>();
+
+        public MTLRenderPassDescriptor()
+        {
+            var cls = new ObjectiveCClass("MTLRenderPassDescriptor");
+            NativePtr = cls.AllocInit();
+        }
 
         public MTLRenderPassColorAttachmentDescriptorArray colorAttachments => ObjectiveCRuntime.objc_msgSend<MTLRenderPassColorAttachmentDescriptorArray>(NativePtr, sel_colorAttachments);
 

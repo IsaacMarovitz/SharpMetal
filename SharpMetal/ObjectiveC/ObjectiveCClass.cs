@@ -12,7 +12,14 @@ namespace SharpMetal.ObjectiveC
 
         public ObjectiveCClass(string name)
         {
-            NativePtr = ObjectiveCRuntime.objc_getClass(name);
+            var ptr = ObjectiveCRuntime.objc_getClass(name);
+
+            if (ptr == IntPtr.Zero)
+            {
+                Console.WriteLine($"Failed to get class {name}!");
+            }
+
+            NativePtr = ptr;
         }
 
         public IntPtr GetProperty(string propertyName)
@@ -23,17 +30,17 @@ namespace SharpMetal.ObjectiveC
 
         public string Name => Marshal.PtrToStringAnsi(ObjectiveCRuntime.class_getName(this)) ?? string.Empty;
 
-        public T Alloc<T>() where T : struct
+        public IntPtr AllocInit()
         {
-            IntPtr value = ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, Selectors.alloc);
-            return Unsafe.AsRef<T>(&value);
+            var value = ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, Selectors.alloc);
+            ObjectiveCRuntime.objc_msgSend(value, Selectors.init);
+            return value;
         }
 
-        public T AllocInit<T>() where T : struct
+        public IntPtr Alloc()
         {
-            IntPtr value = ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, Selectors.alloc);
-            ObjectiveCRuntime.objc_msgSend(value, Selectors.init);
-            return Unsafe.AsRef<T>(&value);
+            var value = ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, Selectors.alloc);
+            return value;
         }
 
         public ObjectiveCMethod* class_copyMethodList(out uint count)

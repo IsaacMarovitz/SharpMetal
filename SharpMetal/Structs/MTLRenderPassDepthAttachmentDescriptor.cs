@@ -11,6 +11,12 @@ namespace SharpMetal
         public readonly IntPtr NativePtr;
         public MTLRenderPassDepthAttachmentDescriptor(IntPtr ptr) => NativePtr = ptr;
 
+        public MTLRenderPassDepthAttachmentDescriptor()
+        {
+            var cls = new ObjectiveCClass("MTLRenderPassDepthAttachmentDescriptor");
+            NativePtr = cls.AllocInit();
+        }
+
         public double ClearDepth
         {
             get => ObjectiveCRuntime.double_objc_msgSend(NativePtr, sel_clearDepth);
