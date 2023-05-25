@@ -16,4 +16,8 @@
         <TrimMode>partial</TrimMode>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\SharpMetal\SharpMetal.csproj" />
+    </ItemGroup>
+
 </Project>

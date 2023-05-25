@@ -27,6 +27,9 @@ namespace SharpMetal.ObjectiveC
         [LibraryImport(ObjCRuntime)]
         public static partial void objc_msgSend(IntPtr receiver, Selector selector, double value);
 
+        [LibraryImport(ObjCRuntime, StringMarshalling = StringMarshalling.Utf8)]
+        public static partial void objc_msgSend(IntPtr receiver, Selector selector, string value);
+
         [LibraryImport(ObjCRuntime)]
         public static partial void objc_msgSend(IntPtr receiver, Selector selector, [MarshalAs(UnmanagedType.Bool)] bool value);
 
