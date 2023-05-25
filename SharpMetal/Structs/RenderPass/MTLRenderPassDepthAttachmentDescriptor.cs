@@ -6,17 +6,29 @@ namespace SharpMetal
 {
     [SupportedOSPlatform("macos")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct MTLRenderPassColorAttachmentDescriptor: MTLRenderPassAttachmentDescriptor
+    public struct MTLRenderPassDepthAttachmentDescriptor: MTLRenderPassAttachmentDescriptor
     {
-        private static readonly ObjectiveCClass s_class = new(nameof(MTLRenderPassColorAttachmentDescriptor));
-        public readonly IntPtr NativePtr { get; }
-        public MTLRenderPassColorAttachmentDescriptor(IntPtr ptr) => NativePtr = ptr;
+        public IntPtr NativePtr { get; }
+        public MTLRenderPassDepthAttachmentDescriptor(IntPtr ptr) => NativePtr = ptr;
 
-        public MTLRenderPassColorAttachmentDescriptor()
+        public MTLRenderPassDepthAttachmentDescriptor()
         {
-            var cls = new ObjectiveCClass("MTLRenderPassColorAttachmentDescriptor");
+            var cls = new ObjectiveCClass("MTLRenderPassDepthAttachmentDescriptor");
             NativePtr = cls.AllocInit();
         }
+
+        public double ClearDepth
+        {
+            get => ObjectiveCRuntime.double_objc_msgSend(NativePtr, sel_clearDepth);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setClearDepth, value);
+        }
+
+        public MTLMultisampleDepthResolveFilter DepthResolveFilter
+        {
+            get => (MTLMultisampleDepthResolveFilter)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_depthResolveFilter);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthResolveFilter, (ulong)value);
+        }
+
 
         public IntPtr Texture
         {
@@ -83,6 +95,11 @@ namespace SharpMetal
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_resolveDepthPlane);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setResolveDepthPlane, value);
         }
+
+        private static readonly Selector sel_clearDepth = "clearDepth";
+        private static readonly Selector sel_setClearDepth = "setClearDepth:";
+        private static readonly Selector sel_depthResolveFilter = "depthResolveFilter";
+        private static readonly Selector sel_setDepthResolveFilter = "setDepthResolveFilter:";
 
         private static readonly Selector sel_texture = "texture";
         private static readonly Selector sel_setTexture = "setTexture:";
