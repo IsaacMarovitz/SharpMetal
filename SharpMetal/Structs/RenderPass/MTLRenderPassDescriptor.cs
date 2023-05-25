@@ -8,7 +8,6 @@ namespace SharpMetal
     [StructLayout(LayoutKind.Sequential)]
     public struct MTLRenderPassDescriptor
     {
-        private static readonly ObjectiveCClass s_class = new(nameof(MTLRenderPassDescriptor));
         public readonly IntPtr NativePtr;
 
         public MTLRenderPassDescriptor()

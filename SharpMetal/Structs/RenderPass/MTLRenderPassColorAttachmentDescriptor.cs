@@ -8,7 +8,6 @@ namespace SharpMetal
     [StructLayout(LayoutKind.Sequential)]
     public struct MTLRenderPassColorAttachmentDescriptor: MTLRenderPassAttachmentDescriptor
     {
-        private static readonly ObjectiveCClass s_class = new(nameof(MTLRenderPassColorAttachmentDescriptor));
         public readonly IntPtr NativePtr { get; }
         public MTLRenderPassColorAttachmentDescriptor(IntPtr ptr) => NativePtr = ptr;
 
