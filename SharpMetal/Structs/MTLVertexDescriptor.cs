@@ -11,7 +11,7 @@ namespace SharpMetal
 
         public static MTLVertexDescriptor VertexDescriptor()
         {
-            var cls = ObjectiveCClass("MTLVertexDescriptor");
+            var cls = new ObjectiveCClass("MTLVertexDescriptor");
             return new (ObjectiveCRuntime.IntPtr_objc_msgSend(cls, "vertexDescriptor"));
         }
 
