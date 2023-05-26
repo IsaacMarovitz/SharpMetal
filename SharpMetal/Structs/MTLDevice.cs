@@ -62,7 +62,7 @@ namespace SharpMetal
 
         public ulong CurrentAllocatedSize => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_currentAllocatedSize);
 
-        public ulong recommendedMaxWorkingSetSize => ObjectiveCRuntime.uint64_objc_msgSend(NativePtr, sel_recommendedMaxWorkingSetSize);
+        public ulong RecommendedMaxWorkingSetSize => ObjectiveCRuntime.uint64_objc_msgSend(NativePtr, sel_recommendedMaxWorkingSetSize);
 
         public bool HasUnifiedMemory => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_hasUnifiedMemory);
 
@@ -120,11 +120,11 @@ namespace SharpMetal
         private static readonly Selector sel_supportsPullModelInterpolation = "supportsPullModelInterpolation";
         private static readonly Selector sel_supportsShaderBarycentricCoordinates = "supportsShaderBarycentricCoordinates";
         private static readonly Selector sel_supportsVertexAmplificationCount = "supportsVertexAmplificationCount:";
-        private static readonly Selector sel_programmableSamplePositionsSupported = "programmableSamplePositionsSupported";
-        private static readonly Selector sel_rasterOrderGroupsSupported = "rasterOrderGroupsSupported";
+        private static readonly Selector sel_programmableSamplePositionsSupported = "areProgrammableSamplePositionsSupported";
+        private static readonly Selector sel_rasterOrderGroupsSupported = "areRasterOrderGroupsSupported";
         private static readonly Selector sel_supports32BitFloatFiltering = "supports32BitFloatFiltering";
         private static readonly Selector sel_supportsBCTextureCompression = "supportsBCTextureCompression";
-        private static readonly Selector sel_depth24Stencil8PixelFormatSupported = "depth24Stencil8PixelFormatSupported";
+        private static readonly Selector sel_depth24Stencil8PixelFormatSupported = "isDepth24Stencil8PixelFormatSupported";
         private static readonly Selector sel_supportsQueryTextureLOD = "supportsQueryTextureLOD";
         private static readonly Selector sel_readWriteTextureSupport = "readWriteTextureSupport";
         private static readonly Selector sel_supportsFunctionPointers = "supportsFunctionPointers";
@@ -141,9 +141,9 @@ namespace SharpMetal
         private static readonly Selector sel_registryID = "registryID";
         private static readonly Selector sel_location = "location";
         private static readonly Selector sel_locationNumber = "locationNumber";
-        private static readonly Selector sel_lowPower = "lowPower";
-        private static readonly Selector sel_removable = "removable";
-        private static readonly Selector sel_headless = "headless";
+        private static readonly Selector sel_lowPower = "isLowPower";
+        private static readonly Selector sel_removable = "isRemovable";
+        private static readonly Selector sel_headless = "isHeadless";
         private static readonly Selector sel_peerGroupID = "peerGroupID";
         private static readonly Selector sel_peerCount = "peerCount";
         private static readonly Selector sel_peerIndex = "peerIndex";
