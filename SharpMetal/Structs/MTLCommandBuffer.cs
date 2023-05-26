@@ -21,7 +21,7 @@ namespace SharpMetal
 
         public MTLAccelerationStructureCommandEncoder AccelerationStructureCommandEncoderWithDescriptor(MTLAccelerationStructurePassDescriptor descriptor)
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_accelerationStructureCommandEncoderWithDescriptor, descriptor));
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_accelerationStructureCommandEncoderWithDescriptor, descriptor.NativePtr));
         }
 
         public MTLAccelerationStructureCommandEncoder AccelerationStructureCommandEncoder()

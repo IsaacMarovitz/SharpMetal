@@ -17,11 +17,11 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
-        public MTLRenderPassColorAttachmentDescriptorArray colorAttachments => ObjectiveCRuntime.objc_msgSend<MTLRenderPassColorAttachmentDescriptorArray>(NativePtr, sel_colorAttachments);
+        public MTLRenderPassColorAttachmentDescriptorArray ColorAttachments => ObjectiveCRuntime.objc_msgSend<MTLRenderPassColorAttachmentDescriptorArray>(NativePtr, sel_colorAttachments);
 
-        public MTLRenderPassDepthAttachmentDescriptor depthAttachment => ObjectiveCRuntime.objc_msgSend<MTLRenderPassDepthAttachmentDescriptor>(NativePtr, sel_depthAttachment);
+        public MTLRenderPassDepthAttachmentDescriptor DepthAttachment => ObjectiveCRuntime.objc_msgSend<MTLRenderPassDepthAttachmentDescriptor>(NativePtr, sel_depthAttachment);
 
-        public MTLRenderPassStencilAttachmentDescriptor stencilAttachment => ObjectiveCRuntime.objc_msgSend<MTLRenderPassStencilAttachmentDescriptor>(NativePtr, sel_stencilAttachment);
+        public MTLRenderPassStencilAttachmentDescriptor StencilAttachment => ObjectiveCRuntime.objc_msgSend<MTLRenderPassStencilAttachmentDescriptor>(NativePtr, sel_stencilAttachment);
 
         private static readonly Selector sel_colorAttachments = "colorAttachments";
         private static readonly Selector sel_depthAttachment = "depthAttachment";

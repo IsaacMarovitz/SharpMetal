@@ -1,5 +1,4 @@
 using System.Runtime.Versioning;
-using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
