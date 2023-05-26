@@ -55,6 +55,9 @@ namespace SharpMetal.ObjectiveC
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial double double_objc_msgSend(IntPtr receiver, Selector selector);
 
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial byte byte_objc_msgSend(IntPtr receiver, Selector selector);
+
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend", StringMarshalling = StringMarshalling.Utf8)]
         public static partial string string_objc_msgSend(IntPtr receiver, Selector selector);
 
@@ -78,6 +81,15 @@ namespace SharpMetal.ObjectiveC
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, uint a);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, MTLPixelFormat pixelFormat, ulong width, ulong height, [MarshalAs(UnmanagedType.Bool)] bool mipmapped);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, MTLPixelFormat pixelFormat, ulong width, [MarshalAs(UnmanagedType.Bool)] bool mipmapped);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, MTLPixelFormat pixelFormat, ulong width, MTLResourceOptions resourceOptions, MTLTextureUsage usage);
 
         [LibraryImport(ObjCRuntime)]
         public static partial IntPtr class_getProperty(ObjectiveCClass cls, IntPtr namePtr);

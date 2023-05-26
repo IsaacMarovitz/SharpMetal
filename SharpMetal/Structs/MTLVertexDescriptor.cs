@@ -9,6 +9,12 @@ namespace SharpMetal
         public readonly IntPtr NativePtr;
         public MTLVertexDescriptor(IntPtr ptr) => NativePtr = ptr;
 
+        public static MTLVertexDescriptor VertexDescriptor()
+        {
+            var cls = ObjectiveCClass("MTLVertexDescriptor");
+            return new (ObjectiveCRuntime.IntPtr_objc_msgSend(cls, "vertexDescriptor"));
+        }
+
         public MTLVertexAttributeDescriptorArray Attributes => new MTLVertexAttributeDescriptorArray(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_attributes));
         public MTLVertexBufferLayoutDescriptorArray Layouts => new MTLVertexBufferLayoutDescriptorArray(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_layouts));
 
