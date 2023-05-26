@@ -44,6 +44,14 @@ namespace SharpMetal.ObjectiveC
         public static partial bool bool_objc_msgSend(IntPtr receiver, Selector selector);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static partial bool bool_objc_msgSend(IntPtr receiver, Selector selector, long a);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static partial bool bool_objc_msgSend(IntPtr receiver, Selector selector, ulong a);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial long long_objc_msgSend(IntPtr receiver, Selector selector);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]

@@ -5,7 +5,7 @@ using SharpMetal.ObjectiveC;
 namespace SharpMetal
 {
     [SupportedOSPlatform("macos")]
-    public unsafe partial struct MTLDevice
+    public partial struct MTLDevice
     {
         private const string MetalFramework = "/System/Library/Frameworks/Metal.framework/Metal";
 
@@ -15,6 +15,11 @@ namespace SharpMetal
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLDevice device) => device.NativePtr;
         public MTLDevice(IntPtr nativePtr) => NativePtr = nativePtr;
+
+        public bool SupportsFamily(MTLGPUFamily gpuFamily)
+        {
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsFamily, (long)gpuFamily);
+        }
 
         public ulong MaxThreadgroupMemoryLength => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxThreadgroupMemoryLength);
 
@@ -32,15 +37,64 @@ namespace SharpMetal
 
         public bool SupportsShaderBarycentricCoordinates => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsShaderBarycentricCoordinates);
 
+        public bool SupportsVertexAmplificationCount(ulong count)
+        {
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsVertexAmplificationCount, count);
+        }
+
         public bool ProgrammableSamplePositionsSupported => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_programmableSamplePositionsSupported);
+
+        public bool RasterOrderGroupsSupported => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_rasterOrderGroupsSupported);
+
+        public bool Supports32BitFloatFiltering => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supports32BitFloatFiltering);
+
+        public bool SupportsBCTextureCompression => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsBCTextureCompression);
+
+        public bool Depth24Stencil8PixelFormatSupported => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_depth24Stencil8PixelFormatSupported);
+
+        public bool SupportsQueryTextureLOD => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsQueryTextureLOD);
+
+        public MTLReadWriteTextureTier ReadWriteTextureSupport => (MTLReadWriteTextureTier)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_readWriteTextureSupport);
+
+        public bool SupportsFunctionPointers => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsFunctionPointers);
+
+        public bool SupportsFunctionPointersFromRender => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsFunctionPointersFromRender);
+
+        public ulong CurrentAllocatedSize => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_currentAllocatedSize);
+
+        public ulong recommendedMaxWorkingSetSize => ObjectiveCRuntime.uint64_objc_msgSend(NativePtr, sel_recommendedMaxWorkingSetSize);
+
+        public bool HasUnifiedMemory => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_hasUnifiedMemory);
+
+        public ulong MaxTransferRate => ObjectiveCRuntime.uint64_objc_msgSend(NativePtr, sel_maxTransferRate);
+
+        // TODO: Needs NSArray
+        // public NSArray CounterSets
+
+        public bool SupportsCounterSampling(MTLCounterSamplingPoint samplingPoint)
+        {
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsCounterSampling, (ulong)samplingPoint);
+        }
+
+        // TODO: Needs MTLCounterSampleBuffer, MTLCounterSampleBufferDescriptor, and NSError
+        /* public MTLCounterSampleBuffer NewCounterSampleBufferWithDescriptorError(MTLCounterSampleBufferDescriptor descriptor, out NSError error)
+        {
+
+        }*/
+
+        // TODO: Needs MTLTimestamp
+        /*public void SampleTimestampsGPUTimestamp(MTLTimestamp cpuTimestamp, MTLTimestamp gpuTimestamp)
+        {
+
+        }*/
 
         public NSString Name => ObjectiveCRuntime.nsString_objc_msgSend(NativePtr, sel_name);
 
         public ulong RegistryID => ObjectiveCRuntime.uint64_objc_msgSend(NativePtr, sel_registryID);
 
-        // public MTLDeviceLocation Location => mtlDeviceLocation_objc_msgSend(NativePtr, sel_location);
+        public MTLDeviceLocation Location => (MTLDeviceLocation)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_location);
 
-        public long LocationNumber => ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_locationNumber);
+        public ulong LocationNumber => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_locationNumber);
 
         public bool LowPower => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_lowPower);
 
@@ -72,6 +126,7 @@ namespace SharpMetal
         private static readonly Selector sel_supportsBCTextureCompression = "supportsBCTextureCompression";
         private static readonly Selector sel_depth24Stencil8PixelFormatSupported = "depth24Stencil8PixelFormatSupported";
         private static readonly Selector sel_supportsQueryTextureLOD = "supportsQueryTextureLOD";
+        private static readonly Selector sel_readWriteTextureSupport = "readWriteTextureSupport";
         private static readonly Selector sel_supportsFunctionPointers = "supportsFunctionPointers";
         private static readonly Selector sel_supportsFunctionPointersFromRender = "supportsFunctionPointersFromRender";
         private static readonly Selector sel_currentAllocatedSize = "currentAllocatedSize";
