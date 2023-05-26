@@ -79,12 +79,6 @@ namespace SharpMetal.ObjectiveC
         public static partial NSString nsString_objc_msgSend(IntPtr receiver, Selector selector);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
-        public static partial MTLSize mtlSize_objc_msgSend(IntPtr receiver, Selector selector);
-
-        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
-        public static partial MTLOrigin mtlOrigin_objc_msgSend(IntPtr receiver, Selector selector);
-
-        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend", StringMarshalling = StringMarshalling.Utf8)]

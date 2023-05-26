@@ -23,7 +23,8 @@ namespace SharpMetal
 
         public ulong MaxThreadgroupMemoryLength => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxThreadgroupMemoryLength);
 
-        public MTLSize MaxThreadsPerThreadgroup => ObjectiveCRuntime.mtlSize_objc_msgSend(NativePtr, sel_maxThreadsPerThreadgroup);
+        // TODO: Fix me
+        // public MTLSize MaxThreadsPerThreadgroup => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_maxThreadsPerThreadgroup));
 
         public bool SupportsRaytracing => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsRaytracing);
 
