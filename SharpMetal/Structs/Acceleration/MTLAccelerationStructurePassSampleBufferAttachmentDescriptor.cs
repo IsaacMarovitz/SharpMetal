@@ -23,11 +23,12 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStartOfEncoderSampleIndex, value);
         }
 
-        public MTLCounterSampleBuffer SampleBuffer
+        // TODO: Needs MTLCounterSampleBuffer
+        /*public MTLCounterSampleBuffer SampleBuffer
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_sampleBuffer));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSampleBuffer, value);
-        }
+        }*/
 
         public ulong StartOfEncoderSampleIndex
         {

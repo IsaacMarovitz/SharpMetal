@@ -29,10 +29,11 @@ namespace SharpMetal
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_accelerationStructureCommandEncoder));
         }
 
-        public MTLComputeCommandEncoder ComputeCommandEncoderWithDescriptor(MTLComputePassDescriptor computePassDescriptor)
+        // TODO: Needs MTLComputePassDescriptor
+        /*public MTLComputeCommandEncoder ComputeCommandEncoderWithDescriptor(MTLComputePassDescriptor computePassDescriptor)
         {
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_computeCommandEncoderWithDescriptor, computePassDescriptor));
-        }
+        }*/
 
         public MTLComputeCommandEncoder ComputeCommandEncoder()
         {
@@ -49,7 +50,8 @@ namespace SharpMetal
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_blitCommandEncoder));
         }
 
-        public MTLBlitCommandEncoder BlitCommandEncoderWithDescriptor(MTLBlitPassDescriptor blitPassDescriptor)
+        // TODO: Needs a bunch of stuff
+        /*public MTLBlitCommandEncoder BlitCommandEncoderWithDescriptor(MTLBlitPassDescriptor blitPassDescriptor)
         {
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_blitCommandEncoderWithDescriptor, blitPassDescriptor));
         }
@@ -57,14 +59,15 @@ namespace SharpMetal
         public MTLResourceStateCommandEncoder ResourceStateCommandEncoderWithDescriptor(MTLResourceStatePassDescriptor resourceStatePassDescriptor)
         {
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_renderCommandEncoderWithDescriptor, resourceStatePassDescriptor));
-        }
+        }*/
 
         public MTLResourceStateCommandEncoder ResourceStateCommandEncoder()
         {
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_resourceStateCommandEncoder));
         }
 
-        public void EncodeWaitForEventValue(MTLEvent mtlEvent, uint value)
+        // TODO: Needs a bunch of stuff
+        /*public void EncodeWaitForEventValue(MTLEvent mtlEvent, uint value)
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_encodeWaitForEventValue, mtlEvent, value);
         }
@@ -97,7 +100,7 @@ namespace SharpMetal
         public void AddCompletedHandler(MTLCommandBufferHandler block)
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_addCompletedHandler, block);
-        }
+        }*/
 
         public void Enqueue()
         {
@@ -141,19 +144,22 @@ namespace SharpMetal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_popDebugGroup);
         }
 
-        public NSError Error => ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_error);
+        // TODO: Needs NSError
+        // public NSError Error => ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_error);
 
         public MTLCommandBufferErrorOption ErrorOption => (MTLCommandBufferErrorOption)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_errorOptions);
 
-        public MTLLogContainer Logs => ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_logs);
+        // TODO: Needs MTLLogContainer
+        // public MTLLogContainer Logs => ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_logs);
 
-        public CFTimeInterval KernelStartTime => ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_kernelStartTime);
+        // TODO: Need CFTimeInterval
+        /*public CFTimeInterval KernelStartTime => ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_kernelStartTime);
 
         public CFTimeInterval KernelEndTime => ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_kernelEndTime);
 
         public CFTimeInterval GPUStartTime => ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_GPUStartTime);
 
-        public CFTimeInterval GPUEndTime => ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_GPUEndTime);
+        public CFTimeInterval GPUEndTime => ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_GPUEndTime);*/
 
         public bool RetainedReferences => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_retainedReferences);
 
