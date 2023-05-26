@@ -30,6 +30,9 @@ namespace SharpMetal.ObjectiveC
         [LibraryImport(ObjCRuntime)]
         public static partial void objc_msgSend(IntPtr receiver, Selector selector, double value);
 
+        [LibraryImport(ObjCRuntime)]
+        public static partial void objc_msgSend(IntPtr receiver, Selector selector, float value);
+
         [LibraryImport(ObjCRuntime, StringMarshalling = StringMarshalling.Utf8)]
         public static partial void objc_msgSend(IntPtr receiver, Selector selector, NSString value);
 
@@ -42,6 +45,9 @@ namespace SharpMetal.ObjectiveC
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial long long_objc_msgSend(IntPtr receiver, Selector selector);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial float float_objc_msgSend(IntPtr receiver, Selector selector);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial ulong ulong_objc_msgSend(IntPtr receiver, Selector selector);

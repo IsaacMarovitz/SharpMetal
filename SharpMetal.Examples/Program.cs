@@ -16,7 +16,10 @@ namespace SharpMetal.Examples
             var device = MTLDevice.MTLCreateSystemDefaultDevice();
 
             var descriptor = new MTLRenderPipelineDescriptor();
-            // descriptor.colorAttachments[0].Pi
+            descriptor.Label = new NSString("Simple Pipeline");
+            descriptor.VertexFunction = new MTLFunction();
+            descriptor.FragmentFunction = new MTLFunction();
+            // descriptor.ColorAttachments[0].PixelFormat = MTLPixelFormat.RG32Float;
 
             Console.WriteLine(device.Name);
             // descriptor.colorAttachments[0].PixelFormat = MTLPixelFormat.MTLPixelFormatStencil8;
