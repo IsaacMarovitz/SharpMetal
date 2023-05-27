@@ -160,7 +160,31 @@ namespace SharpMetal
         }*/
 
         // TODO: Needs MTLComputePipelineDescriptor, MTLPipelineOption, MTLNewComputePipelineStateWithReflectionCompletionHandler
-        /*public void NewComputePipelineStateWithDescriptorIptionsCompletionHandler(MTLComputePipelineDescriptor descriptor, MTLPipelineOption options, MTLNewComputePipelineStateWithReflectionCompletionHandler completionHandler)
+        /*public void NewComputePipelineStateWithDescriptorOptionsCompletionHandler(MTLComputePipelineDescriptor descriptor, MTLPipelineOption options, MTLNewComputePipelineStateWithReflectionCompletionHandler completionHandler)
+        {
+
+        }*/
+
+        // TODO: Needs MTLComputePipelineState and NSError
+        /*public MTLComputePipelineState NewComputePipelineStateWithFunctionError(MTLFunction computeFunction, out NSError error)
+        {
+
+        }*/
+
+        // TODO: Needs MTLNewComputePipelineStateCompletionHandler
+        /*public void NewComputePipelineStateWithFunctionCompletionHandler(MTLFunction computeFunction, MTLNewComputePipelineStateCompletionHandler completionHandler)
+        {
+
+        }*/
+
+        // TODO: Needs MTLComputePipelineState, MTLPipelineOption, MTLAutoreleasedComputePipelineReflection, NSError
+        /*public MTLComputePipelineState NewComputePipelineStateWithFunctionOptionsReflectionError(MTLFunction computeFunction, MTLPipelineOption options, MTLAutoreleasedComputePipelineReflection reflection, out NSError error)
+        {
+
+        }*/
+
+        // TODO: Needs MTLPipelineOption, MTLNewComputePipelineStateWithReflectionCompletionHandler
+        /*public void NewComputePipelineStateWithFunctionIptionsCompletionHandler(MTLFunction computeFunction, MTLPipelineOption options, MTLNewComputePipelineStateWithReflectionCompletionHandler completionHandler)
         {
 
         }*/
