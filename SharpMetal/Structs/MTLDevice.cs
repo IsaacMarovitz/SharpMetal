@@ -341,11 +341,10 @@ namespace SharpMetal
             return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsTextureSampleCount, sampleCount);
         }
 
-        // TODO: Needs MTLSamplerState
-        /*public MTLSamplerState NewSamplerStateWithDescriptor(MTLSamplerDescriptor descriptor)
+        public MTLSamplerState NewSamplerStateWithDescriptor(MTLSamplerDescriptor descriptor)
         {
-
-        }*/
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newSamplerStateWithDescriptor, descriptor));
+        }
 
         // TODO: Needs MTLSamplePosition
         /*public void GetDefaultSamplePositionsCount(MTLSamplePosition position, ulong count)
