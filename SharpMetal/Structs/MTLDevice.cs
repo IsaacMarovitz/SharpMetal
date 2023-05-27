@@ -305,25 +305,23 @@ namespace SharpMetal
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newBufferWithBytesNoCopyLengthOptionsDeallocator, pointer, length, (ulong)options, deallocator));
         }
 
-        // TODO: Needs MTLTexture
-        /*public MTLTexture NewTextureWithDescriptor(MTLTextureDescriptor descriptor)
+        public MTLTexture NewTextureWithDescriptor(MTLTextureDescriptor descriptor)
         {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newTextureWithDescriptor, descriptor.NativePtr));
+        }
 
-        }*/
-
-        // TODO: Needs MTLTexture, IOSurfaceRef
+        // TODO: Needs IOSurfaceRef
         /*public MTLTexture NewTextureWithDescriptorIosurfacePlane(MTLTextureDescriptor descriptor, IOSurfaceRef iosurface, ulong plane)
         {
 
         }*/
 
-        // TODO: Needs MTLTexture
-        /*public MTLTexture NewSharedTextureWithDescriptor(MTLTextureDescriptor descriptor)
+        public MTLTexture NewSharedTextureWithDescriptor(MTLTextureDescriptor descriptor)
         {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newSharedTextureWithDescriptor, descriptor.NativePtr));
+        }
 
-        }*/
-
-        // TODO: Needs MTLTexture, MTLSharedTextureHandle
+        // TODO: Needs MTLSharedTextureHandle
         /*public MTLTexture NewSharedTextureWithHandle(MTLSharedTextureHandle sharedHandle)
         {
 

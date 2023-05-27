@@ -7,8 +7,7 @@ namespace SharpMetal
     {
         IntPtr NativePtr { get; }
 
-        // TODO: Make a MTLTexture
-        public IntPtr Texture { get; set; }
+        public MTLTexture Texture { get; set; }
 
         public ulong Level { get; set; }
 
