@@ -18,8 +18,7 @@ namespace SharpMetal
             NativePtr = ObjectiveCRuntime.IntPtr_objc_msgSend(cls, sel_blitPassDescriptor);
         }
 
-        // TODO: Needs MTLBlitPassSampleBufferAttachmentDescriptorArray
-        // public MTLBlitPassSampleBufferAttachmentDescriptorArray SampleBufferAttachments;
+        public MTLBlitPassSampleBufferAttachmentDescriptorArray SampleBufferAttachments => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_sampleBufferAttachments));
 
         private static readonly Selector sel_blitPassDescriptor = "blitPassDescriptor";
         private static readonly Selector sel_sampleBufferAttachments = "sampleBufferAttachments";
