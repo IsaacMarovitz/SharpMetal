@@ -153,13 +153,13 @@ namespace SharpMetal
 
         #region Pipeline State Creation
 
-        // TODO: Needs MTLComputePipelineState, MTLComputePipelineDescriptor, MTLPipelineOption, MTLAutoreleasedComputePipelineReflection, NSError
+        // TODO: Needs MTLComputePipelineState, MTLComputePipelineDescriptor, MTLAutoreleasedComputePipelineReflection, NSError
         /*public MTLComputePipelineState NewComputePipelineStateWithDescriptorOptionsReflectionError(MTLComputePipelineDescriptor descriptor, MTLPipelineOption options, MTLAutoreleasedComputePipelineReflection reflection, out NSError error)
         {
 
         }*/
 
-        // TODO: Needs MTLComputePipelineDescriptor, MTLPipelineOption, MTLNewComputePipelineStateWithReflectionCompletionHandler
+        // TODO: Needs MTLComputePipelineDescriptor, MTLNewComputePipelineStateWithReflectionCompletionHandler
         /*public void NewComputePipelineStateWithDescriptorOptionsCompletionHandler(MTLComputePipelineDescriptor descriptor, MTLPipelineOption options, MTLNewComputePipelineStateWithReflectionCompletionHandler completionHandler)
         {
 
@@ -177,13 +177,13 @@ namespace SharpMetal
 
         }*/
 
-        // TODO: Needs MTLComputePipelineState, MTLPipelineOption, MTLAutoreleasedComputePipelineReflection, NSError
+        // TODO: Needs MTLComputePipelineState, MTLAutoreleasedComputePipelineReflection, NSError
         /*public MTLComputePipelineState NewComputePipelineStateWithFunctionOptionsReflectionError(MTLFunction computeFunction, MTLPipelineOption options, MTLAutoreleasedComputePipelineReflection reflection, out NSError error)
         {
 
         }*/
 
-        // TODO: Needs MTLPipelineOption, MTLNewComputePipelineStateWithReflectionCompletionHandler
+        // TODO: Needs MTLNewComputePipelineStateWithReflectionCompletionHandler
         /*public void NewComputePipelineStateWithFunctionIptionsCompletionHandler(MTLFunction computeFunction, MTLPipelineOption options, MTLNewComputePipelineStateWithReflectionCompletionHandler completionHandler)
         {
 
@@ -201,37 +201,37 @@ namespace SharpMetal
 
         }*/
 
-        // TODO: Needs MTLRenderPipelineState, MTLPipelineOption,MTLAutoreleasedRenderPipelineReflection, NSError
+        // TODO: Needs MTLRenderPipelineState, MTLAutoreleasedRenderPipelineReflection, NSError
         /*public MTLRenderPipelineState NewRenderPipelineStateWithDescriptorOptionsReflectionError(MTLRenderPipelineDescriptor descriptor, MTLPipelineOption options, MTLAutoreleasedRenderPipelineReflection reflection, out NSError error)
         {
 
         }*/
 
-        // TODO: Needs MTLPipelineOption, MTLNewRenderPipelineStateWithReflectionCompletionHandler
+        // TODO: Needs MTLNewRenderPipelineStateWithReflectionCompletionHandler
         /*public void NewRenderPipelineStateWithDescriptorOptionsCompletionHandler(MTLRenderPipelineDescriptor descriptor, MTLPipelineOption options, MTLNewRenderPipelineStateWithReflectionCompletionHandler completionHandler)
         {
 
         }*/
 
-        // TODO: Needs MTLRenderPipelineState, MTLMeshRenderPipelineDescriptor, MTLPipelineOption, MTLAutoreleasedRenderPipelineReflection, NSError
+        // TODO: Needs MTLRenderPipelineState, MTLMeshRenderPipelineDescriptor, MTLAutoreleasedRenderPipelineReflection, NSError
         /*public MTLRenderPipelineState NewRenderPipelineStateWithMeshDescriptorOptionsReflectionError(MTLMeshRenderPipelineDescriptor descriptor, MTLPipelineOption options, MTLAutoreleasedRenderPipelineReflection reflection, out NSError error)
         {
 
         }*/
 
-        // TODO: Needs MTLMeshRenderPipelineDescriptor, MTLPipelineOption, MTLNewRenderPipelineStateWithReflectionCompletionHandler
+        // TODO: Needs MTLMeshRenderPipelineDescriptor, MTLNewRenderPipelineStateWithReflectionCompletionHandler
         /*public void NewRenderPipelineStateWithMeshDescriptorOptionsCompletionHandler(MTLMeshRenderPipelineDescriptor descriptor, MTLPipelineOption options, MTLNewRenderPipelineStateWithReflectionCompletionHandler completionHandler)
         {
 
         }*/
 
-        // TODO: Needs MTLRenderPipelineState, MTLTileRenderPipelineDescriptor, MTLPipelineOption, MTLAutoreleasedRenderPipelineReflection, NSError
+        // TODO: Needs MTLRenderPipelineState, MTLTileRenderPipelineDescriptor, MTLAutoreleasedRenderPipelineReflection, NSError
         /*public MTLRenderPipelineState NewRenderPipelineStateWithTileDescriptorOptionsReflectionError(MTLTileRenderPipelineDescriptor descriptor, MTLPipelineOption options, MTLAutoreleasedRenderPipelineReflection reflection, out NSError error)
         {
 
         }*/
 
-        // TODO: Needs MTLTileRenderPipelineDescriptor, MTLPipelineOption, MTLNewRenderPipelineStateWithReflectionCompletionHandler
+        // TODO: Needs MTLTileRenderPipelineDescriptor, MTLNewRenderPipelineStateWithReflectionCompletionHandler
         /*public void NewRenderPipelineStateWithTileDescriptorOptionsCompletionHandler(MTLTileRenderPipelineDescriptor descriptor, MTLPipelineOption options, MTLNewRenderPipelineStateWithReflectionCompletionHandler completionHandler)
         {
 
