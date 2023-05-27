@@ -9,6 +9,7 @@ namespace SharpMetal
     public struct MTLLibrary
     {
         public readonly IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLLibrary library) => library.NativePtr;
         public MTLLibrary(IntPtr ptr) => NativePtr = ptr;
 
         public NSString InstallName => ObjectiveCRuntime.nsString_objc_msgSend(NativePtr, sel_installName);
@@ -20,7 +21,7 @@ namespace SharpMetal
 
         public MTLFunction NewFunctionWithName(NSString name)
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newFunctionWithName, name.NativePtr));
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newFunctionWithName, name));
         }
 
         // TODO: Needs MTLFunctionConstantValues

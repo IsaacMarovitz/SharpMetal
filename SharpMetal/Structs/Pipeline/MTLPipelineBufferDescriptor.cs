@@ -9,6 +9,7 @@ namespace SharpMetal
     public struct MTLPipelineBufferDescriptor
     {
         public readonly IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLPipelineBufferDescriptor descriptor) => descriptor.NativePtr;
         public MTLPipelineBufferDescriptor(IntPtr ptr) => NativePtr = ptr;
 
         public MTLPipelineBufferDescriptor()

@@ -7,6 +7,7 @@ namespace SharpMetal
     public struct MTLFunction
     {
         public readonly IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLFunction mtlFunction) => mtlFunction.NativePtr;
         public MTLFunction(IntPtr ptr) => NativePtr = ptr;
 
         public MTLFunction()

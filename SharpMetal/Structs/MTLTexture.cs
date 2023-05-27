@@ -9,26 +9,27 @@ namespace SharpMetal
     public struct MTLTexture
     {
         public readonly IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLTexture mtlTexture) => mtlTexture.NativePtr;
         public MTLTexture(IntPtr ptr) => NativePtr = ptr;
 
         public void ReplaceRegionMipmapLevelSliceWithBytesBytesPerRowBytesPerImage(MTLRegion region, ulong level, ulong slice, IntPtr pixelBytes, ulong bytesPerRow, ulong bytesPerImage)
         {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_replaceRegionMipmapLevelSliceWithBytesBytesPerRowBytesPerImage, region.NativePtr, level, slice, pixelBytes, bytesPerRow, bytesPerImage);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_replaceRegionMipmapLevelSliceWithBytesBytesPerRowBytesPerImage, region, level, slice, pixelBytes, bytesPerRow, bytesPerImage);
         }
 
         public void ReplaceRegionMipmapLevelWithBytesBytesPerRow(MTLRegion region, ulong level, IntPtr pixelBytes, ulong bytesPerRow)
         {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_replaceRegionMipmapLevelWithBytesBytesPerRow, region.NativePtr, level, pixelBytes, bytesPerRow);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_replaceRegionMipmapLevelWithBytesBytesPerRow, region, level, pixelBytes, bytesPerRow);
         }
 
         public void GetBytesBytesPerRowBytesPerImageFromRegionMipmapLevelSlice(IntPtr pixelBytes, ulong bytesPerRow, ulong bytesPerImage, MTLRegion region, ulong level, ulong slice)
         {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_getBytesBytesPerRowBytesPerImageFromRegionMipmapLevelSlice, pixelBytes, bytesPerRow, bytesPerImage, region.NativePtr, level, slice);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_getBytesBytesPerRowBytesPerImageFromRegionMipmapLevelSlice, pixelBytes, bytesPerRow, bytesPerImage, region, level, slice);
         }
 
         public void GetBytesBytesPerRowFromRegionMipmapLevel(IntPtr pixelBytes, ulong bytesPerRow, MTLRegion region, ulong level)
         {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_getBytesBytesPerRowFromRegionMipmapLevel, pixelBytes, bytesPerRow, region.NativePtr, level);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_getBytesBytesPerRowFromRegionMipmapLevel, pixelBytes, bytesPerRow, region, level);
         }
 
         public MTLTexture NewTextureViewWithPixelFormat(MTLPixelFormat pixelFormat)

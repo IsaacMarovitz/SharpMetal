@@ -9,6 +9,7 @@ namespace SharpMetal
     public struct MTLPipelineBufferDescriptorArray
     {
         public readonly IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLPipelineBufferDescriptorArray array) => array.NativePtr;
         public MTLPipelineBufferDescriptorArray(IntPtr ptr) => NativePtr = ptr;
 
         public MTLPipelineBufferDescriptorArray()
@@ -26,7 +27,7 @@ namespace SharpMetal
             }
             set
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, Selectors.setObjectAtIndexedSubscript, value.NativePtr, index);
+                ObjectiveCRuntime.objc_msgSend(NativePtr, Selectors.setObjectAtIndexedSubscript, value, index);
             }
         }
     }

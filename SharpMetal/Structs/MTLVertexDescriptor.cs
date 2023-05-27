@@ -7,6 +7,7 @@ namespace SharpMetal
     public struct MTLVertexDescriptor
     {
         public readonly IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLVertexDescriptor descriptor) => descriptor.NativePtr;
         public MTLVertexDescriptor(IntPtr ptr) => NativePtr = ptr;
 
         public static MTLVertexDescriptor VertexDescriptor()

@@ -9,6 +9,7 @@ namespace SharpMetal
     public partial struct MTLTextureSwizzleChannels
     {
         public readonly IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLTextureSwizzleChannels channels) => channels.NativePtr;
         public MTLTextureSwizzleChannels(IntPtr ptr) => NativePtr = ptr;
 
         [LibraryImport("/System/Library/Frameworks/Metal.framework/Metal")]

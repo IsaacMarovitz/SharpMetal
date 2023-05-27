@@ -9,6 +9,7 @@ namespace SharpMetal
     public struct MTLAccelerationStructurePassDescriptor
     {
         public readonly IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLAccelerationStructurePassDescriptor descriptor) => descriptor.NativePtr;
         public MTLAccelerationStructurePassDescriptor(IntPtr ptr) => NativePtr = ptr;
 
         public MTLAccelerationStructurePassDescriptor()

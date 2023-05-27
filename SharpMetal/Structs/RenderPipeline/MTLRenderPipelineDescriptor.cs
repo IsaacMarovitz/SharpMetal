@@ -9,6 +9,7 @@ namespace SharpMetal
     public struct MTLRenderPipelineDescriptor
     {
         public readonly IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLRenderPipelineDescriptor descriptor) => descriptor.NativePtr;
         public MTLRenderPipelineDescriptor(IntPtr ptr) => NativePtr = ptr;
 
         public MTLRenderPipelineDescriptor()
@@ -26,13 +27,13 @@ namespace SharpMetal
         public MTLFunction VertexFunction
         {
             get => new (ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_vertexFunction));
-            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexFunction, value.NativePtr);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexFunction, value);
         }
 
         public MTLFunction FragmentFunction
         {
             get => new (ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_fragmentFunction));
-            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFragmentFunction, value.NativePtr);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFragmentFunction, value);
         }
 
         public ulong MaxVertexCallStackDepth

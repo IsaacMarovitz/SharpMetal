@@ -8,6 +8,7 @@ namespace SharpMetal
     public struct NSString
     {
         public readonly IntPtr NativePtr;
+        public static implicit operator IntPtr(NSString nsString) => nsString.NativePtr;
         public NSString(IntPtr ptr) => NativePtr = ptr;
 
         public override string ToString()

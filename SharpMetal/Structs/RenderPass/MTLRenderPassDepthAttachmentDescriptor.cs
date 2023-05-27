@@ -9,6 +9,7 @@ namespace SharpMetal
     public struct MTLRenderPassDepthAttachmentDescriptor: MTLRenderPassAttachmentDescriptor
     {
         public IntPtr NativePtr { get; }
+        public static implicit operator IntPtr(MTLRenderPassDepthAttachmentDescriptor descriptor) => descriptor.NativePtr;
         public MTLRenderPassDepthAttachmentDescriptor(IntPtr ptr) => NativePtr = ptr;
 
         public MTLRenderPassDepthAttachmentDescriptor()
@@ -32,7 +33,7 @@ namespace SharpMetal
         public MTLTexture Texture
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_texture));
-            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTexture, value.NativePtr);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTexture, value);
         }
 
         public ulong Level

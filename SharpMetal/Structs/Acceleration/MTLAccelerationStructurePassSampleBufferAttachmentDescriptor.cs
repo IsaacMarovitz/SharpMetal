@@ -9,6 +9,7 @@ namespace SharpMetal
     public struct MTLAccelerationStructurePassSampleBufferAttachmentDescriptor
     {
         public readonly IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLAccelerationStructurePassSampleBufferAttachmentDescriptor descriptor) => descriptor.NativePtr;
         public MTLAccelerationStructurePassSampleBufferAttachmentDescriptor(IntPtr ptr) => NativePtr = ptr;
 
         public MTLAccelerationStructurePassSampleBufferAttachmentDescriptor()

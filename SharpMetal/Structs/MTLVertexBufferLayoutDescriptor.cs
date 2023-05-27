@@ -9,6 +9,7 @@ namespace SharpMetal
     public struct MTLVertexBufferLayoutDescriptor
     {
         public readonly IntPtr NativePtr { get; }
+        public static implicit operator IntPtr(MTLVertexBufferLayoutDescriptor descriptor) => descriptor.NativePtr;
         public MTLVertexBufferLayoutDescriptor(IntPtr ptr) => NativePtr = ptr;
 
         public MTLVertexBufferLayoutDescriptor()

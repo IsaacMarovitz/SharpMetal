@@ -7,6 +7,7 @@ namespace SharpMetal
     public struct MTLSamplerDescriptor
     {
         public readonly IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLSamplerDescriptor samplerDescriptor) => samplerDescriptor.NativePtr;
         public MTLSamplerDescriptor(IntPtr ptr) => NativePtr = ptr;
 
         public bool NormalizedCoordinates

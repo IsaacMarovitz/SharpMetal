@@ -85,11 +85,10 @@ namespace SharpMetal
 
         }*/
 
-        // TODO: Needs MTLTimestamp
-        /*public void SampleTimestampsGPUTimestamp(MTLTimestamp cpuTimestamp, MTLTimestamp gpuTimestamp)
+        public void SampleTimestampsGPUTimestamp(MTLTimestamp cpuTimestamp, MTLTimestamp gpuTimestamp)
         {
-
-        }*/
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_sampleTimestampsGpuTimestamp, cpuTimestamp, gpuTimestamp);
+        }
 
         public NSString Name => ObjectiveCRuntime.nsString_objc_msgSend(NativePtr, sel_name);
 
@@ -307,7 +306,7 @@ namespace SharpMetal
 
         public MTLTexture NewTextureWithDescriptor(MTLTextureDescriptor descriptor)
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newTextureWithDescriptor, descriptor.NativePtr));
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newTextureWithDescriptor, descriptor));
         }
 
         // TODO: Needs IOSurfaceRef
@@ -318,7 +317,7 @@ namespace SharpMetal
 
         public MTLTexture NewSharedTextureWithDescriptor(MTLTextureDescriptor descriptor)
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newSharedTextureWithDescriptor, descriptor.NativePtr));
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newSharedTextureWithDescriptor, descriptor));
         }
 
         // TODO: Needs MTLSharedTextureHandle
@@ -373,12 +372,12 @@ namespace SharpMetal
 
         public void ConvertSparsePixelRegionsToTileRegionsWithTileSizeAlignmentModeNumRegions(MTLRegion pixelRegions, MTLRegion tileRegions, MTLSize tileSize, MTLSparseTextureRegionAlignmentMode mode, ulong numRegions)
         {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_convertSparsePixelRegionsToTileRegionsWithTileSizeAlignmentModeNumRegions, pixelRegions.NativePtr, tileRegions.NativePtr, tileSize.NativePtr, (ulong)mode, numRegions);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_convertSparsePixelRegionsToTileRegionsWithTileSizeAlignmentModeNumRegions, pixelRegions, tileRegions, tileSize, (ulong)mode, numRegions);
         }
 
         public void ConvertSparseTileRegionsToPixelRegionsWithTileSizeNumRegions(MTLRegion tileRegions, MTLRegion pixelRegions, MTLSize tileSize, ulong numRegions)
         {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_convertSparseTileRegionsToPixelRegionsWithTileSizeNumRegions, tileRegions.NativePtr, pixelRegions.NativePtr, tileSize.NativePtr, numRegions);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_convertSparseTileRegionsToPixelRegionsWithTileSizeNumRegions, tileRegions, pixelRegions, tileSize, numRegions);
         }
 
         // TODO: Needs MTLAccelerationStructureDescriptor
@@ -398,8 +397,7 @@ namespace SharpMetal
 
         }*/
 
-        // TODO: Needs MTLArgumentBuffersTier
-        // public MTLArgumentBuffersTier ArgumentBuffersSupport;
+        public MTLArgumentBuffersTier ArgumentBuffersSupport => (MTLArgumentBuffersTier)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_argumentBuffersSupport);
 
         public ulong MaxArgumentBufferSamplerCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxArgumentBufferSamplerCount);
 
@@ -504,7 +502,7 @@ namespace SharpMetal
 
         public bool SupportsDynamicLibraries => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsDynamicLibraries);
 
-        public bool SupportsRenderDynamicLibraries => ObjectiveCRuntime.bool_objc_msgSend(Name.NativePtr, sel_supportsRenderDynamicLibraries);
+        public bool SupportsRenderDynamicLibraries => ObjectiveCRuntime.bool_objc_msgSend(Name, sel_supportsRenderDynamicLibraries);
 
         // TODO: Needs MTLBinaryArchive, MTLBinaryArchiveDescriptor, NSError
         /*public MTLBinaryArchive NewBinaryArchiveWithDescriptorError(MTLBinaryArchiveDescriptor descriptor, out NSError error)

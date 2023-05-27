@@ -6,6 +6,7 @@ namespace SharpMetal
     public struct MTLComputeCommandEncoder
     {
         public readonly IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLComputeCommandEncoder encoder) => encoder.NativePtr;
         public MTLComputeCommandEncoder(IntPtr ptr) => NativePtr = ptr;
     }
 }

@@ -7,6 +7,7 @@ namespace SharpMetal
     public struct MTLCommandBufferDescriptor
     {
         public readonly IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLCommandBufferDescriptor commandBufferDescriptor) => commandBufferDescriptor.NativePtr;
         public MTLCommandBufferDescriptor(IntPtr ptr) => NativePtr = ptr;
 
         public bool RetainedReferences

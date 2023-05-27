@@ -9,6 +9,7 @@ namespace SharpMetal
     public partial struct MTLRegion
     {
         public readonly IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLRegion mtlRegion) => mtlRegion.NativePtr;
         public MTLRegion(IntPtr ptr) => NativePtr = ptr;
 
         [LibraryImport("/System/Library/Frameworks/Metal.framework/Metal")]

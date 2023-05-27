@@ -37,6 +37,9 @@ namespace SharpMetal.ObjectiveC
         public static partial void objc_msgSend(IntPtr receiver, Selector selector, ulong value);
 
         [LibraryImport(ObjCRuntime)]
+        public static partial void objc_msgSend(IntPtr receiver, Selector selector, ulong a, ulong b);
+
+        [LibraryImport(ObjCRuntime)]
         public static partial void objc_msgSend(IntPtr receiver, Selector selector, IntPtr value, uint a);
 
         [LibraryImport(ObjCRuntime)]

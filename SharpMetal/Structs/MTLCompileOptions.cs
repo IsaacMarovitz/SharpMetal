@@ -9,6 +9,7 @@ namespace SharpMetal
     public struct MTLCompileOptions
     {
         public readonly IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLCompileOptions compileOptions) => compileOptions.NativePtr;
         public MTLCompileOptions(IntPtr ptr) => NativePtr = ptr;
 
         public bool FastMathEnabled

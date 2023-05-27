@@ -9,6 +9,7 @@ namespace SharpMetal
     public struct MTLRenderPipelineColorAttachmentDescriptorArray
     {
         public readonly IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLRenderPipelineColorAttachmentDescriptorArray array) => array.NativePtr;
         public MTLRenderPipelineColorAttachmentDescriptorArray(IntPtr ptr) => NativePtr = ptr;
 
         public MTLRenderPipelineColorAttachmentDescriptorArray()
@@ -26,7 +27,7 @@ namespace SharpMetal
             }
             set
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, Selectors.setObjectAtIndexedSubscript, value.NativePtr, index);
+                ObjectiveCRuntime.objc_msgSend(NativePtr, Selectors.setObjectAtIndexedSubscript, value, index);
             }
         }
     }

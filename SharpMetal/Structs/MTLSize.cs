@@ -9,6 +9,7 @@ namespace SharpMetal
     public partial struct MTLSize
     {
         public readonly IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLSize mtlSize) => mtlSize.NativePtr;
         public MTLSize(IntPtr ptr) => NativePtr = ptr;
 
         [LibraryImport("/System/Library/Frameworks/Metal.framework/Metal")]

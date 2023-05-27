@@ -9,6 +9,7 @@ namespace SharpMetal
     public struct MTLVertexBufferLayoutDescriptorArray
     {
         public readonly IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLVertexBufferLayoutDescriptorArray array) => array.NativePtr;
         public MTLVertexBufferLayoutDescriptorArray(IntPtr ptr) => NativePtr = ptr;
 
         public MTLVertexBufferLayoutDescriptorArray()
@@ -26,7 +27,7 @@ namespace SharpMetal
             }
             set
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, Selectors.setObjectAtIndexedSubscript, value.NativePtr, index);
+                ObjectiveCRuntime.objc_msgSend(NativePtr, Selectors.setObjectAtIndexedSubscript, value, index);
             }
         }
     }

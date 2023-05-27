@@ -9,6 +9,7 @@ namespace SharpMetal
     public struct MTLAccelerationStructure
     {
         public readonly IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLAccelerationStructure structure) => structure.NativePtr;
         public MTLAccelerationStructure(IntPtr ptr) => NativePtr = ptr;
 
         public ulong Size => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_size);

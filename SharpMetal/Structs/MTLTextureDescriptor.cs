@@ -7,6 +7,7 @@ namespace SharpMetal
     public struct MTLTextureDescriptor
     {
         public readonly IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLTextureDescriptor mtlTextureDescriptor) => mtlTextureDescriptor.NativePtr;
         public MTLTextureDescriptor(IntPtr ptr) => NativePtr = ptr;
 
         public static MTLTextureDescriptor Texture2DDescriptorWithPixelFormat(MTLPixelFormat pixelFormat, ulong width, ulong height, bool mipmapped)
@@ -114,7 +115,7 @@ namespace SharpMetal
         public MTLTextureSwizzleChannels Swizzle
         {
             get => new (ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_swizzle));
-            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSwizzle, value.NativePtr);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSwizzle, value);
         }
 
         public MTLTextureCompressionType CompressionType

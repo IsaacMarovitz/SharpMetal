@@ -9,6 +9,7 @@ namespace SharpMetal
     public struct MTLRenderPassDescriptor
     {
         public readonly IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLRenderPassDescriptor descriptor) => descriptor.NativePtr;
         public MTLRenderPassDescriptor(IntPtr ptr) => NativePtr = ptr;
 
         public MTLRenderPassDescriptor()

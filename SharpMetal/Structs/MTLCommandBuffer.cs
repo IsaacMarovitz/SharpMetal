@@ -7,21 +7,22 @@ namespace SharpMetal
     public struct MTLCommandBuffer
     {
         public readonly IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLCommandBuffer commandBuffer) => commandBuffer.NativePtr;
         public MTLCommandBuffer(IntPtr ptr) => NativePtr = ptr;
 
         public MTLRenderCommandEncoder RenderCommandEncoderWithDescriptor(MTLRenderPassDescriptor renderPassDescriptor)
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_renderCommandEncoderWithDescriptor, renderPassDescriptor.NativePtr));
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_renderCommandEncoderWithDescriptor, renderPassDescriptor));
         }
 
         public MTLParallelRenderCommandEncoder ParallelRenderCommandEncoderWithDescriptor(MTLRenderPassDescriptor renderPassDescriptor)
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_parallelRenderCommandEncoderWithDescriptor, renderPassDescriptor.NativePtr));
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_parallelRenderCommandEncoderWithDescriptor, renderPassDescriptor));
         }
 
         public MTLAccelerationStructureCommandEncoder AccelerationStructureCommandEncoderWithDescriptor(MTLAccelerationStructurePassDescriptor descriptor)
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_accelerationStructureCommandEncoderWithDescriptor, descriptor.NativePtr));
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_accelerationStructureCommandEncoderWithDescriptor, descriptor));
         }
 
         public MTLAccelerationStructureCommandEncoder AccelerationStructureCommandEncoder()
