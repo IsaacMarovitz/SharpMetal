@@ -143,6 +143,18 @@ namespace SharpMetal
 
         }*/
 
+        // TODO: Needs MTLComputePipelineState, MTLComputePipelineDescriptor, MTLPipelineOption, MTLAutoreleasedComputePipelineReflection, NSError
+        /*public MTLComputePipelineState NewComputePipelineStateWithDescriptorOptionsReflectionError(MTLComputePipelineDescriptor descriptor, MTLPipelineOption options, MTLAutoreleasedComputePipelineReflection reflection, out NSError error)
+        {
+
+        }*/
+
+        // TODO: Needs MTLComputePipelineDescriptor, MTLPipelineOption, MTLNewComputePipelineStateWithReflectionCompletionHandler
+        /*public void NewComputePipelineStateWithDescriptorIptionsCompletionHandler(MTLComputePipelineDescriptor descriptor, MTLPipelineOption options, MTLNewComputePipelineStateWithReflectionCompletionHandler completionHandler)
+        {
+
+        }*/
+
         #region Device Inspection Selectors
 
         private static readonly Selector sel_supportsFamily = "supportsFamily:";
@@ -231,7 +243,57 @@ namespace SharpMetal
         private static readonly Selector sel_maxBufferLength = "maxBufferLength";
         private static readonly Selector sel_newBufferWithLengthOptions = "newBufferWithLength:options:";
         private static readonly Selector sel_newBufferWithBytesLengthOptions = "newBufferWithBytes:length:options:";
+        private static readonly Selector sel_newBufferWithBytesNoCopyLengthOptionsDeallocator = "newBufferWithBytesNoCopy:length:options:deallocator:";
+        private static readonly Selector sel_newTextureWithDescriptor = "newTextureWithDescriptor:";
+        private static readonly Selector sel_newTextureWithDescriptorIosurfacePlane = "newTextureWithDescriptor:iosurface:plane:";
+        private static readonly Selector sel_newSharedTextureWithDescriptor = "newSharedTextureWithDescriptor:";
+        private static readonly Selector sel_newSharedTextureWithHandle = "newSharedTextureWithHandle:";
+        private static readonly Selector sel_minimumLinearTextureAlignmentForPixelFormat = "minimumLinearTextureAlignmentForPixelFormat:";
+        private static readonly Selector sel_minimumTextureBufferAlignmentForPixelFormat = "minimumTextureBufferAlignmentForPixelFormat:";
+        private static readonly Selector sel_supportsTextureSampleCount = "supportsTextureSampleCount:";
+        private static readonly Selector sel_newSamplerStateWithDescriptor = "newSamplerStateWithDescriptor:";
+        private static readonly Selector sel_getDefaultSamplePositionsCount = "getDefaultSamplePositions:count:";
+        private static readonly Selector sel_sparseTileSizeWithTextureTypePixelFormatSampleCountSparsePageSize = "sparseTileSizeWithTextureType:pixelFormat:sampleCount:sparsePageSize:";
+        private static readonly Selector sel_sparseTileSizeWithTextureTypePixelFormatSampleCount = "sparseTileSizeWithTextureType:pixelFormat:sampleCount:";
+        private static readonly Selector sel_sparseTileSizeInBytesForSparsePageSize = "sparseTileSizeInBytesForSparsePageSize:";
+        private static readonly Selector sel_sparseTileSizeInBytes = "sparseTileSizeInBytes";
+        private static readonly Selector sel_convertSparsePixelRegionsToTileRegionsWithTileSizeAlignmentModeNumRegions = "convertSparsePixelRegions:toTileRegions:withTileSize:alignmentMode:numRegions:";
+        private static readonly Selector sel_convertSparseTileRegionsToPixelRegionsWithTileSizeNumRegions = "convertSparseTileRegions:toPixelRegions:withTileSize:numRegions:";
+        private static readonly Selector sel_newAccelerationStructureWithDescriptor = "newAccelerationStructureWithDescriptor:";
+        private static readonly Selector sel_newAccelerationStructureWithSize = "newAccelerationStructureWithSize:";
+        private static readonly Selector sel_accelerationStructureSizesWithDescriptor = "accelerationStructureSizesWithDescriptor:";
+        private static readonly Selector sel_argumentBuffersSupport = "argumentBuffersSupport";
+        private static readonly Selector sel_maxArgumentBufferSamplerCount = "maxArgumentBufferSamplerCount";
+        private static readonly Selector sel_newArgumentEncoderWithArguments = "newArgumentEncoderWithArguments:";
+        private static readonly Selector sel_newArgumentEncoderWithBufferBinding = "newArgumentEncoderWithBufferBinding:";
+        private static readonly Selector sel_newFence = "newFence";
+        private static readonly Selector sel_newEvent = "newEvent";
+        private static readonly Selector sel_newSharedEvent = "newSharedEvent";
+        private static readonly Selector sel_newSharedEventWithHandle = "newSharedEventWithHandle:";
 
         #endregion
+
+        #region Shader Library and Archive Creation
+
+        private static readonly Selector sel_newDefaultLibrary = "newDefaultLibrary";
+        private static readonly Selector sel_newDefaultLibraryWithBundleError = "newDefaultLibraryWithBundle:error:";
+        private static readonly Selector sel_newLibraryWithURLError = "newLibraryWithURL:error:";
+        private static readonly Selector sel_newLibraryWithSourceOptionsError = "newLibraryWithSource:options:error:";
+        private static readonly Selector sel_newLibraryWithSourceOptionsCompletionHandler = "newLibraryWithSource:options:completionHandler:";
+        private static readonly Selector sel_newLibraryWithStitchedDescriptorError = "newLibraryWithStitchedDescriptor:error:";
+        private static readonly Selector sel_newLibraryWithStitchedDescriptorCompletionHandler = "newLibraryWithStitchedDescriptor:completionHandler:";
+        private static readonly Selector sel_newLibraryWithDataError = "newLibraryWithData:error:";
+        private static readonly Selector sel_supportsDynamicLibraries = "supportsDynamicLibraries";
+        private static readonly Selector sel_supportsRenderDynamicLibraries = "supportsRenderDynamicLibraries";
+        private static readonly Selector sel_newDynamicLibraryError = "newDynamicLibrary:error:";
+        private static readonly Selector sel_newDynamicLibraryWithURLError = "newDynamicLibraryWithURL:error:";
+        private static readonly Selector sel_MTLDynamicLibraryDomain = "MTLDynamicLibraryDomain";
+        private static readonly Selector sel_newBinaryArchiveWithDescriptorError = "newBinaryArchiveWithDescriptor:error:";
+        private static readonly Selector sel_MTLBinaryArchiveDomain = "MTLBinaryArchiveDomain";
+
+        #endregion
+
+        private static readonly Selector sel_maximumConcurrentCompilationTaskCount = "maximumConcurrentCompilationTaskCount";
+        private static readonly Selector sel_shouldMaximizeConcurrentCompilation = "shouldMaximizeConcurrentCompilation";
     }
 }
