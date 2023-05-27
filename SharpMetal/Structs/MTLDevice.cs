@@ -16,6 +16,8 @@ namespace SharpMetal
         public static implicit operator IntPtr(MTLDevice device) => device.NativePtr;
         public MTLDevice(IntPtr nativePtr) => NativePtr = nativePtr;
 
+        #region Device Inspection
+
         public bool SupportsFamily(MTLGPUFamily gpuFamily)
         {
             return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsFamily, (long)gpuFamily);
@@ -109,6 +111,10 @@ namespace SharpMetal
 
         public uint PeerIndex => ObjectiveCRuntime.uint32_objc_msgSend(NativePtr, sel_peerIndex);
 
+        #endregion
+
+        #region Work Submission
+
         public MTLCommandQueue NewCommandQueue()
         {
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newCommandQueue));
@@ -143,6 +149,10 @@ namespace SharpMetal
 
         }*/
 
+        #endregion
+
+        #region Pipeline State Creation
+
         // TODO: Needs MTLComputePipelineState, MTLComputePipelineDescriptor, MTLPipelineOption, MTLAutoreleasedComputePipelineReflection, NSError
         /*public MTLComputePipelineState NewComputePipelineStateWithDescriptorOptionsReflectionError(MTLComputePipelineDescriptor descriptor, MTLPipelineOption options, MTLAutoreleasedComputePipelineReflection reflection, out NSError error)
         {
@@ -154,6 +164,24 @@ namespace SharpMetal
         {
 
         }*/
+
+        #endregion
+
+        #region Resource Creation
+
+
+
+        #endregion
+
+        #region Shader Library and Archive Creation
+
+
+
+        #endregion
+
+        public ulong MaximumConcurrentCompilationTaskCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maximumConcurrentCompilationTaskCount);
+
+        public bool ShouldMaximizeConcurrentCompilation => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_shouldMaximizeConcurrentCompilation);
 
         #region Device Inspection Selectors
 
@@ -273,7 +301,7 @@ namespace SharpMetal
 
         #endregion
 
-        #region Shader Library and Archive Creation
+        #region Shader Library and Archive Creation Selectors
 
         private static readonly Selector sel_newDefaultLibrary = "newDefaultLibrary";
         private static readonly Selector sel_newDefaultLibraryWithBundleError = "newDefaultLibraryWithBundle:error:";
