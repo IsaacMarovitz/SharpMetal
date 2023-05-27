@@ -19,6 +19,7 @@ namespace SharpMetal.Examples
             descriptor.Label = new NSString("Simple Pipeline");
             descriptor.VertexFunction = new MTLFunction();
             descriptor.FragmentFunction = new MTLFunction();
+            device.NewCommandQueue();
             // descriptor.ColorAttachments[0].PixelFormat = MTLPixelFormat.RG32Float;
 
             Console.WriteLine(device.Name);

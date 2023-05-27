@@ -381,17 +381,16 @@ namespace SharpMetal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_convertSparseTileRegionsToPixelRegionsWithTileSizeNumRegions, tileRegions.NativePtr, pixelRegions.NativePtr, tileSize.NativePtr, numRegions);
         }
 
-        // TODO: Needs MTLAccelerationStructure, MTLAccelerationStructureDescriptor
+        // TODO: Needs MTLAccelerationStructureDescriptor
         /*public MTLAccelerationStructure NewAccelerationStructureWithDescriptor(MTLAccelerationStructureDescriptor descriptor)
         {
 
         }*/
 
-        // TODO: Needs MTLAccelerationStructure
-        /*public MTLAccelerationStructure NewAccelerationStructureWithSize(ulong size)
+        public MTLAccelerationStructure NewAccelerationStructureWithSize(ulong size)
         {
-
-        }*/
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newAccelerationStructureWithSize, size));
+        }
 
         // TODO: Needs MTLAccelerationStructureSizes, MTLAccelerationStructureDescriptor
         /*public MTLAccelerationStructureSizes AccelerationStructureSizesWithDescriptor(MTLAccelerationStructureDescriptor descriptor)
