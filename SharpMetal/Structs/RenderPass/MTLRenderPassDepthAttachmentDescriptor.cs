@@ -29,11 +29,10 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthResolveFilter, (ulong)value);
         }
 
-
-        public IntPtr Texture
+        public MTLTexture Texture
         {
-            get => ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_texture);
-            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTexture, value);
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_texture));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTexture, value.NativePtr);
         }
 
         public ulong Level
