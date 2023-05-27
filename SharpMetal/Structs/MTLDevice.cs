@@ -189,6 +189,71 @@ namespace SharpMetal
 
         }*/
 
+        // TODO: Needs MTLRenderPipelineState, NSError
+        /*public MTLRenderPipelineState NewRenderPipelineStateWithDescriptorError(MTLRenderPipelineDescriptor descriptor, out NSError error)
+        {
+
+        }*/
+
+        // TODO: Needs MTLNewRenderPipelineStateCompletionHandler
+        /*public void NewRenderPipelineStateWithDescriptorCompletionHandler(MTLRenderPipelineDescriptor descriptor, MTLNewRenderPipelineStateCompletionHandler completionHandler)
+        {
+
+        }*/
+
+        // TODO: Needs MTLRenderPipelineState, MTLPipelineOption,MTLAutoreleasedRenderPipelineReflection, NSError
+        /*public MTLRenderPipelineState NewRenderPipelineStateWithDescriptorOptionsReflectionError(MTLRenderPipelineDescriptor descriptor, MTLPipelineOption options, MTLAutoreleasedRenderPipelineReflection reflection, out NSError error)
+        {
+
+        }*/
+
+        // TODO: Needs MTLPipelineOption, MTLNewRenderPipelineStateWithReflectionCompletionHandler
+        /*public void NewRenderPipelineStateWithDescriptorOptionsCompletionHandler(MTLRenderPipelineDescriptor descriptor, MTLPipelineOption options, MTLNewRenderPipelineStateWithReflectionCompletionHandler completionHandler)
+        {
+
+        }*/
+
+        // TODO: Needs MTLRenderPipelineState, MTLMeshRenderPipelineDescriptor, MTLPipelineOption, MTLAutoreleasedRenderPipelineReflection, NSError
+        /*public MTLRenderPipelineState NewRenderPipelineStateWithMeshDescriptorOptionsReflectionError(MTLMeshRenderPipelineDescriptor descriptor, MTLPipelineOption options, MTLAutoreleasedRenderPipelineReflection reflection, out NSError error)
+        {
+
+        }*/
+
+        // TODO: Needs MTLMeshRenderPipelineDescriptor, MTLPipelineOption, MTLNewRenderPipelineStateWithReflectionCompletionHandler
+        /*public void NewRenderPipelineStateWithMeshDescriptorOptionsCompletionHandler(MTLMeshRenderPipelineDescriptor descriptor, MTLPipelineOption options, MTLNewRenderPipelineStateWithReflectionCompletionHandler completionHandler)
+        {
+
+        }*/
+
+        // TODO: Needs MTLRenderPipelineState, MTLTileRenderPipelineDescriptor, MTLPipelineOption, MTLAutoreleasedRenderPipelineReflection, NSError
+        /*public MTLRenderPipelineState NewRenderPipelineStateWithTileDescriptorOptionsReflectionError(MTLTileRenderPipelineDescriptor descriptor, MTLPipelineOption options, MTLAutoreleasedRenderPipelineReflection reflection, out NSError error)
+        {
+
+        }*/
+
+        // TODO: Needs MTLTileRenderPipelineDescriptor, MTLPipelineOption, MTLNewRenderPipelineStateWithReflectionCompletionHandler
+        /*public void NewRenderPipelineStateWithTileDescriptorOptionsCompletionHandler(MTLTileRenderPipelineDescriptor descriptor, MTLPipelineOption options, MTLNewRenderPipelineStateWithReflectionCompletionHandler completionHandler)
+        {
+
+        }*/
+
+        // TODO: Needs MTLDepthStencilState, MTLDepthStencilDescriptor
+        /*public MTLDepthStencilState NewDepthStencilStateWithDescriptor(MTLDepthStencilDescriptor descriptor)
+        {
+
+        }*/
+
+        public bool SupportsRasterizationRateMapWithLayerCount(ulong layerCount)
+        {
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsRasterizationRateMapWithLayerCount, layerCount);
+        }
+
+        // TODO: Needs MTLRasterizationRateMap, MTLRasterizationRateMapDescriptor
+        /*public MTLRasterizationRateMap NewRasterizationRateMapWithDescriptor(MTLRasterizationRateMapDescriptor descriptor)
+        {
+
+        }*/
+
         #endregion
 
         #region Resource Creation
