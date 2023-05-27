@@ -258,13 +258,193 @@ namespace SharpMetal
 
         #region Resource Creation
 
+        // TODO: Needs MTLHeap, MTLHeapDescriptor
+        /*public MTLHeap NewHeapWithDescriptor(MTLHeapDescriptor descriptor)
+        {
 
+        }*/
+
+        // TODO: Needs MTLSizeAndAlign
+        /*public MTLSizeAndAlign HeapBufferSizeAndAlignWithLengthOptions(ulong length, MTLResourceOptions options)
+        {
+
+        }*/
+
+        // TODO: Needs MTLSizeAndAlign
+        /*public MTLSizeAndAlign HeapTextureSizeAndAlignWithDescriptor(MTLTextureDescriptor desc)
+        {
+
+        }*/
+
+        // TODO: Needs MTLSizeAndAlign
+        /*public MTLSizeAndAlign HeapAccelerationStructureSizeAndAlignWithSize(ulong size)
+        {
+
+        }*/
+
+        // TODO: Needs MTLSizeAndAlign, MTLAccelerationStructureDescriptor
+        /*public MTLSizeAndAlign HeapAccelerationStructureSizeAndAlignWithDescriptor(MTLAccelerationStructureDescriptor descriptor)
+        {
+
+        }*/
+
+        public ulong MaxBufferLength => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxBufferLength);
+
+        public MTLBuffer NewBufferWithLengthOptions(ulong length, MTLResourceOptions options)
+        {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newBufferWithLengthOptions, length, (ulong)options));
+        }
+
+        public MTLBuffer NewBufferWithBytesLengthOptions(IntPtr pointer, ulong length, MTLResourceOptions options)
+        {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newBufferWithBytesLengthOptions, pointer, length, (ulong)options));
+        }
+
+        public MTLBuffer NewBufferWithBytesNoCopyLengthOptionsDeallocator(IntPtr pointer, ulong length, MTLResourceOptions options, IntPtr deallocator)
+        {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newBufferWithBytesNoCopyLengthOptionsDeallocator, pointer, length, (ulong)options, deallocator));
+        }
+
+        // TODO: Needs MTLTexture
+        /*public MTLTexture NewTextureWithDescriptor(MTLTextureDescriptor descriptor)
+        {
+
+        }*/
+
+        // TODO: Needs MTLTexture, IOSurfaceRef
+        /*public MTLTexture NewTextureWithDescriptorIosurfacePlane(MTLTextureDescriptor descriptor, IOSurfaceRef iosurface, ulong plane)
+        {
+
+        }*/
+
+        // TODO: Needs MTLTexture
+        /*public MTLTexture NewSharedTextureWithDescriptor(MTLTextureDescriptor descriptor)
+        {
+
+        }*/
+
+        // TODO: Needs MTLTexture, MTLSharedTextureHandle
+        /*public MTLTexture NewSharedTextureWithHandle(MTLSharedTextureHandle sharedHandle)
+        {
+
+        }*/
+
+        public ulong MinimumLinearTextureAlignmentForPixelFormat(MTLPixelFormat format)
+        {
+            return ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_minimumLinearTextureAlignmentForPixelFormat, (ulong)format);
+        }
+
+        public ulong MinimumTextureBufferAlignmentForPixelFormat(MTLPixelFormat format)
+        {
+            return ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_minimumTextureBufferAlignmentForPixelFormat, (ulong)format);
+        }
+
+        public bool SupportsTextureSampleCount(ulong sampleCount)
+        {
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsTextureSampleCount, sampleCount);
+        }
+
+        // TODO: Needs MTLSamplerState
+        /*public MTLSamplerState NewSamplerStateWithDescriptor(MTLSamplerDescriptor descriptor)
+        {
+
+        }*/
+
+        // TODO: Needs MTLSamplePosition
+        /*public void GetDefaultSamplePositionsCount(MTLSamplePosition position, ulong count)
+        {
+
+        }*/
+
+        public MTLSize SparseTileSizeWithTextureTypePixelFormatSampleCountSparsePageSize(MTLTextureType textureType, MTLPixelFormat pixelFormat, ulong sampleCount, MTLSparsePageSize sparsePageSize)
+        {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_sparseTileSizeWithTextureTypePixelFormatSampleCountSparsePageSize, (ulong)textureType, (ulong)pixelFormat, sampleCount, (long)sparsePageSize));
+        }
+
+        public MTLSize SparseTileSizeWithTextureTypePixelFormatSampleCount(MTLTextureType textureType, MTLPixelFormat pixelFormat, ulong sampleCount)
+        {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_sparseTileSizeWithTextureTypePixelFormatSampleCount, (ulong)textureType, (ulong)pixelFormat, sampleCount));
+        }
+
+        public ulong SparseTileSizeInBytesForSparsePageSize(MTLSparsePageSize sparsePageSize)
+        {
+            return ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_sparseTileSizeInBytesForSparsePageSize, (ulong)sparsePageSize);
+        }
+
+        public ulong SparseTileSizeInBytes => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_sparseTileSizeInBytes);
+
+        public void ConvertSparsePixelRegionsToTileRegionsWithTileSizeAlignmentModeNumRegions(MTLRegion pixelRegions, MTLRegion tileRegions, MTLSize tileSize, MTLSparseTextureRegionAlignmentMode mode, ulong numRegions)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_convertSparsePixelRegionsToTileRegionsWithTileSizeAlignmentModeNumRegions, pixelRegions.NativePtr, tileRegions.NativePtr, tileSize.NativePtr, (ulong)mode, numRegions);
+        }
+
+        public void ConvertSparseTileRegionsToPixelRegionsWithTileSizeNumRegions(MTLRegion tileRegions, MTLRegion pixelRegions, MTLSize tileSize, ulong numRegions)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_convertSparseTileRegionsToPixelRegionsWithTileSizeNumRegions, tileRegions.NativePtr, pixelRegions.NativePtr, tileSize.NativePtr, numRegions);
+        }
+
+        // TODO: Needs MTLAccelerationStructure, MTLAccelerationStructureDescriptor
+        /*public MTLAccelerationStructure NewAccelerationStructureWithDescriptor(MTLAccelerationStructureDescriptor descriptor)
+        {
+
+        }*/
+
+        // TODO: Needs MTLAccelerationStructure
+        /*public MTLAccelerationStructure NewAccelerationStructureWithSize(ulong size)
+        {
+
+        }*/
+
+        // TODO: Needs MTLAccelerationStructureSizes, MTLAccelerationStructureDescriptor
+        /*public MTLAccelerationStructureSizes AccelerationStructureSizesWithDescriptor(MTLAccelerationStructureDescriptor descriptor)
+        {
+
+        }*/
+
+        // TODO: Needs MTLArgumentBuffersTier
+        // public MTLArgumentBuffersTier ArgumentBuffersSupport;
+
+        public ulong MaxArgumentBufferSamplerCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxArgumentBufferSamplerCount);
+
+        // TODO: Needs MTLArgumentEncoder, NSArray
+        /*public MTLArgumentEncoder NewArgumentEncoderWithArguments(NSArray of MTLArgumentDescriptor arguments)
+        {
+
+        }*/
+
+        // TODO: Needs MTLArgumentEncoder, MTLBufferBinding
+        /*public MTLArgumentEncoder NewArgumentEncoderWithBufferBinding(MTLBufferBinding bufferBinding)
+        {
+
+        }*/
+
+        // TODO: Needs MTLFence
+        /*public MTLFence NewFence()
+        {
+
+        }*/
+
+        // TODO: Needs MTLEvent
+        /*public MTLEvent NewEvent()
+        {
+
+        }*/
+
+        // TODO: Needs MTLSharedEvent
+        /*public MTLSharedEvent NewSharedEvent()
+        {
+
+        }*/
+
+        // TODO: Needs MTLSharedEvent, MTLSharedEventHandle
+        /*public MTLSharedEvent NewSharedEventWithHandle(MTLSharedEventHandle sharedEventHandle)
+        {
+
+        }*/
 
         #endregion
 
         #region Shader Library and Archive Creation
-
-
 
         #endregion
 
