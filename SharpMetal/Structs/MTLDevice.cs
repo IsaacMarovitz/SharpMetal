@@ -109,6 +109,40 @@ namespace SharpMetal
 
         public uint PeerIndex => ObjectiveCRuntime.uint32_objc_msgSend(NativePtr, sel_peerIndex);
 
+        public MTLCommandQueue NewCommandQueue()
+        {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newCommandQueue));
+        }
+
+        public MTLCommandQueue NewCommandQueueWithMaxCommandBufferCount(ulong maxCommandBufferCount)
+        {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newCommandQueueWithMaxCommandBufferCount, maxCommandBufferCount));
+        }
+
+        // TODO: Needs MTLIOCommandQueue, MTLIOCommandQueueDescriptor, NSError
+        /*public MTLIOCommandQueue NewIOCommandQueueWithDescriptorError(MTLIOCommandQueueDescriptor descriptor, out NSError error)
+        {
+
+        }*/
+
+        // TODO: Needs MTLIOFileHandle, NSURL, NSError
+        /*public MTLIOFileHandle NewIOHandleWithURLError(NSURL url, out NSError error)
+        {
+
+        }*/
+
+        // TODO: Needs MTLIOFileHandle, NSURL, NSError
+        /*public MTLIOFileHandle NewIOHandleWithURLCompressionMethodError(NSURL url, MTLIOCompressionMethod compressionMethod, out NSError error)
+        {
+
+        }*/
+
+        // TODO: Needs MTLIndirectCommandBuffer, MTLIndirectCommandBufferDescriptor
+        /*public MTLIndirectCommandBuffer NewIndirectCommandBufferWithDescriptorMaxCommandCountOptions(MTLIndirectCommandBufferDescriptor descriptor, ulong maxCount, MTLResourceOptions options)
+        {
+
+        }*/
+
         #region Device Inspection Selectors
 
         private static readonly Selector sel_supportsFamily = "supportsFamily:";
