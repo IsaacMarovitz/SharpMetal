@@ -446,6 +446,76 @@ namespace SharpMetal
 
         #region Shader Library and Archive Creation
 
+        // TODO: Needs MTLLibrary
+        /*public MTLLibrary NewDefaultLibrary()
+        {
+
+        }*/
+
+        // TODO: Needs MTLLibrary, NSBundle, NSError
+        /*public MTLLibrary NewDefaultLibraryWithBundleError(NSBundle bundle, out NSError error)
+        {
+
+        }*/
+
+        // TODO: Needs MTLLibrary, NSURL, NSError
+        /*public MTLLibrary NewLibraryWithURLError(NSURL url, out NSError error)
+        {
+
+        }*/
+
+        // TODO: Needs MTLLibrary, NSError
+        /*public MTLLibrary NewLibraryWithSourceOptionsError(NSString source, MTLCompileOptions options, out NSError error)
+        {
+
+        }*/
+
+        // TODO: Needs MTLNewLibraryCompletionHandler
+        /*public void NewLibraryWithSourceOptionsCompletionHandler(NSString source, MTLCompileOptions options, MTLNewLibraryCompletionHandler completionHandler)
+        {
+
+        }*/
+
+        // TODO: Needs MTLLibrary, MTLStitchedLibraryDescriptor, NSError
+        /*public MTLLibrary NewLibraryWithStitchedDescriptorError(MTLStitchedLibraryDescriptor descriptor, out NSError error)
+        {
+
+        }*/
+
+        // TODO: Needs MTLLibrary, MTLStitchedLibraryDescriptor, NSError
+        /*public void NewLibraryWithStitchedDescriptorCompletionHandler(MTLStitchedLibraryDescriptor descriptor, MTLNewLibraryCompletionHandler completionHandler)
+        {
+
+        }*/
+
+        // TODO: Needs MTLLibrary, dispatch_data_t, NSError
+        /*public MTLLibrary NewLibraryWithDataError(dispatch_data_t data, out NSError error)
+        {
+
+        }*/
+
+        // TODO: Needs MTLDynamicLibrary, MTLLibrary, NSError
+        /*public MTLDynamicLibrary NewDynamicLibraryError(MTLLibrary library, out NSError error)
+        {
+
+        }*/
+
+        // TODO: Needs MTLDynamicLibrary, NSURL, NSError
+        /*public MTLDynamicLibrary NewDynamicLibraryWithURLError(NSURL url, out NSError error)
+        {
+
+        }*/
+
+        public bool SupportsDynamicLibraries => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsDynamicLibraries);
+
+        public bool SupportsRenderDynamicLibraries => ObjectiveCRuntime.bool_objc_msgSend(Name, sel_supportsRenderDynamicLibraries);
+
+        // TODO: Needs MTLBinaryArchive, MTLBinaryArchiveDescriptor, NSError
+        /*public MTLBinaryArchive NewBinaryArchiveWithDescriptorError(MTLBinaryArchiveDescriptor descriptor, out NSError error)
+        {
+
+        }*/
+
         #endregion
 
         public ulong MaximumConcurrentCompilationTaskCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maximumConcurrentCompilationTaskCount);
@@ -584,9 +654,7 @@ namespace SharpMetal
         private static readonly Selector sel_supportsRenderDynamicLibraries = "supportsRenderDynamicLibraries";
         private static readonly Selector sel_newDynamicLibraryError = "newDynamicLibrary:error:";
         private static readonly Selector sel_newDynamicLibraryWithURLError = "newDynamicLibraryWithURL:error:";
-        private static readonly Selector sel_MTLDynamicLibraryDomain = "MTLDynamicLibraryDomain";
         private static readonly Selector sel_newBinaryArchiveWithDescriptorError = "newBinaryArchiveWithDescriptor:error:";
-        private static readonly Selector sel_MTLBinaryArchiveDomain = "MTLBinaryArchiveDomain";
 
         #endregion
 
