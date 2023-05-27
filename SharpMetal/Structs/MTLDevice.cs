@@ -446,25 +446,24 @@ namespace SharpMetal
 
         #region Shader Library and Archive Creation
 
-        // TODO: Needs MTLLibrary
-        /*public MTLLibrary NewDefaultLibrary()
+        public MTLLibrary NewDefaultLibrary()
         {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newDefaultLibrary));
+        }
 
-        }*/
-
-        // TODO: Needs MTLLibrary, NSBundle, NSError
+        // TODO: Needs NSBundle, NSError
         /*public MTLLibrary NewDefaultLibraryWithBundleError(NSBundle bundle, out NSError error)
         {
 
         }*/
 
-        // TODO: Needs MTLLibrary, NSURL, NSError
+        // TODO: Needs NSURL, NSError
         /*public MTLLibrary NewLibraryWithURLError(NSURL url, out NSError error)
         {
 
         }*/
 
-        // TODO: Needs MTLLibrary, NSError
+        // TODO: Needs NSError
         /*public MTLLibrary NewLibraryWithSourceOptionsError(NSString source, MTLCompileOptions options, out NSError error)
         {
 
@@ -476,19 +475,19 @@ namespace SharpMetal
 
         }*/
 
-        // TODO: Needs MTLLibrary, MTLStitchedLibraryDescriptor, NSError
+        // TODO: Needs MTLStitchedLibraryDescriptor, NSError
         /*public MTLLibrary NewLibraryWithStitchedDescriptorError(MTLStitchedLibraryDescriptor descriptor, out NSError error)
         {
 
         }*/
 
-        // TODO: Needs MTLLibrary, MTLStitchedLibraryDescriptor, NSError
+        // TODO: Needs MTLStitchedLibraryDescriptor, NSError
         /*public void NewLibraryWithStitchedDescriptorCompletionHandler(MTLStitchedLibraryDescriptor descriptor, MTLNewLibraryCompletionHandler completionHandler)
         {
 
         }*/
 
-        // TODO: Needs MTLLibrary, dispatch_data_t, NSError
+        // TODO: Needs dispatch_data_t, NSError
         /*public MTLLibrary NewLibraryWithDataError(dispatch_data_t data, out NSError error)
         {
 
@@ -508,7 +507,7 @@ namespace SharpMetal
 
         public bool SupportsDynamicLibraries => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsDynamicLibraries);
 
-        public bool SupportsRenderDynamicLibraries => ObjectiveCRuntime.bool_objc_msgSend(Name, sel_supportsRenderDynamicLibraries);
+        public bool SupportsRenderDynamicLibraries => ObjectiveCRuntime.bool_objc_msgSend(Name.NativePtr, sel_supportsRenderDynamicLibraries);
 
         // TODO: Needs MTLBinaryArchive, MTLBinaryArchiveDescriptor, NSError
         /*public MTLBinaryArchive NewBinaryArchiveWithDescriptorError(MTLBinaryArchiveDescriptor descriptor, out NSError error)
