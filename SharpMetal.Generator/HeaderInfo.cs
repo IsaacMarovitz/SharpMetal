@@ -5,6 +5,7 @@ namespace SharpMetal.Generator
     public class HeaderInfo
     {
         public List<EnumInstance> EnumInstances = new List<EnumInstance>();
+        public List<SelectorInstance> SelectorInstances = new List<SelectorInstance>();
 
         public HeaderInfo(string filePath)
         {
@@ -13,6 +14,7 @@ namespace SharpMetal.Generator
                 while (!sr.EndOfStream)
                 {
                     var line = sr.ReadLine();
+
                     if (line.Contains("_MTL_ENUM"))
                     {
                         line = line.Replace("_MTL_ENUM(", "");
@@ -76,6 +78,25 @@ namespace SharpMetal.Generator
                                 break;
                         }
                     }
+
+                    // These contain all the selectors we need
+                    if (line.Contains("_MTL_INLINE"))
+                    {
+                        sr.ReadLine();
+                        var selector = sr.ReadLine();
+                        sr.ReadLine();
+
+                        string lookingFor = "_MTL_PRIVATE_SEL(";
+                        int index = selector.IndexOf(lookingFor);
+
+                        if (index != -1)
+                        {
+                            selector = selector.Substring(index + lookingFor.Length);
+                            selector = selector.Substring(0, selector.IndexOf(")"));
+                            selector = selector.Replace("_", ":");
+                            SelectorInstances.Add(new SelectorInstance(selector));
+                        }
+                    }
                 }
             }
         }
@@ -92,6 +113,37 @@ namespace SharpMetal.Generator
             Type = type;
             Name = name;
             Values = values;
+        }
+    }
+
+    public class SelectorInstance
+    {
+        public string Name;
+        public string Selector;
+
+        public SelectorInstance(string selector)
+        {
+            Name = BuildName(selector);
+            Selector = selector;
+        }
+
+        static string BuildName(string input)
+        {
+            string[] parts = input.Split(':');
+
+            for (int i = 0; i < parts.Length; i++)
+            {
+                if (parts[i].Length > 0)
+                {
+                    if (i < parts.Length - 1 && parts[i + 1].Length > 0)
+                    {
+                        parts[i + 1] = char.ToUpper(parts[i + 1][0]) + parts[i + 1].Substring(1);
+                    }
+                    parts[i] = parts[i].Replace(":", "");
+                }
+            }
+
+            return "sel_" + string.Join("", parts);
         }
     }
 }

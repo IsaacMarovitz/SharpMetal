@@ -36,6 +36,12 @@ namespace SharpMetal.Generator
 
             using (StreamWriter sw = File.CreateText($"Output/{fileName}.cs"))
             {
+                if (HeaderInfo.SelectorInstances.Count > 0)
+                {
+                    sw.WriteLine("using SharpMetal.ObjectiveC;");
+                    sw.WriteLine();
+                }
+
                 sw.WriteLine("namespace SharpMetal");
                 sw.WriteLine("{");
                 depth += 1;
@@ -55,6 +61,11 @@ namespace SharpMetal.Generator
 
                     sw.WriteLine(GetIndent() + "}");
                     sw.WriteLine();
+                }
+
+                foreach (var instance in HeaderInfo.SelectorInstances)
+                {
+                    sw.WriteLine(GetIndent() + $"private static readonly Selector {instance.Name} = \"{instance.Selector}\";");
                 }
 
                 sw.WriteLine("}");
