@@ -79,8 +79,9 @@ namespace SharpMetal.Generator
                     sw.WriteLine();
                 }
 
-                foreach (var instance in HeaderInfo.StructInstances)
+                for (var i = 0; i < HeaderInfo.StructInstances.Count; i++)
                 {
+                    var instance = HeaderInfo.StructInstances[i];
                     sw.WriteLine(GetIndent() + "[SupportedOSPlatform(\"macos\")]");
                     sw.WriteLine(GetIndent() + "[StructLayout(LayoutKind.Sequential)]");
                     sw.WriteLine(GetIndent() + $"public struct {instance.Name}");
@@ -89,22 +90,32 @@ namespace SharpMetal.Generator
                     depth += 1;
 
                     sw.WriteLine(GetIndent() + "public readonly IntPtr NativePtr;");
-                    sw.WriteLine(GetIndent() + $"public static implicit operator IntPtr({instance.Name} obj) => obj.NativePtr;");
+                    sw.WriteLine(GetIndent() +
+                                 $"public static implicit operator IntPtr({instance.Name} obj) => obj.NativePtr;");
                     sw.WriteLine(GetIndent() + $"public {instance.Name}(IntPtr ptr) => NativePtr = ptr;");
 
-                    sw.WriteLine();
+                    if (instance.SelectorInstances.Any())
+                    {
+                        sw.WriteLine();
+                    }
+
                     // TODO: Properties and functions
 
 
                     foreach (var selector in instance.SelectorInstances)
                     {
-                        sw.WriteLine(GetIndent() + $"private static readonly Selector {selector.Name} = \"{selector.Selector}\";");
+                        sw.WriteLine(GetIndent() +
+                                     $"private static readonly Selector {selector.Name} = \"{selector.Selector}\";");
                     }
 
                     depth -= 1;
 
                     sw.WriteLine(GetIndent() + "}");
-                    sw.WriteLine();
+
+                    if (i != HeaderInfo.StructInstances.Count - 1)
+                    {
+                        sw.WriteLine();
+                    }
                 }
 
                 sw.WriteLine("}");

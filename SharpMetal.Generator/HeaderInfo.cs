@@ -184,27 +184,8 @@ namespace SharpMetal.Generator
 
         public SelectorInstance(string selector)
         {
-            Name = BuildName(selector);
+            Name = selector.Replace(":", "");
             Selector = selector;
-        }
-
-        static string BuildName(string input)
-        {
-            string[] parts = input.Split(':');
-
-            for (int i = 0; i < parts.Length; i++)
-            {
-                if (parts[i].Length > 0)
-                {
-                    if (i < parts.Length - 1 && parts[i + 1].Length > 0)
-                    {
-                        parts[i + 1] = char.ToUpper(parts[i + 1][0]) + parts[i + 1].Substring(1);
-                    }
-                    parts[i] = parts[i].Replace(":", "");
-                }
-            }
-
-            return "sel_" + string.Join("", parts);
         }
     }
 }
