@@ -21,7 +21,7 @@ namespace SharpMetal.Generator
 
             for (int i = 0; i < files.Length; i++)
             {
-                if (!files[i].Contains("Defines"))
+                if (!files[i].Contains("Defines") || files[i].Contains("Private"))
                 {
                     Generate(files[i]);
                 }
