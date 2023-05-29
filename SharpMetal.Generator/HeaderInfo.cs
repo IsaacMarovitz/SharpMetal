@@ -7,6 +7,38 @@ namespace SharpMetal.Generator
         public List<EnumInstance> EnumInstances = new();
         public List<StructInstance> StructInstances = new();
 
+        public static string ConvertType(string type)
+        {
+            switch (type)
+            {
+                case "uint64_t" or "NSUInteger" or "UInteger":
+                    return "ulong";
+                case "NSInteger" or "Integer":
+                    return "long";
+                case "uint32_t":
+                    return "uint";
+                case "int32_t":
+                    return "int";
+                case "uint16_t":
+                    return "ushort";
+                case "uint8_t":
+                    return "byte";
+                case "float":
+                    return "float";
+                case "double":
+                    return "double";
+                case "Object**":
+                    return "IntPtr";
+                default:
+                    if (!type.StartsWith("MTL"))
+                    {
+                        return "MTL" + type;
+                    }
+
+                    return type;
+            }
+        }
+
         public HeaderInfo(string filePath)
         {
             using (StreamReader sr = new StreamReader(File.OpenRead(filePath)))
@@ -64,46 +96,8 @@ namespace SharpMetal.Generator
                                         if (propertyInfo.Length == 2)
                                         {
                                             var typeString = propertyInfo[0].Replace("::", "");
-                                            var type = "";
+                                            var type = ConvertType(typeString);
                                             var propertyName = propertyInfo[1];
-
-                                            switch (typeString)
-                                            {
-                                                case "uint64_t" or "NSUInteger" or "UInteger":
-                                                    type = "ulong";
-                                                    break;
-                                                case "Integer":
-                                                    type = "long";
-                                                    break;
-                                                case "uint32_t":
-                                                    type = "uint";
-                                                    break;
-                                                case "int32_t":
-                                                    type = "int";
-                                                    break;
-                                                case "uint16_t":
-                                                    type = "byte";
-                                                    break;
-                                                case "float":
-                                                    type = "float";
-                                                    break;
-                                                case "double":
-                                                    type = "double";
-                                                    break;
-                                                case "Object**":
-                                                    type = "IntPtr";
-                                                    break;
-                                                default:
-                                                    if (!typeString.StartsWith("MTL"))
-                                                    {
-                                                        type = "MTL" + typeString;
-                                                    }
-                                                    else
-                                                    {
-                                                        type = typeString;
-                                                    }
-                                                    break;
-                                            }
 
                                             string pattern = @"\[.*?\]";
                                             propertyName = Regex.Replace(propertyName, pattern, "");
@@ -123,7 +117,7 @@ namespace SharpMetal.Generator
                         line = line.Replace("_MTL_OPTIONS(", "");
                         line = line.Replace(") {", "");
                         var info = line.Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-                        var type = info[0];
+                        var type = info[0].Replace("::", "");
                         var ogName = info[1];
 
                         var name = "MTL" + ogName;
@@ -168,18 +162,8 @@ namespace SharpMetal.Generator
                             values.Add(cleanedValueName, cleanedValueValue);
                         }
 
-                        switch (type)
-                        {
-                            case "NS::UInteger":
-                                EnumInstances.Add(new EnumInstance("ulong", name, values));
-                                break;
-                            case "NS::Integer":
-                                EnumInstances.Add(new EnumInstance("long", name, values));
-                                break;
-                            case "uint8_t":
-                                EnumInstances.Add(new EnumInstance("byte", name, values));
-                                break;
-                        }
+                        var convertedType = ConvertType(type);
+                        EnumInstances.Add(new EnumInstance(convertedType, name, values));
                     }
 
                     // These contain all the selectors we need
