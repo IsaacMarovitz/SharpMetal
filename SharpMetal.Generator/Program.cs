@@ -140,12 +140,12 @@ namespace SharpMetal.Generator
                 sw.WriteLine(GetIndent() + $"public static implicit operator IntPtr({instance.Name} obj) => obj.NativePtr;");
                 sw.WriteLine(GetIndent() + $"public {instance.Name}(IntPtr ptr) => NativePtr = ptr;");
 
-                if (instance.ProperyInstances.Any())
+                if (instance.PropertyInstances.Any())
                 {
                     sw.WriteLine();
                 }
 
-                foreach (var property in instance.ProperyInstances)
+                foreach (var property in instance.PropertyInstances)
                 {
                     var selector = instance.SelectorInstances.Find(x => x.Selector.ToLower().Contains(property.Name.ToLower()));
 
@@ -199,7 +199,7 @@ namespace SharpMetal.Generator
                     }
                     else
                     {
-                        Console.WriteLine($"Failed to find selector for {property.Name}!");
+                        sw.WriteLine(GetIndent() + $"public {property.Type} {property.Name};");
                     }
                 }
 

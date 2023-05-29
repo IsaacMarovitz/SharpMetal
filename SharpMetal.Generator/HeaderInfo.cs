@@ -119,7 +119,7 @@ namespace SharpMetal.Generator
                                 var info = CultureInfo.CurrentCulture.TextInfo;
                                 name = Regex.Replace(name, @"\b\p{Ll}", match => match.Value.ToUpper());
 
-                                instance.ProperyInstances.Add(new PropertyInstance(type, name));
+                                instance.AddProperty(new PropertyInstance(type, name));
                             }
                         }
 
@@ -161,7 +161,7 @@ namespace SharpMetal.Generator
                             string pattern = @"\[.*?\]";
                             propertyName = Regex.Replace(propertyName, pattern, "");
 
-                            instance.ProperyInstances.Add(new PropertyInstance(type, propertyName));
+                            instance.AddProperty(new PropertyInstance(type, propertyName));
                         }
                         StructInstances.Add(instance);
                     }
@@ -295,7 +295,7 @@ namespace SharpMetal.Generator
     {
         public string Name;
         public bool IsClass;
-        public List<PropertyInstance> ProperyInstances;
+        public List<PropertyInstance> PropertyInstances;
         public List<SelectorInstance> SelectorInstances;
 
         public StructInstance(string name, bool isClass)
@@ -303,7 +303,7 @@ namespace SharpMetal.Generator
             Name = name;
             IsClass = isClass;
             SelectorInstances = new();
-            ProperyInstances = new();
+            PropertyInstances = new();
         }
 
         public void AddSelector(SelectorInstance selectorInstance)
@@ -316,9 +316,15 @@ namespace SharpMetal.Generator
 
         public void AddProperty(PropertyInstance propertyInstance)
         {
-            if (!ProperyInstances.Exists(x => x.Name == propertyInstance.Name))
+            // We don't want to include functions in this pass
+            if (propertyInstance.Name.Contains("("))
             {
-                ProperyInstances.Add(propertyInstance);
+                return;
+            }
+
+            if (!PropertyInstances.Exists(x => x.Name == propertyInstance.Name))
+            {
+                PropertyInstances.Add(propertyInstance);
             }
         }
     }
