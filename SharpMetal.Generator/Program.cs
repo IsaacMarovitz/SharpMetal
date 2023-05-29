@@ -36,7 +36,23 @@ namespace SharpMetal.Generator
 
             using (StreamWriter sw = File.CreateText($"Output/{fileName}.cs"))
             {
-                if (HeaderInfo.SelectorInstances.Count > 0)
+                var hasSelectors = false;
+
+                foreach (var structInstance in HeaderInfo.StructInstances)
+                {
+                    if (structInstance.SelectorInstances.Any())
+                    {
+                        hasSelectors = true;
+                    }
+                }
+
+                if (HeaderInfo.StructInstances.Count > 0)
+                {
+                    sw.WriteLine("using System.Runtime.InteropServices;");
+                    sw.WriteLine("using System.Runtime.Versioning;");
+                }
+
+                if (hasSelectors)
                 {
                     sw.WriteLine("using SharpMetal.ObjectiveC;");
                     sw.WriteLine();
@@ -63,9 +79,32 @@ namespace SharpMetal.Generator
                     sw.WriteLine();
                 }
 
-                foreach (var instance in HeaderInfo.SelectorInstances)
+                foreach (var instance in HeaderInfo.StructInstances)
                 {
-                    sw.WriteLine(GetIndent() + $"private static readonly Selector {instance.Name} = \"{instance.Selector}\";");
+                    sw.WriteLine(GetIndent() + "[SupportedOSPlatform(\"macos\")]");
+                    sw.WriteLine(GetIndent() + "[StructLayout(LayoutKind.Sequential)]");
+                    sw.WriteLine(GetIndent() + $"public struct {instance.Name}");
+                    sw.WriteLine(GetIndent() + "{");
+
+                    depth += 1;
+
+                    sw.WriteLine(GetIndent() + "public readonly IntPtr NativePtr;");
+                    sw.WriteLine(GetIndent() + $"public static implicit operator IntPtr({instance.Name} obj) => obj.NativePtr;");
+                    sw.WriteLine(GetIndent() + $"public {instance.Name}(IntPtr ptr) => NativePtr = ptr;");
+
+                    sw.WriteLine();
+                    // TODO: Properties and functions
+
+
+                    foreach (var selector in instance.SelectorInstances)
+                    {
+                        sw.WriteLine(GetIndent() + $"private static readonly Selector {selector.Name} = \"{selector.Selector}\";");
+                    }
+
+                    depth -= 1;
+
+                    sw.WriteLine(GetIndent() + "}");
+                    sw.WriteLine();
                 }
 
                 sw.WriteLine("}");

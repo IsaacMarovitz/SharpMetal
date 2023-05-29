@@ -4,8 +4,8 @@ namespace SharpMetal.Generator
 {
     public class HeaderInfo
     {
-        public List<EnumInstance> EnumInstances = new List<EnumInstance>();
-        public List<SelectorInstance> SelectorInstances = new List<SelectorInstance>();
+        public List<EnumInstance> EnumInstances = new();
+        public List<StructInstance> StructInstances = new();
 
         public HeaderInfo(string filePath)
         {
@@ -15,7 +15,28 @@ namespace SharpMetal.Generator
                 {
                     var line = sr.ReadLine();
 
-                    if (line.Contains("_MTL_ENUM"))
+                    if (line.StartsWith("class") || line.StartsWith("struct"))
+                    {
+                        if (!line.Contains(";"))
+                        {
+                            var structInfo = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+                            var structName = "MTL" + structInfo[1];
+
+                            StructInstances.Add(new StructInstance(structName));
+
+                            bool structEnded = false;
+
+                            while (!structEnded)
+                            {
+                                if (sr.ReadLine().Contains("}"))
+                                {
+                                    structEnded = true;
+                                }
+                            }
+                        }
+                    }
+
+                    if (line.StartsWith("_MTL_ENUM"))
                     {
                         line = line.Replace("_MTL_ENUM(", "");
                         line = line.Replace(") {", "");
@@ -80,8 +101,21 @@ namespace SharpMetal.Generator
                     }
 
                     // These contain all the selectors we need
-                    if (line.Contains("_MTL_INLINE"))
+                    if (line.StartsWith("_MTL_INLINE"))
                     {
+                        string pattern = @"\s(?![^()]*\))";
+                        string[] result = Regex.Split(line, pattern);
+                        var parentStructName = "";
+
+                        if (result.Count() == 2)
+                        {
+                            parentStructName = "MTL" + result[1].Split("::")[1];
+                        }
+                        else
+                        {
+                            parentStructName = "MTL" + result[2].Split("::")[1];
+                        }
+
                         sr.ReadLine();
                         var selector = sr.ReadLine();
                         sr.ReadLine();
@@ -91,14 +125,41 @@ namespace SharpMetal.Generator
 
                         if (index != -1)
                         {
+                            // Only get stuff in the brackets of the _MTL_PRIVATE_SEL
                             selector = selector.Substring(index + lookingFor.Length);
                             selector = selector.Substring(0, selector.IndexOf(")"));
                             selector = selector.Replace("_", ":");
-                            SelectorInstances.Add(new SelectorInstance(selector));
+                            var parentIndex = StructInstances.FindIndex(x => x.Name == parentStructName);
+
+                            if (parentIndex != -1)
+                            {
+                                StructInstances[parentIndex].AddSelector(new SelectorInstance(selector));
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Orphaned Selector! Looking for {parentStructName}");
+                            }
                         }
                     }
                 }
             }
+        }
+    }
+
+    public class StructInstance
+    {
+        public string Name;
+        public List<SelectorInstance> SelectorInstances;
+
+        public StructInstance(string name)
+        {
+            Name = name;
+            SelectorInstances = new();
+        }
+
+        public void AddSelector(SelectorInstance selectorInstance)
+        {
+            SelectorInstances.Add(selectorInstance);
         }
     }
 
