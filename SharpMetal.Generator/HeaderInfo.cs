@@ -39,6 +39,22 @@ namespace SharpMetal.Generator
             }
         }
 
+        public static string GetNamespace(string filePath)
+        {
+            if (filePath.Contains("Foundation"))
+            {
+                return "NS";
+            }
+            else if (filePath.Contains("QuartzCore"))
+            {
+                return "CA";
+            }
+            else
+            {
+                return "MTL";
+            }
+        }
+
         public HeaderInfo(string filePath)
         {
             using (StreamReader sr = new StreamReader(File.OpenRead(filePath)))
@@ -52,7 +68,7 @@ namespace SharpMetal.Generator
                         if (!line.Contains(";"))
                         {
                             var structInfo = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-                            var structName = "MTL" + structInfo[1];
+                            var structName = GetNamespace(filePath) + structInfo[1];
 
                             StructInstances.Add(new StructInstance(structName, true));
 
@@ -73,7 +89,7 @@ namespace SharpMetal.Generator
                         if (!line.Contains(";"))
                         {
                             var structInfo = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-                            var structName = "MTL" + structInfo[1];
+                            var structName = GetNamespace(filePath) + structInfo[1];
 
                             var instance = new StructInstance(structName, false);
 
@@ -120,7 +136,7 @@ namespace SharpMetal.Generator
                         var type = info[0].Replace("::", "");
                         var ogName = info[1];
 
-                        var name = "MTL" + ogName;
+                        var name = GetNamespace(filePath) + ogName;
 
                         var values = new Dictionary<string, string>();
                         var finishedEnumerating = false;
@@ -175,11 +191,11 @@ namespace SharpMetal.Generator
 
                         if (result.Count() == 2)
                         {
-                            parentStructName = "MTL" + result[1].Split("::")[1];
+                            parentStructName = GetNamespace(filePath) + result[1].Split("::")[1];
                         }
                         else
                         {
-                            parentStructName = "MTL" + result[2].Split("::")[1];
+                            parentStructName = GetNamespace(filePath) + result[2].Split("::")[1];
                         }
 
                         sr.ReadLine();
