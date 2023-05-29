@@ -47,27 +47,7 @@ namespace SharpMetal.Generator
 
             using StreamWriter sw = File.CreateText($"Output/{fileName}.cs");
 
-            var hasSelectors = false;
-
-            foreach (var structInstance in headerInfo.StructInstances)
-            {
-                if (structInstance.SelectorInstances.Any())
-                {
-                    hasSelectors = true;
-                }
-            }
-
-            if (headerInfo.StructInstances.Count > 0)
-            {
-                sw.WriteLine("using System.Runtime.InteropServices;");
-                sw.WriteLine("using System.Runtime.Versioning;");
-            }
-
-            if (hasSelectors)
-            {
-                sw.WriteLine("using SharpMetal.ObjectiveC;");
-                sw.WriteLine();
-            }
+            GenerateUsings(headerInfo, sw);
 
             sw.WriteLine("namespace SharpMetal");
             sw.WriteLine("{");
@@ -147,6 +127,49 @@ namespace SharpMetal.Generator
             string GetIndent()
             {
                 return new StringBuilder().Insert(0, "    ", depth).ToString();
+            }
+        }
+
+        public static void GenerateUsings(HeaderInfo headerInfo, StreamWriter sw)
+        {
+            var hasSelectors = false;
+            var hasStructs = false;
+            var hasAnyUsings = false;
+
+            foreach (var structInstance in headerInfo.StructInstances)
+            {
+                if (structInstance.SelectorInstances.Any())
+                {
+                    hasSelectors = true;
+                }
+
+                if (!structInstance.IsClass)
+                {
+                    hasStructs = true;
+                }
+            }
+
+            if (hasStructs)
+            {
+                sw.WriteLine("using System.Runtime.InteropServices;");
+                hasAnyUsings = true;
+            }
+
+            if (headerInfo.StructInstances.Count > 0)
+            {
+                sw.WriteLine("using System.Runtime.Versioning;");
+                hasAnyUsings = true;
+            }
+
+            if (hasSelectors)
+            {
+                sw.WriteLine("using SharpMetal.ObjectiveC;");
+                hasAnyUsings = true;
+            }
+
+            if (hasAnyUsings)
+            {
+                sw.WriteLine();
             }
         }
     }
