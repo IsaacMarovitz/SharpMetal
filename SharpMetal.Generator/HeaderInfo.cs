@@ -57,170 +57,167 @@ namespace SharpMetal.Generator
 
         public HeaderInfo(string filePath)
         {
-            using (StreamReader sr = new StreamReader(File.OpenRead(filePath)))
+            using var sr = new StreamReader(File.OpenRead(filePath));
+
+            while (!sr.EndOfStream)
             {
-                while (!sr.EndOfStream)
+                var line = sr.ReadLine();
+
+                if (line.StartsWith("class"))
                 {
-                    var line = sr.ReadLine();
-
-                    if (line.StartsWith("class"))
+                    if (!line.Contains(';'))
                     {
-                        if (!line.Contains(";"))
+                        var structInfo = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+                        var structName = GetNamespace(filePath) + structInfo[1];
+
+                        StructInstances.Add(new StructInstance(structName, true));
+
+                        bool structEnded = false;
+
+                        while (!structEnded)
                         {
-                            var structInfo = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-                            var structName = GetNamespace(filePath) + structInfo[1];
-
-                            StructInstances.Add(new StructInstance(structName, true));
-
-                            bool structEnded = false;
-
-                            while (!structEnded)
+                            if (sr.ReadLine().Contains('}'))
                             {
-                                if (sr.ReadLine().Contains("}"))
-                                {
-                                    structEnded = true;
-                                }
+                                structEnded = true;
                             }
                         }
                     }
+                }
 
-                    if (line.StartsWith("struct"))
+                if (line.StartsWith("struct"))
+                {
+                    if (!line.Contains(";"))
                     {
-                        if (!line.Contains(";"))
-                        {
-                            var structInfo = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-                            var structName = GetNamespace(filePath) + structInfo[1];
+                        var structInfo = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+                        var structName = GetNamespace(filePath) + structInfo[1];
 
-                            var instance = new StructInstance(structName, false);
+                        var instance = new StructInstance(structName, false);
 
-                            bool structEnded = false;
-                            sr.ReadLine();
-
-                            while (!structEnded)
-                            {
-                                var propertyLine = sr.ReadLine();
-                                if (propertyLine.Contains("}"))
-                                {
-                                    structEnded = true;
-                                }
-                                else
-                                {
-                                    if (!propertyLine.Contains("(") || !propertyLine.Contains(")"))
-                                    {
-                                        var propertyInfo = propertyLine.Replace(";", "").Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-
-                                        if (propertyInfo.Length == 2)
-                                        {
-                                            var typeString = propertyInfo[0].Replace("::", "");
-                                            var type = ConvertType(typeString);
-                                            var propertyName = propertyInfo[1];
-
-                                            string pattern = @"\[.*?\]";
-                                            propertyName = Regex.Replace(propertyName, pattern, "");
-
-                                            instance.ProperyInstances.Add(new PropertyInstance(type, propertyName));
-                                        }
-                                    }
-                                }
-                            }
-                            StructInstances.Add(instance);
-                        }
-                    }
-
-                    if (line.StartsWith("_MTL_ENUM") || line.StartsWith("_MTL_OPTIONS"))
-                    {
-                        line = line.Replace("_MTL_ENUM(", "");
-                        line = line.Replace("_MTL_OPTIONS(", "");
-                        line = line.Replace(") {", "");
-                        var info = line.Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-                        var type = info[0].Replace("::", "");
-                        var ogName = info[1];
-
-                        var name = GetNamespace(filePath) + ogName;
-
-                        var values = new Dictionary<string, string>();
-                        var finishedEnumerating = false;
-
-                        while (!finishedEnumerating)
-                        {
-                            var nextLine = sr.ReadLine();
-                            if (nextLine == "};")
-                            {
-                                finishedEnumerating = true;
-                                continue;
-                            }
-
-                            nextLine = nextLine.Trim().Replace(",", "");
-                            var valueInfo = nextLine.Split("=", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-
-                            // Remove original name from each enum's name IOCompressionMethodZlib -> Zlib
-                            var cleanedValueName = valueInfo[0].Replace(ogName, "");
-                            var cleanedValueValue = valueInfo[1];
-
-                            // Sometimes the first character of en enum value's name will be a number after we
-                            // remove the full name. In that case, add back the last part of the enum's name
-                            if (Char.IsDigit(cleanedValueName[0]))
-                            {
-                                Regex regex = new Regex(
-                                    @"(?<=[A-Z])(?=[A-Z][a-z])|(?<=[^A-Z])(?=[A-Z])|(?<=[A-Za-z])(?=[^A-Za-z])"
-                                );
-                                cleanedValueName = regex.Replace(name, " ").Split(" ").Last() + cleanedValueName;
-                            }
-
-                            cleanedValueName = cleanedValueName.Replace("_", "");
-
-                            // Happens in one place in MTLDevice
-                            if (cleanedValueValue == "NS::UIntegerMax")
-                            {
-                                cleanedValueValue = "UInt64.MaxValue";
-                            }
-
-                            values.Add(cleanedValueName, cleanedValueValue);
-                        }
-
-                        var convertedType = ConvertType(type);
-                        EnumInstances.Add(new EnumInstance(convertedType, name, values));
-                    }
-
-                    // These contain all the selectors we need
-                    if (line.StartsWith("_MTL_INLINE"))
-                    {
-                        string pattern = @"\s(?![^()]*\))";
-                        string[] result = Regex.Split(line, pattern);
-                        var parentStructName = "";
-
-                        if (result.Count() == 2)
-                        {
-                            parentStructName = GetNamespace(filePath) + result[1].Split("::")[1];
-                        }
-                        else
-                        {
-                            parentStructName = GetNamespace(filePath) + result[2].Split("::")[1];
-                        }
-
-                        sr.ReadLine();
-                        var selector = sr.ReadLine();
+                        bool structEnded = false;
                         sr.ReadLine();
 
-                        string lookingFor = "_MTL_PRIVATE_SEL(";
-                        int index = selector.IndexOf(lookingFor);
-
-                        if (index != -1)
+                        while (!structEnded)
                         {
-                            // Only get stuff in the brackets of the _MTL_PRIVATE_SEL
-                            selector = selector.Substring(index + lookingFor.Length);
-                            selector = selector.Substring(0, selector.IndexOf(")"));
-                            selector = selector.Replace("_", ":");
-                            var parentIndex = StructInstances.FindIndex(x => x.Name == parentStructName);
-
-                            if (parentIndex != -1)
+                            var propertyLine = sr.ReadLine();
+                            if (propertyLine.Contains('}'))
                             {
-                                StructInstances[parentIndex].AddSelector(new SelectorInstance(selector));
+                                structEnded = true;
                             }
                             else
                             {
-                                Console.WriteLine($"Orphaned Selector! Looking for {parentStructName}");
+                                if (propertyLine.Contains('(') && propertyLine.Contains(')')) continue;
+
+                                var propertyInfo = propertyLine.Replace(";", "").Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+
+                                if (propertyInfo.Length != 2) continue;
+
+                                var typeString = propertyInfo[0].Replace("::", "");
+                                var type = ConvertType(typeString);
+                                var propertyName = propertyInfo[1];
+
+                                string pattern = @"\[.*?\]";
+                                propertyName = Regex.Replace(propertyName, pattern, "");
+
+                                instance.ProperyInstances.Add(new PropertyInstance(type, propertyName));
                             }
+                        }
+                        StructInstances.Add(instance);
+                    }
+                }
+
+                if (line.StartsWith("_MTL_ENUM") || line.StartsWith("_MTL_OPTIONS"))
+                {
+                    line = line.Replace("_MTL_ENUM(", "");
+                    line = line.Replace("_MTL_OPTIONS(", "");
+                    line = line.Replace(") {", "");
+                    var info = line.Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+                    var type = info[0].Replace("::", "");
+                    var ogName = info[1];
+
+                    var name = GetNamespace(filePath) + ogName;
+
+                    var values = new Dictionary<string, string>();
+                    var finishedEnumerating = false;
+
+                    while (!finishedEnumerating)
+                    {
+                        var nextLine = sr.ReadLine();
+                        if (nextLine == "};")
+                        {
+                            finishedEnumerating = true;
+                            continue;
+                        }
+
+                        nextLine = nextLine.Trim().Replace(",", "");
+                        var valueInfo = nextLine.Split("=", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+
+                        // Remove original name from each enum's name IOCompressionMethodZlib -> Zlib
+                        var cleanedValueName = valueInfo[0].Replace(ogName, "");
+                        var cleanedValueValue = valueInfo[1];
+
+                        // Sometimes the first character of en enum value's name will be a number after we
+                        // remove the full name. In that case, add back the last part of the enum's name
+                        if (Char.IsDigit(cleanedValueName[0]))
+                        {
+                            Regex regex = new Regex(
+                                @"(?<=[A-Z])(?=[A-Z][a-z])|(?<=[^A-Z])(?=[A-Z])|(?<=[A-Za-z])(?=[^A-Za-z])"
+                            );
+                            cleanedValueName = regex.Replace(name, " ").Split(" ").Last() + cleanedValueName;
+                        }
+
+                        cleanedValueName = cleanedValueName.Replace("_", "");
+
+                        // Happens in one place in MTLDevice
+                        if (cleanedValueValue == "NS::UIntegerMax")
+                        {
+                            cleanedValueValue = "UInt64.MaxValue";
+                        }
+
+                        values.Add(cleanedValueName, cleanedValueValue);
+                    }
+
+                    var convertedType = ConvertType(type);
+                    EnumInstances.Add(new EnumInstance(convertedType, name, values));
+                }
+
+                // These contain all the selectors we need
+                if (line.StartsWith("_MTL_INLINE"))
+                {
+                    string pattern = @"\s(?![^()]*\))";
+                    string[] result = Regex.Split(line, pattern);
+                    var parentStructName = "";
+
+                    if (result.Count() == 2)
+                    {
+                        parentStructName = GetNamespace(filePath) + result[1].Split("::")[1];
+                    }
+                    else
+                    {
+                        parentStructName = GetNamespace(filePath) + result[2].Split("::")[1];
+                    }
+
+                    sr.ReadLine();
+                    var selector = sr.ReadLine();
+                    sr.ReadLine();
+
+                    string lookingFor = "_MTL_PRIVATE_SEL(";
+                    int index = selector.IndexOf(lookingFor);
+
+                    if (index != -1)
+                    {
+                        // Only get stuff in the brackets of the _MTL_PRIVATE_SEL
+                        selector = selector.Substring(index + lookingFor.Length);
+                        selector = selector.Substring(0, selector.IndexOf(")"));
+                        selector = selector.Replace("_", ":");
+                        var parentIndex = StructInstances.FindIndex(x => x.Name == parentStructName);
+
+                        if (parentIndex != -1)
+                        {
+                            StructInstances[parentIndex].AddSelector(new SelectorInstance(selector));
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Orphaned Selector! Looking for {parentStructName}");
                         }
                     }
                 }
