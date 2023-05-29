@@ -164,6 +164,9 @@ namespace SharpMetal.Generator
                             case "uint":
                                 runtimeFuncReturn = "uint";
                                 break;
+                            case "int":
+                                runtimeFuncReturn = "int";
+                                break;
                             case "float":
                                 runtimeFuncReturn = "float";
                                 break;
