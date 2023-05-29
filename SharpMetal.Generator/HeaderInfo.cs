@@ -34,7 +34,7 @@ namespace SharpMetal.Generator
                     return "bool";
                 case "char":
                     return "char";
-                case "Object**" or "id" or "dispatch_queue_t":
+                case "Object**" or "id" or "dispatch_queue_t" or "CFTimeInterval" or "NSErrorDomain" or "NSTimeInterval" or "IOSurfaceRef":
                     return "IntPtr";
                 default:
                     if (!type.StartsWith("NS") && !type.StartsWith("MTL") && !type.StartsWith("CA") && !type.StartsWith("CF") && !type.StartsWith("CG") && !type.StartsWith("IO"))
