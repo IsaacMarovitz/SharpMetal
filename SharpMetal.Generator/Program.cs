@@ -18,6 +18,10 @@ namespace SharpMetal.Generator
             }
 
             Directory.CreateDirectory("Output");
+            // TODO: Don't hardcode these
+            Directory.CreateDirectory("Output/Metal");
+            Directory.CreateDirectory("Output/Foundation");
+            Directory.CreateDirectory("Output/QuartzCore");
 
             for (int i = 0; i < files.Length; i++)
             {
@@ -30,8 +34,10 @@ namespace SharpMetal.Generator
 
         public static void Generate(string filePath)
         {
-            string fileName = new DirectoryInfo(filePath).Name.Replace(".hpp", "");
             var HeaderInfo = new HeaderInfo(filePath);
+
+            filePath = filePath.Substring(filePath.IndexOf("Headers/") + "Headers/".Length);
+            string fileName = filePath.Replace(".hpp", "");
             var depth = 0;
 
             using (StreamWriter sw = File.CreateText($"Output/{fileName}.cs"))
