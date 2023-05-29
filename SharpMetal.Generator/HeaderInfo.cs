@@ -15,14 +15,14 @@ namespace SharpMetal.Generator
                 {
                     var line = sr.ReadLine();
 
-                    if (line.StartsWith("class") || line.StartsWith("struct"))
+                    if (line.StartsWith("class"))
                     {
                         if (!line.Contains(";"))
                         {
                             var structInfo = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
                             var structName = "MTL" + structInfo[1];
 
-                            StructInstances.Add(new StructInstance(structName));
+                            StructInstances.Add(new StructInstance(structName, true));
 
                             bool structEnded = false;
 
@@ -36,9 +36,91 @@ namespace SharpMetal.Generator
                         }
                     }
 
-                    if (line.StartsWith("_MTL_ENUM"))
+                    if (line.StartsWith("struct"))
+                    {
+                        if (!line.Contains(";"))
+                        {
+                            var structInfo = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+                            var structName = "MTL" + structInfo[1];
+
+                            var instance = new StructInstance(structName, false);
+
+                            bool structEnded = false;
+                            sr.ReadLine();
+
+                            while (!structEnded)
+                            {
+                                var propertyLine = sr.ReadLine();
+                                if (propertyLine.Contains("}"))
+                                {
+                                    structEnded = true;
+                                }
+                                else
+                                {
+                                    if (!propertyLine.Contains("(") || !propertyLine.Contains(")"))
+                                    {
+                                        var propertyInfo = propertyLine.Replace(";", "").Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+
+                                        if (propertyInfo.Length == 2)
+                                        {
+                                            var typeString = propertyInfo[0].Replace("::", "");
+                                            var type = "";
+                                            var propertyName = propertyInfo[1];
+
+                                            switch (typeString)
+                                            {
+                                                case "uint64_t" or "NSUInteger" or "UInteger":
+                                                    type = "ulong";
+                                                    break;
+                                                case "Integer":
+                                                    type = "long";
+                                                    break;
+                                                case "uint32_t":
+                                                    type = "uint";
+                                                    break;
+                                                case "int32_t":
+                                                    type = "int";
+                                                    break;
+                                                case "uint16_t":
+                                                    type = "byte";
+                                                    break;
+                                                case "float":
+                                                    type = "float";
+                                                    break;
+                                                case "double":
+                                                    type = "double";
+                                                    break;
+                                                case "Object**":
+                                                    type = "IntPtr";
+                                                    break;
+                                                default:
+                                                    if (!typeString.StartsWith("MTL"))
+                                                    {
+                                                        type = "MTL" + typeString;
+                                                    }
+                                                    else
+                                                    {
+                                                        type = typeString;
+                                                    }
+                                                    break;
+                                            }
+
+                                            string pattern = @"\[.*?\]";
+                                            propertyName = Regex.Replace(propertyName, pattern, "");
+
+                                            instance.ProperyInstances.Add(new PropertyInstance(type, propertyName));
+                                        }
+                                    }
+                                }
+                            }
+                            StructInstances.Add(instance);
+                        }
+                    }
+
+                    if (line.StartsWith("_MTL_ENUM") || line.StartsWith("_MTL_OPTIONS"))
                     {
                         line = line.Replace("_MTL_ENUM(", "");
+                        line = line.Replace("_MTL_OPTIONS(", "");
                         line = line.Replace(") {", "");
                         var info = line.Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
                         var type = info[0];
@@ -89,13 +171,13 @@ namespace SharpMetal.Generator
                         switch (type)
                         {
                             case "NS::UInteger":
-                                EnumInstances.Add(new EnumInstance(typeof(ulong), name, values));
+                                EnumInstances.Add(new EnumInstance("ulong", name, values));
                                 break;
                             case "NS::Integer":
-                                EnumInstances.Add(new EnumInstance(typeof(long), name, values));
+                                EnumInstances.Add(new EnumInstance("long", name, values));
                                 break;
                             case "uint8_t":
-                                EnumInstances.Add(new EnumInstance(typeof(byte), name, values));
+                                EnumInstances.Add(new EnumInstance("byte", name, values));
                                 break;
                         }
                     }
@@ -149,12 +231,16 @@ namespace SharpMetal.Generator
     public class StructInstance
     {
         public string Name;
+        public bool IsClass;
+        public List<PropertyInstance> ProperyInstances;
         public List<SelectorInstance> SelectorInstances;
 
-        public StructInstance(string name)
+        public StructInstance(string name, bool isClass)
         {
             Name = name;
+            IsClass = isClass;
             SelectorInstances = new();
+            ProperyInstances = new();
         }
 
         public void AddSelector(SelectorInstance selectorInstance)
@@ -165,15 +251,27 @@ namespace SharpMetal.Generator
 
     public class EnumInstance
     {
-        public Type Type;
+        public string Type;
         public string Name;
         public Dictionary<string, string> Values;
 
-        public EnumInstance(Type type, string name, Dictionary<string, string> values)
+        public EnumInstance(string type, string name, Dictionary<string, string> values)
         {
             Type = type;
             Name = name;
             Values = values;
+        }
+    }
+
+    public class PropertyInstance
+    {
+        public string Type;
+        public string Name;
+
+        public PropertyInstance(string type, string name)
+        {
+            Type = type;
+            Name = name;
         }
     }
 

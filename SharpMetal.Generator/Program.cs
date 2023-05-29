@@ -70,7 +70,7 @@ namespace SharpMetal.Generator
 
                 // Start with enums since they're nice and easy
                 foreach (var instance in HeaderInfo.EnumInstances) {
-                    sw.WriteLine(GetIndent() + $"public enum {instance.Name}: {instance.Type.Name}");
+                    sw.WriteLine(GetIndent() + $"public enum {instance.Name}: {instance.Type}");
                     sw.WriteLine(GetIndent() + "{");
 
                     depth += 1;
@@ -89,7 +89,12 @@ namespace SharpMetal.Generator
                 {
                     var instance = HeaderInfo.StructInstances[i];
                     sw.WriteLine(GetIndent() + "[SupportedOSPlatform(\"macos\")]");
-                    sw.WriteLine(GetIndent() + "[StructLayout(LayoutKind.Sequential)]");
+
+                    if (!instance.IsClass)
+                    {
+                        sw.WriteLine(GetIndent() + "[StructLayout(LayoutKind.Sequential)]");
+                    }
+
                     sw.WriteLine(GetIndent() + $"public struct {instance.Name}");
                     sw.WriteLine(GetIndent() + "{");
 
@@ -100,18 +105,25 @@ namespace SharpMetal.Generator
                                  $"public static implicit operator IntPtr({instance.Name} obj) => obj.NativePtr;");
                     sw.WriteLine(GetIndent() + $"public {instance.Name}(IntPtr ptr) => NativePtr = ptr;");
 
+                    if (instance.ProperyInstances.Any())
+                    {
+                        sw.WriteLine();
+                    }
+
+                    foreach (var property in instance.ProperyInstances)
+                    {
+                        sw.WriteLine(GetIndent() + $"public {property.Type} {property.Name};");
+                    }
+
+
                     if (instance.SelectorInstances.Any())
                     {
                         sw.WriteLine();
                     }
 
-                    // TODO: Properties and functions
-
-
                     foreach (var selector in instance.SelectorInstances)
                     {
-                        sw.WriteLine(GetIndent() +
-                                     $"private static readonly Selector {selector.Name} = \"{selector.Selector}\";");
+                        sw.WriteLine(GetIndent() + $"private static readonly Selector {selector.Name} = \"{selector.Selector}\";");
                     }
 
                     depth -= 1;
