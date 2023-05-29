@@ -70,6 +70,9 @@ namespace SharpMetal.ObjectiveC
         public static partial long long_objc_msgSend(IntPtr receiver, Selector selector);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial uint uint_objc_msgSend(IntPtr receiver, Selector selector);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial float float_objc_msgSend(IntPtr receiver, Selector selector);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]

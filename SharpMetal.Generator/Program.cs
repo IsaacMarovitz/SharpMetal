@@ -93,8 +93,7 @@ namespace SharpMetal.Generator
                 depth += 1;
 
                 sw.WriteLine(GetIndent() + "public readonly IntPtr NativePtr;");
-                sw.WriteLine(GetIndent() +
-                             $"public static implicit operator IntPtr({instance.Name} obj) => obj.NativePtr;");
+                sw.WriteLine(GetIndent() + $"public static implicit operator IntPtr({instance.Name} obj) => obj.NativePtr;");
                 sw.WriteLine(GetIndent() + $"public {instance.Name}(IntPtr ptr) => NativePtr = ptr;");
 
                 if (instance.ProperyInstances.Any())
@@ -104,7 +103,48 @@ namespace SharpMetal.Generator
 
                 foreach (var property in instance.ProperyInstances)
                 {
-                    sw.WriteLine(GetIndent() + $"public {property.Type} {property.Name};");
+                    var selector = instance.SelectorInstances.Find(x => x.Selector.ToLower().Contains(property.Name.ToLower()));
+
+                    if (selector != null)
+                    {
+                        var runtimeFuncReturn = "IntPtr";
+
+                        switch (property.Type)
+                        {
+                            case "bool":
+                                runtimeFuncReturn = "bool";
+                                break;
+                            case "ulong":
+                                runtimeFuncReturn = "ulong";
+                                break;
+                            case "uint":
+                                runtimeFuncReturn = "uint";
+                                break;
+                        }
+
+                        if (runtimeFuncReturn == "IntPtr")
+                        {
+                            // Need to adjust this to support enums from other headers
+                            var enumInstance = headerInfo.EnumInstances.Find(x => x.Name == property.Type);
+
+                            if (enumInstance != null)
+                            {
+                                sw.WriteLine(GetIndent() + $"public {property.Type} {property.Name} => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend(NativePtr, {selector.Name});");
+                            }
+                            else
+                            {
+                                sw.WriteLine(GetIndent() + $"public {property.Type} {property.Name} => new(ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name}));");
+                            }
+                        }
+                        else
+                        {
+                            sw.WriteLine(GetIndent() + $"public {property.Type} {property.Name} => ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name});");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Failed to find selector for {property.Name}!");
+                    }
                 }
 
 

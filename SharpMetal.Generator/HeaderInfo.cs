@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace SharpMetal.Generator
@@ -13,11 +14,13 @@ namespace SharpMetal.Generator
             {
                 case "uint64_t" or "stduint64_t" or "NSUInteger" or "UInteger":
                     return "ulong";
-                case "NSInteger" or "Integer":
+                case "NSInteger" or "Integer" or "long":
                     return "long";
+                case "short":
+                    return "short";
                 case "uint32_t":
                     return "uint";
-                case "int32_t":
+                case "int32_t" or "int":
                     return "int";
                 case "uint16_t":
                     return "ushort";
@@ -27,10 +30,14 @@ namespace SharpMetal.Generator
                     return "float";
                 case "double":
                     return "double";
-                case "Object**":
+                case "bool":
+                    return "bool";
+                case "char":
+                    return "char";
+                case "Object**" or "id" or "dispatch_queue_t":
                     return "IntPtr";
                 default:
-                    if (!type.StartsWith(namespacePrefix))
+                    if (!type.StartsWith("NS") && !type.StartsWith("MTL") && !type.StartsWith("CA") && !type.StartsWith("CF") && !type.StartsWith("CG") && !type.StartsWith("IO"))
                     {
                         return namespacePrefix + type;
                     }
@@ -71,17 +78,52 @@ namespace SharpMetal.Generator
                         var structInfo = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
                         var structName = namespacePrefix + structInfo[1];
 
-                        StructInstances.Add(new StructInstance(structName, true));
+                        var instance = new StructInstance(structName, true);
 
                         bool structEnded = false;
 
                         while (!structEnded)
                         {
-                            if (sr.ReadLine().Contains('}'))
+                            var nextLine = sr.ReadLine();
+                            if (nextLine.Contains('}') || nextLine.Contains("private:") || nextLine.Contains("protected:"))
                             {
                                 structEnded = true;
+                                continue;
+                            }
+
+                            // Ignore empty lines, comments etc...
+                            if (nextLine == String.Empty || nextLine == "{" || nextLine == "public:" || nextLine.Contains("* ") || nextLine.Contains("/**") || nextLine.Contains("*/"))
+                            {
+                                continue;
+                            }
+
+                            if (nextLine.Contains("template") || nextLine.Contains("typename") || nextLine.Contains("operator"))
+                            {
+                                continue;
+                            }
+
+                            nextLine = nextLine.Replace(";", "");
+                            nextLine = nextLine.Replace("~", "Destroy");
+                            nextLine = nextLine.Replace("::", "");
+
+                            var parts = ClassRegex().Split(nextLine).ToList();
+
+                            parts.RemoveAll(x => x == string.Empty);
+
+                            // Means there is a const value on the end
+                            // and this is definitionally a property
+                            if (parts.Contains("const"))
+                            {
+                                var type = ConvertType(parts[0], namespacePrefix);
+                                var name = parts[1].Replace("()", "");
+                                var info = CultureInfo.CurrentCulture.TextInfo;
+                                name = Regex.Replace(name, @"\b\p{Ll}", match => match.Value.ToUpper());
+
+                                instance.ProperyInstances.Add(new PropertyInstance(type, name));
                             }
                         }
+
+                        StructInstances.Add(instance);
                     }
                 }
 
@@ -103,24 +145,23 @@ namespace SharpMetal.Generator
                             if (propertyLine.Contains('}'))
                             {
                                 structEnded = true;
+                                continue;
                             }
-                            else
-                            {
-                                if (propertyLine.Contains('(') && propertyLine.Contains(')')) continue;
 
-                                var propertyInfo = propertyLine.Replace(";", "").Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+                            if (propertyLine.Contains('(') && propertyLine.Contains(')')) continue;
 
-                                if (propertyInfo.Length != 2) continue;
+                            var propertyInfo = propertyLine.Replace(";", "").Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
 
-                                var typeString = propertyInfo[0].Replace("::", "");
-                                var type = ConvertType(typeString, namespacePrefix);
-                                var propertyName = propertyInfo[1];
+                            if (propertyInfo.Length != 2) continue;
 
-                                string pattern = @"\[.*?\]";
-                                propertyName = Regex.Replace(propertyName, pattern, "");
+                            var typeString = propertyInfo[0].Replace("::", "");
+                            var type = ConvertType(typeString, namespacePrefix);
+                            var propertyName = propertyInfo[1];
 
-                                instance.ProperyInstances.Add(new PropertyInstance(type, propertyName));
-                            }
+                            string pattern = @"\[.*?\]";
+                            propertyName = Regex.Replace(propertyName, pattern, "");
+
+                            instance.ProperyInstances.Add(new PropertyInstance(type, propertyName));
                         }
                         StructInstances.Add(instance);
                     }
@@ -176,7 +217,7 @@ namespace SharpMetal.Generator
                         // remove the full name. In that case, add back the last part of the enum's name
                         if (char.IsDigit(cleanedValueName[0]))
                         {
-                            cleanedValueName = MyRegex().Replace(name, " ").Split(" ").Last() + cleanedValueName;
+                            cleanedValueName = NameRegex().Replace(name, " ").Split(" ").Last() + cleanedValueName;
                         }
 
                         cleanedValueName = cleanedValueName.Replace("_", "");
@@ -244,7 +285,10 @@ namespace SharpMetal.Generator
         }
 
         [GeneratedRegex("(?<=[A-Z])(?=[A-Z][a-z])|(?<=[^A-Z])(?=[A-Z])|(?<=[A-Za-z])(?=[^A-Za-z])")]
-        private static partial Regex MyRegex();
+        private static partial Regex NameRegex();
+
+        [GeneratedRegex("(?<!\\(.*)\\s+(?![^(]*\\))|\\s+(?![^(]*?\\))")]
+        private static partial Regex ClassRegex();
     }
 
     public class StructInstance
@@ -267,6 +311,14 @@ namespace SharpMetal.Generator
             if (!SelectorInstances.Exists(x => x.Selector == selectorInstance.Selector))
             {
                 SelectorInstances.Add(selectorInstance);
+            }
+        }
+
+        public void AddProperty(PropertyInstance propertyInstance)
+        {
+            if (!ProperyInstances.Exists(x => x.Name == propertyInstance.Name))
+            {
+                ProperyInstances.Add(propertyInstance);
             }
         }
     }
