@@ -34,7 +34,12 @@ namespace SharpMetal.Generator
 
         public static void Generate(string filePath)
         {
-            var HeaderInfo = new HeaderInfo(filePath);
+            var headerInfo = new HeaderInfo(filePath);
+
+            if (headerInfo.StructInstances.Count == 0 && headerInfo.EnumInstances.Count == 0)
+            {
+                return;
+            }
 
             filePath = filePath.Substring(filePath.IndexOf("Headers/") + "Headers/".Length);
             string fileName = filePath.Replace(".hpp", "");
@@ -44,7 +49,7 @@ namespace SharpMetal.Generator
 
             var hasSelectors = false;
 
-            foreach (var structInstance in HeaderInfo.StructInstances)
+            foreach (var structInstance in headerInfo.StructInstances)
             {
                 if (structInstance.SelectorInstances.Any())
                 {
@@ -52,7 +57,7 @@ namespace SharpMetal.Generator
                 }
             }
 
-            if (HeaderInfo.StructInstances.Count > 0)
+            if (headerInfo.StructInstances.Count > 0)
             {
                 sw.WriteLine("using System.Runtime.InteropServices;");
                 sw.WriteLine("using System.Runtime.Versioning;");
@@ -69,7 +74,7 @@ namespace SharpMetal.Generator
             depth += 1;
 
             // Start with enums since they're nice and easy
-            foreach (var instance in HeaderInfo.EnumInstances) {
+            foreach (var instance in headerInfo.EnumInstances) {
                 sw.WriteLine(GetIndent() + $"public enum {instance.Name}: {instance.Type}");
                 sw.WriteLine(GetIndent() + "{");
 
@@ -85,9 +90,9 @@ namespace SharpMetal.Generator
                 sw.WriteLine();
             }
 
-            for (var i = 0; i < HeaderInfo.StructInstances.Count; i++)
+            for (var i = 0; i < headerInfo.StructInstances.Count; i++)
             {
-                var instance = HeaderInfo.StructInstances[i];
+                var instance = headerInfo.StructInstances[i];
                 sw.WriteLine(GetIndent() + "[SupportedOSPlatform(\"macos\")]");
 
                 if (!instance.IsClass)
@@ -130,7 +135,7 @@ namespace SharpMetal.Generator
 
                 sw.WriteLine(GetIndent() + "}");
 
-                if (i != HeaderInfo.StructInstances.Count - 1)
+                if (i != headerInfo.StructInstances.Count - 1)
                 {
                     sw.WriteLine();
                 }
