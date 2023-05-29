@@ -61,7 +61,14 @@ namespace SharpMetal.Generator
                 depth += 1;
                 foreach (var value in instance.Values)
                 {
-                    sw.WriteLine(GetIndent() + $"{value.Key} = {value.Value},");
+                    if (value.Value != string.Empty)
+                    {
+                        sw.WriteLine(GetIndent() + $"{value.Key} = {value.Value},");
+                    }
+                    else
+                    {
+                        sw.WriteLine(GetIndent() + $"{value.Key},");
+                    }
                 }
 
                 depth -= 1;

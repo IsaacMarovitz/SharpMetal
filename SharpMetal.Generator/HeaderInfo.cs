@@ -2,16 +2,16 @@ using System.Text.RegularExpressions;
 
 namespace SharpMetal.Generator
 {
-    public class HeaderInfo
+    public partial class HeaderInfo
     {
         public List<EnumInstance> EnumInstances = new();
         public List<StructInstance> StructInstances = new();
 
-        public static string ConvertType(string type)
+        public static string ConvertType(string type, string namespacePrefix)
         {
             switch (type)
             {
-                case "uint64_t" or "NSUInteger" or "UInteger":
+                case "uint64_t" or "stduint64_t" or "NSUInteger" or "UInteger":
                     return "ulong";
                 case "NSInteger" or "Integer":
                     return "long";
@@ -30,9 +30,9 @@ namespace SharpMetal.Generator
                 case "Object**":
                     return "IntPtr";
                 default:
-                    if (!type.StartsWith("MTL"))
+                    if (!type.StartsWith(namespacePrefix))
                     {
-                        return "MTL" + type;
+                        return namespacePrefix + type;
                     }
 
                     return type;
@@ -58,6 +58,7 @@ namespace SharpMetal.Generator
         public HeaderInfo(string filePath)
         {
             using var sr = new StreamReader(File.OpenRead(filePath));
+            var namespacePrefix = GetNamespace(filePath);
 
             while (!sr.EndOfStream)
             {
@@ -68,7 +69,7 @@ namespace SharpMetal.Generator
                     if (!line.Contains(';'))
                     {
                         var structInfo = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-                        var structName = GetNamespace(filePath) + structInfo[1];
+                        var structName = namespacePrefix + structInfo[1];
 
                         StructInstances.Add(new StructInstance(structName, true));
 
@@ -89,7 +90,7 @@ namespace SharpMetal.Generator
                     if (!line.Contains(";"))
                     {
                         var structInfo = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-                        var structName = GetNamespace(filePath) + structInfo[1];
+                        var structName = namespacePrefix + structInfo[1];
 
                         var instance = new StructInstance(structName, false);
 
@@ -112,7 +113,7 @@ namespace SharpMetal.Generator
                                 if (propertyInfo.Length != 2) continue;
 
                                 var typeString = propertyInfo[0].Replace("::", "");
-                                var type = ConvertType(typeString);
+                                var type = ConvertType(typeString, namespacePrefix);
                                 var propertyName = propertyInfo[1];
 
                                 string pattern = @"\[.*?\]";
@@ -125,10 +126,10 @@ namespace SharpMetal.Generator
                     }
                 }
 
-                if (line.StartsWith("_MTL_ENUM") || line.StartsWith("_MTL_OPTIONS"))
+                if (line.StartsWith($"_{namespacePrefix}_ENUM") || line.StartsWith($"_{namespacePrefix}_OPTIONS"))
                 {
-                    line = line.Replace("_MTL_ENUM(", "");
-                    line = line.Replace("_MTL_OPTIONS(", "");
+                    line = line.Replace($"_{namespacePrefix}_ENUM(", "");
+                    line = line.Replace($"_{namespacePrefix}_OPTIONS(", "");
                     line = line.Replace(") {", "");
                     var info = line.Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
                     var type = info[0].Replace("::", "");
@@ -148,21 +149,34 @@ namespace SharpMetal.Generator
                             continue;
                         }
 
+                        if (nextLine == String.Empty)
+                        {
+                            continue;
+                        }
+
                         nextLine = nextLine.Trim().Replace(",", "");
-                        var valueInfo = nextLine.Split("=", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+                        var cleanedValueName = string.Empty;
+                        var cleanedValueValue = string.Empty;
+
+                        if (nextLine.Contains("="))
+                        {
+                            var valueInfo = nextLine.Split("=", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+                            cleanedValueName = valueInfo[0];
+                            cleanedValueValue = valueInfo[1];
+                        }
+                        else
+                        {
+                            cleanedValueName = nextLine;
+                        }
 
                         // Remove original name from each enum's name IOCompressionMethodZlib -> Zlib
-                        var cleanedValueName = valueInfo[0].Replace(ogName, "");
-                        var cleanedValueValue = valueInfo[1];
+                        cleanedValueName = cleanedValueName.Replace(ogName, "");
 
                         // Sometimes the first character of en enum value's name will be a number after we
                         // remove the full name. In that case, add back the last part of the enum's name
-                        if (Char.IsDigit(cleanedValueName[0]))
+                        if (char.IsDigit(cleanedValueName[0]))
                         {
-                            Regex regex = new Regex(
-                                @"(?<=[A-Z])(?=[A-Z][a-z])|(?<=[^A-Z])(?=[A-Z])|(?<=[A-Za-z])(?=[^A-Za-z])"
-                            );
-                            cleanedValueName = regex.Replace(name, " ").Split(" ").Last() + cleanedValueName;
+                            cleanedValueName = MyRegex().Replace(name, " ").Split(" ").Last() + cleanedValueName;
                         }
 
                         cleanedValueName = cleanedValueName.Replace("_", "");
@@ -173,34 +187,39 @@ namespace SharpMetal.Generator
                             cleanedValueValue = "UInt64.MaxValue";
                         }
 
+                        // Happens in NSProcessInfo
+                        cleanedValueValue = cleanedValueValue.Replace("ULL", "UL");
+
+                        // Happens in NSString
+                        cleanedValueValue = cleanedValueValue.Replace(ogName, "");
+
                         values.Add(cleanedValueName, cleanedValueValue);
                     }
 
-                    var convertedType = ConvertType(type);
+                    var convertedType = ConvertType(type, namespacePrefix);
                     EnumInstances.Add(new EnumInstance(convertedType, name, values));
                 }
 
                 // These contain all the selectors we need
-                if (line.StartsWith("_MTL_INLINE"))
+                if (line.StartsWith($"_{namespacePrefix}_INLINE"))
                 {
-                    string pattern = @"\s(?![^()]*\))";
-                    string[] result = Regex.Split(line, pattern);
-                    var parentStructName = "";
+                    var inlineInfo = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+                    var parentStructName = string.Empty;
 
-                    if (result.Count() == 2)
+                    foreach (var section in inlineInfo)
                     {
-                        parentStructName = GetNamespace(filePath) + result[1].Split("::")[1];
-                    }
-                    else
-                    {
-                        parentStructName = GetNamespace(filePath) + result[2].Split("::")[1];
+                        if (section.Contains("::") && section.Contains("("))
+                        {
+                            var parentStructInfo = section.Split("::");
+                            parentStructName = namespacePrefix + parentStructInfo[1];
+                        }
                     }
 
                     sr.ReadLine();
                     var selector = sr.ReadLine();
                     sr.ReadLine();
 
-                    string lookingFor = "_MTL_PRIVATE_SEL(";
+                    string lookingFor = $"_{namespacePrefix}_PRIVATE_SEL(";
                     int index = selector.IndexOf(lookingFor);
 
                     if (index != -1)
@@ -223,6 +242,9 @@ namespace SharpMetal.Generator
                 }
             }
         }
+
+        [GeneratedRegex("(?<=[A-Z])(?=[A-Z][a-z])|(?<=[^A-Z])(?=[A-Z])|(?<=[A-Za-z])(?=[^A-Za-z])")]
+        private static partial Regex MyRegex();
     }
 
     public class StructInstance
@@ -242,7 +264,10 @@ namespace SharpMetal.Generator
 
         public void AddSelector(SelectorInstance selectorInstance)
         {
-            SelectorInstances.Add(selectorInstance);
+            if (!SelectorInstances.Exists(x => x.Selector == selectorInstance.Selector))
+            {
+                SelectorInstances.Add(selectorInstance);
+            }
         }
     }
 
@@ -279,7 +304,7 @@ namespace SharpMetal.Generator
 
         public SelectorInstance(string selector)
         {
-            Name = selector.Replace(":", "");
+            Name = "sel_" + selector.Replace(":", "");
             Selector = selector;
         }
     }
