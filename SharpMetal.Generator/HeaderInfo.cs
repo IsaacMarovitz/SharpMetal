@@ -12,19 +12,21 @@ namespace SharpMetal.Generator
         {
             switch (type)
             {
-                case "uint64_t" or "stduint64_t" or "NSUInteger" or "UInteger":
+                case "uint64_t" or "stduint64_t" or "NSUInteger" or "UInteger" or "unsigned long" or "unsigned long long":
                     return "ulong";
-                case "NSInteger" or "Integer" or "long":
+                case "NSInteger" or "Integer" or "long" or "long long":
                     return "long";
                 case "short":
                     return "short";
-                case "uint32_t":
+                case "unsigned short":
+                    return "ushort";
+                case "uint32_t" or "unsigned int":
                     return "uint";
                 case "int32_t" or "int":
                     return "int";
                 case "uint16_t":
                     return "ushort";
-                case "uint8_t":
+                case "uint8_t" or "unsigned char":
                     return "byte";
                 case "float":
                     return "float";
@@ -114,12 +116,26 @@ namespace SharpMetal.Generator
                             // and this is definitionally a property
                             if (parts.Contains("const"))
                             {
-                                var type = ConvertType(parts[0], namespacePrefix);
-                                var name = parts[1].Replace("()", "");
-                                var info = CultureInfo.CurrentCulture.TextInfo;
-                                name = Regex.Replace(name, @"\b\p{Ll}", match => match.Value.ToUpper());
+                                var index = parts.FindIndex(x => x.Contains("()"));
 
-                                instance.AddProperty(new PropertyInstance(type, name));
+                                if (index != -1)
+                                {
+                                    var type = "";
+
+                                    for (int i = 0; i < index; i++)
+                                    {
+                                        type += parts[i] + " ";
+                                    }
+
+                                    type = type.TrimEnd();
+                                    type = ConvertType(type, namespacePrefix);
+
+                                    var name = parts[index].Replace("()", "");
+                                    var info = CultureInfo.CurrentCulture.TextInfo;
+                                    name = Regex.Replace(name, @"\b\p{Ll}", match => match.Value.ToUpper());
+
+                                    instance.AddProperty(new PropertyInstance(type, name));
+                                }
                             }
                         }
 

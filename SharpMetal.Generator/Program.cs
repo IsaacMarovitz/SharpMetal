@@ -176,6 +176,18 @@ namespace SharpMetal.Generator
                             case "long":
                                 runtimeFuncReturn = "long";
                                 break;
+                            case "char":
+                                runtimeFuncReturn = "char";
+                                break;
+                            case "byte":
+                                runtimeFuncReturn = "byte";
+                                break;
+                            case "short":
+                                runtimeFuncReturn = "short";
+                                break;
+                            case "ushort":
+                                runtimeFuncReturn = "ushort";
+                                break;
                         }
 
                         if (runtimeFuncReturn == "IntPtr")
