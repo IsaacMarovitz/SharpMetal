@@ -97,9 +97,6 @@ namespace SharpMetal.ObjectiveC
         public static partial byte byte_objc_msgSend(IntPtr receiver, Selector selector);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
-        public static partial char char_objc_msgSend(IntPtr receiver, Selector selector);
-
-        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial short short_objc_msgSend(IntPtr receiver, Selector selector);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]

@@ -18,7 +18,7 @@ namespace SharpMetal.Generator
                     return "long";
                 case "short":
                     return "short";
-                case "unsigned short":
+                case "unsigned short" or "char":
                     return "ushort";
                 case "uint32_t" or "unsigned int":
                     return "uint";
@@ -34,9 +34,7 @@ namespace SharpMetal.Generator
                     return "double";
                 case "bool":
                     return "bool";
-                case "char":
-                    return "char";
-                case "Object**" or "id" or "CGSize" or "dispatch_queue_t" or "CFTimeInterval" or "NSErrorDomain" or "NSTimeInterval" or "IOSurfaceRef":
+                case "Object**" or "id" or "CGSize" or "dispatch_queue_t" or "CFTimeInterval" or "ErrorDomain" or "TimeInterval" or "IOSurfaceRef":
                     return "IntPtr";
                 default:
                     if (!type.StartsWith("NS") && !type.StartsWith("MTL") && !type.StartsWith("CA") && !type.StartsWith("CF") && !type.StartsWith("CG") && !type.StartsWith("IO"))
