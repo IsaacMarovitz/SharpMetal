@@ -34,7 +34,7 @@ namespace SharpMetal.Generator
                     return "double";
                 case "bool":
                     return "bool";
-                case "Object**" or "id" or "CGSize" or "dispatch_queue_t" or "CFTimeInterval" or "ErrorDomain" or "TimeInterval" or "IOSurfaceRef":
+                case "Object**" or "id" or "CGSize" or "dispatch_queue_t" or "CFTimeInterval" or "ErrorDomain" or "TimeInterval" or "IOSurfaceRef" or "IntPtr":
                     return "IntPtr";
                 default:
                     if (!type.StartsWith("NS") && !type.StartsWith("MTL") && !type.StartsWith("CA") && !type.StartsWith("CF") && !type.StartsWith("CG") && !type.StartsWith("IO"))
@@ -81,18 +81,37 @@ namespace SharpMetal.Generator
                         var instance = new StructInstance(structName, true);
 
                         bool structEnded = false;
+                        bool enteredComment = false;
 
                         while (!structEnded)
                         {
                             var nextLine = sr.ReadLine();
+
                             if (nextLine.Contains('}') || nextLine.Contains("private:") || nextLine.Contains("protected:"))
                             {
                                 structEnded = true;
                                 continue;
                             }
 
-                            // Ignore empty lines, comments etc...
-                            if (nextLine == String.Empty || nextLine == "{" || nextLine == "public:" || nextLine.Contains("* ") || nextLine.Contains("/**") || nextLine.Contains("*/"))
+                            if (nextLine == "/**")
+                            {
+                                enteredComment = true;
+                                continue;
+                            }
+
+                            if (nextLine == "*/")
+                            {
+                                enteredComment = false;
+                                continue;
+                            }
+
+                            if (enteredComment)
+                            {
+                                continue;
+                            }
+
+                            // Ignore empty lines etc...
+                            if (nextLine == String.Empty || nextLine == "{" || nextLine == "public:")
                             {
                                 continue;
                             }
@@ -105,35 +124,54 @@ namespace SharpMetal.Generator
                             nextLine = nextLine.Replace(";", "");
                             nextLine = nextLine.Replace("~", "Destroy");
                             nextLine = nextLine.Replace("::", "");
+                            nextLine = nextLine.Replace("void*", "IntPtr");
+                            nextLine = nextLine.Replace("*", "");
+                            nextLine = nextLine.Replace("class", "");
+                            nextLine = nextLine.Replace("const", "");
+                            nextLine = nextLine.Replace("static", "");
 
                             var parts = ClassRegex().Split(nextLine).ToList();
 
                             parts.RemoveAll(x => x == string.Empty);
 
-                            // Means there is a const value on the end
-                            // and this is definitionally a property
-                            if (parts.Contains("const"))
+                            // Method has no parameters, i.e. readonly property
+                            var index = parts.FindIndex(x => x.Contains("()"));
+
+                            if (index != -1)
                             {
-                                var index = parts.FindIndex(x => x.Contains("()"));
+                                var type = "";
 
-                                if (index != -1)
+                                for (int i = 0; i < index; i++)
                                 {
-                                    var type = "";
-
-                                    for (int i = 0; i < index; i++)
-                                    {
-                                        type += parts[i] + " ";
-                                    }
-
-                                    type = type.TrimEnd();
-                                    type = ConvertType(type, namespacePrefix);
-
-                                    var name = parts[index].Replace("()", "");
-                                    var info = CultureInfo.CurrentCulture.TextInfo;
-                                    name = Regex.Replace(name, @"\b\p{Ll}", match => match.Value.ToUpper());
-
-                                    instance.AddProperty(new PropertyInstance(type, name));
+                                    type += parts[i] + " ";
                                 }
+
+                                type = type.TrimEnd();
+
+                                if (type == "void")
+                                {
+                                    continue;
+                                }
+
+                                type = ConvertType(type, namespacePrefix);
+
+                                var name = parts[index].Replace("()", "");
+                                var info = CultureInfo.CurrentCulture.TextInfo;
+                                name = Regex.Replace(name, @"\b\p{Ll}", match => match.Value.ToUpper());
+
+                                if (name == "Alloc")
+                                {
+                                    instance.HasAlloc = true;
+                                    continue;
+                                }
+
+                                if (name == "Init")
+                                {
+                                    instance.HasInit = true;
+                                    continue;
+                                }
+
+                                instance.AddProperty(new PropertyInstance(type, name));
                             }
                         }
 
@@ -309,6 +347,8 @@ namespace SharpMetal.Generator
     {
         public string Name;
         public bool IsClass;
+        public bool HasAlloc = false;
+        public bool HasInit = false;
         public List<PropertyInstance> PropertyInstances;
         public List<SelectorInstance> SelectorInstances;
 

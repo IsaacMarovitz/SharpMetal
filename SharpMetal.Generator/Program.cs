@@ -140,6 +140,29 @@ namespace SharpMetal.Generator
                 sw.WriteLine(GetIndent() + $"public static implicit operator IntPtr({instance.Name} obj) => obj.NativePtr;");
                 sw.WriteLine(GetIndent() + $"public {instance.Name}(IntPtr ptr) => NativePtr = ptr;");
 
+                if (instance.HasAlloc)
+                {
+                    sw.WriteLine();
+                    sw.WriteLine(GetIndent() + $"public {instance.Name}()");
+                    sw.WriteLine(GetIndent() + "{");
+
+                    depth += 1;
+
+                    sw.WriteLine(GetIndent() + $"var cls = new ObjectiveCClass(\"{instance.Name}\");");
+
+                    if (instance.HasInit)
+                    {
+                        sw.WriteLine(GetIndent() + "NativePtr = cls.AllocInit();");
+                    }
+                    else
+                    {
+                        sw.WriteLine(GetIndent() + "NativePtr = cls.Alloc();");
+                    }
+
+                    depth -= 1;
+                    sw.WriteLine(GetIndent() + "}");
+                }
+
                 if (instance.PropertyInstances.Any())
                 {
                     sw.WriteLine();
