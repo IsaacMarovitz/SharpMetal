@@ -170,7 +170,13 @@ namespace SharpMetal.Generator
 
                 foreach (var property in instance.PropertyInstances)
                 {
-                    var selector = instance.SelectorInstances.Find(x => x.Selector.ToLower().Contains(property.Name.ToLower()));
+                    var selector = instance.SelectorInstances.Find(x => x.Selector.ToLower() == property.Name.ToLower());
+
+                    if (selector == null)
+                    {
+                        // This can sometimes select the wrong selector, so we only want to use it as a backup
+                        selector = instance.SelectorInstances.Find(x => x.Selector.ToLower().Contains(property.Name.ToLower()));
+                    }
 
                     if (selector != null)
                     {
