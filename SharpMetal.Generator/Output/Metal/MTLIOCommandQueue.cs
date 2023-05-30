@@ -1,0 +1,108 @@
+using System.Runtime.Versioning;
+using SharpMetal.ObjectiveC;
+
+namespace SharpMetal
+{
+    public enum MTLIOPriority: long
+    {
+        High = 0,
+        Normal = 1,
+        Low = 2,
+    }
+
+    public enum MTLIOCommandQueueType: long
+    {
+        Concurrent = 0,
+        Serial = 1,
+    }
+
+    public enum MTLIOError: long
+    {
+        URLInvalid = 1,
+        Internal = 2,
+    }
+
+    [SupportedOSPlatform("macos")]
+    public struct MTLIOCommandQueue
+    {
+        public readonly IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLIOCommandQueue obj) => obj.NativePtr;
+        public MTLIOCommandQueue(IntPtr ptr) => NativePtr = ptr;
+
+        public MTLIOCommandBuffer CommandBuffer => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_commandBuffer));
+        public MTLIOCommandBuffer CommandBufferWithUnretainedReferences => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_commandBufferWithUnretainedReferences));
+        public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+
+        private static readonly Selector sel_enqueueBarrier = "enqueueBarrier";
+        private static readonly Selector sel_commandBuffer = "commandBuffer";
+        private static readonly Selector sel_commandBufferWithUnretainedReferences = "commandBufferWithUnretainedReferences";
+        private static readonly Selector sel_label = "label";
+        private static readonly Selector sel_setLabel = "setLabel:";
+    }
+
+    [SupportedOSPlatform("macos")]
+    public struct MTLIOScratchBuffer
+    {
+        public readonly IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLIOScratchBuffer obj) => obj.NativePtr;
+        public MTLIOScratchBuffer(IntPtr ptr) => NativePtr = ptr;
+
+        public MTLBuffer Buffer => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_buffer));
+
+        private static readonly Selector sel_buffer = "buffer";
+    }
+
+    [SupportedOSPlatform("macos")]
+    public struct MTLIOScratchBufferAllocator
+    {
+        public readonly IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLIOScratchBufferAllocator obj) => obj.NativePtr;
+        public MTLIOScratchBufferAllocator(IntPtr ptr) => NativePtr = ptr;
+
+        private static readonly Selector sel_newScratchBufferWithMinimumSize = "newScratchBufferWithMinimumSize:";
+    }
+
+    [SupportedOSPlatform("macos")]
+    public struct MTLIOCommandQueueDescriptor
+    {
+        public readonly IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLIOCommandQueueDescriptor obj) => obj.NativePtr;
+        public MTLIOCommandQueueDescriptor(IntPtr ptr) => NativePtr = ptr;
+
+        public MTLIOCommandQueueDescriptor()
+        {
+            var cls = new ObjectiveCClass("MTLIOCommandQueueDescriptor");
+            NativePtr = cls.AllocInit();
+        }
+
+        public ulong MaxCommandBufferCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxCommandBufferCount);
+        public MTLIOPriority Priority => (MTLIOPriority)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_priority);
+        public MTLIOCommandQueueType Type => (MTLIOCommandQueueType)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_type);
+        public ulong MaxCommandsInFlight => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxCommandsInFlight);
+        public MTLIOScratchBufferAllocator ScratchBufferAllocator => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_scratchBufferAllocator));
+
+        private static readonly Selector sel_maxCommandBufferCount = "maxCommandBufferCount";
+        private static readonly Selector sel_setMaxCommandBufferCount = "setMaxCommandBufferCount:";
+        private static readonly Selector sel_priority = "priority";
+        private static readonly Selector sel_setPriority = "setPriority:";
+        private static readonly Selector sel_type = "type";
+        private static readonly Selector sel_setType = "setType:";
+        private static readonly Selector sel_maxCommandsInFlight = "maxCommandsInFlight";
+        private static readonly Selector sel_setMaxCommandsInFlight = "setMaxCommandsInFlight:";
+        private static readonly Selector sel_scratchBufferAllocator = "scratchBufferAllocator";
+        private static readonly Selector sel_setScratchBufferAllocator = "setScratchBufferAllocator:";
+    }
+
+    [SupportedOSPlatform("macos")]
+    public struct MTLIOFileHandle
+    {
+        public readonly IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLIOFileHandle obj) => obj.NativePtr;
+        public MTLIOFileHandle(IntPtr ptr) => NativePtr = ptr;
+
+        public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+
+        private static readonly Selector sel_label = "label";
+        private static readonly Selector sel_setLabel = "setLabel:";
+    }
+}

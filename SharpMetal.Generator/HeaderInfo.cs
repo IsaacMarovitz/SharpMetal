@@ -34,8 +34,12 @@ namespace SharpMetal.Generator
                     return "double";
                 case "bool":
                     return "bool";
-                case "Object**" or "id" or "CGSize" or "dispatch_queue_t" or "CFTimeInterval" or "ErrorDomain" or "TimeInterval" or "IOSurfaceRef" or "IntPtr":
+                case "Enumerator<_KeyType>":
+                    return "NSEnumerator";
+                case "Object**" or "id" or "CGSize" or "dispatch_queue_t" or "CFTimeInterval" or "ErrorDomain" or "TimeInterval" or "IOSurfaceRef" or "IntPtr" or "_Class" or "_ObjectType":
                     return "IntPtr";
+                case "IOScratchBufferAllocator" or "IOCommandBuffer":
+                    return "MTL" + type;
                 default:
                     if (!type.StartsWith("NS") && !type.StartsWith("MTL") && !type.StartsWith("CA") && !type.StartsWith("CF") && !type.StartsWith("CG") && !type.StartsWith("IO"))
                     {
@@ -125,6 +129,7 @@ namespace SharpMetal.Generator
                             nextLine = nextLine.Replace("~", "Destroy");
                             nextLine = nextLine.Replace("::", "");
                             nextLine = nextLine.Replace("void*", "IntPtr");
+                            nextLine = nextLine.Replace("void()", "void");
                             nextLine = nextLine.Replace("*", "");
                             nextLine = nextLine.Replace("class", "");
                             nextLine = nextLine.Replace("const", "");
@@ -133,6 +138,11 @@ namespace SharpMetal.Generator
                             var parts = ClassRegex().Split(nextLine).ToList();
 
                             parts.RemoveAll(x => x == string.Empty);
+
+                            if (parts.Count < 2)
+                            {
+                                continue;
+                            }
 
                             // Method has no parameters, i.e. readonly property
                             var index = parts.FindIndex(x => x.Contains("()"));
