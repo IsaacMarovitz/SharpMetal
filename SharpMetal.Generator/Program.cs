@@ -225,49 +225,26 @@ namespace SharpMetal.Generator
             {
                 var runtimeFuncReturn = "IntPtr";
                 var setterSelector = instance.SelectorInstances.Find(x => x.Selector.ToLower().Contains("set" + selector.Selector.ToLower()));
+                var csharpNativeTypes = new[] { "bool", "ulong", "uint", "int", "float", "double", "long", "byte", "short", "ushort" };
 
-                switch (property.Type)
+                // If the property is a type that exists in C# then we can safely set the
+                // return type to be that type, otherwise further conversion will be needed later
+                if (csharpNativeTypes.Contains(property.Type))
                 {
-                    case "bool":
-                        runtimeFuncReturn = "bool";
-                        break;
-                    case "ulong":
-                        runtimeFuncReturn = "ulong";
-                        break;
-                    case "uint":
-                        runtimeFuncReturn = "uint";
-                        break;
-                    case "int":
-                        runtimeFuncReturn = "int";
-                        break;
-                    case "float":
-                        runtimeFuncReturn = "float";
-                        break;
-                    case "double":
-                        runtimeFuncReturn = "double";
-                        break;
-                    case "long":
-                        runtimeFuncReturn = "long";
-                        break;
-                    case "byte":
-                        runtimeFuncReturn = "byte";
-                        break;
-                    case "short":
-                        runtimeFuncReturn = "short";
-                        break;
-                    case "ushort":
-                        runtimeFuncReturn = "ushort";
-                        break;
+                    runtimeFuncReturn = property.Type;
                 }
 
-                if (setterSelector != null)
+                // Return type of IntPtr could either mean it returns a struct of some kind
+                // or it returns an enum value, so we need to check if an enum with a matching
+                // name exists.
+                if (runtimeFuncReturn == "IntPtr")
                 {
-                    if (runtimeFuncReturn == "IntPtr")
-                    {
-                        // Need to adjust this to support enums from other headers
-                        var enumInstance = enumCache.Find(x => x.Name == property.Type);
+                    // Need to adjust this to support enums from other headers
+                    var enumInstance = enumCache.Find(x => x.Name == property.Type);
 
-                        if (enumInstance != null)
+                    if (enumInstance != null)
+                    {
+                        if (setterSelector != null)
                         {
                             sw.WriteLine(GetIndent(depth) + $"public {property.Type} {property.Name}");
                             sw.WriteLine(GetIndent(depth) + "{");
@@ -281,6 +258,13 @@ namespace SharpMetal.Generator
                         }
                         else
                         {
+                            sw.WriteLine(GetIndent(depth) + $"public {property.Type} {property.Name} => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend(NativePtr, {selector.Name});");
+                        }
+                    }
+                    else
+                    {
+                        if (setterSelector != null)
+                        {
                             sw.WriteLine(GetIndent(depth) + $"public {property.Type} {property.Name}");
                             sw.WriteLine(GetIndent(depth) + "{");
                             depth += 1;
@@ -291,8 +275,15 @@ namespace SharpMetal.Generator
 
                             sw.WriteLine(GetIndent(depth) + "}");
                         }
+                        else
+                        {
+                            sw.WriteLine(GetIndent(depth) + $"public {property.Type} {property.Name} => new(ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name}));");
+                        }
                     }
-                    else
+                }
+                else
+                {
+                    if (setterSelector != null)
                     {
                         sw.WriteLine(GetIndent(depth) + $"public {property.Type} {property.Name}");
                         sw.WriteLine(GetIndent(depth) + "{");
@@ -303,23 +294,6 @@ namespace SharpMetal.Generator
                         depth -= 1;
 
                         sw.WriteLine(GetIndent(depth) + "}");
-                    }
-                }
-                else
-                {
-                    if (runtimeFuncReturn == "IntPtr")
-                    {
-                        // Need to adjust this to support enums from other headers
-                        var enumInstance = enumCache.Find(x => x.Name == property.Type);
-
-                        if (enumInstance != null)
-                        {
-                            sw.WriteLine(GetIndent(depth) + $"public {property.Type} {property.Name} => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend(NativePtr, {selector.Name});");
-                        }
-                        else
-                        {
-                            sw.WriteLine(GetIndent(depth) + $"public {property.Type} {property.Name} => new(ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name}));");
-                        }
                     }
                     else
                     {
