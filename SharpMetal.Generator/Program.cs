@@ -89,129 +89,117 @@ namespace SharpMetal.Generator
             string fileName = filePath.Replace(".hpp", "");
             var depth = 0;
 
-            using StreamWriter sw = File.CreateText($"Output/{fileName}.cs");
+            using CodeGenContext context = new(File.CreateText($"Output/{fileName}.cs"));
 
-            GenerateUsings(headerInfo, sw);
+            GenerateUsings(headerInfo, context);
 
-            sw.WriteLine("namespace SharpMetal");
-            sw.WriteLine("{");
-            depth += 1;
+            context.WriteLine("namespace SharpMetal");
+            context.EnterScope();
 
             foreach (var instance in headerInfo.EnumInstances) {
-                GenerateEnum(instance, sw, ref depth);
+                GenerateEnum(instance, context);
             }
 
             for (var i = 0; i < headerInfo.StructInstances.Count; i++)
             {
-                GenerateStruct(headerInfo.StructInstances[i], enumCache, sw, ref depth);
+                GenerateStruct(headerInfo.StructInstances[i], enumCache, context);
 
                 if (i != headerInfo.StructInstances.Count - 1)
                 {
-                    sw.WriteLine();
+                    context.WriteLine();
                 }
             }
 
-            sw.WriteLine("}");
-            depth -= 1;
+            context.LeaveScope();
         }
 
-        public static void GenerateEnum(EnumInstance instance, StreamWriter sw, ref int depth)
+        public static void GenerateEnum(EnumInstance instance, CodeGenContext context)
         {
-            sw.WriteLine(GetIndent(depth) + $"public enum {instance.Name}: {instance.Type}");
-            sw.WriteLine(GetIndent(depth) + "{");
+            context.WriteLine($"public enum {instance.Name}: {instance.Type}");
+            context.EnterScope();
 
-            depth += 1;
             foreach (var value in instance.Values)
             {
                 if (value.Value != string.Empty)
                 {
-                    sw.WriteLine(GetIndent(depth) + $"{value.Key} = {value.Value},");
+                    context.WriteLine($"{value.Key} = {value.Value},");
                 }
                 else
                 {
-                    sw.WriteLine(GetIndent(depth) + $"{value.Key},");
+                    context.WriteLine($"{value.Key},");
                 }
             }
 
-            depth -= 1;
-
-            sw.WriteLine(GetIndent(depth) + "}");
-            sw.WriteLine();
+            context.LeaveScope();
+            context.WriteLine();
         }
 
-        public static void GenerateStruct(StructInstance instance, List<EnumCacheInstance> enumCache, StreamWriter sw, ref int depth)
+        public static void GenerateStruct(StructInstance instance, List<EnumCacheInstance> enumCache, CodeGenContext context)
         {
-            sw.WriteLine(GetIndent(depth) + "[SupportedOSPlatform(\"macos\")]");
+            context.WriteLine("[SupportedOSPlatform(\"macos\")]");
 
             if (!instance.IsClass)
             {
-                sw.WriteLine(GetIndent(depth) + "[StructLayout(LayoutKind.Sequential)]");
+                context.WriteLine("[StructLayout(LayoutKind.Sequential)]");
             }
 
-            sw.WriteLine(GetIndent(depth) + $"public struct {instance.Name}");
-            sw.WriteLine(GetIndent(depth) + "{");
+            context.WriteLine($"public struct {instance.Name}");
+            context.EnterScope();
 
-            depth += 1;
-
-            sw.WriteLine(GetIndent(depth) + "public readonly IntPtr NativePtr;");
-            sw.WriteLine(GetIndent(depth) + $"public static implicit operator IntPtr({instance.Name} obj) => obj.NativePtr;");
-            sw.WriteLine(GetIndent(depth) + $"public {instance.Name}(IntPtr ptr) => NativePtr = ptr;");
+            context.WriteLine("public readonly IntPtr NativePtr;");
+            context.WriteLine($"public static implicit operator IntPtr({instance.Name} obj) => obj.NativePtr;");
+            context.WriteLine($"public {instance.Name}(IntPtr ptr) => NativePtr = ptr;");
 
             if (instance.HasAlloc)
             {
-                sw.WriteLine();
-                sw.WriteLine(GetIndent(depth) + $"public {instance.Name}()");
-                sw.WriteLine(GetIndent(depth) + "{");
+                context.WriteLine();
+                context.WriteLine($"public {instance.Name}()");
+                context.EnterScope();
 
-                depth += 1;
-
-                sw.WriteLine(GetIndent(depth) + $"var cls = new ObjectiveCClass(\"{instance.Name}\");");
+                context.WriteLine($"var cls = new ObjectiveCClass(\"{instance.Name}\");");
 
                 if (instance.HasInit)
                 {
-                    sw.WriteLine(GetIndent(depth) + "NativePtr = cls.AllocInit();");
+                    context.WriteLine("NativePtr = cls.AllocInit();");
                 }
                 else
                 {
-                    sw.WriteLine(GetIndent(depth) + "NativePtr = cls.Alloc();");
+                    context.WriteLine("NativePtr = cls.Alloc();");
                 }
 
-                depth -= 1;
-                sw.WriteLine(GetIndent(depth) + "}");
+                context.LeaveScope();
             }
 
             if (instance.PropertyInstances.Any())
             {
-                sw.WriteLine();
+                context.WriteLine();
             }
 
             for (var j = 0; j < instance.PropertyInstances.Count; j++)
             {
-                GenerateProperty(instance, instance.PropertyInstances[j], enumCache, sw, ref depth);
+                GenerateProperty(instance, instance.PropertyInstances[j], enumCache, context);
 
                 if (j != instance.PropertyInstances.Count - 1)
                 {
-                    sw.WriteLine();
+                    context.WriteLine();
                 }
             }
 
 
             if (instance.SelectorInstances.Any())
             {
-                sw.WriteLine();
+                context.WriteLine();
             }
 
             foreach (var selector in instance.SelectorInstances)
             {
-                sw.WriteLine(GetIndent(depth) + $"private static readonly Selector {selector.Name} = \"{selector.Selector}\";");
+                context.WriteLine($"private static readonly Selector {selector.Name} = \"{selector.Selector}\";");
             }
 
-            depth -= 1;
-
-            sw.WriteLine(GetIndent(depth) + "}");
+            context.LeaveScope();
         }
 
-        public static void GenerateProperty(StructInstance instance, PropertyInstance property, List<EnumCacheInstance> enumCache, StreamWriter sw, ref int depth)
+        public static void GenerateProperty(StructInstance instance, PropertyInstance property, List<EnumCacheInstance> enumCache, CodeGenContext context)
         {
             var selector = instance.SelectorInstances.Find(x => x.Selector.ToLower() == property.Name.ToLower());
 
@@ -223,6 +211,7 @@ namespace SharpMetal.Generator
 
             if (selector != null)
             {
+                // We assume a type of IntPtr, which encapsulates any possible type
                 var runtimeFuncReturn = "IntPtr";
                 var setterSelector = instance.SelectorInstances.Find(x => x.Selector.ToLower().Contains("set" + selector.Selector.ToLower()));
                 var csharpNativeTypes = new[] { "bool", "ulong", "uint", "int", "float", "double", "long", "byte", "short", "ushort" };
@@ -246,38 +235,34 @@ namespace SharpMetal.Generator
                     {
                         if (setterSelector != null)
                         {
-                            sw.WriteLine(GetIndent(depth) + $"public {property.Type} {property.Name}");
-                            sw.WriteLine(GetIndent(depth) + "{");
-                            depth += 1;
+                            context.WriteLine($"public {property.Type} {property.Name}");
+                            context.EnterScope();
 
-                            sw.WriteLine(GetIndent(depth) + $"get => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend(NativePtr, {selector.Name});");
-                            sw.WriteLine(GetIndent(depth) + $"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, ({enumInstance.Type})value);");
-                            depth -= 1;
+                            context.WriteLine($"get => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend(NativePtr, {selector.Name});");
+                            context.WriteLine($"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, ({enumInstance.Type})value);");
 
-                            sw.WriteLine(GetIndent(depth) + "}");
+                            context.LeaveScope();
                         }
                         else
                         {
-                            sw.WriteLine(GetIndent(depth) + $"public {property.Type} {property.Name} => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend(NativePtr, {selector.Name});");
+                            context.WriteLine($"public {property.Type} {property.Name} => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend(NativePtr, {selector.Name});");
                         }
                     }
                     else
                     {
                         if (setterSelector != null)
                         {
-                            sw.WriteLine(GetIndent(depth) + $"public {property.Type} {property.Name}");
-                            sw.WriteLine(GetIndent(depth) + "{");
-                            depth += 1;
+                            context.WriteLine($"public {property.Type} {property.Name}");
+                            context.EnterScope();
 
-                            sw.WriteLine(GetIndent(depth) + $"get => new(ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name}));");
-                            sw.WriteLine(GetIndent(depth) + $"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, value);");
-                            depth -= 1;
+                            context.WriteLine($"get => new(ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name}));");
+                            context.WriteLine($"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, value);");
 
-                            sw.WriteLine(GetIndent(depth) + "}");
+                            context.LeaveScope();
                         }
                         else
                         {
-                            sw.WriteLine(GetIndent(depth) + $"public {property.Type} {property.Name} => new(ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name}));");
+                            context.WriteLine($"public {property.Type} {property.Name} => new(ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name}));");
                         }
                     }
                 }
@@ -285,29 +270,27 @@ namespace SharpMetal.Generator
                 {
                     if (setterSelector != null)
                     {
-                        sw.WriteLine(GetIndent(depth) + $"public {property.Type} {property.Name}");
-                        sw.WriteLine(GetIndent(depth) + "{");
-                        depth += 1;
+                        context.WriteLine($"public {property.Type} {property.Name}");
+                        context.EnterScope();
 
-                        sw.WriteLine(GetIndent(depth) + $"get => ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name});");
-                        sw.WriteLine(GetIndent(depth) + $"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, value);");
-                        depth -= 1;
+                        context.WriteLine($"get => ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name});");
+                        context.WriteLine($"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, value);");
 
-                        sw.WriteLine(GetIndent(depth) + "}");
+                        context.LeaveScope();
                     }
                     else
                     {
-                        sw.WriteLine(GetIndent(depth) + $"public {property.Type} {property.Name} => ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name});");
+                        context.WriteLine($"public {property.Type} {property.Name} => ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name});");
                     }
                 }
             }
             else
             {
-                sw.WriteLine(GetIndent(depth) + $"public {property.Type} {property.Name};");
+                context.WriteLine($"public {property.Type} {property.Name};");
             }
         }
 
-        public static void GenerateUsings(HeaderInfo headerInfo, StreamWriter sw)
+        public static void GenerateUsings(HeaderInfo headerInfo, CodeGenContext context)
         {
             var hasSelectors = false;
             var hasStructs = false;
@@ -328,31 +311,26 @@ namespace SharpMetal.Generator
 
             if (hasStructs)
             {
-                sw.WriteLine("using System.Runtime.InteropServices;");
+                context.WriteLine("using System.Runtime.InteropServices;");
                 hasAnyUsings = true;
             }
 
             if (headerInfo.StructInstances.Count > 0)
             {
-                sw.WriteLine("using System.Runtime.Versioning;");
+                context.WriteLine("using System.Runtime.Versioning;");
                 hasAnyUsings = true;
             }
 
             if (hasSelectors)
             {
-                sw.WriteLine("using SharpMetal.ObjectiveC;");
+                context.WriteLine("using SharpMetal.ObjectiveC;");
                 hasAnyUsings = true;
             }
 
             if (hasAnyUsings)
             {
-                sw.WriteLine();
+                context.WriteLine();
             }
-        }
-
-        public static string GetIndent(int depth)
-        {
-            return new StringBuilder().Insert(0, "    ", depth).ToString();
         }
     }
 }
