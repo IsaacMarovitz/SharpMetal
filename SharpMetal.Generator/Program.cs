@@ -97,219 +97,13 @@ namespace SharpMetal.Generator
             sw.WriteLine("{");
             depth += 1;
 
-            // Start with enums since they're nice and easy
             foreach (var instance in headerInfo.EnumInstances) {
-                sw.WriteLine(GetIndent() + $"public enum {instance.Name}: {instance.Type}");
-                sw.WriteLine(GetIndent() + "{");
-
-                depth += 1;
-                foreach (var value in instance.Values)
-                {
-                    if (value.Value != string.Empty)
-                    {
-                        sw.WriteLine(GetIndent() + $"{value.Key} = {value.Value},");
-                    }
-                    else
-                    {
-                        sw.WriteLine(GetIndent() + $"{value.Key},");
-                    }
-                }
-
-                depth -= 1;
-
-                sw.WriteLine(GetIndent() + "}");
-                sw.WriteLine();
+                GenerateEnum(instance, sw, ref depth);
             }
 
             for (var i = 0; i < headerInfo.StructInstances.Count; i++)
             {
-                var instance = headerInfo.StructInstances[i];
-                sw.WriteLine(GetIndent() + "[SupportedOSPlatform(\"macos\")]");
-
-                if (!instance.IsClass)
-                {
-                    sw.WriteLine(GetIndent() + "[StructLayout(LayoutKind.Sequential)]");
-                }
-
-                sw.WriteLine(GetIndent() + $"public struct {instance.Name}");
-                sw.WriteLine(GetIndent() + "{");
-
-                depth += 1;
-
-                sw.WriteLine(GetIndent() + "public readonly IntPtr NativePtr;");
-                sw.WriteLine(GetIndent() + $"public static implicit operator IntPtr({instance.Name} obj) => obj.NativePtr;");
-                sw.WriteLine(GetIndent() + $"public {instance.Name}(IntPtr ptr) => NativePtr = ptr;");
-
-                if (instance.HasAlloc)
-                {
-                    sw.WriteLine();
-                    sw.WriteLine(GetIndent() + $"public {instance.Name}()");
-                    sw.WriteLine(GetIndent() + "{");
-
-                    depth += 1;
-
-                    sw.WriteLine(GetIndent() + $"var cls = new ObjectiveCClass(\"{instance.Name}\");");
-
-                    if (instance.HasInit)
-                    {
-                        sw.WriteLine(GetIndent() + "NativePtr = cls.AllocInit();");
-                    }
-                    else
-                    {
-                        sw.WriteLine(GetIndent() + "NativePtr = cls.Alloc();");
-                    }
-
-                    depth -= 1;
-                    sw.WriteLine(GetIndent() + "}");
-                }
-
-                if (instance.PropertyInstances.Any())
-                {
-                    sw.WriteLine();
-                }
-
-                for (var j = 0; j < instance.PropertyInstances.Count; j++)
-                {
-                    var property = instance.PropertyInstances[j];
-                    var selector = instance.SelectorInstances.Find(x => x.Selector.ToLower() == property.Name.ToLower());
-
-                    if (selector == null)
-                    {
-                        // This can sometimes select the wrong selector, so we only want to use it as a backup
-                        selector = instance.SelectorInstances.Find(x => x.Selector.ToLower().Contains(property.Name.ToLower()));
-                    }
-
-                    if (selector != null)
-                    {
-                        var runtimeFuncReturn = "IntPtr";
-                        var setterSelector = instance.SelectorInstances.Find(x => x.Selector.ToLower().Contains("set" + selector.Selector.ToLower()));
-
-                        switch (property.Type)
-                        {
-                            case "bool":
-                                runtimeFuncReturn = "bool";
-                                break;
-                            case "ulong":
-                                runtimeFuncReturn = "ulong";
-                                break;
-                            case "uint":
-                                runtimeFuncReturn = "uint";
-                                break;
-                            case "int":
-                                runtimeFuncReturn = "int";
-                                break;
-                            case "float":
-                                runtimeFuncReturn = "float";
-                                break;
-                            case "double":
-                                runtimeFuncReturn = "double";
-                                break;
-                            case "long":
-                                runtimeFuncReturn = "long";
-                                break;
-                            case "byte":
-                                runtimeFuncReturn = "byte";
-                                break;
-                            case "short":
-                                runtimeFuncReturn = "short";
-                                break;
-                            case "ushort":
-                                runtimeFuncReturn = "ushort";
-                                break;
-                        }
-
-                        if (setterSelector != null)
-                        {
-                            if (runtimeFuncReturn == "IntPtr")
-                            {
-                                // Need to adjust this to support enums from other headers
-                                var enumInstance = enumCache.Find(x => x.Name == property.Type);
-
-                                if (enumInstance != null)
-                                {
-                                    sw.WriteLine(GetIndent() + $"public {property.Type} {property.Name}");
-                                    sw.WriteLine(GetIndent() + "{");
-                                    depth += 1;
-
-                                    sw.WriteLine(GetIndent() + $"get => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend(NativePtr, {selector.Name});");
-                                    sw.WriteLine(GetIndent() + $"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, ({enumInstance.Type})value);");
-                                    depth -= 1;
-
-                                    sw.WriteLine(GetIndent() + "}");
-                                }
-                                else
-                                {
-                                    sw.WriteLine(GetIndent() + $"public {property.Type} {property.Name}");
-                                    sw.WriteLine(GetIndent() + "{");
-                                    depth += 1;
-
-                                    sw.WriteLine(GetIndent() + $"get => new(ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name}));");
-                                    sw.WriteLine(GetIndent() + $"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, value);");
-                                    depth -= 1;
-
-                                    sw.WriteLine(GetIndent() + "}");
-                                }
-                            }
-                            else
-                            {
-                                sw.WriteLine(GetIndent() + $"public {property.Type} {property.Name}");
-                                sw.WriteLine(GetIndent() + "{");
-                                depth += 1;
-
-                                sw.WriteLine(GetIndent() + $"get => ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name});");
-                                sw.WriteLine(GetIndent() + $"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, value);");
-                                depth -= 1;
-
-                                sw.WriteLine(GetIndent() + "}");
-                            }
-                        }
-                        else
-                        {
-                            if (runtimeFuncReturn == "IntPtr")
-                            {
-                                // Need to adjust this to support enums from other headers
-                                var enumInstance = enumCache.Find(x => x.Name == property.Type);
-
-                                if (enumInstance != null)
-                                {
-                                    sw.WriteLine(GetIndent() + $"public {property.Type} {property.Name} => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend(NativePtr, {selector.Name});");
-                                }
-                                else
-                                {
-                                    sw.WriteLine(GetIndent() + $"public {property.Type} {property.Name} => new(ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name}));");
-                                }
-                            }
-                            else
-                            {
-                                sw.WriteLine(GetIndent() + $"public {property.Type} {property.Name} => ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name});");
-                            }
-                        }
-                    }
-                    else
-                    {
-                        sw.WriteLine(GetIndent() + $"public {property.Type} {property.Name};");
-                    }
-
-                    if (j != instance.PropertyInstances.Count - 1)
-                    {
-                        sw.WriteLine();
-                    }
-                }
-
-
-                if (instance.SelectorInstances.Any())
-                {
-                    sw.WriteLine();
-                }
-
-                foreach (var selector in instance.SelectorInstances)
-                {
-                    sw.WriteLine(GetIndent() + $"private static readonly Selector {selector.Name} = \"{selector.Selector}\";");
-                }
-
-                depth -= 1;
-
-                sw.WriteLine(GetIndent() + "}");
+                GenerateStruct(headerInfo.StructInstances[i], enumCache, sw, ref depth);
 
                 if (i != headerInfo.StructInstances.Count - 1)
                 {
@@ -319,10 +113,223 @@ namespace SharpMetal.Generator
 
             sw.WriteLine("}");
             depth -= 1;
+        }
 
-            string GetIndent()
+        public static void GenerateEnum(EnumInstance instance, StreamWriter sw, ref int depth)
+        {
+            sw.WriteLine(GetIndent(depth) + $"public enum {instance.Name}: {instance.Type}");
+            sw.WriteLine(GetIndent(depth) + "{");
+
+            depth += 1;
+            foreach (var value in instance.Values)
             {
-                return new StringBuilder().Insert(0, "    ", depth).ToString();
+                if (value.Value != string.Empty)
+                {
+                    sw.WriteLine(GetIndent(depth) + $"{value.Key} = {value.Value},");
+                }
+                else
+                {
+                    sw.WriteLine(GetIndent(depth) + $"{value.Key},");
+                }
+            }
+
+            depth -= 1;
+
+            sw.WriteLine(GetIndent(depth) + "}");
+            sw.WriteLine();
+        }
+
+        public static void GenerateStruct(StructInstance instance, List<EnumCacheInstance> enumCache, StreamWriter sw, ref int depth)
+        {
+            sw.WriteLine(GetIndent(depth) + "[SupportedOSPlatform(\"macos\")]");
+
+            if (!instance.IsClass)
+            {
+                sw.WriteLine(GetIndent(depth) + "[StructLayout(LayoutKind.Sequential)]");
+            }
+
+            sw.WriteLine(GetIndent(depth) + $"public struct {instance.Name}");
+            sw.WriteLine(GetIndent(depth) + "{");
+
+            depth += 1;
+
+            sw.WriteLine(GetIndent(depth) + "public readonly IntPtr NativePtr;");
+            sw.WriteLine(GetIndent(depth) + $"public static implicit operator IntPtr({instance.Name} obj) => obj.NativePtr;");
+            sw.WriteLine(GetIndent(depth) + $"public {instance.Name}(IntPtr ptr) => NativePtr = ptr;");
+
+            if (instance.HasAlloc)
+            {
+                sw.WriteLine();
+                sw.WriteLine(GetIndent(depth) + $"public {instance.Name}()");
+                sw.WriteLine(GetIndent(depth) + "{");
+
+                depth += 1;
+
+                sw.WriteLine(GetIndent(depth) + $"var cls = new ObjectiveCClass(\"{instance.Name}\");");
+
+                if (instance.HasInit)
+                {
+                    sw.WriteLine(GetIndent(depth) + "NativePtr = cls.AllocInit();");
+                }
+                else
+                {
+                    sw.WriteLine(GetIndent(depth) + "NativePtr = cls.Alloc();");
+                }
+
+                depth -= 1;
+                sw.WriteLine(GetIndent(depth) + "}");
+            }
+
+            if (instance.PropertyInstances.Any())
+            {
+                sw.WriteLine();
+            }
+
+            for (var j = 0; j < instance.PropertyInstances.Count; j++)
+            {
+                GenerateProperty(instance, instance.PropertyInstances[j], enumCache, sw, ref depth);
+
+                if (j != instance.PropertyInstances.Count - 1)
+                {
+                    sw.WriteLine();
+                }
+            }
+
+
+            if (instance.SelectorInstances.Any())
+            {
+                sw.WriteLine();
+            }
+
+            foreach (var selector in instance.SelectorInstances)
+            {
+                sw.WriteLine(GetIndent(depth) + $"private static readonly Selector {selector.Name} = \"{selector.Selector}\";");
+            }
+
+            depth -= 1;
+
+            sw.WriteLine(GetIndent(depth) + "}");
+        }
+
+        public static void GenerateProperty(StructInstance instance, PropertyInstance property, List<EnumCacheInstance> enumCache, StreamWriter sw, ref int depth)
+        {
+            var selector = instance.SelectorInstances.Find(x => x.Selector.ToLower() == property.Name.ToLower());
+
+            if (selector == null)
+            {
+                // This can sometimes select the wrong selector, so we only want to use it as a backup
+                selector = instance.SelectorInstances.Find(x => x.Selector.ToLower().Contains(property.Name.ToLower()));
+            }
+
+            if (selector != null)
+            {
+                var runtimeFuncReturn = "IntPtr";
+                var setterSelector = instance.SelectorInstances.Find(x => x.Selector.ToLower().Contains("set" + selector.Selector.ToLower()));
+
+                switch (property.Type)
+                {
+                    case "bool":
+                        runtimeFuncReturn = "bool";
+                        break;
+                    case "ulong":
+                        runtimeFuncReturn = "ulong";
+                        break;
+                    case "uint":
+                        runtimeFuncReturn = "uint";
+                        break;
+                    case "int":
+                        runtimeFuncReturn = "int";
+                        break;
+                    case "float":
+                        runtimeFuncReturn = "float";
+                        break;
+                    case "double":
+                        runtimeFuncReturn = "double";
+                        break;
+                    case "long":
+                        runtimeFuncReturn = "long";
+                        break;
+                    case "byte":
+                        runtimeFuncReturn = "byte";
+                        break;
+                    case "short":
+                        runtimeFuncReturn = "short";
+                        break;
+                    case "ushort":
+                        runtimeFuncReturn = "ushort";
+                        break;
+                }
+
+                if (setterSelector != null)
+                {
+                    if (runtimeFuncReturn == "IntPtr")
+                    {
+                        // Need to adjust this to support enums from other headers
+                        var enumInstance = enumCache.Find(x => x.Name == property.Type);
+
+                        if (enumInstance != null)
+                        {
+                            sw.WriteLine(GetIndent(depth) + $"public {property.Type} {property.Name}");
+                            sw.WriteLine(GetIndent(depth) + "{");
+                            depth += 1;
+
+                            sw.WriteLine(GetIndent(depth) + $"get => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend(NativePtr, {selector.Name});");
+                            sw.WriteLine(GetIndent(depth) + $"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, ({enumInstance.Type})value);");
+                            depth -= 1;
+
+                            sw.WriteLine(GetIndent(depth) + "}");
+                        }
+                        else
+                        {
+                            sw.WriteLine(GetIndent(depth) + $"public {property.Type} {property.Name}");
+                            sw.WriteLine(GetIndent(depth) + "{");
+                            depth += 1;
+
+                            sw.WriteLine(GetIndent(depth) + $"get => new(ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name}));");
+                            sw.WriteLine(GetIndent(depth) + $"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, value);");
+                            depth -= 1;
+
+                            sw.WriteLine(GetIndent(depth) + "}");
+                        }
+                    }
+                    else
+                    {
+                        sw.WriteLine(GetIndent(depth) + $"public {property.Type} {property.Name}");
+                        sw.WriteLine(GetIndent(depth) + "{");
+                        depth += 1;
+
+                        sw.WriteLine(GetIndent(depth) + $"get => ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name});");
+                        sw.WriteLine(GetIndent(depth) + $"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, value);");
+                        depth -= 1;
+
+                        sw.WriteLine(GetIndent(depth) + "}");
+                    }
+                }
+                else
+                {
+                    if (runtimeFuncReturn == "IntPtr")
+                    {
+                        // Need to adjust this to support enums from other headers
+                        var enumInstance = enumCache.Find(x => x.Name == property.Type);
+
+                        if (enumInstance != null)
+                        {
+                            sw.WriteLine(GetIndent(depth) + $"public {property.Type} {property.Name} => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend(NativePtr, {selector.Name});");
+                        }
+                        else
+                        {
+                            sw.WriteLine(GetIndent(depth) + $"public {property.Type} {property.Name} => new(ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name}));");
+                        }
+                    }
+                    else
+                    {
+                        sw.WriteLine(GetIndent(depth) + $"public {property.Type} {property.Name} => ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name});");
+                    }
+                }
+            }
+            else
+            {
+                sw.WriteLine(GetIndent(depth) + $"public {property.Type} {property.Name};");
             }
         }
 
@@ -367,6 +374,11 @@ namespace SharpMetal.Generator
             {
                 sw.WriteLine();
             }
+        }
+
+        public static string GetIndent(int depth)
+        {
+            return new StringBuilder().Insert(0, "    ", depth).ToString();
         }
     }
 }
