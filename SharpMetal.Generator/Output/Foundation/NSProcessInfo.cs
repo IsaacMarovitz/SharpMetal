@@ -34,7 +34,11 @@ namespace SharpMetal
         public NSArray Arguments => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_arguments));
         public NSDictionary Environment => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_environment));
         public NSString HostName => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_hostName));
-        public NSString ProcessName => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_processName));
+        public NSString ProcessName
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_processName));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setProcessName, value);
+        }
         public int ProcessIdentifier => ObjectiveCRuntime.int_objc_msgSend(NativePtr, sel_processIdentifier);
         public NSString GloballyUniqueString => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_globallyUniqueString));
         public NSString UserName => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_userName));
@@ -46,7 +50,11 @@ namespace SharpMetal
         public ulong ActiveProcessorCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_activeProcessorCount);
         public ulong PhysicalMemory => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_physicalMemory);
         public IntPtr SystemUptime => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_systemUptime));
-        public bool AutomaticTerminationSupportEnabled => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_automaticTerminationSupportEnabled);
+        public bool AutomaticTerminationSupportEnabled
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_automaticTerminationSupportEnabled);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAutomaticTerminationSupportEnabled, value);
+        }
         public NSProcessInfoThermalState ThermalState => (NSProcessInfoThermalState)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_thermalState);
         public bool IsLowPowerModeEnabled => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isLowPowerModeEnabled);
         public bool IsiOSAppOnMac => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isiOSAppOnMac);

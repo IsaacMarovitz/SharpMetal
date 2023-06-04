@@ -39,13 +39,41 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
-        public MTLIndirectCommandType CommandTypes => (MTLIndirectCommandType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_commandTypes);
-        public bool InheritPipelineState => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_inheritPipelineState);
-        public bool InheritBuffers => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_inheritBuffers);
-        public ulong MaxVertexBufferBindCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxVertexBufferBindCount);
-        public ulong MaxFragmentBufferBindCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxFragmentBufferBindCount);
-        public ulong MaxKernelBufferBindCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxKernelBufferBindCount);
-        public bool SupportRayTracing => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportRayTracing);
+        public MTLIndirectCommandType CommandTypes
+        {
+            get => (MTLIndirectCommandType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_commandTypes);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setCommandTypes, (ulong)value);
+        }
+        public bool InheritPipelineState
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_inheritPipelineState);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInheritPipelineState, value);
+        }
+        public bool InheritBuffers
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_inheritBuffers);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInheritBuffers, value);
+        }
+        public ulong MaxVertexBufferBindCount
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxVertexBufferBindCount);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxVertexBufferBindCount, value);
+        }
+        public ulong MaxFragmentBufferBindCount
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxFragmentBufferBindCount);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxFragmentBufferBindCount, value);
+        }
+        public ulong MaxKernelBufferBindCount
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxKernelBufferBindCount);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxKernelBufferBindCount, value);
+        }
+        public bool SupportRayTracing
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportRayTracing);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSupportRayTracing, value);
+        }
 
         private static readonly Selector sel_commandTypes = "commandTypes";
         private static readonly Selector sel_setCommandTypes = "setCommandTypes:";

@@ -18,7 +18,11 @@ namespace SharpMetal
         public static implicit operator IntPtr(MTLIOCommandBuffer obj) => obj.NativePtr;
         public MTLIOCommandBuffer(IntPtr ptr) => NativePtr = ptr;
 
-        public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+        public NSString Label
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
+        }
         public MTLIOStatus Status => (MTLIOStatus)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_status);
         public NSError Error => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_error));
 

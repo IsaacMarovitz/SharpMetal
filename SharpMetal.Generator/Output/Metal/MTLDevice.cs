@@ -164,12 +164,36 @@ namespace SharpMetal
         }
 
         public MTLArgumentDescriptor ArgumentDescriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_argumentDescriptor));
-        public MTLDataType DataType => (MTLDataType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_dataType);
-        public ulong Index => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_index);
-        public ulong ArrayLength => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_arrayLength);
-        public MTLArgumentAccess Access => (MTLArgumentAccess)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_access);
-        public MTLTextureType TextureType => (MTLTextureType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_textureType);
-        public ulong AntBlockAlignment => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_constantBlockAlignment);
+        public MTLDataType DataType
+        {
+            get => (MTLDataType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_dataType);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDataType, (ulong)value);
+        }
+        public ulong Index
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_index);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIndex, value);
+        }
+        public ulong ArrayLength
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_arrayLength);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setArrayLength, value);
+        }
+        public MTLArgumentAccess Access
+        {
+            get => (MTLArgumentAccess)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_access);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAccess, (ulong)value);
+        }
+        public MTLTextureType TextureType
+        {
+            get => (MTLTextureType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_textureType);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTextureType, (ulong)value);
+        }
+        public ulong AntBlockAlignment
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_constantBlockAlignment);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setConstantBlockAlignment, value);
+        }
 
         private static readonly Selector sel_argumentDescriptor = "argumentDescriptor";
         private static readonly Selector sel_dataType = "dataType";
@@ -238,7 +262,11 @@ namespace SharpMetal
         public bool SupportsFunctionPointersFromRender => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsFunctionPointersFromRender);
         public bool SupportsRaytracingFromRender => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsRaytracingFromRender);
         public bool SupportsPrimitiveMotionBlur => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsPrimitiveMotionBlur);
-        public bool ShouldMaximizeConcurrentCompilation => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_shouldMaximizeConcurrentCompilation);
+        public bool ShouldMaximizeConcurrentCompilation
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_shouldMaximizeConcurrentCompilation);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setShouldMaximizeConcurrentCompilation, value);
+        }
         public ulong MaximumConcurrentCompilationTaskCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maximumConcurrentCompilationTaskCount);
 
         private static readonly Selector sel_name = "name";

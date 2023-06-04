@@ -33,7 +33,11 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
-        public MTLSize SampleCount => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_sampleCount));
+        public MTLSize SampleCount
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_sampleCount));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSampleCount, value);
+        }
         public MTLSize MaxSampleCount => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_maxSampleCount));
         public float HorizontalSampleStorage => ObjectiveCRuntime.float_objc_msgSend(NativePtr, sel_horizontalSampleStorage);
         public float VerticalSampleStorage => ObjectiveCRuntime.float_objc_msgSend(NativePtr, sel_verticalSampleStorage);
@@ -82,8 +86,16 @@ namespace SharpMetal
         }
 
         public MTLRasterizationRateLayerArray Layers => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_layers));
-        public MTLSize ScreenSize => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_screenSize));
-        public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+        public MTLSize ScreenSize
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_screenSize));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setScreenSize, value);
+        }
+        public NSString Label
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
+        }
         public ulong LayerCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_layerCount);
 
         private static readonly Selector sel_rasterizationRateMapDescriptorWithScreenSize = "rasterizationRateMapDescriptorWithScreenSize:";

@@ -25,7 +25,11 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
-        public NSURL Url => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_url));
+        public NSURL Url
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_url));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setUrl, value);
+        }
 
         private static readonly Selector sel_url = "url";
         private static readonly Selector sel_setUrl = "setUrl:";
@@ -38,7 +42,11 @@ namespace SharpMetal
         public static implicit operator IntPtr(MTLBinaryArchive obj) => obj.NativePtr;
         public MTLBinaryArchive(IntPtr ptr) => NativePtr = ptr;
 
-        public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+        public NSString Label
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
+        }
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
 
         private static readonly Selector sel_label = "label";

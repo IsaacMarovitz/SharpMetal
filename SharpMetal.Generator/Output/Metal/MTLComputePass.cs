@@ -16,9 +16,21 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
-        public MTLCounterSampleBuffer SampleBuffer => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_sampleBuffer));
-        public ulong StartOfEncoderSampleIndex => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_startOfEncoderSampleIndex);
-        public ulong EndOfEncoderSampleIndex => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_endOfEncoderSampleIndex);
+        public MTLCounterSampleBuffer SampleBuffer
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_sampleBuffer));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSampleBuffer, value);
+        }
+        public ulong StartOfEncoderSampleIndex
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_startOfEncoderSampleIndex);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStartOfEncoderSampleIndex, value);
+        }
+        public ulong EndOfEncoderSampleIndex
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_endOfEncoderSampleIndex);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setEndOfEncoderSampleIndex, value);
+        }
 
         private static readonly Selector sel_sampleBuffer = "sampleBuffer";
         private static readonly Selector sel_setSampleBuffer = "setSampleBuffer:";
@@ -59,7 +71,11 @@ namespace SharpMetal
         }
 
         public MTLComputePassDescriptor ComputePassDescriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_computePassDescriptor));
-        public MTLDispatchType DispatchType => (MTLDispatchType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_dispatchType);
+        public MTLDispatchType DispatchType
+        {
+            get => (MTLDispatchType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_dispatchType);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDispatchType, (ulong)value);
+        }
         public MTLComputePassSampleBufferAttachmentDescriptorArray SampleBufferAttachments => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_sampleBufferAttachments));
 
         private static readonly Selector sel_computePassDescriptor = "computePassDescriptor";

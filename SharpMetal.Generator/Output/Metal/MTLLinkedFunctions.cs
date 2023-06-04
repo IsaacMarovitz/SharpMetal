@@ -17,10 +17,26 @@ namespace SharpMetal
         }
 
         public MTLLinkedFunctions LinkedFunctions => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_linkedFunctions));
-        public NSArray Functions => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_functions));
-        public NSArray BinaryFunctions => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_binaryFunctions));
-        public NSDictionary Groups => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_groups));
-        public NSArray PrivateFunctions => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_privateFunctions));
+        public NSArray Functions
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_functions));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctions, value);
+        }
+        public NSArray BinaryFunctions
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_binaryFunctions));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBinaryFunctions, value);
+        }
+        public NSDictionary Groups
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_groups));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setGroups, value);
+        }
+        public NSArray PrivateFunctions
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_privateFunctions));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrivateFunctions, value);
+        }
 
         private static readonly Selector sel_linkedFunctions = "linkedFunctions";
         private static readonly Selector sel_functions = "functions";

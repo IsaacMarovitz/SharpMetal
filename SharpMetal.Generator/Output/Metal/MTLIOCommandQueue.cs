@@ -31,7 +31,11 @@ namespace SharpMetal
 
         public MTLIOCommandBuffer CommandBuffer => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_commandBuffer));
         public MTLIOCommandBuffer CommandBufferWithUnretainedReferences => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_commandBufferWithUnretainedReferences));
-        public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+        public NSString Label
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
+        }
 
         private static readonly Selector sel_enqueueBarrier = "enqueueBarrier";
         private static readonly Selector sel_commandBuffer = "commandBuffer";
@@ -75,11 +79,31 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
-        public ulong MaxCommandBufferCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxCommandBufferCount);
-        public MTLIOPriority Priority => (MTLIOPriority)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_priority);
-        public MTLIOCommandQueueType Type => (MTLIOCommandQueueType)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_type);
-        public ulong MaxCommandsInFlight => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxCommandsInFlight);
-        public MTLIOScratchBufferAllocator ScratchBufferAllocator => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_scratchBufferAllocator));
+        public ulong MaxCommandBufferCount
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxCommandBufferCount);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxCommandBufferCount, value);
+        }
+        public MTLIOPriority Priority
+        {
+            get => (MTLIOPriority)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_priority);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPriority, (long)value);
+        }
+        public MTLIOCommandQueueType Type
+        {
+            get => (MTLIOCommandQueueType)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_type);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setType, (long)value);
+        }
+        public ulong MaxCommandsInFlight
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxCommandsInFlight);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxCommandsInFlight, value);
+        }
+        public MTLIOScratchBufferAllocator ScratchBufferAllocator
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_scratchBufferAllocator));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setScratchBufferAllocator, value);
+        }
 
         private static readonly Selector sel_maxCommandBufferCount = "maxCommandBufferCount";
         private static readonly Selector sel_setMaxCommandBufferCount = "setMaxCommandBufferCount:";
@@ -100,7 +124,11 @@ namespace SharpMetal
         public static implicit operator IntPtr(MTLIOFileHandle obj) => obj.NativePtr;
         public MTLIOFileHandle(IntPtr ptr) => NativePtr = ptr;
 
-        public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+        public NSString Label
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
+        }
 
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_setLabel = "setLabel:";

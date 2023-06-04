@@ -149,7 +149,11 @@ namespace SharpMetal
         public static implicit operator IntPtr(MTLFunction obj) => obj.NativePtr;
         public MTLFunction(IntPtr ptr) => NativePtr = ptr;
 
-        public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+        public NSString Label
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
+        }
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
         public MTLFunctionType FunctionType => (MTLFunctionType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_functionType);
         public MTLPatchType PatchType => (MTLPatchType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_patchType);
@@ -188,17 +192,61 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
-        public NSDictionary PreprocessorMacros => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_preprocessorMacros));
-        public bool FastMathEnabled => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_fastMathEnabled);
-        public MTLLanguageVersion LanguageVersion => (MTLLanguageVersion)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_languageVersion);
-        public MTLLibraryType LibraryType => (MTLLibraryType)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_libraryType);
-        public NSString InstallName => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_installName));
-        public NSArray Libraries => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_libraries));
-        public bool PreserveInvariance => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_preserveInvariance);
-        public MTLLibraryOptimizationLevel OptimizationLevel => (MTLLibraryOptimizationLevel)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_optimizationLevel);
-        public MTLCompileSymbolVisibility CompileSymbolVisibility => (MTLCompileSymbolVisibility)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_compileSymbolVisibility);
-        public bool AllowReferencingUndefinedSymbols => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_allowReferencingUndefinedSymbols);
-        public ulong MaxTotalThreadsPerThreadgroup => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxTotalThreadsPerThreadgroup);
+        public NSDictionary PreprocessorMacros
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_preprocessorMacros));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPreprocessorMacros, value);
+        }
+        public bool FastMathEnabled
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_fastMathEnabled);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFastMathEnabled, value);
+        }
+        public MTLLanguageVersion LanguageVersion
+        {
+            get => (MTLLanguageVersion)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_languageVersion);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLanguageVersion, (ulong)value);
+        }
+        public MTLLibraryType LibraryType
+        {
+            get => (MTLLibraryType)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_libraryType);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLibraryType, (long)value);
+        }
+        public NSString InstallName
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_installName));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInstallName, value);
+        }
+        public NSArray Libraries
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_libraries));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLibraries, value);
+        }
+        public bool PreserveInvariance
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_preserveInvariance);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPreserveInvariance, value);
+        }
+        public MTLLibraryOptimizationLevel OptimizationLevel
+        {
+            get => (MTLLibraryOptimizationLevel)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_optimizationLevel);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOptimizationLevel, (long)value);
+        }
+        public MTLCompileSymbolVisibility CompileSymbolVisibility
+        {
+            get => (MTLCompileSymbolVisibility)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_compileSymbolVisibility);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setCompileSymbolVisibility, (long)value);
+        }
+        public bool AllowReferencingUndefinedSymbols
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_allowReferencingUndefinedSymbols);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAllowReferencingUndefinedSymbols, value);
+        }
+        public ulong MaxTotalThreadsPerThreadgroup
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxTotalThreadsPerThreadgroup);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxTotalThreadsPerThreadgroup, value);
+        }
 
         private static readonly Selector sel_preprocessorMacros = "preprocessorMacros";
         private static readonly Selector sel_setPreprocessorMacros = "setPreprocessorMacros:";
@@ -231,7 +279,11 @@ namespace SharpMetal
         public static implicit operator IntPtr(MTLLibrary obj) => obj.NativePtr;
         public MTLLibrary(IntPtr ptr) => NativePtr = ptr;
 
-        public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+        public NSString Label
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
+        }
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
         public NSArray FunctionNames => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_functionNames));
         public MTLLibraryType Type => (MTLLibraryType)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_type);

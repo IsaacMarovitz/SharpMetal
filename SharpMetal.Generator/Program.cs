@@ -181,6 +181,7 @@ namespace SharpMetal.Generator
                     if (selector != null)
                     {
                         var runtimeFuncReturn = "IntPtr";
+                        var setterSelector = instance.SelectorInstances.Find(x => x.Selector.ToLower().Contains("set" + selector.Selector.ToLower()));
 
                         switch (property.Type)
                         {
@@ -216,23 +217,71 @@ namespace SharpMetal.Generator
                                 break;
                         }
 
-                        if (runtimeFuncReturn == "IntPtr")
+                        if (setterSelector != null)
                         {
-                            // Need to adjust this to support enums from other headers
-                            var enumInstance = enumCache.Find(x => x.Name == property.Type);
-
-                            if (enumInstance != null)
+                            if (runtimeFuncReturn == "IntPtr")
                             {
-                                sw.WriteLine(GetIndent() + $"public {property.Type} {property.Name} => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend(NativePtr, {selector.Name});");
+                                // Need to adjust this to support enums from other headers
+                                var enumInstance = enumCache.Find(x => x.Name == property.Type);
+
+                                if (enumInstance != null)
+                                {
+                                    sw.WriteLine(GetIndent() + $"public {property.Type} {property.Name}");
+                                    sw.WriteLine(GetIndent() + "{");
+                                    depth += 1;
+
+                                    sw.WriteLine(GetIndent() + $"get => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend(NativePtr, {selector.Name});");
+                                    sw.WriteLine(GetIndent() + $"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, ({enumInstance.Type})value);");
+                                    depth -= 1;
+
+                                    sw.WriteLine(GetIndent() + "}");
+                                }
+                                else
+                                {
+                                    sw.WriteLine(GetIndent() + $"public {property.Type} {property.Name}");
+                                    sw.WriteLine(GetIndent() + "{");
+                                    depth += 1;
+
+                                    sw.WriteLine(GetIndent() + $"get => new(ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name}));");
+                                    sw.WriteLine(GetIndent() + $"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, value);");
+                                    depth -= 1;
+
+                                    sw.WriteLine(GetIndent() + "}");
+                                }
                             }
                             else
                             {
-                                sw.WriteLine(GetIndent() + $"public {property.Type} {property.Name} => new(ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name}));");
+                                sw.WriteLine(GetIndent() + $"public {property.Type} {property.Name}");
+                                sw.WriteLine(GetIndent() + "{");
+                                depth += 1;
+
+                                sw.WriteLine(GetIndent() + $"get => ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name});");
+                                sw.WriteLine(GetIndent() + $"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, value);");
+                                depth -= 1;
+
+                                sw.WriteLine(GetIndent() + "}");
                             }
                         }
                         else
                         {
-                            sw.WriteLine(GetIndent() + $"public {property.Type} {property.Name} => ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name});");
+                            if (runtimeFuncReturn == "IntPtr")
+                            {
+                                // Need to adjust this to support enums from other headers
+                                var enumInstance = enumCache.Find(x => x.Name == property.Type);
+
+                                if (enumInstance != null)
+                                {
+                                    sw.WriteLine(GetIndent() + $"public {property.Type} {property.Name} => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend(NativePtr, {selector.Name});");
+                                }
+                                else
+                                {
+                                    sw.WriteLine(GetIndent() + $"public {property.Type} {property.Name} => new(ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name}));");
+                                }
+                            }
+                            else
+                            {
+                                sw.WriteLine(GetIndent() + $"public {property.Type} {property.Name} => ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name});");
+                            }
                         }
                     }
                     else

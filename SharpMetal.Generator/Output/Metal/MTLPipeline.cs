@@ -23,7 +23,11 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
-        public MTLMutability Mutability => (MTLMutability)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_mutability);
+        public MTLMutability Mutability
+        {
+            get => (MTLMutability)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_mutability);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMutability, (ulong)value);
+        }
 
         private static readonly Selector sel_mutability = "mutability";
         private static readonly Selector sel_setMutability = "setMutability:";

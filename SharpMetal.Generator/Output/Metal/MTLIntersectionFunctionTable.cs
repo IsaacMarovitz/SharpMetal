@@ -28,7 +28,11 @@ namespace SharpMetal
         }
 
         public MTLIntersectionFunctionTableDescriptor IntersectionFunctionTableDescriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_intersectionFunctionTableDescriptor));
-        public ulong FunctionCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_functionCount);
+        public ulong FunctionCount
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_functionCount);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctionCount, value);
+        }
 
         private static readonly Selector sel_intersectionFunctionTableDescriptor = "intersectionFunctionTableDescriptor";
         private static readonly Selector sel_functionCount = "functionCount";

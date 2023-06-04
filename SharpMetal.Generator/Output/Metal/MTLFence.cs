@@ -11,7 +11,11 @@ namespace SharpMetal
         public MTLFence(IntPtr ptr) => NativePtr = ptr;
 
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
-        public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+        public NSString Label
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
+        }
 
         private static readonly Selector sel_device = "device";
         private static readonly Selector sel_label = "label";

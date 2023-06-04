@@ -23,13 +23,41 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
-        public ulong Size => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_size);
-        public MTLStorageMode StorageMode => (MTLStorageMode)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_storageMode);
-        public MTLCPUCacheMode CpuCacheMode => (MTLCPUCacheMode)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_cpuCacheMode);
-        public MTLSparsePageSize SparsePageSize => (MTLSparsePageSize)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_sparsePageSize);
-        public MTLHazardTrackingMode HazardTrackingMode => (MTLHazardTrackingMode)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_hazardTrackingMode);
-        public MTLResourceOptions ResourceOptions => (MTLResourceOptions)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_resourceOptions);
-        public MTLHeapType Type => (MTLHeapType)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_type);
+        public ulong Size
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_size);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSize, value);
+        }
+        public MTLStorageMode StorageMode
+        {
+            get => (MTLStorageMode)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_storageMode);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStorageMode, (ulong)value);
+        }
+        public MTLCPUCacheMode CpuCacheMode
+        {
+            get => (MTLCPUCacheMode)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_cpuCacheMode);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setCpuCacheMode, (ulong)value);
+        }
+        public MTLSparsePageSize SparsePageSize
+        {
+            get => (MTLSparsePageSize)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_sparsePageSize);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSparsePageSize, (long)value);
+        }
+        public MTLHazardTrackingMode HazardTrackingMode
+        {
+            get => (MTLHazardTrackingMode)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_hazardTrackingMode);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setHazardTrackingMode, (ulong)value);
+        }
+        public MTLResourceOptions ResourceOptions
+        {
+            get => (MTLResourceOptions)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_resourceOptions);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setResourceOptions, (ulong)value);
+        }
+        public MTLHeapType Type
+        {
+            get => (MTLHeapType)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_type);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setType, (long)value);
+        }
 
         private static readonly Selector sel_size = "size";
         private static readonly Selector sel_setSize = "setSize:";
@@ -54,7 +82,11 @@ namespace SharpMetal
         public static implicit operator IntPtr(MTLHeap obj) => obj.NativePtr;
         public MTLHeap(IntPtr ptr) => NativePtr = ptr;
 
-        public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+        public NSString Label
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
+        }
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
         public MTLStorageMode StorageMode => (MTLStorageMode)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_storageMode);
         public MTLCPUCacheMode CpuCacheMode => (MTLCPUCacheMode)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_cpuCacheMode);

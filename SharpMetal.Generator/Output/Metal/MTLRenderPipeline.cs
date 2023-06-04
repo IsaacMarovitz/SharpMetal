@@ -94,15 +94,47 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
-        public MTLPixelFormat PixelFormat => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_pixelFormat);
+        public MTLPixelFormat PixelFormat
+        {
+            get => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_pixelFormat);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPixelFormat, (ulong)value);
+        }
         public bool BlendingEnabled => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isBlendingEnabled);
-        public MTLBlendFactor SourceRGBBlendFactor => (MTLBlendFactor)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_sourceRGBBlendFactor);
-        public MTLBlendFactor DestinationRGBBlendFactor => (MTLBlendFactor)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_destinationRGBBlendFactor);
-        public MTLBlendOperation RgbBlendOperation => (MTLBlendOperation)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_rgbBlendOperation);
-        public MTLBlendFactor SourceAlphaBlendFactor => (MTLBlendFactor)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_sourceAlphaBlendFactor);
-        public MTLBlendFactor DestinationAlphaBlendFactor => (MTLBlendFactor)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_destinationAlphaBlendFactor);
-        public MTLBlendOperation AlphaBlendOperation => (MTLBlendOperation)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_alphaBlendOperation);
-        public MTLColorWriteMask WriteMask => (MTLColorWriteMask)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_writeMask);
+        public MTLBlendFactor SourceRGBBlendFactor
+        {
+            get => (MTLBlendFactor)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_sourceRGBBlendFactor);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSourceRGBBlendFactor, (ulong)value);
+        }
+        public MTLBlendFactor DestinationRGBBlendFactor
+        {
+            get => (MTLBlendFactor)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_destinationRGBBlendFactor);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDestinationRGBBlendFactor, (ulong)value);
+        }
+        public MTLBlendOperation RgbBlendOperation
+        {
+            get => (MTLBlendOperation)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_rgbBlendOperation);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRgbBlendOperation, (ulong)value);
+        }
+        public MTLBlendFactor SourceAlphaBlendFactor
+        {
+            get => (MTLBlendFactor)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_sourceAlphaBlendFactor);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSourceAlphaBlendFactor, (ulong)value);
+        }
+        public MTLBlendFactor DestinationAlphaBlendFactor
+        {
+            get => (MTLBlendFactor)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_destinationAlphaBlendFactor);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDestinationAlphaBlendFactor, (ulong)value);
+        }
+        public MTLBlendOperation AlphaBlendOperation
+        {
+            get => (MTLBlendOperation)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_alphaBlendOperation);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAlphaBlendOperation, (ulong)value);
+        }
+        public MTLColorWriteMask WriteMask
+        {
+            get => (MTLColorWriteMask)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_writeMask);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setWriteMask, (ulong)value);
+        }
 
         private static readonly Selector sel_pixelFormat = "pixelFormat";
         private static readonly Selector sel_setPixelFormat = "setPixelFormat:";
@@ -169,39 +201,143 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
-        public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
-        public MTLFunction VertexFunction => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_vertexFunction));
-        public MTLFunction FragmentFunction => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_fragmentFunction));
-        public MTLVertexDescriptor VertexDescriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_vertexDescriptor));
-        public ulong SampleCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_sampleCount);
-        public ulong RasterSampleCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_rasterSampleCount);
+        public NSString Label
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
+        }
+        public MTLFunction VertexFunction
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_vertexFunction));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexFunction, value);
+        }
+        public MTLFunction FragmentFunction
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_fragmentFunction));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFragmentFunction, value);
+        }
+        public MTLVertexDescriptor VertexDescriptor
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_vertexDescriptor));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexDescriptor, value);
+        }
+        public ulong SampleCount
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_sampleCount);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSampleCount, value);
+        }
+        public ulong RasterSampleCount
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_rasterSampleCount);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRasterSampleCount, value);
+        }
         public bool AlphaToCoverageEnabled => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isAlphaToCoverageEnabled);
         public bool AlphaToOneEnabled => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isAlphaToOneEnabled);
         public bool RasterizationEnabled => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isRasterizationEnabled);
-        public ulong MaxVertexAmplificationCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxVertexAmplificationCount);
+        public ulong MaxVertexAmplificationCount
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxVertexAmplificationCount);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxVertexAmplificationCount, value);
+        }
         public MTLRenderPipelineColorAttachmentDescriptorArray ColorAttachments => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_colorAttachments));
-        public MTLPixelFormat DepthAttachmentPixelFormat => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_depthAttachmentPixelFormat);
-        public MTLPixelFormat StencilAttachmentPixelFormat => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stencilAttachmentPixelFormat);
-        public MTLPrimitiveTopologyClass InputPrimitiveTopology => (MTLPrimitiveTopologyClass)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_inputPrimitiveTopology);
-        public MTLTessellationPartitionMode TessellationPartitionMode => (MTLTessellationPartitionMode)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_tessellationPartitionMode);
-        public ulong MaxTessellationFactor => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxTessellationFactor);
+        public MTLPixelFormat DepthAttachmentPixelFormat
+        {
+            get => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_depthAttachmentPixelFormat);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthAttachmentPixelFormat, (ulong)value);
+        }
+        public MTLPixelFormat StencilAttachmentPixelFormat
+        {
+            get => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stencilAttachmentPixelFormat);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStencilAttachmentPixelFormat, (ulong)value);
+        }
+        public MTLPrimitiveTopologyClass InputPrimitiveTopology
+        {
+            get => (MTLPrimitiveTopologyClass)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_inputPrimitiveTopology);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInputPrimitiveTopology, (ulong)value);
+        }
+        public MTLTessellationPartitionMode TessellationPartitionMode
+        {
+            get => (MTLTessellationPartitionMode)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_tessellationPartitionMode);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTessellationPartitionMode, (ulong)value);
+        }
+        public ulong MaxTessellationFactor
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxTessellationFactor);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxTessellationFactor, value);
+        }
         public bool TessellationFactorScaleEnabled => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isTessellationFactorScaleEnabled);
-        public MTLTessellationFactorFormat TessellationFactorFormat => (MTLTessellationFactorFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_tessellationFactorFormat);
-        public MTLTessellationControlPointIndexType TessellationControlPointIndexType => (MTLTessellationControlPointIndexType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_tessellationControlPointIndexType);
-        public MTLTessellationFactorStepFunction TessellationFactorStepFunction => (MTLTessellationFactorStepFunction)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_tessellationFactorStepFunction);
-        public MTLWinding TessellationOutputWindingOrder => (MTLWinding)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_tessellationOutputWindingOrder);
+        public MTLTessellationFactorFormat TessellationFactorFormat
+        {
+            get => (MTLTessellationFactorFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_tessellationFactorFormat);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTessellationFactorFormat, (ulong)value);
+        }
+        public MTLTessellationControlPointIndexType TessellationControlPointIndexType
+        {
+            get => (MTLTessellationControlPointIndexType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_tessellationControlPointIndexType);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTessellationControlPointIndexType, (ulong)value);
+        }
+        public MTLTessellationFactorStepFunction TessellationFactorStepFunction
+        {
+            get => (MTLTessellationFactorStepFunction)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_tessellationFactorStepFunction);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTessellationFactorStepFunction, (ulong)value);
+        }
+        public MTLWinding TessellationOutputWindingOrder
+        {
+            get => (MTLWinding)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_tessellationOutputWindingOrder);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTessellationOutputWindingOrder, (ulong)value);
+        }
         public MTLPipelineBufferDescriptorArray VertexBuffers => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_vertexBuffers));
         public MTLPipelineBufferDescriptorArray FragmentBuffers => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_fragmentBuffers));
-        public bool SupportIndirectCommandBuffers => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportIndirectCommandBuffers);
-        public NSArray BinaryArchives => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_binaryArchives));
-        public NSArray VertexPreloadedLibraries => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_vertexPreloadedLibraries));
-        public NSArray FragmentPreloadedLibraries => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_fragmentPreloadedLibraries));
-        public MTLLinkedFunctions VertexLinkedFunctions => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_vertexLinkedFunctions));
-        public MTLLinkedFunctions FragmentLinkedFunctions => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_fragmentLinkedFunctions));
-        public bool SupportAddingVertexBinaryFunctions => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportAddingVertexBinaryFunctions);
-        public bool SupportAddingFragmentBinaryFunctions => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportAddingFragmentBinaryFunctions);
-        public ulong MaxVertexCallStackDepth => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxVertexCallStackDepth);
-        public ulong MaxFragmentCallStackDepth => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxFragmentCallStackDepth);
+        public bool SupportIndirectCommandBuffers
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportIndirectCommandBuffers);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSupportIndirectCommandBuffers, value);
+        }
+        public NSArray BinaryArchives
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_binaryArchives));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBinaryArchives, value);
+        }
+        public NSArray VertexPreloadedLibraries
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_vertexPreloadedLibraries));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexPreloadedLibraries, value);
+        }
+        public NSArray FragmentPreloadedLibraries
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_fragmentPreloadedLibraries));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFragmentPreloadedLibraries, value);
+        }
+        public MTLLinkedFunctions VertexLinkedFunctions
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_vertexLinkedFunctions));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexLinkedFunctions, value);
+        }
+        public MTLLinkedFunctions FragmentLinkedFunctions
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_fragmentLinkedFunctions));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFragmentLinkedFunctions, value);
+        }
+        public bool SupportAddingVertexBinaryFunctions
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportAddingVertexBinaryFunctions);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSupportAddingVertexBinaryFunctions, value);
+        }
+        public bool SupportAddingFragmentBinaryFunctions
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportAddingFragmentBinaryFunctions);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSupportAddingFragmentBinaryFunctions, value);
+        }
+        public ulong MaxVertexCallStackDepth
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxVertexCallStackDepth);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxVertexCallStackDepth, value);
+        }
+        public ulong MaxFragmentCallStackDepth
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxFragmentCallStackDepth);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxFragmentCallStackDepth, value);
+        }
 
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_setLabel = "setLabel:";
@@ -282,9 +418,21 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
-        public NSArray VertexAdditionalBinaryFunctions => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_vertexAdditionalBinaryFunctions));
-        public NSArray FragmentAdditionalBinaryFunctions => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_fragmentAdditionalBinaryFunctions));
-        public NSArray TileAdditionalBinaryFunctions => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_tileAdditionalBinaryFunctions));
+        public NSArray VertexAdditionalBinaryFunctions
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_vertexAdditionalBinaryFunctions));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexAdditionalBinaryFunctions, value);
+        }
+        public NSArray FragmentAdditionalBinaryFunctions
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_fragmentAdditionalBinaryFunctions));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFragmentAdditionalBinaryFunctions, value);
+        }
+        public NSArray TileAdditionalBinaryFunctions
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_tileAdditionalBinaryFunctions));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTileAdditionalBinaryFunctions, value);
+        }
 
         private static readonly Selector sel_vertexAdditionalBinaryFunctions = "vertexAdditionalBinaryFunctions";
         private static readonly Selector sel_setVertexAdditionalBinaryFunctions = "setVertexAdditionalBinaryFunctions:";
@@ -363,7 +511,11 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
-        public MTLPixelFormat PixelFormat => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_pixelFormat);
+        public MTLPixelFormat PixelFormat
+        {
+            get => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_pixelFormat);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPixelFormat, (ulong)value);
+        }
 
         private static readonly Selector sel_pixelFormat = "pixelFormat";
         private static readonly Selector sel_setPixelFormat = "setPixelFormat:";
@@ -399,18 +551,58 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
-        public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
-        public MTLFunction TileFunction => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_tileFunction));
-        public ulong RasterSampleCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_rasterSampleCount);
+        public NSString Label
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
+        }
+        public MTLFunction TileFunction
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_tileFunction));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTileFunction, value);
+        }
+        public ulong RasterSampleCount
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_rasterSampleCount);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRasterSampleCount, value);
+        }
         public MTLTileRenderPipelineColorAttachmentDescriptorArray ColorAttachments => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_colorAttachments));
-        public bool ThreadgroupSizeMatchesTileSize => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_threadgroupSizeMatchesTileSize);
+        public bool ThreadgroupSizeMatchesTileSize
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_threadgroupSizeMatchesTileSize);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setThreadgroupSizeMatchesTileSize, value);
+        }
         public MTLPipelineBufferDescriptorArray TileBuffers => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_tileBuffers));
-        public ulong MaxTotalThreadsPerThreadgroup => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxTotalThreadsPerThreadgroup);
-        public NSArray BinaryArchives => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_binaryArchives));
-        public NSArray PreloadedLibraries => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_preloadedLibraries));
-        public MTLLinkedFunctions LinkedFunctions => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_linkedFunctions));
-        public bool SupportAddingBinaryFunctions => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportAddingBinaryFunctions);
-        public ulong MaxCallStackDepth => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxCallStackDepth);
+        public ulong MaxTotalThreadsPerThreadgroup
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxTotalThreadsPerThreadgroup);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxTotalThreadsPerThreadgroup, value);
+        }
+        public NSArray BinaryArchives
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_binaryArchives));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBinaryArchives, value);
+        }
+        public NSArray PreloadedLibraries
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_preloadedLibraries));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPreloadedLibraries, value);
+        }
+        public MTLLinkedFunctions LinkedFunctions
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_linkedFunctions));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLinkedFunctions, value);
+        }
+        public bool SupportAddingBinaryFunctions
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportAddingBinaryFunctions);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSupportAddingBinaryFunctions, value);
+        }
+        public ulong MaxCallStackDepth
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxCallStackDepth);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxCallStackDepth, value);
+        }
 
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_setLabel = "setLabel:";
@@ -450,27 +642,83 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
-        public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
-        public MTLFunction ObjectFunction => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_objectFunction));
-        public MTLFunction MeshFunction => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_meshFunction));
-        public MTLFunction FragmentFunction => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_fragmentFunction));
-        public ulong MaxTotalThreadsPerObjectThreadgroup => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxTotalThreadsPerObjectThreadgroup);
-        public ulong MaxTotalThreadsPerMeshThreadgroup => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxTotalThreadsPerMeshThreadgroup);
-        public bool ObjectThreadgroupSizeIsMultipleOfThreadExecutionWidth => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_objectThreadgroupSizeIsMultipleOfThreadExecutionWidth);
-        public bool MeshThreadgroupSizeIsMultipleOfThreadExecutionWidth => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_meshThreadgroupSizeIsMultipleOfThreadExecutionWidth);
-        public ulong PayloadMemoryLength => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_payloadMemoryLength);
-        public ulong MaxTotalThreadgroupsPerMeshGrid => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxTotalThreadgroupsPerMeshGrid);
+        public NSString Label
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
+        }
+        public MTLFunction ObjectFunction
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_objectFunction));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setObjectFunction, value);
+        }
+        public MTLFunction MeshFunction
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_meshFunction));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMeshFunction, value);
+        }
+        public MTLFunction FragmentFunction
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_fragmentFunction));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFragmentFunction, value);
+        }
+        public ulong MaxTotalThreadsPerObjectThreadgroup
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxTotalThreadsPerObjectThreadgroup);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxTotalThreadsPerObjectThreadgroup, value);
+        }
+        public ulong MaxTotalThreadsPerMeshThreadgroup
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxTotalThreadsPerMeshThreadgroup);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxTotalThreadsPerMeshThreadgroup, value);
+        }
+        public bool ObjectThreadgroupSizeIsMultipleOfThreadExecutionWidth
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_objectThreadgroupSizeIsMultipleOfThreadExecutionWidth);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setObjectThreadgroupSizeIsMultipleOfThreadExecutionWidth, value);
+        }
+        public bool MeshThreadgroupSizeIsMultipleOfThreadExecutionWidth
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_meshThreadgroupSizeIsMultipleOfThreadExecutionWidth);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMeshThreadgroupSizeIsMultipleOfThreadExecutionWidth, value);
+        }
+        public ulong PayloadMemoryLength
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_payloadMemoryLength);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPayloadMemoryLength, value);
+        }
+        public ulong MaxTotalThreadgroupsPerMeshGrid
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxTotalThreadgroupsPerMeshGrid);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxTotalThreadgroupsPerMeshGrid, value);
+        }
         public MTLPipelineBufferDescriptorArray ObjectBuffers => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_objectBuffers));
         public MTLPipelineBufferDescriptorArray MeshBuffers => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_meshBuffers));
         public MTLPipelineBufferDescriptorArray FragmentBuffers => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_fragmentBuffers));
-        public ulong RasterSampleCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_rasterSampleCount);
+        public ulong RasterSampleCount
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_rasterSampleCount);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRasterSampleCount, value);
+        }
         public bool AlphaToCoverageEnabled => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isAlphaToCoverageEnabled);
         public bool AlphaToOneEnabled => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isAlphaToOneEnabled);
         public bool RasterizationEnabled => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isRasterizationEnabled);
-        public ulong MaxVertexAmplificationCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxVertexAmplificationCount);
+        public ulong MaxVertexAmplificationCount
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxVertexAmplificationCount);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxVertexAmplificationCount, value);
+        }
         public MTLRenderPipelineColorAttachmentDescriptorArray ColorAttachments => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_colorAttachments));
-        public MTLPixelFormat DepthAttachmentPixelFormat => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_depthAttachmentPixelFormat);
-        public MTLPixelFormat StencilAttachmentPixelFormat => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stencilAttachmentPixelFormat);
+        public MTLPixelFormat DepthAttachmentPixelFormat
+        {
+            get => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_depthAttachmentPixelFormat);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthAttachmentPixelFormat, (ulong)value);
+        }
+        public MTLPixelFormat StencilAttachmentPixelFormat
+        {
+            get => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stencilAttachmentPixelFormat);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStencilAttachmentPixelFormat, (ulong)value);
+        }
 
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_setLabel = "setLabel:";

@@ -81,9 +81,21 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
-        public ulong Stride => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stride);
-        public MTLVertexStepFunction StepFunction => (MTLVertexStepFunction)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stepFunction);
-        public ulong StepRate => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stepRate);
+        public ulong Stride
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stride);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStride, value);
+        }
+        public MTLVertexStepFunction StepFunction
+        {
+            get => (MTLVertexStepFunction)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stepFunction);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStepFunction, (ulong)value);
+        }
+        public ulong StepRate
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stepRate);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStepRate, value);
+        }
 
         private static readonly Selector sel_stride = "stride";
         private static readonly Selector sel_setStride = "setStride:";
@@ -123,9 +135,21 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
-        public MTLVertexFormat Format => (MTLVertexFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_format);
-        public ulong Offset => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_offset);
-        public ulong BufferIndex => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_bufferIndex);
+        public MTLVertexFormat Format
+        {
+            get => (MTLVertexFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_format);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFormat, (ulong)value);
+        }
+        public ulong Offset
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_offset);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOffset, value);
+        }
+        public ulong BufferIndex
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_bufferIndex);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBufferIndex, value);
+        }
 
         private static readonly Selector sel_format = "format";
         private static readonly Selector sel_setFormat = "setFormat:";

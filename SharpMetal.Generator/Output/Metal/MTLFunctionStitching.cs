@@ -46,7 +46,11 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
-        public ulong ArgumentIndex => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_argumentIndex);
+        public ulong ArgumentIndex
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_argumentIndex);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setArgumentIndex, value);
+        }
 
         private static readonly Selector sel_argumentIndex = "argumentIndex";
         private static readonly Selector sel_setArgumentIndex = "setArgumentIndex:";
@@ -66,9 +70,21 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
-        public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
-        public NSArray Arguments => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_arguments));
-        public NSArray ControlDependencies => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_controlDependencies));
+        public NSString Name
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setName, value);
+        }
+        public NSArray Arguments
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_arguments));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setArguments, value);
+        }
+        public NSArray ControlDependencies
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_controlDependencies));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setControlDependencies, value);
+        }
 
         private static readonly Selector sel_name = "name";
         private static readonly Selector sel_setName = "setName:";
@@ -92,10 +108,26 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
-        public NSString FunctionName => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_functionName));
-        public NSArray Nodes => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_nodes));
-        public MTLFunctionStitchingFunctionNode OutputNode => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_outputNode));
-        public NSArray Attributes => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_attributes));
+        public NSString FunctionName
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_functionName));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctionName, value);
+        }
+        public NSArray Nodes
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_nodes));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setNodes, value);
+        }
+        public MTLFunctionStitchingFunctionNode OutputNode
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_outputNode));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOutputNode, value);
+        }
+        public NSArray Attributes
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_attributes));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAttributes, value);
+        }
 
         private static readonly Selector sel_functionName = "functionName";
         private static readonly Selector sel_setFunctionName = "setFunctionName:";
@@ -121,8 +153,16 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
-        public NSArray FunctionGraphs => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_functionGraphs));
-        public NSArray Functions => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_functions));
+        public NSArray FunctionGraphs
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_functionGraphs));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctionGraphs, value);
+        }
+        public NSArray Functions
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_functions));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctions, value);
+        }
 
         private static readonly Selector sel_functionGraphs = "functionGraphs";
         private static readonly Selector sel_setFunctionGraphs = "setFunctionGraphs:";

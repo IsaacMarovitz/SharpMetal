@@ -17,7 +17,11 @@ namespace SharpMetal
         }
 
         public MTLVisibleFunctionTableDescriptor VisibleFunctionTableDescriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_visibleFunctionTableDescriptor));
-        public ulong FunctionCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_functionCount);
+        public ulong FunctionCount
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_functionCount);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctionCount, value);
+        }
 
         private static readonly Selector sel_visibleFunctionTableDescriptor = "visibleFunctionTableDescriptor";
         private static readonly Selector sel_functionCount = "functionCount";

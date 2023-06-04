@@ -11,7 +11,11 @@ namespace SharpMetal
         public MTLEvent(IntPtr ptr) => NativePtr = ptr;
 
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
-        public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+        public NSString Label
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
+        }
 
         private static readonly Selector sel_device = "device";
         private static readonly Selector sel_label = "label";
@@ -45,7 +49,11 @@ namespace SharpMetal
         public MTLSharedEvent(IntPtr ptr) => NativePtr = ptr;
 
         public MTLSharedEventHandle NewSharedEventHandle => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newSharedEventHandle));
-        public ulong SignaledValue => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_signaledValue);
+        public ulong SignaledValue
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_signaledValue);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSignaledValue, value);
+        }
 
         private static readonly Selector sel_notifyListeneratValueblock = "notifyListener:atValue:block:";
         private static readonly Selector sel_newSharedEventHandle = "newSharedEventHandle";

@@ -29,9 +29,21 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
-        public IntPtr CaptureObject => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_captureObject));
-        public MTLCaptureDestination Destination => (MTLCaptureDestination)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_destination);
-        public NSURL OutputURL => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_outputURL));
+        public IntPtr CaptureObject
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_captureObject));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setCaptureObject, value);
+        }
+        public MTLCaptureDestination Destination
+        {
+            get => (MTLCaptureDestination)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_destination);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDestination, (long)value);
+        }
+        public NSURL OutputURL
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_outputURL));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOutputURL, value);
+        }
 
         private static readonly Selector sel_captureObject = "captureObject";
         private static readonly Selector sel_setCaptureObject = "setCaptureObject:";
@@ -55,7 +67,11 @@ namespace SharpMetal
         }
 
         public MTLCaptureManager SharedCaptureManager => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_sharedCaptureManager));
-        public MTLCaptureScope DefaultCaptureScope => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_defaultCaptureScope));
+        public MTLCaptureScope DefaultCaptureScope
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_defaultCaptureScope));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDefaultCaptureScope, value);
+        }
         public bool IsCapturing => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isCapturing);
 
         private static readonly Selector sel_sharedCaptureManager = "sharedCaptureManager";
