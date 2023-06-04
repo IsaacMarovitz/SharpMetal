@@ -131,9 +131,9 @@ namespace SharpMetal.Generator
                             nextLine = nextLine.Replace("void*", "IntPtr");
                             nextLine = nextLine.Replace("void()", "void");
                             nextLine = nextLine.Replace("*", "");
-                            nextLine = nextLine.Replace("class", "");
-                            nextLine = nextLine.Replace("const", "");
-                            nextLine = nextLine.Replace("static", "");
+                            nextLine = nextLine.Replace("class ", "");
+                            nextLine = nextLine.Replace("const ", "");
+                            nextLine = nextLine.Replace("static ", "");
 
                             var parts = ClassRegex().Split(nextLine).ToList();
 

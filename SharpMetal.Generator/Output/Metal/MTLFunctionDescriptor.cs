@@ -33,7 +33,7 @@ namespace SharpMetal
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_specializedName));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSpecializedName, value);
         }
-        public MTLFunctionConstantValues AntValues
+        public MTLFunctionConstantValues ConstantValues
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_constantValues));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setConstantValues, value);
