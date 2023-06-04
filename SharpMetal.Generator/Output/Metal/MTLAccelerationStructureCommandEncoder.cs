@@ -50,11 +50,13 @@ namespace SharpMetal
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_sampleBuffer));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSampleBuffer, value);
         }
+
         public ulong StartOfEncoderSampleIndex
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_startOfEncoderSampleIndex);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStartOfEncoderSampleIndex, value);
         }
+
         public ulong EndOfEncoderSampleIndex
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_endOfEncoderSampleIndex);
@@ -100,6 +102,7 @@ namespace SharpMetal
         }
 
         public MTLAccelerationStructurePassDescriptor AccelerationStructurePassDescriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_accelerationStructurePassDescriptor));
+
         public MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray SampleBufferAttachments => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_sampleBufferAttachments));
 
         private static readonly Selector sel_accelerationStructurePassDescriptor = "accelerationStructurePassDescriptor";

@@ -31,33 +31,53 @@ namespace SharpMetal
         public NSProcessInfo(IntPtr ptr) => NativePtr = ptr;
 
         public NSProcessInfo ProcessInfo => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_processInfo));
+
         public NSArray Arguments => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_arguments));
+
         public NSDictionary Environment => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_environment));
+
         public NSString HostName => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_hostName));
+
         public NSString ProcessName
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_processName));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setProcessName, value);
         }
+
         public int ProcessIdentifier => ObjectiveCRuntime.int_objc_msgSend(NativePtr, sel_processIdentifier);
+
         public NSString GloballyUniqueString => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_globallyUniqueString));
+
         public NSString UserName => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_userName));
+
         public NSString FullUserName => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_fullUserName));
+
         public ulong OperatingSystem => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_operatingSystem);
+
         public NSOperatingSystemVersion OperatingSystemVersion => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_operatingSystemVersion));
+
         public NSString OperatingSystemVersionString => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_operatingSystemVersionString));
+
         public ulong ProcessorCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_processorCount);
+
         public ulong ActiveProcessorCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_activeProcessorCount);
+
         public ulong PhysicalMemory => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_physicalMemory);
+
         public IntPtr SystemUptime => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_systemUptime));
+
         public bool AutomaticTerminationSupportEnabled
         {
             get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_automaticTerminationSupportEnabled);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAutomaticTerminationSupportEnabled, value);
         }
+
         public NSProcessInfoThermalState ThermalState => (NSProcessInfoThermalState)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_thermalState);
+
         public bool IsLowPowerModeEnabled => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isLowPowerModeEnabled);
+
         public bool IsiOSAppOnMac => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isiOSAppOnMac);
+
         public bool IsMacCatalystApp => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isMacCatalystApp);
 
         private static readonly Selector sel_processInfo = "processInfo";

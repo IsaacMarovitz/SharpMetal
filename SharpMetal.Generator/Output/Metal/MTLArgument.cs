@@ -166,12 +166,19 @@ namespace SharpMetal
         }
 
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
+
         public ulong Offset => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_offset);
+
         public MTLDataType DataType => (MTLDataType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_dataType);
+
         public MTLStructType StructType => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_structType));
+
         public MTLArrayType ArrayType => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_arrayType));
+
         public MTLTextureReferenceType TextureReferenceType => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_textureReferenceType));
+
         public MTLPointerType PointerType => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_pointerType));
+
         public ulong ArgumentIndex => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_argumentIndex);
 
         private static readonly Selector sel_name = "name";
@@ -217,12 +224,19 @@ namespace SharpMetal
         }
 
         public MTLDataType ElementType => (MTLDataType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_elementType);
+
         public ulong ArrayLength => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_arrayLength);
+
         public ulong Stride => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stride);
+
         public ulong ArgumentIndexStride => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_argumentIndexStride);
+
         public MTLStructType ElementStructType => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_elementStructType));
+
         public MTLArrayType ElementArrayType => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_elementArrayType));
+
         public MTLTextureReferenceType ElementTextureReferenceType => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_elementTextureReferenceType));
+
         public MTLPointerType ElementPointerType => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_elementPointerType));
 
         private static readonly Selector sel_elementType = "elementType";
@@ -249,11 +263,17 @@ namespace SharpMetal
         }
 
         public MTLDataType ElementType => (MTLDataType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_elementType);
+
         public MTLArgumentAccess Access => (MTLArgumentAccess)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_access);
+
         public ulong Alignment => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_alignment);
+
         public ulong DataSize => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_dataSize);
+
         public bool ElementIsArgumentBuffer => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_elementIsArgumentBuffer);
+
         public MTLStructType ElementStructType => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_elementStructType));
+
         public MTLArrayType ElementArrayType => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_elementArrayType));
 
         private static readonly Selector sel_elementType = "elementType";
@@ -279,8 +299,11 @@ namespace SharpMetal
         }
 
         public MTLDataType TextureDataType => (MTLDataType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_textureDataType);
+
         public MTLTextureType TextureType => (MTLTextureType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_textureType);
+
         public MTLArgumentAccess Access => (MTLArgumentAccess)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_access);
+
         public bool IsDepthTexture => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isDepthTexture);
 
         private static readonly Selector sel_textureDataType = "textureDataType";
@@ -303,20 +326,35 @@ namespace SharpMetal
         }
 
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
+
         public MTLArgumentType Type => (MTLArgumentType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_type);
+
         public MTLArgumentAccess Access => (MTLArgumentAccess)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_access);
+
         public ulong Index => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_index);
+
         public bool Active => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isActive);
+
         public ulong BufferAlignment => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_bufferAlignment);
+
         public ulong BufferDataSize => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_bufferDataSize);
+
         public MTLDataType BufferDataType => (MTLDataType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_bufferDataType);
+
         public MTLStructType BufferStructType => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_bufferStructType));
+
         public MTLPointerType BufferPointerType => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_bufferPointerType));
+
         public ulong ThreadgroupMemoryAlignment => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_threadgroupMemoryAlignment);
+
         public ulong ThreadgroupMemoryDataSize => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_threadgroupMemoryDataSize);
+
         public MTLTextureType TextureType => (MTLTextureType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_textureType);
+
         public MTLDataType TextureDataType => (MTLDataType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_textureDataType);
+
         public bool IsDepthTexture => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isDepthTexture);
+
         public ulong ArrayLength => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_arrayLength);
 
         private static readonly Selector sel_name = "name";
@@ -345,10 +383,15 @@ namespace SharpMetal
         public MTLBinding(IntPtr ptr) => NativePtr = ptr;
 
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
+
         public MTLBindingType Type => (MTLBindingType)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_type);
+
         public MTLArgumentAccess Access => (MTLArgumentAccess)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_access);
+
         public ulong Index => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_index);
+
         public bool Used => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isUsed);
+
         public bool Argument => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isArgument);
 
         private static readonly Selector sel_name = "name";
@@ -367,9 +410,13 @@ namespace SharpMetal
         public MTLBufferBinding(IntPtr ptr) => NativePtr = ptr;
 
         public ulong BufferAlignment => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_bufferAlignment);
+
         public ulong BufferDataSize => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_bufferDataSize);
+
         public MTLDataType BufferDataType => (MTLDataType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_bufferDataType);
+
         public MTLStructType BufferStructType => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_bufferStructType));
+
         public MTLPointerType BufferPointerType => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_bufferPointerType));
 
         private static readonly Selector sel_bufferAlignment = "bufferAlignment";
@@ -387,6 +434,7 @@ namespace SharpMetal
         public MTLThreadgroupBinding(IntPtr ptr) => NativePtr = ptr;
 
         public ulong ThreadgroupMemoryAlignment => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_threadgroupMemoryAlignment);
+
         public ulong ThreadgroupMemoryDataSize => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_threadgroupMemoryDataSize);
 
         private static readonly Selector sel_threadgroupMemoryAlignment = "threadgroupMemoryAlignment";
@@ -401,8 +449,11 @@ namespace SharpMetal
         public MTLTextureBinding(IntPtr ptr) => NativePtr = ptr;
 
         public MTLTextureType TextureType => (MTLTextureType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_textureType);
+
         public MTLDataType TextureDataType => (MTLDataType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_textureDataType);
+
         public bool DepthTexture => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isDepthTexture);
+
         public ulong ArrayLength => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_arrayLength);
 
         private static readonly Selector sel_textureType = "textureType";
@@ -419,6 +470,7 @@ namespace SharpMetal
         public MTLObjectPayloadBinding(IntPtr ptr) => NativePtr = ptr;
 
         public ulong ObjectPayloadAlignment => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_objectPayloadAlignment);
+
         public ulong ObjectPayloadDataSize => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_objectPayloadDataSize);
 
         private static readonly Selector sel_objectPayloadAlignment = "objectPayloadAlignment";

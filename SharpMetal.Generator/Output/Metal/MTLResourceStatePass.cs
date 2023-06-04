@@ -21,11 +21,13 @@ namespace SharpMetal
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_sampleBuffer));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSampleBuffer, value);
         }
+
         public ulong StartOfEncoderSampleIndex
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_startOfEncoderSampleIndex);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStartOfEncoderSampleIndex, value);
         }
+
         public ulong EndOfEncoderSampleIndex
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_endOfEncoderSampleIndex);
@@ -71,6 +73,7 @@ namespace SharpMetal
         }
 
         public MTLResourceStatePassDescriptor ResourceStatePassDescriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_resourceStatePassDescriptor));
+
         public MTLResourceStatePassSampleBufferAttachmentDescriptorArray SampleBufferAttachments => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_sampleBufferAttachments));
 
         private static readonly Selector sel_resourceStatePassDescriptor = "resourceStatePassDescriptor";

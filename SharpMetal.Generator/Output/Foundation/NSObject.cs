@@ -11,7 +11,9 @@ namespace SharpMetal
         public NS_NS_EXPORT(IntPtr ptr) => NativePtr = ptr;
 
         public IntPtr Retain;
+
         public IntPtr Autorelease;
+
         public ulong RetainCount;
     }
 
@@ -41,7 +43,9 @@ namespace SharpMetal
         public NSObject(IntPtr ptr) => NativePtr = ptr;
 
         public ulong Hash => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_hash);
+
         public NSString Description => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_description));
+
         public NSString DebugDescription => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_debugDescription));
 
         private static readonly Selector sel_methodSignatureForSelector = "methodSignatureForSelector:";

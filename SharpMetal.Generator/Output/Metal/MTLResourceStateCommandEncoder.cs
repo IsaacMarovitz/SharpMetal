@@ -19,12 +19,19 @@ namespace SharpMetal
         public MTLMapIndirectArguments(IntPtr ptr) => NativePtr = ptr;
 
         public uint regionOriginX;
+
         public uint regionOriginY;
+
         public uint regionOriginZ;
+
         public uint regionSizeWidth;
+
         public uint regionSizeHeight;
+
         public uint regionSizeDepth;
+
         public uint mipMapLevel;
+
         public uint sliceId;
     }
 

@@ -23,6 +23,7 @@ namespace SharpMetal
         public MTLIndirectCommandBufferExecutionRange(IntPtr ptr) => NativePtr = ptr;
 
         public uint location;
+
         public uint length;
     }
 
@@ -44,31 +45,37 @@ namespace SharpMetal
             get => (MTLIndirectCommandType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_commandTypes);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setCommandTypes, (ulong)value);
         }
+
         public bool InheritPipelineState
         {
             get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_inheritPipelineState);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInheritPipelineState, value);
         }
+
         public bool InheritBuffers
         {
             get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_inheritBuffers);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInheritBuffers, value);
         }
+
         public ulong MaxVertexBufferBindCount
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxVertexBufferBindCount);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxVertexBufferBindCount, value);
         }
+
         public ulong MaxFragmentBufferBindCount
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxFragmentBufferBindCount);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxFragmentBufferBindCount, value);
         }
+
         public ulong MaxKernelBufferBindCount
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxKernelBufferBindCount);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxKernelBufferBindCount, value);
         }
+
         public bool SupportRayTracing
         {
             get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportRayTracing);
@@ -99,6 +106,7 @@ namespace SharpMetal
         public MTLIndirectCommandBuffer(IntPtr ptr) => NativePtr = ptr;
 
         public ulong Size => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_size);
+
         public MTLResourceID GpuResourceID => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_gpuResourceID));
 
         private static readonly Selector sel_size = "size";

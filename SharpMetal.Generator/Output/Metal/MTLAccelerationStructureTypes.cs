@@ -12,7 +12,9 @@ namespace SharpMetal
         public MTLPackedFloat3(IntPtr ptr) => NativePtr = ptr;
 
         public float x;
+
         public float y;
+
         public float z;
     }
 
@@ -36,6 +38,7 @@ namespace SharpMetal
         public MTLAxisAlignedBoundingBox(IntPtr ptr) => NativePtr = ptr;
 
         public MTLPackedFloat3 min;
+
         public MTLPackedFloat3 max;
     }
 }

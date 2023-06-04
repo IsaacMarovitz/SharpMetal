@@ -11,6 +11,7 @@ namespace SharpMetal
         public CAMetalDrawable(IntPtr ptr) => NativePtr = ptr;
 
         public CAMetalLayer Layer => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_layer));
+
         public MTLTexture Texture => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_texture));
 
         private static readonly Selector sel_layer = "layer";

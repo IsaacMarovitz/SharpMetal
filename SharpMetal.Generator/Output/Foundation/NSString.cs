@@ -57,8 +57,11 @@ namespace SharpMetal
         }
 
         public NSString String => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_string));
+
         public ulong Length => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_length);
+
         public ushort Utf8String => ObjectiveCRuntime.ushort_objc_msgSend(NativePtr, sel_UTF8String);
+
         public ushort FileSystemRepresentation => ObjectiveCRuntime.ushort_objc_msgSend(NativePtr, sel_fileSystemRepresentation);
 
         private static readonly Selector sel_string = "string";

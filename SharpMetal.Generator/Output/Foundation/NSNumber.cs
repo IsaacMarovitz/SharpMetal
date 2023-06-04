@@ -17,6 +17,7 @@ namespace SharpMetal
         }
 
         public ushort ObjCType => ObjectiveCRuntime.ushort_objc_msgSend(NativePtr, sel_objCType);
+
         public IntPtr PointerValue => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_pointerValue));
 
         private static readonly Selector sel_valueWithBytesobjCType = "valueWithBytes:objCType:";
@@ -43,20 +44,35 @@ namespace SharpMetal
         }
 
         public ushort CharValue => ObjectiveCRuntime.ushort_objc_msgSend(NativePtr, sel_charValue);
+
         public byte UnsignedCharValue => ObjectiveCRuntime.byte_objc_msgSend(NativePtr, sel_unsignedCharValue);
+
         public short ShortValue => ObjectiveCRuntime.short_objc_msgSend(NativePtr, sel_shortValue);
+
         public ushort UnsignedShortValue => ObjectiveCRuntime.ushort_objc_msgSend(NativePtr, sel_unsignedShortValue);
+
         public int IntValue => ObjectiveCRuntime.int_objc_msgSend(NativePtr, sel_intValue);
+
         public uint UnsignedIntValue => ObjectiveCRuntime.uint_objc_msgSend(NativePtr, sel_unsignedIntValue);
+
         public long LongValue => ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_longValue);
+
         public ulong UnsignedLongValue => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_unsignedLongValue);
+
         public long LongLongValue => ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_longLongValue);
+
         public ulong UnsignedLongLongValue => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_unsignedLongLongValue);
+
         public float FloatValue => ObjectiveCRuntime.float_objc_msgSend(NativePtr, sel_floatValue);
+
         public double DoubleValue => ObjectiveCRuntime.double_objc_msgSend(NativePtr, sel_doubleValue);
+
         public bool BoolValue => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_boolValue);
+
         public long IntegerValue => ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_integerValue);
+
         public ulong UnsignedIntegerValue => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_unsignedIntegerValue);
+
         public NSString StringValue => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_stringValue));
 
         private static readonly Selector sel_numberWithChar = "numberWithChar:";

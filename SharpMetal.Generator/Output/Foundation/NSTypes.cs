@@ -12,7 +12,9 @@ namespace SharpMetal
         public NSOperatingSystemVersion(IntPtr ptr) => NativePtr = ptr;
 
         public long majorVersion;
+
         public long minorVersion;
+
         public long patchVersion;
     }
 }

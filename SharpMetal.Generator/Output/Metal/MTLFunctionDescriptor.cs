@@ -23,26 +23,31 @@ namespace SharpMetal
         }
 
         public MTLFunctionDescriptor FunctionDescriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_functionDescriptor));
+
         public NSString Name
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setName, value);
         }
+
         public NSString SpecializedName
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_specializedName));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSpecializedName, value);
         }
+
         public MTLFunctionConstantValues ConstantValues
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_constantValues));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setConstantValues, value);
         }
+
         public MTLFunctionOptions Options
         {
             get => (MTLFunctionOptions)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_options);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOptions, (ulong)value);
         }
+
         public NSArray BinaryArchives
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_binaryArchives));

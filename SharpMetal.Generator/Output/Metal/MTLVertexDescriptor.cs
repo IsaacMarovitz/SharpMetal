@@ -86,11 +86,13 @@ namespace SharpMetal
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stride);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStride, value);
         }
+
         public MTLVertexStepFunction StepFunction
         {
             get => (MTLVertexStepFunction)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stepFunction);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStepFunction, (ulong)value);
         }
+
         public ulong StepRate
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stepRate);
@@ -140,11 +142,13 @@ namespace SharpMetal
             get => (MTLVertexFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_format);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFormat, (ulong)value);
         }
+
         public ulong Offset
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_offset);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOffset, value);
         }
+
         public ulong BufferIndex
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_bufferIndex);
@@ -190,7 +194,9 @@ namespace SharpMetal
         }
 
         public MTLVertexDescriptor VertexDescriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_vertexDescriptor));
+
         public MTLVertexBufferLayoutDescriptorArray Layouts => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_layouts));
+
         public MTLVertexAttributeDescriptorArray Attributes => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_attributes));
 
         private static readonly Selector sel_vertexDescriptor = "vertexDescriptor";

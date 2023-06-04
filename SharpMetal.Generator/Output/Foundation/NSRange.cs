@@ -12,6 +12,7 @@ namespace SharpMetal
         public NSRange(IntPtr ptr) => NativePtr = ptr;
 
         public ulong location;
+
         public ulong length;
     }
 }

@@ -33,6 +33,7 @@ namespace SharpMetal
         public NSEnumerator(IntPtr ptr) => NativePtr = ptr;
 
         public IntPtr NextObject;
+
         public NSArray AllObjects;
     }
 }

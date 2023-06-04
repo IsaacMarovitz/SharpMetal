@@ -31,10 +31,15 @@ namespace SharpMetal
         public MTLCounterResultStageUtilization(IntPtr ptr) => NativePtr = ptr;
 
         public ulong totalCycles;
+
         public ulong vertexCycles;
+
         public ulong tessellationCycles;
+
         public ulong postTessellationVertexCycles;
+
         public ulong fragmentCycles;
+
         public ulong renderTargetCycles;
     }
 
@@ -47,12 +52,19 @@ namespace SharpMetal
         public MTLCounterResultStatistic(IntPtr ptr) => NativePtr = ptr;
 
         public ulong tessellationInputPatches;
+
         public ulong vertexInvocations;
+
         public ulong postTessellationVertexInvocations;
+
         public ulong clipperInvocations;
+
         public ulong clipperPrimitivesOut;
+
         public ulong fragmentInvocations;
+
         public ulong fragmentsPassed;
+
         public ulong computeKernelInvocations;
     }
 
@@ -76,6 +88,7 @@ namespace SharpMetal
         public MTLCounterSet(IntPtr ptr) => NativePtr = ptr;
 
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
+
         public NSArray Counters => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_counters));
 
         private static readonly Selector sel_name = "name";
@@ -100,16 +113,19 @@ namespace SharpMetal
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_counterSet));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setCounterSet, value);
         }
+
         public NSString Label
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
         }
+
         public MTLStorageMode StorageMode
         {
             get => (MTLStorageMode)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_storageMode);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStorageMode, (ulong)value);
         }
+
         public ulong SampleCount
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_sampleCount);
@@ -134,7 +150,9 @@ namespace SharpMetal
         public MTLCounterSampleBuffer(IntPtr ptr) => NativePtr = ptr;
 
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
+
         public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+
         public ulong SampleCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_sampleCount);
 
         private static readonly Selector sel_device = "device";

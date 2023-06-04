@@ -17,28 +17,51 @@ namespace SharpMetal
         }
 
         public NSBundle MainBundle => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_mainBundle));
+
         public NSArray AllBundles => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_allBundles));
+
         public NSArray AllFrameworks => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_allFrameworks));
+
         public bool Load => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_load);
+
         public bool Unload => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_unload);
+
         public bool IsLoaded => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isLoaded);
+
         public NSURL BundleURL => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_bundleURL));
+
         public NSURL ResourceURL => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_resourceURL));
+
         public NSURL ExecutableURL => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_executableURL));
+
         public NSURL PrivateFrameworksURL => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_privateFrameworksURL));
+
         public NSURL SharedFrameworksURL => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_sharedFrameworksURL));
+
         public NSURL SharedSupportURL => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_sharedSupportURL));
+
         public NSURL BuiltInPlugInsURL => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_builtInPlugInsURL));
+
         public NSURL AppStoreReceiptURL => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_appStoreReceiptURL));
+
         public NSString BundlePath => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_bundlePath));
+
         public NSString ResourcePath => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_resourcePath));
+
         public NSString ExecutablePath => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_executablePath));
+
         public NSString PrivateFrameworksPath => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_privateFrameworksPath));
+
         public NSString SharedFrameworksPath => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_sharedFrameworksPath));
+
         public NSString SharedSupportPath => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_sharedSupportPath));
+
         public NSString BuiltInPlugInsPath => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_builtInPlugInsPath));
+
         public NSString BundleIdentifier => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_bundleIdentifier));
+
         public NSDictionary InfoDictionary => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_infoDictionary));
+
         public NSDictionary LocalizedInfoDictionary => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_localizedInfoDictionary));
 
         private static readonly Selector sel_mainBundle = "mainBundle";

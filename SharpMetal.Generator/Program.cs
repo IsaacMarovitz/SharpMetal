@@ -168,8 +168,9 @@ namespace SharpMetal.Generator
                     sw.WriteLine();
                 }
 
-                foreach (var property in instance.PropertyInstances)
+                for (var j = 0; j < instance.PropertyInstances.Count; j++)
                 {
+                    var property = instance.PropertyInstances[j];
                     var selector = instance.SelectorInstances.Find(x => x.Selector.ToLower() == property.Name.ToLower());
 
                     if (selector == null)
@@ -287,6 +288,11 @@ namespace SharpMetal.Generator
                     else
                     {
                         sw.WriteLine(GetIndent() + $"public {property.Type} {property.Name};");
+                    }
+
+                    if (j != instance.PropertyInstances.Count - 1)
+                    {
+                        sw.WriteLine();
                     }
                 }
 

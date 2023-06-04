@@ -52,8 +52,11 @@ namespace SharpMetal
         public MTLTextureSwizzleChannels(IntPtr ptr) => NativePtr = ptr;
 
         public MTLTextureSwizzle red;
+
         public MTLTextureSwizzle green;
+
         public MTLTextureSwizzle blue;
+
         public MTLTextureSwizzle alpha;
     }
 
@@ -71,6 +74,7 @@ namespace SharpMetal
         }
 
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
+
         public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
 
         private static readonly Selector sel_device = "device";
@@ -95,76 +99,91 @@ namespace SharpMetal
             get => (MTLTextureType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_textureType);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTextureType, (ulong)value);
         }
+
         public MTLPixelFormat PixelFormat
         {
             get => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_pixelFormat);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPixelFormat, (ulong)value);
         }
+
         public ulong Width
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_width);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setWidth, value);
         }
+
         public ulong Height
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_height);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setHeight, value);
         }
+
         public ulong Depth
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_depth);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepth, value);
         }
+
         public ulong MipmapLevelCount
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_mipmapLevelCount);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMipmapLevelCount, value);
         }
+
         public ulong SampleCount
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_sampleCount);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSampleCount, value);
         }
+
         public ulong ArrayLength
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_arrayLength);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setArrayLength, value);
         }
+
         public MTLResourceOptions ResourceOptions
         {
             get => (MTLResourceOptions)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_resourceOptions);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setResourceOptions, (ulong)value);
         }
+
         public MTLCPUCacheMode CpuCacheMode
         {
             get => (MTLCPUCacheMode)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_cpuCacheMode);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setCpuCacheMode, (ulong)value);
         }
+
         public MTLStorageMode StorageMode
         {
             get => (MTLStorageMode)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_storageMode);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStorageMode, (ulong)value);
         }
+
         public MTLHazardTrackingMode HazardTrackingMode
         {
             get => (MTLHazardTrackingMode)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_hazardTrackingMode);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setHazardTrackingMode, (ulong)value);
         }
+
         public MTLTextureUsage Usage
         {
             get => (MTLTextureUsage)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_usage);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setUsage, (ulong)value);
         }
+
         public bool AllowGPUOptimizedContents
         {
             get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_allowGPUOptimizedContents);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAllowGPUOptimizedContents, value);
         }
+
         public MTLTextureCompressionType CompressionType
         {
             get => (MTLTextureCompressionType)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_compressionType);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setCompressionType, (long)value);
         }
+
         public MTLTextureSwizzleChannels Swizzle
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_swizzle));
@@ -216,33 +235,61 @@ namespace SharpMetal
         public MTLTexture(IntPtr ptr) => NativePtr = ptr;
 
         public MTLResource RootResource => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_rootResource));
+
         public MTLTexture ParentTexture => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_parentTexture));
+
         public ulong ParentRelativeLevel => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_parentRelativeLevel);
+
         public ulong ParentRelativeSlice => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_parentRelativeSlice);
+
         public MTLBuffer Buffer => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_buffer));
+
         public ulong BufferOffset => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_bufferOffset);
+
         public ulong BufferBytesPerRow => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_bufferBytesPerRow);
+
         public IntPtr Iosurface => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_iosurface));
+
         public ulong IosurfacePlane => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_iosurfacePlane);
+
         public MTLTextureType TextureType => (MTLTextureType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_textureType);
+
         public MTLPixelFormat PixelFormat => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_pixelFormat);
+
         public ulong Width => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_width);
+
         public ulong Height => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_height);
+
         public ulong Depth => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_depth);
+
         public ulong MipmapLevelCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_mipmapLevelCount);
+
         public ulong SampleCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_sampleCount);
+
         public ulong ArrayLength => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_arrayLength);
+
         public MTLTextureUsage Usage => (MTLTextureUsage)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_usage);
+
         public bool Shareable => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isShareable);
+
         public bool FramebufferOnly => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isFramebufferOnly);
+
         public ulong FirstMipmapInTail => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_firstMipmapInTail);
+
         public ulong TailSizeInBytes => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_tailSizeInBytes);
+
         public bool IsSparse => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isSparse);
+
         public bool AllowGPUOptimizedContents => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_allowGPUOptimizedContents);
+
         public MTLTextureCompressionType CompressionType => (MTLTextureCompressionType)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_compressionType);
+
         public MTLResourceID GpuResourceID => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_gpuResourceID));
+
         public MTLSharedTextureHandle NewSharedTextureHandle => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newSharedTextureHandle));
+
         public MTLTexture RemoteStorageTexture => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_remoteStorageTexture));
+
         public MTLTextureSwizzleChannels Swizzle => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_swizzle));
 
         private static readonly Selector sel_rootResource = "rootResource";

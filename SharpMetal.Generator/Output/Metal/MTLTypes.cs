@@ -12,7 +12,9 @@ namespace SharpMetal
         public MTLOrigin(IntPtr ptr) => NativePtr = ptr;
 
         public ulong x;
+
         public ulong y;
+
         public ulong z;
     }
 
@@ -25,7 +27,9 @@ namespace SharpMetal
         public MTLSize(IntPtr ptr) => NativePtr = ptr;
 
         public ulong width;
+
         public ulong height;
+
         public ulong depth;
     }
 
@@ -38,6 +42,7 @@ namespace SharpMetal
         public MTLRegion(IntPtr ptr) => NativePtr = ptr;
 
         public MTLOrigin origin;
+
         public MTLSize size;
     }
 
@@ -50,6 +55,7 @@ namespace SharpMetal
         public MTLSamplePosition(IntPtr ptr) => NativePtr = ptr;
 
         public float x;
+
         public float y;
     }
 

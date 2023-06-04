@@ -17,6 +17,7 @@ namespace SharpMetal
         }
 
         public NSArray Array => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_array));
+
         public ulong Count => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_count);
 
         private static readonly Selector sel_array = "array";

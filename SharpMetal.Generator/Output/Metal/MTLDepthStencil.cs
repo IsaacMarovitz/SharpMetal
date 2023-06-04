@@ -45,26 +45,31 @@ namespace SharpMetal
             get => (MTLCompareFunction)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stencilCompareFunction);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStencilCompareFunction, (ulong)value);
         }
+
         public MTLStencilOperation StencilFailureOperation
         {
             get => (MTLStencilOperation)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stencilFailureOperation);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStencilFailureOperation, (ulong)value);
         }
+
         public MTLStencilOperation DepthFailureOperation
         {
             get => (MTLStencilOperation)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_depthFailureOperation);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthFailureOperation, (ulong)value);
         }
+
         public MTLStencilOperation DepthStencilPassOperation
         {
             get => (MTLStencilOperation)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_depthStencilPassOperation);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthStencilPassOperation, (ulong)value);
         }
+
         public uint ReadMask
         {
             get => ObjectiveCRuntime.uint_objc_msgSend(NativePtr, sel_readMask);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setReadMask, value);
         }
+
         public uint WriteMask
         {
             get => ObjectiveCRuntime.uint_objc_msgSend(NativePtr, sel_writeMask);
@@ -103,17 +108,21 @@ namespace SharpMetal
             get => (MTLCompareFunction)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_depthCompareFunction);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthCompareFunction, (ulong)value);
         }
+
         public bool DepthWriteEnabled => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isDepthWriteEnabled);
+
         public MTLStencilDescriptor FrontFaceStencil
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_frontFaceStencil));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFrontFaceStencil, value);
         }
+
         public MTLStencilDescriptor BackFaceStencil
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_backFaceStencil));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBackFaceStencil, value);
         }
+
         public NSString Label
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
@@ -140,6 +149,7 @@ namespace SharpMetal
         public MTLDepthStencilState(IntPtr ptr) => NativePtr = ptr;
 
         public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
 
         private static readonly Selector sel_label = "label";

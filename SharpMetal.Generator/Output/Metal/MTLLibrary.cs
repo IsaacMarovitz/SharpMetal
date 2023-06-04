@@ -76,10 +76,15 @@ namespace SharpMetal
         }
 
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
+
         public ulong AttributeIndex => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_attributeIndex);
+
         public MTLDataType AttributeType => (MTLDataType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_attributeType);
+
         public bool Active => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isActive);
+
         public bool PatchData => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isPatchData);
+
         public bool PatchControlPointData => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isPatchControlPointData);
 
         private static readonly Selector sel_name = "name";
@@ -104,10 +109,15 @@ namespace SharpMetal
         }
 
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
+
         public ulong AttributeIndex => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_attributeIndex);
+
         public MTLDataType AttributeType => (MTLDataType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_attributeType);
+
         public bool Active => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isActive);
+
         public bool PatchData => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isPatchData);
+
         public bool PatchControlPointData => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isPatchControlPointData);
 
         private static readonly Selector sel_name = "name";
@@ -132,8 +142,11 @@ namespace SharpMetal
         }
 
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
+
         public MTLDataType Type => (MTLDataType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_type);
+
         public ulong Index => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_index);
+
         public bool Required => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_required);
 
         private static readonly Selector sel_name = "name";
@@ -154,14 +167,23 @@ namespace SharpMetal
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
         }
+
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
+
         public MTLFunctionType FunctionType => (MTLFunctionType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_functionType);
+
         public MTLPatchType PatchType => (MTLPatchType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_patchType);
+
         public long PatchControlPointCount => ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_patchControlPointCount);
+
         public NSArray VertexAttributes => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_vertexAttributes));
+
         public NSArray StageInputAttributes => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_stageInputAttributes));
+
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
+
         public NSDictionary FunctionConstantsDictionary => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_functionConstantsDictionary));
+
         public MTLFunctionOptions Options => (MTLFunctionOptions)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_options);
 
         private static readonly Selector sel_label = "label";
@@ -197,51 +219,61 @@ namespace SharpMetal
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_preprocessorMacros));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPreprocessorMacros, value);
         }
+
         public bool FastMathEnabled
         {
             get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_fastMathEnabled);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFastMathEnabled, value);
         }
+
         public MTLLanguageVersion LanguageVersion
         {
             get => (MTLLanguageVersion)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_languageVersion);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLanguageVersion, (ulong)value);
         }
+
         public MTLLibraryType LibraryType
         {
             get => (MTLLibraryType)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_libraryType);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLibraryType, (long)value);
         }
+
         public NSString InstallName
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_installName));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInstallName, value);
         }
+
         public NSArray Libraries
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_libraries));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLibraries, value);
         }
+
         public bool PreserveInvariance
         {
             get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_preserveInvariance);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPreserveInvariance, value);
         }
+
         public MTLLibraryOptimizationLevel OptimizationLevel
         {
             get => (MTLLibraryOptimizationLevel)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_optimizationLevel);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOptimizationLevel, (long)value);
         }
+
         public MTLCompileSymbolVisibility CompileSymbolVisibility
         {
             get => (MTLCompileSymbolVisibility)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_compileSymbolVisibility);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setCompileSymbolVisibility, (long)value);
         }
+
         public bool AllowReferencingUndefinedSymbols
         {
             get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_allowReferencingUndefinedSymbols);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAllowReferencingUndefinedSymbols, value);
         }
+
         public ulong MaxTotalThreadsPerThreadgroup
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxTotalThreadsPerThreadgroup);
@@ -284,9 +316,13 @@ namespace SharpMetal
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
         }
+
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
+
         public NSArray FunctionNames => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_functionNames));
+
         public MTLLibraryType Type => (MTLLibraryType)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_type);
+
         public NSString InstallName => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_installName));
 
         private static readonly Selector sel_label = "label";

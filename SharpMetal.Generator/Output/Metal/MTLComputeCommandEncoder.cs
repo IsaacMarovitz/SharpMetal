@@ -24,6 +24,7 @@ namespace SharpMetal
         public MTLStageInRegionIndirectArguments(IntPtr ptr) => NativePtr = ptr;
 
         public uint stageInOrigin;
+
         public uint stageInSize;
     }
 

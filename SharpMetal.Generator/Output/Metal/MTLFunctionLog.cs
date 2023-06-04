@@ -24,8 +24,11 @@ namespace SharpMetal
         public MTLFunctionLogDebugLocation(IntPtr ptr) => NativePtr = ptr;
 
         public NSString FunctionName => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_functionName));
+
         public NSURL URL => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_URL));
+
         public ulong Line => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_line);
+
         public ulong Column => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_column);
 
         private static readonly Selector sel_functionName = "functionName";
@@ -42,8 +45,11 @@ namespace SharpMetal
         public MTLFunctionLog(IntPtr ptr) => NativePtr = ptr;
 
         public MTLFunctionLogType Type => (MTLFunctionLogType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_type);
+
         public NSString EncoderLabel => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_encoderLabel));
+
         public MTLFunction Function => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_function));
+
         public MTLFunctionLogDebugLocation DebugLocation => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_debugLocation));
 
         private static readonly Selector sel_type = "type";

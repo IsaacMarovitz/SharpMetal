@@ -63,8 +63,11 @@ namespace SharpMetal
         public MTLScissorRect(IntPtr ptr) => NativePtr = ptr;
 
         public ulong x;
+
         public ulong y;
+
         public ulong width;
+
         public ulong height;
     }
 
@@ -77,10 +80,15 @@ namespace SharpMetal
         public MTLViewport(IntPtr ptr) => NativePtr = ptr;
 
         public double originX;
+
         public double originY;
+
         public double width;
+
         public double height;
+
         public double znear;
+
         public double zfar;
     }
 
@@ -93,8 +101,11 @@ namespace SharpMetal
         public MTLDrawPrimitivesIndirectArguments(IntPtr ptr) => NativePtr = ptr;
 
         public uint vertexCount;
+
         public uint instanceCount;
+
         public uint vertexStart;
+
         public uint baseInstance;
     }
 
@@ -107,9 +118,13 @@ namespace SharpMetal
         public MTLDrawIndexedPrimitivesIndirectArguments(IntPtr ptr) => NativePtr = ptr;
 
         public uint indexCount;
+
         public uint instanceCount;
+
         public uint indexStart;
+
         public int baseVertex;
+
         public uint baseInstance;
     }
 
@@ -122,6 +137,7 @@ namespace SharpMetal
         public MTLVertexAmplificationViewMapping(IntPtr ptr) => NativePtr = ptr;
 
         public uint viewportArrayIndexOffset;
+
         public uint renderTargetArrayIndexOffset;
     }
 
@@ -134,8 +150,11 @@ namespace SharpMetal
         public MTLDrawPatchIndirectArguments(IntPtr ptr) => NativePtr = ptr;
 
         public uint patchCount;
+
         public uint instanceCount;
+
         public uint patchStart;
+
         public uint baseInstance;
     }
 
@@ -148,6 +167,7 @@ namespace SharpMetal
         public MTLQuadTessellationFactorsHalf(IntPtr ptr) => NativePtr = ptr;
 
         public ushort edgeTessellationFactor;
+
         public ushort insideTessellationFactor;
     }
 
@@ -160,6 +180,7 @@ namespace SharpMetal
         public MTLTriangleTessellationFactorsHalf(IntPtr ptr) => NativePtr = ptr;
 
         public ushort edgeTessellationFactor;
+
         public ushort insideTessellationFactor;
     }
 
@@ -171,6 +192,7 @@ namespace SharpMetal
         public MTLRenderCommandEncoder(IntPtr ptr) => NativePtr = ptr;
 
         public ulong TileWidth => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_tileWidth);
+
         public ulong TileHeight => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_tileHeight);
 
         private static readonly Selector sel_setRenderPipelineState = "setRenderPipelineState:";

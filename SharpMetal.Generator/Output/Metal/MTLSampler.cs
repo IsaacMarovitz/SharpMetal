@@ -51,71 +51,85 @@ namespace SharpMetal
             get => (MTLSamplerMinMagFilter)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_minFilter);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMinFilter, (ulong)value);
         }
+
         public MTLSamplerMinMagFilter MagFilter
         {
             get => (MTLSamplerMinMagFilter)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_magFilter);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMagFilter, (ulong)value);
         }
+
         public MTLSamplerMipFilter MipFilter
         {
             get => (MTLSamplerMipFilter)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_mipFilter);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMipFilter, (ulong)value);
         }
+
         public ulong MaxAnisotropy
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxAnisotropy);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxAnisotropy, value);
         }
+
         public MTLSamplerAddressMode SAddressMode
         {
             get => (MTLSamplerAddressMode)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_sAddressMode);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSAddressMode, (ulong)value);
         }
+
         public MTLSamplerAddressMode TAddressMode
         {
             get => (MTLSamplerAddressMode)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_tAddressMode);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTAddressMode, (ulong)value);
         }
+
         public MTLSamplerAddressMode RAddressMode
         {
             get => (MTLSamplerAddressMode)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_rAddressMode);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRAddressMode, (ulong)value);
         }
+
         public MTLSamplerBorderColor BorderColor
         {
             get => (MTLSamplerBorderColor)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_borderColor);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBorderColor, (ulong)value);
         }
+
         public bool NormalizedCoordinates
         {
             get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_normalizedCoordinates);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setNormalizedCoordinates, value);
         }
+
         public float LodMinClamp
         {
             get => ObjectiveCRuntime.float_objc_msgSend(NativePtr, sel_lodMinClamp);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLodMinClamp, value);
         }
+
         public float LodMaxClamp
         {
             get => ObjectiveCRuntime.float_objc_msgSend(NativePtr, sel_lodMaxClamp);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLodMaxClamp, value);
         }
+
         public bool LodAverage
         {
             get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_lodAverage);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLodAverage, value);
         }
+
         public MTLCompareFunction CompareFunction
         {
             get => (MTLCompareFunction)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_compareFunction);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setCompareFunction, (ulong)value);
         }
+
         public bool SupportArgumentBuffers
         {
             get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportArgumentBuffers);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSupportArgumentBuffers, value);
         }
+
         public NSString Label
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
@@ -162,7 +176,9 @@ namespace SharpMetal
         public MTLSamplerState(IntPtr ptr) => NativePtr = ptr;
 
         public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
+
         public MTLResourceID GpuResourceID => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_gpuResourceID));
 
         private static readonly Selector sel_label = "label";

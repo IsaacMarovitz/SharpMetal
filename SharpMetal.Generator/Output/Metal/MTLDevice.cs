@@ -134,7 +134,9 @@ namespace SharpMetal
         public MTLAccelerationStructureSizes(IntPtr ptr) => NativePtr = ptr;
 
         public ulong accelerationStructureSize;
+
         public ulong buildScratchBufferSize;
+
         public ulong refitScratchBufferSize;
     }
 
@@ -147,6 +149,7 @@ namespace SharpMetal
         public MTLSizeAndAlign(IntPtr ptr) => NativePtr = ptr;
 
         public ulong size;
+
         public ulong align;
     }
 
@@ -164,31 +167,37 @@ namespace SharpMetal
         }
 
         public MTLArgumentDescriptor ArgumentDescriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_argumentDescriptor));
+
         public MTLDataType DataType
         {
             get => (MTLDataType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_dataType);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDataType, (ulong)value);
         }
+
         public ulong Index
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_index);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIndex, value);
         }
+
         public ulong ArrayLength
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_arrayLength);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setArrayLength, value);
         }
+
         public MTLArgumentAccess Access
         {
             get => (MTLArgumentAccess)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_access);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAccess, (ulong)value);
         }
+
         public MTLTextureType TextureType
         {
             get => (MTLTextureType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_textureType);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTextureType, (ulong)value);
         }
+
         public ulong ConstantBlockAlignment
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_constantBlockAlignment);
@@ -218,55 +227,101 @@ namespace SharpMetal
         public MTLDevice(IntPtr ptr) => NativePtr = ptr;
 
         public bool IsHeadless => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isHeadless);
+
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
+
         public ulong RegistryID => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_registryID);
+
         public MTLSize MaxThreadsPerThreadgroup => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_maxThreadsPerThreadgroup));
+
         public bool LowPower => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isLowPower);
+
         public bool Headless => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isHeadless);
+
         public bool Removable => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isRemovable);
+
         public bool HasUnifiedMemory => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_hasUnifiedMemory);
+
         public ulong RecommendedMaxWorkingSetSize => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_recommendedMaxWorkingSetSize);
+
         public MTLDeviceLocation Location => (MTLDeviceLocation)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_location);
+
         public ulong LocationNumber => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_locationNumber);
+
         public ulong MaxTransferRate => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxTransferRate);
+
         public bool Depth24Stencil8PixelFormatSupported => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isDepth24Stencil8PixelFormatSupported);
+
         public MTLReadWriteTextureTier ReadWriteTextureSupport => (MTLReadWriteTextureTier)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_readWriteTextureSupport);
+
         public MTLArgumentBuffersTier ArgumentBuffersSupport => (MTLArgumentBuffersTier)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_argumentBuffersSupport);
+
         public bool RasterOrderGroupsSupported => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_areRasterOrderGroupsSupported);
+
         public bool Supports32BitFloatFiltering => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supports32BitFloatFiltering);
+
         public bool Supports32BitMSAA => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supports32BitMSAA);
+
         public bool SupportsQueryTextureLOD => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsQueryTextureLOD);
+
         public bool SupportsBCTextureCompression => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsBCTextureCompression);
+
         public bool SupportsPullModelInterpolation => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsPullModelInterpolation);
+
         public bool BarycentricCoordsSupported => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_areBarycentricCoordsSupported);
+
         public bool SupportsShaderBarycentricCoordinates => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsShaderBarycentricCoordinates);
+
         public ulong CurrentAllocatedSize => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_currentAllocatedSize);
+
         public MTLCommandQueue NewCommandQueue => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newCommandQueue));
+
         public MTLLibrary NewDefaultLibrary => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newDefaultLibrary));
+
         public MTLFence NewFence => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newFence));
+
         public ulong MaxThreadgroupMemoryLength => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxThreadgroupMemoryLength);
+
         public ulong MaxArgumentBufferSamplerCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxArgumentBufferSamplerCount);
+
         public bool ProgrammableSamplePositionsSupported => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_areProgrammableSamplePositionsSupported);
+
         public MTLEvent NewEvent => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newEvent));
+
         public MTLSharedEvent NewSharedEvent => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newSharedEvent));
+
         public ulong PeerGroupID => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_peerGroupID);
+
         public uint PeerIndex => ObjectiveCRuntime.uint_objc_msgSend(NativePtr, sel_peerIndex);
+
         public uint PeerCount => ObjectiveCRuntime.uint_objc_msgSend(NativePtr, sel_peerCount);
+
         public ulong SparseTileSizeInBytes => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_sparseTileSizeInBytes);
+
         public ulong MaxBufferLength => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxBufferLength);
+
         public NSArray CounterSets => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_counterSets));
+
         public bool SupportsDynamicLibraries => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsDynamicLibraries);
+
         public bool SupportsRenderDynamicLibraries => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsRenderDynamicLibraries);
+
         public bool SupportsRaytracing => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsRaytracing);
+
         public bool SupportsFunctionPointers => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsFunctionPointers);
+
         public bool SupportsFunctionPointersFromRender => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsFunctionPointersFromRender);
+
         public bool SupportsRaytracingFromRender => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsRaytracingFromRender);
+
         public bool SupportsPrimitiveMotionBlur => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsPrimitiveMotionBlur);
+
         public bool ShouldMaximizeConcurrentCompilation
         {
             get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_shouldMaximizeConcurrentCompilation);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setShouldMaximizeConcurrentCompilation, value);
         }
+
         public ulong MaximumConcurrentCompilationTaskCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maximumConcurrentCompilationTaskCount);
 
         private static readonly Selector sel_name = "name";

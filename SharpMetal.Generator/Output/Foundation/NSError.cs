@@ -17,11 +17,17 @@ namespace SharpMetal
         }
 
         public long Code => ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_code);
+
         public IntPtr Domain => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_domain));
+
         public NSDictionary UserInfo => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_userInfo));
+
         public NSString LocalizedDescription => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_localizedDescription));
+
         public NSArray LocalizedRecoveryOptions => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_localizedRecoveryOptions));
+
         public NSString LocalizedRecoverySuggestion => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_localizedRecoverySuggestion));
+
         public NSString LocalizedFailureReason => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_localizedFailureReason));
 
         private static readonly Selector sel_errorWithDomaincodeuserInfo = "errorWithDomain:code:userInfo:";

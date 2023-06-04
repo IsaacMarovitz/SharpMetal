@@ -38,10 +38,15 @@ namespace SharpMetal
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_sampleCount));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSampleCount, value);
         }
+
         public MTLSize MaxSampleCount => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_maxSampleCount));
+
         public float HorizontalSampleStorage => ObjectiveCRuntime.float_objc_msgSend(NativePtr, sel_horizontalSampleStorage);
+
         public float VerticalSampleStorage => ObjectiveCRuntime.float_objc_msgSend(NativePtr, sel_verticalSampleStorage);
+
         public MTLRasterizationRateSampleArray Horizontal => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_horizontal));
+
         public MTLRasterizationRateSampleArray Vertical => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_vertical));
 
         private static readonly Selector sel_initWithSampleCount = "initWithSampleCount:";
@@ -86,16 +91,19 @@ namespace SharpMetal
         }
 
         public MTLRasterizationRateLayerArray Layers => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_layers));
+
         public MTLSize ScreenSize
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_screenSize));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setScreenSize, value);
         }
+
         public NSString Label
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
         }
+
         public ulong LayerCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_layerCount);
 
         private static readonly Selector sel_rasterizationRateMapDescriptorWithScreenSize = "rasterizationRateMapDescriptorWithScreenSize:";
@@ -119,10 +127,15 @@ namespace SharpMetal
         public MTLRasterizationRateMap(IntPtr ptr) => NativePtr = ptr;
 
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
+
         public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+
         public MTLSize ScreenSize => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_screenSize));
+
         public MTLSize PhysicalGranularity => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_physicalGranularity));
+
         public ulong LayerCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_layerCount);
+
         public MTLSizeAndAlign ParameterBufferSizeAndAlign => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_parameterBufferSizeAndAlign));
 
         private static readonly Selector sel_device = "device";

@@ -11,6 +11,7 @@ namespace SharpMetal
         public MTLEvent(IntPtr ptr) => NativePtr = ptr;
 
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
+
         public NSString Label
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
@@ -49,6 +50,7 @@ namespace SharpMetal
         public MTLSharedEvent(IntPtr ptr) => NativePtr = ptr;
 
         public MTLSharedEventHandle NewSharedEventHandle => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newSharedEventHandle));
+
         public ulong SignaledValue
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_signaledValue);

@@ -11,22 +11,27 @@ namespace SharpMetal
         public CAMetalLayer(IntPtr ptr) => NativePtr = ptr;
 
         public CAMetalLayer Layer => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_layer));
+
         public MTLDevice Device
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDevice, value);
         }
+
         public MTLPixelFormat PixelFormat => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_setPixelFormat);
+
         public bool FramebufferOnly
         {
             get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_framebufferOnly);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFramebufferOnly, value);
         }
+
         public IntPtr DrawableSize
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_drawableSize));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDrawableSize, value);
         }
+
         public CAMetalDrawable NextDrawable;
 
         private static readonly Selector sel_layer = "layer";

@@ -11,6 +11,7 @@ namespace SharpMetal
         public MTLDrawable(IntPtr ptr) => NativePtr = ptr;
 
         public IntPtr PresentedTime => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_presentedTime));
+
         public ulong DrawableID => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_drawableID);
 
         private static readonly Selector sel_present = "present";

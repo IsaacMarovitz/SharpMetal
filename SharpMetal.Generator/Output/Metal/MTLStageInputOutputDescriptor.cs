@@ -96,11 +96,13 @@ namespace SharpMetal
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stride);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStride, value);
         }
+
         public MTLStepFunction StepFunction
         {
             get => (MTLStepFunction)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stepFunction);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStepFunction, (ulong)value);
         }
+
         public ulong StepRate
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stepRate);
@@ -150,11 +152,13 @@ namespace SharpMetal
             get => (MTLAttributeFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_format);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFormat, (ulong)value);
         }
+
         public ulong Offset
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_offset);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOffset, value);
         }
+
         public ulong BufferIndex
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_bufferIndex);
@@ -200,13 +204,17 @@ namespace SharpMetal
         }
 
         public MTLStageInputOutputDescriptor StageInputOutputDescriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_stageInputOutputDescriptor));
+
         public MTLBufferLayoutDescriptorArray Layouts => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_layouts));
+
         public MTLAttributeDescriptorArray Attributes => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_attributes));
+
         public MTLIndexType IndexType
         {
             get => (MTLIndexType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_indexType);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIndexType, (ulong)value);
         }
+
         public ulong IndexBufferIndex
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_indexBufferIndex);

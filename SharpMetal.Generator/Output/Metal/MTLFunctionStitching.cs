@@ -75,11 +75,13 @@ namespace SharpMetal
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setName, value);
         }
+
         public NSArray Arguments
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_arguments));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setArguments, value);
         }
+
         public NSArray ControlDependencies
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_controlDependencies));
@@ -113,16 +115,19 @@ namespace SharpMetal
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_functionName));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctionName, value);
         }
+
         public NSArray Nodes
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_nodes));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setNodes, value);
         }
+
         public MTLFunctionStitchingFunctionNode OutputNode
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_outputNode));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOutputNode, value);
         }
+
         public NSArray Attributes
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_attributes));
@@ -158,6 +163,7 @@ namespace SharpMetal
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_functionGraphs));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctionGraphs, value);
         }
+
         public NSArray Functions
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_functions));

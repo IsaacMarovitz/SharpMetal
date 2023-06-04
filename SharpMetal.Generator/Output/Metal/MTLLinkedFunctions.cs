@@ -17,21 +17,25 @@ namespace SharpMetal
         }
 
         public MTLLinkedFunctions LinkedFunctions => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_linkedFunctions));
+
         public NSArray Functions
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_functions));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctions, value);
         }
+
         public NSArray BinaryFunctions
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_binaryFunctions));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBinaryFunctions, value);
         }
+
         public NSDictionary Groups
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_groups));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setGroups, value);
         }
+
         public NSArray PrivateFunctions
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_privateFunctions));
