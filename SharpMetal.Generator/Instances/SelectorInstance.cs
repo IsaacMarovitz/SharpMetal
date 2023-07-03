@@ -38,6 +38,13 @@ namespace SharpMetal.Generator.Instances
                 selector = selector.Substring(index + lookingFor.Length);
                 selector = selector.Substring(0, selector.IndexOf(")"));
                 selector = selector.Replace("_", ":");
+
+                // We don't want to deal with these functions
+                if (selector.Contains("Handler"))
+                {
+                    return;
+                }
+
                 var parentIndex = structInstances.FindIndex(x => x.Name == parentStructName);
 
                 if (parentIndex != -1)

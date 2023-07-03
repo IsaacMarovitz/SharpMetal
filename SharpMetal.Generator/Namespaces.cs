@@ -18,5 +18,20 @@ namespace SharpMetal.Generator
 
             return "MTL";
         }
+
+        public static string GetFullNamespace(string filePath)
+        {
+            if (filePath.Contains("Foundation"))
+            {
+                return "Foundation";
+            }
+
+            if (filePath.Contains("QuartzCore"))
+            {
+                return "QuartzCore";
+            }
+
+            return "Metal";
+        }
     }
 }

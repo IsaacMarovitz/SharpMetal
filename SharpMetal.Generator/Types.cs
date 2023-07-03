@@ -18,6 +18,7 @@ namespace SharpMetal.Generator
 
             { "unsigned short", "ushort" },
             { "char", "ushort" },
+            { "unichar", "ushort" },
             { "uint16_t", "ushort" },
 
             { "uint32_t", "uint" },
@@ -40,14 +41,16 @@ namespace SharpMetal.Generator
             { "ErrorDomain", "IntPtr" },
             { "TimeInterval", "IntPtr" },
             { "IOSurfaceRef", "IntPtr" },
-            { "MTLIOCommandBufferHandler", "IntPtr" },
-            { "MTLCommandBufferHandler", "IntPtr" },
-            { "MTLIOCommandBufferHandlerFunction&", "IntPtr"},
             { "IOFileHandle", "IntPtr" },
             { "IOScratchBuffer", "IntPtr" },
             { "_Class", "IntPtr"},
             { "_ObjectType", "IntPtr" },
             { "IntPtr", "IntPtr" },
+            { "MTLSharedEventNotificationBlock", "IntPtr"},
+            { "MTLCoordinate2D", "IntPtr" },
+            { "Coder", "IntPtr" },
+            { "_Object", "IntPtr" },
+            { "stdfunction<void>&", "IntPtr" },
             { "void", "void" }
         };
 

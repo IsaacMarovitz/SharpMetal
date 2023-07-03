@@ -1,44 +1,45 @@
+using System.Runtime.CompilerServices;
 using SharpMetal.Generator.Instances;
 
 namespace SharpMetal.Generator
 {
     public class Program
     {
+        public static string GetSourceFilePathName( [CallerFilePath] string? callerFilePath = null ) => callerFilePath ?? "";
+
         public static void Main(string[] args)
         {
+            var projectPaths = new DirectoryInfo(GetSourceFilePathName()).Parent.Parent.GetDirectories();
+
+            var generatorProjectPath = projectPaths.First(x => x.Name == "SharpMetal.Generator");
+            var mainProjectPath = projectPaths.First(x => x.Name == "SharpMetal");
+
             // Set working directory to the actual project directory
-            Directory.SetCurrentDirectory(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName);
+            Directory.SetCurrentDirectory(mainProjectPath.FullName);
 
-            // Get the paths to all the header files
-            var files = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.hpp", SearchOption.AllDirectories);
-
-            if (Directory.Exists("Output"))
+            foreach (var subDirectory in mainProjectPath.GetDirectories())
             {
-                Directory.Delete("Output", true);
+                // Get rid of this condition when this folder is also generated
+                if (subDirectory.Name != "ObjectiveC" && subDirectory.Name != "bin" && subDirectory.Name != "obj")
+                {
+                    subDirectory.Delete(true);
+                }
             }
 
-            Directory.CreateDirectory("Output");
-            // TODO: Don't hardcode these
-            Directory.CreateDirectory("Output/Metal");
-            Directory.CreateDirectory("Output/Foundation");
-            Directory.CreateDirectory("Output/QuartzCore");
+            // Get the paths to all the header files
+            var headers = Directory.GetFiles(generatorProjectPath.FullName, "*.hpp", SearchOption.AllDirectories)
+                .Where(header => !header.Contains("Defines") && !header.Contains("Private")).ToArray();
 
             var enumCache = new List<EnumInstance>();
 
-            for (int i = 0; i < files.Length; i++)
+            foreach (var header in headers)
             {
-                if (!files[i].Contains("Defines") && !files[i].Contains("Private"))
-                {
-                    GenerateEnumCache(files[i], ref enumCache);
-                }
+                GenerateEnumCache(header, ref enumCache);
             }
 
-            for (int i = 0; i < files.Length; i++)
+            foreach (var header in headers)
             {
-                if (!files[i].Contains("Defines") && !files[i].Contains("Private"))
-                {
-                    Generate(files[i], enumCache);
-                }
+                Generate(header, enumCache);
             }
         }
 
@@ -67,15 +68,19 @@ namespace SharpMetal.Generator
                 return;
             }
 
-            filePath = filePath.Substring(filePath.IndexOf("Headers/") + "Headers/".Length);
-            string fileName = filePath.Replace(".hpp", "");
-            var depth = 0;
+            string fileName = Path.GetFileNameWithoutExtension(filePath);
+            var fullNamespace = Namespaces.GetFullNamespace(filePath);
 
-            using CodeGenContext context = new(File.CreateText($"Output/{fileName}.cs"));
+            Directory.CreateDirectory(fullNamespace);
+
+            using CodeGenContext context = new(File.CreateText($"{fullNamespace}/{fileName}.cs"));
 
             GenerateUsings(headerInfo, context);
 
-            context.WriteLine("namespace SharpMetal");
+            // TODO: Need to keep track of where types are from for proper namespacing while avoiding unnecessary using statements.
+            // context.WriteLine($"namespace SharpMetal.{fullNamespace}");
+
+            context.WriteLine($"namespace SharpMetal");
             context.EnterScope();
 
             foreach (var instance in headerInfo.EnumInstances) {

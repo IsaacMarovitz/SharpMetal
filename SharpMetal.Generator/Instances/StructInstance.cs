@@ -105,24 +105,7 @@ namespace SharpMetal.Generator.Instances
 
             foreach (var method in MethodInstances)
             {
-                context.WriteLine();
-                context.Write(context.Indentation + $"public {method.ReturnType} {method.Name}(");
-
-                for (var i = 0; i < method.InputInstances.Count; i++)
-                {
-                    var input = method.InputInstances[i];
-
-                    context.Write($"{input.Type} {input.Name}");
-
-                    if (i != method.InputInstances.Count - 1)
-                    {
-                        context.Write(", ");
-                    }
-                }
-
-                context.Write(") {\n");
-                context.WriteLine();
-                context.WriteLine("}");
+                method.Generate(context);
             }
 
             if (SelectorInstances.Any())
@@ -217,7 +200,7 @@ namespace SharpMetal.Generator.Instances
                     continue;
                 }
 
-                if (nextLine.Contains("template") || nextLine.Contains("typename") || nextLine.Contains("operator"))
+                if (nextLine.Contains("template") || nextLine.Contains("typename") || nextLine.Contains("operator") || nextLine.Contains("Handler"))
                 {
                     continue;
                 }

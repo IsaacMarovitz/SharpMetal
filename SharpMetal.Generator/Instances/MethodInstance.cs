@@ -15,6 +15,29 @@ namespace SharpMetal.Generator.Instances
             InputInstances = inputInstances;
         }
 
+        public void Generate(CodeGenContext context)
+        {
+            context.WriteLine();
+            context.Write(context.Indentation + $"public {ReturnType} {Name}(");
+
+            for (var i = 0; i < InputInstances.Count; i++)
+            {
+                var input = InputInstances[i];
+
+                context.Write($"{input.Type} {input.Name}");
+
+                if (i != InputInstances.Count - 1)
+                {
+                    context.Write(", ");
+                }
+            }
+
+            context.Write(")\n");
+            context.EnterScope();
+            context.WriteLine("throw new NotImplementedException();");
+            context.LeaveScope();
+        }
+
         public static MethodInstance BuildMethod(List<string> parts, string namespacePrefix)
         {
             string methodName = parts[1].Substring(0, parts[1].IndexOf("("));
