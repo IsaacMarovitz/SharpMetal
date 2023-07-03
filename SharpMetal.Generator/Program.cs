@@ -75,7 +75,7 @@ namespace SharpMetal.Generator
 
             using CodeGenContext context = new(File.CreateText($"{fullNamespace}/{fileName}.cs"));
 
-            GenerateUsings(headerInfo, context);
+            GenerateUsings(headerInfo, context, fullNamespace);
 
             context.WriteLine($"namespace SharpMetal.{fullNamespace}");
             context.EnterScope();
@@ -112,7 +112,7 @@ namespace SharpMetal.Generator
             context.LeaveScope();
         }
 
-        public static void GenerateUsings(HeaderInfo headerInfo, CodeGenContext context)
+        public static void GenerateUsings(HeaderInfo headerInfo, CodeGenContext context, string fullNamespace)
         {
             var hasAnyUsings = false;
             var hasSelectors = false;
@@ -155,15 +155,24 @@ namespace SharpMetal.Generator
                 hasAnyUsings = true;
                 if ((headerInfo.IncludeFlags & IncludeFlags.Foundation) == IncludeFlags.Foundation)
                 {
-                    context.WriteLine("using SharpMetal.Foundation;");
+                    if (fullNamespace != "Foundation")
+                    {
+                        context.WriteLine("using SharpMetal.Foundation;");
+                    }
                 }
                 if ((headerInfo.IncludeFlags & IncludeFlags.Metal) == IncludeFlags.Metal)
                 {
-                    context.WriteLine("using SharpMetal.Metal;");
+                    if (fullNamespace != "Metal")
+                    {
+                        context.WriteLine("using SharpMetal.Metal;");
+                    }
                 }
                 if ((headerInfo.IncludeFlags & IncludeFlags.QuartzCore) == IncludeFlags.QuartzCore)
                 {
-                    context.WriteLine("using SharpMetal.QuartzCore;");
+                    if (fullNamespace != "QuartzCore")
+                    {
+                        context.WriteLine("using SharpMetal.QuartzCore;");
+                    }
                 }
             }
 
