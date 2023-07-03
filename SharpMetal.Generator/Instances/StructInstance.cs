@@ -121,7 +121,8 @@ namespace SharpMetal.Generator.Instances
             context.LeaveScope();
         }
 
-        public static StructInstance Build(string line, string namespacePrefix, StreamReader sr) {
+        public static StructInstance Build(string line, string namespacePrefix, StreamReader sr)
+        {
             var structInfo = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
             var structName = namespacePrefix + structInfo[1];
 

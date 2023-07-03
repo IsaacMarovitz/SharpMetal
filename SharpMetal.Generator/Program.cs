@@ -5,7 +5,7 @@ namespace SharpMetal.Generator
 {
     public class Program
     {
-        public static string GetSourceFilePathName( [CallerFilePath] string? callerFilePath = null ) => callerFilePath ?? "";
+        public static string GetSourceFilePathName([CallerFilePath] string? callerFilePath = null) => callerFilePath ?? "";
 
         public static void Main(string[] args)
         {
@@ -83,7 +83,8 @@ namespace SharpMetal.Generator
             context.WriteLine($"namespace SharpMetal");
             context.EnterScope();
 
-            foreach (var instance in headerInfo.EnumInstances) {
+            foreach (var instance in headerInfo.EnumInstances)
+            {
                 instance.Generate(context);
             }
 

@@ -17,7 +17,7 @@ namespace SharpMetal.Generator.Instances
 
         public void Generate(CodeGenContext context)
         {
-            context.WriteLine($"public enum {Name}: {Type}");
+            context.WriteLine($"public enum {Name} : {Type}");
             context.EnterScope();
 
             foreach (var value in Values)

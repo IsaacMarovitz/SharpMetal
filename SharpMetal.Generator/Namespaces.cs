@@ -2,7 +2,7 @@ namespace SharpMetal.Generator
 {
     public static class Namespaces
     {
-        public static string[] Prefixes = { "MTL", "NS", "CA", "CF", "CG", "IO"};
+        public static string[] Prefixes = { "MTL", "NS", "CA", "CF", "CG", "IO" };
 
         public static string GetNamespace(string filePath)
         {
