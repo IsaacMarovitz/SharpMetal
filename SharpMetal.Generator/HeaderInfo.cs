@@ -1,4 +1,5 @@
 using SharpMetal.Generator.Instances;
+using SharpMetal.Generator.Utilities;
 
 namespace SharpMetal.Generator
 {
@@ -20,19 +21,34 @@ namespace SharpMetal.Generator
             {
                 var line = sr.ReadLine().Trim();
 
+                // Ignore garbage
                 if (line == string.Empty ||
                     line.StartsWith("//") ||
+                    line.StartsWith("::") ||
+                    line.StartsWith("[[") ||
                     line.StartsWith("/**") ||
                     line.StartsWith("#error") ||
                     line.StartsWith("#pragma") ||
                     line.StartsWith("#define") ||
+                    line.StartsWith("__block") ||
+                    line.StartsWith("_Ret") ||
+                    line.StartsWith("Object") ||
+                    line.StartsWith("~Object") ||
+                    line.StartsWith("_Class*") ||
                     line.StartsWith("{") ||
                     line.StartsWith("}") ||
                     line.StartsWith("(") ||
+                    line.StartsWith(",") ||
+                    line.StartsWith("private:") ||
+                    line.StartsWith("public:") ||
                     line.StartsWith("namespace") ||
                     line.StartsWith("using") ||
                     line.StartsWith("template") ||
                     line.StartsWith("return") ||
+                    line.StartsWith("const") ||
+                    line.StartsWith("static") ||
+                    line.StartsWith("if") ||
+                    line.StartsWith("else") ||
                     line.StartsWith("#if") ||
                     line.StartsWith("#else") ||
                     line.StartsWith("#elif") ||
@@ -107,7 +123,12 @@ namespace SharpMetal.Generator
                 }
                 else
                 {
-                    Console.WriteLine($"UNPROCESSED LINE: {line}");
+                    line = line.Replace("_NS_EXPORT ", "");
+                    line = line.Replace("extern \"C\" ", "");
+                    if (StringUtils.IsValidFunctionSignature(line))
+                    {
+                        Console.WriteLine($"UNPROCESSED LINE: {line}");
+                    }
                 }
             }
         }

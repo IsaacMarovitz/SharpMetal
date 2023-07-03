@@ -246,16 +246,9 @@ namespace SharpMetal.Generator.Instances
 
                     var inputArguments = inputString.Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
                     List<PropertyInstance> arguments = new();
-                    // TODO: Handle default values properly
-                    var argumentHasDefaultValue = false;
 
                     foreach (var argument in inputArguments)
                     {
-                        if (argument.Contains("="))
-                        {
-                            argumentHasDefaultValue = true;
-                        }
-
                         var array = argument.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
                         var argumentType = Types.ConvertType(string.Join(" ", array[..^1]), namespacePrefix);
                         var argumentName = array.Last();
@@ -283,7 +276,7 @@ namespace SharpMetal.Generator.Instances
                         arguments.Add(new PropertyInstance(argumentType, argumentName));
                     }
 
-                    if (returnType != string.Empty && !argumentHasDefaultValue)
+                    if (returnType != string.Empty)
                     {
                         instance.AddMethod(new MethodInstance(returnType, name, isStatic, arguments));
                     }
