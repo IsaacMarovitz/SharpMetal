@@ -112,17 +112,17 @@ namespace SharpMetal.Metal
 
         public void SetStride(ulong stride)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , stride);
         }
 
         public void SetStepFunction(MTLStepFunction stepFunction)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , stepFunction);
         }
 
         public void SetStepRate(ulong stepRate)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , stepRate);
         }
 
         private static readonly Selector sel_stride = "stride";
@@ -153,7 +153,7 @@ namespace SharpMetal.Metal
 
         public void SetObject(MTLBufferLayoutDescriptor bufferDesc, ulong index)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , bufferDesc, index);
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
@@ -193,17 +193,17 @@ namespace SharpMetal.Metal
 
         public void SetFormat(MTLAttributeFormat format)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , format);
         }
 
         public void SetOffset(ulong offset)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , offset);
         }
 
         public void SetBufferIndex(ulong bufferIndex)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , bufferIndex);
         }
 
         private static readonly Selector sel_format = "format";
@@ -234,7 +234,7 @@ namespace SharpMetal.Metal
 
         public void SetObject(MTLAttributeDescriptor attributeDesc, ulong index)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , attributeDesc, index);
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
@@ -272,17 +272,17 @@ namespace SharpMetal.Metal
 
         public void SetIndexType(MTLIndexType indexType)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , indexType);
         }
 
         public void SetIndexBufferIndex(ulong indexBufferIndex)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , indexBufferIndex);
         }
 
         public void Reset()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         private static readonly Selector sel_stageInputOutputDescriptor = "stageInputOutputDescriptor";

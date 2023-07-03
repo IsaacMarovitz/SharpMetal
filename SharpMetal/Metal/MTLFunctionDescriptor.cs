@@ -55,27 +55,27 @@ namespace SharpMetal.Metal
 
         public void SetName(NSString name)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , name);
         }
 
         public void SetSpecializedName(NSString specializedName)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , specializedName);
         }
 
         public void SetConstantValues(MTLFunctionConstantValues constantValues)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , constantValues);
         }
 
         public void SetOptions(MTLFunctionOptions options)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , options);
         }
 
         public void SetBinaryArchives(NSArray binaryArchives)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , binaryArchives);
         }
 
         private static readonly Selector sel_functionDescriptor = "functionDescriptor";

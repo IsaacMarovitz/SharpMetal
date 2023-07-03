@@ -40,172 +40,172 @@ namespace SharpMetal.Metal
 
         public void SetComputePipelineState(MTLComputePipelineState state)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , state);
         }
 
         public void SetBytes(IntPtr bytes, ulong length, ulong index)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , bytes, length, index);
         }
 
         public void SetBuffer(MTLBuffer buffer, ulong offset, ulong index)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , buffer, offset, index);
         }
 
         public void SetBufferOffset(ulong offset, ulong index)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , offset, index);
         }
 
         public void SetBuffers(MTLBuffer[] buffers, ulong[] offsets, NSRange range)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , buffers, offsets, range);
         }
 
         public void SetVisibleFunctionTable(MTLVisibleFunctionTable visibleFunctionTable, ulong bufferIndex)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , visibleFunctionTable, bufferIndex);
         }
 
         public void SetVisibleFunctionTables(MTLVisibleFunctionTable[] visibleFunctionTables, NSRange range)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , visibleFunctionTables, range);
         }
 
         public void SetIntersectionFunctionTable(MTLIntersectionFunctionTable intersectionFunctionTable, ulong bufferIndex)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , intersectionFunctionTable, bufferIndex);
         }
 
         public void SetIntersectionFunctionTables(MTLIntersectionFunctionTable[] intersectionFunctionTables, NSRange range)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , intersectionFunctionTables, range);
         }
 
         public void SetAccelerationStructure(MTLAccelerationStructure accelerationStructure, ulong bufferIndex)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , accelerationStructure, bufferIndex);
         }
 
         public void SetTexture(MTLTexture texture, ulong index)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , texture, index);
         }
 
         public void SetTextures(MTLTexture[] textures, NSRange range)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , textures, range);
         }
 
         public void SetSamplerState(MTLSamplerState sampler, ulong index)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , sampler, index);
         }
 
         public void SetSamplerStates(MTLSamplerState[] samplers, NSRange range)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , samplers, range);
         }
 
         public void SetSamplerState(MTLSamplerState sampler, float lodMinClamp, float lodMaxClamp, ulong index)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , sampler, lodMinClamp, lodMaxClamp, index);
         }
 
         public void SetSamplerStates(MTLSamplerState[] samplers, float[] lodMinClamps, float[] lodMaxClamps, NSRange range)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , samplers, lodMinClamps, lodMaxClamps, range);
         }
 
         public void SetThreadgroupMemoryLength(ulong length, ulong index)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , length, index);
         }
 
         public void SetImageblockWidth(ulong width, ulong height)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , width, height);
         }
 
         public void SetStageInRegion(MTLRegion region)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , region);
         }
 
         public void SetStageInRegion(MTLBuffer indirectBuffer, ulong indirectBufferOffset)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , indirectBuffer, indirectBufferOffset);
         }
 
         public void DispatchThreadgroups(MTLSize threadgroupsPerGrid, MTLSize threadsPerThreadgroup)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , threadgroupsPerGrid, threadsPerThreadgroup);
         }
 
         public void DispatchThreadgroups(MTLBuffer indirectBuffer, ulong indirectBufferOffset, MTLSize threadsPerThreadgroup)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , indirectBuffer, indirectBufferOffset, threadsPerThreadgroup);
         }
 
         public void DispatchThreads(MTLSize threadsPerGrid, MTLSize threadsPerThreadgroup)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , threadsPerGrid, threadsPerThreadgroup);
         }
 
         public void UpdateFence(MTLFence fence)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , fence);
         }
 
         public void WaitForFence(MTLFence fence)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , fence);
         }
 
         public void UseResource(MTLResource resource, MTLResourceUsage usage)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , resource, usage);
         }
 
         public void UseResources(MTLResource[] resources, ulong count, MTLResourceUsage usage)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , resources, count, usage);
         }
 
         public void UseHeap(MTLHeap heap)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , heap);
         }
 
         public void UseHeaps(MTLHeap[] heaps, ulong count)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , heaps, count);
         }
 
         public void ExecuteCommandsInBuffer(MTLIndirectCommandBuffer indirectCommandBuffer, NSRange executionRange)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , indirectCommandBuffer, executionRange);
         }
 
         public void ExecuteCommandsInBuffer(MTLIndirectCommandBuffer indirectCommandbuffer, MTLBuffer indirectRangeBuffer, ulong indirectBufferOffset)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , indirectCommandbuffer, indirectRangeBuffer, indirectBufferOffset);
         }
 
         public void MemoryBarrier(MTLBarrierScope scope)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , scope);
         }
 
         public void MemoryBarrier(MTLResource[] resources, ulong count)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , resources, count);
         }
 
         public void SampleCountersInBuffer(MTLCounterSampleBuffer sampleBuffer, ulong sampleIndex, bool barrier)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , sampleBuffer, sampleIndex, barrier);
         }
 
         private static readonly Selector sel_dispatchType = "dispatchType";

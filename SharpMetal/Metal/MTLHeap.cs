@@ -68,37 +68,37 @@ namespace SharpMetal.Metal
 
         public void SetSize(ulong size)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , size);
         }
 
         public void SetStorageMode(MTLStorageMode storageMode)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , storageMode);
         }
 
         public void SetCpuCacheMode(MTLCPUCacheMode cpuCacheMode)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , cpuCacheMode);
         }
 
         public void SetSparsePageSize(MTLSparsePageSize sparsePageSize)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , sparsePageSize);
         }
 
         public void SetHazardTrackingMode(MTLHazardTrackingMode hazardTrackingMode)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , hazardTrackingMode);
         }
 
         public void SetResourceOptions(MTLResourceOptions resourceOptions)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , resourceOptions);
         }
 
         public void SetType(MTLHeapType type)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , type);
         }
 
         private static readonly Selector sel_size = "size";
@@ -150,7 +150,7 @@ namespace SharpMetal.Metal
 
         public void SetLabel(NSString label)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , label);
         }
 
         public ulong MaxAvailableSize(ulong alignment)

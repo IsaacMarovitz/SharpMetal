@@ -79,32 +79,32 @@ namespace SharpMetal.Metal
 
         public void SetStencilCompareFunction(MTLCompareFunction stencilCompareFunction)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , stencilCompareFunction);
         }
 
         public void SetStencilFailureOperation(MTLStencilOperation stencilFailureOperation)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , stencilFailureOperation);
         }
 
         public void SetDepthFailureOperation(MTLStencilOperation depthFailureOperation)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , depthFailureOperation);
         }
 
         public void SetDepthStencilPassOperation(MTLStencilOperation depthStencilPassOperation)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , depthStencilPassOperation);
         }
 
         public void SetReadMask(uint readMask)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , readMask);
         }
 
         public void SetWriteMask(uint writeMask)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , writeMask);
         }
 
         private static readonly Selector sel_stencilCompareFunction = "stencilCompareFunction";
@@ -162,27 +162,27 @@ namespace SharpMetal.Metal
 
         public void SetDepthCompareFunction(MTLCompareFunction depthCompareFunction)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , depthCompareFunction);
         }
 
         public void SetDepthWriteEnabled(bool depthWriteEnabled)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , depthWriteEnabled);
         }
 
         public void SetFrontFaceStencil(MTLStencilDescriptor frontFaceStencil)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , frontFaceStencil);
         }
 
         public void SetBackFaceStencil(MTLStencilDescriptor backFaceStencil)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , backFaceStencil);
         }
 
         public void SetLabel(NSString label)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , label);
         }
 
         private static readonly Selector sel_depthCompareFunction = "depthCompareFunction";

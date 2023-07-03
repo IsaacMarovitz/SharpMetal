@@ -17,17 +17,17 @@ namespace SharpMetal.Metal
 
         public void Present()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         public void PresentAtTime(IntPtr presentationTime)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , presentationTime);
         }
 
         public void PresentAfterMinimumDuration(IntPtr duration)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , duration);
         }
 
         private static readonly Selector sel_present = "present";

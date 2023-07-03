@@ -4,10 +4,11 @@ namespace SharpMetal.Generator.Instances
     {
         public string ReturnType;
         public string Name;
+        public string Selector;
         public bool IsStatic;
         public List<PropertyInstance> InputInstances;
 
-        public MethodInstance(string returnType, string name, bool isStatic, List<PropertyInstance> inputInstances)
+        public MethodInstance(string returnType, string name, string selector, bool isStatic, List<PropertyInstance> inputInstances)
         {
             ReturnType = returnType;
             Name = name;
@@ -39,7 +40,23 @@ namespace SharpMetal.Generator.Instances
 
             context.Write(")\n");
             context.EnterScope();
-            context.WriteLine("throw new NotImplementedException();");
+            if (ReturnType == "void")
+            {
+                context.Write($"{context.Indentation}objc_msgSend(NativePtr, {Selector}, ");
+                for (var index = 0; index < InputInstances.Count; index++)
+                {
+                    context.Write($"{InputInstances[index].Name}");
+                    if (index != InputInstances.Count - 1)
+                    {
+                        context.Write(", ");
+                    }
+                }
+                context.Write(");\n");
+            }
+            else
+            {
+                context.WriteLine("throw new NotImplementedException();");
+            }
             context.LeaveScope();
         }
     }

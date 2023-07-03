@@ -15,32 +15,32 @@ namespace SharpMetal.Metal
 
         public void SetColorStoreAction(MTLStoreAction storeAction, ulong colorAttachmentIndex)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , storeAction, colorAttachmentIndex);
         }
 
         public void SetDepthStoreAction(MTLStoreAction storeAction)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , storeAction);
         }
 
         public void SetStencilStoreAction(MTLStoreAction storeAction)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , storeAction);
         }
 
         public void SetColorStoreActionOptions(MTLStoreActionOptions storeActionOptions, ulong colorAttachmentIndex)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , storeActionOptions, colorAttachmentIndex);
         }
 
         public void SetDepthStoreActionOptions(MTLStoreActionOptions storeActionOptions)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , storeActionOptions);
         }
 
         public void SetStencilStoreActionOptions(MTLStoreActionOptions storeActionOptions)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , storeActionOptions);
         }
 
         private static readonly Selector sel_renderCommandEncoder = "renderCommandEncoder";

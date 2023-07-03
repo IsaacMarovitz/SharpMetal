@@ -80,7 +80,7 @@ namespace SharpMetal.Foundation
 
         public void SetProcessName(NSString pString)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , pString);
         }
 
         public bool IsOperatingSystemAtLeastVersion(NSOperatingSystemVersion version)
@@ -90,27 +90,27 @@ namespace SharpMetal.Foundation
 
         public void DisableSuddenTermination()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         public void EnableSuddenTermination()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         public void DisableAutomaticTermination(NSString pReason)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , pReason);
         }
 
         public void EnableAutomaticTermination(NSString pReason)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , pReason);
         }
 
         public void SetAutomaticTerminationSupportEnabled(bool enabled)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , enabled);
         }
 
         public NSObject BeginActivity(NSActivityOptions options, NSString pReason)
@@ -120,7 +120,7 @@ namespace SharpMetal.Foundation
 
         public void EndActivity(NSObject pActivity)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , pActivity);
         }
 
         private static readonly Selector sel_processInfo = "processInfo";

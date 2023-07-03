@@ -13,42 +13,42 @@ namespace SharpMetal.Metal
 
         public void SetRenderPipelineState(MTLRenderPipelineState pipelineState)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , pipelineState);
         }
 
         public void SetVertexBuffer(MTLBuffer buffer, ulong offset, ulong index)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , buffer, offset, index);
         }
 
         public void SetFragmentBuffer(MTLBuffer buffer, ulong offset, ulong index)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , buffer, offset, index);
         }
 
         public void DrawPatches(ulong numberOfPatchControlPoints, ulong patchStart, ulong patchCount, MTLBuffer patchIndexBuffer, ulong patchIndexBufferOffset, ulong instanceCount, ulong baseInstance, MTLBuffer buffer, ulong offset, ulong instanceStride)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , numberOfPatchControlPoints, patchStart, patchCount, patchIndexBuffer, patchIndexBufferOffset, instanceCount, baseInstance, buffer, offset, instanceStride);
         }
 
         public void DrawIndexedPatches(ulong numberOfPatchControlPoints, ulong patchStart, ulong patchCount, MTLBuffer patchIndexBuffer, ulong patchIndexBufferOffset, MTLBuffer controlPointIndexBuffer, ulong controlPointIndexBufferOffset, ulong instanceCount, ulong baseInstance, MTLBuffer buffer, ulong offset, ulong instanceStride)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , numberOfPatchControlPoints, patchStart, patchCount, patchIndexBuffer, patchIndexBufferOffset, controlPointIndexBuffer, controlPointIndexBufferOffset, instanceCount, baseInstance, buffer, offset, instanceStride);
         }
 
         public void DrawPrimitives(MTLPrimitiveType primitiveType, ulong vertexStart, ulong vertexCount, ulong instanceCount, ulong baseInstance)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , primitiveType, vertexStart, vertexCount, instanceCount, baseInstance);
         }
 
         public void DrawIndexedPrimitives(MTLPrimitiveType primitiveType, ulong indexCount, MTLIndexType indexType, MTLBuffer indexBuffer, ulong indexBufferOffset, ulong instanceCount, long baseVertex, ulong baseInstance)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , primitiveType, indexCount, indexType, indexBuffer, indexBufferOffset, instanceCount, baseVertex, baseInstance);
         }
 
         public void Reset()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         private static readonly Selector sel_setRenderPipelineState = "setRenderPipelineState:";
@@ -70,52 +70,52 @@ namespace SharpMetal.Metal
 
         public void SetComputePipelineState(MTLComputePipelineState pipelineState)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , pipelineState);
         }
 
         public void SetKernelBuffer(MTLBuffer buffer, ulong offset, ulong index)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , buffer, offset, index);
         }
 
         public void ConcurrentDispatchThreadgroups(MTLSize threadgroupsPerGrid, MTLSize threadsPerThreadgroup)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , threadgroupsPerGrid, threadsPerThreadgroup);
         }
 
         public void ConcurrentDispatchThreads(MTLSize threadsPerGrid, MTLSize threadsPerThreadgroup)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , threadsPerGrid, threadsPerThreadgroup);
         }
 
         public void SetBarrier()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         public void ClearBarrier()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         public void SetImageblockWidth(ulong width, ulong height)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , width, height);
         }
 
         public void Reset()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         public void SetThreadgroupMemoryLength(ulong length, ulong index)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , length, index);
         }
 
         public void SetStageInRegion(MTLRegion region)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , region);
         }
 
         private static readonly Selector sel_setComputePipelineState = "setComputePipelineState:";

@@ -50,17 +50,17 @@ namespace SharpMetal.Metal
 
         public void SetCaptureObject(IntPtr captureObject)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , captureObject);
         }
 
         public void SetDestination(MTLCaptureDestination destination)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , destination);
         }
 
         public void SetOutputURL(NSURL outputURL)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , outputURL);
         }
 
         private static readonly Selector sel_captureObject = "captureObject";
@@ -119,27 +119,27 @@ namespace SharpMetal.Metal
 
         public void StartCapture(MTLDevice device)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , device);
         }
 
         public void StartCapture(MTLCommandQueue commandQueue)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , commandQueue);
         }
 
         public void StartCapture(MTLCaptureScope captureScope)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , captureScope);
         }
 
         public void StopCapture()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         public void SetDefaultCaptureScope(MTLCaptureScope defaultCaptureScope)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , defaultCaptureScope);
         }
 
         private static readonly Selector sel_sharedCaptureManager = "sharedCaptureManager";

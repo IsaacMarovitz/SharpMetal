@@ -21,127 +21,127 @@ namespace SharpMetal.Metal
 
         public void SynchronizeResource(MTLResource resource)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , resource);
         }
 
         public void SynchronizeTexture(MTLTexture texture, ulong slice, ulong level)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , texture, slice, level);
         }
 
         public void CopyFromTexture(MTLTexture sourceTexture, ulong sourceSlice, ulong sourceLevel, MTLOrigin sourceOrigin, MTLSize sourceSize, MTLTexture destinationTexture, ulong destinationSlice, ulong destinationLevel, MTLOrigin destinationOrigin)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , sourceTexture, sourceSlice, sourceLevel, sourceOrigin, sourceSize, destinationTexture, destinationSlice, destinationLevel, destinationOrigin);
         }
 
         public void CopyFromBuffer(MTLBuffer sourceBuffer, ulong sourceOffset, ulong sourceBytesPerRow, ulong sourceBytesPerImage, MTLSize sourceSize, MTLTexture destinationTexture, ulong destinationSlice, ulong destinationLevel, MTLOrigin destinationOrigin)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , sourceBuffer, sourceOffset, sourceBytesPerRow, sourceBytesPerImage, sourceSize, destinationTexture, destinationSlice, destinationLevel, destinationOrigin);
         }
 
         public void CopyFromBuffer(MTLBuffer sourceBuffer, ulong sourceOffset, ulong sourceBytesPerRow, ulong sourceBytesPerImage, MTLSize sourceSize, MTLTexture destinationTexture, ulong destinationSlice, ulong destinationLevel, MTLOrigin destinationOrigin, MTLBlitOption options)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , sourceBuffer, sourceOffset, sourceBytesPerRow, sourceBytesPerImage, sourceSize, destinationTexture, destinationSlice, destinationLevel, destinationOrigin, options);
         }
 
         public void CopyFromTexture(MTLTexture sourceTexture, ulong sourceSlice, ulong sourceLevel, MTLOrigin sourceOrigin, MTLSize sourceSize, MTLBuffer destinationBuffer, ulong destinationOffset, ulong destinationBytesPerRow, ulong destinationBytesPerImage)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , sourceTexture, sourceSlice, sourceLevel, sourceOrigin, sourceSize, destinationBuffer, destinationOffset, destinationBytesPerRow, destinationBytesPerImage);
         }
 
         public void CopyFromTexture(MTLTexture sourceTexture, ulong sourceSlice, ulong sourceLevel, MTLOrigin sourceOrigin, MTLSize sourceSize, MTLBuffer destinationBuffer, ulong destinationOffset, ulong destinationBytesPerRow, ulong destinationBytesPerImage, MTLBlitOption options)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , sourceTexture, sourceSlice, sourceLevel, sourceOrigin, sourceSize, destinationBuffer, destinationOffset, destinationBytesPerRow, destinationBytesPerImage, options);
         }
 
         public void GenerateMipmaps(MTLTexture texture)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , texture);
         }
 
         public void FillBuffer(MTLBuffer buffer, NSRange range, byte value)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , buffer, range, value);
         }
 
         public void CopyFromTexture(MTLTexture sourceTexture, ulong sourceSlice, ulong sourceLevel, MTLTexture destinationTexture, ulong destinationSlice, ulong destinationLevel, ulong sliceCount, ulong levelCount)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , sourceTexture, sourceSlice, sourceLevel, destinationTexture, destinationSlice, destinationLevel, sliceCount, levelCount);
         }
 
         public void CopyFromTexture(MTLTexture sourceTexture, MTLTexture destinationTexture)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , sourceTexture, destinationTexture);
         }
 
         public void CopyFromBuffer(MTLBuffer sourceBuffer, ulong sourceOffset, MTLBuffer destinationBuffer, ulong destinationOffset, ulong size)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , sourceBuffer, sourceOffset, destinationBuffer, destinationOffset, size);
         }
 
         public void UpdateFence(MTLFence fence)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , fence);
         }
 
         public void WaitForFence(MTLFence fence)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , fence);
         }
 
         public void GetTextureAccessCounters(MTLTexture texture, MTLRegion region, ulong mipLevel, ulong slice, bool resetCounters, MTLBuffer countersBuffer, ulong countersBufferOffset)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , texture, region, mipLevel, slice, resetCounters, countersBuffer, countersBufferOffset);
         }
 
         public void ResetTextureAccessCounters(MTLTexture texture, MTLRegion region, ulong mipLevel, ulong slice)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , texture, region, mipLevel, slice);
         }
 
         public void OptimizeContentsForGPUAccess(MTLTexture texture)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , texture);
         }
 
         public void OptimizeContentsForGPUAccess(MTLTexture texture, ulong slice, ulong level)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , texture, slice, level);
         }
 
         public void OptimizeContentsForCPUAccess(MTLTexture texture)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , texture);
         }
 
         public void OptimizeContentsForCPUAccess(MTLTexture texture, ulong slice, ulong level)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , texture, slice, level);
         }
 
         public void ResetCommandsInBuffer(MTLIndirectCommandBuffer buffer, NSRange range)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , buffer, range);
         }
 
         public void CopyIndirectCommandBuffer(MTLIndirectCommandBuffer source, NSRange sourceRange, MTLIndirectCommandBuffer destination, ulong destinationIndex)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , source, sourceRange, destination, destinationIndex);
         }
 
         public void OptimizeIndirectCommandBuffer(MTLIndirectCommandBuffer indirectCommandBuffer, NSRange range)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , indirectCommandBuffer, range);
         }
 
         public void SampleCountersInBuffer(MTLCounterSampleBuffer sampleBuffer, ulong sampleIndex, bool barrier)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , sampleBuffer, sampleIndex, barrier);
         }
 
         public void ResolveCounters(MTLCounterSampleBuffer sampleBuffer, NSRange range, MTLBuffer destinationBuffer, ulong destinationOffset)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , sampleBuffer, range, destinationBuffer, destinationOffset);
         }
 
         private static readonly Selector sel_synchronizeResource = "synchronizeResource:";

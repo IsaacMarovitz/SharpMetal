@@ -25,47 +25,47 @@ namespace SharpMetal.Metal
 
         public void SetLabel(NSString label)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , label);
         }
 
         public void SetArgumentBuffer(MTLBuffer argumentBuffer, ulong offset)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , argumentBuffer, offset);
         }
 
         public void SetArgumentBuffer(MTLBuffer argumentBuffer, ulong startOffset, ulong arrayElement)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , argumentBuffer, startOffset, arrayElement);
         }
 
         public void SetBuffer(MTLBuffer buffer, ulong offset, ulong index)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , buffer, offset, index);
         }
 
         public void SetBuffers(MTLBuffer[] buffers, ulong[] offsets, NSRange range)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , buffers, offsets, range);
         }
 
         public void SetTexture(MTLTexture texture, ulong index)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , texture, index);
         }
 
         public void SetTextures(MTLTexture[] textures, NSRange range)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , textures, range);
         }
 
         public void SetSamplerState(MTLSamplerState sampler, ulong index)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , sampler, index);
         }
 
         public void SetSamplerStates(MTLSamplerState[] samplers, NSRange range)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , samplers, range);
         }
 
         public IntPtr ConstantData(ulong index)
@@ -75,37 +75,37 @@ namespace SharpMetal.Metal
 
         public void SetRenderPipelineState(MTLRenderPipelineState pipeline, ulong index)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , pipeline, index);
         }
 
         public void SetRenderPipelineStates(MTLRenderPipelineState[] pipelines, NSRange range)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , pipelines, range);
         }
 
         public void SetComputePipelineState(MTLComputePipelineState pipeline, ulong index)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , pipeline, index);
         }
 
         public void SetComputePipelineStates(MTLComputePipelineState[] pipelines, NSRange range)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , pipelines, range);
         }
 
         public void SetIndirectCommandBuffer(MTLIndirectCommandBuffer indirectCommandBuffer, ulong index)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , indirectCommandBuffer, index);
         }
 
         public void SetIndirectCommandBuffers(MTLIndirectCommandBuffer[] buffers, NSRange range)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , buffers, range);
         }
 
         public void SetAccelerationStructure(MTLAccelerationStructure accelerationStructure, ulong index)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , accelerationStructure, index);
         }
 
         public MTLArgumentEncoder NewArgumentEncoder(ulong index)
@@ -115,22 +115,22 @@ namespace SharpMetal.Metal
 
         public void SetVisibleFunctionTable(MTLVisibleFunctionTable visibleFunctionTable, ulong index)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , visibleFunctionTable, index);
         }
 
         public void SetVisibleFunctionTables(MTLVisibleFunctionTable[] visibleFunctionTables, NSRange range)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , visibleFunctionTables, range);
         }
 
         public void SetIntersectionFunctionTable(MTLIntersectionFunctionTable intersectionFunctionTable, ulong index)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , intersectionFunctionTable, index);
         }
 
         public void SetIntersectionFunctionTables(MTLIntersectionFunctionTable[] intersectionFunctionTables, NSRange range)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , intersectionFunctionTables, range);
         }
 
         private static readonly Selector sel_device = "device";

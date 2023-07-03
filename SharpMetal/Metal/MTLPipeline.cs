@@ -32,7 +32,7 @@ namespace SharpMetal.Metal
 
         public void SetMutability(MTLMutability mutability)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , mutability);
         }
 
         private static readonly Selector sel_mutability = "mutability";
@@ -59,7 +59,7 @@ namespace SharpMetal.Metal
 
         public void SetObject(MTLPipelineBufferDescriptor buffer, ulong bufferIndex)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , buffer, bufferIndex);
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";

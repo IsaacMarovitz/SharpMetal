@@ -42,7 +42,7 @@ namespace SharpMetal.Foundation
 
         public void GetValue(IntPtr pValue, ulong size)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , pValue, size);
         }
 
         public bool IsEqualToValue(NSValue pValue)

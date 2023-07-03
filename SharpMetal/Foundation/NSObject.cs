@@ -18,7 +18,7 @@ namespace SharpMetal.Foundation
 
         public void Release()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
     }
 

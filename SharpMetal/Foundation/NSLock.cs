@@ -12,12 +12,12 @@ namespace SharpMetal.Foundation
 
         public void Lock()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         public void Unlock()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
     }
 
@@ -36,7 +36,7 @@ namespace SharpMetal.Foundation
 
         public void Wait()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         public bool WaitUntilDate(NSDate pLimit)
@@ -46,12 +46,12 @@ namespace SharpMetal.Foundation
 
         public void Signal()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         public void Broadcast()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         private static readonly Selector sel_wait = "wait";

@@ -31,72 +31,72 @@ namespace SharpMetal.Metal
 
         public void LoadBytes(IntPtr pointer, ulong size, IntPtr sourceHandle, ulong sourceHandleOffset)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , pointer, size, sourceHandle, sourceHandleOffset);
         }
 
         public void LoadBuffer(MTLBuffer buffer, ulong offset, ulong size, IntPtr sourceHandle, ulong sourceHandleOffset)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , buffer, offset, size, sourceHandle, sourceHandleOffset);
         }
 
         public void LoadTexture(MTLTexture texture, ulong slice, ulong level, MTLSize size, ulong sourceBytesPerRow, ulong sourceBytesPerImage, MTLOrigin destinationOrigin, IntPtr sourceHandle, ulong sourceHandleOffset)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , texture, slice, level, size, sourceBytesPerRow, sourceBytesPerImage, destinationOrigin, sourceHandle, sourceHandleOffset);
         }
 
         public void CopyStatusToBuffer(MTLBuffer buffer, ulong offset)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , buffer, offset);
         }
 
         public void Commit()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         public void WaitUntilCompleted()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         public void TryCancel()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         public void AddBarrier()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         public void PushDebugGroup(NSString nsString)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , nsString);
         }
 
         public void PopDebugGroup()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         public void Enqueue()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         public void Wait(MTLSharedEvent mltEvent, ulong value)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , mltEvent, value);
         }
 
         public void SignalEvent(MTLSharedEvent mltEvent, ulong value)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , mltEvent, value);
         }
 
         public void SetLabel(NSString label)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , label);
         }
 
         private static readonly Selector sel_loadBytessizesourceHandlesourceHandleOffset = "loadBytes:size:sourceHandle:sourceHandleOffset:";

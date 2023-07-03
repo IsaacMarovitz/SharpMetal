@@ -140,57 +140,57 @@ namespace SharpMetal.Metal
 
         public void SetTexture(MTLTexture texture)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , texture);
         }
 
         public void SetLevel(ulong level)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , level);
         }
 
         public void SetSlice(ulong slice)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , slice);
         }
 
         public void SetDepthPlane(ulong depthPlane)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , depthPlane);
         }
 
         public void SetResolveTexture(MTLTexture resolveTexture)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , resolveTexture);
         }
 
         public void SetResolveLevel(ulong resolveLevel)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , resolveLevel);
         }
 
         public void SetResolveSlice(ulong resolveSlice)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , resolveSlice);
         }
 
         public void SetResolveDepthPlane(ulong resolveDepthPlane)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , resolveDepthPlane);
         }
 
         public void SetLoadAction(MTLLoadAction loadAction)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , loadAction);
         }
 
         public void SetStoreAction(MTLStoreAction storeAction)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , storeAction);
         }
 
         public void SetStoreActionOptions(MTLStoreActionOptions storeActionOptions)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , storeActionOptions);
         }
 
         private static readonly Selector sel_texture = "texture";
@@ -238,7 +238,7 @@ namespace SharpMetal.Metal
 
         public void SetClearColor(MTLClearColor clearColor)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , clearColor);
         }
 
         private static readonly Selector sel_clearColor = "clearColor";
@@ -272,12 +272,12 @@ namespace SharpMetal.Metal
 
         public void SetClearDepth(double clearDepth)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , clearDepth);
         }
 
         public void SetDepthResolveFilter(MTLMultisampleDepthResolveFilter depthResolveFilter)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , depthResolveFilter);
         }
 
         private static readonly Selector sel_clearDepth = "clearDepth";
@@ -313,12 +313,12 @@ namespace SharpMetal.Metal
 
         public void SetClearStencil(uint clearStencil)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , clearStencil);
         }
 
         public void SetStencilResolveFilter(MTLMultisampleStencilResolveFilter stencilResolveFilter)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , stencilResolveFilter);
         }
 
         private static readonly Selector sel_clearStencil = "clearStencil";
@@ -347,7 +347,7 @@ namespace SharpMetal.Metal
 
         public void SetObject(MTLRenderPassColorAttachmentDescriptor attachment, ulong attachmentIndex)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , attachment, attachmentIndex);
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
@@ -399,27 +399,27 @@ namespace SharpMetal.Metal
 
         public void SetSampleBuffer(MTLCounterSampleBuffer sampleBuffer)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , sampleBuffer);
         }
 
         public void SetStartOfVertexSampleIndex(ulong startOfVertexSampleIndex)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , startOfVertexSampleIndex);
         }
 
         public void SetEndOfVertexSampleIndex(ulong endOfVertexSampleIndex)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , endOfVertexSampleIndex);
         }
 
         public void SetStartOfFragmentSampleIndex(ulong startOfFragmentSampleIndex)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , startOfFragmentSampleIndex);
         }
 
         public void SetEndOfFragmentSampleIndex(ulong endOfFragmentSampleIndex)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , endOfFragmentSampleIndex);
         }
 
         private static readonly Selector sel_sampleBuffer = "sampleBuffer";
@@ -454,7 +454,7 @@ namespace SharpMetal.Metal
 
         public void SetObject(MTLRenderPassSampleBufferAttachmentDescriptor attachment, ulong attachmentIndex)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , attachment, attachmentIndex);
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
@@ -552,62 +552,62 @@ namespace SharpMetal.Metal
 
         public void SetDepthAttachment(MTLRenderPassDepthAttachmentDescriptor depthAttachment)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , depthAttachment);
         }
 
         public void SetStencilAttachment(MTLRenderPassStencilAttachmentDescriptor stencilAttachment)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , stencilAttachment);
         }
 
         public void SetVisibilityResultBuffer(MTLBuffer visibilityResultBuffer)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , visibilityResultBuffer);
         }
 
         public void SetRenderTargetArrayLength(ulong renderTargetArrayLength)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , renderTargetArrayLength);
         }
 
         public void SetImageblockSampleLength(ulong imageblockSampleLength)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , imageblockSampleLength);
         }
 
         public void SetThreadgroupMemoryLength(ulong threadgroupMemoryLength)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , threadgroupMemoryLength);
         }
 
         public void SetTileWidth(ulong tileWidth)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , tileWidth);
         }
 
         public void SetTileHeight(ulong tileHeight)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , tileHeight);
         }
 
         public void SetDefaultRasterSampleCount(ulong defaultRasterSampleCount)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , defaultRasterSampleCount);
         }
 
         public void SetRenderTargetWidth(ulong renderTargetWidth)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , renderTargetWidth);
         }
 
         public void SetRenderTargetHeight(ulong renderTargetHeight)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , renderTargetHeight);
         }
 
         public void SetSamplePositions(MTLSamplePosition positions, ulong count)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , positions, count);
         }
 
         public ulong GetSamplePositions(MTLSamplePosition positions, ulong count)
@@ -617,7 +617,7 @@ namespace SharpMetal.Metal
 
         public void SetRasterizationRateMap(MTLRasterizationRateMap rasterizationRateMap)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , rasterizationRateMap);
         }
 
         private static readonly Selector sel_renderPassDescriptor = "renderPassDescriptor";

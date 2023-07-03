@@ -189,7 +189,7 @@ namespace SharpMetal.Metal
 
         public void SetLabel(NSString label)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , label);
         }
 
         public MTLArgumentEncoder NewArgumentEncoder(ulong bufferIndex)
@@ -298,57 +298,57 @@ namespace SharpMetal.Metal
 
         public void SetPreprocessorMacros(NSDictionary preprocessorMacros)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , preprocessorMacros);
         }
 
         public void SetFastMathEnabled(bool fastMathEnabled)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , fastMathEnabled);
         }
 
         public void SetLanguageVersion(MTLLanguageVersion languageVersion)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , languageVersion);
         }
 
         public void SetLibraryType(MTLLibraryType libraryType)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , libraryType);
         }
 
         public void SetInstallName(NSString installName)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , installName);
         }
 
         public void SetLibraries(NSArray libraries)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , libraries);
         }
 
         public void SetPreserveInvariance(bool preserveInvariance)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , preserveInvariance);
         }
 
         public void SetOptimizationLevel(MTLLibraryOptimizationLevel optimizationLevel)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , optimizationLevel);
         }
 
         public void SetCompileSymbolVisibility(MTLCompileSymbolVisibility compileSymbolVisibility)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , compileSymbolVisibility);
         }
 
         public void SetAllowReferencingUndefinedSymbols(bool allowReferencingUndefinedSymbols)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , allowReferencingUndefinedSymbols);
         }
 
         public void SetMaxTotalThreadsPerThreadgroup(ulong maxTotalThreadsPerThreadgroup)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , maxTotalThreadsPerThreadgroup);
         }
 
         private static readonly Selector sel_preprocessorMacros = "preprocessorMacros";
@@ -398,7 +398,7 @@ namespace SharpMetal.Metal
 
         public void SetLabel(NSString label)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , label);
         }
 
         public MTLFunction NewFunction(NSString functionName)

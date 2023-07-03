@@ -208,82 +208,82 @@ namespace SharpMetal.Metal
 
         public void SetTextureType(MTLTextureType textureType)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , textureType);
         }
 
         public void SetPixelFormat(MTLPixelFormat pixelFormat)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , pixelFormat);
         }
 
         public void SetWidth(ulong width)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , width);
         }
 
         public void SetHeight(ulong height)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , height);
         }
 
         public void SetDepth(ulong depth)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , depth);
         }
 
         public void SetMipmapLevelCount(ulong mipmapLevelCount)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , mipmapLevelCount);
         }
 
         public void SetSampleCount(ulong sampleCount)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , sampleCount);
         }
 
         public void SetArrayLength(ulong arrayLength)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , arrayLength);
         }
 
         public void SetResourceOptions(MTLResourceOptions resourceOptions)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , resourceOptions);
         }
 
         public void SetCpuCacheMode(MTLCPUCacheMode cpuCacheMode)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , cpuCacheMode);
         }
 
         public void SetStorageMode(MTLStorageMode storageMode)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , storageMode);
         }
 
         public void SetHazardTrackingMode(MTLHazardTrackingMode hazardTrackingMode)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , hazardTrackingMode);
         }
 
         public void SetUsage(MTLTextureUsage usage)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , usage);
         }
 
         public void SetAllowGPUOptimizedContents(bool allowGPUOptimizedContents)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , allowGPUOptimizedContents);
         }
 
         public void SetCompressionType(MTLTextureCompressionType compressionType)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , compressionType);
         }
 
         public void SetSwizzle(MTLTextureSwizzleChannels swizzle)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , swizzle);
         }
 
         private static readonly Selector sel_texture2DDescriptorWithPixelFormatwidthheightmipmapped = "texture2DDescriptorWithPixelFormat:width:height:mipmapped:";
@@ -390,22 +390,22 @@ namespace SharpMetal.Metal
 
         public void GetBytes(IntPtr pixelBytes, ulong bytesPerRow, ulong bytesPerImage, MTLRegion region, ulong level, ulong slice)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , pixelBytes, bytesPerRow, bytesPerImage, region, level, slice);
         }
 
         public void ReplaceRegion(MTLRegion region, ulong level, ulong slice, IntPtr pixelBytes, ulong bytesPerRow, ulong bytesPerImage)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , region, level, slice, pixelBytes, bytesPerRow, bytesPerImage);
         }
 
         public void GetBytes(IntPtr pixelBytes, ulong bytesPerRow, MTLRegion region, ulong level)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , pixelBytes, bytesPerRow, region, level);
         }
 
         public void ReplaceRegion(MTLRegion region, ulong level, IntPtr pixelBytes, ulong bytesPerRow)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , region, level, pixelBytes, bytesPerRow);
         }
 
         public MTLTexture NewTextureView(MTLPixelFormat pixelFormat)

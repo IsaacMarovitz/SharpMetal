@@ -139,77 +139,77 @@ namespace SharpMetal.Metal
 
         public void SetMinFilter(MTLSamplerMinMagFilter minFilter)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , minFilter);
         }
 
         public void SetMagFilter(MTLSamplerMinMagFilter magFilter)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , magFilter);
         }
 
         public void SetMipFilter(MTLSamplerMipFilter mipFilter)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , mipFilter);
         }
 
         public void SetMaxAnisotropy(ulong maxAnisotropy)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , maxAnisotropy);
         }
 
         public void SetSAddressMode(MTLSamplerAddressMode sAddressMode)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , sAddressMode);
         }
 
         public void SetTAddressMode(MTLSamplerAddressMode tAddressMode)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , tAddressMode);
         }
 
         public void SetRAddressMode(MTLSamplerAddressMode rAddressMode)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , rAddressMode);
         }
 
         public void SetBorderColor(MTLSamplerBorderColor borderColor)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , borderColor);
         }
 
         public void SetNormalizedCoordinates(bool normalizedCoordinates)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , normalizedCoordinates);
         }
 
         public void SetLodMinClamp(float lodMinClamp)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , lodMinClamp);
         }
 
         public void SetLodMaxClamp(float lodMaxClamp)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , lodMaxClamp);
         }
 
         public void SetLodAverage(bool lodAverage)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , lodAverage);
         }
 
         public void SetCompareFunction(MTLCompareFunction compareFunction)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , compareFunction);
         }
 
         public void SetSupportArgumentBuffers(bool supportArgumentBuffers)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , supportArgumentBuffers);
         }
 
         public void SetLabel(NSString label)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , label);
         }
 
         private static readonly Selector sel_minFilter = "minFilter";

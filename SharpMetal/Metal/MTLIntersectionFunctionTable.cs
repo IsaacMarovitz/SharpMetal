@@ -36,7 +36,7 @@ namespace SharpMetal.Metal
 
         public void SetFunctionCount(ulong functionCount)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , functionCount);
         }
 
         private static readonly Selector sel_intersectionFunctionTableDescriptor = "intersectionFunctionTableDescriptor";
@@ -55,42 +55,42 @@ namespace SharpMetal.Metal
 
         public void SetBuffer(MTLBuffer buffer, ulong offset, ulong index)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , buffer, offset, index);
         }
 
         public void SetBuffers(MTLBuffer[] buffers, ulong[] offsets, NSRange range)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , buffers, offsets, range);
         }
 
         public void SetFunction(MTLFunctionHandle function, ulong index)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , function, index);
         }
 
         public void SetFunctions(MTLFunctionHandle[] functions, NSRange range)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , functions, range);
         }
 
         public void SetOpaqueTriangleIntersectionFunction(MTLIntersectionFunctionSignature signature, ulong index)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , signature, index);
         }
 
         public void SetOpaqueTriangleIntersectionFunction(MTLIntersectionFunctionSignature signature, NSRange range)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , signature, range);
         }
 
         public void SetVisibleFunctionTable(MTLVisibleFunctionTable functionTable, ulong bufferIndex)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , functionTable, bufferIndex);
         }
 
         public void SetVisibleFunctionTables(MTLVisibleFunctionTable[] functionTables, NSRange bufferRange)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , functionTables, bufferRange);
         }
 
         private static readonly Selector sel_setBufferoffsetatIndex = "setBuffer:offset:atIndex:";

@@ -24,7 +24,7 @@ namespace SharpMetal.Metal
 
         public void SetObject(NSNumber value, ulong index)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , value, index);
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
@@ -72,7 +72,7 @@ namespace SharpMetal.Metal
 
         public void SetSampleCount(MTLSize sampleCount)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , sampleCount);
         }
 
         private static readonly Selector sel_initWithSampleCount = "initWithSampleCount:";
@@ -106,7 +106,7 @@ namespace SharpMetal.Metal
 
         public void SetObject(MTLRasterizationRateLayerDescriptor layer, ulong layerIndex)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , layer, layerIndex);
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
@@ -164,17 +164,17 @@ namespace SharpMetal.Metal
 
         public void SetLayer(MTLRasterizationRateLayerDescriptor layer, ulong layerIndex)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , layer, layerIndex);
         }
 
         public void SetScreenSize(MTLSize screenSize)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , screenSize);
         }
 
         public void SetLabel(NSString label)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , label);
         }
 
         private static readonly Selector sel_rasterizationRateMapDescriptorWithScreenSize = "rasterizationRateMapDescriptorWithScreenSize:";
@@ -211,7 +211,7 @@ namespace SharpMetal.Metal
 
         public void CopyParameterDataToBuffer(MTLBuffer buffer, ulong offset)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , buffer, offset);
         }
 
         public MTLSize PhysicalSize(ulong layerIndex)

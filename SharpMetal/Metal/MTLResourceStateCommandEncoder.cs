@@ -45,32 +45,32 @@ namespace SharpMetal.Metal
 
         public void UpdateTextureMappings(MTLTexture texture, MTLSparseTextureMappingMode mode, MTLRegion regions, ulong mipLevels, ulong slices, ulong numRegions)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , texture, mode, regions, mipLevels, slices, numRegions);
         }
 
         public void UpdateTextureMapping(MTLTexture texture, MTLSparseTextureMappingMode mode, MTLRegion region, ulong mipLevel, ulong slice)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , texture, mode, region, mipLevel, slice);
         }
 
         public void UpdateTextureMapping(MTLTexture texture, MTLSparseTextureMappingMode mode, MTLBuffer indirectBuffer, ulong indirectBufferOffset)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , texture, mode, indirectBuffer, indirectBufferOffset);
         }
 
         public void UpdateFence(MTLFence fence)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , fence);
         }
 
         public void WaitForFence(MTLFence fence)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , fence);
         }
 
         public void MoveTextureMappingsFromTexture(MTLTexture sourceTexture, ulong sourceSlice, ulong sourceLevel, MTLOrigin sourceOrigin, MTLSize sourceSize, MTLTexture destinationTexture, ulong destinationSlice, ulong destinationLevel, MTLOrigin destinationOrigin)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , sourceTexture, sourceSlice, sourceLevel, sourceOrigin, sourceSize, destinationTexture, destinationSlice, destinationLevel, destinationOrigin);
         }
 
         private static readonly Selector sel_updateTextureMappingsmoderegionsmipLevelsslicesnumRegions = "updateTextureMappings:mode:regions:mipLevels:slices:numRegions:";

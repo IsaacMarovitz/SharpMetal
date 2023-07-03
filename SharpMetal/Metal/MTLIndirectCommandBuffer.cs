@@ -85,37 +85,37 @@ namespace SharpMetal.Metal
 
         public void SetCommandTypes(MTLIndirectCommandType commandTypes)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , commandTypes);
         }
 
         public void SetInheritPipelineState(bool inheritPipelineState)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , inheritPipelineState);
         }
 
         public void SetInheritBuffers(bool inheritBuffers)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , inheritBuffers);
         }
 
         public void SetMaxVertexBufferBindCount(ulong maxVertexBufferBindCount)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , maxVertexBufferBindCount);
         }
 
         public void SetMaxFragmentBufferBindCount(ulong maxFragmentBufferBindCount)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , maxFragmentBufferBindCount);
         }
 
         public void SetMaxKernelBufferBindCount(ulong maxKernelBufferBindCount)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , maxKernelBufferBindCount);
         }
 
         public void SetSupportRayTracing(bool supportRayTracing)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , supportRayTracing);
         }
 
         private static readonly Selector sel_commandTypes = "commandTypes";
@@ -147,7 +147,7 @@ namespace SharpMetal.Metal
 
         public void Reset(NSRange range)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , range);
         }
 
         public MTLIndirectRenderCommand IndirectRenderCommand(ulong commandIndex)

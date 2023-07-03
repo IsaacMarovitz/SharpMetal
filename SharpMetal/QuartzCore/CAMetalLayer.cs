@@ -35,22 +35,22 @@ namespace SharpMetal.QuartzCore
 
         public void SetDevice(MTLDevice device)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , device);
         }
 
         public void SetPixelFormat(MTLPixelFormat pixelFormat)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , pixelFormat);
         }
 
         public void SetFramebufferOnly(bool framebufferOnly)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , framebufferOnly);
         }
 
         public void SetDrawableSize(IntPtr drawableSize)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , drawableSize);
         }
 
         private static readonly Selector sel_layer = "layer";

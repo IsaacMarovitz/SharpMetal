@@ -21,7 +21,7 @@ namespace SharpMetal.Metal
 
         public void SetLabel(NSString label)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , label);
         }
 
         private static readonly Selector sel_device = "device";

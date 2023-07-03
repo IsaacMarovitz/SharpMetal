@@ -55,7 +55,7 @@ namespace SharpMetal.Metal
 
         public void SetArgumentIndex(ulong argumentIndex)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , argumentIndex);
         }
 
         public MTLFunctionStitchingInputNode Init(ulong argument)
@@ -101,17 +101,17 @@ namespace SharpMetal.Metal
 
         public void SetName(NSString name)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , name);
         }
 
         public void SetArguments(NSArray arguments)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , arguments);
         }
 
         public void SetControlDependencies(NSArray controlDependencies)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , controlDependencies);
         }
 
         public MTLFunctionStitchingFunctionNode Init(NSString name, NSArray arguments, NSArray controlDependencies)
@@ -167,22 +167,22 @@ namespace SharpMetal.Metal
 
         public void SetFunctionName(NSString functionName)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , functionName);
         }
 
         public void SetNodes(NSArray nodes)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , nodes);
         }
 
         public void SetOutputNode(MTLFunctionStitchingFunctionNode outputNode)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , outputNode);
         }
 
         public void SetAttributes(NSArray attributes)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , attributes);
         }
 
         public MTLFunctionStitchingGraph Init(NSString functionName, NSArray nodes, MTLFunctionStitchingFunctionNode outputNode, NSArray attributes)
@@ -228,12 +228,12 @@ namespace SharpMetal.Metal
 
         public void SetFunctionGraphs(NSArray functionGraphs)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , functionGraphs);
         }
 
         public void SetFunctions(NSArray functions)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , functions);
         }
 
         private static readonly Selector sel_functionGraphs = "functionGraphs";

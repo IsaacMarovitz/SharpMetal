@@ -114,67 +114,67 @@ namespace SharpMetal.Metal
 
         public void SetLabel(NSString label)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , label);
         }
 
         public void SetComputeFunction(MTLFunction computeFunction)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , computeFunction);
         }
 
         public void SetThreadGroupSizeIsMultipleOfThreadExecutionWidth(bool threadGroupSizeIsMultipleOfThreadExecutionWidth)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , threadGroupSizeIsMultipleOfThreadExecutionWidth);
         }
 
         public void SetMaxTotalThreadsPerThreadgroup(ulong maxTotalThreadsPerThreadgroup)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , maxTotalThreadsPerThreadgroup);
         }
 
         public void SetStageInputDescriptor(MTLStageInputOutputDescriptor stageInputDescriptor)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , stageInputDescriptor);
         }
 
         public void SetSupportIndirectCommandBuffers(bool supportIndirectCommandBuffers)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , supportIndirectCommandBuffers);
         }
 
         public void SetInsertLibraries(NSArray insertLibraries)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , insertLibraries);
         }
 
         public void SetPreloadedLibraries(NSArray preloadedLibraries)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , preloadedLibraries);
         }
 
         public void SetBinaryArchives(NSArray binaryArchives)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , binaryArchives);
         }
 
         public void Reset()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         public void SetLinkedFunctions(MTLLinkedFunctions linkedFunctions)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , linkedFunctions);
         }
 
         public void SetSupportAddingBinaryFunctions(bool supportAddingBinaryFunctions)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , supportAddingBinaryFunctions);
         }
 
         public void SetMaxCallStackDepth(ulong maxCallStackDepth)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , maxCallStackDepth);
         }
 
         private static readonly Selector sel_label = "label";

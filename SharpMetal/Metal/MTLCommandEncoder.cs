@@ -35,27 +35,27 @@ namespace SharpMetal.Metal
 
         public void SetLabel(NSString label)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , label);
         }
 
         public void EndEncoding()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         public void InsertDebugSignpost(NSString nsString)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , nsString);
         }
 
         public void PushDebugGroup(NSString nsString)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , nsString);
         }
 
         public void PopDebugGroup()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         private static readonly Selector sel_device = "device";

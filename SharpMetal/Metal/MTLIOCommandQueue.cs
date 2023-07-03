@@ -42,12 +42,12 @@ namespace SharpMetal.Metal
 
         public void EnqueueBarrier()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         public void SetLabel(NSString label)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , label);
         }
 
         private static readonly Selector sel_enqueueBarrier = "enqueueBarrier";
@@ -129,27 +129,27 @@ namespace SharpMetal.Metal
 
         public void SetMaxCommandBufferCount(ulong maxCommandBufferCount)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , maxCommandBufferCount);
         }
 
         public void SetPriority(MTLIOPriority priority)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , priority);
         }
 
         public void SetType(MTLIOCommandQueueType type)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , type);
         }
 
         public void SetMaxCommandsInFlight(ulong maxCommandsInFlight)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , maxCommandsInFlight);
         }
 
         public void SetScratchBufferAllocator(MTLIOScratchBufferAllocator scratchBufferAllocator)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , scratchBufferAllocator);
         }
 
         private static readonly Selector sel_maxCommandBufferCount = "maxCommandBufferCount";
@@ -179,7 +179,7 @@ namespace SharpMetal.Metal
 
         public void SetLabel(NSString label)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , label);
         }
 
         private static readonly Selector sel_label = "label";

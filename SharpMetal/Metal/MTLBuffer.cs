@@ -21,7 +21,7 @@ namespace SharpMetal.Metal
 
         public void DidModifyRange(NSRange range)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , range);
         }
 
         public MTLTexture NewTexture(MTLTextureDescriptor descriptor, ulong offset, ulong bytesPerRow)
@@ -31,12 +31,12 @@ namespace SharpMetal.Metal
 
         public void AddDebugMarker(NSString marker, NSRange range)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , marker, range);
         }
 
         public void RemoveAllDebugMarkers()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         public MTLBuffer NewRemoteBufferViewForDevice(MTLDevice device)

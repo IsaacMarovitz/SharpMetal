@@ -102,17 +102,17 @@ namespace SharpMetal.Metal
 
         public void SetStride(ulong stride)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , stride);
         }
 
         public void SetStepFunction(MTLVertexStepFunction stepFunction)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , stepFunction);
         }
 
         public void SetStepRate(ulong stepRate)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , stepRate);
         }
 
         private static readonly Selector sel_stride = "stride";
@@ -143,7 +143,7 @@ namespace SharpMetal.Metal
 
         public void SetObject(MTLVertexBufferLayoutDescriptor bufferDesc, ulong index)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , bufferDesc, index);
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
@@ -183,17 +183,17 @@ namespace SharpMetal.Metal
 
         public void SetFormat(MTLVertexFormat format)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , format);
         }
 
         public void SetOffset(ulong offset)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , offset);
         }
 
         public void SetBufferIndex(ulong bufferIndex)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , bufferIndex);
         }
 
         private static readonly Selector sel_format = "format";
@@ -224,7 +224,7 @@ namespace SharpMetal.Metal
 
         public void SetObject(MTLVertexAttributeDescriptor attributeDesc, ulong index)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , attributeDesc, index);
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
@@ -250,7 +250,7 @@ namespace SharpMetal.Metal
 
         public void Reset()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         private static readonly Selector sel_vertexDescriptor = "vertexDescriptor";

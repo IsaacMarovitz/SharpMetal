@@ -21,7 +21,7 @@ namespace SharpMetal.Metal
 
         public void SetLabel(NSString label)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , label);
         }
 
         private static readonly Selector sel_device = "device";
@@ -70,12 +70,12 @@ namespace SharpMetal.Metal
 
         public void NotifyListener(MTLSharedEventListener listener, ulong value, IntPtr block)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , listener, value, block);
         }
 
         public void SetSignaledValue(ulong signaledValue)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , signaledValue);
         }
 
         private static readonly Selector sel_notifyListeneratValueblock = "notifyListener:atValue:block:";

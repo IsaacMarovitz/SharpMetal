@@ -22,7 +22,7 @@ namespace SharpMetal.Metal
 
         public static void IOCompressionContextAppendData(IntPtr context, IntPtr data, IntPtr size)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , context, data, size);
         }
 
         public static MTLIOCompressionStatus IOFlushAndDestroyCompressionContext(IntPtr context)

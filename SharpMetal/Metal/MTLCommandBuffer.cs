@@ -78,12 +78,12 @@ namespace SharpMetal.Metal
 
         public void SetRetainedReferences(bool retainedReferences)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , retainedReferences);
         }
 
         public void SetErrorOptions(MTLCommandBufferErrorOption errorOptions)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , errorOptions);
         }
 
         private static readonly Selector sel_retainedReferences = "retainedReferences";
@@ -147,42 +147,42 @@ namespace SharpMetal.Metal
 
         public void SetLabel(NSString label)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , label);
         }
 
         public void Enqueue()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         public void Commit()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         public void PresentDrawable(MTLDrawable drawable)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , drawable);
         }
 
         public void PresentDrawableAtTime(MTLDrawable drawable, IntPtr presentationTime)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , drawable, presentationTime);
         }
 
         public void PresentDrawableAfterMinimumDuration(MTLDrawable drawable, IntPtr duration)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , drawable, duration);
         }
 
         public void WaitUntilScheduled()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         public void WaitUntilCompleted()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         public MTLRenderCommandEncoder RenderCommandEncoder(MTLRenderPassDescriptor renderPassDescriptor)
@@ -217,12 +217,12 @@ namespace SharpMetal.Metal
 
         public void EncodeWait(MTLEvent mltEvent, ulong value)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , mltEvent, value);
         }
 
         public void EncodeSignalEvent(MTLEvent mltEvent, ulong value)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , mltEvent, value);
         }
 
         public MTLParallelRenderCommandEncoder ParallelRenderCommandEncoder(MTLRenderPassDescriptor renderPassDescriptor)
@@ -252,12 +252,12 @@ namespace SharpMetal.Metal
 
         public void PushDebugGroup(NSString nsString)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , nsString);
         }
 
         public void PopDebugGroup()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         private static readonly Selector sel_device = "device";

@@ -205,32 +205,32 @@ namespace SharpMetal.Metal
 
         public void SetDataType(MTLDataType dataType)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , dataType);
         }
 
         public void SetIndex(ulong index)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , index);
         }
 
         public void SetArrayLength(ulong arrayLength)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , arrayLength);
         }
 
         public void SetAccess(MTLArgumentAccess access)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , access);
         }
 
         public void SetTextureType(MTLTextureType textureType)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , textureType);
         }
 
         public void SetConstantBlockAlignment(ulong constantBlockAlignment)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , constantBlockAlignment);
         }
 
         private static readonly Selector sel_argumentDescriptor = "argumentDescriptor";
@@ -517,7 +517,7 @@ namespace SharpMetal.Metal
 
         public void GetDefaultSamplePositions(MTLSamplePosition positions, ulong count)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , positions, count);
         }
 
         public MTLArgumentEncoder NewArgumentEncoder(NSArray arguments)
@@ -572,12 +572,12 @@ namespace SharpMetal.Metal
 
         public void ConvertSparsePixelRegions(MTLRegion pixelRegions, MTLRegion tileRegions, MTLSize tileSize, MTLSparseTextureRegionAlignmentMode mode, ulong numRegions)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , pixelRegions, tileRegions, tileSize, mode, numRegions);
         }
 
         public void ConvertSparseTileRegions(MTLRegion tileRegions, MTLRegion pixelRegions, MTLSize tileSize, ulong numRegions)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , tileRegions, pixelRegions, tileSize, numRegions);
         }
 
         public ulong SparseTileSizeInBytes(MTLSparsePageSize sparsePageSize)
@@ -602,7 +602,7 @@ namespace SharpMetal.Metal
 
         public void SampleTimestamps(ulong cpuTimestamp, ulong gpuTimestamp)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , cpuTimestamp, gpuTimestamp);
         }
 
         public MTLArgumentEncoder NewArgumentEncoder(MTLBufferBinding bufferBinding)
@@ -662,7 +662,7 @@ namespace SharpMetal.Metal
 
         public void SetShouldMaximizeConcurrentCompilation(bool shouldMaximizeConcurrentCompilation)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , shouldMaximizeConcurrentCompilation);
         }
 
         private static readonly Selector sel_name = "name";

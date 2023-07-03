@@ -37,17 +37,17 @@ namespace SharpMetal.Metal
 
         public void SetSampleBuffer(MTLCounterSampleBuffer sampleBuffer)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , sampleBuffer);
         }
 
         public void SetStartOfEncoderSampleIndex(ulong startOfEncoderSampleIndex)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , startOfEncoderSampleIndex);
         }
 
         public void SetEndOfEncoderSampleIndex(ulong endOfEncoderSampleIndex)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , endOfEncoderSampleIndex);
         }
 
         private static readonly Selector sel_sampleBuffer = "sampleBuffer";
@@ -78,7 +78,7 @@ namespace SharpMetal.Metal
 
         public void SetObject(MTLComputePassSampleBufferAttachmentDescriptor attachment, ulong attachmentIndex)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , attachment, attachmentIndex);
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
@@ -108,7 +108,7 @@ namespace SharpMetal.Metal
 
         public void SetDispatchType(MTLDispatchType dispatchType)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , dispatchType);
         }
 
         private static readonly Selector sel_computePassDescriptor = "computePassDescriptor";

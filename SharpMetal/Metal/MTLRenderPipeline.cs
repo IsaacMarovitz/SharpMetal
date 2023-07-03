@@ -147,47 +147,47 @@ namespace SharpMetal.Metal
 
         public void SetPixelFormat(MTLPixelFormat pixelFormat)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , pixelFormat);
         }
 
         public void SetBlendingEnabled(bool blendingEnabled)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , blendingEnabled);
         }
 
         public void SetSourceRGBBlendFactor(MTLBlendFactor sourceRGBBlendFactor)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , sourceRGBBlendFactor);
         }
 
         public void SetDestinationRGBBlendFactor(MTLBlendFactor destinationRGBBlendFactor)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , destinationRGBBlendFactor);
         }
 
         public void SetRgbBlendOperation(MTLBlendOperation rgbBlendOperation)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , rgbBlendOperation);
         }
 
         public void SetSourceAlphaBlendFactor(MTLBlendFactor sourceAlphaBlendFactor)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , sourceAlphaBlendFactor);
         }
 
         public void SetDestinationAlphaBlendFactor(MTLBlendFactor destinationAlphaBlendFactor)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , destinationAlphaBlendFactor);
         }
 
         public void SetAlphaBlendOperation(MTLBlendOperation alphaBlendOperation)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , alphaBlendOperation);
         }
 
         public void SetWriteMask(MTLColorWriteMask writeMask)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , writeMask);
         }
 
         private static readonly Selector sel_pixelFormat = "pixelFormat";
@@ -434,157 +434,157 @@ namespace SharpMetal.Metal
 
         public void SetLabel(NSString label)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , label);
         }
 
         public void SetVertexFunction(MTLFunction vertexFunction)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , vertexFunction);
         }
 
         public void SetFragmentFunction(MTLFunction fragmentFunction)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , fragmentFunction);
         }
 
         public void SetVertexDescriptor(MTLVertexDescriptor vertexDescriptor)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , vertexDescriptor);
         }
 
         public void SetSampleCount(ulong sampleCount)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , sampleCount);
         }
 
         public void SetRasterSampleCount(ulong rasterSampleCount)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , rasterSampleCount);
         }
 
         public void SetAlphaToCoverageEnabled(bool alphaToCoverageEnabled)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , alphaToCoverageEnabled);
         }
 
         public void SetAlphaToOneEnabled(bool alphaToOneEnabled)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , alphaToOneEnabled);
         }
 
         public void SetRasterizationEnabled(bool rasterizationEnabled)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , rasterizationEnabled);
         }
 
         public void SetMaxVertexAmplificationCount(ulong maxVertexAmplificationCount)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , maxVertexAmplificationCount);
         }
 
         public void SetDepthAttachmentPixelFormat(MTLPixelFormat depthAttachmentPixelFormat)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , depthAttachmentPixelFormat);
         }
 
         public void SetStencilAttachmentPixelFormat(MTLPixelFormat stencilAttachmentPixelFormat)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , stencilAttachmentPixelFormat);
         }
 
         public void SetInputPrimitiveTopology(MTLPrimitiveTopologyClass inputPrimitiveTopology)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , inputPrimitiveTopology);
         }
 
         public void SetTessellationPartitionMode(MTLTessellationPartitionMode tessellationPartitionMode)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , tessellationPartitionMode);
         }
 
         public void SetMaxTessellationFactor(ulong maxTessellationFactor)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , maxTessellationFactor);
         }
 
         public void SetTessellationFactorScaleEnabled(bool tessellationFactorScaleEnabled)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , tessellationFactorScaleEnabled);
         }
 
         public void SetTessellationFactorFormat(MTLTessellationFactorFormat tessellationFactorFormat)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , tessellationFactorFormat);
         }
 
         public void SetTessellationControlPointIndexType(MTLTessellationControlPointIndexType tessellationControlPointIndexType)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , tessellationControlPointIndexType);
         }
 
         public void SetTessellationFactorStepFunction(MTLTessellationFactorStepFunction tessellationFactorStepFunction)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , tessellationFactorStepFunction);
         }
 
         public void SetTessellationOutputWindingOrder(MTLWinding tessellationOutputWindingOrder)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , tessellationOutputWindingOrder);
         }
 
         public void SetSupportIndirectCommandBuffers(bool supportIndirectCommandBuffers)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , supportIndirectCommandBuffers);
         }
 
         public void SetBinaryArchives(NSArray binaryArchives)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , binaryArchives);
         }
 
         public void SetVertexPreloadedLibraries(NSArray vertexPreloadedLibraries)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , vertexPreloadedLibraries);
         }
 
         public void SetFragmentPreloadedLibraries(NSArray fragmentPreloadedLibraries)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , fragmentPreloadedLibraries);
         }
 
         public void SetVertexLinkedFunctions(MTLLinkedFunctions vertexLinkedFunctions)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , vertexLinkedFunctions);
         }
 
         public void SetFragmentLinkedFunctions(MTLLinkedFunctions fragmentLinkedFunctions)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , fragmentLinkedFunctions);
         }
 
         public void SetSupportAddingVertexBinaryFunctions(bool supportAddingVertexBinaryFunctions)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , supportAddingVertexBinaryFunctions);
         }
 
         public void SetSupportAddingFragmentBinaryFunctions(bool supportAddingFragmentBinaryFunctions)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , supportAddingFragmentBinaryFunctions);
         }
 
         public void SetMaxVertexCallStackDepth(ulong maxVertexCallStackDepth)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , maxVertexCallStackDepth);
         }
 
         public void SetMaxFragmentCallStackDepth(ulong maxFragmentCallStackDepth)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , maxFragmentCallStackDepth);
         }
 
         public void Reset()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         private static readonly Selector sel_label = "label";
@@ -686,17 +686,17 @@ namespace SharpMetal.Metal
 
         public void SetVertexAdditionalBinaryFunctions(NSArray vertexAdditionalBinaryFunctions)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , vertexAdditionalBinaryFunctions);
         }
 
         public void SetFragmentAdditionalBinaryFunctions(NSArray fragmentAdditionalBinaryFunctions)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , fragmentAdditionalBinaryFunctions);
         }
 
         public void SetTileAdditionalBinaryFunctions(NSArray tileAdditionalBinaryFunctions)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , tileAdditionalBinaryFunctions);
         }
 
         private static readonly Selector sel_vertexAdditionalBinaryFunctions = "vertexAdditionalBinaryFunctions";
@@ -802,7 +802,7 @@ namespace SharpMetal.Metal
 
         public void SetObject(MTLRenderPipelineColorAttachmentDescriptor attachment, ulong attachmentIndex)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , attachment, attachmentIndex);
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
@@ -830,7 +830,7 @@ namespace SharpMetal.Metal
 
         public void SetPixelFormat(MTLPixelFormat pixelFormat)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , pixelFormat);
         }
 
         private static readonly Selector sel_pixelFormat = "pixelFormat";
@@ -857,7 +857,7 @@ namespace SharpMetal.Metal
 
         public void SetObject(MTLTileRenderPipelineColorAttachmentDescriptor attachment, ulong attachmentIndex)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , attachment, attachmentIndex);
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
@@ -943,57 +943,57 @@ namespace SharpMetal.Metal
 
         public void SetLabel(NSString label)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , label);
         }
 
         public void SetTileFunction(MTLFunction tileFunction)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , tileFunction);
         }
 
         public void SetRasterSampleCount(ulong rasterSampleCount)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , rasterSampleCount);
         }
 
         public void SetThreadgroupSizeMatchesTileSize(bool threadgroupSizeMatchesTileSize)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , threadgroupSizeMatchesTileSize);
         }
 
         public void SetMaxTotalThreadsPerThreadgroup(ulong maxTotalThreadsPerThreadgroup)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , maxTotalThreadsPerThreadgroup);
         }
 
         public void SetBinaryArchives(NSArray binaryArchives)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , binaryArchives);
         }
 
         public void SetPreloadedLibraries(NSArray preloadedLibraries)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , preloadedLibraries);
         }
 
         public void SetLinkedFunctions(MTLLinkedFunctions linkedFunctions)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , linkedFunctions);
         }
 
         public void SetSupportAddingBinaryFunctions(bool supportAddingBinaryFunctions)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , supportAddingBinaryFunctions);
         }
 
         public void SetMaxCallStackDepth(ulong maxCallStackDepth)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , maxCallStackDepth);
         }
 
         public void Reset()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         private static readonly Selector sel_label = "label";
@@ -1134,92 +1134,92 @@ namespace SharpMetal.Metal
 
         public void SetLabel(NSString label)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , label);
         }
 
         public void SetObjectFunction(MTLFunction objectFunction)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , objectFunction);
         }
 
         public void SetMeshFunction(MTLFunction meshFunction)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , meshFunction);
         }
 
         public void SetFragmentFunction(MTLFunction fragmentFunction)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , fragmentFunction);
         }
 
         public void SetMaxTotalThreadsPerObjectThreadgroup(ulong maxTotalThreadsPerObjectThreadgroup)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , maxTotalThreadsPerObjectThreadgroup);
         }
 
         public void SetMaxTotalThreadsPerMeshThreadgroup(ulong maxTotalThreadsPerMeshThreadgroup)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , maxTotalThreadsPerMeshThreadgroup);
         }
 
         public void SetObjectThreadgroupSizeIsMultipleOfThreadExecutionWidth(bool objectThreadgroupSizeIsMultipleOfThreadExecutionWidth)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , objectThreadgroupSizeIsMultipleOfThreadExecutionWidth);
         }
 
         public void SetMeshThreadgroupSizeIsMultipleOfThreadExecutionWidth(bool meshThreadgroupSizeIsMultipleOfThreadExecutionWidth)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , meshThreadgroupSizeIsMultipleOfThreadExecutionWidth);
         }
 
         public void SetPayloadMemoryLength(ulong payloadMemoryLength)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , payloadMemoryLength);
         }
 
         public void SetMaxTotalThreadgroupsPerMeshGrid(ulong maxTotalThreadgroupsPerMeshGrid)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , maxTotalThreadgroupsPerMeshGrid);
         }
 
         public void SetRasterSampleCount(ulong rasterSampleCount)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , rasterSampleCount);
         }
 
         public void SetAlphaToCoverageEnabled(bool alphaToCoverageEnabled)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , alphaToCoverageEnabled);
         }
 
         public void SetAlphaToOneEnabled(bool alphaToOneEnabled)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , alphaToOneEnabled);
         }
 
         public void SetRasterizationEnabled(bool rasterizationEnabled)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , rasterizationEnabled);
         }
 
         public void SetMaxVertexAmplificationCount(ulong maxVertexAmplificationCount)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , maxVertexAmplificationCount);
         }
 
         public void SetDepthAttachmentPixelFormat(MTLPixelFormat depthAttachmentPixelFormat)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , depthAttachmentPixelFormat);
         }
 
         public void SetStencilAttachmentPixelFormat(MTLPixelFormat stencilAttachmentPixelFormat)
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , stencilAttachmentPixelFormat);
         }
 
         public void Reset()
         {
-            throw new NotImplementedException();
+            objc_msgSend(NativePtr, , );
         }
 
         private static readonly Selector sel_label = "label";

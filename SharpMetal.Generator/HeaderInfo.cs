@@ -130,7 +130,6 @@ namespace SharpMetal.Generator
                         // These are static methods that aren't in a class
                         // Just so happens that one of these is incredibly important
                         line = StringUtils.FunctionSignautreCleanup(line);
-                        Console.WriteLine($"YES DADDY {line}");
 
                         var info = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
                         var returnType = "";
@@ -158,7 +157,7 @@ namespace SharpMetal.Generator
                         if (line.Contains("()"))
                         {
                             // Function has no arguments
-                            method = new MethodInstance(returnType, name, true, new List<PropertyInstance>());
+                            method = new MethodInstance(returnType, name, "", true, new List<PropertyInstance>());
                         }
                         else
                         {
@@ -213,13 +212,12 @@ namespace SharpMetal.Generator
 
                             if (returnType != string.Empty)
                             {
-                                method = new MethodInstance(returnType, name, true, arguments);
+                                method = new MethodInstance(returnType, name, "", true, arguments);
                             }
                         }
 
                         if (method != null)
                         {
-                            Console.WriteLine("CUMMM");
                             InFlightUnscopedMethods.Add(method);
                         }
                     }
