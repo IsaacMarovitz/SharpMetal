@@ -582,6 +582,11 @@ namespace SharpMetal.Metal
             throw new NotImplementedException();
         }
 
+        public void Reset()
+        {
+            throw new NotImplementedException();
+        }
+
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_setLabel = "setLabel:";
         private static readonly Selector sel_vertexFunction = "vertexFunction";
@@ -986,6 +991,11 @@ namespace SharpMetal.Metal
             throw new NotImplementedException();
         }
 
+        public void Reset()
+        {
+            throw new NotImplementedException();
+        }
+
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_setLabel = "setLabel:";
         private static readonly Selector sel_tileFunction = "tileFunction";
@@ -1203,6 +1213,11 @@ namespace SharpMetal.Metal
         }
 
         public void SetStencilAttachmentPixelFormat(MTLPixelFormat stencilAttachmentPixelFormat)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Reset()
         {
             throw new NotImplementedException();
         }

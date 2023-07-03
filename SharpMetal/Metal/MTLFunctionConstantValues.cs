@@ -32,6 +32,11 @@ namespace SharpMetal.Metal
             throw new NotImplementedException();
         }
 
+        public void Reset()
+        {
+            throw new NotImplementedException();
+        }
+
         private static readonly Selector sel_setConstantValuetypeatIndex = "setConstantValue:type:atIndex:";
         private static readonly Selector sel_setConstantValuestypewithRange = "setConstantValues:type:withRange:";
         private static readonly Selector sel_setConstantValuetypewithName = "setConstantValue:type:withName:";

@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using SharpMetal.Generator.Utilities;
 
 namespace SharpMetal.Generator.Instances
 {
@@ -38,7 +39,7 @@ namespace SharpMetal.Generator.Instances
             context.LeaveScope();
         }
 
-        public static MethodInstance? BuildMethod(List<string> parts, string namespacePrefix)
+        public static MethodInstance? Build(List<string> parts, string namespacePrefix)
         {
             string methodName = parts[1].Substring(0, parts[1].IndexOf("("));
             string inputsString = parts[1].Replace(methodName, "").Replace("(", "").Replace(")", "");
@@ -57,7 +58,7 @@ namespace SharpMetal.Generator.Instances
                 var name = inputInfo[^1];
                 var typeString = String.Join(" ", inputInfo, 0, inputInfo.Length - 1);
 
-                if (name.Trim() == String.Empty || typeString.Trim() == String.Empty)
+                if (name.Trim() == string.Empty || typeString.Trim() == string.Empty)
                 {
                     // There's a couple instances of this like in NSProcessInfo
                     // not entirely sure what to do about it apart from ignore it
@@ -87,7 +88,7 @@ namespace SharpMetal.Generator.Instances
                 inputsList.Add(new PropertyInstance(type, name));
             }
 
-            methodName = Regex.Replace(methodName, @"\b\p{Ll}", match => match.Value.ToUpper());
+            methodName = StringUtils.CamelToPascale(methodName);
             string returnType = Types.ConvertType(parts[0], namespacePrefix);
 
             return new MethodInstance(returnType, methodName, inputsList);

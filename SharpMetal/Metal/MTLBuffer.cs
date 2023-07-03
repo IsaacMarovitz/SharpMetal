@@ -34,6 +34,11 @@ namespace SharpMetal.Metal
             throw new NotImplementedException();
         }
 
+        public void RemoveAllDebugMarkers()
+        {
+            throw new NotImplementedException();
+        }
+
         public MTLBuffer NewRemoteBufferViewForDevice(MTLDevice device)
         {
             throw new NotImplementedException();

@@ -40,6 +40,11 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
         }
 
+        public void EnqueueBarrier()
+        {
+            throw new NotImplementedException();
+        }
+
         public void SetLabel(NSString label)
         {
             throw new NotImplementedException();

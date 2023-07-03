@@ -9,6 +9,16 @@ namespace SharpMetal.Foundation
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(NSLocking obj) => obj.NativePtr;
         public NSLocking(IntPtr ptr) => NativePtr = ptr;
+
+        public void Lock()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Unlock()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     [SupportedOSPlatform("macos")]
@@ -24,7 +34,22 @@ namespace SharpMetal.Foundation
             NativePtr = cls.AllocInit();
         }
 
+        public void Wait()
+        {
+            throw new NotImplementedException();
+        }
+
         public bool WaitUntilDate(NSDate pLimit)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Signal()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Broadcast()
         {
             throw new NotImplementedException();
         }

@@ -282,6 +282,11 @@ namespace SharpMetal.Metal
             throw new NotImplementedException();
         }
 
+        public void Reset()
+        {
+            throw new NotImplementedException();
+        }
+
         private static readonly Selector sel_stageInputOutputDescriptor = "stageInputOutputDescriptor";
         private static readonly Selector sel_layouts = "layouts";
         private static readonly Selector sel_attributes = "attributes";

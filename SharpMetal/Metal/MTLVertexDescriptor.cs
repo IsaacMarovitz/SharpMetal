@@ -250,6 +250,11 @@ namespace SharpMetal.Metal
 
         public MTLVertexAttributeDescriptorArray Attributes => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_attributes));
 
+        public void Reset()
+        {
+            throw new NotImplementedException();
+        }
+
         private static readonly Selector sel_vertexDescriptor = "vertexDescriptor";
         private static readonly Selector sel_layouts = "layouts";
         private static readonly Selector sel_attributes = "attributes";

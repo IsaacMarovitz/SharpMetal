@@ -616,6 +616,11 @@ namespace SharpMetal.Metal
             throw new NotImplementedException();
         }
 
+        public void TextureBarrier()
+        {
+            throw new NotImplementedException();
+        }
+
         public void UpdateFence(MTLFence fence, MTLRenderStages stages)
         {
             throw new NotImplementedException();

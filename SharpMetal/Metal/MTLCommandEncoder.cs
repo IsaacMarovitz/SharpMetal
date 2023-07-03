@@ -38,12 +38,22 @@ namespace SharpMetal.Metal
             throw new NotImplementedException();
         }
 
+        public void EndEncoding()
+        {
+            throw new NotImplementedException();
+        }
+
         public void InsertDebugSignpost(NSString nsString)
         {
             throw new NotImplementedException();
         }
 
         public void PushDebugGroup(NSString nsString)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PopDebugGroup()
         {
             throw new NotImplementedException();
         }

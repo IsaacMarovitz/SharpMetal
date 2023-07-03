@@ -150,6 +150,16 @@ namespace SharpMetal.Metal
             throw new NotImplementedException();
         }
 
+        public void Enqueue()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Commit()
+        {
+            throw new NotImplementedException();
+        }
+
         public void PresentDrawable(MTLDrawable drawable)
         {
             throw new NotImplementedException();
@@ -161,6 +171,16 @@ namespace SharpMetal.Metal
         }
 
         public void PresentDrawableAfterMinimumDuration(MTLDrawable drawable, IntPtr duration)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void WaitUntilScheduled()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void WaitUntilCompleted()
         {
             throw new NotImplementedException();
         }
@@ -231,6 +251,11 @@ namespace SharpMetal.Metal
         }
 
         public void PushDebugGroup(NSString nsString)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PopDebugGroup()
         {
             throw new NotImplementedException();
         }

@@ -129,6 +129,11 @@ namespace SharpMetal.Metal
             throw new NotImplementedException();
         }
 
+        public void StopCapture()
+        {
+            throw new NotImplementedException();
+        }
+
         public void SetDefaultCaptureScope(MTLCaptureScope defaultCaptureScope)
         {
             throw new NotImplementedException();

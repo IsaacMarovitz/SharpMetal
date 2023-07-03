@@ -59,7 +59,7 @@ namespace SharpMetal.Generator.Instances
                     continue;
                 }
 
-                if (nextLine == String.Empty)
+                if (nextLine == string.Empty)
                 {
                     continue;
                 }

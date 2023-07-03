@@ -16,7 +16,17 @@ namespace SharpMetal.Foundation
             NativePtr = cls.AllocInit();
         }
 
+        public void Drain()
+        {
+            throw new NotImplementedException();
+        }
+
         public void AddObject(NSObject pObject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ShowPools()
         {
             throw new NotImplementedException();
         }

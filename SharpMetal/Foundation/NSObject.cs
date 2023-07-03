@@ -15,6 +15,11 @@ namespace SharpMetal.Foundation
         public IntPtr Autorelease;
 
         public ulong RetainCount;
+
+        public void Release()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     [SupportedOSPlatform("macos")]

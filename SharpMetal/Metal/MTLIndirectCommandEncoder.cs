@@ -46,6 +46,11 @@ namespace SharpMetal.Metal
             throw new NotImplementedException();
         }
 
+        public void Reset()
+        {
+            throw new NotImplementedException();
+        }
+
         private static readonly Selector sel_setRenderPipelineState = "setRenderPipelineState:";
         private static readonly Selector sel_setVertexBufferoffsetatIndex = "setVertexBuffer:offset:atIndex:";
         private static readonly Selector sel_setFragmentBufferoffsetatIndex = "setFragmentBuffer:offset:atIndex:";
@@ -83,7 +88,22 @@ namespace SharpMetal.Metal
             throw new NotImplementedException();
         }
 
+        public void SetBarrier()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ClearBarrier()
+        {
+            throw new NotImplementedException();
+        }
+
         public void SetImageblockWidth(ulong width, ulong height)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Reset()
         {
             throw new NotImplementedException();
         }

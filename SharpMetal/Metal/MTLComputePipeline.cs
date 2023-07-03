@@ -157,6 +157,11 @@ namespace SharpMetal.Metal
             throw new NotImplementedException();
         }
 
+        public void Reset()
+        {
+            throw new NotImplementedException();
+        }
+
         public void SetLinkedFunctions(MTLLinkedFunctions linkedFunctions)
         {
             throw new NotImplementedException();

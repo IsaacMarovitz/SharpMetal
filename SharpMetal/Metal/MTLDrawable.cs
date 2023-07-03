@@ -15,6 +15,11 @@ namespace SharpMetal.Metal
 
         public ulong DrawableID => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_drawableID);
 
+        public void Present()
+        {
+            throw new NotImplementedException();
+        }
+
         public void PresentAtTime(IntPtr presentationTime)
         {
             throw new NotImplementedException();

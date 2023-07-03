@@ -49,7 +49,37 @@ namespace SharpMetal.Metal
             throw new NotImplementedException();
         }
 
+        public void Commit()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void WaitUntilCompleted()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void TryCancel()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddBarrier()
+        {
+            throw new NotImplementedException();
+        }
+
         public void PushDebugGroup(NSString nsString)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PopDebugGroup()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Enqueue()
         {
             throw new NotImplementedException();
         }

@@ -1,4 +1,4 @@
-using System.Text.RegularExpressions;
+using SharpMetal.Generator.Utilities;
 
 namespace SharpMetal.Generator.Instances
 {
@@ -47,12 +47,6 @@ namespace SharpMetal.Generator.Instances
 
         public void AddProperty(PropertyInstance propertyInstance)
         {
-            // We don't want to include functions in this pass
-            if (propertyInstance.Name.Contains("("))
-            {
-                return;
-            }
-
             if (!_propertyInstances.Exists(x => x.Name == propertyInstance.Name))
             {
                 _propertyInstances.Add(propertyInstance);
@@ -137,26 +131,24 @@ namespace SharpMetal.Generator.Instances
             {
                 var nextLine = sr.ReadLine();
 
-                if (nextLine.Contains('}') || nextLine.Contains("private:") || nextLine.Contains("protected:"))
-                {
-                    classEnded = true;
-                    continue;
-                }
-
-                if (nextLine == "/**")
+                if (nextLine.Contains("/**"))
                 {
                     enteredComment = true;
                     continue;
                 }
 
-                if (nextLine == "*/")
+                if (enteredComment)
                 {
-                    enteredComment = false;
+                    if (nextLine.Contains("*/"))
+                    {
+                        enteredComment = false;
+                    }
                     continue;
                 }
 
-                if (enteredComment)
+                if (nextLine.Contains('}') || nextLine.Contains("private:") || nextLine.Contains("protected:"))
                 {
+                    classEnded = true;
                     continue;
                 }
 
@@ -166,7 +158,7 @@ namespace SharpMetal.Generator.Instances
                     continue;
                 }
 
-                if (nextLine.Contains("template") || nextLine.Contains("typename") || nextLine.Contains("operator") || nextLine.Contains("Handler") || nextLine.Contains("Observer"))
+                if (nextLine.Contains("template") || nextLine.Contains("^") || nextLine.Contains("typename") || nextLine.Contains("operator") || nextLine.Contains("Handler") || nextLine.Contains("Observer"))
                 {
                     continue;
                 }
@@ -181,39 +173,35 @@ namespace SharpMetal.Generator.Instances
                 nextLine = nextLine.Replace("const ", "");
                 nextLine = nextLine.Replace("static ", "");
 
-                var parts = ClassRegex().Split(nextLine).ToList();
+                var info = nextLine.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+                var returnType = "";
+                var name = "";
+                var nameIndex = 0;
 
-                parts.RemoveAll(x => x == string.Empty);
-
-                if (parts.Count < 2)
+                for (int i = 0; i < info.Length; i++)
                 {
-                    continue;
+                    if (info[i].Contains("("))
+                    {
+                        // This element is the function name
+                        // everything before it is the returnType
+                        nameIndex = i;
+                        returnType = Types.ConvertType(string.Join(" ", info, 0, i), namespacePrefix);
+
+                        int index = info[i].IndexOf("(");
+                        if (index >= 0)
+                        {
+                            name = info[i].Substring(0, index);
+                        }
+                    }
                 }
 
-                // Method has no parameters, i.e. readonly property
-                var index = parts.FindIndex(x => x.Contains("()"));
+                // TODO: Extract into a utility function
+                // Convert from camelCase to PascaleCase
+                name = StringUtils.CamelToPascale(name);
 
-                if (index != -1)
+                // Function has no arguments
+                if (nextLine.Contains("()"))
                 {
-                    var type = "";
-
-                    for (int i = 0; i < index; i++)
-                    {
-                        type += parts[i] + " ";
-                    }
-
-                    type = type.TrimEnd();
-
-                    if (type == "void")
-                    {
-                        continue;
-                    }
-
-                    type = Types.ConvertType(type, namespacePrefix);
-
-                    var name = parts[index].Replace("()", "");
-                    name = Regex.Replace(name, @"\b\p{Ll}", match => match.Value.ToUpper());
-
                     if (name == "Alloc")
                     {
                         instance.HasAlloc = true;
@@ -226,24 +214,67 @@ namespace SharpMetal.Generator.Instances
                         continue;
                     }
 
-                    instance.AddProperty(new PropertyInstance(type, name));
-                }
-                else
-                {
-                    // Method has inputs
-                    var parenIndex = parts[1].IndexOf("(");
-                    if (parenIndex != -1)
+                    if (returnType == "void" || returnType == string.Empty)
                     {
-                        var method = MethodInstance.BuildMethod(parts, namespacePrefix);
-                        if (method != null)
-                        {
-                            instance.AddMethod(method);
-                        }
+                        instance.AddMethod(new MethodInstance("void", name, new List<PropertyInstance>()));
                     }
                     else
                     {
-                        Console.WriteLine($"Failed to find \"(\" in \"{parts[1]}\"");
+                        instance.AddProperty(new PropertyInstance(returnType, name));
                     }
+                }
+                else
+                {
+                    var inputs = info[Range.StartAt(nameIndex)];
+                    var inputString = String.Join(" ", inputs);
+
+                    // Remove everything before and including (
+                    int startIndex = inputString.IndexOf("(");
+                    if (startIndex >= 0)
+                    {
+                        inputString = inputString.Substring(startIndex + 1);
+                    }
+
+                    // Remove everything after and include )
+                    int endIndex = inputString.IndexOf(")");
+                    if (endIndex >= 0)
+                    {
+                        inputString = inputString.Substring(0, endIndex);
+                    }
+
+                    var inputArguments = inputString.Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+                    List<PropertyInstance> arguments = new();
+
+                    foreach (var argument in inputArguments)
+                    {
+                        var array = argument.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+                        var argumentType = Types.ConvertType(string.Join(" ", array[..^1]), namespacePrefix);
+                        var argumentName = array.Last();
+
+                        // Fix array inputs
+                        // Might need to be NSArray
+                        if (argumentName.Contains("[]"))
+                        {
+                            argumentType += "[]";
+                            argumentName = argumentName.Replace("[]", "");
+                        }
+
+                        // String is a keyword in C#
+                        if (argumentName == "string")
+                        {
+                            argumentName = "nsString";
+                        }
+
+                        // Event is a keyword in C#
+                        if (argumentName == "event")
+                        {
+                            argumentName = "mltEvent";
+                        }
+
+                        arguments.Add(new PropertyInstance(argumentType, argumentName));
+                    }
+
+                    instance.AddMethod(new MethodInstance(returnType, name, arguments));
                 }
 
                 for (int i = instance._propertyInstances.Count - 1; i >= 0; i--)
@@ -266,8 +297,5 @@ namespace SharpMetal.Generator.Instances
         {
             return _selectorInstances;
         }
-
-        [GeneratedRegex("(?<!\\(.*)\\s+(?![^(]*\\))|\\s+(?![^(]*?\\))")]
-        private static partial Regex ClassRegex();
     }
 }

@@ -89,6 +89,11 @@ namespace SharpMetal.Metal
             throw new NotImplementedException();
         }
 
+        public void MakeAliasable()
+        {
+            throw new NotImplementedException();
+        }
+
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_setLabel = "setLabel:";
         private static readonly Selector sel_device = "device";

@@ -157,7 +157,7 @@ namespace SharpMetal.Metal
             throw new NotImplementedException();
         }
 
-        public MTLRasterizationRateLayerDescriptor Layer(ulong Index)
+        public MTLRasterizationRateLayerDescriptor Layer(ulong layerIndex)
         {
             throw new NotImplementedException();
         }
