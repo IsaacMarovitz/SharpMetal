@@ -14,6 +14,7 @@ namespace SharpMetal.Generator
         {
             using var sr = new StreamReader(File.OpenRead(filePath));
             var namespacePrefix = Namespaces.GetNamespace(filePath);
+            var inMTLPrivateDefSel = false;
 
             while (!sr.EndOfStream)
             {
@@ -33,8 +34,23 @@ namespace SharpMetal.Generator
                     line.StartsWith("_MTL_CONST") ||
                     line.StartsWith("_MTL_PRIVATE_DEF_WEAK_CONST") ||
                     line.StartsWith("_MTL_PRIVATE_DEF_STR") ||
+                    line.StartsWith("_MTL_PRIVATE_DEF_CLS") ||
+                    line.StartsWith("_MTL_PRIVATE_DEF_PRO") ||
                     line.StartsWith("_NS_PRIVATE_DEF_CONST"))
                 {
+                    continue;
+                }
+
+                // These take two lines, no idea why
+                if (line.StartsWith("_MTL_PRIVATE_DEF_SEL"))
+                {
+                    inMTLPrivateDefSel = true;
+                    continue;
+                }
+
+                if (inMTLPrivateDefSel)
+                {
+                    inMTLPrivateDefSel = false;
                     continue;
                 }
 
