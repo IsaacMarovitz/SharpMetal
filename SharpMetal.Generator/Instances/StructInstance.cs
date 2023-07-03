@@ -162,8 +162,7 @@ namespace SharpMetal.Generator.Instances
 
                 if (propertyInfo.Length != 2) continue;
 
-                var typeString = propertyInfo[0].Replace("::", "");
-                var type = Types.ConvertType(typeString, namespacePrefix);
+                var type = Types.ConvertType(propertyInfo[0], namespacePrefix);
                 var propertyName = propertyInfo[1];
 
                 string pattern = @"\[.*?\]";

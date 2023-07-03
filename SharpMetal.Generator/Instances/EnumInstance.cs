@@ -42,7 +42,7 @@ namespace SharpMetal.Generator.Instances
             line = line.Replace($"_{namespacePrefix}_OPTIONS(", "");
             line = line.Replace(") {", "");
             var info = line.Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-            var type = info[0].Replace("::", "");
+            var convertedType = Types.ConvertType(info[0], namespacePrefix);
             var ogName = info[1];
 
             var name = namespacePrefix + ogName;
@@ -82,8 +82,9 @@ namespace SharpMetal.Generator.Instances
                         cleanedValueName = nextLine;
                     }
 
-                    // Remove original name from each enum's name IOCompressionMethodZlib -> Zlib
+                    // Remove original name from each enum's name and value IOCompressionMethodZlib -> Zlib
                     cleanedValueName = cleanedValueName.Replace(ogName, "");
+                    cleanedValueValue = cleanedValueValue.Replace(ogName, "");
 
                     // Sometimes the first character of en enum value's name will be a number after we
                     // remove the full name. In that case, add back the last part of the enum's name
@@ -103,14 +104,10 @@ namespace SharpMetal.Generator.Instances
                     // Happens in NSProcessInfo
                     cleanedValueValue = cleanedValueValue.Replace("ULL", "UL");
 
-                    // Happens in NSString
-                    cleanedValueValue = cleanedValueValue.Replace(ogName, "");
-
                     values.Add(cleanedValueName, cleanedValueValue);
                 }
             }
 
-            var convertedType = Types.ConvertType(type, namespacePrefix);
             return new EnumInstance(convertedType, name, values);
         }
 
