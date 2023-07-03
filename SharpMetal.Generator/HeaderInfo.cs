@@ -124,9 +124,10 @@ namespace SharpMetal.Generator
                 else
                 {
                     line = line.Replace("_NS_EXPORT ", "");
-                    line = line.Replace("extern \"C\" ", "");
-                    if (StringUtils.IsValidFunctionSignature(line))
+                    if (StringUtils.IsValidFunctionSignature(line) && line.Contains("(") && line.Contains(";") && !line.Contains("extern \"C\"") && !line.Contains("::Private"))
                     {
+                        // These are static methods that aren't in a class
+                        // Just so happens that one of these is incredibly important
                         Console.WriteLine($"UNPROCESSED LINE: {line}");
                     }
                 }
