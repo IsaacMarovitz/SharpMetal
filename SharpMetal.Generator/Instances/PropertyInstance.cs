@@ -40,7 +40,6 @@ namespace SharpMetal.Generator.Instances
                 // name exists.
                 if (runtimeFuncReturn == "IntPtr")
                 {
-                    // Need to adjust this to support enums from other headers
                     var enumInstance = enumCache.Find(x => x.Name == Type);
 
                     if (enumInstance != null)
