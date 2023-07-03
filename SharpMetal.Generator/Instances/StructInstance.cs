@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace SharpMetal.Generator
+namespace SharpMetal.Generator.Instances
 {
     public partial class StructInstance
     {
@@ -52,7 +52,93 @@ namespace SharpMetal.Generator
             }
         }
 
-        public static StructInstance BuildStruct(string line, string namespacePrefix, StreamReader sr) {
+        public void Generate(List<EnumCacheInstance> enumCache, CodeGenContext context)
+        {
+            context.WriteLine("[SupportedOSPlatform(\"macos\")]");
+
+            if (!IsClass)
+            {
+                context.WriteLine("[StructLayout(LayoutKind.Sequential)]");
+            }
+
+            context.WriteLine($"public struct {Name}");
+            context.EnterScope();
+
+            context.WriteLine("public readonly IntPtr NativePtr;");
+            context.WriteLine($"public static implicit operator IntPtr({Name} obj) => obj.NativePtr;");
+            context.WriteLine($"public {Name}(IntPtr ptr) => NativePtr = ptr;");
+
+            if (HasAlloc)
+            {
+                context.WriteLine();
+                context.WriteLine($"public {Name}()");
+                context.EnterScope();
+
+                context.WriteLine($"var cls = new ObjectiveCClass(\"{Name}\");");
+
+                if (HasInit)
+                {
+                    context.WriteLine("NativePtr = cls.AllocInit();");
+                }
+                else
+                {
+                    context.WriteLine("NativePtr = cls.Alloc();");
+                }
+
+                context.LeaveScope();
+            }
+
+            if (PropertyInstances.Any())
+            {
+                context.WriteLine();
+            }
+
+            for (var j = 0; j < PropertyInstances.Count; j++)
+            {
+                PropertyInstances[j].Generate(this, enumCache, context);
+
+                if (j != PropertyInstances.Count - 1)
+                {
+                    context.WriteLine();
+                }
+            }
+
+            foreach (var method in MethodInstances)
+            {
+                context.WriteLine();
+                context.Write(context.Indentation + $"public {method.ReturnType} {method.Name}(");
+
+                for (var i = 0; i < method.InputInstances.Count; i++)
+                {
+                    var input = method.InputInstances[i];
+
+                    context.Write($"{input.Type} {input.Name}");
+
+                    if (i != method.InputInstances.Count - 1)
+                    {
+                        context.Write(", ");
+                    }
+                }
+
+                context.Write(") {\n");
+                context.WriteLine();
+                context.WriteLine("}");
+            }
+
+            if (SelectorInstances.Any())
+            {
+                context.WriteLine();
+            }
+
+            foreach (var selector in SelectorInstances)
+            {
+                context.WriteLine($"private static readonly Selector {selector.Name} = \"{selector.Selector}\";");
+            }
+
+            context.LeaveScope();
+        }
+
+        public static StructInstance Build(string line, string namespacePrefix, StreamReader sr) {
             var structInfo = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
             var structName = namespacePrefix + structInfo[1];
 

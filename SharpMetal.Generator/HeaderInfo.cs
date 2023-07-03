@@ -1,3 +1,5 @@
+using SharpMetal.Generator.Instances;
+
 namespace SharpMetal.Generator
 {
     public class HeaderInfo
@@ -26,13 +28,13 @@ namespace SharpMetal.Generator
                 {
                     if (!line.Contains(";"))
                     {
-                        StructInstances.Add(StructInstance.BuildStruct(line, namespacePrefix, sr));
+                        StructInstances.Add(StructInstance.Build(line, namespacePrefix, sr));
                     }
                 }
 
                 if (line.StartsWith($"_{namespacePrefix}_ENUM") || line.StartsWith($"_{namespacePrefix}_OPTIONS"))
                 {
-                    EnumInstances.Add(EnumInstance.BuildEnum(line, namespacePrefix, sr));
+                    EnumInstances.Add(EnumInstance.Build(line, namespacePrefix, sr));
                 }
 
                 // These contain all the selectors we need

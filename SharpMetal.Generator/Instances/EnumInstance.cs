@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace SharpMetal.Generator
+namespace SharpMetal.Generator.Instances
 {
     public partial class EnumInstance
     {
@@ -15,7 +15,28 @@ namespace SharpMetal.Generator
             Values = values;
         }
 
-        public static EnumInstance BuildEnum(string line, string namespacePrefix, StreamReader sr)
+        public void Generate(CodeGenContext context)
+        {
+            context.WriteLine($"public enum {Name}: {Type}");
+            context.EnterScope();
+
+            foreach (var value in Values)
+            {
+                if (value.Value != string.Empty)
+                {
+                    context.WriteLine($"{value.Key} = {value.Value},");
+                }
+                else
+                {
+                    context.WriteLine($"{value.Key},");
+                }
+            }
+
+            context.LeaveScope();
+            context.WriteLine();
+        }
+
+        public static EnumInstance Build(string line, string namespacePrefix, StreamReader sr)
         {
             line = line.Replace($"_{namespacePrefix}_ENUM(", "");
             line = line.Replace($"_{namespacePrefix}_OPTIONS(", "");

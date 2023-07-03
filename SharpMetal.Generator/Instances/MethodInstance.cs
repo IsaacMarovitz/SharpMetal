@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace SharpMetal.Generator
+namespace SharpMetal.Generator.Instances
 {
     public class MethodInstance
     {
