@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 
-namespace SharpMetal
+namespace SharpMetal.Foundation
 {
     [SupportedOSPlatform("macos")]
     [StructLayout(LayoutKind.Sequential)]

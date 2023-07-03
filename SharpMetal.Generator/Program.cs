@@ -77,10 +77,7 @@ namespace SharpMetal.Generator
 
             GenerateUsings(headerInfo, context);
 
-            // TODO: Need to keep track of where types are from for proper namespacing while avoiding unnecessary using statements.
-            // context.WriteLine($"namespace SharpMetal.{fullNamespace}");
-
-            context.WriteLine($"namespace SharpMetal");
+            context.WriteLine($"namespace SharpMetal.{fullNamespace}");
             context.EnterScope();
 
             foreach (var instance in headerInfo.EnumInstances)
@@ -151,6 +148,23 @@ namespace SharpMetal.Generator
             if (hasSelectors)
             {
                 context.WriteLine("using SharpMetal.ObjectiveC;");
+            }
+
+            if (headerInfo.IncludeFlags != IncludeFlags.None)
+            {
+                hasAnyUsings = true;
+                if ((headerInfo.IncludeFlags & IncludeFlags.Foundation) == IncludeFlags.Foundation)
+                {
+                    context.WriteLine("using SharpMetal.Foundation;");
+                }
+                if ((headerInfo.IncludeFlags & IncludeFlags.Metal) == IncludeFlags.Metal)
+                {
+                    context.WriteLine("using SharpMetal.Metal;");
+                }
+                if ((headerInfo.IncludeFlags & IncludeFlags.QuartzCore) == IncludeFlags.QuartzCore)
+                {
+                    context.WriteLine("using SharpMetal.QuartzCore;");
+                }
             }
 
             if (hasAnyUsings)

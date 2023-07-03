@@ -1,7 +1,8 @@
 using System.Runtime.Versioning;
 using SharpMetal.ObjectiveC;
+using SharpMetal.Foundation;
 
-namespace SharpMetal
+namespace SharpMetal.Metal
 {
     public enum MTLAttributeFormat : ulong
     {

@@ -1,7 +1,8 @@
 using System.Runtime.Versioning;
 using SharpMetal.ObjectiveC;
+using SharpMetal.Foundation;
 
-namespace SharpMetal
+namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
     public class MTLRasterizationRateSampleArray

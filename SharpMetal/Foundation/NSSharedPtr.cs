@@ -1,6 +1,6 @@
 using System.Runtime.Versioning;
 
-namespace SharpMetal
+namespace SharpMetal.Foundation
 {
     [SupportedOSPlatform("macos")]
     public class NSSharedPtr

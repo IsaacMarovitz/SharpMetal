@@ -4,6 +4,7 @@ namespace SharpMetal.Generator
 {
     public class HeaderInfo
     {
+        public IncludeFlags IncludeFlags = IncludeFlags.None;
         public List<EnumInstance> EnumInstances = new();
         public List<ClassInstance> ClassInstances = new();
         public List<StructInstance> StructInstances = new();
@@ -16,6 +17,20 @@ namespace SharpMetal.Generator
             while (!sr.EndOfStream)
             {
                 var line = sr.ReadLine();
+
+                if (line.StartsWith("#include"))
+                {
+                    if (line.Contains("Foundation"))
+                    {
+                        IncludeFlags = IncludeFlags | IncludeFlags.Foundation;
+                    } else if (line.Contains("Metal"))
+                    {
+                        IncludeFlags = IncludeFlags | IncludeFlags.Metal;
+                    } else if (line.Contains("QuartzCore"))
+                    {
+                        IncludeFlags = IncludeFlags | IncludeFlags.QuartzCore;
+                    }
+                }
 
                 if (line.StartsWith("class"))
                 {
@@ -47,5 +62,14 @@ namespace SharpMetal.Generator
                 }
             }
         }
+    }
+
+    [Flags]
+    public enum IncludeFlags
+    {
+        None = 0,
+        Foundation = 1 << 0,
+        Metal = 2 << 0,
+        QuartzCore = 3 << 0,
     }
 }

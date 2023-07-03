@@ -1,8 +1,9 @@
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using SharpMetal.ObjectiveC;
+using SharpMetal.Foundation;
 
-namespace SharpMetal
+namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
     [StructLayout(LayoutKind.Sequential)]

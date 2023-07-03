@@ -1,7 +1,7 @@
 using System.Runtime.Versioning;
 using SharpMetal.ObjectiveC;
 
-namespace SharpMetal
+namespace SharpMetal.Foundation
 {
     public enum NSStringEncoding : ulong
     {

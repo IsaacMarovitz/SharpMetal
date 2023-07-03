@@ -1,4 +1,4 @@
-namespace SharpMetal
+namespace SharpMetal.Foundation
 {
     public enum NSComparisonResult : long
     {

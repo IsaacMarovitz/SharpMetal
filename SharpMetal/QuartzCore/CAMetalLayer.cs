@@ -1,7 +1,8 @@
 using System.Runtime.Versioning;
 using SharpMetal.ObjectiveC;
+using SharpMetal.Metal;
 
-namespace SharpMetal
+namespace SharpMetal.QuartzCore
 {
     [SupportedOSPlatform("macos")]
     public class CAMetalLayer
