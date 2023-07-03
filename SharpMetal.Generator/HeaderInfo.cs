@@ -22,17 +22,26 @@ namespace SharpMetal.Generator
 
                 if (line == string.Empty ||
                     line.StartsWith("//") ||
+                    line.StartsWith("/**") ||
+                    line.StartsWith("#error") ||
                     line.StartsWith("#pragma") ||
                     line.StartsWith("#define") ||
                     line.StartsWith("{") ||
                     line.StartsWith("}") ||
+                    line.StartsWith("(") ||
                     line.StartsWith("namespace") ||
                     line.StartsWith("using") ||
                     line.StartsWith("template") ||
+                    line.StartsWith("return") ||
+                    line.StartsWith("#if") ||
+                    line.StartsWith("#else") ||
+                    line.StartsWith("#elif") ||
+                    line.StartsWith("#endif") ||
                     line.StartsWith("MTL_DEF_FUNC") ||
                     line.StartsWith("_NS_CONST") ||
                     line.StartsWith("_MTL_CONST") ||
                     line.StartsWith("_MTL_PRIVATE_DEF_WEAK_CONST") ||
+                    line.StartsWith("_MTL_PRIVATE_DEF_CONST") ||
                     line.StartsWith("_MTL_PRIVATE_DEF_STR") ||
                     line.StartsWith("_MTL_PRIVATE_DEF_CLS") ||
                     line.StartsWith("_MTL_PRIVATE_DEF_PRO") ||
