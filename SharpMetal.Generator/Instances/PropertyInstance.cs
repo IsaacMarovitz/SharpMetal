@@ -11,7 +11,7 @@ namespace SharpMetal.Generator.Instances
             Name = name;
         }
 
-        public void Generate(StructInstance instance, List<EnumCacheInstance> enumCache, CodeGenContext context)
+        public void Generate(StructInstance instance, List<EnumInstance> enumCache, CodeGenContext context)
         {
             var selector = instance.SelectorInstances.Find(x => x.Selector.ToLower() == Name.ToLower());
 

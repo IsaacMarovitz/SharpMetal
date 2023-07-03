@@ -13,7 +13,7 @@ namespace SharpMetal.Generator.Instances
         public List<MethodInstance> MethodInstances;
         public List<SelectorInstance> SelectorInstances;
 
-        public StructInstance(string name, bool isClass)
+        private StructInstance(string name, bool isClass)
         {
             Name = name;
             IsClass = isClass;
@@ -52,7 +52,7 @@ namespace SharpMetal.Generator.Instances
             }
         }
 
-        public void Generate(List<EnumCacheInstance> enumCache, CodeGenContext context)
+        public void Generate(List<EnumInstance> enumCache, CodeGenContext context)
         {
             context.WriteLine("[SupportedOSPlatform(\"macos\")]");
 

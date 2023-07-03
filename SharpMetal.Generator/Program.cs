@@ -1,3 +1,5 @@
+using SharpMetal.Generator.Instances;
+
 namespace SharpMetal.Generator
 {
     public class Program
@@ -21,7 +23,7 @@ namespace SharpMetal.Generator
             Directory.CreateDirectory("Output/Foundation");
             Directory.CreateDirectory("Output/QuartzCore");
 
-            var enumCache = new List<EnumCacheInstance>();
+            var enumCache = new List<EnumInstance>();
 
             for (int i = 0; i < files.Length; i++)
             {
@@ -40,7 +42,7 @@ namespace SharpMetal.Generator
             }
         }
 
-        public static void GenerateEnumCache(string filePath, ref List<EnumCacheInstance> enumCache)
+        public static void GenerateEnumCache(string filePath, ref List<EnumInstance> enumCache)
         {
             using var sr = new StreamReader(File.OpenRead(filePath));
             var namespacePrefix = Namespaces.GetNamespace(filePath);
@@ -51,30 +53,12 @@ namespace SharpMetal.Generator
 
                 if (line.StartsWith($"_{namespacePrefix}_ENUM") || line.StartsWith($"_{namespacePrefix}_OPTIONS"))
                 {
-                    line = line.Replace($"_{namespacePrefix}_ENUM(", "");
-                    line = line.Replace($"_{namespacePrefix}_OPTIONS(", "");
-                    line = line.Replace(") {", "");
-                    var info = line.Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-                    var type = info[0].Replace("::", "");
-                    var name = namespacePrefix + info[1];
-
-                    var finishedEnumerating = false;
-
-                    while (!finishedEnumerating)
-                    {
-                        if (sr.ReadLine() == "};")
-                        {
-                            finishedEnumerating = true;
-                        }
-                    }
-
-                    var convertedType = Types.ConvertType(type, namespacePrefix);
-                    enumCache.Add(new EnumCacheInstance(convertedType, name));
+                    enumCache.Add(EnumInstance.Build(line, namespacePrefix, sr, true));
                 }
             }
         }
 
-        public static void Generate(string filePath, List<EnumCacheInstance> enumCache)
+        public static void Generate(string filePath, List<EnumInstance> enumCache)
         {
             var headerInfo = new HeaderInfo(filePath);
 
@@ -153,17 +137,5 @@ namespace SharpMetal.Generator
                 context.WriteLine();
             }
         }
-    }
-}
-
-public class EnumCacheInstance
-{
-    public string Type;
-    public string Name;
-
-    public EnumCacheInstance(string type, string name)
-    {
-        Type = type;
-        Name = name;
     }
 }

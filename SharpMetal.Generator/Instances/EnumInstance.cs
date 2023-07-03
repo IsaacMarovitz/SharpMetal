@@ -8,7 +8,7 @@ namespace SharpMetal.Generator.Instances
         public string Name;
         public Dictionary<string, string> Values;
 
-        public EnumInstance(string type, string name, Dictionary<string, string> values)
+        private EnumInstance(string type, string name, Dictionary<string, string> values)
         {
             Type = type;
             Name = name;
@@ -36,7 +36,7 @@ namespace SharpMetal.Generator.Instances
             context.WriteLine();
         }
 
-        public static EnumInstance Build(string line, string namespacePrefix, StreamReader sr)
+        public static EnumInstance Build(string line, string namespacePrefix, StreamReader sr, bool skipValues = false)
         {
             line = line.Replace($"_{namespacePrefix}_ENUM(", "");
             line = line.Replace($"_{namespacePrefix}_OPTIONS(", "");
@@ -64,46 +64,50 @@ namespace SharpMetal.Generator.Instances
                     continue;
                 }
 
-                nextLine = nextLine.Trim().Replace(",", "");
-                var cleanedValueName = string.Empty;
-                var cleanedValueValue = string.Empty;
 
-                if (nextLine.Contains("="))
+                if (!skipValues)
                 {
-                    var valueInfo = nextLine.Split("=", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-                    cleanedValueName = valueInfo[0];
-                    cleanedValueValue = valueInfo[1];
+                    nextLine = nextLine.Trim().Replace(",", "");
+                    var cleanedValueName = string.Empty;
+                    var cleanedValueValue = string.Empty;
+
+                    if (nextLine.Contains("="))
+                    {
+                        var valueInfo = nextLine.Split("=", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+                        cleanedValueName = valueInfo[0];
+                        cleanedValueValue = valueInfo[1];
+                    }
+                    else
+                    {
+                        cleanedValueName = nextLine;
+                    }
+
+                    // Remove original name from each enum's name IOCompressionMethodZlib -> Zlib
+                    cleanedValueName = cleanedValueName.Replace(ogName, "");
+
+                    // Sometimes the first character of en enum value's name will be a number after we
+                    // remove the full name. In that case, add back the last part of the enum's name
+                    if (char.IsDigit(cleanedValueName[0]))
+                    {
+                        cleanedValueName = NameRegex().Replace(name, " ").Split(" ").Last() + cleanedValueName;
+                    }
+
+                    cleanedValueName = cleanedValueName.Replace("_", "");
+
+                    // Happens in one place in MTLDevice
+                    if (cleanedValueValue == "NS::UIntegerMax")
+                    {
+                        cleanedValueValue = "UInt64.MaxValue";
+                    }
+
+                    // Happens in NSProcessInfo
+                    cleanedValueValue = cleanedValueValue.Replace("ULL", "UL");
+
+                    // Happens in NSString
+                    cleanedValueValue = cleanedValueValue.Replace(ogName, "");
+
+                    values.Add(cleanedValueName, cleanedValueValue);
                 }
-                else
-                {
-                    cleanedValueName = nextLine;
-                }
-
-                // Remove original name from each enum's name IOCompressionMethodZlib -> Zlib
-                cleanedValueName = cleanedValueName.Replace(ogName, "");
-
-                // Sometimes the first character of en enum value's name will be a number after we
-                // remove the full name. In that case, add back the last part of the enum's name
-                if (char.IsDigit(cleanedValueName[0]))
-                {
-                    cleanedValueName = NameRegex().Replace(name, " ").Split(" ").Last() + cleanedValueName;
-                }
-
-                cleanedValueName = cleanedValueName.Replace("_", "");
-
-                // Happens in one place in MTLDevice
-                if (cleanedValueValue == "NS::UIntegerMax")
-                {
-                    cleanedValueValue = "UInt64.MaxValue";
-                }
-
-                // Happens in NSProcessInfo
-                cleanedValueValue = cleanedValueValue.Replace("ULL", "UL");
-
-                // Happens in NSString
-                cleanedValueValue = cleanedValueValue.Replace(ogName, "");
-
-                values.Add(cleanedValueName, cleanedValueValue);
             }
 
             var convertedType = Types.ConvertType(type, namespacePrefix);

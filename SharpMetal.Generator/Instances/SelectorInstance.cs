@@ -5,7 +5,7 @@ namespace SharpMetal.Generator.Instances
         public string Name;
         public string Selector;
 
-        public SelectorInstance(string selector)
+        private SelectorInstance(string selector)
         {
             Name = "sel_" + selector.Replace(":", "");
             Selector = selector;
