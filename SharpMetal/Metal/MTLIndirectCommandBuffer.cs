@@ -85,37 +85,37 @@ namespace SharpMetal.Metal
 
         public void SetCommandTypes(MTLIndirectCommandType commandTypes)
         {
-            objc_msgSend(NativePtr, , commandTypes);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setCommandTypes, (ulong)commandTypes);
         }
 
         public void SetInheritPipelineState(bool inheritPipelineState)
         {
-            objc_msgSend(NativePtr, , inheritPipelineState);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInheritPipelineState, inheritPipelineState);
         }
 
         public void SetInheritBuffers(bool inheritBuffers)
         {
-            objc_msgSend(NativePtr, , inheritBuffers);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInheritBuffers, inheritBuffers);
         }
 
         public void SetMaxVertexBufferBindCount(ulong maxVertexBufferBindCount)
         {
-            objc_msgSend(NativePtr, , maxVertexBufferBindCount);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxVertexBufferBindCount, maxVertexBufferBindCount);
         }
 
         public void SetMaxFragmentBufferBindCount(ulong maxFragmentBufferBindCount)
         {
-            objc_msgSend(NativePtr, , maxFragmentBufferBindCount);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxFragmentBufferBindCount, maxFragmentBufferBindCount);
         }
 
         public void SetMaxKernelBufferBindCount(ulong maxKernelBufferBindCount)
         {
-            objc_msgSend(NativePtr, , maxKernelBufferBindCount);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxKernelBufferBindCount, maxKernelBufferBindCount);
         }
 
         public void SetSupportRayTracing(bool supportRayTracing)
         {
-            objc_msgSend(NativePtr, , supportRayTracing);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSupportRayTracing, supportRayTracing);
         }
 
         private static readonly Selector sel_commandTypes = "commandTypes";
@@ -147,7 +147,7 @@ namespace SharpMetal.Metal
 
         public void Reset(NSRange range)
         {
-            objc_msgSend(NativePtr, , range);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_resetWithRange, range);
         }
 
         public MTLIndirectRenderCommand IndirectRenderCommand(ulong commandIndex)

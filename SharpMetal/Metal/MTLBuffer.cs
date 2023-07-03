@@ -21,7 +21,7 @@ namespace SharpMetal.Metal
 
         public void DidModifyRange(NSRange range)
         {
-            objc_msgSend(NativePtr, , range);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_didModifyRange, range);
         }
 
         public MTLTexture NewTexture(MTLTextureDescriptor descriptor, ulong offset, ulong bytesPerRow)
@@ -31,12 +31,12 @@ namespace SharpMetal.Metal
 
         public void AddDebugMarker(NSString marker, NSRange range)
         {
-            objc_msgSend(NativePtr, , marker, range);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_addDebugMarkerrange, marker, range);
         }
 
         public void RemoveAllDebugMarkers()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_removeAllDebugMarkers);
         }
 
         public MTLBuffer NewRemoteBufferViewForDevice(MTLDevice device)

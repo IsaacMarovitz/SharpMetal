@@ -18,17 +18,17 @@ namespace SharpMetal.Foundation
 
         public void Drain()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_drain);
         }
 
         public void AddObject(NSObject pObject)
         {
-            objc_msgSend(NativePtr, , pObject);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_addObject, pObject);
         }
 
         public static void ShowPools()
         {
-            objc_msgSend(NativePtr, , );
+            throw new NotImplementedException();
         }
 
         private static readonly Selector sel_drain = "drain";

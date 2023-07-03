@@ -81,7 +81,7 @@ namespace SharpMetal.Metal
 
         public void SetLabel(NSString label)
         {
-            objc_msgSend(NativePtr, , label);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, label);
         }
 
         public MTLPurgeableState SetPurgeableState(MTLPurgeableState state)
@@ -91,7 +91,7 @@ namespace SharpMetal.Metal
 
         public void MakeAliasable()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_makeAliasable);
         }
 
         private static readonly Selector sel_label = "label";

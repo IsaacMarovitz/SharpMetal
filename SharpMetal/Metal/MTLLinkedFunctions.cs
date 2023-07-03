@@ -43,22 +43,22 @@ namespace SharpMetal.Metal
 
         public void SetFunctions(NSArray functions)
         {
-            objc_msgSend(NativePtr, , functions);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctions, functions);
         }
 
         public void SetBinaryFunctions(NSArray binaryFunctions)
         {
-            objc_msgSend(NativePtr, , binaryFunctions);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBinaryFunctions, binaryFunctions);
         }
 
         public void SetGroups(NSDictionary groups)
         {
-            objc_msgSend(NativePtr, , groups);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setGroups, groups);
         }
 
         public void SetPrivateFunctions(NSArray privateFunctions)
         {
-            objc_msgSend(NativePtr, , privateFunctions);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrivateFunctions, privateFunctions);
         }
 
         private static readonly Selector sel_linkedFunctions = "linkedFunctions";

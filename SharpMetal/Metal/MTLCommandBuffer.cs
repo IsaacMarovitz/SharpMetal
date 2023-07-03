@@ -78,12 +78,12 @@ namespace SharpMetal.Metal
 
         public void SetRetainedReferences(bool retainedReferences)
         {
-            objc_msgSend(NativePtr, , retainedReferences);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRetainedReferences, retainedReferences);
         }
 
         public void SetErrorOptions(MTLCommandBufferErrorOption errorOptions)
         {
-            objc_msgSend(NativePtr, , errorOptions);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setErrorOptions, (ulong)errorOptions);
         }
 
         private static readonly Selector sel_retainedReferences = "retainedReferences";
@@ -147,42 +147,42 @@ namespace SharpMetal.Metal
 
         public void SetLabel(NSString label)
         {
-            objc_msgSend(NativePtr, , label);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, label);
         }
 
         public void Enqueue()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_enqueue);
         }
 
         public void Commit()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_commit);
         }
 
         public void PresentDrawable(MTLDrawable drawable)
         {
-            objc_msgSend(NativePtr, , drawable);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_presentDrawable, drawable);
         }
 
         public void PresentDrawableAtTime(MTLDrawable drawable, IntPtr presentationTime)
         {
-            objc_msgSend(NativePtr, , drawable, presentationTime);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_presentDrawableatTime, drawable, presentationTime);
         }
 
         public void PresentDrawableAfterMinimumDuration(MTLDrawable drawable, IntPtr duration)
         {
-            objc_msgSend(NativePtr, , drawable, duration);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_presentDrawableafterMinimumDuration, drawable, duration);
         }
 
         public void WaitUntilScheduled()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_waitUntilScheduled);
         }
 
         public void WaitUntilCompleted()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_waitUntilCompleted);
         }
 
         public MTLRenderCommandEncoder RenderCommandEncoder(MTLRenderPassDescriptor renderPassDescriptor)
@@ -217,12 +217,12 @@ namespace SharpMetal.Metal
 
         public void EncodeWait(MTLEvent mltEvent, ulong value)
         {
-            objc_msgSend(NativePtr, , mltEvent, value);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_encodeWaitForEventvalue, mltEvent, value);
         }
 
         public void EncodeSignalEvent(MTLEvent mltEvent, ulong value)
         {
-            objc_msgSend(NativePtr, , mltEvent, value);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_encodeSignalEventvalue, mltEvent, value);
         }
 
         public MTLParallelRenderCommandEncoder ParallelRenderCommandEncoder(MTLRenderPassDescriptor renderPassDescriptor)
@@ -252,12 +252,12 @@ namespace SharpMetal.Metal
 
         public void PushDebugGroup(NSString nsString)
         {
-            objc_msgSend(NativePtr, , nsString);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_pushDebugGroup, nsString);
         }
 
         public void PopDebugGroup()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_popDebugGroup);
         }
 
         private static readonly Selector sel_device = "device";

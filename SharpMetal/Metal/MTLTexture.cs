@@ -208,82 +208,82 @@ namespace SharpMetal.Metal
 
         public void SetTextureType(MTLTextureType textureType)
         {
-            objc_msgSend(NativePtr, , textureType);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTextureType, (ulong)textureType);
         }
 
         public void SetPixelFormat(MTLPixelFormat pixelFormat)
         {
-            objc_msgSend(NativePtr, , pixelFormat);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPixelFormat, (ulong)pixelFormat);
         }
 
         public void SetWidth(ulong width)
         {
-            objc_msgSend(NativePtr, , width);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setWidth, width);
         }
 
         public void SetHeight(ulong height)
         {
-            objc_msgSend(NativePtr, , height);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setHeight, height);
         }
 
         public void SetDepth(ulong depth)
         {
-            objc_msgSend(NativePtr, , depth);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepth, depth);
         }
 
         public void SetMipmapLevelCount(ulong mipmapLevelCount)
         {
-            objc_msgSend(NativePtr, , mipmapLevelCount);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMipmapLevelCount, mipmapLevelCount);
         }
 
         public void SetSampleCount(ulong sampleCount)
         {
-            objc_msgSend(NativePtr, , sampleCount);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSampleCount, sampleCount);
         }
 
         public void SetArrayLength(ulong arrayLength)
         {
-            objc_msgSend(NativePtr, , arrayLength);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setArrayLength, arrayLength);
         }
 
         public void SetResourceOptions(MTLResourceOptions resourceOptions)
         {
-            objc_msgSend(NativePtr, , resourceOptions);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setResourceOptions, (ulong)resourceOptions);
         }
 
         public void SetCpuCacheMode(MTLCPUCacheMode cpuCacheMode)
         {
-            objc_msgSend(NativePtr, , cpuCacheMode);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setCpuCacheMode, (ulong)cpuCacheMode);
         }
 
         public void SetStorageMode(MTLStorageMode storageMode)
         {
-            objc_msgSend(NativePtr, , storageMode);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStorageMode, (ulong)storageMode);
         }
 
         public void SetHazardTrackingMode(MTLHazardTrackingMode hazardTrackingMode)
         {
-            objc_msgSend(NativePtr, , hazardTrackingMode);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setHazardTrackingMode, (ulong)hazardTrackingMode);
         }
 
         public void SetUsage(MTLTextureUsage usage)
         {
-            objc_msgSend(NativePtr, , usage);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setUsage, (ulong)usage);
         }
 
         public void SetAllowGPUOptimizedContents(bool allowGPUOptimizedContents)
         {
-            objc_msgSend(NativePtr, , allowGPUOptimizedContents);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAllowGPUOptimizedContents, allowGPUOptimizedContents);
         }
 
         public void SetCompressionType(MTLTextureCompressionType compressionType)
         {
-            objc_msgSend(NativePtr, , compressionType);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setCompressionType, (long)compressionType);
         }
 
         public void SetSwizzle(MTLTextureSwizzleChannels swizzle)
         {
-            objc_msgSend(NativePtr, , swizzle);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSwizzle, swizzle);
         }
 
         private static readonly Selector sel_texture2DDescriptorWithPixelFormatwidthheightmipmapped = "texture2DDescriptorWithPixelFormat:width:height:mipmapped:";
@@ -390,22 +390,22 @@ namespace SharpMetal.Metal
 
         public void GetBytes(IntPtr pixelBytes, ulong bytesPerRow, ulong bytesPerImage, MTLRegion region, ulong level, ulong slice)
         {
-            objc_msgSend(NativePtr, , pixelBytes, bytesPerRow, bytesPerImage, region, level, slice);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_getBytesbytesPerRowbytesPerImagefromRegionmipmapLevelslice, pixelBytes, bytesPerRow, bytesPerImage, region, level, slice);
         }
 
         public void ReplaceRegion(MTLRegion region, ulong level, ulong slice, IntPtr pixelBytes, ulong bytesPerRow, ulong bytesPerImage)
         {
-            objc_msgSend(NativePtr, , region, level, slice, pixelBytes, bytesPerRow, bytesPerImage);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_replaceRegionmipmapLevelslicewithBytesbytesPerRowbytesPerImage, region, level, slice, pixelBytes, bytesPerRow, bytesPerImage);
         }
 
         public void GetBytes(IntPtr pixelBytes, ulong bytesPerRow, MTLRegion region, ulong level)
         {
-            objc_msgSend(NativePtr, , pixelBytes, bytesPerRow, region, level);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_getBytesbytesPerRowfromRegionmipmapLevel, pixelBytes, bytesPerRow, region, level);
         }
 
         public void ReplaceRegion(MTLRegion region, ulong level, IntPtr pixelBytes, ulong bytesPerRow)
         {
-            objc_msgSend(NativePtr, , region, level, pixelBytes, bytesPerRow);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_replaceRegionmipmapLevelwithBytesbytesPerRow, region, level, pixelBytes, bytesPerRow);
         }
 
         public MTLTexture NewTextureView(MTLPixelFormat pixelFormat)

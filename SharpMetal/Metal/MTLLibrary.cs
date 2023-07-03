@@ -189,7 +189,7 @@ namespace SharpMetal.Metal
 
         public void SetLabel(NSString label)
         {
-            objc_msgSend(NativePtr, , label);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, label);
         }
 
         public MTLArgumentEncoder NewArgumentEncoder(ulong bufferIndex)
@@ -298,57 +298,57 @@ namespace SharpMetal.Metal
 
         public void SetPreprocessorMacros(NSDictionary preprocessorMacros)
         {
-            objc_msgSend(NativePtr, , preprocessorMacros);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPreprocessorMacros, preprocessorMacros);
         }
 
         public void SetFastMathEnabled(bool fastMathEnabled)
         {
-            objc_msgSend(NativePtr, , fastMathEnabled);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFastMathEnabled, fastMathEnabled);
         }
 
         public void SetLanguageVersion(MTLLanguageVersion languageVersion)
         {
-            objc_msgSend(NativePtr, , languageVersion);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLanguageVersion, (ulong)languageVersion);
         }
 
         public void SetLibraryType(MTLLibraryType libraryType)
         {
-            objc_msgSend(NativePtr, , libraryType);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLibraryType, (long)libraryType);
         }
 
         public void SetInstallName(NSString installName)
         {
-            objc_msgSend(NativePtr, , installName);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInstallName, installName);
         }
 
         public void SetLibraries(NSArray libraries)
         {
-            objc_msgSend(NativePtr, , libraries);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLibraries, libraries);
         }
 
         public void SetPreserveInvariance(bool preserveInvariance)
         {
-            objc_msgSend(NativePtr, , preserveInvariance);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPreserveInvariance, preserveInvariance);
         }
 
         public void SetOptimizationLevel(MTLLibraryOptimizationLevel optimizationLevel)
         {
-            objc_msgSend(NativePtr, , optimizationLevel);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOptimizationLevel, (long)optimizationLevel);
         }
 
         public void SetCompileSymbolVisibility(MTLCompileSymbolVisibility compileSymbolVisibility)
         {
-            objc_msgSend(NativePtr, , compileSymbolVisibility);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setCompileSymbolVisibility, (long)compileSymbolVisibility);
         }
 
         public void SetAllowReferencingUndefinedSymbols(bool allowReferencingUndefinedSymbols)
         {
-            objc_msgSend(NativePtr, , allowReferencingUndefinedSymbols);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAllowReferencingUndefinedSymbols, allowReferencingUndefinedSymbols);
         }
 
         public void SetMaxTotalThreadsPerThreadgroup(ulong maxTotalThreadsPerThreadgroup)
         {
-            objc_msgSend(NativePtr, , maxTotalThreadsPerThreadgroup);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxTotalThreadsPerThreadgroup, maxTotalThreadsPerThreadgroup);
         }
 
         private static readonly Selector sel_preprocessorMacros = "preprocessorMacros";
@@ -398,7 +398,7 @@ namespace SharpMetal.Metal
 
         public void SetLabel(NSString label)
         {
-            objc_msgSend(NativePtr, , label);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, label);
         }
 
         public MTLFunction NewFunction(NSString functionName)

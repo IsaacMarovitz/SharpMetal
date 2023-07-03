@@ -55,7 +55,7 @@ namespace SharpMetal.Metal
 
         public void SetArgumentIndex(ulong argumentIndex)
         {
-            objc_msgSend(NativePtr, , argumentIndex);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setArgumentIndex, argumentIndex);
         }
 
         public MTLFunctionStitchingInputNode Init(ulong argument)
@@ -101,17 +101,17 @@ namespace SharpMetal.Metal
 
         public void SetName(NSString name)
         {
-            objc_msgSend(NativePtr, , name);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setName, name);
         }
 
         public void SetArguments(NSArray arguments)
         {
-            objc_msgSend(NativePtr, , arguments);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setArguments, arguments);
         }
 
         public void SetControlDependencies(NSArray controlDependencies)
         {
-            objc_msgSend(NativePtr, , controlDependencies);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setControlDependencies, controlDependencies);
         }
 
         public MTLFunctionStitchingFunctionNode Init(NSString name, NSArray arguments, NSArray controlDependencies)
@@ -167,22 +167,22 @@ namespace SharpMetal.Metal
 
         public void SetFunctionName(NSString functionName)
         {
-            objc_msgSend(NativePtr, , functionName);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctionName, functionName);
         }
 
         public void SetNodes(NSArray nodes)
         {
-            objc_msgSend(NativePtr, , nodes);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setNodes, nodes);
         }
 
         public void SetOutputNode(MTLFunctionStitchingFunctionNode outputNode)
         {
-            objc_msgSend(NativePtr, , outputNode);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOutputNode, outputNode);
         }
 
         public void SetAttributes(NSArray attributes)
         {
-            objc_msgSend(NativePtr, , attributes);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAttributes, attributes);
         }
 
         public MTLFunctionStitchingGraph Init(NSString functionName, NSArray nodes, MTLFunctionStitchingFunctionNode outputNode, NSArray attributes)
@@ -228,12 +228,12 @@ namespace SharpMetal.Metal
 
         public void SetFunctionGraphs(NSArray functionGraphs)
         {
-            objc_msgSend(NativePtr, , functionGraphs);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctionGraphs, functionGraphs);
         }
 
         public void SetFunctions(NSArray functions)
         {
-            objc_msgSend(NativePtr, , functions);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctions, functions);
         }
 
         private static readonly Selector sel_functionGraphs = "functionGraphs";

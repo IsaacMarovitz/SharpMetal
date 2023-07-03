@@ -31,72 +31,72 @@ namespace SharpMetal.Metal
 
         public void LoadBytes(IntPtr pointer, ulong size, IntPtr sourceHandle, ulong sourceHandleOffset)
         {
-            objc_msgSend(NativePtr, , pointer, size, sourceHandle, sourceHandleOffset);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_loadBytessizesourceHandlesourceHandleOffset, pointer, size, sourceHandle, sourceHandleOffset);
         }
 
         public void LoadBuffer(MTLBuffer buffer, ulong offset, ulong size, IntPtr sourceHandle, ulong sourceHandleOffset)
         {
-            objc_msgSend(NativePtr, , buffer, offset, size, sourceHandle, sourceHandleOffset);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_loadBufferoffsetsizesourceHandlesourceHandleOffset, buffer, offset, size, sourceHandle, sourceHandleOffset);
         }
 
         public void LoadTexture(MTLTexture texture, ulong slice, ulong level, MTLSize size, ulong sourceBytesPerRow, ulong sourceBytesPerImage, MTLOrigin destinationOrigin, IntPtr sourceHandle, ulong sourceHandleOffset)
         {
-            objc_msgSend(NativePtr, , texture, slice, level, size, sourceBytesPerRow, sourceBytesPerImage, destinationOrigin, sourceHandle, sourceHandleOffset);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_loadTextureslicelevelsizesourceBytesPerRowsourceBytesPerImagedestinationOriginsourceHandlesourceHandleOffset, texture, slice, level, size, sourceBytesPerRow, sourceBytesPerImage, destinationOrigin, sourceHandle, sourceHandleOffset);
         }
 
         public void CopyStatusToBuffer(MTLBuffer buffer, ulong offset)
         {
-            objc_msgSend(NativePtr, , buffer, offset);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_copyStatusToBufferoffset, buffer, offset);
         }
 
         public void Commit()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_commit);
         }
 
         public void WaitUntilCompleted()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_waitUntilCompleted);
         }
 
         public void TryCancel()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_tryCancel);
         }
 
         public void AddBarrier()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_addBarrier);
         }
 
         public void PushDebugGroup(NSString nsString)
         {
-            objc_msgSend(NativePtr, , nsString);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_pushDebugGroup, nsString);
         }
 
         public void PopDebugGroup()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_popDebugGroup);
         }
 
         public void Enqueue()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_enqueue);
         }
 
         public void Wait(MTLSharedEvent mltEvent, ulong value)
         {
-            objc_msgSend(NativePtr, , mltEvent, value);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_waitForEventvalue, mltEvent, value);
         }
 
         public void SignalEvent(MTLSharedEvent mltEvent, ulong value)
         {
-            objc_msgSend(NativePtr, , mltEvent, value);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_signalEventvalue, mltEvent, value);
         }
 
         public void SetLabel(NSString label)
         {
-            objc_msgSend(NativePtr, , label);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, label);
         }
 
         private static readonly Selector sel_loadBytessizesourceHandlesourceHandleOffset = "loadBytes:size:sourceHandle:sourceHandleOffset:";

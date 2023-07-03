@@ -42,12 +42,12 @@ namespace SharpMetal.Metal
 
         public void EnqueueBarrier()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_enqueueBarrier);
         }
 
         public void SetLabel(NSString label)
         {
-            objc_msgSend(NativePtr, , label);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, label);
         }
 
         private static readonly Selector sel_enqueueBarrier = "enqueueBarrier";
@@ -129,27 +129,27 @@ namespace SharpMetal.Metal
 
         public void SetMaxCommandBufferCount(ulong maxCommandBufferCount)
         {
-            objc_msgSend(NativePtr, , maxCommandBufferCount);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxCommandBufferCount, maxCommandBufferCount);
         }
 
         public void SetPriority(MTLIOPriority priority)
         {
-            objc_msgSend(NativePtr, , priority);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPriority, (long)priority);
         }
 
         public void SetType(MTLIOCommandQueueType type)
         {
-            objc_msgSend(NativePtr, , type);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setType, (long)type);
         }
 
         public void SetMaxCommandsInFlight(ulong maxCommandsInFlight)
         {
-            objc_msgSend(NativePtr, , maxCommandsInFlight);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxCommandsInFlight, maxCommandsInFlight);
         }
 
         public void SetScratchBufferAllocator(MTLIOScratchBufferAllocator scratchBufferAllocator)
         {
-            objc_msgSend(NativePtr, , scratchBufferAllocator);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setScratchBufferAllocator, scratchBufferAllocator);
         }
 
         private static readonly Selector sel_maxCommandBufferCount = "maxCommandBufferCount";
@@ -179,7 +179,7 @@ namespace SharpMetal.Metal
 
         public void SetLabel(NSString label)
         {
-            objc_msgSend(NativePtr, , label);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, label);
         }
 
         private static readonly Selector sel_label = "label";

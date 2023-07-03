@@ -9,16 +9,6 @@ namespace SharpMetal.Foundation
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(NSLocking obj) => obj.NativePtr;
         public NSLocking(IntPtr ptr) => NativePtr = ptr;
-
-        public void Lock()
-        {
-            objc_msgSend(NativePtr, , );
-        }
-
-        public void Unlock()
-        {
-            objc_msgSend(NativePtr, , );
-        }
     }
 
     [SupportedOSPlatform("macos")]
@@ -36,7 +26,7 @@ namespace SharpMetal.Foundation
 
         public void Wait()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_wait);
         }
 
         public bool WaitUntilDate(NSDate pLimit)
@@ -46,12 +36,12 @@ namespace SharpMetal.Foundation
 
         public void Signal()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_signal);
         }
 
         public void Broadcast()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_broadcast);
         }
 
         private static readonly Selector sel_wait = "wait";

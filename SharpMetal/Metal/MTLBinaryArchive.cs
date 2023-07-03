@@ -34,7 +34,7 @@ namespace SharpMetal.Metal
 
         public void SetUrl(NSURL url)
         {
-            objc_msgSend(NativePtr, , url);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setUrl, url);
         }
 
         private static readonly Selector sel_url = "url";
@@ -58,7 +58,7 @@ namespace SharpMetal.Metal
 
         public void SetLabel(NSString label)
         {
-            objc_msgSend(NativePtr, , label);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, label);
         }
 
         public bool AddComputePipelineFunctions(MTLComputePipelineDescriptor descriptor, NSError error)

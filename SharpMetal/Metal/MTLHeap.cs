@@ -68,37 +68,37 @@ namespace SharpMetal.Metal
 
         public void SetSize(ulong size)
         {
-            objc_msgSend(NativePtr, , size);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSize, size);
         }
 
         public void SetStorageMode(MTLStorageMode storageMode)
         {
-            objc_msgSend(NativePtr, , storageMode);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStorageMode, (ulong)storageMode);
         }
 
         public void SetCpuCacheMode(MTLCPUCacheMode cpuCacheMode)
         {
-            objc_msgSend(NativePtr, , cpuCacheMode);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setCpuCacheMode, (ulong)cpuCacheMode);
         }
 
         public void SetSparsePageSize(MTLSparsePageSize sparsePageSize)
         {
-            objc_msgSend(NativePtr, , sparsePageSize);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSparsePageSize, (long)sparsePageSize);
         }
 
         public void SetHazardTrackingMode(MTLHazardTrackingMode hazardTrackingMode)
         {
-            objc_msgSend(NativePtr, , hazardTrackingMode);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setHazardTrackingMode, (ulong)hazardTrackingMode);
         }
 
         public void SetResourceOptions(MTLResourceOptions resourceOptions)
         {
-            objc_msgSend(NativePtr, , resourceOptions);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setResourceOptions, (ulong)resourceOptions);
         }
 
         public void SetType(MTLHeapType type)
         {
-            objc_msgSend(NativePtr, , type);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setType, (long)type);
         }
 
         private static readonly Selector sel_size = "size";
@@ -150,7 +150,7 @@ namespace SharpMetal.Metal
 
         public void SetLabel(NSString label)
         {
-            objc_msgSend(NativePtr, , label);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, label);
         }
 
         public ulong MaxAvailableSize(ulong alignment)

@@ -19,72 +19,72 @@ namespace SharpMetal.Metal
 
         public void BuildAccelerationStructure(MTLAccelerationStructure accelerationStructure, MTLAccelerationStructureDescriptor descriptor, MTLBuffer scratchBuffer, ulong scratchBufferOffset)
         {
-            objc_msgSend(NativePtr, , accelerationStructure, descriptor, scratchBuffer, scratchBufferOffset);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_buildAccelerationStructuredescriptorscratchBufferscratchBufferOffset, accelerationStructure, descriptor, scratchBuffer, scratchBufferOffset);
         }
 
         public void RefitAccelerationStructure(MTLAccelerationStructure sourceAccelerationStructure, MTLAccelerationStructureDescriptor descriptor, MTLAccelerationStructure destinationAccelerationStructure, MTLBuffer scratchBuffer, ulong scratchBufferOffset)
         {
-            objc_msgSend(NativePtr, , sourceAccelerationStructure, descriptor, destinationAccelerationStructure, scratchBuffer, scratchBufferOffset);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_refitAccelerationStructuredescriptordestinationscratchBufferscratchBufferOffset, sourceAccelerationStructure, descriptor, destinationAccelerationStructure, scratchBuffer, scratchBufferOffset);
         }
 
         public void RefitAccelerationStructure(MTLAccelerationStructure sourceAccelerationStructure, MTLAccelerationStructureDescriptor descriptor, MTLAccelerationStructure destinationAccelerationStructure, MTLBuffer scratchBuffer, ulong scratchBufferOffset, MTLAccelerationStructureRefitOptions options)
         {
-            objc_msgSend(NativePtr, , sourceAccelerationStructure, descriptor, destinationAccelerationStructure, scratchBuffer, scratchBufferOffset, options);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_refitAccelerationStructuredescriptordestinationscratchBufferscratchBufferOffsetoptions, sourceAccelerationStructure, descriptor, destinationAccelerationStructure, scratchBuffer, scratchBufferOffset, (ulong)options);
         }
 
         public void CopyAccelerationStructure(MTLAccelerationStructure sourceAccelerationStructure, MTLAccelerationStructure destinationAccelerationStructure)
         {
-            objc_msgSend(NativePtr, , sourceAccelerationStructure, destinationAccelerationStructure);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_copyAccelerationStructuretoAccelerationStructure, sourceAccelerationStructure, destinationAccelerationStructure);
         }
 
         public void WriteCompactedAccelerationStructureSize(MTLAccelerationStructure accelerationStructure, MTLBuffer buffer, ulong offset)
         {
-            objc_msgSend(NativePtr, , accelerationStructure, buffer, offset);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_writeCompactedAccelerationStructureSizetoBufferoffset, accelerationStructure, buffer, offset);
         }
 
         public void WriteCompactedAccelerationStructureSize(MTLAccelerationStructure accelerationStructure, MTLBuffer buffer, ulong offset, MTLDataType sizeDataType)
         {
-            objc_msgSend(NativePtr, , accelerationStructure, buffer, offset, sizeDataType);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_writeCompactedAccelerationStructureSizetoBufferoffsetsizeDataType, accelerationStructure, buffer, offset, (ulong)sizeDataType);
         }
 
         public void CopyAndCompactAccelerationStructure(MTLAccelerationStructure sourceAccelerationStructure, MTLAccelerationStructure destinationAccelerationStructure)
         {
-            objc_msgSend(NativePtr, , sourceAccelerationStructure, destinationAccelerationStructure);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_copyAndCompactAccelerationStructuretoAccelerationStructure, sourceAccelerationStructure, destinationAccelerationStructure);
         }
 
         public void UpdateFence(MTLFence fence)
         {
-            objc_msgSend(NativePtr, , fence);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_updateFence, fence);
         }
 
         public void WaitForFence(MTLFence fence)
         {
-            objc_msgSend(NativePtr, , fence);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_waitForFence, fence);
         }
 
         public void UseResource(MTLResource resource, MTLResourceUsage usage)
         {
-            objc_msgSend(NativePtr, , resource, usage);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_useResourceusage, resource, (ulong)usage);
         }
 
         public void UseResources(MTLResource[] resources, ulong count, MTLResourceUsage usage)
         {
-            objc_msgSend(NativePtr, , resources, count, usage);
+            throw new NotImplementedException();
         }
 
         public void UseHeap(MTLHeap heap)
         {
-            objc_msgSend(NativePtr, , heap);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_useHeap, heap);
         }
 
         public void UseHeaps(MTLHeap[] heaps, ulong count)
         {
-            objc_msgSend(NativePtr, , heaps, count);
+            throw new NotImplementedException();
         }
 
         public void SampleCountersInBuffer(MTLCounterSampleBuffer sampleBuffer, ulong sampleIndex, bool barrier)
         {
-            objc_msgSend(NativePtr, , sampleBuffer, sampleIndex, barrier);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_sampleCountersInBufferatSampleIndexwithBarrier, sampleBuffer, sampleIndex, barrier);
         }
 
         private static readonly Selector sel_buildAccelerationStructuredescriptorscratchBufferscratchBufferOffset = "buildAccelerationStructure:descriptor:scratchBuffer:scratchBufferOffset:";
@@ -136,17 +136,17 @@ namespace SharpMetal.Metal
 
         public void SetSampleBuffer(MTLCounterSampleBuffer sampleBuffer)
         {
-            objc_msgSend(NativePtr, , sampleBuffer);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSampleBuffer, sampleBuffer);
         }
 
         public void SetStartOfEncoderSampleIndex(ulong startOfEncoderSampleIndex)
         {
-            objc_msgSend(NativePtr, , startOfEncoderSampleIndex);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStartOfEncoderSampleIndex, startOfEncoderSampleIndex);
         }
 
         public void SetEndOfEncoderSampleIndex(ulong endOfEncoderSampleIndex)
         {
-            objc_msgSend(NativePtr, , endOfEncoderSampleIndex);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setEndOfEncoderSampleIndex, endOfEncoderSampleIndex);
         }
 
         private static readonly Selector sel_sampleBuffer = "sampleBuffer";
@@ -177,7 +177,7 @@ namespace SharpMetal.Metal
 
         public void SetObject(MTLAccelerationStructurePassSampleBufferAttachmentDescriptor attachment, ulong attachmentIndex)
         {
-            objc_msgSend(NativePtr, , attachment, attachmentIndex);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setObjectatIndexedSubscript, attachment, attachmentIndex);
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";

@@ -4,60 +4,109 @@ namespace SharpMetal.Generator.Instances
     {
         public string ReturnType;
         public string Name;
-        public string Selector;
+        public string RawName;
         public bool IsStatic;
         public List<PropertyInstance> InputInstances;
 
-        public MethodInstance(string returnType, string name, string selector, bool isStatic, List<PropertyInstance> inputInstances)
+        public MethodInstance(string returnType, string name, string rawName, bool isStatic, List<PropertyInstance> inputInstances)
         {
             ReturnType = returnType;
             Name = name;
+            RawName = rawName;
             IsStatic = isStatic;
             InputInstances = inputInstances;
         }
 
-        public void Generate(CodeGenContext context, bool prependSpace = true)
+        public void Generate(List<EnumInstance> enumCache, IPropertyOwner instance, CodeGenContext context, bool prependSpace = true)
         {
-            var staticString = IsStatic ? "static " : "";
-
-            if (prependSpace)
+            var rawNameComponents = RawName.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+            for (var index = 0; index < rawNameComponents.Length; index++)
             {
-                context.WriteLine();
-            }
-            context.Write(context.Indentation + $"public {staticString}{ReturnType} {Name}(");
-
-            for (var i = 0; i < InputInstances.Count; i++)
-            {
-                var input = InputInstances[i];
-
-                context.Write($"{input.Type} {input.Name}");
-
-                if (i != InputInstances.Count - 1)
+                var component = rawNameComponents[index];
+                if (component.Contains("("))
                 {
-                    context.Write(", ");
+                    var splitIndex = RawName.IndexOf(component);
+                    if (splitIndex >= 0)
+                    {
+                        RawName = RawName.Substring(splitIndex, RawName.Length - splitIndex);
+                    }
                 }
             }
 
-            context.Write(")\n");
-            context.EnterScope();
-            if (ReturnType == "void")
+            // TODO: Clean this up
+            RawName = RawName.Replace(";", "");
+            RawName = RawName.Replace(" class ", " ");
+            RawName = RawName.Replace("(class ", "(");
+            RawName = RawName.Replace("MTL::", "");
+            RawName = RawName.Replace("NS::", "");
+
+            var selectorInstances = instance.GetSelectors();
+            var selector = selectorInstances.Find(x => x.RawName.ToLower().Replace(" class ", " ").Replace("mtl::", "").Replace("ns::", "").Contains(RawName.ToLower()));
+            var candidatesGeneral = selectorInstances.Where(x => x.Name.ToLower().Contains(Name.ToLower()));
+
+            if (selector == null)
             {
-                context.Write($"{context.Indentation}objc_msgSend(NativePtr, {Selector}, ");
-                for (var index = 0; index < InputInstances.Count; index++)
+                Console.WriteLine($"Failed to get selector! {RawName.ToLower()}");
+                foreach (var candidate in candidatesGeneral)
                 {
-                    context.Write($"{InputInstances[index].Name}");
-                    if (index != InputInstances.Count - 1)
+                    Console.WriteLine(candidate.RawName.ToLower().Replace(" class ", " ").Replace("mtl::", "").Replace("ns::", ""));
+                }
+            }
+            else
+            {
+                var staticString = IsStatic ? "static " : "";
+                // TODO: Handle array inputs
+                var hasArrayInput = false;
+
+                if (prependSpace)
+                {
+                    context.WriteLine();
+                }
+                context.Write(context.Indentation + $"public {staticString}{ReturnType} {Name}(");
+
+                for (var i = 0; i < InputInstances.Count; i++)
+                {
+                    var input = InputInstances[i];
+
+                    if (input.Type.Contains("[]"))
+                    {
+                        hasArrayInput = true;
+                    }
+
+                    context.Write($"{input.Type} {input.Name}");
+
+                    if (i != InputInstances.Count - 1)
                     {
                         context.Write(", ");
                     }
                 }
-                context.Write(");\n");
+
+                context.Write(")\n");
+                context.EnterScope();
+                if (ReturnType == "void" && !IsStatic && !hasArrayInput)
+                {
+                    context.Write($"{context.Indentation}ObjectiveCRuntime.objc_msgSend(NativePtr, {selector.Name}");
+
+                    for (var index = 0; index < InputInstances.Count; index++)
+                    {
+                        var cast = "";
+                        var enumInstance = enumCache.Find(x => x.Name == InputInstances[index].Type);
+
+                        if (enumInstance != null)
+                        {
+                            cast = $"({enumInstance.Type})";
+                        }
+
+                        context.Write($", {cast}{InputInstances[index].Name}");
+                    }
+                    context.Write(");\n");
+                }
+                else
+                {
+                    context.WriteLine("throw new NotImplementedException();");
+                }
+                context.LeaveScope();
             }
-            else
-            {
-                context.WriteLine("throw new NotImplementedException();");
-            }
-            context.LeaveScope();
         }
     }
 }

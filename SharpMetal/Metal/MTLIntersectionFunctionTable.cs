@@ -36,7 +36,7 @@ namespace SharpMetal.Metal
 
         public void SetFunctionCount(ulong functionCount)
         {
-            objc_msgSend(NativePtr, , functionCount);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctionCount, functionCount);
         }
 
         private static readonly Selector sel_intersectionFunctionTableDescriptor = "intersectionFunctionTableDescriptor";
@@ -55,42 +55,42 @@ namespace SharpMetal.Metal
 
         public void SetBuffer(MTLBuffer buffer, ulong offset, ulong index)
         {
-            objc_msgSend(NativePtr, , buffer, offset, index);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBufferoffsetatIndex, buffer, offset, index);
         }
 
         public void SetBuffers(MTLBuffer[] buffers, ulong[] offsets, NSRange range)
         {
-            objc_msgSend(NativePtr, , buffers, offsets, range);
+            throw new NotImplementedException();
         }
 
         public void SetFunction(MTLFunctionHandle function, ulong index)
         {
-            objc_msgSend(NativePtr, , function, index);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctionatIndex, function, index);
         }
 
         public void SetFunctions(MTLFunctionHandle[] functions, NSRange range)
         {
-            objc_msgSend(NativePtr, , functions, range);
+            throw new NotImplementedException();
         }
 
         public void SetOpaqueTriangleIntersectionFunction(MTLIntersectionFunctionSignature signature, ulong index)
         {
-            objc_msgSend(NativePtr, , signature, index);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOpaqueTriangleIntersectionFunctionWithSignatureatIndex, (ulong)signature, index);
         }
 
         public void SetOpaqueTriangleIntersectionFunction(MTLIntersectionFunctionSignature signature, NSRange range)
         {
-            objc_msgSend(NativePtr, , signature, range);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOpaqueTriangleIntersectionFunctionWithSignaturewithRange, (ulong)signature, range);
         }
 
         public void SetVisibleFunctionTable(MTLVisibleFunctionTable functionTable, ulong bufferIndex)
         {
-            objc_msgSend(NativePtr, , functionTable, bufferIndex);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVisibleFunctionTableatBufferIndex, functionTable, bufferIndex);
         }
 
         public void SetVisibleFunctionTables(MTLVisibleFunctionTable[] functionTables, NSRange bufferRange)
         {
-            objc_msgSend(NativePtr, , functionTables, bufferRange);
+            throw new NotImplementedException();
         }
 
         private static readonly Selector sel_setBufferoffsetatIndex = "setBuffer:offset:atIndex:";

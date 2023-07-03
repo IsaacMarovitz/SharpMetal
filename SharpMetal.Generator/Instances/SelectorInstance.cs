@@ -3,11 +3,13 @@ namespace SharpMetal.Generator.Instances
     public class SelectorInstance
     {
         public string Name;
+        public string RawName;
         public string Selector;
 
-        private SelectorInstance(string selector)
+        private SelectorInstance(string selector, string rawName)
         {
             Name = "sel_" + selector.Replace(":", "");
+            RawName = rawName;
             Selector = selector;
         }
 
@@ -15,13 +17,21 @@ namespace SharpMetal.Generator.Instances
         {
             var inlineInfo = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
             var parentStructName = string.Empty;
+            var rawName = "";
 
-            foreach (var section in inlineInfo)
+            for (var i = 0; i < inlineInfo.Length; i++)
             {
+                var section = inlineInfo[i];
                 if (section.Contains("::") && section.Contains("("))
                 {
                     var parentStructInfo = section.Split("::");
                     parentStructName = namespacePrefix + parentStructInfo[1];
+
+                    var rawNameStartIndex = line.IndexOf(section);
+                    if (rawNameStartIndex >= 0)
+                    {
+                        rawName = line.Substring(rawNameStartIndex, line.Length - rawNameStartIndex);
+                    }
                 }
             }
 
@@ -49,7 +59,7 @@ namespace SharpMetal.Generator.Instances
 
                 if (parentIndex != -1)
                 {
-                    propertyOwners[parentIndex].AddSelector(new SelectorInstance(selector));
+                    propertyOwners[parentIndex].AddSelector(new SelectorInstance(selector, rawName));
                 }
                 else
                 {

@@ -101,7 +101,7 @@ namespace SharpMetal.Generator.Instances
 
             foreach (var method in _methodInstances)
             {
-                method.Generate(context);
+                method.Generate(enumCache, this, context);
             }
 
             if (_selectorInstances.Any())
@@ -123,7 +123,6 @@ namespace SharpMetal.Generator.Instances
             var className = namespacePrefix + classInfo[1];
 
             var instance = new ClassInstance(className);
-            // TODO: Add selectors
             instance._methodInstances.AddRange(inFlightUnscopedMethods);
 
             bool classEnded = false;
@@ -165,6 +164,7 @@ namespace SharpMetal.Generator.Instances
                     continue;
                 }
 
+                var rawName = nextLine;
                 nextLine = StringUtils.FunctionSignautreCleanup(nextLine);
 
                 bool isStatic = false;
@@ -219,7 +219,7 @@ namespace SharpMetal.Generator.Instances
                         // This is probably a constructor, in which case we have our own implementation
                         if (!returnType.Contains(name))
                         {
-                            instance.AddMethod(new MethodInstance(returnType, name, "", isStatic, new List<PropertyInstance>()));
+                            instance.AddMethod(new MethodInstance(returnType, name, rawName, isStatic, new List<PropertyInstance>()));
                         }
                     }
                     else
@@ -280,7 +280,7 @@ namespace SharpMetal.Generator.Instances
 
                     if (returnType != string.Empty)
                     {
-                        instance.AddMethod(new MethodInstance(returnType, name, "", isStatic, arguments));
+                        instance.AddMethod(new MethodInstance(returnType, name, rawName, isStatic, arguments));
                     }
                 }
 
@@ -292,7 +292,7 @@ namespace SharpMetal.Generator.Instances
                         // We can't have a property AND methods with the same name
                         // in this case, the solution is to turn the property into a method
                         instance._propertyInstances.RemoveAt(i);
-                        instance.AddMethod(new MethodInstance(property.Type, property.Name, "", isStatic, new List<PropertyInstance>()));
+                        instance.AddMethod(new MethodInstance(property.Type, property.Name, rawName, isStatic, new List<PropertyInstance>()));
                     }
                 }
             }

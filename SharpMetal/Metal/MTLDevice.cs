@@ -205,32 +205,32 @@ namespace SharpMetal.Metal
 
         public void SetDataType(MTLDataType dataType)
         {
-            objc_msgSend(NativePtr, , dataType);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDataType, (ulong)dataType);
         }
 
         public void SetIndex(ulong index)
         {
-            objc_msgSend(NativePtr, , index);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIndex, index);
         }
 
         public void SetArrayLength(ulong arrayLength)
         {
-            objc_msgSend(NativePtr, , arrayLength);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setArrayLength, arrayLength);
         }
 
         public void SetAccess(MTLArgumentAccess access)
         {
-            objc_msgSend(NativePtr, , access);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAccess, (ulong)access);
         }
 
         public void SetTextureType(MTLTextureType textureType)
         {
-            objc_msgSend(NativePtr, , textureType);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTextureType, (ulong)textureType);
         }
 
         public void SetConstantBlockAlignment(ulong constantBlockAlignment)
         {
-            objc_msgSend(NativePtr, , constantBlockAlignment);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setConstantBlockAlignment, constantBlockAlignment);
         }
 
         private static readonly Selector sel_argumentDescriptor = "argumentDescriptor";
@@ -344,16 +344,6 @@ namespace SharpMetal.Metal
         }
 
         public ulong MaximumConcurrentCompilationTaskCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maximumConcurrentCompilationTaskCount);
-
-        public static MTLDevice CreateSystemDefaultDevice()
-        {
-            throw new NotImplementedException();
-        }
-
-        public static NSArray CopyAllDevices()
-        {
-            throw new NotImplementedException();
-        }
 
         public MTLCommandQueue NewCommandQueue(ulong maxCommandBufferCount)
         {
@@ -517,7 +507,7 @@ namespace SharpMetal.Metal
 
         public void GetDefaultSamplePositions(MTLSamplePosition positions, ulong count)
         {
-            objc_msgSend(NativePtr, , positions, count);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_getDefaultSamplePositionscount, positions, count);
         }
 
         public MTLArgumentEncoder NewArgumentEncoder(NSArray arguments)
@@ -572,12 +562,12 @@ namespace SharpMetal.Metal
 
         public void ConvertSparsePixelRegions(MTLRegion pixelRegions, MTLRegion tileRegions, MTLSize tileSize, MTLSparseTextureRegionAlignmentMode mode, ulong numRegions)
         {
-            objc_msgSend(NativePtr, , pixelRegions, tileRegions, tileSize, mode, numRegions);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_convertSparsePixelRegionstoTileRegionswithTileSizealignmentModenumRegions, pixelRegions, tileRegions, tileSize, (ulong)mode, numRegions);
         }
 
         public void ConvertSparseTileRegions(MTLRegion tileRegions, MTLRegion pixelRegions, MTLSize tileSize, ulong numRegions)
         {
-            objc_msgSend(NativePtr, , tileRegions, pixelRegions, tileSize, numRegions);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_convertSparseTileRegionstoPixelRegionswithTileSizenumRegions, tileRegions, pixelRegions, tileSize, numRegions);
         }
 
         public ulong SparseTileSizeInBytes(MTLSparsePageSize sparsePageSize)
@@ -602,7 +592,7 @@ namespace SharpMetal.Metal
 
         public void SampleTimestamps(ulong cpuTimestamp, ulong gpuTimestamp)
         {
-            objc_msgSend(NativePtr, , cpuTimestamp, gpuTimestamp);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_sampleTimestampsgpuTimestamp, cpuTimestamp, gpuTimestamp);
         }
 
         public MTLArgumentEncoder NewArgumentEncoder(MTLBufferBinding bufferBinding)
@@ -662,7 +652,7 @@ namespace SharpMetal.Metal
 
         public void SetShouldMaximizeConcurrentCompilation(bool shouldMaximizeConcurrentCompilation)
         {
-            objc_msgSend(NativePtr, , shouldMaximizeConcurrentCompilation);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setShouldMaximizeConcurrentCompilation, shouldMaximizeConcurrentCompilation);
         }
 
         private static readonly Selector sel_name = "name";

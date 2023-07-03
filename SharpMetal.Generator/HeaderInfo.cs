@@ -127,6 +127,7 @@ namespace SharpMetal.Generator
                     line = line.Replace("_NS_EXPORT ", "");
                     if (StringUtils.IsValidFunctionSignature(line) && line.Contains("(") && line.Contains(";") && !line.Contains("extern \"C\"") && !line.Contains("::Private"))
                     {
+                        var rawName = line;
                         // These are static methods that aren't in a class
                         // Just so happens that one of these is incredibly important
                         line = StringUtils.FunctionSignautreCleanup(line);
@@ -157,7 +158,7 @@ namespace SharpMetal.Generator
                         if (line.Contains("()"))
                         {
                             // Function has no arguments
-                            method = new MethodInstance(returnType, name, "", true, new List<PropertyInstance>());
+                            method = new MethodInstance(returnType, name, rawName, true, new List<PropertyInstance>());
                         }
                         else
                         {
@@ -212,7 +213,7 @@ namespace SharpMetal.Generator
 
                             if (returnType != string.Empty)
                             {
-                                method = new MethodInstance(returnType, name, "", true, arguments);
+                                method = new MethodInstance(returnType, name, rawName, true, arguments);
                             }
                         }
 

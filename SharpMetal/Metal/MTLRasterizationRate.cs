@@ -24,7 +24,7 @@ namespace SharpMetal.Metal
 
         public void SetObject(NSNumber value, ulong index)
         {
-            objc_msgSend(NativePtr, , value, index);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setObjectatIndexedSubscript, value, index);
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
@@ -72,7 +72,7 @@ namespace SharpMetal.Metal
 
         public void SetSampleCount(MTLSize sampleCount)
         {
-            objc_msgSend(NativePtr, , sampleCount);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSampleCount, sampleCount);
         }
 
         private static readonly Selector sel_initWithSampleCount = "initWithSampleCount:";
@@ -106,7 +106,7 @@ namespace SharpMetal.Metal
 
         public void SetObject(MTLRasterizationRateLayerDescriptor layer, ulong layerIndex)
         {
-            objc_msgSend(NativePtr, , layer, layerIndex);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setObjectatIndexedSubscript, layer, layerIndex);
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
@@ -164,17 +164,17 @@ namespace SharpMetal.Metal
 
         public void SetLayer(MTLRasterizationRateLayerDescriptor layer, ulong layerIndex)
         {
-            objc_msgSend(NativePtr, , layer, layerIndex);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLayeratIndex, layer, layerIndex);
         }
 
         public void SetScreenSize(MTLSize screenSize)
         {
-            objc_msgSend(NativePtr, , screenSize);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setScreenSize, screenSize);
         }
 
         public void SetLabel(NSString label)
         {
-            objc_msgSend(NativePtr, , label);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, label);
         }
 
         private static readonly Selector sel_rasterizationRateMapDescriptorWithScreenSize = "rasterizationRateMapDescriptorWithScreenSize:";
@@ -211,7 +211,7 @@ namespace SharpMetal.Metal
 
         public void CopyParameterDataToBuffer(MTLBuffer buffer, ulong offset)
         {
-            objc_msgSend(NativePtr, , buffer, offset);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_copyParameterDataToBufferoffset, buffer, offset);
         }
 
         public MTLSize PhysicalSize(ulong layerIndex)

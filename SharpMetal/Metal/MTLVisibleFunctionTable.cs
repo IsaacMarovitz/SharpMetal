@@ -25,7 +25,7 @@ namespace SharpMetal.Metal
 
         public void SetFunctionCount(ulong functionCount)
         {
-            objc_msgSend(NativePtr, , functionCount);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctionCount, functionCount);
         }
 
         private static readonly Selector sel_visibleFunctionTableDescriptor = "visibleFunctionTableDescriptor";
@@ -44,12 +44,12 @@ namespace SharpMetal.Metal
 
         public void SetFunction(MTLFunctionHandle function, ulong index)
         {
-            objc_msgSend(NativePtr, , function, index);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctionatIndex, function, index);
         }
 
         public void SetFunctions(MTLFunctionHandle[] functions, NSRange range)
         {
-            objc_msgSend(NativePtr, , functions, range);
+            throw new NotImplementedException();
         }
 
         private static readonly Selector sel_gpuResourceID = "gpuResourceID";

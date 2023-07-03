@@ -79,32 +79,32 @@ namespace SharpMetal.Metal
 
         public void SetStencilCompareFunction(MTLCompareFunction stencilCompareFunction)
         {
-            objc_msgSend(NativePtr, , stencilCompareFunction);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStencilCompareFunction, (ulong)stencilCompareFunction);
         }
 
         public void SetStencilFailureOperation(MTLStencilOperation stencilFailureOperation)
         {
-            objc_msgSend(NativePtr, , stencilFailureOperation);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStencilFailureOperation, (ulong)stencilFailureOperation);
         }
 
         public void SetDepthFailureOperation(MTLStencilOperation depthFailureOperation)
         {
-            objc_msgSend(NativePtr, , depthFailureOperation);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthFailureOperation, (ulong)depthFailureOperation);
         }
 
         public void SetDepthStencilPassOperation(MTLStencilOperation depthStencilPassOperation)
         {
-            objc_msgSend(NativePtr, , depthStencilPassOperation);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthStencilPassOperation, (ulong)depthStencilPassOperation);
         }
 
         public void SetReadMask(uint readMask)
         {
-            objc_msgSend(NativePtr, , readMask);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setReadMask, readMask);
         }
 
         public void SetWriteMask(uint writeMask)
         {
-            objc_msgSend(NativePtr, , writeMask);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setWriteMask, writeMask);
         }
 
         private static readonly Selector sel_stencilCompareFunction = "stencilCompareFunction";
@@ -162,27 +162,27 @@ namespace SharpMetal.Metal
 
         public void SetDepthCompareFunction(MTLCompareFunction depthCompareFunction)
         {
-            objc_msgSend(NativePtr, , depthCompareFunction);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthCompareFunction, (ulong)depthCompareFunction);
         }
 
         public void SetDepthWriteEnabled(bool depthWriteEnabled)
         {
-            objc_msgSend(NativePtr, , depthWriteEnabled);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthWriteEnabled, depthWriteEnabled);
         }
 
         public void SetFrontFaceStencil(MTLStencilDescriptor frontFaceStencil)
         {
-            objc_msgSend(NativePtr, , frontFaceStencil);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFrontFaceStencil, frontFaceStencil);
         }
 
         public void SetBackFaceStencil(MTLStencilDescriptor backFaceStencil)
         {
-            objc_msgSend(NativePtr, , backFaceStencil);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBackFaceStencil, backFaceStencil);
         }
 
         public void SetLabel(NSString label)
         {
-            objc_msgSend(NativePtr, , label);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, label);
         }
 
         private static readonly Selector sel_depthCompareFunction = "depthCompareFunction";

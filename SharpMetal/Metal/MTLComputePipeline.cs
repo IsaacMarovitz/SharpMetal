@@ -114,67 +114,67 @@ namespace SharpMetal.Metal
 
         public void SetLabel(NSString label)
         {
-            objc_msgSend(NativePtr, , label);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, label);
         }
 
         public void SetComputeFunction(MTLFunction computeFunction)
         {
-            objc_msgSend(NativePtr, , computeFunction);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setComputeFunction, computeFunction);
         }
 
         public void SetThreadGroupSizeIsMultipleOfThreadExecutionWidth(bool threadGroupSizeIsMultipleOfThreadExecutionWidth)
         {
-            objc_msgSend(NativePtr, , threadGroupSizeIsMultipleOfThreadExecutionWidth);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setThreadGroupSizeIsMultipleOfThreadExecutionWidth, threadGroupSizeIsMultipleOfThreadExecutionWidth);
         }
 
         public void SetMaxTotalThreadsPerThreadgroup(ulong maxTotalThreadsPerThreadgroup)
         {
-            objc_msgSend(NativePtr, , maxTotalThreadsPerThreadgroup);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxTotalThreadsPerThreadgroup, maxTotalThreadsPerThreadgroup);
         }
 
         public void SetStageInputDescriptor(MTLStageInputOutputDescriptor stageInputDescriptor)
         {
-            objc_msgSend(NativePtr, , stageInputDescriptor);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStageInputDescriptor, stageInputDescriptor);
         }
 
         public void SetSupportIndirectCommandBuffers(bool supportIndirectCommandBuffers)
         {
-            objc_msgSend(NativePtr, , supportIndirectCommandBuffers);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSupportIndirectCommandBuffers, supportIndirectCommandBuffers);
         }
 
         public void SetInsertLibraries(NSArray insertLibraries)
         {
-            objc_msgSend(NativePtr, , insertLibraries);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInsertLibraries, insertLibraries);
         }
 
         public void SetPreloadedLibraries(NSArray preloadedLibraries)
         {
-            objc_msgSend(NativePtr, , preloadedLibraries);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPreloadedLibraries, preloadedLibraries);
         }
 
         public void SetBinaryArchives(NSArray binaryArchives)
         {
-            objc_msgSend(NativePtr, , binaryArchives);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBinaryArchives, binaryArchives);
         }
 
         public void Reset()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_reset);
         }
 
         public void SetLinkedFunctions(MTLLinkedFunctions linkedFunctions)
         {
-            objc_msgSend(NativePtr, , linkedFunctions);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLinkedFunctions, linkedFunctions);
         }
 
         public void SetSupportAddingBinaryFunctions(bool supportAddingBinaryFunctions)
         {
-            objc_msgSend(NativePtr, , supportAddingBinaryFunctions);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSupportAddingBinaryFunctions, supportAddingBinaryFunctions);
         }
 
         public void SetMaxCallStackDepth(ulong maxCallStackDepth)
         {
-            objc_msgSend(NativePtr, , maxCallStackDepth);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxCallStackDepth, maxCallStackDepth);
         }
 
         private static readonly Selector sel_label = "label";

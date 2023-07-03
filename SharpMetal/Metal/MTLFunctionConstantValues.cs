@@ -19,22 +19,22 @@ namespace SharpMetal.Metal
 
         public void SetConstantValue(IntPtr value, MTLDataType type, ulong index)
         {
-            objc_msgSend(NativePtr, , value, type, index);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setConstantValuetypeatIndex, value, (ulong)type, index);
         }
 
         public void SetConstantValues(IntPtr values, MTLDataType type, NSRange range)
         {
-            objc_msgSend(NativePtr, , values, type, range);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setConstantValuestypewithRange, values, (ulong)type, range);
         }
 
         public void SetConstantValue(IntPtr value, MTLDataType type, NSString name)
         {
-            objc_msgSend(NativePtr, , value, type, name);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setConstantValuetypewithName, value, (ulong)type, name);
         }
 
         public void Reset()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_reset);
         }
 
         private static readonly Selector sel_setConstantValuetypeatIndex = "setConstantValue:type:atIndex:";

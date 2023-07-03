@@ -25,47 +25,47 @@ namespace SharpMetal.Metal
 
         public void SetLabel(NSString label)
         {
-            objc_msgSend(NativePtr, , label);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, label);
         }
 
         public void SetArgumentBuffer(MTLBuffer argumentBuffer, ulong offset)
         {
-            objc_msgSend(NativePtr, , argumentBuffer, offset);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setArgumentBufferoffset, argumentBuffer, offset);
         }
 
         public void SetArgumentBuffer(MTLBuffer argumentBuffer, ulong startOffset, ulong arrayElement)
         {
-            objc_msgSend(NativePtr, , argumentBuffer, startOffset, arrayElement);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setArgumentBufferstartOffsetarrayElement, argumentBuffer, startOffset, arrayElement);
         }
 
         public void SetBuffer(MTLBuffer buffer, ulong offset, ulong index)
         {
-            objc_msgSend(NativePtr, , buffer, offset, index);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBufferoffsetatIndex, buffer, offset, index);
         }
 
         public void SetBuffers(MTLBuffer[] buffers, ulong[] offsets, NSRange range)
         {
-            objc_msgSend(NativePtr, , buffers, offsets, range);
+            throw new NotImplementedException();
         }
 
         public void SetTexture(MTLTexture texture, ulong index)
         {
-            objc_msgSend(NativePtr, , texture, index);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTextureatIndex, texture, index);
         }
 
         public void SetTextures(MTLTexture[] textures, NSRange range)
         {
-            objc_msgSend(NativePtr, , textures, range);
+            throw new NotImplementedException();
         }
 
         public void SetSamplerState(MTLSamplerState sampler, ulong index)
         {
-            objc_msgSend(NativePtr, , sampler, index);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSamplerStateatIndex, sampler, index);
         }
 
         public void SetSamplerStates(MTLSamplerState[] samplers, NSRange range)
         {
-            objc_msgSend(NativePtr, , samplers, range);
+            throw new NotImplementedException();
         }
 
         public IntPtr ConstantData(ulong index)
@@ -75,37 +75,37 @@ namespace SharpMetal.Metal
 
         public void SetRenderPipelineState(MTLRenderPipelineState pipeline, ulong index)
         {
-            objc_msgSend(NativePtr, , pipeline, index);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRenderPipelineStateatIndex, pipeline, index);
         }
 
         public void SetRenderPipelineStates(MTLRenderPipelineState[] pipelines, NSRange range)
         {
-            objc_msgSend(NativePtr, , pipelines, range);
+            throw new NotImplementedException();
         }
 
         public void SetComputePipelineState(MTLComputePipelineState pipeline, ulong index)
         {
-            objc_msgSend(NativePtr, , pipeline, index);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setComputePipelineStateatIndex, pipeline, index);
         }
 
         public void SetComputePipelineStates(MTLComputePipelineState[] pipelines, NSRange range)
         {
-            objc_msgSend(NativePtr, , pipelines, range);
+            throw new NotImplementedException();
         }
 
         public void SetIndirectCommandBuffer(MTLIndirectCommandBuffer indirectCommandBuffer, ulong index)
         {
-            objc_msgSend(NativePtr, , indirectCommandBuffer, index);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIndirectCommandBufferatIndex, indirectCommandBuffer, index);
         }
 
         public void SetIndirectCommandBuffers(MTLIndirectCommandBuffer[] buffers, NSRange range)
         {
-            objc_msgSend(NativePtr, , buffers, range);
+            throw new NotImplementedException();
         }
 
         public void SetAccelerationStructure(MTLAccelerationStructure accelerationStructure, ulong index)
         {
-            objc_msgSend(NativePtr, , accelerationStructure, index);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAccelerationStructureatIndex, accelerationStructure, index);
         }
 
         public MTLArgumentEncoder NewArgumentEncoder(ulong index)
@@ -115,22 +115,22 @@ namespace SharpMetal.Metal
 
         public void SetVisibleFunctionTable(MTLVisibleFunctionTable visibleFunctionTable, ulong index)
         {
-            objc_msgSend(NativePtr, , visibleFunctionTable, index);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVisibleFunctionTableatIndex, visibleFunctionTable, index);
         }
 
         public void SetVisibleFunctionTables(MTLVisibleFunctionTable[] visibleFunctionTables, NSRange range)
         {
-            objc_msgSend(NativePtr, , visibleFunctionTables, range);
+            throw new NotImplementedException();
         }
 
         public void SetIntersectionFunctionTable(MTLIntersectionFunctionTable intersectionFunctionTable, ulong index)
         {
-            objc_msgSend(NativePtr, , intersectionFunctionTable, index);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIntersectionFunctionTableatIndex, intersectionFunctionTable, index);
         }
 
         public void SetIntersectionFunctionTables(MTLIntersectionFunctionTable[] intersectionFunctionTables, NSRange range)
         {
-            objc_msgSend(NativePtr, , intersectionFunctionTables, range);
+            throw new NotImplementedException();
         }
 
         private static readonly Selector sel_device = "device";

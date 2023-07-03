@@ -114,21 +114,21 @@ namespace SharpMetal.Generator
             }
 
             // Sometimes these methods are super abandoned
-            if (headerInfo.InFlightUnscopedMethods.Any())
-            {
-                context.WriteLine($"public static class {fileName}");
-                context.EnterScope();
-                for (int i = 0; i < headerInfo.InFlightUnscopedMethods.Count; i++)
-                {
-                    headerInfo.InFlightUnscopedMethods[i].Generate(context, false);
-
-                    if (i != headerInfo.InFlightUnscopedMethods.Count - 1)
-                    {
-                        context.WriteLine();
-                    }
-                }
-                context.LeaveScope();
-            }
+            // if (headerInfo.InFlightUnscopedMethods.Any())
+            // {
+            //     context.WriteLine($"public static class {fileName}");
+            //     context.EnterScope();
+            //     for (int i = 0; i < headerInfo.InFlightUnscopedMethods.Count; i++)
+            //     {
+            //         headerInfo.InFlightUnscopedMethods[i].Generate(context, false);
+            //
+            //         if (i != headerInfo.InFlightUnscopedMethods.Count - 1)
+            //         {
+            //             context.WriteLine();
+            //         }
+            //     }
+            //     context.LeaveScope();
+            // }
 
             context.LeaveScope();
         }

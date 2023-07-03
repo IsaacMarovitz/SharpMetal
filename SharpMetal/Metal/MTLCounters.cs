@@ -135,22 +135,22 @@ namespace SharpMetal.Metal
 
         public void SetCounterSet(MTLCounterSet counterSet)
         {
-            objc_msgSend(NativePtr, , counterSet);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setCounterSet, counterSet);
         }
 
         public void SetLabel(NSString label)
         {
-            objc_msgSend(NativePtr, , label);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, label);
         }
 
         public void SetStorageMode(MTLStorageMode storageMode)
         {
-            objc_msgSend(NativePtr, , storageMode);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStorageMode, (ulong)storageMode);
         }
 
         public void SetSampleCount(ulong sampleCount)
         {
-            objc_msgSend(NativePtr, , sampleCount);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSampleCount, sampleCount);
         }
 
         private static readonly Selector sel_counterSet = "counterSet";

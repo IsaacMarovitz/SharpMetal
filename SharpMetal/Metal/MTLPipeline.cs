@@ -32,7 +32,7 @@ namespace SharpMetal.Metal
 
         public void SetMutability(MTLMutability mutability)
         {
-            objc_msgSend(NativePtr, , mutability);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMutability, (ulong)mutability);
         }
 
         private static readonly Selector sel_mutability = "mutability";
@@ -59,7 +59,7 @@ namespace SharpMetal.Metal
 
         public void SetObject(MTLPipelineBufferDescriptor buffer, ulong bufferIndex)
         {
-            objc_msgSend(NativePtr, , buffer, bufferIndex);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setObjectatIndexedSubscript, buffer, bufferIndex);
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";

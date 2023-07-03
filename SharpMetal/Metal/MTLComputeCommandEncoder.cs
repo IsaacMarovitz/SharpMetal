@@ -40,172 +40,172 @@ namespace SharpMetal.Metal
 
         public void SetComputePipelineState(MTLComputePipelineState state)
         {
-            objc_msgSend(NativePtr, , state);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setComputePipelineState, state);
         }
 
         public void SetBytes(IntPtr bytes, ulong length, ulong index)
         {
-            objc_msgSend(NativePtr, , bytes, length, index);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setByteslengthatIndex, bytes, length, index);
         }
 
         public void SetBuffer(MTLBuffer buffer, ulong offset, ulong index)
         {
-            objc_msgSend(NativePtr, , buffer, offset, index);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBufferoffsetatIndex, buffer, offset, index);
         }
 
         public void SetBufferOffset(ulong offset, ulong index)
         {
-            objc_msgSend(NativePtr, , offset, index);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBufferOffsetatIndex, offset, index);
         }
 
         public void SetBuffers(MTLBuffer[] buffers, ulong[] offsets, NSRange range)
         {
-            objc_msgSend(NativePtr, , buffers, offsets, range);
+            throw new NotImplementedException();
         }
 
         public void SetVisibleFunctionTable(MTLVisibleFunctionTable visibleFunctionTable, ulong bufferIndex)
         {
-            objc_msgSend(NativePtr, , visibleFunctionTable, bufferIndex);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVisibleFunctionTableatBufferIndex, visibleFunctionTable, bufferIndex);
         }
 
         public void SetVisibleFunctionTables(MTLVisibleFunctionTable[] visibleFunctionTables, NSRange range)
         {
-            objc_msgSend(NativePtr, , visibleFunctionTables, range);
+            throw new NotImplementedException();
         }
 
         public void SetIntersectionFunctionTable(MTLIntersectionFunctionTable intersectionFunctionTable, ulong bufferIndex)
         {
-            objc_msgSend(NativePtr, , intersectionFunctionTable, bufferIndex);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIntersectionFunctionTableatBufferIndex, intersectionFunctionTable, bufferIndex);
         }
 
         public void SetIntersectionFunctionTables(MTLIntersectionFunctionTable[] intersectionFunctionTables, NSRange range)
         {
-            objc_msgSend(NativePtr, , intersectionFunctionTables, range);
+            throw new NotImplementedException();
         }
 
         public void SetAccelerationStructure(MTLAccelerationStructure accelerationStructure, ulong bufferIndex)
         {
-            objc_msgSend(NativePtr, , accelerationStructure, bufferIndex);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAccelerationStructureatBufferIndex, accelerationStructure, bufferIndex);
         }
 
         public void SetTexture(MTLTexture texture, ulong index)
         {
-            objc_msgSend(NativePtr, , texture, index);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTextureatIndex, texture, index);
         }
 
         public void SetTextures(MTLTexture[] textures, NSRange range)
         {
-            objc_msgSend(NativePtr, , textures, range);
+            throw new NotImplementedException();
         }
 
         public void SetSamplerState(MTLSamplerState sampler, ulong index)
         {
-            objc_msgSend(NativePtr, , sampler, index);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSamplerStateatIndex, sampler, index);
         }
 
         public void SetSamplerStates(MTLSamplerState[] samplers, NSRange range)
         {
-            objc_msgSend(NativePtr, , samplers, range);
+            throw new NotImplementedException();
         }
 
         public void SetSamplerState(MTLSamplerState sampler, float lodMinClamp, float lodMaxClamp, ulong index)
         {
-            objc_msgSend(NativePtr, , sampler, lodMinClamp, lodMaxClamp, index);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSamplerStatelodMinClamplodMaxClampatIndex, sampler, lodMinClamp, lodMaxClamp, index);
         }
 
         public void SetSamplerStates(MTLSamplerState[] samplers, float[] lodMinClamps, float[] lodMaxClamps, NSRange range)
         {
-            objc_msgSend(NativePtr, , samplers, lodMinClamps, lodMaxClamps, range);
+            throw new NotImplementedException();
         }
 
         public void SetThreadgroupMemoryLength(ulong length, ulong index)
         {
-            objc_msgSend(NativePtr, , length, index);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setThreadgroupMemoryLengthatIndex, length, index);
         }
 
         public void SetImageblockWidth(ulong width, ulong height)
         {
-            objc_msgSend(NativePtr, , width, height);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setImageblockWidthheight, width, height);
         }
 
         public void SetStageInRegion(MTLRegion region)
         {
-            objc_msgSend(NativePtr, , region);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStageInRegion, region);
         }
 
         public void SetStageInRegion(MTLBuffer indirectBuffer, ulong indirectBufferOffset)
         {
-            objc_msgSend(NativePtr, , indirectBuffer, indirectBufferOffset);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStageInRegionWithIndirectBufferindirectBufferOffset, indirectBuffer, indirectBufferOffset);
         }
 
         public void DispatchThreadgroups(MTLSize threadgroupsPerGrid, MTLSize threadsPerThreadgroup)
         {
-            objc_msgSend(NativePtr, , threadgroupsPerGrid, threadsPerThreadgroup);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_dispatchThreadgroupsthreadsPerThreadgroup, threadgroupsPerGrid, threadsPerThreadgroup);
         }
 
         public void DispatchThreadgroups(MTLBuffer indirectBuffer, ulong indirectBufferOffset, MTLSize threadsPerThreadgroup)
         {
-            objc_msgSend(NativePtr, , indirectBuffer, indirectBufferOffset, threadsPerThreadgroup);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_dispatchThreadgroupsWithIndirectBufferindirectBufferOffsetthreadsPerThreadgroup, indirectBuffer, indirectBufferOffset, threadsPerThreadgroup);
         }
 
         public void DispatchThreads(MTLSize threadsPerGrid, MTLSize threadsPerThreadgroup)
         {
-            objc_msgSend(NativePtr, , threadsPerGrid, threadsPerThreadgroup);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_dispatchThreadsthreadsPerThreadgroup, threadsPerGrid, threadsPerThreadgroup);
         }
 
         public void UpdateFence(MTLFence fence)
         {
-            objc_msgSend(NativePtr, , fence);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_updateFence, fence);
         }
 
         public void WaitForFence(MTLFence fence)
         {
-            objc_msgSend(NativePtr, , fence);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_waitForFence, fence);
         }
 
         public void UseResource(MTLResource resource, MTLResourceUsage usage)
         {
-            objc_msgSend(NativePtr, , resource, usage);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_useResourceusage, resource, (ulong)usage);
         }
 
         public void UseResources(MTLResource[] resources, ulong count, MTLResourceUsage usage)
         {
-            objc_msgSend(NativePtr, , resources, count, usage);
+            throw new NotImplementedException();
         }
 
         public void UseHeap(MTLHeap heap)
         {
-            objc_msgSend(NativePtr, , heap);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_useHeap, heap);
         }
 
         public void UseHeaps(MTLHeap[] heaps, ulong count)
         {
-            objc_msgSend(NativePtr, , heaps, count);
+            throw new NotImplementedException();
         }
 
         public void ExecuteCommandsInBuffer(MTLIndirectCommandBuffer indirectCommandBuffer, NSRange executionRange)
         {
-            objc_msgSend(NativePtr, , indirectCommandBuffer, executionRange);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_executeCommandsInBufferwithRange, indirectCommandBuffer, executionRange);
         }
 
         public void ExecuteCommandsInBuffer(MTLIndirectCommandBuffer indirectCommandbuffer, MTLBuffer indirectRangeBuffer, ulong indirectBufferOffset)
         {
-            objc_msgSend(NativePtr, , indirectCommandbuffer, indirectRangeBuffer, indirectBufferOffset);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_executeCommandsInBufferindirectBufferindirectBufferOffset, indirectCommandbuffer, indirectRangeBuffer, indirectBufferOffset);
         }
 
         public void MemoryBarrier(MTLBarrierScope scope)
         {
-            objc_msgSend(NativePtr, , scope);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_memoryBarrierWithScope, (ulong)scope);
         }
 
         public void MemoryBarrier(MTLResource[] resources, ulong count)
         {
-            objc_msgSend(NativePtr, , resources, count);
+            throw new NotImplementedException();
         }
 
         public void SampleCountersInBuffer(MTLCounterSampleBuffer sampleBuffer, ulong sampleIndex, bool barrier)
         {
-            objc_msgSend(NativePtr, , sampleBuffer, sampleIndex, barrier);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_sampleCountersInBufferatSampleIndexwithBarrier, sampleBuffer, sampleIndex, barrier);
         }
 
         private static readonly Selector sel_dispatchType = "dispatchType";

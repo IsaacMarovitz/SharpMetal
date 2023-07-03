@@ -23,17 +23,17 @@ namespace SharpMetal.Metal
 
         public void SetLabel(NSString pLabel)
         {
-            objc_msgSend(NativePtr, , pLabel);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, pLabel);
         }
 
         public void BeginScope()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_beginScope);
         }
 
         public void EndScope()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_endScope);
         }
 
         private static readonly Selector sel_device = "device";

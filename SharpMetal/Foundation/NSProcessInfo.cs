@@ -80,7 +80,7 @@ namespace SharpMetal.Foundation
 
         public void SetProcessName(NSString pString)
         {
-            objc_msgSend(NativePtr, , pString);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setProcessName, pString);
         }
 
         public bool IsOperatingSystemAtLeastVersion(NSOperatingSystemVersion version)
@@ -90,27 +90,27 @@ namespace SharpMetal.Foundation
 
         public void DisableSuddenTermination()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_disableSuddenTermination);
         }
 
         public void EnableSuddenTermination()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_enableSuddenTermination);
         }
 
         public void DisableAutomaticTermination(NSString pReason)
         {
-            objc_msgSend(NativePtr, , pReason);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_disableAutomaticTermination, pReason);
         }
 
         public void EnableAutomaticTermination(NSString pReason)
         {
-            objc_msgSend(NativePtr, , pReason);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_enableAutomaticTermination, pReason);
         }
 
         public void SetAutomaticTerminationSupportEnabled(bool enabled)
         {
-            objc_msgSend(NativePtr, , enabled);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAutomaticTerminationSupportEnabled, enabled);
         }
 
         public NSObject BeginActivity(NSActivityOptions options, NSString pReason)
@@ -120,7 +120,7 @@ namespace SharpMetal.Foundation
 
         public void EndActivity(NSObject pActivity)
         {
-            objc_msgSend(NativePtr, , pActivity);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_endActivity, pActivity);
         }
 
         private static readonly Selector sel_processInfo = "processInfo";

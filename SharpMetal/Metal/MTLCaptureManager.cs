@@ -50,17 +50,17 @@ namespace SharpMetal.Metal
 
         public void SetCaptureObject(IntPtr captureObject)
         {
-            objc_msgSend(NativePtr, , captureObject);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setCaptureObject, captureObject);
         }
 
         public void SetDestination(MTLCaptureDestination destination)
         {
-            objc_msgSend(NativePtr, , destination);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDestination, (long)destination);
         }
 
         public void SetOutputURL(NSURL outputURL)
         {
-            objc_msgSend(NativePtr, , outputURL);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOutputURL, outputURL);
         }
 
         private static readonly Selector sel_captureObject = "captureObject";
@@ -119,27 +119,27 @@ namespace SharpMetal.Metal
 
         public void StartCapture(MTLDevice device)
         {
-            objc_msgSend(NativePtr, , device);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_startCaptureWithDevice, device);
         }
 
         public void StartCapture(MTLCommandQueue commandQueue)
         {
-            objc_msgSend(NativePtr, , commandQueue);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_startCaptureWithCommandQueue, commandQueue);
         }
 
         public void StartCapture(MTLCaptureScope captureScope)
         {
-            objc_msgSend(NativePtr, , captureScope);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_startCaptureWithScope, captureScope);
         }
 
         public void StopCapture()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_stopCapture);
         }
 
         public void SetDefaultCaptureScope(MTLCaptureScope defaultCaptureScope)
         {
-            objc_msgSend(NativePtr, , defaultCaptureScope);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDefaultCaptureScope, defaultCaptureScope);
         }
 
         private static readonly Selector sel_sharedCaptureManager = "sharedCaptureManager";

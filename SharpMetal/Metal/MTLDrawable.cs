@@ -17,17 +17,17 @@ namespace SharpMetal.Metal
 
         public void Present()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_present);
         }
 
         public void PresentAtTime(IntPtr presentationTime)
         {
-            objc_msgSend(NativePtr, , presentationTime);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_presentAtTime, presentationTime);
         }
 
         public void PresentAfterMinimumDuration(IntPtr duration)
         {
-            objc_msgSend(NativePtr, , duration);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_presentAfterMinimumDuration, duration);
         }
 
         private static readonly Selector sel_present = "present";

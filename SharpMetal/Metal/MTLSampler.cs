@@ -139,77 +139,77 @@ namespace SharpMetal.Metal
 
         public void SetMinFilter(MTLSamplerMinMagFilter minFilter)
         {
-            objc_msgSend(NativePtr, , minFilter);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMinFilter, (ulong)minFilter);
         }
 
         public void SetMagFilter(MTLSamplerMinMagFilter magFilter)
         {
-            objc_msgSend(NativePtr, , magFilter);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMagFilter, (ulong)magFilter);
         }
 
         public void SetMipFilter(MTLSamplerMipFilter mipFilter)
         {
-            objc_msgSend(NativePtr, , mipFilter);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMipFilter, (ulong)mipFilter);
         }
 
         public void SetMaxAnisotropy(ulong maxAnisotropy)
         {
-            objc_msgSend(NativePtr, , maxAnisotropy);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxAnisotropy, maxAnisotropy);
         }
 
         public void SetSAddressMode(MTLSamplerAddressMode sAddressMode)
         {
-            objc_msgSend(NativePtr, , sAddressMode);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSAddressMode, (ulong)sAddressMode);
         }
 
         public void SetTAddressMode(MTLSamplerAddressMode tAddressMode)
         {
-            objc_msgSend(NativePtr, , tAddressMode);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTAddressMode, (ulong)tAddressMode);
         }
 
         public void SetRAddressMode(MTLSamplerAddressMode rAddressMode)
         {
-            objc_msgSend(NativePtr, , rAddressMode);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRAddressMode, (ulong)rAddressMode);
         }
 
         public void SetBorderColor(MTLSamplerBorderColor borderColor)
         {
-            objc_msgSend(NativePtr, , borderColor);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBorderColor, (ulong)borderColor);
         }
 
         public void SetNormalizedCoordinates(bool normalizedCoordinates)
         {
-            objc_msgSend(NativePtr, , normalizedCoordinates);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setNormalizedCoordinates, normalizedCoordinates);
         }
 
         public void SetLodMinClamp(float lodMinClamp)
         {
-            objc_msgSend(NativePtr, , lodMinClamp);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLodMinClamp, lodMinClamp);
         }
 
         public void SetLodMaxClamp(float lodMaxClamp)
         {
-            objc_msgSend(NativePtr, , lodMaxClamp);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLodMaxClamp, lodMaxClamp);
         }
 
         public void SetLodAverage(bool lodAverage)
         {
-            objc_msgSend(NativePtr, , lodAverage);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLodAverage, lodAverage);
         }
 
         public void SetCompareFunction(MTLCompareFunction compareFunction)
         {
-            objc_msgSend(NativePtr, , compareFunction);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setCompareFunction, (ulong)compareFunction);
         }
 
         public void SetSupportArgumentBuffers(bool supportArgumentBuffers)
         {
-            objc_msgSend(NativePtr, , supportArgumentBuffers);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSupportArgumentBuffers, supportArgumentBuffers);
         }
 
         public void SetLabel(NSString label)
         {
-            objc_msgSend(NativePtr, , label);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, label);
         }
 
         private static readonly Selector sel_minFilter = "minFilter";

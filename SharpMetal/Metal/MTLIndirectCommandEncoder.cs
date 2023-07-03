@@ -13,42 +13,42 @@ namespace SharpMetal.Metal
 
         public void SetRenderPipelineState(MTLRenderPipelineState pipelineState)
         {
-            objc_msgSend(NativePtr, , pipelineState);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRenderPipelineState, pipelineState);
         }
 
         public void SetVertexBuffer(MTLBuffer buffer, ulong offset, ulong index)
         {
-            objc_msgSend(NativePtr, , buffer, offset, index);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexBufferoffsetatIndex, buffer, offset, index);
         }
 
         public void SetFragmentBuffer(MTLBuffer buffer, ulong offset, ulong index)
         {
-            objc_msgSend(NativePtr, , buffer, offset, index);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFragmentBufferoffsetatIndex, buffer, offset, index);
         }
 
         public void DrawPatches(ulong numberOfPatchControlPoints, ulong patchStart, ulong patchCount, MTLBuffer patchIndexBuffer, ulong patchIndexBufferOffset, ulong instanceCount, ulong baseInstance, MTLBuffer buffer, ulong offset, ulong instanceStride)
         {
-            objc_msgSend(NativePtr, , numberOfPatchControlPoints, patchStart, patchCount, patchIndexBuffer, patchIndexBufferOffset, instanceCount, baseInstance, buffer, offset, instanceStride);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_drawPatchespatchStartpatchCountpatchIndexBufferpatchIndexBufferOffsetinstanceCountbaseInstancetessellationFactorBuffertessellationFactorBufferOffsettessellationFactorBufferInstanceStride, numberOfPatchControlPoints, patchStart, patchCount, patchIndexBuffer, patchIndexBufferOffset, instanceCount, baseInstance, buffer, offset, instanceStride);
         }
 
         public void DrawIndexedPatches(ulong numberOfPatchControlPoints, ulong patchStart, ulong patchCount, MTLBuffer patchIndexBuffer, ulong patchIndexBufferOffset, MTLBuffer controlPointIndexBuffer, ulong controlPointIndexBufferOffset, ulong instanceCount, ulong baseInstance, MTLBuffer buffer, ulong offset, ulong instanceStride)
         {
-            objc_msgSend(NativePtr, , numberOfPatchControlPoints, patchStart, patchCount, patchIndexBuffer, patchIndexBufferOffset, controlPointIndexBuffer, controlPointIndexBufferOffset, instanceCount, baseInstance, buffer, offset, instanceStride);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_drawIndexedPatchespatchStartpatchCountpatchIndexBufferpatchIndexBufferOffsetcontrolPointIndexBuffercontrolPointIndexBufferOffsetinstanceCountbaseInstancetessellationFactorBuffertessellationFactorBufferOffsettessellationFactorBufferInstanceStride, numberOfPatchControlPoints, patchStart, patchCount, patchIndexBuffer, patchIndexBufferOffset, controlPointIndexBuffer, controlPointIndexBufferOffset, instanceCount, baseInstance, buffer, offset, instanceStride);
         }
 
         public void DrawPrimitives(MTLPrimitiveType primitiveType, ulong vertexStart, ulong vertexCount, ulong instanceCount, ulong baseInstance)
         {
-            objc_msgSend(NativePtr, , primitiveType, vertexStart, vertexCount, instanceCount, baseInstance);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_drawPrimitivesvertexStartvertexCountinstanceCountbaseInstance, (ulong)primitiveType, vertexStart, vertexCount, instanceCount, baseInstance);
         }
 
         public void DrawIndexedPrimitives(MTLPrimitiveType primitiveType, ulong indexCount, MTLIndexType indexType, MTLBuffer indexBuffer, ulong indexBufferOffset, ulong instanceCount, long baseVertex, ulong baseInstance)
         {
-            objc_msgSend(NativePtr, , primitiveType, indexCount, indexType, indexBuffer, indexBufferOffset, instanceCount, baseVertex, baseInstance);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_drawIndexedPrimitivesindexCountindexTypeindexBufferindexBufferOffsetinstanceCountbaseVertexbaseInstance, (ulong)primitiveType, indexCount, (ulong)indexType, indexBuffer, indexBufferOffset, instanceCount, baseVertex, baseInstance);
         }
 
         public void Reset()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_reset);
         }
 
         private static readonly Selector sel_setRenderPipelineState = "setRenderPipelineState:";
@@ -70,52 +70,52 @@ namespace SharpMetal.Metal
 
         public void SetComputePipelineState(MTLComputePipelineState pipelineState)
         {
-            objc_msgSend(NativePtr, , pipelineState);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setComputePipelineState, pipelineState);
         }
 
         public void SetKernelBuffer(MTLBuffer buffer, ulong offset, ulong index)
         {
-            objc_msgSend(NativePtr, , buffer, offset, index);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setKernelBufferoffsetatIndex, buffer, offset, index);
         }
 
         public void ConcurrentDispatchThreadgroups(MTLSize threadgroupsPerGrid, MTLSize threadsPerThreadgroup)
         {
-            objc_msgSend(NativePtr, , threadgroupsPerGrid, threadsPerThreadgroup);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_concurrentDispatchThreadgroupsthreadsPerThreadgroup, threadgroupsPerGrid, threadsPerThreadgroup);
         }
 
         public void ConcurrentDispatchThreads(MTLSize threadsPerGrid, MTLSize threadsPerThreadgroup)
         {
-            objc_msgSend(NativePtr, , threadsPerGrid, threadsPerThreadgroup);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_concurrentDispatchThreadsthreadsPerThreadgroup, threadsPerGrid, threadsPerThreadgroup);
         }
 
         public void SetBarrier()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBarrier);
         }
 
         public void ClearBarrier()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_clearBarrier);
         }
 
         public void SetImageblockWidth(ulong width, ulong height)
         {
-            objc_msgSend(NativePtr, , width, height);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setImageblockWidthheight, width, height);
         }
 
         public void Reset()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_reset);
         }
 
         public void SetThreadgroupMemoryLength(ulong length, ulong index)
         {
-            objc_msgSend(NativePtr, , length, index);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setThreadgroupMemoryLengthatIndex, length, index);
         }
 
         public void SetStageInRegion(MTLRegion region)
         {
-            objc_msgSend(NativePtr, , region);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStageInRegion, region);
         }
 
         private static readonly Selector sel_setComputePipelineState = "setComputePipelineState:";

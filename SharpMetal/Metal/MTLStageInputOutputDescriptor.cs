@@ -112,17 +112,17 @@ namespace SharpMetal.Metal
 
         public void SetStride(ulong stride)
         {
-            objc_msgSend(NativePtr, , stride);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStride, stride);
         }
 
         public void SetStepFunction(MTLStepFunction stepFunction)
         {
-            objc_msgSend(NativePtr, , stepFunction);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStepFunction, (ulong)stepFunction);
         }
 
         public void SetStepRate(ulong stepRate)
         {
-            objc_msgSend(NativePtr, , stepRate);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStepRate, stepRate);
         }
 
         private static readonly Selector sel_stride = "stride";
@@ -153,7 +153,7 @@ namespace SharpMetal.Metal
 
         public void SetObject(MTLBufferLayoutDescriptor bufferDesc, ulong index)
         {
-            objc_msgSend(NativePtr, , bufferDesc, index);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setObjectatIndexedSubscript, bufferDesc, index);
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
@@ -193,17 +193,17 @@ namespace SharpMetal.Metal
 
         public void SetFormat(MTLAttributeFormat format)
         {
-            objc_msgSend(NativePtr, , format);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFormat, (ulong)format);
         }
 
         public void SetOffset(ulong offset)
         {
-            objc_msgSend(NativePtr, , offset);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOffset, offset);
         }
 
         public void SetBufferIndex(ulong bufferIndex)
         {
-            objc_msgSend(NativePtr, , bufferIndex);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBufferIndex, bufferIndex);
         }
 
         private static readonly Selector sel_format = "format";
@@ -234,7 +234,7 @@ namespace SharpMetal.Metal
 
         public void SetObject(MTLAttributeDescriptor attributeDesc, ulong index)
         {
-            objc_msgSend(NativePtr, , attributeDesc, index);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setObjectatIndexedSubscript, attributeDesc, index);
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
@@ -272,17 +272,17 @@ namespace SharpMetal.Metal
 
         public void SetIndexType(MTLIndexType indexType)
         {
-            objc_msgSend(NativePtr, , indexType);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIndexType, (ulong)indexType);
         }
 
         public void SetIndexBufferIndex(ulong indexBufferIndex)
         {
-            objc_msgSend(NativePtr, , indexBufferIndex);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIndexBufferIndex, indexBufferIndex);
         }
 
         public void Reset()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_reset);
         }
 
         private static readonly Selector sel_stageInputOutputDescriptor = "stageInputOutputDescriptor";

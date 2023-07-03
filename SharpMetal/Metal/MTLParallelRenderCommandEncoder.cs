@@ -15,32 +15,32 @@ namespace SharpMetal.Metal
 
         public void SetColorStoreAction(MTLStoreAction storeAction, ulong colorAttachmentIndex)
         {
-            objc_msgSend(NativePtr, , storeAction, colorAttachmentIndex);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setColorStoreActionatIndex, (ulong)storeAction, colorAttachmentIndex);
         }
 
         public void SetDepthStoreAction(MTLStoreAction storeAction)
         {
-            objc_msgSend(NativePtr, , storeAction);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthStoreAction, (ulong)storeAction);
         }
 
         public void SetStencilStoreAction(MTLStoreAction storeAction)
         {
-            objc_msgSend(NativePtr, , storeAction);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStencilStoreAction, (ulong)storeAction);
         }
 
         public void SetColorStoreActionOptions(MTLStoreActionOptions storeActionOptions, ulong colorAttachmentIndex)
         {
-            objc_msgSend(NativePtr, , storeActionOptions, colorAttachmentIndex);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setColorStoreActionOptionsatIndex, (ulong)storeActionOptions, colorAttachmentIndex);
         }
 
         public void SetDepthStoreActionOptions(MTLStoreActionOptions storeActionOptions)
         {
-            objc_msgSend(NativePtr, , storeActionOptions);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthStoreActionOptions, (ulong)storeActionOptions);
         }
 
         public void SetStencilStoreActionOptions(MTLStoreActionOptions storeActionOptions)
         {
-            objc_msgSend(NativePtr, , storeActionOptions);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStencilStoreActionOptions, (ulong)storeActionOptions);
         }
 
         private static readonly Selector sel_renderCommandEncoder = "renderCommandEncoder";

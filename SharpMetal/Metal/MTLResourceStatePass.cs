@@ -37,17 +37,17 @@ namespace SharpMetal.Metal
 
         public void SetSampleBuffer(MTLCounterSampleBuffer sampleBuffer)
         {
-            objc_msgSend(NativePtr, , sampleBuffer);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSampleBuffer, sampleBuffer);
         }
 
         public void SetStartOfEncoderSampleIndex(ulong startOfEncoderSampleIndex)
         {
-            objc_msgSend(NativePtr, , startOfEncoderSampleIndex);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStartOfEncoderSampleIndex, startOfEncoderSampleIndex);
         }
 
         public void SetEndOfEncoderSampleIndex(ulong endOfEncoderSampleIndex)
         {
-            objc_msgSend(NativePtr, , endOfEncoderSampleIndex);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setEndOfEncoderSampleIndex, endOfEncoderSampleIndex);
         }
 
         private static readonly Selector sel_sampleBuffer = "sampleBuffer";
@@ -78,7 +78,7 @@ namespace SharpMetal.Metal
 
         public void SetObject(MTLResourceStatePassSampleBufferAttachmentDescriptor attachment, ulong attachmentIndex)
         {
-            objc_msgSend(NativePtr, , attachment, attachmentIndex);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setObjectatIndexedSubscript, attachment, attachmentIndex);
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";

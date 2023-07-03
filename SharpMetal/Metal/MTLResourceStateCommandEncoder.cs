@@ -45,32 +45,32 @@ namespace SharpMetal.Metal
 
         public void UpdateTextureMappings(MTLTexture texture, MTLSparseTextureMappingMode mode, MTLRegion regions, ulong mipLevels, ulong slices, ulong numRegions)
         {
-            objc_msgSend(NativePtr, , texture, mode, regions, mipLevels, slices, numRegions);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_updateTextureMappingsmoderegionsmipLevelsslicesnumRegions, texture, (ulong)mode, regions, mipLevels, slices, numRegions);
         }
 
         public void UpdateTextureMapping(MTLTexture texture, MTLSparseTextureMappingMode mode, MTLRegion region, ulong mipLevel, ulong slice)
         {
-            objc_msgSend(NativePtr, , texture, mode, region, mipLevel, slice);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_updateTextureMappingmoderegionmipLevelslice, texture, (ulong)mode, region, mipLevel, slice);
         }
 
         public void UpdateTextureMapping(MTLTexture texture, MTLSparseTextureMappingMode mode, MTLBuffer indirectBuffer, ulong indirectBufferOffset)
         {
-            objc_msgSend(NativePtr, , texture, mode, indirectBuffer, indirectBufferOffset);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_updateTextureMappingmodeindirectBufferindirectBufferOffset, texture, (ulong)mode, indirectBuffer, indirectBufferOffset);
         }
 
         public void UpdateFence(MTLFence fence)
         {
-            objc_msgSend(NativePtr, , fence);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_updateFence, fence);
         }
 
         public void WaitForFence(MTLFence fence)
         {
-            objc_msgSend(NativePtr, , fence);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_waitForFence, fence);
         }
 
         public void MoveTextureMappingsFromTexture(MTLTexture sourceTexture, ulong sourceSlice, ulong sourceLevel, MTLOrigin sourceOrigin, MTLSize sourceSize, MTLTexture destinationTexture, ulong destinationSlice, ulong destinationLevel, MTLOrigin destinationOrigin)
         {
-            objc_msgSend(NativePtr, , sourceTexture, sourceSlice, sourceLevel, sourceOrigin, sourceSize, destinationTexture, destinationSlice, destinationLevel, destinationOrigin);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_moveTextureMappingsFromTexturesourceSlicesourceLevelsourceOriginsourceSizetoTexturedestinationSlicedestinationLeveldestinationOrigin, sourceTexture, sourceSlice, sourceLevel, sourceOrigin, sourceSize, destinationTexture, destinationSlice, destinationLevel, destinationOrigin);
         }
 
         private static readonly Selector sel_updateTextureMappingsmoderegionsmipLevelsslicesnumRegions = "updateTextureMappings:mode:regions:mipLevels:slices:numRegions:";

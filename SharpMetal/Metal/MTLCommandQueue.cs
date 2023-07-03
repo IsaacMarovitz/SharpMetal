@@ -23,7 +23,7 @@ namespace SharpMetal.Metal
 
         public void SetLabel(NSString label)
         {
-            objc_msgSend(NativePtr, , label);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, label);
         }
 
         public MTLCommandBuffer CommandBuffer(MTLCommandBufferDescriptor descriptor)
@@ -38,7 +38,7 @@ namespace SharpMetal.Metal
 
         public void InsertDebugCaptureBoundary()
         {
-            objc_msgSend(NativePtr, , );
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_insertDebugCaptureBoundary);
         }
 
         private static readonly Selector sel_label = "label";

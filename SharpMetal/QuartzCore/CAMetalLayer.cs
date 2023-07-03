@@ -35,22 +35,22 @@ namespace SharpMetal.QuartzCore
 
         public void SetDevice(MTLDevice device)
         {
-            objc_msgSend(NativePtr, , device);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDevice, device);
         }
 
         public void SetPixelFormat(MTLPixelFormat pixelFormat)
         {
-            objc_msgSend(NativePtr, , pixelFormat);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPixelFormat, (ulong)pixelFormat);
         }
 
         public void SetFramebufferOnly(bool framebufferOnly)
         {
-            objc_msgSend(NativePtr, , framebufferOnly);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFramebufferOnly, framebufferOnly);
         }
 
         public void SetDrawableSize(IntPtr drawableSize)
         {
-            objc_msgSend(NativePtr, , drawableSize);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDrawableSize, drawableSize);
         }
 
         private static readonly Selector sel_layer = "layer";
