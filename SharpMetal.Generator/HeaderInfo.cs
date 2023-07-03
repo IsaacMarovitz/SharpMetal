@@ -23,10 +23,12 @@ namespace SharpMetal.Generator
                     if (line.Contains("Foundation"))
                     {
                         IncludeFlags = IncludeFlags | IncludeFlags.Foundation;
-                    } else if (line.Contains("Metal"))
+                    }
+                    else if (line.Contains("Metal"))
                     {
                         IncludeFlags = IncludeFlags | IncludeFlags.Metal;
-                    } else if (line.Contains("QuartzCore"))
+                    }
+                    else if (line.Contains("QuartzCore"))
                     {
                         IncludeFlags = IncludeFlags | IncludeFlags.QuartzCore;
                     }
