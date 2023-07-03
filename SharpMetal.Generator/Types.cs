@@ -33,6 +33,8 @@ namespace SharpMetal.Generator
             { "Enumerator<_KeyType>", "NSEnumerator" },
             { "IOScratchBufferAllocator", "MTLIOScratchBufferAllocator" },
             { "IOCommandBuffer", "MTLIOCommandBuffer" },
+            { "IOCompressionMethod", "MTLIOCompressionMethod" },
+            { "IOCompressionStatus", "MTLIOCompressionStatus" },
 
             { "stdfunction<void>&", "IntPtr" },
             { "Object**", "IntPtr" },
@@ -58,6 +60,7 @@ namespace SharpMetal.Generator
             { "MTLAutoreleasedRenderPipelineReflection", "IntPtr" },
             { "MTLAutoreleasedArgument", "IntPtr" },
             { "Enumerator<Object>", "IntPtr" },
+            { "size_t", "IntPtr" },
 
             { "IntPtr", "IntPtr" },
             { "void", "void" },

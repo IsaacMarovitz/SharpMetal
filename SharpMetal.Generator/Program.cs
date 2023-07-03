@@ -103,10 +103,31 @@ namespace SharpMetal.Generator
             {
                 headerInfo.ClassInstances[i].Generate(enumCache, context);
 
-                if (i != headerInfo.ClassInstances.Count - 1)
+                if (headerInfo.InFlightUnscopedMethods.Any())
                 {
                     context.WriteLine();
                 }
+                else if (i != headerInfo.ClassInstances.Count - 1)
+                {
+                    context.WriteLine();
+                }
+            }
+
+            // Sometimes these methods are super abandoned
+            if (headerInfo.InFlightUnscopedMethods.Any())
+            {
+                context.WriteLine($"public static class {fileName}");
+                context.EnterScope();
+                for (int i = 0; i < headerInfo.InFlightUnscopedMethods.Count; i++)
+                {
+                    headerInfo.InFlightUnscopedMethods[i].Generate(context, false);
+
+                    if (i != headerInfo.InFlightUnscopedMethods.Count - 1)
+                    {
+                        context.WriteLine();
+                    }
+                }
+                context.LeaveScope();
             }
 
             context.LeaveScope();

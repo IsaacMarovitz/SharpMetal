@@ -6,10 +6,10 @@ namespace SharpMetal.Generator
     public class HeaderInfo
     {
         public IncludeFlags IncludeFlags = IncludeFlags.None;
-        public List<MethodInstance> NamespaceFunctions = new();
         public List<EnumInstance> EnumInstances = new();
         public List<ClassInstance> ClassInstances = new();
         public List<StructInstance> StructInstances = new();
+        public List<MethodInstance> InFlightUnscopedMethods = new();
 
         public HeaderInfo(string filePath)
         {
@@ -97,7 +97,8 @@ namespace SharpMetal.Generator
                 {
                     if (!line.Contains(';'))
                     {
-                        ClassInstances.Add(ClassInstance.Build(line, namespacePrefix, sr));
+                        ClassInstances.Add(ClassInstance.Build(line, namespacePrefix, sr, InFlightUnscopedMethods));
+                        InFlightUnscopedMethods.Clear();
                     }
                 }
                 else if (line.StartsWith("struct"))
@@ -128,7 +129,99 @@ namespace SharpMetal.Generator
                     {
                         // These are static methods that aren't in a class
                         // Just so happens that one of these is incredibly important
-                        Console.WriteLine($"UNPROCESSED LINE: {line}");
+                        line = StringUtils.FunctionSignautreCleanup(line);
+                        Console.WriteLine($"YES DADDY {line}");
+
+                        var info = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+                        var returnType = "";
+                        var name = "";
+                        var nameIndex = 0;
+                        MethodInstance method = null;
+
+                        for (int i = 0; i < info.Length; i++)
+                        {
+                            if (info[i].Contains("("))
+                            {
+                                // This element is the function name
+                                // everything before it is the returnType
+                                nameIndex = i;
+                                returnType = Types.ConvertType(string.Join(" ", info, 0, i), namespacePrefix);
+
+                                int index = info[i].IndexOf("(");
+                                if (index >= 0)
+                                {
+                                    name = info[i].Substring(0, index);
+                                }
+                            }
+                        }
+
+                        if (line.Contains("()"))
+                        {
+                            // Function has no arguments
+                            method = new MethodInstance(returnType, name, true, new List<PropertyInstance>());
+                        }
+                        else
+                        {
+                            var inputs = info[Range.StartAt(nameIndex)];
+                            var inputString = String.Join(" ", inputs);
+
+                            // Remove everything before and including (
+                            int startIndex = inputString.IndexOf("(");
+                            if (startIndex >= 0)
+                            {
+                                inputString = inputString.Substring(startIndex + 1);
+                            }
+
+                            // Remove everything after and include )
+                            int endIndex = inputString.IndexOf(")");
+                            if (endIndex >= 0)
+                            {
+                                inputString = inputString.Substring(0, endIndex);
+                            }
+
+                            var inputArguments = inputString.Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+                            List<PropertyInstance> arguments = new();
+
+                            foreach (var argument in inputArguments)
+                            {
+                                var array = argument.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+                                var argumentType = Types.ConvertType(string.Join(" ", array[..^1]), namespacePrefix);
+                                var argumentName = array.Last();
+
+                                // Fix array inputs
+                                // Might need to be NSArray
+                                if (argumentName.Contains("[]"))
+                                {
+                                    argumentType += "[]";
+                                    argumentName = argumentName.Replace("[]", "");
+                                }
+
+                                // String is a keyword in C#
+                                if (argumentName == "string")
+                                {
+                                    argumentName = "nsString";
+                                }
+
+                                // Event is a keyword in C#
+                                if (argumentName == "event")
+                                {
+                                    argumentName = "mltEvent";
+                                }
+
+                                arguments.Add(new PropertyInstance(argumentType, argumentName));
+                            }
+
+                            if (returnType != string.Empty)
+                            {
+                                method = new MethodInstance(returnType, name, true, arguments);
+                            }
+                        }
+
+                        if (method != null)
+                        {
+                            Console.WriteLine("CUMMM");
+                            InFlightUnscopedMethods.Add(method);
+                        }
                     }
                 }
             }

@@ -117,12 +117,13 @@ namespace SharpMetal.Generator.Instances
             context.LeaveScope();
         }
 
-        public static ClassInstance Build(string line, string namespacePrefix, StreamReader sr)
+        public static ClassInstance Build(string line, string namespacePrefix, StreamReader sr, List<MethodInstance> inFlightUnscopedMethods)
         {
             var classInfo = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
             var className = namespacePrefix + classInfo[1];
 
             var instance = new ClassInstance(className);
+            instance._methodInstances.AddRange(inFlightUnscopedMethods);
 
             bool classEnded = false;
             bool enteredComment = false;

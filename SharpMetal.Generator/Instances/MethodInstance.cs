@@ -15,11 +15,14 @@ namespace SharpMetal.Generator.Instances
             InputInstances = inputInstances;
         }
 
-        public void Generate(CodeGenContext context)
+        public void Generate(CodeGenContext context, bool prependSpace = true)
         {
             var staticString = IsStatic ? "static " : "";
 
-            context.WriteLine();
+            if (prependSpace)
+            {
+                context.WriteLine();
+            }
             context.Write(context.Indentation + $"public {staticString}{ReturnType} {Name}(");
 
             for (var i = 0; i < InputInstances.Count; i++)
