@@ -2,6 +2,7 @@ namespace SharpMetal.Generator
 {
     public static class Types
     {
+        public static string[] CSharpNativeTypes = { "bool", "ulong", "uint", "int", "float", "double", "long", "byte", "short", "ushort" };
         public static Dictionary<string, string> TypeMap = new()
         {
             { "uint64_t", "ulong" },
@@ -13,10 +14,7 @@ namespace SharpMetal.Generator
 
             { "NSInteger", "long" },
             { "Integer", "long" },
-            { "long", "long" },
             { "long long", "long" },
-
-            { "short", "short" },
 
             { "unsigned short", "ushort" },
             { "char", "ushort" },
@@ -26,15 +24,10 @@ namespace SharpMetal.Generator
             { "unsigned int", "uint" },
 
             { "int32_t", "int" },
-            { "int", "int" },
 
             { "uint8_t", "byte" },
             { "unsigned char", "byte" },
 
-            { "float", "float" },
-            { "double", "double" },
-            { "bool", "bool" },
-            { "void", "void" },
             { "Enumerator<_KeyType>", "NSEnumerator" },
             { "IOScratchBufferAllocator", "MTLIOScratchBufferAllocator" },
             { "IOCommandBuffer", "MTLIOCommandBuffer" },
@@ -54,11 +47,17 @@ namespace SharpMetal.Generator
             { "IOScratchBuffer", "IntPtr" },
             { "_Class", "IntPtr"},
             { "_ObjectType", "IntPtr" },
-            { "IntPtr", "IntPtr" }
+            { "IntPtr", "IntPtr" },
+            { "void", "void" }
         };
 
         public static string ConvertType(string type, string namespacePrefix)
         {
+            if (CSharpNativeTypes.Contains(type))
+            {
+                return type;
+            }
+
             if (TypeMap.TryGetValue(type, out var convertType))
             {
                 return convertType;

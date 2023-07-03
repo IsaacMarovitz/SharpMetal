@@ -26,11 +26,10 @@ namespace SharpMetal.Generator.Instances
                 // We assume a type of IntPtr, which encapsulates any possible type
                 var runtimeFuncReturn = "IntPtr";
                 var setterSelector = instance.SelectorInstances.Find(x => x.Selector.ToLower().Contains("set" + selector.Selector.ToLower()));
-                var csharpNativeTypes = new[] { "bool", "ulong", "uint", "int", "float", "double", "long", "byte", "short", "ushort" };
 
                 // If the property is a type that exists in C# then we can safely set the
                 // return type to be that type, otherwise further conversion will be needed later
-                if (csharpNativeTypes.Contains(Type))
+                if (Types.CSharpNativeTypes.Contains(Type))
                 {
                     runtimeFuncReturn = Type;
                 }
