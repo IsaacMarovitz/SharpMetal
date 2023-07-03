@@ -224,7 +224,11 @@ namespace SharpMetal.Generator.Instances
                     var parenIndex = parts[1].IndexOf("(");
                     if (parenIndex != -1)
                     {
-                        instance._methodInstances.Add(MethodInstance.BuildMethod(parts, namespacePrefix));
+                        var method = MethodInstance.BuildMethod(parts, namespacePrefix);
+                        if (method != null)
+                        {
+                            instance._methodInstances.Add(method);
+                        }
                     }
                     else
                     {

@@ -109,7 +109,7 @@ namespace SharpMetal.Foundation
             throw new NotImplementedException();
         }
 
-        public NSString LocalizedString(NSString pKey)
+        public NSString LocalizedString(NSString pKey, NSString pValue, NSString pTableName)
         {
             throw new NotImplementedException();
         }

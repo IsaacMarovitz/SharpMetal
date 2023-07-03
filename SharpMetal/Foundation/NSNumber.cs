@@ -110,7 +110,7 @@ namespace SharpMetal.Foundation
             throw new NotImplementedException();
         }
 
-        public NSNumber Number()
+        public NSNumber Number(byte value)
         {
             throw new NotImplementedException();
         }
@@ -120,7 +120,7 @@ namespace SharpMetal.Foundation
             throw new NotImplementedException();
         }
 
-        public NSNumber Number()
+        public NSNumber Number(ushort value)
         {
             throw new NotImplementedException();
         }
@@ -130,7 +130,7 @@ namespace SharpMetal.Foundation
             throw new NotImplementedException();
         }
 
-        public NSNumber Number()
+        public NSNumber Number(uint value)
         {
             throw new NotImplementedException();
         }
@@ -140,17 +140,17 @@ namespace SharpMetal.Foundation
             throw new NotImplementedException();
         }
 
-        public NSNumber Number()
+        public NSNumber Number(ulong value)
         {
             throw new NotImplementedException();
         }
 
-        public NSNumber Number()
+        public NSNumber Number(long value)
         {
             throw new NotImplementedException();
         }
 
-        public NSNumber Number()
+        public NSNumber Number(ulong value)
         {
             throw new NotImplementedException();
         }
@@ -180,7 +180,7 @@ namespace SharpMetal.Foundation
             throw new NotImplementedException();
         }
 
-        public NSNumber Init()
+        public NSNumber Init(byte value)
         {
             throw new NotImplementedException();
         }
@@ -190,7 +190,7 @@ namespace SharpMetal.Foundation
             throw new NotImplementedException();
         }
 
-        public NSNumber Init()
+        public NSNumber Init(ushort value)
         {
             throw new NotImplementedException();
         }
@@ -200,7 +200,7 @@ namespace SharpMetal.Foundation
             throw new NotImplementedException();
         }
 
-        public NSNumber Init()
+        public NSNumber Init(uint value)
         {
             throw new NotImplementedException();
         }
@@ -210,17 +210,17 @@ namespace SharpMetal.Foundation
             throw new NotImplementedException();
         }
 
-        public NSNumber Init()
+        public NSNumber Init(ulong value)
         {
             throw new NotImplementedException();
         }
 
-        public NSNumber Init()
+        public NSNumber Init(long value)
         {
             throw new NotImplementedException();
         }
 
-        public NSNumber Init()
+        public NSNumber Init(ulong value)
         {
             throw new NotImplementedException();
         }

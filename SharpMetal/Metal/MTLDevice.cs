@@ -382,11 +382,6 @@ namespace SharpMetal.Metal
             throw new NotImplementedException();
         }
 
-        public MTLBuffer NewBuffer()
-        {
-            throw new NotImplementedException();
-        }
-
         public MTLDepthStencilState NewDepthStencilState(MTLDepthStencilDescriptor descriptor)
         {
             throw new NotImplementedException();

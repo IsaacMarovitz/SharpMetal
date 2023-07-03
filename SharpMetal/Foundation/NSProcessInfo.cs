@@ -115,22 +115,7 @@ namespace SharpMetal.Foundation
             throw new NotImplementedException();
         }
 
-        public void PerformActivity()
-        {
-            throw new NotImplementedException();
-        }
-
         public void PerformActivity(NSActivityOptions options, NSString pReason, IntPtr func)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void PerformExpiringActivity()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void PerformExpiringActivity()
         {
             throw new NotImplementedException();
         }

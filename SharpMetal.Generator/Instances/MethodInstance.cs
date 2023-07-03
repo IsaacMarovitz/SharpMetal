@@ -38,7 +38,7 @@ namespace SharpMetal.Generator.Instances
             context.LeaveScope();
         }
 
-        public static MethodInstance BuildMethod(List<string> parts, string namespacePrefix)
+        public static MethodInstance? BuildMethod(List<string> parts, string namespacePrefix)
         {
             string methodName = parts[1].Substring(0, parts[1].IndexOf("("));
             string inputsString = parts[1].Replace(methodName, "").Replace("(", "").Replace(")", "");
@@ -49,16 +49,22 @@ namespace SharpMetal.Generator.Instances
 
             foreach (var input in inputs)
             {
-                var inputInfo = input.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+                // TODO: Happens sometimes, need a better way to handle this in future
+                var inputString = input.Replace("= nullptr", "");
 
-                if (inputInfo.Length != 2)
+                var inputInfo = inputString.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+
+                var name = inputInfo[^1];
+                var typeString = String.Join(" ", inputInfo, 0, inputInfo.Length - 1);
+
+                if (name.Trim() == String.Empty || typeString.Trim() == String.Empty)
                 {
-                    Console.WriteLine($"Couldn't find an object type and name from \"{input}\"");
-                    continue;
+                    // There's a couple instances of this like in NSProcessInfo
+                    // not entirely sure what to do about it apart from ignore it
+                    return null;
                 }
 
-                var name = inputInfo[1];
-                var type = Types.ConvertType(inputInfo[0], namespacePrefix);
+                var type = Types.ConvertType(typeString, namespacePrefix);
 
                 if (name.Contains("[]"))
                 {
