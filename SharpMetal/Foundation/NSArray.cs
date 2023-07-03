@@ -16,11 +16,14 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
-        public NSArray Array => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_array));
-
         public ulong Count => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_count);
 
         public NSArray Array(NSObject pObject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public NSArray Array()
         {
             throw new NotImplementedException();
         }

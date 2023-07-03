@@ -8,7 +8,7 @@ namespace SharpMetal.Generator.Instances
         public string Name;
         public List<PropertyInstance> InputInstances;
 
-        private MethodInstance(string returnType, string name, List<PropertyInstance> inputInstances)
+        public MethodInstance(string returnType, string name, List<PropertyInstance> inputInstances)
         {
             ReturnType = returnType;
             Name = name;

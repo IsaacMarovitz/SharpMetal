@@ -18,8 +18,6 @@ namespace SharpMetal
 
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
 
-        public MTLCommandBuffer CommandBuffer => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_commandBuffer));
-
         public MTLCommandBuffer CommandBufferWithUnretainedReferences => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_commandBufferWithUnretainedReferences));
 
         public void SetLabel(NSString label)
@@ -28,6 +26,11 @@ namespace SharpMetal
         }
 
         public MTLCommandBuffer CommandBuffer(MTLCommandBufferDescriptor descriptor)
+        {
+            throw new NotImplementedException();
+        }
+
+        public MTLCommandBuffer CommandBuffer()
         {
             throw new NotImplementedException();
         }

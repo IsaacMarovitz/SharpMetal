@@ -16,13 +16,16 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
-        public NSDictionary Dictionary => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_dictionary));
-
         public NSEnumerator KeyEnumerator => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_keyEnumerator));
 
         public ulong Count => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_count);
 
         public NSDictionary Dictionary(NSObject pObject, NSObject pKey)
+        {
+            throw new NotImplementedException();
+        }
+
+        public NSDictionary Dictionary()
         {
             throw new NotImplementedException();
         }

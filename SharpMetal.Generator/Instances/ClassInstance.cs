@@ -231,6 +231,18 @@ namespace SharpMetal.Generator.Instances
                         Console.WriteLine($"Failed to find \"(\" in \"{parts[1]}\"");
                     }
                 }
+
+                for (int i = instance._propertyInstances.Count - 1; i >= 0; i--)
+                {
+                    var property = instance._propertyInstances[i];
+                    if (instance._methodInstances.Exists(x => x.Name == property.Name))
+                    {
+                        // We can't have a property AND methods with the same name
+                        // in this case, the solution is to turn the property into a method
+                        instance._propertyInstances.RemoveAt(i);
+                        instance.AddMethod(new MethodInstance(property.Type, property.Name, new List<PropertyInstance>()));
+                    }
+                }
             }
 
             return instance;

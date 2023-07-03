@@ -144,14 +144,6 @@ namespace SharpMetal
 
         public NSError Error => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_error));
 
-        public MTLBlitCommandEncoder BlitCommandEncoder => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_blitCommandEncoder));
-
-        public MTLComputeCommandEncoder ComputeCommandEncoder => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_computeCommandEncoder));
-
-        public MTLResourceStateCommandEncoder ResourceStateCommandEncoder => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_resourceStateCommandEncoder));
-
-        public MTLAccelerationStructureCommandEncoder AccelerationStructureCommandEncoder => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_accelerationStructureCommandEncoder));
-
         public void SetLabel(NSString label)
         {
             throw new NotImplementedException();
@@ -187,6 +179,16 @@ namespace SharpMetal
             throw new NotImplementedException();
         }
 
+        public MTLBlitCommandEncoder BlitCommandEncoder()
+        {
+            throw new NotImplementedException();
+        }
+
+        public MTLComputeCommandEncoder ComputeCommandEncoder()
+        {
+            throw new NotImplementedException();
+        }
+
         public MTLComputeCommandEncoder ComputeCommandEncoder(MTLDispatchType dispatchType)
         {
             throw new NotImplementedException();
@@ -212,7 +214,17 @@ namespace SharpMetal
             throw new NotImplementedException();
         }
 
+        public MTLResourceStateCommandEncoder ResourceStateCommandEncoder()
+        {
+            throw new NotImplementedException();
+        }
+
         public MTLAccelerationStructureCommandEncoder AccelerationStructureCommandEncoder(MTLAccelerationStructurePassDescriptor descriptor)
+        {
+            throw new NotImplementedException();
+        }
+
+        public MTLAccelerationStructureCommandEncoder AccelerationStructureCommandEncoder()
         {
             throw new NotImplementedException();
         }

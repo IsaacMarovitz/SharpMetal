@@ -304,10 +304,6 @@ namespace SharpMetal
 
         public ulong CurrentAllocatedSize => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_currentAllocatedSize);
 
-        public MTLCommandQueue NewCommandQueue => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newCommandQueue));
-
-        public MTLLibrary NewDefaultLibrary => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newDefaultLibrary));
-
         public MTLFence NewFence => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newFence));
 
         public ulong MaxThreadgroupMemoryLength => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxThreadgroupMemoryLength);
@@ -318,15 +314,11 @@ namespace SharpMetal
 
         public MTLEvent NewEvent => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newEvent));
 
-        public MTLSharedEvent NewSharedEvent => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newSharedEvent));
-
         public ulong PeerGroupID => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_peerGroupID);
 
         public uint PeerIndex => ObjectiveCRuntime.uint_objc_msgSend(NativePtr, sel_peerIndex);
 
         public uint PeerCount => ObjectiveCRuntime.uint_objc_msgSend(NativePtr, sel_peerCount);
-
-        public ulong SparseTileSizeInBytes => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_sparseTileSizeInBytes);
 
         public ulong MaxBufferLength => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxBufferLength);
 
@@ -355,6 +347,11 @@ namespace SharpMetal
         public ulong MaximumConcurrentCompilationTaskCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maximumConcurrentCompilationTaskCount);
 
         public MTLCommandQueue NewCommandQueue(ulong maxCommandBufferCount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public MTLCommandQueue NewCommandQueue()
         {
             throw new NotImplementedException();
         }
@@ -420,6 +417,11 @@ namespace SharpMetal
         }
 
         public MTLLibrary NewDefaultLibrary(NSBundle bundle, NSError error)
+        {
+            throw new NotImplementedException();
+        }
+
+        public MTLLibrary NewDefaultLibrary()
         {
             throw new NotImplementedException();
         }
@@ -539,6 +541,11 @@ namespace SharpMetal
             throw new NotImplementedException();
         }
 
+        public MTLSharedEvent NewSharedEvent()
+        {
+            throw new NotImplementedException();
+        }
+
         public IntPtr NewIOHandle(NSURL url, NSError error)
         {
             throw new NotImplementedException();
@@ -570,6 +577,11 @@ namespace SharpMetal
         }
 
         public ulong SparseTileSizeInBytes(MTLSparsePageSize sparsePageSize)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ulong SparseTileSizeInBytes()
         {
             throw new NotImplementedException();
         }
