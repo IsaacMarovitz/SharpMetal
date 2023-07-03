@@ -62,17 +62,17 @@ namespace SharpMetal.Foundation
 
         public ushort FileSystemRepresentation => ObjectiveCRuntime.ushort_objc_msgSend(NativePtr, sel_fileSystemRepresentation);
 
-        public NSString String(NSString pString)
+        public static NSString String(NSString pString)
         {
             throw new NotImplementedException();
         }
 
-        public NSString String()
+        public static NSString String()
         {
             throw new NotImplementedException();
         }
 
-        public NSString String(ushort pString, NSStringEncoding encoding)
+        public static NSString String(ushort pString, NSStringEncoding encoding)
         {
             throw new NotImplementedException();
         }

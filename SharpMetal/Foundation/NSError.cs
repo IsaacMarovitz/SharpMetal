@@ -30,7 +30,7 @@ namespace SharpMetal.Foundation
 
         public NSString LocalizedFailureReason => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_localizedFailureReason));
 
-        public NSError Error(IntPtr domain, long code, NSDictionary pDictionary)
+        public static NSError Error(IntPtr domain, long code, NSDictionary pDictionary)
         {
             throw new NotImplementedException();
         }

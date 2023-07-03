@@ -1,25 +1,26 @@
-using System.Text.RegularExpressions;
-using SharpMetal.Generator.Utilities;
-
 namespace SharpMetal.Generator.Instances
 {
     public class MethodInstance
     {
         public string ReturnType;
         public string Name;
+        public bool IsStatic;
         public List<PropertyInstance> InputInstances;
 
-        public MethodInstance(string returnType, string name, List<PropertyInstance> inputInstances)
+        public MethodInstance(string returnType, string name, bool isStatic, List<PropertyInstance> inputInstances)
         {
             ReturnType = returnType;
             Name = name;
+            IsStatic = isStatic;
             InputInstances = inputInstances;
         }
 
         public void Generate(CodeGenContext context)
         {
+            var staticString = IsStatic ? "static " : "";
+
             context.WriteLine();
-            context.Write(context.Indentation + $"public {ReturnType} {Name}(");
+            context.Write(context.Indentation + $"public {staticString}{ReturnType} {Name}(");
 
             for (var i = 0; i < InputInstances.Count; i++)
             {

@@ -26,7 +26,7 @@ namespace SharpMetal.Foundation
             throw new NotImplementedException();
         }
 
-        public void ShowPools()
+        public static void ShowPools()
         {
             throw new NotImplementedException();
         }

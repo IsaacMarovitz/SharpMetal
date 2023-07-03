@@ -171,7 +171,14 @@ namespace SharpMetal.Generator.Instances
                 nextLine = nextLine.Replace("*", "");
                 nextLine = nextLine.Replace("class ", "");
                 nextLine = nextLine.Replace("const ", "");
-                nextLine = nextLine.Replace("static ", "");
+
+                bool isStatic = false;
+
+                if (nextLine.Contains("static "))
+                {
+                    isStatic = true;
+                    nextLine = nextLine.Replace("static ", "");
+                }
 
                 var info = nextLine.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
                 var returnType = "";
@@ -214,7 +221,7 @@ namespace SharpMetal.Generator.Instances
 
                     if (returnType == "void" || returnType == string.Empty)
                     {
-                        instance.AddMethod(new MethodInstance("void", name, new List<PropertyInstance>()));
+                        instance.AddMethod(new MethodInstance("void", name, isStatic, new List<PropertyInstance>()));
                     }
                     else
                     {
@@ -272,7 +279,7 @@ namespace SharpMetal.Generator.Instances
                         arguments.Add(new PropertyInstance(argumentType, argumentName));
                     }
 
-                    instance.AddMethod(new MethodInstance(returnType, name, arguments));
+                    instance.AddMethod(new MethodInstance(returnType, name, isStatic, arguments));
                 }
 
                 for (int i = instance._propertyInstances.Count - 1; i >= 0; i--)
@@ -283,7 +290,7 @@ namespace SharpMetal.Generator.Instances
                         // We can't have a property AND methods with the same name
                         // in this case, the solution is to turn the property into a method
                         instance._propertyInstances.RemoveAt(i);
-                        instance.AddMethod(new MethodInstance(property.Type, property.Name, new List<PropertyInstance>()));
+                        instance.AddMethod(new MethodInstance(property.Type, property.Name, isStatic, new List<PropertyInstance>()));
                     }
                 }
             }

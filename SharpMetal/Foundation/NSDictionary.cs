@@ -20,17 +20,17 @@ namespace SharpMetal.Foundation
 
         public ulong Count => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_count);
 
-        public NSDictionary Dictionary(NSObject pObject, NSObject pKey)
+        public static NSDictionary Dictionary(NSObject pObject, NSObject pKey)
         {
             throw new NotImplementedException();
         }
 
-        public NSDictionary Dictionary()
+        public static NSDictionary Dictionary()
         {
             throw new NotImplementedException();
         }
 
-        public NSDictionary Dictionary(NSObject pObjects, NSObject pKeys, ulong count)
+        public static NSDictionary Dictionary(NSObject pObjects, NSObject pKeys, ulong count)
         {
             throw new NotImplementedException();
         }

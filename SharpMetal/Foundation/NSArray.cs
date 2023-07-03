@@ -18,17 +18,17 @@ namespace SharpMetal.Foundation
 
         public ulong Count => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_count);
 
-        public NSArray Array(NSObject pObject)
+        public static NSArray Array(NSObject pObject)
         {
             throw new NotImplementedException();
         }
 
-        public NSArray Array()
+        public static NSArray Array()
         {
             throw new NotImplementedException();
         }
 
-        public NSArray Array(NSObject pObjects, ulong count)
+        public static NSArray Array(NSObject pObjects, ulong count)
         {
             throw new NotImplementedException();
         }

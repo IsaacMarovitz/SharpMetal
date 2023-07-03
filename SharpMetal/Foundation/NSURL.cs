@@ -18,7 +18,7 @@ namespace SharpMetal.Foundation
 
         public ushort FileSystemRepresentation => ObjectiveCRuntime.ushort_objc_msgSend(NativePtr, sel_fileSystemRepresentation);
 
-        public NSURL FileURLWithPath(NSString pPath)
+        public static NSURL FileURLWithPath(NSString pPath)
         {
             throw new NotImplementedException();
         }

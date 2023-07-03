@@ -142,17 +142,17 @@ namespace SharpMetal.Metal
 
         public ulong LayerCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_layerCount);
 
-        public MTLRasterizationRateMapDescriptor RasterizationRateMapDescriptor(MTLSize screenSize)
+        public static MTLRasterizationRateMapDescriptor RasterizationRateMapDescriptor(MTLSize screenSize)
         {
             throw new NotImplementedException();
         }
 
-        public MTLRasterizationRateMapDescriptor RasterizationRateMapDescriptor(MTLSize screenSize, MTLRasterizationRateLayerDescriptor layer)
+        public static MTLRasterizationRateMapDescriptor RasterizationRateMapDescriptor(MTLSize screenSize, MTLRasterizationRateLayerDescriptor layer)
         {
             throw new NotImplementedException();
         }
 
-        public MTLRasterizationRateMapDescriptor RasterizationRateMapDescriptor(MTLSize screenSize, ulong layerCount, MTLRasterizationRateLayerDescriptor layers)
+        public static MTLRasterizationRateMapDescriptor RasterizationRateMapDescriptor(MTLSize screenSize, ulong layerCount, MTLRasterizationRateLayerDescriptor layers)
         {
             throw new NotImplementedException();
         }

@@ -64,12 +64,12 @@ namespace SharpMetal.Foundation
 
         public NSDictionary LocalizedInfoDictionary => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_localizedInfoDictionary));
 
-        public NSBundle Bundle(NSString pPath)
+        public static NSBundle Bundle(NSString pPath)
         {
             throw new NotImplementedException();
         }
 
-        public NSBundle Bundle(NSURL pURL)
+        public static NSBundle Bundle(NSURL pURL)
         {
             throw new NotImplementedException();
         }
@@ -109,7 +109,7 @@ namespace SharpMetal.Foundation
             throw new NotImplementedException();
         }
 
-        public NSString LocalizedString(NSString pKey, NSString pValue, NSString pTableName)
+        public NSString LocalizedString(NSString pKey, NSString pValue = nullptr, NSString pTableName = nullptr)
         {
             throw new NotImplementedException();
         }

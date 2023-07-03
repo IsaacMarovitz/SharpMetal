@@ -20,12 +20,12 @@ namespace SharpMetal.Foundation
 
         public IntPtr PointerValue => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_pointerValue));
 
-        public NSValue Value(IntPtr pValue, ushort pType)
+        public static NSValue Value(IntPtr pValue, ushort pType)
         {
             throw new NotImplementedException();
         }
 
-        public NSValue Value(IntPtr pPointer)
+        public static NSValue Value(IntPtr pPointer)
         {
             throw new NotImplementedException();
         }
@@ -105,52 +105,52 @@ namespace SharpMetal.Foundation
 
         public NSString StringValue => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_stringValue));
 
-        public NSNumber Number(ushort value)
+        public static NSNumber Number(ushort value)
         {
             throw new NotImplementedException();
         }
 
-        public NSNumber Number(byte value)
+        public static NSNumber Number(byte value)
         {
             throw new NotImplementedException();
         }
 
-        public NSNumber Number(short value)
+        public static NSNumber Number(short value)
         {
             throw new NotImplementedException();
         }
 
-        public NSNumber Number(int value)
+        public static NSNumber Number(int value)
         {
             throw new NotImplementedException();
         }
 
-        public NSNumber Number(uint value)
+        public static NSNumber Number(uint value)
         {
             throw new NotImplementedException();
         }
 
-        public NSNumber Number(long value)
+        public static NSNumber Number(long value)
         {
             throw new NotImplementedException();
         }
 
-        public NSNumber Number(ulong value)
+        public static NSNumber Number(ulong value)
         {
             throw new NotImplementedException();
         }
 
-        public NSNumber Number(float value)
+        public static NSNumber Number(float value)
         {
             throw new NotImplementedException();
         }
 
-        public NSNumber Number(double value)
+        public static NSNumber Number(double value)
         {
             throw new NotImplementedException();
         }
 
-        public NSNumber Number(bool value)
+        public static NSNumber Number(bool value)
         {
             throw new NotImplementedException();
         }
