@@ -3,7 +3,7 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum MTLBlitOption: ulong
+    public enum MTLBlitOption : ulong
     {
         None = 0,
         DepthFromDepthStencil = 1,

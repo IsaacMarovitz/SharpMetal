@@ -3,7 +3,7 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum MTLAccelerationStructureRefitOptions: ulong
+    public enum MTLAccelerationStructureRefitOptions : ulong
     {
         AccelerationStructureRefitOptionVertexData = 1,
         AccelerationStructureRefitOptionPerPrimitiveData = 2,

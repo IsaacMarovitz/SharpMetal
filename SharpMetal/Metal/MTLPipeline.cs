@@ -3,7 +3,7 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum MTLMutability: ulong
+    public enum MTLMutability : ulong
     {
         Default = 0,
         Mutable = 1,

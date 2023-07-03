@@ -3,7 +3,7 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum MTLBinaryArchiveError: ulong
+    public enum MTLBinaryArchiveError : ulong
     {
         None = 0,
         InvalidFile = 1,

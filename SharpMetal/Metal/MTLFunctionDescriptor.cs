@@ -3,7 +3,7 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum MTLFunctionOptions: ulong
+    public enum MTLFunctionOptions : ulong
     {
         FunctionOptionNone = 0,
         FunctionOptionCompileToBinary = 1,

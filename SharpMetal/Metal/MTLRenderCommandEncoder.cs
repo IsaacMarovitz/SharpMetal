@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum MTLPrimitiveType: ulong
+    public enum MTLPrimitiveType : ulong
     {
         Point = 0,
         Line = 1,
@@ -13,39 +13,39 @@ namespace SharpMetal
         TriangleStrip = 4,
     }
 
-    public enum MTLVisibilityResultMode: ulong
+    public enum MTLVisibilityResultMode : ulong
     {
         Disabled = 0,
         Boolean = 1,
         Counting = 2,
     }
 
-    public enum MTLCullMode: ulong
+    public enum MTLCullMode : ulong
     {
         None = 0,
         Front = 1,
         Back = 2,
     }
 
-    public enum MTLWinding: ulong
+    public enum MTLWinding : ulong
     {
         Clockwise = 0,
         CounterClockwise = 1,
     }
 
-    public enum MTLDepthClipMode: ulong
+    public enum MTLDepthClipMode : ulong
     {
         Clip = 0,
         Clamp = 1,
     }
 
-    public enum MTLTriangleFillMode: ulong
+    public enum MTLTriangleFillMode : ulong
     {
         Fill = 0,
         Lines = 1,
     }
 
-    public enum MTLRenderStages: ulong
+    public enum MTLRenderStages : ulong
     {
         RenderStageVertex = 1,
         RenderStageFragment = 2,

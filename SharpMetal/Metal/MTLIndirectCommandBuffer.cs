@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum MTLIndirectCommandType: ulong
+    public enum MTLIndirectCommandType : ulong
     {
         Draw = 1,
         DrawIndexed = 2,

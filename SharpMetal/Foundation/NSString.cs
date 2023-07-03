@@ -3,7 +3,7 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum NSStringEncoding: ulong
+    public enum NSStringEncoding : ulong
     {
         ASCII = 1,
         NEXTSTEP = 2,
@@ -30,7 +30,7 @@ namespace SharpMetal
         UTF32LittleEndian = 0x9c000100,
     }
 
-    public enum NSStringCompareOptions: ulong
+    public enum NSStringCompareOptions : ulong
     {
         CaseInsensitiveSearch = 1,
         LiteralSearch = 2,

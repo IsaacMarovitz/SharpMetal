@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum MTLAccelerationStructureUsage: ulong
+    public enum MTLAccelerationStructureUsage : ulong
     {
         None = 0,
         Refit = 1,
@@ -12,7 +12,7 @@ namespace SharpMetal
         ExtendedLimits = 4,
     }
 
-    public enum MTLAccelerationStructureInstanceOptions: uint
+    public enum MTLAccelerationStructureInstanceOptions : uint
     {
         AccelerationStructureInstanceOptionNone = 0,
         AccelerationStructureInstanceOptionDisableTriangleCulling = 1,
@@ -21,13 +21,13 @@ namespace SharpMetal
         AccelerationStructureInstanceOptionNonOpaque = 8,
     }
 
-    public enum MTLMotionBorderMode: uint
+    public enum MTLMotionBorderMode : uint
     {
         Clamp = 0,
         Vanish = 1,
     }
 
-    public enum MTLAccelerationStructureInstanceDescriptorType: ulong
+    public enum MTLAccelerationStructureInstanceDescriptorType : ulong
     {
         Default = 0,
         UserID = 1,

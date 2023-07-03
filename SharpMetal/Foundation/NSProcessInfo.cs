@@ -3,7 +3,7 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum NSProcessInfoThermalState: long
+    public enum NSProcessInfoThermalState : long
     {
         Nominal = 0,
         Fair = 1,
@@ -11,7 +11,7 @@ namespace SharpMetal
         Critical = 3,
     }
 
-    public enum NSActivityOptions: ulong
+    public enum NSActivityOptions : ulong
     {
         ActivityIdleDisplaySleepDisabled = (1UL << 40),
         ActivityIdleSystemSleepDisabled = (1UL << 20),
@@ -120,7 +120,7 @@ namespace SharpMetal
             throw new NotImplementedException();
         }
 
-        public void PerformActivity(NSActivityOptions options, NSString pReason, NSstdfunction<void>& func)
+        public void PerformActivity(NSActivityOptions options, NSString pReason, IntPtr func)
         {
             throw new NotImplementedException();
         }

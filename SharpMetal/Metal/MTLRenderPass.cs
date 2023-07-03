@@ -4,14 +4,14 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum MTLLoadAction: ulong
+    public enum MTLLoadAction : ulong
     {
         DontCare = 0,
         Load = 1,
         Clear = 2,
     }
 
-    public enum MTLStoreAction: ulong
+    public enum MTLStoreAction : ulong
     {
         DontCare = 0,
         Store = 1,
@@ -21,21 +21,21 @@ namespace SharpMetal
         CustomSampleDepthStore = 5,
     }
 
-    public enum MTLStoreActionOptions: ulong
+    public enum MTLStoreActionOptions : ulong
     {
         StoreActionOptionNone = 0,
         StoreActionOptionValidMask = 1,
         StoreActionOptionCustomSamplePositions = 1,
     }
 
-    public enum MTLMultisampleDepthResolveFilter: ulong
+    public enum MTLMultisampleDepthResolveFilter : ulong
     {
         Sample0 = 0,
         Min = 1,
         Max = 2,
     }
 
-    public enum MTLMultisampleStencilResolveFilter: ulong
+    public enum MTLMultisampleStencilResolveFilter : ulong
     {
         Sample0 = 0,
         DepthResolvedSample = 1,

@@ -3,7 +3,7 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum MTLCommandBufferStatus: ulong
+    public enum MTLCommandBufferStatus : ulong
     {
         NotEnqueued = 0,
         Enqueued = 1,
@@ -13,7 +13,7 @@ namespace SharpMetal
         Error = 5,
     }
 
-    public enum MTLCommandBufferError: ulong
+    public enum MTLCommandBufferError : ulong
     {
         None = 0,
         Internal = 1,
@@ -29,13 +29,13 @@ namespace SharpMetal
         StackOverflow = 12,
     }
 
-    public enum MTLCommandBufferErrorOption: ulong
+    public enum MTLCommandBufferErrorOption : ulong
     {
         None = 0,
         EncoderExecutionStatus = 1,
     }
 
-    public enum MTLCommandEncoderErrorState: long
+    public enum MTLCommandEncoderErrorState : long
     {
         Unknown = 0,
         Completed = 1,
@@ -44,7 +44,7 @@ namespace SharpMetal
         Faulted = 4,
     }
 
-    public enum MTLDispatchType: ulong
+    public enum MTLDispatchType : ulong
     {
         Serial = 0,
         Concurrent = 1,

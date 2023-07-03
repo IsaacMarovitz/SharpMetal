@@ -3,7 +3,7 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum MTLVertexFormat: ulong
+    public enum MTLVertexFormat : ulong
     {
         Invalid = 0,
         UChar2 = 1,
@@ -59,7 +59,7 @@ namespace SharpMetal
         Half = 53,
     }
 
-    public enum MTLVertexStepFunction: ulong
+    public enum MTLVertexStepFunction : ulong
     {
         Constant = 0,
         PerVertex = 1,

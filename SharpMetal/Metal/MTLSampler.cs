@@ -3,20 +3,20 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum MTLSamplerMinMagFilter: ulong
+    public enum MTLSamplerMinMagFilter : ulong
     {
         Nearest = 0,
         Linear = 1,
     }
 
-    public enum MTLSamplerMipFilter: ulong
+    public enum MTLSamplerMipFilter : ulong
     {
         NotMipmapped = 0,
         Nearest = 1,
         Linear = 2,
     }
 
-    public enum MTLSamplerAddressMode: ulong
+    public enum MTLSamplerAddressMode : ulong
     {
         ClampToEdge = 0,
         MirrorClampToEdge = 1,
@@ -26,7 +26,7 @@ namespace SharpMetal
         ClampToBorderColor = 5,
     }
 
-    public enum MTLSamplerBorderColor: ulong
+    public enum MTLSamplerBorderColor : ulong
     {
         TransparentBlack = 0,
         OpaqueBlack = 1,

@@ -3,14 +3,14 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum MTLPatchType: ulong
+    public enum MTLPatchType : ulong
     {
         None = 0,
         Triangle = 1,
         Quad = 2,
     }
 
-    public enum MTLFunctionType: ulong
+    public enum MTLFunctionType : ulong
     {
         Vertex = 1,
         Fragment = 2,
@@ -21,7 +21,7 @@ namespace SharpMetal
         Object = 8,
     }
 
-    public enum MTLLanguageVersion: ulong
+    public enum MTLLanguageVersion : ulong
     {
         Version10 = 65536,
         Version11 = 65537,
@@ -34,25 +34,25 @@ namespace SharpMetal
         Version30 = 196608,
     }
 
-    public enum MTLLibraryType: long
+    public enum MTLLibraryType : long
     {
         Executable = 0,
         Dynamic = 1,
     }
 
-    public enum MTLLibraryOptimizationLevel: long
+    public enum MTLLibraryOptimizationLevel : long
     {
         Default = 0,
         Size = 1,
     }
 
-    public enum MTLCompileSymbolVisibility: long
+    public enum MTLCompileSymbolVisibility : long
     {
         Default = 0,
         Hidden = 1,
     }
 
-    public enum MTLLibraryError: ulong
+    public enum MTLLibraryError : ulong
     {
         Unsupported = 1,
         Internal = 2,

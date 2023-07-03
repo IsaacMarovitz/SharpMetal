@@ -3,7 +3,7 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum MTLIntersectionFunctionSignature: ulong
+    public enum MTLIntersectionFunctionSignature : ulong
     {
         None = 0,
         Instancing = 1,

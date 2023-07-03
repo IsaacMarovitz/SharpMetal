@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum MTLSparseTextureMappingMode: ulong
+    public enum MTLSparseTextureMappingMode : ulong
     {
         Map = 0,
         Unmap = 1,

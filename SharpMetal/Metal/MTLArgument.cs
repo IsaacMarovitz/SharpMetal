@@ -3,7 +3,7 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum MTLDataType: ulong
+    public enum MTLDataType : ulong
     {
         None = 0,
         Struct = 1,
@@ -98,7 +98,7 @@ namespace SharpMetal
         InstanceAccelerationStructure = 118,
     }
 
-    public enum MTLBindingType: long
+    public enum MTLBindingType : long
     {
         Buffer = 0,
         ThreadgroupMemory = 1,
@@ -113,7 +113,7 @@ namespace SharpMetal
         ObjectPayload = 34,
     }
 
-    public enum MTLArgumentType: ulong
+    public enum MTLArgumentType : ulong
     {
         Buffer = 0,
         ThreadgroupMemory = 1,
@@ -127,7 +127,7 @@ namespace SharpMetal
         IntersectionFunctionTable = 27,
     }
 
-    public enum MTLArgumentAccess: ulong
+    public enum MTLArgumentAccess : ulong
     {
         ReadOnly = 0,
         ReadWrite = 1,

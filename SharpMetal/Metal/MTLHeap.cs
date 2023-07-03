@@ -3,7 +3,7 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum MTLHeapType: long
+    public enum MTLHeapType : long
     {
         Automatic = 0,
         Placement = 1,

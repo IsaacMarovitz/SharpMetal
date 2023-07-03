@@ -3,7 +3,7 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum MTLIOStatus: long
+    public enum MTLIOStatus : long
     {
         Pending = 0,
         Cancelled = 1,

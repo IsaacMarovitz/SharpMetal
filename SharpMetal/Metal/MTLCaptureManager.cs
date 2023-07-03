@@ -3,14 +3,14 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum MTLCaptureError: long
+    public enum MTLCaptureError : long
     {
         NotSupported = 1,
         AlreadyCapturing = 2,
         InvalidDescriptor = 3,
     }
 
-    public enum MTLCaptureDestination: long
+    public enum MTLCaptureDestination : long
     {
         DeveloperTools = 1,
         GPUTraceDocument = 2,

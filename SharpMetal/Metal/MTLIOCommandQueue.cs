@@ -3,20 +3,20 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum MTLIOPriority: long
+    public enum MTLIOPriority : long
     {
         High = 0,
         Normal = 1,
         Low = 2,
     }
 
-    public enum MTLIOCommandQueueType: long
+    public enum MTLIOCommandQueueType : long
     {
         Concurrent = 0,
         Serial = 1,
     }
 
-    public enum MTLIOError: long
+    public enum MTLIOError : long
     {
         URLInvalid = 1,
         Internal = 2,

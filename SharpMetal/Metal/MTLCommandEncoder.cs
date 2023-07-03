@@ -3,14 +3,14 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum MTLResourceUsage: ulong
+    public enum MTLResourceUsage : ulong
     {
         Read = 1,
         Write = 2,
         Sample = 4,
     }
 
-    public enum MTLBarrierScope: ulong
+    public enum MTLBarrierScope : ulong
     {
         Buffers = 1,
         Textures = 2,

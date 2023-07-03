@@ -3,7 +3,7 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum MTLCompareFunction: ulong
+    public enum MTLCompareFunction : ulong
     {
         Never = 0,
         Less = 1,
@@ -15,7 +15,7 @@ namespace SharpMetal
         Always = 7,
     }
 
-    public enum MTLStencilOperation: ulong
+    public enum MTLStencilOperation : ulong
     {
         Keep = 0,
         Zero = 1,

@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum MTLTextureType: ulong
+    public enum MTLTextureType : ulong
     {
         Type1D = 0,
         Type1DArray = 1,
@@ -18,7 +18,7 @@ namespace SharpMetal
         TextureBuffer = 9,
     }
 
-    public enum MTLTextureSwizzle: byte
+    public enum MTLTextureSwizzle : byte
     {
         Zero = 0,
         One = 1,
@@ -28,7 +28,7 @@ namespace SharpMetal
         Alpha = 5,
     }
 
-    public enum MTLTextureUsage: ulong
+    public enum MTLTextureUsage : ulong
     {
         Unknown = 0,
         ShaderRead = 1,
@@ -37,7 +37,7 @@ namespace SharpMetal
         PixelFormatView = 16,
     }
 
-    public enum MTLTextureCompressionType: long
+    public enum MTLTextureCompressionType : long
     {
         Lossless = 0,
         Lossy = 1,

@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum MTLIOCompressionMethod: long
+    public enum MTLIOCompressionMethod : long
     {
         Zlib = 0,
         LZFSE = 1,
@@ -13,7 +13,7 @@ namespace SharpMetal
         LZBitmap = 4,
     }
 
-    public enum MTLFeatureSet: ulong
+    public enum MTLFeatureSet : ulong
     {
         iOSGPUFamily1v1 = 0,
         iOSGPUFamily2v1 = 1,
@@ -54,7 +54,7 @@ namespace SharpMetal
         tvOSGPUFamily2v2 = 30005,
     }
 
-    public enum MTLGPUFamily: long
+    public enum MTLGPUFamily : long
     {
         Apple1 = 1001,
         Apple2 = 1002,
@@ -74,7 +74,7 @@ namespace SharpMetal
         Metal3 = 5001,
     }
 
-    public enum MTLDeviceLocation: ulong
+    public enum MTLDeviceLocation : ulong
     {
         BuiltIn = 0,
         Slot = 1,
@@ -82,7 +82,7 @@ namespace SharpMetal
         Unspecified = UInt64.MaxValue,
     }
 
-    public enum MTLPipelineOption: ulong
+    public enum MTLPipelineOption : ulong
     {
         None = 0,
         ArgumentInfo = 1,
@@ -90,33 +90,33 @@ namespace SharpMetal
         FailOnBinaryArchiveMiss = 4,
     }
 
-    public enum MTLReadWriteTextureTier: ulong
+    public enum MTLReadWriteTextureTier : ulong
     {
         None = 0,
         Tier1 = 1,
         Tier2 = 2,
     }
 
-    public enum MTLArgumentBuffersTier: ulong
+    public enum MTLArgumentBuffersTier : ulong
     {
         Tier1 = 0,
         Tier2 = 1,
     }
 
-    public enum MTLSparseTextureRegionAlignmentMode: ulong
+    public enum MTLSparseTextureRegionAlignmentMode : ulong
     {
         Outward = 0,
         Inward = 1,
     }
 
-    public enum MTLSparsePageSize: long
+    public enum MTLSparsePageSize : long
     {
         Size16 = 101,
         Size64 = 102,
         Size256 = 103,
     }
 
-    public enum MTLCounterSamplingPoint: ulong
+    public enum MTLCounterSamplingPoint : ulong
     {
         AtStageBoundary = 0,
         AtDrawBoundary = 1,

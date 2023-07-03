@@ -3,7 +3,7 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum MTLPurgeableState: ulong
+    public enum MTLPurgeableState : ulong
     {
         KeepCurrent = 1,
         NonVolatile = 2,
@@ -11,13 +11,13 @@ namespace SharpMetal
         Empty = 4,
     }
 
-    public enum MTLCPUCacheMode: ulong
+    public enum MTLCPUCacheMode : ulong
     {
         DefaultCache = 0,
         WriteCombined = 1,
     }
 
-    public enum MTLStorageMode: ulong
+    public enum MTLStorageMode : ulong
     {
         Shared = 0,
         Managed = 1,
@@ -25,14 +25,14 @@ namespace SharpMetal
         Memoryless = 3,
     }
 
-    public enum MTLHazardTrackingMode: ulong
+    public enum MTLHazardTrackingMode : ulong
     {
         Default = 0,
         Untracked = 1,
         Tracked = 2,
     }
 
-    public enum MTLResourceOptions: ulong
+    public enum MTLResourceOptions : ulong
     {
         ResourceStorageModeShared = 0,
         ResourceHazardTrackingModeDefault = 0,

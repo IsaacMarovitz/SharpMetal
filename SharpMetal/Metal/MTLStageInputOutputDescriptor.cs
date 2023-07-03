@@ -3,7 +3,7 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum MTLAttributeFormat: ulong
+    public enum MTLAttributeFormat : ulong
     {
         Invalid = 0,
         UChar2 = 1,
@@ -59,13 +59,13 @@ namespace SharpMetal
         Half = 53,
     }
 
-    public enum MTLIndexType: ulong
+    public enum MTLIndexType : ulong
     {
         UInt16 = 0,
         UInt32 = 1,
     }
 
-    public enum MTLStepFunction: ulong
+    public enum MTLStepFunction : ulong
     {
         Constant = 0,
         PerVertex = 1,

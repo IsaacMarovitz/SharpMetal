@@ -3,7 +3,7 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum MTLFunctionLogType: ulong
+    public enum MTLFunctionLogType : ulong
     {
         Validation = 0,
     }

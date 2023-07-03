@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum MTLCounterSampleBufferError: long
+    public enum MTLCounterSampleBufferError : long
     {
         OutOfMemory = 0,
         Invalid = 1,

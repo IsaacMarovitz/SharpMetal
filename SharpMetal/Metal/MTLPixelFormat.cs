@@ -1,6 +1,6 @@
 namespace SharpMetal
 {
-    public enum MTLPixelFormat: ulong
+    public enum MTLPixelFormat : ulong
     {
         Invalid = 0,
         A8Unorm = 1,

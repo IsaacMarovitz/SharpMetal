@@ -3,7 +3,7 @@ using SharpMetal.ObjectiveC;
 
 namespace SharpMetal
 {
-    public enum MTLBlendFactor: ulong
+    public enum MTLBlendFactor : ulong
     {
         Zero = 0,
         One = 1,
@@ -26,7 +26,7 @@ namespace SharpMetal
         OneMinusSource1Alpha = 18,
     }
 
-    public enum MTLBlendOperation: ulong
+    public enum MTLBlendOperation : ulong
     {
         Add = 0,
         Subtract = 1,
@@ -35,7 +35,7 @@ namespace SharpMetal
         Max = 4,
     }
 
-    public enum MTLColorWriteMask: ulong
+    public enum MTLColorWriteMask : ulong
     {
         None = 0,
         Alpha = 1,
@@ -45,7 +45,7 @@ namespace SharpMetal
         All = 15,
     }
 
-    public enum MTLPrimitiveTopologyClass: ulong
+    public enum MTLPrimitiveTopologyClass : ulong
     {
         Unspecified = 0,
         Point = 1,
@@ -53,7 +53,7 @@ namespace SharpMetal
         Triangle = 3,
     }
 
-    public enum MTLTessellationPartitionMode: ulong
+    public enum MTLTessellationPartitionMode : ulong
     {
         Pow2 = 0,
         Integer = 1,
@@ -61,7 +61,7 @@ namespace SharpMetal
         FractionalEven = 3,
     }
 
-    public enum MTLTessellationFactorStepFunction: ulong
+    public enum MTLTessellationFactorStepFunction : ulong
     {
         Constant = 0,
         PerPatch = 1,
@@ -69,12 +69,12 @@ namespace SharpMetal
         PerPatchAndPerInstance = 3,
     }
 
-    public enum MTLTessellationFactorFormat: ulong
+    public enum MTLTessellationFactorFormat : ulong
     {
         Half = 0,
     }
 
-    public enum MTLTessellationControlPointIndexType: ulong
+    public enum MTLTessellationControlPointIndexType : ulong
     {
         None = 0,
         UInt16 = 1,
