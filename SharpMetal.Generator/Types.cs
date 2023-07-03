@@ -64,6 +64,11 @@ namespace SharpMetal.Generator
 
         public static string ConvertType(string type, string namespacePrefix)
         {
+            if (type == string.Empty)
+            {
+                return type;
+            }
+
             type = type.Replace("::", "");
 
             if (CSharpNativeTypes.Contains(type))

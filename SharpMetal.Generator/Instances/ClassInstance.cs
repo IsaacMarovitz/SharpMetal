@@ -283,7 +283,10 @@ namespace SharpMetal.Generator.Instances
                         arguments.Add(new PropertyInstance(argumentType, argumentName));
                     }
 
-                    instance.AddMethod(new MethodInstance(returnType, name, isStatic, arguments));
+                    if (returnType != string.Empty)
+                    {
+                        instance.AddMethod(new MethodInstance(returnType, name, isStatic, arguments));
+                    }
                 }
 
                 for (int i = instance._propertyInstances.Count - 1; i >= 0; i--)

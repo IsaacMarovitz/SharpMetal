@@ -1,5 +1,7 @@
 using System.Runtime.Versioning;
 using SharpMetal.ObjectiveC;
+using SharpMetal.Metal;
+using SharpMetal.Foundation;
 
 namespace SharpMetal.Examples
 {
