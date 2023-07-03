@@ -29,10 +29,20 @@ namespace SharpMetal.Generator.Instances
 
         public void AddMethod(MethodInstance methodInstance)
         {
-            if (!_methodInstances.Exists(x => x.Name == methodInstance.Name && x.InputInstances == methodInstance.InputInstances))
+            bool methodExists = false;
+
+            foreach (var method in _methodInstances)
             {
-                _methodInstances.Add(methodInstance);
+                if (method.Name == methodInstance.Name)
+                {
+                    if (method.InputInstances.All(methodInstance.InputInstances.Contains) && methodInstance.InputInstances.All(method.InputInstances.Contains))
+                    {
+                        return;
+                    }
+                }
             }
+
+            _methodInstances.Add(methodInstance);
         }
 
         public void AddProperty(PropertyInstance propertyInstance)
@@ -227,7 +237,7 @@ namespace SharpMetal.Generator.Instances
                         var method = MethodInstance.BuildMethod(parts, namespacePrefix);
                         if (method != null)
                         {
-                            instance._methodInstances.Add(method);
+                            instance.AddMethod(method);
                         }
                     }
                     else
