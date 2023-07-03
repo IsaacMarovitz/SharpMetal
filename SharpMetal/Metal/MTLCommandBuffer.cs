@@ -217,7 +217,7 @@ namespace SharpMetal
             throw new NotImplementedException();
         }
 
-        public void PushDebugGroup(NSString string)
+        public void PushDebugGroup(NSString nsString)
         {
             throw new NotImplementedException();
         }

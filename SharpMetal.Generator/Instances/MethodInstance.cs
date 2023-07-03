@@ -24,6 +24,12 @@ namespace SharpMetal.Generator.Instances
             {
                 var input = InputInstances[i];
 
+                // String is a keyword in C#
+                if (input.Name == "string")
+                {
+                    input.Name = "nsString";
+                }
+
                 context.Write($"{input.Type} {input.Name}");
 
                 if (i != InputInstances.Count - 1)
