@@ -15,7 +15,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLIntersectionFunctionTableDescriptor
+    public class MTLIntersectionFunctionTableDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIntersectionFunctionTableDescriptor obj) => obj.NativePtr;
@@ -46,7 +46,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLIntersectionFunctionTable
+    public class MTLIntersectionFunctionTable
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIntersectionFunctionTable obj) => obj.NativePtr;

@@ -13,7 +13,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLBinaryArchiveDescriptor
+    public class MTLBinaryArchiveDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLBinaryArchiveDescriptor obj) => obj.NativePtr;
@@ -41,7 +41,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLBinaryArchive
+    public class MTLBinaryArchive
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLBinaryArchive obj) => obj.NativePtr;

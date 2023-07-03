@@ -52,6 +52,8 @@ namespace SharpMetal.Generator
             { "Coder", "IntPtr" },
             { "_Object", "IntPtr" },
             { "stdfunction<void>&", "IntPtr" },
+            { "MTLAutoreleasedComputePipelineReflection", "IntPtr" },
+            { "MTLAutoreleasedArgument", "IntPtr"},
             { "void", "void" }
         };
 

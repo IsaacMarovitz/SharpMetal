@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveC;
 namespace SharpMetal
 {
     [SupportedOSPlatform("macos")]
-    public struct MTLLinkedFunctions
+    public class MTLLinkedFunctions
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLLinkedFunctions obj) => obj.NativePtr;

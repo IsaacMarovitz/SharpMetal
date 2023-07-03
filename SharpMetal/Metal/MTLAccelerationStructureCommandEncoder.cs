@@ -10,7 +10,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLAccelerationStructureCommandEncoder
+    public class MTLAccelerationStructureCommandEncoder
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureCommandEncoder obj) => obj.NativePtr;
@@ -103,7 +103,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLAccelerationStructurePassSampleBufferAttachmentDescriptor
+    public class MTLAccelerationStructurePassSampleBufferAttachmentDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructurePassSampleBufferAttachmentDescriptor obj) => obj.NativePtr;
@@ -157,7 +157,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray
+    public class MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray obj) => obj.NativePtr;
@@ -184,7 +184,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLAccelerationStructurePassDescriptor
+    public class MTLAccelerationStructurePassDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructurePassDescriptor obj) => obj.NativePtr;

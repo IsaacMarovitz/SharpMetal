@@ -36,7 +36,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLResourceStateCommandEncoder
+    public class MTLResourceStateCommandEncoder
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLResourceStateCommandEncoder obj) => obj.NativePtr;

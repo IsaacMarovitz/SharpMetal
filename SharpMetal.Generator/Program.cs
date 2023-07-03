@@ -63,7 +63,7 @@ namespace SharpMetal.Generator
         {
             var headerInfo = new HeaderInfo(filePath);
 
-            if (headerInfo.StructInstances.Count == 0 && headerInfo.EnumInstances.Count == 0)
+            if (headerInfo.StructInstances.Count == 0 && headerInfo.ClassInstances.Count == 0 && headerInfo.EnumInstances.Count == 0)
             {
                 return;
             }
@@ -92,7 +92,21 @@ namespace SharpMetal.Generator
             {
                 headerInfo.StructInstances[i].Generate(enumCache, context);
 
-                if (i != headerInfo.StructInstances.Count - 1)
+                if (headerInfo.ClassInstances.Any())
+                {
+                    context.WriteLine();
+                }
+                else if (i != headerInfo.StructInstances.Count - 1)
+                {
+                    context.WriteLine();
+                }
+            }
+
+            for (var i = 0; i < headerInfo.ClassInstances.Count; i++)
+            {
+                headerInfo.ClassInstances[i].Generate(enumCache, context);
+
+                if (i != headerInfo.ClassInstances.Count - 1)
                 {
                     context.WriteLine();
                 }
@@ -103,30 +117,32 @@ namespace SharpMetal.Generator
 
         public static void GenerateUsings(HeaderInfo headerInfo, CodeGenContext context)
         {
-            var hasSelectors = false;
-            var hasStructs = false;
             var hasAnyUsings = false;
+            var hasSelectors = false;
 
-            foreach (var structInstance in headerInfo.StructInstances)
+            foreach (var instance in headerInfo.StructInstances)
             {
-                if (structInstance.SelectorInstances.Any())
+                if (instance.GetSelectors().Any())
                 {
                     hasSelectors = true;
                 }
+            }
 
-                if (!structInstance.IsClass)
+            foreach (var instance in headerInfo.ClassInstances)
+            {
+                if (instance.GetSelectors().Any())
                 {
-                    hasStructs = true;
+                    hasSelectors = true;
                 }
             }
 
-            if (hasStructs)
+            if (headerInfo.StructInstances.Any())
             {
                 context.WriteLine("using System.Runtime.InteropServices;");
                 hasAnyUsings = true;
             }
 
-            if (headerInfo.StructInstances.Count > 0)
+            if (headerInfo.StructInstances.Any() || headerInfo.ClassInstances.Any())
             {
                 context.WriteLine("using System.Runtime.Versioning;");
                 hasAnyUsings = true;
@@ -135,7 +151,6 @@ namespace SharpMetal.Generator
             if (hasSelectors)
             {
                 context.WriteLine("using SharpMetal.ObjectiveC;");
-                hasAnyUsings = true;
             }
 
             if (hasAnyUsings)

@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveC;
 namespace SharpMetal
 {
     [SupportedOSPlatform("macos")]
-    public struct NSAutoreleasePool
+    public class NSAutoreleasePool
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(NSAutoreleasePool obj) => obj.NativePtr;

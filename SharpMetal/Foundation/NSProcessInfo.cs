@@ -24,7 +24,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct NSProcessInfo
+    public class NSProcessInfo
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(NSProcessInfo obj) => obj.NativePtr;

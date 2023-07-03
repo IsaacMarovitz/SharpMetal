@@ -11,21 +11,22 @@ namespace SharpMetal.Generator.Instances
             Name = name;
         }
 
-        public void Generate(StructInstance instance, List<EnumInstance> enumCache, CodeGenContext context)
+        public void Generate(IPropertyOwner instance, List<EnumInstance> enumCache, CodeGenContext context)
         {
-            var selector = instance.SelectorInstances.Find(x => x.Selector.ToLower() == Name.ToLower());
+            var selectorInstances = instance.GetSelectors();
+            var selector = selectorInstances.Find(x => x.Selector.ToLower() == Name.ToLower());
 
             if (selector == null)
             {
                 // This can sometimes select the wrong selector, so we only want to use it as a backup
-                selector = instance.SelectorInstances.Find(x => x.Selector.ToLower().Contains(Name.ToLower()));
+                selector = selectorInstances.Find(x => x.Selector.ToLower().Contains(Name.ToLower()));
             }
 
             if (selector != null)
             {
                 // We assume a type of IntPtr, which encapsulates any possible type
                 var runtimeFuncReturn = "IntPtr";
-                var setterSelector = instance.SelectorInstances.Find(x => x.Selector.ToLower().Contains("set" + selector.Selector.ToLower()));
+                var setterSelector = selectorInstances.Find(x => x.Selector.ToLower().Contains("set" + selector.Selector.ToLower()));
 
                 // If the property is a type that exists in C# then we can safely set the
                 // return type to be that type, otherwise further conversion will be needed later

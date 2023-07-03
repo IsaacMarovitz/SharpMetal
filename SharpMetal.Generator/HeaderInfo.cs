@@ -5,6 +5,7 @@ namespace SharpMetal.Generator
     public class HeaderInfo
     {
         public List<EnumInstance> EnumInstances = new();
+        public List<ClassInstance> ClassInstances = new();
         public List<StructInstance> StructInstances = new();
 
         public HeaderInfo(string filePath)
@@ -20,27 +21,29 @@ namespace SharpMetal.Generator
                 {
                     if (!line.Contains(';'))
                     {
-                        StructInstances.Add(StructInstance.BuildClass(line, namespacePrefix, sr));
+                        ClassInstances.Add(ClassInstance.Build(line, namespacePrefix, sr));
                     }
                 }
-
-                if (line.StartsWith("struct"))
+                else if (line.StartsWith("struct"))
                 {
                     if (!line.Contains(";"))
                     {
                         StructInstances.Add(StructInstance.Build(line, namespacePrefix, sr));
                     }
                 }
-
-                if (line.StartsWith($"_{namespacePrefix}_ENUM") || line.StartsWith($"_{namespacePrefix}_OPTIONS"))
+                else if (line.StartsWith($"_{namespacePrefix}_ENUM") || line.StartsWith($"_{namespacePrefix}_OPTIONS"))
                 {
                     EnumInstances.Add(EnumInstance.Build(line, namespacePrefix, sr));
                 }
-
                 // These contain all the selectors we need
-                if (line.StartsWith($"_{namespacePrefix}_INLINE"))
+                else if (line.StartsWith($"_{namespacePrefix}_INLINE"))
                 {
-                    SelectorInstance.Build(line, namespacePrefix, sr, StructInstances);
+                    List<IPropertyOwner> propertyOwners = new();
+
+                    propertyOwners.AddRange(StructInstances);
+                    propertyOwners.AddRange(ClassInstances);
+
+                    SelectorInstance.Build(line, namespacePrefix, sr, propertyOwners);
                 }
             }
         }

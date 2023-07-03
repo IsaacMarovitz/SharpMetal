@@ -51,7 +51,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLCommandBufferDescriptor
+    public class MTLCommandBufferDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCommandBufferDescriptor obj) => obj.NativePtr;
@@ -92,7 +92,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLCommandBufferEncoderInfo
+    public class MTLCommandBufferEncoderInfo
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCommandBufferEncoderInfo obj) => obj.NativePtr;
@@ -110,7 +110,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLCommandBuffer
+    public class MTLCommandBuffer
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCommandBuffer obj) => obj.NativePtr;

@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveC;
 namespace SharpMetal
 {
     [SupportedOSPlatform("macos")]
-    public struct MTLEvent
+    public class MTLEvent
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLEvent obj) => obj.NativePtr;
@@ -29,7 +29,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLSharedEventListener
+    public class MTLSharedEventListener
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLSharedEventListener obj) => obj.NativePtr;
@@ -53,7 +53,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLSharedEvent
+    public class MTLSharedEvent
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLSharedEvent obj) => obj.NativePtr;
@@ -84,7 +84,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLSharedEventHandle
+    public class MTLSharedEventHandle
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLSharedEventHandle obj) => obj.NativePtr;

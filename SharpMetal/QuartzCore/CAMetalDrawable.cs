@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveC;
 namespace SharpMetal
 {
     [SupportedOSPlatform("macos")]
-    public struct CAMetalDrawable
+    public class CAMetalDrawable
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(CAMetalDrawable obj) => obj.NativePtr;

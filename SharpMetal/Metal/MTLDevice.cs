@@ -154,7 +154,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLArgumentDescriptor
+    public class MTLArgumentDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLArgumentDescriptor obj) => obj.NativePtr;
@@ -250,7 +250,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLDevice
+    public class MTLDevice
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLDevice obj) => obj.NativePtr;
@@ -464,12 +464,12 @@ namespace SharpMetal
             throw new NotImplementedException();
         }
 
-        public MTLComputePipelineState NewComputePipelineState(MTLFunction computeFunction, MTLPipelineOption options, MTLAutoreleasedComputePipelineReflection reflection, NSError error)
+        public MTLComputePipelineState NewComputePipelineState(MTLFunction computeFunction, MTLPipelineOption options, IntPtr reflection, NSError error)
         {
             throw new NotImplementedException();
         }
 
-        public MTLComputePipelineState NewComputePipelineState(MTLComputePipelineDescriptor descriptor, MTLPipelineOption options, MTLAutoreleasedComputePipelineReflection reflection, NSError error)
+        public MTLComputePipelineState NewComputePipelineState(MTLComputePipelineDescriptor descriptor, MTLPipelineOption options, IntPtr reflection, NSError error)
         {
             throw new NotImplementedException();
         }

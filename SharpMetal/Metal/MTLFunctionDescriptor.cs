@@ -10,7 +10,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFunctionDescriptor
+    public class MTLFunctionDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionDescriptor obj) => obj.NativePtr;
@@ -93,7 +93,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLIntersectionFunctionDescriptor
+    public class MTLIntersectionFunctionDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIntersectionFunctionDescriptor obj) => obj.NativePtr;

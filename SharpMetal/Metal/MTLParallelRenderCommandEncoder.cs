@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveC;
 namespace SharpMetal
 {
     [SupportedOSPlatform("macos")]
-    public struct MTLParallelRenderCommandEncoder
+    public class MTLParallelRenderCommandEncoder
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLParallelRenderCommandEncoder obj) => obj.NativePtr;

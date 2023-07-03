@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveC;
 namespace SharpMetal
 {
     [SupportedOSPlatform("macos")]
-    public struct MTLBuffer
+    public class MTLBuffer
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLBuffer obj) => obj.NativePtr;

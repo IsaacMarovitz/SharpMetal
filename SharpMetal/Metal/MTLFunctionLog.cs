@@ -9,7 +9,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLLogContainer
+    public class MTLLogContainer
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLLogContainer obj) => obj.NativePtr;
@@ -17,7 +17,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFunctionLogDebugLocation
+    public class MTLFunctionLogDebugLocation
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionLogDebugLocation obj) => obj.NativePtr;
@@ -38,7 +38,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFunctionLog
+    public class MTLFunctionLog
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionLog obj) => obj.NativePtr;

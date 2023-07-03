@@ -11,7 +11,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLPipelineBufferDescriptor
+    public class MTLPipelineBufferDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLPipelineBufferDescriptor obj) => obj.NativePtr;
@@ -39,7 +39,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLPipelineBufferDescriptorArray
+    public class MTLPipelineBufferDescriptorArray
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLPipelineBufferDescriptorArray obj) => obj.NativePtr;

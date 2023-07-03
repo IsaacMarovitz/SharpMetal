@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveC;
 namespace SharpMetal
 {
     [SupportedOSPlatform("macos")]
-    public struct MTLComputePipelineReflection
+    public class MTLComputePipelineReflection
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLComputePipelineReflection obj) => obj.NativePtr;
@@ -25,7 +25,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLComputePipelineDescriptor
+    public class MTLComputePipelineDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLComputePipelineDescriptor obj) => obj.NativePtr;
@@ -200,7 +200,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLComputePipelineState
+    public class MTLComputePipelineState
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLComputePipelineState obj) => obj.NativePtr;

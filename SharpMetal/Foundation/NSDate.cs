@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveC;
 namespace SharpMetal
 {
     [SupportedOSPlatform("macos")]
-    public struct NSDate
+    public class NSDate
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(NSDate obj) => obj.NativePtr;

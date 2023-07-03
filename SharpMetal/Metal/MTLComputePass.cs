@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveC;
 namespace SharpMetal
 {
     [SupportedOSPlatform("macos")]
-    public struct MTLComputePassSampleBufferAttachmentDescriptor
+    public class MTLComputePassSampleBufferAttachmentDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLComputePassSampleBufferAttachmentDescriptor obj) => obj.NativePtr;
@@ -58,7 +58,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLComputePassSampleBufferAttachmentDescriptorArray
+    public class MTLComputePassSampleBufferAttachmentDescriptorArray
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLComputePassSampleBufferAttachmentDescriptorArray obj) => obj.NativePtr;
@@ -85,7 +85,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLComputePassDescriptor
+    public class MTLComputePassDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLComputePassDescriptor obj) => obj.NativePtr;

@@ -61,7 +61,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLSharedTextureHandle
+    public class MTLSharedTextureHandle
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLSharedTextureHandle obj) => obj.NativePtr;
@@ -82,7 +82,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLTextureDescriptor
+    public class MTLTextureDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLTextureDescriptor obj) => obj.NativePtr;
@@ -323,7 +323,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLTexture
+    public class MTLTexture
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLTexture obj) => obj.NativePtr;

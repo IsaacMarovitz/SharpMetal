@@ -28,7 +28,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLStencilDescriptor
+    public class MTLStencilDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLStencilDescriptor obj) => obj.NativePtr;
@@ -121,7 +121,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLDepthStencilDescriptor
+    public class MTLDepthStencilDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLDepthStencilDescriptor obj) => obj.NativePtr;
@@ -197,7 +197,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLDepthStencilState
+    public class MTLDepthStencilState
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLDepthStencilState obj) => obj.NativePtr;

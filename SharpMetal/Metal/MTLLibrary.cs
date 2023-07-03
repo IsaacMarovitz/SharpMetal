@@ -63,7 +63,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLVertexAttribute
+    public class MTLVertexAttribute
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLVertexAttribute obj) => obj.NativePtr;
@@ -96,7 +96,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLAttribute
+    public class MTLAttribute
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAttribute obj) => obj.NativePtr;
@@ -129,7 +129,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFunctionConstant
+    public class MTLFunctionConstant
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionConstant obj) => obj.NativePtr;
@@ -156,7 +156,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFunction
+    public class MTLFunction
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunction obj) => obj.NativePtr;
@@ -196,7 +196,7 @@ namespace SharpMetal
             throw new NotImplementedException();
         }
 
-        public MTLArgumentEncoder NewArgumentEncoder(ulong bufferIndex, MTLAutoreleasedArgument reflection)
+        public MTLArgumentEncoder NewArgumentEncoder(ulong bufferIndex, IntPtr reflection)
         {
             throw new NotImplementedException();
         }
@@ -217,7 +217,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLCompileOptions
+    public class MTLCompileOptions
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCompileOptions obj) => obj.NativePtr;
@@ -375,7 +375,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLLibrary
+    public class MTLLibrary
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLLibrary obj) => obj.NativePtr;

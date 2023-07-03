@@ -14,7 +14,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLDynamicLibrary
+    public class MTLDynamicLibrary
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLDynamicLibrary obj) => obj.NativePtr;

@@ -69,7 +69,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLCounter
+    public class MTLCounter
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCounter obj) => obj.NativePtr;
@@ -81,7 +81,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLCounterSet
+    public class MTLCounterSet
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCounterSet obj) => obj.NativePtr;
@@ -96,7 +96,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLCounterSampleBufferDescriptor
+    public class MTLCounterSampleBufferDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCounterSampleBufferDescriptor obj) => obj.NativePtr;
@@ -163,7 +163,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLCounterSampleBuffer
+    public class MTLCounterSampleBuffer
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCounterSampleBuffer obj) => obj.NativePtr;

@@ -1,40 +1,25 @@
-using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace SharpMetal.Generator.Instances
 {
-    public partial class StructInstance
+    public class StructInstance : IPropertyOwner
     {
-        public string Name;
-        public bool IsClass;
-        public bool HasAlloc;
-        public bool HasInit;
-        public List<PropertyInstance> PropertyInstances;
-        public List<MethodInstance> MethodInstances;
-        public List<SelectorInstance> SelectorInstances;
+        public string Name { get; set; }
+        private List<PropertyInstance> _propertyInstances;
+        private List<SelectorInstance> _selectorInstances;
 
-        private StructInstance(string name, bool isClass)
+        private StructInstance(string name)
         {
             Name = name;
-            IsClass = isClass;
-            SelectorInstances = new();
-            MethodInstances = new();
-            PropertyInstances = new();
+            _selectorInstances = new();
+            _propertyInstances = new();
         }
 
         public void AddSelector(SelectorInstance selectorInstance)
         {
-            if (!SelectorInstances.Exists(x => x.Selector == selectorInstance.Selector))
+            if (!_selectorInstances.Exists(x => x.Selector == selectorInstance.Selector))
             {
-                SelectorInstances.Add(selectorInstance);
-            }
-        }
-
-        public void AddMethod(MethodInstance methodInstance)
-        {
-            if (!MethodInstances.Exists(x => x.Name == methodInstance.Name && x.InputInstances == methodInstance.InputInstances))
-            {
-                MethodInstances.Add(methodInstance);
+                _selectorInstances.Add(selectorInstance);
             }
         }
 
@@ -46,20 +31,16 @@ namespace SharpMetal.Generator.Instances
                 return;
             }
 
-            if (!PropertyInstances.Exists(x => x.Name == propertyInstance.Name))
+            if (!_propertyInstances.Exists(x => x.Name == propertyInstance.Name))
             {
-                PropertyInstances.Add(propertyInstance);
+                _propertyInstances.Add(propertyInstance);
             }
         }
 
         public void Generate(List<EnumInstance> enumCache, CodeGenContext context)
         {
             context.WriteLine("[SupportedOSPlatform(\"macos\")]");
-
-            if (!IsClass)
-            {
-                context.WriteLine("[StructLayout(LayoutKind.Sequential)]");
-            }
+            context.WriteLine("[StructLayout(LayoutKind.Sequential)]");
 
             context.WriteLine($"public struct {Name}");
             context.EnterScope();
@@ -68,52 +49,27 @@ namespace SharpMetal.Generator.Instances
             context.WriteLine($"public static implicit operator IntPtr({Name} obj) => obj.NativePtr;");
             context.WriteLine($"public {Name}(IntPtr ptr) => NativePtr = ptr;");
 
-            if (HasAlloc)
-            {
-                context.WriteLine();
-                context.WriteLine($"public {Name}()");
-                context.EnterScope();
-
-                context.WriteLine($"var cls = new ObjectiveCClass(\"{Name}\");");
-
-                if (HasInit)
-                {
-                    context.WriteLine("NativePtr = cls.AllocInit();");
-                }
-                else
-                {
-                    context.WriteLine("NativePtr = cls.Alloc();");
-                }
-
-                context.LeaveScope();
-            }
-
-            if (PropertyInstances.Any())
+            if (_propertyInstances.Any())
             {
                 context.WriteLine();
             }
 
-            for (var j = 0; j < PropertyInstances.Count; j++)
+            for (var j = 0; j < _propertyInstances.Count; j++)
             {
-                PropertyInstances[j].Generate(this, enumCache, context);
+                _propertyInstances[j].Generate(this, enumCache, context);
 
-                if (j != PropertyInstances.Count - 1)
+                if (j != _propertyInstances.Count - 1)
                 {
                     context.WriteLine();
                 }
             }
 
-            foreach (var method in MethodInstances)
-            {
-                method.Generate(context);
-            }
-
-            if (SelectorInstances.Any())
+            if (_selectorInstances.Any())
             {
                 context.WriteLine();
             }
 
-            foreach (var selector in SelectorInstances)
+            foreach (var selector in _selectorInstances)
             {
                 context.WriteLine($"private static readonly Selector {selector.Name} = \"{selector.Selector}\";");
             }
@@ -126,7 +82,7 @@ namespace SharpMetal.Generator.Instances
             var structInfo = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
             var structName = namespacePrefix + structInfo[1];
 
-            var instance = new StructInstance(structName, false);
+            var instance = new StructInstance(structName);
 
             bool structEnded = false;
             sr.ReadLine();
@@ -158,131 +114,9 @@ namespace SharpMetal.Generator.Instances
             return instance;
         }
 
-        public static StructInstance BuildClass(string line, string namespacePrefix, StreamReader sr)
+        public List<SelectorInstance> GetSelectors()
         {
-            var structInfo = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-            var structName = namespacePrefix + structInfo[1];
-
-            var instance = new StructInstance(structName, true);
-
-            bool structEnded = false;
-            bool enteredComment = false;
-
-            while (!structEnded)
-            {
-                var nextLine = sr.ReadLine();
-
-                if (nextLine.Contains('}') || nextLine.Contains("private:") || nextLine.Contains("protected:"))
-                {
-                    structEnded = true;
-                    continue;
-                }
-
-                if (nextLine == "/**")
-                {
-                    enteredComment = true;
-                    continue;
-                }
-
-                if (nextLine == "*/")
-                {
-                    enteredComment = false;
-                    continue;
-                }
-
-                if (enteredComment)
-                {
-                    continue;
-                }
-
-                // Ignore empty lines etc...
-                if (nextLine == String.Empty || nextLine == "{" || nextLine == "public:")
-                {
-                    continue;
-                }
-
-                if (nextLine.Contains("template") || nextLine.Contains("typename") || nextLine.Contains("operator") || nextLine.Contains("Handler"))
-                {
-                    continue;
-                }
-
-                nextLine = nextLine.Replace(";", "");
-                nextLine = nextLine.Replace("~", "Destroy");
-                nextLine = nextLine.Replace("::", "");
-                nextLine = nextLine.Replace("void*", "IntPtr");
-                nextLine = nextLine.Replace("void()", "void");
-                nextLine = nextLine.Replace("*", "");
-                nextLine = nextLine.Replace("class ", "");
-                nextLine = nextLine.Replace("const ", "");
-                nextLine = nextLine.Replace("static ", "");
-
-                var parts = ClassRegex().Split(nextLine).ToList();
-
-                parts.RemoveAll(x => x == string.Empty);
-
-                if (parts.Count < 2)
-                {
-                    continue;
-                }
-
-                // Method has no parameters, i.e. readonly property
-                var index = parts.FindIndex(x => x.Contains("()"));
-
-                if (index != -1)
-                {
-                    var type = "";
-
-                    for (int i = 0; i < index; i++)
-                    {
-                        type += parts[i] + " ";
-                    }
-
-                    type = type.TrimEnd();
-
-                    if (type == "void")
-                    {
-                        continue;
-                    }
-
-                    type = Types.ConvertType(type, namespacePrefix);
-
-                    var name = parts[index].Replace("()", "");
-                    var info = CultureInfo.CurrentCulture.TextInfo;
-                    name = Regex.Replace(name, @"\b\p{Ll}", match => match.Value.ToUpper());
-
-                    if (name == "Alloc")
-                    {
-                        instance.HasAlloc = true;
-                        continue;
-                    }
-
-                    if (name == "Init")
-                    {
-                        instance.HasInit = true;
-                        continue;
-                    }
-
-                    instance.AddProperty(new PropertyInstance(type, name));
-                }
-                else
-                {
-                    // Method has inputs
-                    var parenIndex = parts[1].IndexOf("(");
-                    if (parenIndex != -1)
-                    {
-                        instance.MethodInstances.Add(MethodInstance.BuildMethod(parts, namespacePrefix));
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Failed to find \"(\" in \"{parts[1]}\"");
-                    }
-                }
-            }
-
-            return instance;
+            return _selectorInstances;
         }
-
-        [GeneratedRegex("(?<!\\(.*)\\s+(?![^(]*\\))|\\s+(?![^(]*?\\))")]
-        private static partial Regex ClassRegex();
     }
 }

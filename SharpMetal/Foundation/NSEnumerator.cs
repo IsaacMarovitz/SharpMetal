@@ -16,7 +16,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct NSFastEnumeration
+    public class NSFastEnumeration
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(NSFastEnumeration obj) => obj.NativePtr;
@@ -31,7 +31,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct NSEnumerator
+    public class NSEnumerator
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(NSEnumerator obj) => obj.NativePtr;

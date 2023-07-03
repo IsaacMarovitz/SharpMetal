@@ -11,7 +11,7 @@ namespace SharpMetal.Generator.Instances
             Selector = selector;
         }
 
-        public static void Build(string line, string namespacePrefix, StreamReader sr, List<StructInstance> structInstances)
+        public static void Build(string line, string namespacePrefix, StreamReader sr, List<IPropertyOwner> propertyOwners)
         {
             var inlineInfo = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
             var parentStructName = string.Empty;
@@ -45,11 +45,11 @@ namespace SharpMetal.Generator.Instances
                     return;
                 }
 
-                var parentIndex = structInstances.FindIndex(x => x.Name == parentStructName);
+                var parentIndex = propertyOwners.FindIndex(x => x.Name == parentStructName);
 
                 if (parentIndex != -1)
                 {
-                    structInstances[parentIndex].AddSelector(new SelectorInstance(selector));
+                    propertyOwners[parentIndex].AddSelector(new SelectorInstance(selector));
                 }
                 else
                 {

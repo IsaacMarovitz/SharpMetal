@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveC;
 namespace SharpMetal
 {
     [SupportedOSPlatform("macos")]
-    public struct MTLFunctionStitchingAttribute
+    public class MTLFunctionStitchingAttribute
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingAttribute obj) => obj.NativePtr;
@@ -12,7 +12,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFunctionStitchingAttributeAlwaysInline
+    public class MTLFunctionStitchingAttributeAlwaysInline
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingAttributeAlwaysInline obj) => obj.NativePtr;
@@ -26,7 +26,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFunctionStitchingNode
+    public class MTLFunctionStitchingNode
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingNode obj) => obj.NativePtr;
@@ -34,7 +34,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFunctionStitchingInputNode
+    public class MTLFunctionStitchingInputNode
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingInputNode obj) => obj.NativePtr;
@@ -68,7 +68,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFunctionStitchingFunctionNode
+    public class MTLFunctionStitchingFunctionNode
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingFunctionNode obj) => obj.NativePtr;
@@ -128,7 +128,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFunctionStitchingGraph
+    public class MTLFunctionStitchingGraph
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingGraph obj) => obj.NativePtr;
@@ -201,7 +201,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLStitchedLibraryDescriptor
+    public class MTLStitchedLibraryDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLStitchedLibraryDescriptor obj) => obj.NativePtr;

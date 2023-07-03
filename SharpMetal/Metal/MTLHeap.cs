@@ -11,7 +11,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLHeapDescriptor
+    public class MTLHeapDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLHeapDescriptor obj) => obj.NativePtr;
@@ -117,7 +117,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLHeap
+    public class MTLHeap
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLHeap obj) => obj.NativePtr;

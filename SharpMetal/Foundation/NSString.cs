@@ -44,7 +44,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct NSString
+    public class NSString
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(NSString obj) => obj.NativePtr;

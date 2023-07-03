@@ -59,7 +59,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRenderPassAttachmentDescriptor
+    public class MTLRenderPassAttachmentDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPassAttachmentDescriptor obj) => obj.NativePtr;
@@ -217,7 +217,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRenderPassColorAttachmentDescriptor
+    public class MTLRenderPassColorAttachmentDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPassColorAttachmentDescriptor obj) => obj.NativePtr;
@@ -245,7 +245,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRenderPassDepthAttachmentDescriptor
+    public class MTLRenderPassDepthAttachmentDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPassDepthAttachmentDescriptor obj) => obj.NativePtr;
@@ -286,7 +286,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRenderPassStencilAttachmentDescriptor
+    public class MTLRenderPassStencilAttachmentDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPassStencilAttachmentDescriptor obj) => obj.NativePtr;
@@ -327,7 +327,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRenderPassColorAttachmentDescriptorArray
+    public class MTLRenderPassColorAttachmentDescriptorArray
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPassColorAttachmentDescriptorArray obj) => obj.NativePtr;
@@ -354,7 +354,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRenderPassSampleBufferAttachmentDescriptor
+    public class MTLRenderPassSampleBufferAttachmentDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPassSampleBufferAttachmentDescriptor obj) => obj.NativePtr;
@@ -434,7 +434,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRenderPassSampleBufferAttachmentDescriptorArray
+    public class MTLRenderPassSampleBufferAttachmentDescriptorArray
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPassSampleBufferAttachmentDescriptorArray obj) => obj.NativePtr;
@@ -461,7 +461,7 @@ namespace SharpMetal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRenderPassDescriptor
+    public class MTLRenderPassDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPassDescriptor obj) => obj.NativePtr;
