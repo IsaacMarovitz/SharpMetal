@@ -60,8 +60,6 @@ namespace SharpMetal.Generator
 
             { "IntPtr", "IntPtr" },
             { "void", "void" },
-
-            { "NSNotificationName", "NSString" }
         };
 
         public static string ConvertType(string type, string namespacePrefix)

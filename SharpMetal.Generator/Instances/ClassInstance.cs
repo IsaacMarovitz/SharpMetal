@@ -166,7 +166,7 @@ namespace SharpMetal.Generator.Instances
                     continue;
                 }
 
-                if (nextLine.Contains("template") || nextLine.Contains("typename") || nextLine.Contains("operator") || nextLine.Contains("Handler"))
+                if (nextLine.Contains("template") || nextLine.Contains("typename") || nextLine.Contains("operator") || nextLine.Contains("Handler") || nextLine.Contains("Observer"))
                 {
                     continue;
                 }
