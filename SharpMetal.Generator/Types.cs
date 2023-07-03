@@ -56,7 +56,8 @@ namespace SharpMetal.Generator
             { "MTLCoordinate2D", "IntPtr" },
             { "MTLAutoreleasedComputePipelineReflection", "IntPtr" },
             { "MTLAutoreleasedRenderPipelineReflection", "IntPtr" },
-            { "MTLAutoreleasedArgument", "IntPtr"},
+            { "MTLAutoreleasedArgument", "IntPtr" },
+            { "Enumerator<Object>", "IntPtr" },
 
             { "IntPtr", "IntPtr" },
             { "void", "void" },

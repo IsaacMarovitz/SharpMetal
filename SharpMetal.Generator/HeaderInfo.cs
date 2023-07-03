@@ -17,7 +17,26 @@ namespace SharpMetal.Generator
 
             while (!sr.EndOfStream)
             {
-                var line = sr.ReadLine();
+                var line = sr.ReadLine().Trim();
+
+                if (line == string.Empty ||
+                    line.StartsWith("//") ||
+                    line.StartsWith("#pragma") ||
+                    line.StartsWith("#define") ||
+                    line.StartsWith("{") ||
+                    line.StartsWith("}") ||
+                    line.StartsWith("namespace") ||
+                    line.StartsWith("using") ||
+                    line.StartsWith("template") ||
+                    line.StartsWith("MTL_DEF_FUNC") ||
+                    line.StartsWith("_NS_CONST") ||
+                    line.StartsWith("_MTL_CONST") ||
+                    line.StartsWith("_MTL_PRIVATE_DEF_WEAK_CONST") ||
+                    line.StartsWith("_MTL_PRIVATE_DEF_STR") ||
+                    line.StartsWith("_NS_PRIVATE_DEF_CONST"))
+                {
+                    continue;
+                }
 
                 if (line.StartsWith("#include"))
                 {
@@ -60,6 +79,10 @@ namespace SharpMetal.Generator
                     propertyOwners.AddRange(ClassInstances);
 
                     SelectorInstance.Build(line, namespacePrefix, sr, propertyOwners);
+                }
+                else
+                {
+                    Console.WriteLine($"UNPROCESSED LINE: {line}");
                 }
             }
         }
