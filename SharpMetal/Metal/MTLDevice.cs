@@ -436,7 +436,7 @@ namespace SharpMetal
             throw new NotImplementedException();
         }
 
-        public MTLLibrary NewLibrary(MTLdispatch_data_t data, NSError error)
+        public MTLLibrary NewLibrary(IntPtr data, NSError error)
         {
             throw new NotImplementedException();
         }
@@ -456,7 +456,7 @@ namespace SharpMetal
             throw new NotImplementedException();
         }
 
-        public MTLRenderPipelineState NewRenderPipelineState(MTLRenderPipelineDescriptor descriptor, MTLPipelineOption options, MTLAutoreleasedRenderPipelineReflection reflection, NSError error)
+        public MTLRenderPipelineState NewRenderPipelineState(MTLRenderPipelineDescriptor descriptor, MTLPipelineOption options, IntPtr reflection, NSError error)
         {
             throw new NotImplementedException();
         }
@@ -501,12 +501,12 @@ namespace SharpMetal
             throw new NotImplementedException();
         }
 
-        public MTLRenderPipelineState NewRenderPipelineState(MTLTileRenderPipelineDescriptor descriptor, MTLPipelineOption options, MTLAutoreleasedRenderPipelineReflection reflection, NSError error)
+        public MTLRenderPipelineState NewRenderPipelineState(MTLTileRenderPipelineDescriptor descriptor, MTLPipelineOption options, IntPtr reflection, NSError error)
         {
             throw new NotImplementedException();
         }
 
-        public MTLRenderPipelineState NewRenderPipelineState(MTLMeshRenderPipelineDescriptor descriptor, MTLPipelineOption options, MTLAutoreleasedRenderPipelineReflection reflection, NSError error)
+        public MTLRenderPipelineState NewRenderPipelineState(MTLMeshRenderPipelineDescriptor descriptor, MTLPipelineOption options, IntPtr reflection, NSError error)
         {
             throw new NotImplementedException();
         }
@@ -551,7 +551,7 @@ namespace SharpMetal
             throw new NotImplementedException();
         }
 
-        public IOCommandQueue NewIOCommandQueue(IOCommandQueueDescriptor descriptor, NSError error)
+        public IntPtr NewIOCommandQueue(IntPtr descriptor, NSError error)
         {
             throw new NotImplementedException();
         }

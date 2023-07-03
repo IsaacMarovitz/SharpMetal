@@ -34,27 +34,34 @@ namespace SharpMetal.Generator
             { "IOScratchBufferAllocator", "MTLIOScratchBufferAllocator" },
             { "IOCommandBuffer", "MTLIOCommandBuffer" },
 
+            { "stdfunction<void>&", "IntPtr" },
             { "Object**", "IntPtr" },
             { "id", "IntPtr" },
             { "CGSize", "IntPtr" },
-            { "dispatch_queue_t", "IntPtr" },
             { "CFTimeInterval", "IntPtr" },
-            { "ErrorDomain", "IntPtr" },
             { "TimeInterval", "IntPtr" },
+            { "ErrorDomain", "IntPtr" },
+            { "Coder", "IntPtr" },
+            { "dispatch_queue_t", "IntPtr" },
+            { "dispatch_data_t", "IntPtr" },
             { "IOSurfaceRef", "IntPtr" },
             { "IOFileHandle", "IntPtr" },
             { "IOScratchBuffer", "IntPtr" },
+            { "IOCommandQueue", "IntPtr" },
+            { "IOCommandQueueDescriptor", "IntPtr" },
             { "_Class", "IntPtr"},
             { "_ObjectType", "IntPtr" },
-            { "IntPtr", "IntPtr" },
+            { "_Object", "IntPtr" },
             { "MTLSharedEventNotificationBlock", "IntPtr"},
             { "MTLCoordinate2D", "IntPtr" },
-            { "Coder", "IntPtr" },
-            { "_Object", "IntPtr" },
-            { "stdfunction<void>&", "IntPtr" },
             { "MTLAutoreleasedComputePipelineReflection", "IntPtr" },
+            { "MTLAutoreleasedRenderPipelineReflection", "IntPtr" },
             { "MTLAutoreleasedArgument", "IntPtr"},
-            { "void", "void" }
+
+            { "IntPtr", "IntPtr" },
+            { "void", "void" },
+
+            { "NSNotificationName", "NSString" }
         };
 
         public static string ConvertType(string type, string namespacePrefix)
