@@ -25,11 +25,6 @@ namespace SharpMetal.Foundation
             throw new NotImplementedException();
         }
 
-        public static NSDictionary Dictionary()
-        {
-            throw new NotImplementedException();
-        }
-
         public static NSDictionary Dictionary(NSObject pObjects, NSObject pKeys, ulong count)
         {
             throw new NotImplementedException();

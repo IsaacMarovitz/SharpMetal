@@ -28,9 +28,12 @@ namespace SharpMetal.Foundation
         public static implicit operator IntPtr(NSNotificationCenter obj) => obj.NativePtr;
         public NSNotificationCenter(IntPtr ptr) => NativePtr = ptr;
 
-        public NSNotificationCenter DefaultCenter => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_defaultCenter));
-
         public  (NS public:)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static NSNotificationCenter DefaultCenter()
         {
             throw new NotImplementedException();
         }

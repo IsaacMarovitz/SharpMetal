@@ -167,8 +167,6 @@ namespace SharpMetal.Metal
             NativePtr = cls.AllocInit();
         }
 
-        public MTLArgumentDescriptor ArgumentDescriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_argumentDescriptor));
-
         public MTLDataType DataType
         {
             get => (MTLDataType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_dataType);

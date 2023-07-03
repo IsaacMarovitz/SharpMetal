@@ -302,8 +302,6 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMotionKeyframeCount, value);
         }
 
-        public MTLPrimitiveAccelerationStructureDescriptor Descriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_descriptor));
-
         public void SetGeometryDescriptors(NSArray geometryDescriptors)
         {
             throw new NotImplementedException();
@@ -422,8 +420,6 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTransformationMatrixBufferOffset, value);
         }
 
-        public MTLAccelerationStructureTriangleGeometryDescriptor Descriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_descriptor));
-
         public void SetVertexBuffer(MTLBuffer vertexBuffer)
         {
             throw new NotImplementedException();
@@ -534,8 +530,6 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBoundingBoxCount, value);
         }
 
-        public MTLAccelerationStructureBoundingBoxGeometryDescriptor Descriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_descriptor));
-
         public void SetBoundingBoxBuffer(MTLBuffer boundingBoxBuffer)
         {
             throw new NotImplementedException();
@@ -591,8 +585,6 @@ namespace SharpMetal.Metal
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_offset);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOffset, value);
         }
-
-        public MTLMotionKeyframeData Data => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_data));
 
         public void SetBuffer(MTLBuffer buffer)
         {
@@ -677,8 +669,6 @@ namespace SharpMetal.Metal
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_transformationMatrixBufferOffset);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTransformationMatrixBufferOffset, value);
         }
-
-        public MTLAccelerationStructureMotionTriangleGeometryDescriptor Descriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_descriptor));
 
         public void SetVertexBuffers(NSArray vertexBuffers)
         {
@@ -777,8 +767,6 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBoundingBoxCount, value);
         }
 
-        public MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor Descriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_descriptor));
-
         public void SetBoundingBoxBuffers(NSArray boundingBoxBuffers)
         {
             throw new NotImplementedException();
@@ -869,8 +857,6 @@ namespace SharpMetal.Metal
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_motionTransformCount);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMotionTransformCount, value);
         }
-
-        public MTLInstanceAccelerationStructureDescriptor Descriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_descriptor));
 
         public void SetInstanceDescriptorBuffer(MTLBuffer instanceDescriptorBuffer)
         {

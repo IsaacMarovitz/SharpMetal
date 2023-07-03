@@ -67,11 +67,6 @@ namespace SharpMetal.Foundation
             throw new NotImplementedException();
         }
 
-        public static NSString String()
-        {
-            throw new NotImplementedException();
-        }
-
         public static NSString String(ushort pString, NSStringEncoding encoding)
         {
             throw new NotImplementedException();

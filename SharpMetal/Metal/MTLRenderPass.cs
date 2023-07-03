@@ -474,8 +474,6 @@ namespace SharpMetal.Metal
             NativePtr = cls.AllocInit();
         }
 
-        public MTLRenderPassDescriptor RenderPassDescriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_renderPassDescriptor));
-
         public MTLRenderPassColorAttachmentDescriptorArray ColorAttachments => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_colorAttachments));
 
         public MTLRenderPassDepthAttachmentDescriptor DepthAttachment

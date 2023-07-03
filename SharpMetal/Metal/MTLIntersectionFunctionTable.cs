@@ -28,8 +28,6 @@ namespace SharpMetal.Metal
             NativePtr = cls.AllocInit();
         }
 
-        public MTLIntersectionFunctionTableDescriptor IntersectionFunctionTableDescriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_intersectionFunctionTableDescriptor));
-
         public ulong FunctionCount
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_functionCount);

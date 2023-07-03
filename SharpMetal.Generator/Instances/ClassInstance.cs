@@ -219,9 +219,13 @@ namespace SharpMetal.Generator.Instances
                         continue;
                     }
 
-                    if (returnType == "void" || returnType == string.Empty)
+                    if (returnType == "void" || returnType == string.Empty || isStatic)
                     {
-                        instance.AddMethod(new MethodInstance("void", name, isStatic, new List<PropertyInstance>()));
+                        // This is probably a constructor, in which case we have our own implementation
+                        if (!returnType.Contains(name))
+                        {
+                            instance.AddMethod(new MethodInstance(returnType, name, isStatic, new List<PropertyInstance>()));
+                        }
                     }
                     else
                     {

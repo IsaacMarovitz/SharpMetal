@@ -16,8 +16,6 @@ namespace SharpMetal.Foundation
             NativePtr = cls.Alloc();
         }
 
-        public NSBundle MainBundle => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_mainBundle));
-
         public NSArray AllBundles => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_allBundles));
 
         public NSArray AllFrameworks => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_allFrameworks));
@@ -63,6 +61,11 @@ namespace SharpMetal.Foundation
         public NSDictionary InfoDictionary => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_infoDictionary));
 
         public NSDictionary LocalizedInfoDictionary => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_localizedInfoDictionary));
+
+        public static NSBundle MainBundle()
+        {
+            throw new NotImplementedException();
+        }
 
         public static NSBundle Bundle(NSString pPath)
         {

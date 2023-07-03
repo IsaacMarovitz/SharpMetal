@@ -23,11 +23,6 @@ namespace SharpMetal.Foundation
             throw new NotImplementedException();
         }
 
-        public static NSArray Array()
-        {
-            throw new NotImplementedException();
-        }
-
         public static NSArray Array(NSObject pObjects, ulong count)
         {
             throw new NotImplementedException();

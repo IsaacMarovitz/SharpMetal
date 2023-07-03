@@ -84,8 +84,6 @@ namespace SharpMetal.Metal
             NativePtr = cls.AllocInit();
         }
 
-        public MTLCaptureManager SharedCaptureManager => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_sharedCaptureManager));
-
         public MTLCaptureScope DefaultCaptureScope
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_defaultCaptureScope));
@@ -93,6 +91,11 @@ namespace SharpMetal.Metal
         }
 
         public bool IsCapturing => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isCapturing);
+
+        public static MTLCaptureManager SharedCaptureManager()
+        {
+            throw new NotImplementedException();
+        }
 
         public MTLCaptureScope NewCaptureScope(MTLDevice device)
         {

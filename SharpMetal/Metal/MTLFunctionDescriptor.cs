@@ -23,8 +23,6 @@ namespace SharpMetal.Metal
             NativePtr = cls.AllocInit();
         }
 
-        public MTLFunctionDescriptor FunctionDescriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_functionDescriptor));
-
         public NSString Name
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));

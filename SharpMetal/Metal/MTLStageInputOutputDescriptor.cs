@@ -254,8 +254,6 @@ namespace SharpMetal.Metal
             NativePtr = cls.AllocInit();
         }
 
-        public MTLStageInputOutputDescriptor StageInputOutputDescriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_stageInputOutputDescriptor));
-
         public MTLBufferLayoutDescriptorArray Layouts => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_layouts));
 
         public MTLAttributeDescriptorArray Attributes => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_attributes));

@@ -17,8 +17,6 @@ namespace SharpMetal.Metal
             NativePtr = cls.AllocInit();
         }
 
-        public MTLVisibleFunctionTableDescriptor VisibleFunctionTableDescriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_visibleFunctionTableDescriptor));
-
         public ulong FunctionCount
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_functionCount);
