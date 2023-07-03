@@ -158,7 +158,7 @@ namespace SharpMetal.Generator.Instances
                     continue;
                 }
 
-                if (nextLine.Contains("template") || nextLine.Contains("^") || nextLine.Contains("typename") || nextLine.Contains("operator") || nextLine.Contains("Handler") || nextLine.Contains("Observer"))
+                if (nextLine.Contains("template") || nextLine.Contains("^") || nextLine.Contains("typename") || nextLine.Contains("operator") || nextLine.Contains("std::function") || nextLine.Contains("Handler") || nextLine.Contains("Observer"))
                 {
                     continue;
                 }
@@ -195,8 +195,6 @@ namespace SharpMetal.Generator.Instances
                     }
                 }
 
-                // TODO: Extract into a utility function
-                // Convert from camelCase to PascaleCase
                 name = StringUtils.CamelToPascale(name);
 
                 // Function has no arguments

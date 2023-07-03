@@ -5,6 +5,7 @@ namespace SharpMetal.Generator
     public class HeaderInfo
     {
         public IncludeFlags IncludeFlags = IncludeFlags.None;
+        public List<MethodInstance> NamespaceFunctions = new();
         public List<EnumInstance> EnumInstances = new();
         public List<ClassInstance> ClassInstances = new();
         public List<StructInstance> StructInstances = new();
@@ -32,9 +33,7 @@ namespace SharpMetal.Generator
                     {
                         IncludeFlags = IncludeFlags | IncludeFlags.QuartzCore;
                     }
-                }
-
-                if (line.StartsWith("class"))
+                } else if (line.StartsWith("class"))
                 {
                     if (!line.Contains(';'))
                     {
@@ -61,6 +60,10 @@ namespace SharpMetal.Generator
                     propertyOwners.AddRange(ClassInstances);
 
                     SelectorInstance.Build(line, namespacePrefix, sr, propertyOwners);
+                }
+                else if (line.Contains("(") && line.Contains(")") && line.Contains(";") && !line.Contains("//") && !line.Contains("using") && !line.Contains("extern") && !line.Contains("_") && !line.Contains("return"))
+                {
+                    // Probably a namespace level function
                 }
             }
         }

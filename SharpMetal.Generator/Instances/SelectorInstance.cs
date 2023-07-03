@@ -40,7 +40,7 @@ namespace SharpMetal.Generator.Instances
                 selector = selector.Replace("_", ":");
 
                 // We don't want to deal with these functions
-                if (selector.Contains("Handler") || selector.Contains("Observer"))
+                if (selector.Contains("std::function") || selector.Contains("Handler") || selector.Contains("Observer"))
                 {
                     return;
                 }

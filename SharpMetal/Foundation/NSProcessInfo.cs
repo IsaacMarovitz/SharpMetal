@@ -90,6 +90,16 @@ namespace SharpMetal.Foundation
             throw new NotImplementedException();
         }
 
+        public void DisableSuddenTermination()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EnableSuddenTermination()
+        {
+            throw new NotImplementedException();
+        }
+
         public void DisableAutomaticTermination(NSString pReason)
         {
             throw new NotImplementedException();
@@ -111,11 +121,6 @@ namespace SharpMetal.Foundation
         }
 
         public void EndActivity(NSObject pActivity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void PerformActivity(NSActivityOptions options, NSString pReason, IntPtr func)
         {
             throw new NotImplementedException();
         }
