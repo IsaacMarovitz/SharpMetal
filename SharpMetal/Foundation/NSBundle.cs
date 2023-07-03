@@ -112,11 +112,6 @@ namespace SharpMetal.Foundation
             throw new NotImplementedException();
         }
 
-        public NSString LocalizedString(NSString pKey, NSString pValue = nullptr, NSString pTableName = nullptr)
-        {
-            throw new NotImplementedException();
-        }
-
         private static readonly Selector sel_mainBundle = "mainBundle";
         private static readonly Selector sel_bundleWithPath = "bundleWithPath:";
         private static readonly Selector sel_bundleWithURL = "bundleWithURL:";
