@@ -16,6 +16,14 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
+        public NSNumber Object(ulong index) {
+
+        }
+
+        public void SetObject(NSNumber value, ulong index) {
+
+        }
+
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
         private static readonly Selector sel_setObjectatIndexedSubscript = "setObject:atIndexedSubscript:";
     }
@@ -49,6 +57,18 @@ namespace SharpMetal
 
         public MTLRasterizationRateSampleArray Vertical => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_vertical));
 
+        public MTLRasterizationRateLayerDescriptor Init(MTLSize sampleCount) {
+
+        }
+
+        public MTLRasterizationRateLayerDescriptor Init(MTLSize sampleCount, float horizontal, float vertical) {
+
+        }
+
+        public void SetSampleCount(MTLSize sampleCount) {
+
+        }
+
         private static readonly Selector sel_initWithSampleCount = "initWithSampleCount:";
         private static readonly Selector sel_initWithSampleCounthorizontalvertical = "initWithSampleCount:horizontal:vertical:";
         private static readonly Selector sel_sampleCount = "sampleCount";
@@ -71,6 +91,14 @@ namespace SharpMetal
         {
             var cls = new ObjectiveCClass("MTLRasterizationRateLayerArray");
             NativePtr = cls.AllocInit();
+        }
+
+        public MTLRasterizationRateLayerDescriptor Object(ulong layerIndex) {
+
+        }
+
+        public void SetObject(MTLRasterizationRateLayerDescriptor layer, ulong layerIndex) {
+
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
@@ -106,6 +134,34 @@ namespace SharpMetal
 
         public ulong LayerCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_layerCount);
 
+        public MTLRasterizationRateMapDescriptor RasterizationRateMapDescriptor(MTLSize screenSize) {
+
+        }
+
+        public MTLRasterizationRateMapDescriptor RasterizationRateMapDescriptor(MTLSize screenSize, MTLRasterizationRateLayerDescriptor layer) {
+
+        }
+
+        public MTLRasterizationRateMapDescriptor RasterizationRateMapDescriptor(MTLSize screenSize, ulong layerCount, MTLRasterizationRateLayerDescriptor layers) {
+
+        }
+
+        public MTLRasterizationRateLayerDescriptor Layer(ulong Index) {
+
+        }
+
+        public void SetLayer(MTLRasterizationRateLayerDescriptor layer, ulong layerIndex) {
+
+        }
+
+        public void SetScreenSize(MTLSize screenSize) {
+
+        }
+
+        public void SetLabel(NSString label) {
+
+        }
+
         private static readonly Selector sel_rasterizationRateMapDescriptorWithScreenSize = "rasterizationRateMapDescriptorWithScreenSize:";
         private static readonly Selector sel_rasterizationRateMapDescriptorWithScreenSizelayer = "rasterizationRateMapDescriptorWithScreenSize:layer:";
         private static readonly Selector sel_rasterizationRateMapDescriptorWithScreenSizelayerCountlayers = "rasterizationRateMapDescriptorWithScreenSize:layerCount:layers:";
@@ -137,6 +193,22 @@ namespace SharpMetal
         public ulong LayerCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_layerCount);
 
         public MTLSizeAndAlign ParameterBufferSizeAndAlign => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_parameterBufferSizeAndAlign));
+
+        public void CopyParameterDataToBuffer(MTLBuffer buffer, ulong offset) {
+
+        }
+
+        public MTLSize PhysicalSize(ulong layerIndex) {
+
+        }
+
+        public MTLCoordinate2D MapScreenToPhysicalCoordinates(MTLCoordinate2D screenCoordinates, ulong layerIndex) {
+
+        }
+
+        public MTLCoordinate2D MapPhysicalToScreenCoordinates(MTLCoordinate2D physicalCoordinates, ulong layerIndex) {
+
+        }
 
         private static readonly Selector sel_device = "device";
         private static readonly Selector sel_label = "label";

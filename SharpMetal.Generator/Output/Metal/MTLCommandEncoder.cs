@@ -32,6 +32,18 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
         }
 
+        public void SetLabel(NSString label) {
+
+        }
+
+        public void InsertDebugSignpost(NSString string) {
+
+        }
+
+        public void PushDebugGroup(NSString string) {
+
+        }
+
         private static readonly Selector sel_device = "device";
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_setLabel = "setLabel:";

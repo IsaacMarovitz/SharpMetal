@@ -136,6 +136,66 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
         }
 
+        public void SetMinFilter(MTLSamplerMinMagFilter minFilter) {
+
+        }
+
+        public void SetMagFilter(MTLSamplerMinMagFilter magFilter) {
+
+        }
+
+        public void SetMipFilter(MTLSamplerMipFilter mipFilter) {
+
+        }
+
+        public void SetMaxAnisotropy(ulong maxAnisotropy) {
+
+        }
+
+        public void SetSAddressMode(MTLSamplerAddressMode sAddressMode) {
+
+        }
+
+        public void SetTAddressMode(MTLSamplerAddressMode tAddressMode) {
+
+        }
+
+        public void SetRAddressMode(MTLSamplerAddressMode rAddressMode) {
+
+        }
+
+        public void SetBorderColor(MTLSamplerBorderColor borderColor) {
+
+        }
+
+        public void SetNormalizedCoordinates(bool normalizedCoordinates) {
+
+        }
+
+        public void SetLodMinClamp(float lodMinClamp) {
+
+        }
+
+        public void SetLodMaxClamp(float lodMaxClamp) {
+
+        }
+
+        public void SetLodAverage(bool lodAverage) {
+
+        }
+
+        public void SetCompareFunction(MTLCompareFunction compareFunction) {
+
+        }
+
+        public void SetSupportArgumentBuffers(bool supportArgumentBuffers) {
+
+        }
+
+        public void SetLabel(NSString label) {
+
+        }
+
         private static readonly Selector sel_minFilter = "minFilter";
         private static readonly Selector sel_setMinFilter = "setMinFilter:";
         private static readonly Selector sel_magFilter = "magFilter";

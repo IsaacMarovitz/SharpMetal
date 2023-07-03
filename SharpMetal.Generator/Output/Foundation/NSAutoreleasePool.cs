@@ -16,6 +16,10 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
+        public void AddObject(NSObject pObject) {
+
+        }
+
         private static readonly Selector sel_drain = "drain";
         private static readonly Selector sel_addObject = "addObject:";
         private static readonly Selector sel_showPools = "showPools";

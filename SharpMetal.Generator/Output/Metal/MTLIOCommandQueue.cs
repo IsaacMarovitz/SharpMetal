@@ -39,6 +39,10 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
         }
 
+        public void SetLabel(NSString label) {
+
+        }
+
         private static readonly Selector sel_enqueueBarrier = "enqueueBarrier";
         private static readonly Selector sel_commandBuffer = "commandBuffer";
         private static readonly Selector sel_commandBufferWithUnretainedReferences = "commandBufferWithUnretainedReferences";
@@ -64,6 +68,10 @@ namespace SharpMetal
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIOScratchBufferAllocator obj) => obj.NativePtr;
         public MTLIOScratchBufferAllocator(IntPtr ptr) => NativePtr = ptr;
+
+        public IntPtr NewScratchBuffer(ulong minimumSize) {
+
+        }
 
         private static readonly Selector sel_newScratchBufferWithMinimumSize = "newScratchBufferWithMinimumSize:";
     }
@@ -111,6 +119,26 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setScratchBufferAllocator, value);
         }
 
+        public void SetMaxCommandBufferCount(ulong maxCommandBufferCount) {
+
+        }
+
+        public void SetPriority(MTLIOPriority priority) {
+
+        }
+
+        public void SetType(MTLIOCommandQueueType type) {
+
+        }
+
+        public void SetMaxCommandsInFlight(ulong maxCommandsInFlight) {
+
+        }
+
+        public void SetScratchBufferAllocator(MTLIOScratchBufferAllocator scratchBufferAllocator) {
+
+        }
+
         private static readonly Selector sel_maxCommandBufferCount = "maxCommandBufferCount";
         private static readonly Selector sel_setMaxCommandBufferCount = "setMaxCommandBufferCount:";
         private static readonly Selector sel_priority = "priority";
@@ -134,6 +162,10 @@ namespace SharpMetal
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
+        }
+
+        public void SetLabel(NSString label) {
+
         }
 
         private static readonly Selector sel_label = "label";

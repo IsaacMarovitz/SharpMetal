@@ -64,6 +64,58 @@ namespace SharpMetal
 
         public ushort FileSystemRepresentation => ObjectiveCRuntime.ushort_objc_msgSend(NativePtr, sel_fileSystemRepresentation);
 
+        public NSString String(NSString pString) {
+
+        }
+
+        public NSString String(ushort pString, NSStringEncoding encoding) {
+
+        }
+
+        public NSString Init(NSString pString) {
+
+        }
+
+        public NSString Init(ushort pString, NSStringEncoding encoding) {
+
+        }
+
+        public NSString Init(IntPtr pBytes, ulong len, NSStringEncoding encoding, bool freeBuffer) {
+
+        }
+
+        public NSunichar Character(ulong index) {
+
+        }
+
+        public ushort CString(NSStringEncoding encoding) {
+
+        }
+
+        public ulong MaximumLengthOfBytes(NSStringEncoding encoding) {
+
+        }
+
+        public ulong LengthOfBytes(NSStringEncoding encoding) {
+
+        }
+
+        public bool IsEqualToString(NSString pString) {
+
+        }
+
+        public NSRange RangeOfString(NSString pString, NSStringCompareOptions options) {
+
+        }
+
+        public NSString StringByAppendingString(NSString pString) {
+
+        }
+
+        public NSComparisonResult CaseInsensitiveCompare(NSString pString) {
+
+        }
+
         private static readonly Selector sel_string = "string";
         private static readonly Selector sel_stringWithString = "stringWithString:";
         private static readonly Selector sel_stringWithCStringencoding = "stringWithCString:encoding:";

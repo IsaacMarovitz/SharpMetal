@@ -186,6 +186,18 @@ namespace SharpMetal
 
         public MTLFunctionOptions Options => (MTLFunctionOptions)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_options);
 
+        public void SetLabel(NSString label) {
+
+        }
+
+        public MTLArgumentEncoder NewArgumentEncoder(ulong bufferIndex) {
+
+        }
+
+        public MTLArgumentEncoder NewArgumentEncoder(ulong bufferIndex, MTLAutoreleasedArgument reflection) {
+
+        }
+
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_setLabel = "setLabel:";
         private static readonly Selector sel_device = "device";
@@ -280,6 +292,50 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxTotalThreadsPerThreadgroup, value);
         }
 
+        public void SetPreprocessorMacros(NSDictionary preprocessorMacros) {
+
+        }
+
+        public void SetFastMathEnabled(bool fastMathEnabled) {
+
+        }
+
+        public void SetLanguageVersion(MTLLanguageVersion languageVersion) {
+
+        }
+
+        public void SetLibraryType(MTLLibraryType libraryType) {
+
+        }
+
+        public void SetInstallName(NSString installName) {
+
+        }
+
+        public void SetLibraries(NSArray libraries) {
+
+        }
+
+        public void SetPreserveInvariance(bool preserveInvariance) {
+
+        }
+
+        public void SetOptimizationLevel(MTLLibraryOptimizationLevel optimizationLevel) {
+
+        }
+
+        public void SetCompileSymbolVisibility(MTLCompileSymbolVisibility compileSymbolVisibility) {
+
+        }
+
+        public void SetAllowReferencingUndefinedSymbols(bool allowReferencingUndefinedSymbols) {
+
+        }
+
+        public void SetMaxTotalThreadsPerThreadgroup(ulong maxTotalThreadsPerThreadgroup) {
+
+        }
+
         private static readonly Selector sel_preprocessorMacros = "preprocessorMacros";
         private static readonly Selector sel_setPreprocessorMacros = "setPreprocessorMacros:";
         private static readonly Selector sel_fastMathEnabled = "fastMathEnabled";
@@ -324,6 +380,50 @@ namespace SharpMetal
         public MTLLibraryType Type => (MTLLibraryType)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_type);
 
         public NSString InstallName => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_installName));
+
+        public void NewFunction() {
+
+        }
+
+        public void NewFunction() {
+
+        }
+
+        public void NewIntersectionFunction() {
+
+        }
+
+        public void SetLabel(NSString label) {
+
+        }
+
+        public MTLFunction NewFunction(NSString functionName) {
+
+        }
+
+        public MTLFunction NewFunction(NSString name, MTLFunctionConstantValues constantValues, NSError error) {
+
+        }
+
+        public void NewFunction() {
+
+        }
+
+        public void NewFunction() {
+
+        }
+
+        public MTLFunction NewFunction(MTLFunctionDescriptor descriptor, NSError error) {
+
+        }
+
+        public void NewIntersectionFunction() {
+
+        }
+
+        public MTLFunction NewIntersectionFunction(MTLIntersectionFunctionDescriptor descriptor, NSError error) {
+
+        }
 
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_setLabel = "setLabel:";

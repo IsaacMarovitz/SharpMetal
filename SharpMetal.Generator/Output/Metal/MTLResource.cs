@@ -78,6 +78,14 @@ namespace SharpMetal
 
         public bool IsAliasable => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isAliasable);
 
+        public void SetLabel(NSString label) {
+
+        }
+
+        public MTLPurgeableState SetPurgeableState(MTLPurgeableState state) {
+
+        }
+
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_setLabel = "setLabel:";
         private static readonly Selector sel_device = "device";

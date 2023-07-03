@@ -1,5 +1,3 @@
-using System.Text;
-
 namespace SharpMetal.Generator
 {
     public class Program
@@ -45,7 +43,7 @@ namespace SharpMetal.Generator
         public static void GenerateEnumCache(string filePath, ref List<EnumCacheInstance> enumCache)
         {
             using var sr = new StreamReader(File.OpenRead(filePath));
-            var namespacePrefix = HeaderInfo.GetNamespace(filePath);
+            var namespacePrefix = Namespaces.GetNamespace(filePath);
 
             while (!sr.EndOfStream)
             {
@@ -70,7 +68,7 @@ namespace SharpMetal.Generator
                         }
                     }
 
-                    var convertedType = HeaderInfo.ConvertType(type, namespacePrefix);
+                    var convertedType = Types.ConvertType(type, namespacePrefix);
                     enumCache.Add(new EnumCacheInstance(convertedType, name));
                 }
             }
@@ -185,6 +183,27 @@ namespace SharpMetal.Generator
                 }
             }
 
+            foreach (var method in instance.MethodInstances)
+            {
+                context.WriteLine();
+                context.Write(context.Indentation + $"public {method.ReturnType} {method.Name}(");
+
+                for (var i = 0; i < method.InputInstances.Count; i++)
+                {
+                    var input = method.InputInstances[i];
+
+                    context.Write($"{input.Type} {input.Name}");
+
+                    if (i != method.InputInstances.Count - 1)
+                    {
+                        context.Write(", ");
+                    }
+                }
+
+                context.Write(") {\n");
+                context.WriteLine();
+                context.WriteLine("}");
+            }
 
             if (instance.SelectorInstances.Any())
             {

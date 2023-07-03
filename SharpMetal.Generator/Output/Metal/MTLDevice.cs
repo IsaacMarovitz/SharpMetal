@@ -204,6 +204,30 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setConstantBlockAlignment, value);
         }
 
+        public void SetDataType(MTLDataType dataType) {
+
+        }
+
+        public void SetIndex(ulong index) {
+
+        }
+
+        public void SetArrayLength(ulong arrayLength) {
+
+        }
+
+        public void SetAccess(MTLArgumentAccess access) {
+
+        }
+
+        public void SetTextureType(MTLTextureType textureType) {
+
+        }
+
+        public void SetConstantBlockAlignment(ulong constantBlockAlignment) {
+
+        }
+
         private static readonly Selector sel_argumentDescriptor = "argumentDescriptor";
         private static readonly Selector sel_dataType = "dataType";
         private static readonly Selector sel_setDataType = "setDataType:";
@@ -323,6 +347,310 @@ namespace SharpMetal
         }
 
         public ulong MaximumConcurrentCompilationTaskCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maximumConcurrentCompilationTaskCount);
+
+        public void NewLibrary(NSString pSource, MTLCompileOptions pOptions, MTLNewLibraryCompletionHandlerFunction& completionHandler) {
+
+        }
+
+        public void NewLibrary(MTLStitchedLibraryDescriptor pDescriptor, MTLNewLibraryCompletionHandlerFunction& completionHandler) {
+
+        }
+
+        public void NewRenderPipelineState(MTLRenderPipelineDescriptor pDescriptor, MTLNewRenderPipelineStateCompletionHandlerFunction& completionHandler) {
+
+        }
+
+        public void NewRenderPipelineState(MTLRenderPipelineDescriptor pDescriptor, MTLPipelineOption options, MTLNewRenderPipelineStateWithReflectionCompletionHandlerFunction& completionHandler) {
+
+        }
+
+        public void NewRenderPipelineState(MTLTileRenderPipelineDescriptor pDescriptor, MTLPipelineOption options, MTLNewRenderPipelineStateWithReflectionCompletionHandlerFunction& completionHandler) {
+
+        }
+
+        public void NewComputePipelineState(MTLFunction pFunction, MTLNewComputePipelineStateCompletionHandlerFunction& completionHandler) {
+
+        }
+
+        public void NewComputePipelineState(MTLFunction pFunction, MTLPipelineOption options, MTLNewComputePipelineStateWithReflectionCompletionHandlerFunction& completionHandler) {
+
+        }
+
+        public void NewComputePipelineState(MTLComputePipelineDescriptor pDescriptor, MTLPipelineOption options, MTLNewComputePipelineStateWithReflectionCompletionHandlerFunction& completionHandler) {
+
+        }
+
+        public MTLCommandQueue NewCommandQueue(ulong maxCommandBufferCount) {
+
+        }
+
+        public MTLSizeAndAlign HeapTextureSizeAndAlign(MTLTextureDescriptor desc) {
+
+        }
+
+        public MTLSizeAndAlign HeapBufferSizeAndAlign(ulong length, MTLResourceOptions options) {
+
+        }
+
+        public MTLHeap NewHeap(MTLHeapDescriptor descriptor) {
+
+        }
+
+        public MTLBuffer NewBuffer(ulong length, MTLResourceOptions options) {
+
+        }
+
+        public MTLBuffer NewBuffer(IntPtr pointer, ulong length, MTLResourceOptions options) {
+
+        }
+
+        public MTLBuffer NewBuffer() {
+
+        }
+
+        public MTLDepthStencilState NewDepthStencilState(MTLDepthStencilDescriptor descriptor) {
+
+        }
+
+        public MTLTexture NewTexture(MTLTextureDescriptor descriptor) {
+
+        }
+
+        public MTLTexture NewTexture(MTLTextureDescriptor descriptor, IntPtr iosurface, ulong plane) {
+
+        }
+
+        public MTLTexture NewSharedTexture(MTLTextureDescriptor descriptor) {
+
+        }
+
+        public MTLTexture NewSharedTexture(MTLSharedTextureHandle sharedHandle) {
+
+        }
+
+        public MTLSamplerState NewSamplerState(MTLSamplerDescriptor descriptor) {
+
+        }
+
+        public MTLLibrary NewDefaultLibrary(NSBundle bundle, NSError error) {
+
+        }
+
+        public MTLLibrary NewLibrary(NSString filepath, NSError error) {
+
+        }
+
+        public MTLLibrary NewLibrary(NSURL url, NSError error) {
+
+        }
+
+        public MTLLibrary NewLibrary(MTLdispatch_data_t data, NSError error) {
+
+        }
+
+        public MTLLibrary NewLibrary(NSString source, MTLCompileOptions options, NSError error) {
+
+        }
+
+        public void NewLibrary(NSString source, MTLCompileOptions options, MTLNewLibraryCompletionHandler completionHandler) {
+
+        }
+
+        public MTLLibrary NewLibrary(MTLStitchedLibraryDescriptor descriptor, NSError error) {
+
+        }
+
+        public void NewLibrary(MTLStitchedLibraryDescriptor descriptor, MTLNewLibraryCompletionHandler completionHandler) {
+
+        }
+
+        public MTLRenderPipelineState NewRenderPipelineState(MTLRenderPipelineDescriptor descriptor, NSError error) {
+
+        }
+
+        public MTLRenderPipelineState NewRenderPipelineState(MTLRenderPipelineDescriptor descriptor, MTLPipelineOption options, MTLAutoreleasedRenderPipelineReflection reflection, NSError error) {
+
+        }
+
+        public void NewRenderPipelineState(MTLRenderPipelineDescriptor descriptor, MTLNewRenderPipelineStateCompletionHandler completionHandler) {
+
+        }
+
+        public void NewRenderPipelineState(MTLRenderPipelineDescriptor descriptor, MTLPipelineOption options, MTLNewRenderPipelineStateWithReflectionCompletionHandler completionHandler) {
+
+        }
+
+        public MTLComputePipelineState NewComputePipelineState(MTLFunction computeFunction, NSError error) {
+
+        }
+
+        public MTLComputePipelineState NewComputePipelineState(MTLFunction computeFunction, MTLPipelineOption options, MTLAutoreleasedComputePipelineReflection reflection, NSError error) {
+
+        }
+
+        public void NewComputePipelineState(MTLFunction computeFunction, MTLNewComputePipelineStateCompletionHandler completionHandler) {
+
+        }
+
+        public void NewComputePipelineState(MTLFunction computeFunction, MTLPipelineOption options, MTLNewComputePipelineStateWithReflectionCompletionHandler completionHandler) {
+
+        }
+
+        public MTLComputePipelineState NewComputePipelineState(MTLComputePipelineDescriptor descriptor, MTLPipelineOption options, MTLAutoreleasedComputePipelineReflection reflection, NSError error) {
+
+        }
+
+        public void NewComputePipelineState(MTLComputePipelineDescriptor descriptor, MTLPipelineOption options, MTLNewComputePipelineStateWithReflectionCompletionHandler completionHandler) {
+
+        }
+
+        public bool SupportsFeatureSet(MTLFeatureSet featureSet) {
+
+        }
+
+        public bool SupportsFamily(MTLGPUFamily gpuFamily) {
+
+        }
+
+        public bool SupportsTextureSampleCount(ulong sampleCount) {
+
+        }
+
+        public ulong MinimumLinearTextureAlignmentForPixelFormat(MTLPixelFormat format) {
+
+        }
+
+        public ulong MinimumTextureBufferAlignmentForPixelFormat(MTLPixelFormat format) {
+
+        }
+
+        public MTLRenderPipelineState NewRenderPipelineState(MTLTileRenderPipelineDescriptor descriptor, MTLPipelineOption options, MTLAutoreleasedRenderPipelineReflection reflection, NSError error) {
+
+        }
+
+        public void NewRenderPipelineState(MTLTileRenderPipelineDescriptor descriptor, MTLPipelineOption options, MTLNewRenderPipelineStateWithReflectionCompletionHandler completionHandler) {
+
+        }
+
+        public MTLRenderPipelineState NewRenderPipelineState(MTLMeshRenderPipelineDescriptor descriptor, MTLPipelineOption options, MTLAutoreleasedRenderPipelineReflection reflection, NSError error) {
+
+        }
+
+        public void NewRenderPipelineState(MTLMeshRenderPipelineDescriptor descriptor, MTLPipelineOption options, MTLNewRenderPipelineStateWithReflectionCompletionHandler completionHandler) {
+
+        }
+
+        public void GetDefaultSamplePositions(MTLSamplePosition positions, ulong count) {
+
+        }
+
+        public MTLArgumentEncoder NewArgumentEncoder(NSArray arguments) {
+
+        }
+
+        public bool SupportsRasterizationRateMap(ulong layerCount) {
+
+        }
+
+        public MTLRasterizationRateMap NewRasterizationRateMap(MTLRasterizationRateMapDescriptor descriptor) {
+
+        }
+
+        public MTLIndirectCommandBuffer NewIndirectCommandBuffer(MTLIndirectCommandBufferDescriptor descriptor, ulong maxCount, MTLResourceOptions options) {
+
+        }
+
+        public MTLSharedEvent NewSharedEvent(MTLSharedEventHandle sharedEventHandle) {
+
+        }
+
+        public IntPtr NewIOHandle(NSURL url, NSError error) {
+
+        }
+
+        public IOCommandQueue NewIOCommandQueue(IOCommandQueueDescriptor descriptor, NSError error) {
+
+        }
+
+        public IntPtr NewIOHandle(NSURL url, MTLIOCompressionMethod compressionMethod, NSError error) {
+
+        }
+
+        public MTLSize SparseTileSize(MTLTextureType textureType, MTLPixelFormat pixelFormat, ulong sampleCount) {
+
+        }
+
+        public void ConvertSparsePixelRegions(MTLRegion pixelRegions, MTLRegion tileRegions, MTLSize tileSize, MTLSparseTextureRegionAlignmentMode mode, ulong numRegions) {
+
+        }
+
+        public void ConvertSparseTileRegions(MTLRegion tileRegions, MTLRegion pixelRegions, MTLSize tileSize, ulong numRegions) {
+
+        }
+
+        public ulong SparseTileSizeInBytes(MTLSparsePageSize sparsePageSize) {
+
+        }
+
+        public MTLSize SparseTileSize(MTLTextureType textureType, MTLPixelFormat pixelFormat, ulong sampleCount, MTLSparsePageSize sparsePageSize) {
+
+        }
+
+        public MTLCounterSampleBuffer NewCounterSampleBuffer(MTLCounterSampleBufferDescriptor descriptor, NSError error) {
+
+        }
+
+        public void SampleTimestamps(MTLTimestamp cpuTimestamp, MTLTimestamp gpuTimestamp) {
+
+        }
+
+        public MTLArgumentEncoder NewArgumentEncoder(MTLBufferBinding bufferBinding) {
+
+        }
+
+        public bool SupportsCounterSampling(MTLCounterSamplingPoint samplingPoint) {
+
+        }
+
+        public bool SupportsVertexAmplificationCount(ulong count) {
+
+        }
+
+        public MTLDynamicLibrary NewDynamicLibrary(MTLLibrary library, NSError error) {
+
+        }
+
+        public MTLDynamicLibrary NewDynamicLibrary(NSURL url, NSError error) {
+
+        }
+
+        public MTLBinaryArchive NewBinaryArchive(MTLBinaryArchiveDescriptor descriptor, NSError error) {
+
+        }
+
+        public MTLAccelerationStructureSizes AccelerationStructureSizes(MTLAccelerationStructureDescriptor descriptor) {
+
+        }
+
+        public MTLAccelerationStructure NewAccelerationStructure(ulong size) {
+
+        }
+
+        public MTLAccelerationStructure NewAccelerationStructure(MTLAccelerationStructureDescriptor descriptor) {
+
+        }
+
+        public MTLSizeAndAlign HeapAccelerationStructureSizeAndAlign(ulong size) {
+
+        }
+
+        public MTLSizeAndAlign HeapAccelerationStructureSizeAndAlign(MTLAccelerationStructureDescriptor descriptor) {
+
+        }
+
+        public void SetShouldMaximizeConcurrentCompilation(bool shouldMaximizeConcurrentCompilation) {
+
+        }
 
         private static readonly Selector sel_name = "name";
         private static readonly Selector sel_registryID = "registryID";

@@ -195,6 +195,494 @@ namespace SharpMetal
 
         public ulong TileHeight => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_tileHeight);
 
+        public void SetRenderPipelineState(MTLRenderPipelineState pipelineState) {
+
+        }
+
+        public void SetVertexBytes(IntPtr bytes, ulong length, ulong index) {
+
+        }
+
+        public void SetVertexBuffer(MTLBuffer buffer, ulong offset, ulong index) {
+
+        }
+
+        public void SetVertexBufferOffset(ulong offset, ulong index) {
+
+        }
+
+        public void SetVertexBuffers(MTLBuffer[] buffers, ulong[] offsets, NSRange range) {
+
+        }
+
+        public void SetVertexTexture(MTLTexture texture, ulong index) {
+
+        }
+
+        public void SetVertexTextures(MTLTexture[] textures, NSRange range) {
+
+        }
+
+        public void SetVertexSamplerState(MTLSamplerState sampler, ulong index) {
+
+        }
+
+        public void SetVertexSamplerStates(MTLSamplerState[] samplers, NSRange range) {
+
+        }
+
+        public void SetVertexSamplerState(MTLSamplerState sampler, float lodMinClamp, float lodMaxClamp, ulong index) {
+
+        }
+
+        public void SetVertexSamplerStates(MTLSamplerState[] samplers, float[] lodMinClamps, float[] lodMaxClamps, NSRange range) {
+
+        }
+
+        public void SetVertexVisibleFunctionTable(MTLVisibleFunctionTable functionTable, ulong bufferIndex) {
+
+        }
+
+        public void SetVertexVisibleFunctionTables(MTLVisibleFunctionTable[] functionTables, NSRange range) {
+
+        }
+
+        public void SetVertexIntersectionFunctionTable(MTLIntersectionFunctionTable intersectionFunctionTable, ulong bufferIndex) {
+
+        }
+
+        public void SetVertexIntersectionFunctionTables(MTLIntersectionFunctionTable[] intersectionFunctionTables, NSRange range) {
+
+        }
+
+        public void SetVertexAccelerationStructure(MTLAccelerationStructure accelerationStructure, ulong bufferIndex) {
+
+        }
+
+        public void SetViewport(MTLViewport viewport) {
+
+        }
+
+        public void SetViewports(MTLViewport viewports, ulong count) {
+
+        }
+
+        public void SetFrontFacingWinding(MTLWinding frontFacingWinding) {
+
+        }
+
+        public void SetVertexAmplificationCount(ulong count, MTLVertexAmplificationViewMapping viewMappings) {
+
+        }
+
+        public void SetCullMode(MTLCullMode cullMode) {
+
+        }
+
+        public void SetDepthClipMode(MTLDepthClipMode depthClipMode) {
+
+        }
+
+        public void SetDepthBias(float depthBias, float slopeScale, float clamp) {
+
+        }
+
+        public void SetScissorRect(MTLScissorRect rect) {
+
+        }
+
+        public void SetScissorRects(MTLScissorRect scissorRects, ulong count) {
+
+        }
+
+        public void SetTriangleFillMode(MTLTriangleFillMode fillMode) {
+
+        }
+
+        public void SetFragmentBytes(IntPtr bytes, ulong length, ulong index) {
+
+        }
+
+        public void SetFragmentBuffer(MTLBuffer buffer, ulong offset, ulong index) {
+
+        }
+
+        public void SetFragmentBufferOffset(ulong offset, ulong index) {
+
+        }
+
+        public void SetFragmentBuffers(MTLBuffer[] buffers, ulong[] offsets, NSRange range) {
+
+        }
+
+        public void SetFragmentTexture(MTLTexture texture, ulong index) {
+
+        }
+
+        public void SetFragmentTextures(MTLTexture[] textures, NSRange range) {
+
+        }
+
+        public void SetFragmentSamplerState(MTLSamplerState sampler, ulong index) {
+
+        }
+
+        public void SetFragmentSamplerStates(MTLSamplerState[] samplers, NSRange range) {
+
+        }
+
+        public void SetFragmentSamplerState(MTLSamplerState sampler, float lodMinClamp, float lodMaxClamp, ulong index) {
+
+        }
+
+        public void SetFragmentSamplerStates(MTLSamplerState[] samplers, float[] lodMinClamps, float[] lodMaxClamps, NSRange range) {
+
+        }
+
+        public void SetFragmentVisibleFunctionTable(MTLVisibleFunctionTable functionTable, ulong bufferIndex) {
+
+        }
+
+        public void SetFragmentVisibleFunctionTables(MTLVisibleFunctionTable[] functionTables, NSRange range) {
+
+        }
+
+        public void SetFragmentIntersectionFunctionTable(MTLIntersectionFunctionTable intersectionFunctionTable, ulong bufferIndex) {
+
+        }
+
+        public void SetFragmentIntersectionFunctionTables(MTLIntersectionFunctionTable[] intersectionFunctionTables, NSRange range) {
+
+        }
+
+        public void SetFragmentAccelerationStructure(MTLAccelerationStructure accelerationStructure, ulong bufferIndex) {
+
+        }
+
+        public void SetBlendColor(float red, float green, float blue, float alpha) {
+
+        }
+
+        public void SetDepthStencilState(MTLDepthStencilState depthStencilState) {
+
+        }
+
+        public void SetStencilReferenceValue(uint referenceValue) {
+
+        }
+
+        public void SetStencilReferenceValues(uint frontReferenceValue, uint backReferenceValue) {
+
+        }
+
+        public void SetVisibilityResultMode(MTLVisibilityResultMode mode, ulong offset) {
+
+        }
+
+        public void SetColorStoreAction(MTLStoreAction storeAction, ulong colorAttachmentIndex) {
+
+        }
+
+        public void SetDepthStoreAction(MTLStoreAction storeAction) {
+
+        }
+
+        public void SetStencilStoreAction(MTLStoreAction storeAction) {
+
+        }
+
+        public void SetColorStoreActionOptions(MTLStoreActionOptions storeActionOptions, ulong colorAttachmentIndex) {
+
+        }
+
+        public void SetDepthStoreActionOptions(MTLStoreActionOptions storeActionOptions) {
+
+        }
+
+        public void SetStencilStoreActionOptions(MTLStoreActionOptions storeActionOptions) {
+
+        }
+
+        public void SetObjectBytes(IntPtr bytes, ulong length, ulong index) {
+
+        }
+
+        public void SetObjectBuffer(MTLBuffer buffer, ulong offset, ulong index) {
+
+        }
+
+        public void SetObjectBufferOffset(ulong offset, ulong index) {
+
+        }
+
+        public void SetObjectBuffers(MTLBuffer[] buffers, ulong offsets, NSRange range) {
+
+        }
+
+        public void SetObjectTexture(MTLTexture texture, ulong index) {
+
+        }
+
+        public void SetObjectTextures(MTLTexture[] textures, NSRange range) {
+
+        }
+
+        public void SetObjectSamplerState(MTLSamplerState sampler, ulong index) {
+
+        }
+
+        public void SetObjectSamplerStates(MTLSamplerState[] samplers, NSRange range) {
+
+        }
+
+        public void SetObjectSamplerState(MTLSamplerState sampler, float lodMinClamp, float lodMaxClamp, ulong index) {
+
+        }
+
+        public void SetObjectSamplerStates(MTLSamplerState[] samplers, float lodMinClamps, float lodMaxClamps, NSRange range) {
+
+        }
+
+        public void SetObjectThreadgroupMemoryLength(ulong length, ulong index) {
+
+        }
+
+        public void SetMeshBytes(IntPtr bytes, ulong length, ulong index) {
+
+        }
+
+        public void SetMeshBuffer(MTLBuffer buffer, ulong offset, ulong index) {
+
+        }
+
+        public void SetMeshBufferOffset(ulong offset, ulong index) {
+
+        }
+
+        public void SetMeshBuffers(MTLBuffer[] buffers, ulong offsets, NSRange range) {
+
+        }
+
+        public void SetMeshTexture(MTLTexture texture, ulong index) {
+
+        }
+
+        public void SetMeshTextures(MTLTexture[] textures, NSRange range) {
+
+        }
+
+        public void SetMeshSamplerState(MTLSamplerState sampler, ulong index) {
+
+        }
+
+        public void SetMeshSamplerStates(MTLSamplerState[] samplers, NSRange range) {
+
+        }
+
+        public void SetMeshSamplerState(MTLSamplerState sampler, float lodMinClamp, float lodMaxClamp, ulong index) {
+
+        }
+
+        public void SetMeshSamplerStates(MTLSamplerState[] samplers, float lodMinClamps, float lodMaxClamps, NSRange range) {
+
+        }
+
+        public void DrawMeshThreadgroups(MTLSize threadgroupsPerGrid, MTLSize threadsPerObjectThreadgroup, MTLSize threadsPerMeshThreadgroup) {
+
+        }
+
+        public void DrawMeshThreads(MTLSize threadsPerGrid, MTLSize threadsPerObjectThreadgroup, MTLSize threadsPerMeshThreadgroup) {
+
+        }
+
+        public void DrawMeshThreadgroups(MTLBuffer indirectBuffer, ulong indirectBufferOffset, MTLSize threadsPerObjectThreadgroup, MTLSize threadsPerMeshThreadgroup) {
+
+        }
+
+        public void DrawPrimitives(MTLPrimitiveType primitiveType, ulong vertexStart, ulong vertexCount, ulong instanceCount) {
+
+        }
+
+        public void DrawPrimitives(MTLPrimitiveType primitiveType, ulong vertexStart, ulong vertexCount) {
+
+        }
+
+        public void DrawIndexedPrimitives(MTLPrimitiveType primitiveType, ulong indexCount, MTLIndexType indexType, MTLBuffer indexBuffer, ulong indexBufferOffset, ulong instanceCount) {
+
+        }
+
+        public void DrawIndexedPrimitives(MTLPrimitiveType primitiveType, ulong indexCount, MTLIndexType indexType, MTLBuffer indexBuffer, ulong indexBufferOffset) {
+
+        }
+
+        public void DrawPrimitives(MTLPrimitiveType primitiveType, ulong vertexStart, ulong vertexCount, ulong instanceCount, ulong baseInstance) {
+
+        }
+
+        public void DrawIndexedPrimitives(MTLPrimitiveType primitiveType, ulong indexCount, MTLIndexType indexType, MTLBuffer indexBuffer, ulong indexBufferOffset, ulong instanceCount, long baseVertex, ulong baseInstance) {
+
+        }
+
+        public void DrawPrimitives(MTLPrimitiveType primitiveType, MTLBuffer indirectBuffer, ulong indirectBufferOffset) {
+
+        }
+
+        public void DrawIndexedPrimitives(MTLPrimitiveType primitiveType, MTLIndexType indexType, MTLBuffer indexBuffer, ulong indexBufferOffset, MTLBuffer indirectBuffer, ulong indirectBufferOffset) {
+
+        }
+
+        public void UpdateFence(MTLFence fence, MTLRenderStages stages) {
+
+        }
+
+        public void WaitForFence(MTLFence fence, MTLRenderStages stages) {
+
+        }
+
+        public void SetTessellationFactorBuffer(MTLBuffer buffer, ulong offset, ulong instanceStride) {
+
+        }
+
+        public void SetTessellationFactorScale(float scale) {
+
+        }
+
+        public void DrawPatches(ulong numberOfPatchControlPoints, ulong patchStart, ulong patchCount, MTLBuffer patchIndexBuffer, ulong patchIndexBufferOffset, ulong instanceCount, ulong baseInstance) {
+
+        }
+
+        public void DrawPatches(ulong numberOfPatchControlPoints, MTLBuffer patchIndexBuffer, ulong patchIndexBufferOffset, MTLBuffer indirectBuffer, ulong indirectBufferOffset) {
+
+        }
+
+        public void DrawIndexedPatches(ulong numberOfPatchControlPoints, ulong patchStart, ulong patchCount, MTLBuffer patchIndexBuffer, ulong patchIndexBufferOffset, MTLBuffer controlPointIndexBuffer, ulong controlPointIndexBufferOffset, ulong instanceCount, ulong baseInstance) {
+
+        }
+
+        public void DrawIndexedPatches(ulong numberOfPatchControlPoints, MTLBuffer patchIndexBuffer, ulong patchIndexBufferOffset, MTLBuffer controlPointIndexBuffer, ulong controlPointIndexBufferOffset, MTLBuffer indirectBuffer, ulong indirectBufferOffset) {
+
+        }
+
+        public void SetTileBytes(IntPtr bytes, ulong length, ulong index) {
+
+        }
+
+        public void SetTileBuffer(MTLBuffer buffer, ulong offset, ulong index) {
+
+        }
+
+        public void SetTileBufferOffset(ulong offset, ulong index) {
+
+        }
+
+        public void SetTileBuffers(MTLBuffer[] buffers, ulong offsets, NSRange range) {
+
+        }
+
+        public void SetTileTexture(MTLTexture texture, ulong index) {
+
+        }
+
+        public void SetTileTextures(MTLTexture[] textures, NSRange range) {
+
+        }
+
+        public void SetTileSamplerState(MTLSamplerState sampler, ulong index) {
+
+        }
+
+        public void SetTileSamplerStates(MTLSamplerState[] samplers, NSRange range) {
+
+        }
+
+        public void SetTileSamplerState(MTLSamplerState sampler, float lodMinClamp, float lodMaxClamp, ulong index) {
+
+        }
+
+        public void SetTileSamplerStates(MTLSamplerState[] samplers, float[] lodMinClamps, float[] lodMaxClamps, NSRange range) {
+
+        }
+
+        public void SetTileVisibleFunctionTable(MTLVisibleFunctionTable functionTable, ulong bufferIndex) {
+
+        }
+
+        public void SetTileVisibleFunctionTables(MTLVisibleFunctionTable[] functionTables, NSRange range) {
+
+        }
+
+        public void SetTileIntersectionFunctionTable(MTLIntersectionFunctionTable intersectionFunctionTable, ulong bufferIndex) {
+
+        }
+
+        public void SetTileIntersectionFunctionTables(MTLIntersectionFunctionTable[] intersectionFunctionTables, NSRange range) {
+
+        }
+
+        public void SetTileAccelerationStructure(MTLAccelerationStructure accelerationStructure, ulong bufferIndex) {
+
+        }
+
+        public void DispatchThreadsPerTile(MTLSize threadsPerTile) {
+
+        }
+
+        public void SetThreadgroupMemoryLength(ulong length, ulong offset, ulong index) {
+
+        }
+
+        public void UseResource(MTLResource resource, MTLResourceUsage usage) {
+
+        }
+
+        public void UseResources(MTLResource[] resources, ulong count, MTLResourceUsage usage) {
+
+        }
+
+        public void UseResource(MTLResource resource, MTLResourceUsage usage, MTLRenderStages stages) {
+
+        }
+
+        public void UseResources(MTLResource[] resources, ulong count, MTLResourceUsage usage, MTLRenderStages stages) {
+
+        }
+
+        public void UseHeap(MTLHeap heap) {
+
+        }
+
+        public void UseHeaps(MTLHeap[] heaps, ulong count) {
+
+        }
+
+        public void UseHeap(MTLHeap heap, MTLRenderStages stages) {
+
+        }
+
+        public void UseHeaps(MTLHeap[] heaps, ulong count, MTLRenderStages stages) {
+
+        }
+
+        public void ExecuteCommandsInBuffer(MTLIndirectCommandBuffer indirectCommandBuffer, NSRange executionRange) {
+
+        }
+
+        public void ExecuteCommandsInBuffer(MTLIndirectCommandBuffer indirectCommandbuffer, MTLBuffer indirectRangeBuffer, ulong indirectBufferOffset) {
+
+        }
+
+        public void MemoryBarrier(MTLBarrierScope scope, MTLRenderStages after, MTLRenderStages before) {
+
+        }
+
+        public void MemoryBarrier(MTLResource[] resources, ulong count, MTLRenderStages after, MTLRenderStages before) {
+
+        }
+
+        public void SampleCountersInBuffer(MTLCounterSampleBuffer sampleBuffer, ulong sampleIndex, bool barrier) {
+
+        }
+
         private static readonly Selector sel_setRenderPipelineState = "setRenderPipelineState:";
         private static readonly Selector sel_setVertexByteslengthatIndex = "setVertexBytes:length:atIndex:";
         private static readonly Selector sel_setVertexBufferoffsetatIndex = "setVertexBuffer:offset:atIndex:";

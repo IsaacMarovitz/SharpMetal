@@ -28,6 +28,46 @@ namespace SharpMetal
 
         public NSError Error => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_error));
 
+        public void AddCompletedHandler(IntPtr function) {
+
+        }
+
+        public void AddCompletedHandler(IntPtr block) {
+
+        }
+
+        public void LoadBytes(IntPtr pointer, ulong size, IntPtr sourceHandle, ulong sourceHandleOffset) {
+
+        }
+
+        public void LoadBuffer(MTLBuffer buffer, ulong offset, ulong size, IntPtr sourceHandle, ulong sourceHandleOffset) {
+
+        }
+
+        public void LoadTexture(MTLTexture texture, ulong slice, ulong level, MTLSize size, ulong sourceBytesPerRow, ulong sourceBytesPerImage, MTLOrigin destinationOrigin, IntPtr sourceHandle, ulong sourceHandleOffset) {
+
+        }
+
+        public void CopyStatusToBuffer(MTLBuffer buffer, ulong offset) {
+
+        }
+
+        public void PushDebugGroup(NSString string) {
+
+        }
+
+        public void Wait(MTLSharedEvent event, ulong value) {
+
+        }
+
+        public void SignalEvent(MTLSharedEvent event, ulong value) {
+
+        }
+
+        public void SetLabel(NSString label) {
+
+        }
+
         private static readonly Selector sel_addCompletedHandler = "addCompletedHandler:";
         private static readonly Selector sel_loadBytessizesourceHandlesourceHandleOffset = "loadBytes:size:sourceHandle:sourceHandleOffset:";
         private static readonly Selector sel_loadBufferoffsetsizesourceHandlesourceHandleOffset = "loadBuffer:offset:size:sourceHandle:sourceHandleOffset:";

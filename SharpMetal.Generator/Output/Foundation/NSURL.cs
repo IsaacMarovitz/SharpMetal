@@ -18,6 +18,18 @@ namespace SharpMetal
 
         public ushort FileSystemRepresentation => ObjectiveCRuntime.ushort_objc_msgSend(NativePtr, sel_fileSystemRepresentation);
 
+        public NSURL FileURLWithPath(NSString pPath) {
+
+        }
+
+        public NSURL Init(NSString pString) {
+
+        }
+
+        public NSURL InitFileURLWithPath(NSString pPath) {
+
+        }
+
         private static readonly Selector sel_fileURLWithPath = "fileURLWithPath:";
         private static readonly Selector sel_initWithString = "initWithString:";
         private static readonly Selector sel_initFileURLWithPath = "initFileURLWithPath:";

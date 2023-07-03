@@ -99,6 +99,18 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStepRate, value);
         }
 
+        public void SetStride(ulong stride) {
+
+        }
+
+        public void SetStepFunction(MTLVertexStepFunction stepFunction) {
+
+        }
+
+        public void SetStepRate(ulong stepRate) {
+
+        }
+
         private static readonly Selector sel_stride = "stride";
         private static readonly Selector sel_setStride = "setStride:";
         private static readonly Selector sel_stepFunction = "stepFunction";
@@ -118,6 +130,14 @@ namespace SharpMetal
         {
             var cls = new ObjectiveCClass("MTLVertexBufferLayoutDescriptorArray");
             NativePtr = cls.AllocInit();
+        }
+
+        public MTLVertexBufferLayoutDescriptor Object(ulong index) {
+
+        }
+
+        public void SetObject(MTLVertexBufferLayoutDescriptor bufferDesc, ulong index) {
+
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
@@ -155,6 +175,18 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBufferIndex, value);
         }
 
+        public void SetFormat(MTLVertexFormat format) {
+
+        }
+
+        public void SetOffset(ulong offset) {
+
+        }
+
+        public void SetBufferIndex(ulong bufferIndex) {
+
+        }
+
         private static readonly Selector sel_format = "format";
         private static readonly Selector sel_setFormat = "setFormat:";
         private static readonly Selector sel_offset = "offset";
@@ -174,6 +206,14 @@ namespace SharpMetal
         {
             var cls = new ObjectiveCClass("MTLVertexAttributeDescriptorArray");
             NativePtr = cls.AllocInit();
+        }
+
+        public MTLVertexAttributeDescriptor Object(ulong index) {
+
+        }
+
+        public void SetObject(MTLVertexAttributeDescriptor attributeDesc, ulong index) {
+
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";

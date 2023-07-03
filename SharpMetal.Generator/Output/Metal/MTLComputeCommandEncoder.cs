@@ -37,6 +37,142 @@ namespace SharpMetal
 
         public MTLDispatchType DispatchType => (MTLDispatchType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_dispatchType);
 
+        public void SetComputePipelineState(MTLComputePipelineState state) {
+
+        }
+
+        public void SetBytes(IntPtr bytes, ulong length, ulong index) {
+
+        }
+
+        public void SetBuffer(MTLBuffer buffer, ulong offset, ulong index) {
+
+        }
+
+        public void SetBufferOffset(ulong offset, ulong index) {
+
+        }
+
+        public void SetBuffers(MTLBuffer[] buffers, ulong[] offsets, NSRange range) {
+
+        }
+
+        public void SetVisibleFunctionTable(MTLVisibleFunctionTable visibleFunctionTable, ulong bufferIndex) {
+
+        }
+
+        public void SetVisibleFunctionTables(MTLVisibleFunctionTable[] visibleFunctionTables, NSRange range) {
+
+        }
+
+        public void SetIntersectionFunctionTable(MTLIntersectionFunctionTable intersectionFunctionTable, ulong bufferIndex) {
+
+        }
+
+        public void SetIntersectionFunctionTables(MTLIntersectionFunctionTable[] intersectionFunctionTables, NSRange range) {
+
+        }
+
+        public void SetAccelerationStructure(MTLAccelerationStructure accelerationStructure, ulong bufferIndex) {
+
+        }
+
+        public void SetTexture(MTLTexture texture, ulong index) {
+
+        }
+
+        public void SetTextures(MTLTexture[] textures, NSRange range) {
+
+        }
+
+        public void SetSamplerState(MTLSamplerState sampler, ulong index) {
+
+        }
+
+        public void SetSamplerStates(MTLSamplerState[] samplers, NSRange range) {
+
+        }
+
+        public void SetSamplerState(MTLSamplerState sampler, float lodMinClamp, float lodMaxClamp, ulong index) {
+
+        }
+
+        public void SetSamplerStates(MTLSamplerState[] samplers, float[] lodMinClamps, float[] lodMaxClamps, NSRange range) {
+
+        }
+
+        public void SetThreadgroupMemoryLength(ulong length, ulong index) {
+
+        }
+
+        public void SetImageblockWidth(ulong width, ulong height) {
+
+        }
+
+        public void SetStageInRegion(MTLRegion region) {
+
+        }
+
+        public void SetStageInRegion(MTLBuffer indirectBuffer, ulong indirectBufferOffset) {
+
+        }
+
+        public void DispatchThreadgroups(MTLSize threadgroupsPerGrid, MTLSize threadsPerThreadgroup) {
+
+        }
+
+        public void DispatchThreadgroups(MTLBuffer indirectBuffer, ulong indirectBufferOffset, MTLSize threadsPerThreadgroup) {
+
+        }
+
+        public void DispatchThreads(MTLSize threadsPerGrid, MTLSize threadsPerThreadgroup) {
+
+        }
+
+        public void UpdateFence(MTLFence fence) {
+
+        }
+
+        public void WaitForFence(MTLFence fence) {
+
+        }
+
+        public void UseResource(MTLResource resource, MTLResourceUsage usage) {
+
+        }
+
+        public void UseResources(MTLResource[] resources, ulong count, MTLResourceUsage usage) {
+
+        }
+
+        public void UseHeap(MTLHeap heap) {
+
+        }
+
+        public void UseHeaps(MTLHeap[] heaps, ulong count) {
+
+        }
+
+        public void ExecuteCommandsInBuffer(MTLIndirectCommandBuffer indirectCommandBuffer, NSRange executionRange) {
+
+        }
+
+        public void ExecuteCommandsInBuffer(MTLIndirectCommandBuffer indirectCommandbuffer, MTLBuffer indirectRangeBuffer, ulong indirectBufferOffset) {
+
+        }
+
+        public void MemoryBarrier(MTLBarrierScope scope) {
+
+        }
+
+        public void MemoryBarrier(MTLResource[] resources, ulong count) {
+
+        }
+
+        public void SampleCountersInBuffer(MTLCounterSampleBuffer sampleBuffer, ulong sampleIndex, bool barrier) {
+
+        }
+
         private static readonly Selector sel_dispatchType = "dispatchType";
         private static readonly Selector sel_setComputePipelineState = "setComputePipelineState:";
         private static readonly Selector sel_setByteslengthatIndex = "setBytes:length:atIndex:";

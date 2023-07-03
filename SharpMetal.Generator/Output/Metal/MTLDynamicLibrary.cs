@@ -30,6 +30,14 @@ namespace SharpMetal
 
         public NSString InstallName => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_installName));
 
+        public void SetLabel(NSString label) {
+
+        }
+
+        public bool SerializeToURL(NSURL url, NSError error) {
+
+        }
+
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_setLabel = "setLabel:";
         private static readonly Selector sel_device = "device";

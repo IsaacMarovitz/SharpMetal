@@ -31,6 +31,10 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setUrl, value);
         }
 
+        public void SetUrl(NSURL url) {
+
+        }
+
         private static readonly Selector sel_url = "url";
         private static readonly Selector sel_setUrl = "setUrl:";
     }
@@ -49,6 +53,30 @@ namespace SharpMetal
         }
 
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
+
+        public void SetLabel(NSString label) {
+
+        }
+
+        public bool AddComputePipelineFunctions(MTLComputePipelineDescriptor descriptor, NSError error) {
+
+        }
+
+        public bool AddRenderPipelineFunctions(MTLRenderPipelineDescriptor descriptor, NSError error) {
+
+        }
+
+        public bool AddTileRenderPipelineFunctions(MTLTileRenderPipelineDescriptor descriptor, NSError error) {
+
+        }
+
+        public bool SerializeToURL(NSURL url, NSError error) {
+
+        }
+
+        public bool AddFunction(MTLFunctionDescriptor descriptor, MTLLibrary library, NSError error) {
+
+        }
 
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_setLabel = "setLabel:";

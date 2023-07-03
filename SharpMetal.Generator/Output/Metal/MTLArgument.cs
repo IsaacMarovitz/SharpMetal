@@ -206,6 +206,10 @@ namespace SharpMetal
 
         public NSArray Members => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_members));
 
+        public MTLStructMember MemberByName(NSString name) {
+
+        }
+
         private static readonly Selector sel_members = "members";
         private static readonly Selector sel_memberByName = "memberByName:";
     }

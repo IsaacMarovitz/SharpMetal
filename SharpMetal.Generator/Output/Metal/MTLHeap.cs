@@ -65,6 +65,34 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setType, (long)value);
         }
 
+        public void SetSize(ulong size) {
+
+        }
+
+        public void SetStorageMode(MTLStorageMode storageMode) {
+
+        }
+
+        public void SetCpuCacheMode(MTLCPUCacheMode cpuCacheMode) {
+
+        }
+
+        public void SetSparsePageSize(MTLSparsePageSize sparsePageSize) {
+
+        }
+
+        public void SetHazardTrackingMode(MTLHazardTrackingMode hazardTrackingMode) {
+
+        }
+
+        public void SetResourceOptions(MTLResourceOptions resourceOptions) {
+
+        }
+
+        public void SetType(MTLHeapType type) {
+
+        }
+
         private static readonly Selector sel_size = "size";
         private static readonly Selector sel_setSize = "setSize:";
         private static readonly Selector sel_storageMode = "storageMode";
@@ -111,6 +139,50 @@ namespace SharpMetal
         public ulong CurrentAllocatedSize => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_currentAllocatedSize);
 
         public MTLHeapType Type => (MTLHeapType)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_type);
+
+        public void SetLabel(NSString label) {
+
+        }
+
+        public ulong MaxAvailableSize(ulong alignment) {
+
+        }
+
+        public MTLBuffer NewBuffer(ulong length, MTLResourceOptions options) {
+
+        }
+
+        public MTLTexture NewTexture(MTLTextureDescriptor desc) {
+
+        }
+
+        public MTLPurgeableState SetPurgeableState(MTLPurgeableState state) {
+
+        }
+
+        public MTLBuffer NewBuffer(ulong length, MTLResourceOptions options, ulong offset) {
+
+        }
+
+        public MTLTexture NewTexture(MTLTextureDescriptor descriptor, ulong offset) {
+
+        }
+
+        public MTLAccelerationStructure NewAccelerationStructure(ulong size) {
+
+        }
+
+        public MTLAccelerationStructure NewAccelerationStructure(MTLAccelerationStructureDescriptor descriptor) {
+
+        }
+
+        public MTLAccelerationStructure NewAccelerationStructure(ulong size, ulong offset) {
+
+        }
+
+        public MTLAccelerationStructure NewAccelerationStructure(MTLAccelerationStructureDescriptor descriptor, ulong offset) {
+
+        }
 
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_setLabel = "setLabel:";

@@ -80,6 +80,50 @@ namespace SharpMetal
 
         public bool IsMacCatalystApp => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isMacCatalystApp);
 
+        public void SetProcessName(NSString pString) {
+
+        }
+
+        public bool IsOperatingSystemAtLeastVersion(NSOperatingSystemVersion version) {
+
+        }
+
+        public void DisableAutomaticTermination(NSString pReason) {
+
+        }
+
+        public void EnableAutomaticTermination(NSString pReason) {
+
+        }
+
+        public void SetAutomaticTerminationSupportEnabled(bool enabled) {
+
+        }
+
+        public NSObject BeginActivity(NSActivityOptions options, NSString pReason) {
+
+        }
+
+        public void EndActivity(NSObject pActivity) {
+
+        }
+
+        public void PerformActivity() {
+
+        }
+
+        public void PerformActivity(NSActivityOptions options, NSString pReason, NSstdfunction<void>& func) {
+
+        }
+
+        public void PerformExpiringActivity() {
+
+        }
+
+        public void PerformExpiringActivity() {
+
+        }
+
         private static readonly Selector sel_processInfo = "processInfo";
         private static readonly Selector sel_arguments = "arguments";
         private static readonly Selector sel_environment = "environment";

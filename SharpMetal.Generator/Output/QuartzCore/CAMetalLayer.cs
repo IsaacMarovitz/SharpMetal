@@ -34,6 +34,22 @@ namespace SharpMetal
 
         public CAMetalDrawable NextDrawable;
 
+        public void SetDevice(MTLDevice device) {
+
+        }
+
+        public void SetPixelFormat(MTLPixelFormat pixelFormat) {
+
+        }
+
+        public void SetFramebufferOnly(bool framebufferOnly) {
+
+        }
+
+        public void SetDrawableSize(IntPtr drawableSize) {
+
+        }
+
         private static readonly Selector sel_layer = "layer";
         private static readonly Selector sel_device = "device";
         private static readonly Selector sel_setDevice = "setDevice:";

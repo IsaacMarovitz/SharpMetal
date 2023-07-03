@@ -5,6 +5,12 @@ namespace SharpMetal.Generator
         private const string Tab = "    ";
         private readonly StreamWriter _sw;
         private int _depth;
+
+        public string Indentation
+        {
+            get => _indentation;
+        }
+
         private string _indentation;
 
         public CodeGenContext(StreamWriter sw)
@@ -16,6 +22,11 @@ namespace SharpMetal.Generator
         public void WriteLine()
         {
             _sw.WriteLine();
+        }
+
+        public void Write(string str)
+        {
+            _sw.Write(str);
         }
 
         public void WriteLine(string str)

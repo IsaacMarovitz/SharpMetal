@@ -29,6 +29,10 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMutability, (ulong)value);
         }
 
+        public void SetMutability(MTLMutability mutability) {
+
+        }
+
         private static readonly Selector sel_mutability = "mutability";
         private static readonly Selector sel_setMutability = "setMutability:";
     }
@@ -44,6 +48,14 @@ namespace SharpMetal
         {
             var cls = new ObjectiveCClass("MTLPipelineBufferDescriptorArray");
             NativePtr = cls.AllocInit();
+        }
+
+        public MTLPipelineBufferDescriptor Object(ulong bufferIndex) {
+
+        }
+
+        public void SetObject(MTLPipelineBufferDescriptor buffer, ulong bufferIndex) {
+
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";

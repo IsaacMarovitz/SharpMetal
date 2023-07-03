@@ -30,6 +30,18 @@ namespace SharpMetal
 
         public NSNotificationCenter DefaultCenter => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_defaultCenter));
 
+        public NSObject AddObserver(NSNotificationName name, NSObject pObj, IntPtr pQueue, NSObserverBlock block) {
+
+        }
+
+        public NSObject AddObserver(NSNotificationName name, NSObject pObj, IntPtr pQueue, NSObserverFunction &handler) {
+
+        }
+
+        public void RemoveObserver(NSObject pObserver) {
+
+        }
+
         private static readonly Selector sel_defaultCenter = "defaultCenter";
         private static readonly Selector sel_addObserverNameobjectqueueblock = "addObserverName:object:queue:block:";
         private static readonly Selector sel_removeObserver = "removeObserver:";

@@ -20,6 +20,10 @@ namespace SharpMetal
 
         public MTLCommandQueue CommandQueue => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_commandQueue));
 
+        public void SetLabel(NSString pLabel) {
+
+        }
+
         private static readonly Selector sel_device = "device";
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_setLabel = "setLabel:";

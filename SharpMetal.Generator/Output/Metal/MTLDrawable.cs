@@ -14,6 +14,22 @@ namespace SharpMetal
 
         public ulong DrawableID => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_drawableID);
 
+        public void AddPresentedHandler(MTLDrawablePresentedHandlerFunction& function) {
+
+        }
+
+        public void PresentAtTime(IntPtr presentationTime) {
+
+        }
+
+        public void PresentAfterMinimumDuration(IntPtr duration) {
+
+        }
+
+        public void AddPresentedHandler(MTLDrawablePresentedHandler block) {
+
+        }
+
         private static readonly Selector sel_present = "present";
         private static readonly Selector sel_presentAtTime = "presentAtTime:";
         private static readonly Selector sel_presentAfterMinimumDuration = "presentAfterMinimumDuration:";

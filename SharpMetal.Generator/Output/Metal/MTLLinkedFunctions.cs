@@ -42,6 +42,22 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrivateFunctions, value);
         }
 
+        public void SetFunctions(NSArray functions) {
+
+        }
+
+        public void SetBinaryFunctions(NSArray binaryFunctions) {
+
+        }
+
+        public void SetGroups(NSDictionary groups) {
+
+        }
+
+        public void SetPrivateFunctions(NSArray privateFunctions) {
+
+        }
+
         private static readonly Selector sel_linkedFunctions = "linkedFunctions";
         private static readonly Selector sel_functions = "functions";
         private static readonly Selector sel_setFunctions = "setFunctions:";

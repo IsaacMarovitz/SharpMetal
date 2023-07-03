@@ -34,6 +34,18 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setEndOfEncoderSampleIndex, value);
         }
 
+        public void SetSampleBuffer(MTLCounterSampleBuffer sampleBuffer) {
+
+        }
+
+        public void SetStartOfEncoderSampleIndex(ulong startOfEncoderSampleIndex) {
+
+        }
+
+        public void SetEndOfEncoderSampleIndex(ulong endOfEncoderSampleIndex) {
+
+        }
+
         private static readonly Selector sel_sampleBuffer = "sampleBuffer";
         private static readonly Selector sel_setSampleBuffer = "setSampleBuffer:";
         private static readonly Selector sel_startOfEncoderSampleIndex = "startOfEncoderSampleIndex";
@@ -53,6 +65,14 @@ namespace SharpMetal
         {
             var cls = new ObjectiveCClass("MTLBlitPassSampleBufferAttachmentDescriptorArray");
             NativePtr = cls.AllocInit();
+        }
+
+        public MTLBlitPassSampleBufferAttachmentDescriptor Object(ulong attachmentIndex) {
+
+        }
+
+        public void SetObject(MTLBlitPassSampleBufferAttachmentDescriptor attachment, ulong attachmentIndex) {
+
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";

@@ -82,6 +82,34 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSupportRayTracing, value);
         }
 
+        public void SetCommandTypes(MTLIndirectCommandType commandTypes) {
+
+        }
+
+        public void SetInheritPipelineState(bool inheritPipelineState) {
+
+        }
+
+        public void SetInheritBuffers(bool inheritBuffers) {
+
+        }
+
+        public void SetMaxVertexBufferBindCount(ulong maxVertexBufferBindCount) {
+
+        }
+
+        public void SetMaxFragmentBufferBindCount(ulong maxFragmentBufferBindCount) {
+
+        }
+
+        public void SetMaxKernelBufferBindCount(ulong maxKernelBufferBindCount) {
+
+        }
+
+        public void SetSupportRayTracing(bool supportRayTracing) {
+
+        }
+
         private static readonly Selector sel_commandTypes = "commandTypes";
         private static readonly Selector sel_setCommandTypes = "setCommandTypes:";
         private static readonly Selector sel_inheritPipelineState = "inheritPipelineState";
@@ -108,6 +136,18 @@ namespace SharpMetal
         public ulong Size => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_size);
 
         public MTLResourceID GpuResourceID => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_gpuResourceID));
+
+        public void Reset(NSRange range) {
+
+        }
+
+        public MTLIndirectRenderCommand IndirectRenderCommand(ulong commandIndex) {
+
+        }
+
+        public MTLIndirectComputeCommand IndirectComputeCommand(ulong commandIndex) {
+
+        }
 
         private static readonly Selector sel_size = "size";
         private static readonly Selector sel_gpuResourceID = "gpuResourceID";

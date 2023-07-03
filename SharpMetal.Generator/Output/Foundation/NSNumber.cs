@@ -20,6 +20,30 @@ namespace SharpMetal
 
         public IntPtr PointerValue => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_pointerValue));
 
+        public NSValue Value(IntPtr pValue, ushort pType) {
+
+        }
+
+        public NSValue Value(IntPtr pPointer) {
+
+        }
+
+        public NSValue Init(IntPtr pValue, ushort pType) {
+
+        }
+
+        public NSValue Init(NSCoder pCoder) {
+
+        }
+
+        public void GetValue(IntPtr pValue, ulong size) {
+
+        }
+
+        public bool IsEqualToValue(NSValue pValue) {
+
+        }
+
         private static readonly Selector sel_valueWithBytesobjCType = "valueWithBytes:objCType:";
         private static readonly Selector sel_valueWithPointer = "valueWithPointer:";
         private static readonly Selector sel_initWithBytesobjCType = "initWithBytes:objCType:";
@@ -74,6 +98,126 @@ namespace SharpMetal
         public ulong UnsignedIntegerValue => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_unsignedIntegerValue);
 
         public NSString StringValue => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_stringValue));
+
+        public NSNumber Number(ushort value) {
+
+        }
+
+        public NSNumber Number() {
+
+        }
+
+        public NSNumber Number(short value) {
+
+        }
+
+        public NSNumber Number() {
+
+        }
+
+        public NSNumber Number(int value) {
+
+        }
+
+        public NSNumber Number() {
+
+        }
+
+        public NSNumber Number(long value) {
+
+        }
+
+        public NSNumber Number() {
+
+        }
+
+        public NSNumber Number() {
+
+        }
+
+        public NSNumber Number() {
+
+        }
+
+        public NSNumber Number(float value) {
+
+        }
+
+        public NSNumber Number(double value) {
+
+        }
+
+        public NSNumber Number(bool value) {
+
+        }
+
+        public NSNumber Init(NSCoder pCoder) {
+
+        }
+
+        public NSNumber Init(ushort value) {
+
+        }
+
+        public NSNumber Init() {
+
+        }
+
+        public NSNumber Init(short value) {
+
+        }
+
+        public NSNumber Init() {
+
+        }
+
+        public NSNumber Init(int value) {
+
+        }
+
+        public NSNumber Init() {
+
+        }
+
+        public NSNumber Init(long value) {
+
+        }
+
+        public NSNumber Init() {
+
+        }
+
+        public NSNumber Init() {
+
+        }
+
+        public NSNumber Init() {
+
+        }
+
+        public NSNumber Init(float value) {
+
+        }
+
+        public NSNumber Init(double value) {
+
+        }
+
+        public NSNumber Init(bool value) {
+
+        }
+
+        public NSComparisonResult Compare(NSNumber pOtherNumber) {
+
+        }
+
+        public bool IsEqualToNumber(NSNumber pNumber) {
+
+        }
+
+        public NSString DescriptionWithLocale(NSObject pLocale) {
+
+        }
 
         private static readonly Selector sel_numberWithChar = "numberWithChar:";
         private static readonly Selector sel_numberWithUnsignedChar = "numberWithUnsignedChar:";

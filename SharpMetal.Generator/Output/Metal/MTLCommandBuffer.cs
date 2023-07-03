@@ -75,6 +75,14 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setErrorOptions, (ulong)value);
         }
 
+        public void SetRetainedReferences(bool retainedReferences) {
+
+        }
+
+        public void SetErrorOptions(MTLCommandBufferErrorOption errorOptions) {
+
+        }
+
         private static readonly Selector sel_retainedReferences = "retainedReferences";
         private static readonly Selector sel_setRetainedReferences = "setRetainedReferences:";
         private static readonly Selector sel_errorOptions = "errorOptions";
@@ -141,6 +149,78 @@ namespace SharpMetal
         public MTLResourceStateCommandEncoder ResourceStateCommandEncoder => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_resourceStateCommandEncoder));
 
         public MTLAccelerationStructureCommandEncoder AccelerationStructureCommandEncoder => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_accelerationStructureCommandEncoder));
+
+        public void AddScheduledHandler(MTLHandlerFunction& function) {
+
+        }
+
+        public void AddCompletedHandler(MTLHandlerFunction& function) {
+
+        }
+
+        public void SetLabel(NSString label) {
+
+        }
+
+        public void AddScheduledHandler(IntPtr block) {
+
+        }
+
+        public void PresentDrawable(MTLDrawable drawable) {
+
+        }
+
+        public void PresentDrawableAtTime(MTLDrawable drawable, IntPtr presentationTime) {
+
+        }
+
+        public void PresentDrawableAfterMinimumDuration(MTLDrawable drawable, IntPtr duration) {
+
+        }
+
+        public void AddCompletedHandler(IntPtr block) {
+
+        }
+
+        public MTLRenderCommandEncoder RenderCommandEncoder(MTLRenderPassDescriptor renderPassDescriptor) {
+
+        }
+
+        public MTLComputeCommandEncoder ComputeCommandEncoder(MTLComputePassDescriptor computePassDescriptor) {
+
+        }
+
+        public MTLBlitCommandEncoder BlitCommandEncoder(MTLBlitPassDescriptor blitPassDescriptor) {
+
+        }
+
+        public MTLComputeCommandEncoder ComputeCommandEncoder(MTLDispatchType dispatchType) {
+
+        }
+
+        public void EncodeWait(MTLEvent event, ulong value) {
+
+        }
+
+        public void EncodeSignalEvent(MTLEvent event, ulong value) {
+
+        }
+
+        public MTLParallelRenderCommandEncoder ParallelRenderCommandEncoder(MTLRenderPassDescriptor renderPassDescriptor) {
+
+        }
+
+        public MTLResourceStateCommandEncoder ResourceStateCommandEncoder(MTLResourceStatePassDescriptor resourceStatePassDescriptor) {
+
+        }
+
+        public MTLAccelerationStructureCommandEncoder AccelerationStructureCommandEncoder(MTLAccelerationStructurePassDescriptor descriptor) {
+
+        }
+
+        public void PushDebugGroup(NSString string) {
+
+        }
 
         private static readonly Selector sel_device = "device";
         private static readonly Selector sel_commandQueue = "commandQueue";

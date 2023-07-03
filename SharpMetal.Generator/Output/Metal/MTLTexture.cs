@@ -190,6 +190,82 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSwizzle, value);
         }
 
+        public MTLTextureDescriptor Texture2DDescriptor(MTLPixelFormat pixelFormat, ulong width, ulong height, bool mipmapped) {
+
+        }
+
+        public MTLTextureDescriptor TextureCubeDescriptor(MTLPixelFormat pixelFormat, ulong size, bool mipmapped) {
+
+        }
+
+        public MTLTextureDescriptor TextureBufferDescriptor(MTLPixelFormat pixelFormat, ulong width, MTLResourceOptions resourceOptions, MTLTextureUsage usage) {
+
+        }
+
+        public void SetTextureType(MTLTextureType textureType) {
+
+        }
+
+        public void SetPixelFormat(MTLPixelFormat pixelFormat) {
+
+        }
+
+        public void SetWidth(ulong width) {
+
+        }
+
+        public void SetHeight(ulong height) {
+
+        }
+
+        public void SetDepth(ulong depth) {
+
+        }
+
+        public void SetMipmapLevelCount(ulong mipmapLevelCount) {
+
+        }
+
+        public void SetSampleCount(ulong sampleCount) {
+
+        }
+
+        public void SetArrayLength(ulong arrayLength) {
+
+        }
+
+        public void SetResourceOptions(MTLResourceOptions resourceOptions) {
+
+        }
+
+        public void SetCpuCacheMode(MTLCPUCacheMode cpuCacheMode) {
+
+        }
+
+        public void SetStorageMode(MTLStorageMode storageMode) {
+
+        }
+
+        public void SetHazardTrackingMode(MTLHazardTrackingMode hazardTrackingMode) {
+
+        }
+
+        public void SetUsage(MTLTextureUsage usage) {
+
+        }
+
+        public void SetAllowGPUOptimizedContents(bool allowGPUOptimizedContents) {
+
+        }
+
+        public void SetCompressionType(MTLTextureCompressionType compressionType) {
+
+        }
+
+        public void SetSwizzle(MTLTextureSwizzleChannels swizzle) {
+
+        }
+
         private static readonly Selector sel_texture2DDescriptorWithPixelFormatwidthheightmipmapped = "texture2DDescriptorWithPixelFormat:width:height:mipmapped:";
         private static readonly Selector sel_textureCubeDescriptorWithPixelFormatsizemipmapped = "textureCubeDescriptorWithPixelFormat:size:mipmapped:";
         private static readonly Selector sel_textureBufferDescriptorWithPixelFormatwidthresourceOptionsusage = "textureBufferDescriptorWithPixelFormat:width:resourceOptions:usage:";
@@ -291,6 +367,38 @@ namespace SharpMetal
         public MTLTexture RemoteStorageTexture => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_remoteStorageTexture));
 
         public MTLTextureSwizzleChannels Swizzle => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_swizzle));
+
+        public void GetBytes(IntPtr pixelBytes, ulong bytesPerRow, ulong bytesPerImage, MTLRegion region, ulong level, ulong slice) {
+
+        }
+
+        public void ReplaceRegion(MTLRegion region, ulong level, ulong slice, IntPtr pixelBytes, ulong bytesPerRow, ulong bytesPerImage) {
+
+        }
+
+        public void GetBytes(IntPtr pixelBytes, ulong bytesPerRow, MTLRegion region, ulong level) {
+
+        }
+
+        public void ReplaceRegion(MTLRegion region, ulong level, IntPtr pixelBytes, ulong bytesPerRow) {
+
+        }
+
+        public MTLTexture NewTextureView(MTLPixelFormat pixelFormat) {
+
+        }
+
+        public MTLTexture NewTextureView(MTLPixelFormat pixelFormat, MTLTextureType textureType, NSRange levelRange, NSRange sliceRange) {
+
+        }
+
+        public MTLTexture NewRemoteTextureViewForDevice(MTLDevice device) {
+
+        }
+
+        public MTLTexture NewTextureView(MTLPixelFormat pixelFormat, MTLTextureType textureType, NSRange levelRange, NSRange sliceRange, MTLTextureSwizzleChannels swizzle) {
+
+        }
 
         private static readonly Selector sel_rootResource = "rootResource";
         private static readonly Selector sel_parentTexture = "parentTexture";

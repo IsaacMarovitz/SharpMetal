@@ -144,6 +144,42 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setWriteMask, (ulong)value);
         }
 
+        public void SetPixelFormat(MTLPixelFormat pixelFormat) {
+
+        }
+
+        public void SetBlendingEnabled(bool blendingEnabled) {
+
+        }
+
+        public void SetSourceRGBBlendFactor(MTLBlendFactor sourceRGBBlendFactor) {
+
+        }
+
+        public void SetDestinationRGBBlendFactor(MTLBlendFactor destinationRGBBlendFactor) {
+
+        }
+
+        public void SetRgbBlendOperation(MTLBlendOperation rgbBlendOperation) {
+
+        }
+
+        public void SetSourceAlphaBlendFactor(MTLBlendFactor sourceAlphaBlendFactor) {
+
+        }
+
+        public void SetDestinationAlphaBlendFactor(MTLBlendFactor destinationAlphaBlendFactor) {
+
+        }
+
+        public void SetAlphaBlendOperation(MTLBlendOperation alphaBlendOperation) {
+
+        }
+
+        public void SetWriteMask(MTLColorWriteMask writeMask) {
+
+        }
+
         private static readonly Selector sel_pixelFormat = "pixelFormat";
         private static readonly Selector sel_setPixelFormat = "setPixelFormat:";
         private static readonly Selector sel_isBlendingEnabled = "isBlendingEnabled";
@@ -386,6 +422,126 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxFragmentCallStackDepth, value);
         }
 
+        public void SetLabel(NSString label) {
+
+        }
+
+        public void SetVertexFunction(MTLFunction vertexFunction) {
+
+        }
+
+        public void SetFragmentFunction(MTLFunction fragmentFunction) {
+
+        }
+
+        public void SetVertexDescriptor(MTLVertexDescriptor vertexDescriptor) {
+
+        }
+
+        public void SetSampleCount(ulong sampleCount) {
+
+        }
+
+        public void SetRasterSampleCount(ulong rasterSampleCount) {
+
+        }
+
+        public void SetAlphaToCoverageEnabled(bool alphaToCoverageEnabled) {
+
+        }
+
+        public void SetAlphaToOneEnabled(bool alphaToOneEnabled) {
+
+        }
+
+        public void SetRasterizationEnabled(bool rasterizationEnabled) {
+
+        }
+
+        public void SetMaxVertexAmplificationCount(ulong maxVertexAmplificationCount) {
+
+        }
+
+        public void SetDepthAttachmentPixelFormat(MTLPixelFormat depthAttachmentPixelFormat) {
+
+        }
+
+        public void SetStencilAttachmentPixelFormat(MTLPixelFormat stencilAttachmentPixelFormat) {
+
+        }
+
+        public void SetInputPrimitiveTopology(MTLPrimitiveTopologyClass inputPrimitiveTopology) {
+
+        }
+
+        public void SetTessellationPartitionMode(MTLTessellationPartitionMode tessellationPartitionMode) {
+
+        }
+
+        public void SetMaxTessellationFactor(ulong maxTessellationFactor) {
+
+        }
+
+        public void SetTessellationFactorScaleEnabled(bool tessellationFactorScaleEnabled) {
+
+        }
+
+        public void SetTessellationFactorFormat(MTLTessellationFactorFormat tessellationFactorFormat) {
+
+        }
+
+        public void SetTessellationControlPointIndexType(MTLTessellationControlPointIndexType tessellationControlPointIndexType) {
+
+        }
+
+        public void SetTessellationFactorStepFunction(MTLTessellationFactorStepFunction tessellationFactorStepFunction) {
+
+        }
+
+        public void SetTessellationOutputWindingOrder(MTLWinding tessellationOutputWindingOrder) {
+
+        }
+
+        public void SetSupportIndirectCommandBuffers(bool supportIndirectCommandBuffers) {
+
+        }
+
+        public void SetBinaryArchives(NSArray binaryArchives) {
+
+        }
+
+        public void SetVertexPreloadedLibraries(NSArray vertexPreloadedLibraries) {
+
+        }
+
+        public void SetFragmentPreloadedLibraries(NSArray fragmentPreloadedLibraries) {
+
+        }
+
+        public void SetVertexLinkedFunctions(MTLLinkedFunctions vertexLinkedFunctions) {
+
+        }
+
+        public void SetFragmentLinkedFunctions(MTLLinkedFunctions fragmentLinkedFunctions) {
+
+        }
+
+        public void SetSupportAddingVertexBinaryFunctions(bool supportAddingVertexBinaryFunctions) {
+
+        }
+
+        public void SetSupportAddingFragmentBinaryFunctions(bool supportAddingFragmentBinaryFunctions) {
+
+        }
+
+        public void SetMaxVertexCallStackDepth(ulong maxVertexCallStackDepth) {
+
+        }
+
+        public void SetMaxFragmentCallStackDepth(ulong maxFragmentCallStackDepth) {
+
+        }
+
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_setLabel = "setLabel:";
         private static readonly Selector sel_vertexFunction = "vertexFunction";
@@ -483,6 +639,18 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTileAdditionalBinaryFunctions, value);
         }
 
+        public void SetVertexAdditionalBinaryFunctions(NSArray vertexAdditionalBinaryFunctions) {
+
+        }
+
+        public void SetFragmentAdditionalBinaryFunctions(NSArray fragmentAdditionalBinaryFunctions) {
+
+        }
+
+        public void SetTileAdditionalBinaryFunctions(NSArray tileAdditionalBinaryFunctions) {
+
+        }
+
         private static readonly Selector sel_vertexAdditionalBinaryFunctions = "vertexAdditionalBinaryFunctions";
         private static readonly Selector sel_setVertexAdditionalBinaryFunctions = "setVertexAdditionalBinaryFunctions:";
         private static readonly Selector sel_fragmentAdditionalBinaryFunctions = "fragmentAdditionalBinaryFunctions";
@@ -522,6 +690,26 @@ namespace SharpMetal
 
         public MTLResourceID GpuResourceID => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_gpuResourceID));
 
+        public ulong ImageblockMemoryLength(MTLSize imageblockDimensions) {
+
+        }
+
+        public MTLFunctionHandle FunctionHandle(MTLFunction function, MTLRenderStages stage) {
+
+        }
+
+        public MTLVisibleFunctionTable NewVisibleFunctionTable(MTLVisibleFunctionTableDescriptor descriptor, MTLRenderStages stage) {
+
+        }
+
+        public MTLIntersectionFunctionTable NewIntersectionFunctionTable(MTLIntersectionFunctionTableDescriptor descriptor, MTLRenderStages stage) {
+
+        }
+
+        public MTLRenderPipelineState NewRenderPipelineState(MTLRenderPipelineFunctionsDescriptor additionalBinaryFunctions, NSError error) {
+
+        }
+
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_device = "device";
         private static readonly Selector sel_maxTotalThreadsPerThreadgroup = "maxTotalThreadsPerThreadgroup";
@@ -554,6 +742,14 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
+        public MTLRenderPipelineColorAttachmentDescriptor Object(ulong attachmentIndex) {
+
+        }
+
+        public void SetObject(MTLRenderPipelineColorAttachmentDescriptor attachment, ulong attachmentIndex) {
+
+        }
+
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
         private static readonly Selector sel_setObjectatIndexedSubscript = "setObject:atIndexedSubscript:";
     }
@@ -577,6 +773,10 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPixelFormat, (ulong)value);
         }
 
+        public void SetPixelFormat(MTLPixelFormat pixelFormat) {
+
+        }
+
         private static readonly Selector sel_pixelFormat = "pixelFormat";
         private static readonly Selector sel_setPixelFormat = "setPixelFormat:";
     }
@@ -592,6 +792,14 @@ namespace SharpMetal
         {
             var cls = new ObjectiveCClass("MTLTileRenderPipelineColorAttachmentDescriptorArray");
             NativePtr = cls.AllocInit();
+        }
+
+        public MTLTileRenderPipelineColorAttachmentDescriptor Object(ulong attachmentIndex) {
+
+        }
+
+        public void SetObject(MTLTileRenderPipelineColorAttachmentDescriptor attachment, ulong attachmentIndex) {
+
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
@@ -673,6 +881,46 @@ namespace SharpMetal
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxCallStackDepth);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxCallStackDepth, value);
+        }
+
+        public void SetLabel(NSString label) {
+
+        }
+
+        public void SetTileFunction(MTLFunction tileFunction) {
+
+        }
+
+        public void SetRasterSampleCount(ulong rasterSampleCount) {
+
+        }
+
+        public void SetThreadgroupSizeMatchesTileSize(bool threadgroupSizeMatchesTileSize) {
+
+        }
+
+        public void SetMaxTotalThreadsPerThreadgroup(ulong maxTotalThreadsPerThreadgroup) {
+
+        }
+
+        public void SetBinaryArchives(NSArray binaryArchives) {
+
+        }
+
+        public void SetPreloadedLibraries(NSArray preloadedLibraries) {
+
+        }
+
+        public void SetLinkedFunctions(MTLLinkedFunctions linkedFunctions) {
+
+        }
+
+        public void SetSupportAddingBinaryFunctions(bool supportAddingBinaryFunctions) {
+
+        }
+
+        public void SetMaxCallStackDepth(ulong maxCallStackDepth) {
+
         }
 
         private static readonly Selector sel_label = "label";
@@ -809,6 +1057,74 @@ namespace SharpMetal
         {
             get => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stencilAttachmentPixelFormat);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStencilAttachmentPixelFormat, (ulong)value);
+        }
+
+        public void SetLabel(NSString label) {
+
+        }
+
+        public void SetObjectFunction(MTLFunction objectFunction) {
+
+        }
+
+        public void SetMeshFunction(MTLFunction meshFunction) {
+
+        }
+
+        public void SetFragmentFunction(MTLFunction fragmentFunction) {
+
+        }
+
+        public void SetMaxTotalThreadsPerObjectThreadgroup(ulong maxTotalThreadsPerObjectThreadgroup) {
+
+        }
+
+        public void SetMaxTotalThreadsPerMeshThreadgroup(ulong maxTotalThreadsPerMeshThreadgroup) {
+
+        }
+
+        public void SetObjectThreadgroupSizeIsMultipleOfThreadExecutionWidth(bool objectThreadgroupSizeIsMultipleOfThreadExecutionWidth) {
+
+        }
+
+        public void SetMeshThreadgroupSizeIsMultipleOfThreadExecutionWidth(bool meshThreadgroupSizeIsMultipleOfThreadExecutionWidth) {
+
+        }
+
+        public void SetPayloadMemoryLength(ulong payloadMemoryLength) {
+
+        }
+
+        public void SetMaxTotalThreadgroupsPerMeshGrid(ulong maxTotalThreadgroupsPerMeshGrid) {
+
+        }
+
+        public void SetRasterSampleCount(ulong rasterSampleCount) {
+
+        }
+
+        public void SetAlphaToCoverageEnabled(bool alphaToCoverageEnabled) {
+
+        }
+
+        public void SetAlphaToOneEnabled(bool alphaToOneEnabled) {
+
+        }
+
+        public void SetRasterizationEnabled(bool rasterizationEnabled) {
+
+        }
+
+        public void SetMaxVertexAmplificationCount(ulong maxVertexAmplificationCount) {
+
+        }
+
+        public void SetDepthAttachmentPixelFormat(MTLPixelFormat depthAttachmentPixelFormat) {
+
+        }
+
+        public void SetStencilAttachmentPixelFormat(MTLPixelFormat stencilAttachmentPixelFormat) {
+
         }
 
         private static readonly Selector sel_label = "label";

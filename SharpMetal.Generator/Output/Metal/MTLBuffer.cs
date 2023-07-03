@@ -18,6 +18,22 @@ namespace SharpMetal
 
         public ulong GpuAddress => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_gpuAddress);
 
+        public void DidModifyRange(NSRange range) {
+
+        }
+
+        public MTLTexture NewTexture(MTLTextureDescriptor descriptor, ulong offset, ulong bytesPerRow) {
+
+        }
+
+        public void AddDebugMarker(NSString marker, NSRange range) {
+
+        }
+
+        public MTLBuffer NewRemoteBufferViewForDevice(MTLDevice device) {
+
+        }
+
         private static readonly Selector sel_length = "length";
         private static readonly Selector sel_contents = "contents";
         private static readonly Selector sel_didModifyRange = "didModifyRange:";

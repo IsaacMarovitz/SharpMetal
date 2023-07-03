@@ -109,6 +109,18 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStepRate, value);
         }
 
+        public void SetStride(ulong stride) {
+
+        }
+
+        public void SetStepFunction(MTLStepFunction stepFunction) {
+
+        }
+
+        public void SetStepRate(ulong stepRate) {
+
+        }
+
         private static readonly Selector sel_stride = "stride";
         private static readonly Selector sel_setStride = "setStride:";
         private static readonly Selector sel_stepFunction = "stepFunction";
@@ -128,6 +140,14 @@ namespace SharpMetal
         {
             var cls = new ObjectiveCClass("MTLBufferLayoutDescriptorArray");
             NativePtr = cls.AllocInit();
+        }
+
+        public MTLBufferLayoutDescriptor Object(ulong index) {
+
+        }
+
+        public void SetObject(MTLBufferLayoutDescriptor bufferDesc, ulong index) {
+
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
@@ -165,6 +185,18 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBufferIndex, value);
         }
 
+        public void SetFormat(MTLAttributeFormat format) {
+
+        }
+
+        public void SetOffset(ulong offset) {
+
+        }
+
+        public void SetBufferIndex(ulong bufferIndex) {
+
+        }
+
         private static readonly Selector sel_format = "format";
         private static readonly Selector sel_setFormat = "setFormat:";
         private static readonly Selector sel_offset = "offset";
@@ -184,6 +216,14 @@ namespace SharpMetal
         {
             var cls = new ObjectiveCClass("MTLAttributeDescriptorArray");
             NativePtr = cls.AllocInit();
+        }
+
+        public MTLAttributeDescriptor Object(ulong index) {
+
+        }
+
+        public void SetObject(MTLAttributeDescriptor attributeDesc, ulong index) {
+
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
@@ -219,6 +259,14 @@ namespace SharpMetal
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_indexBufferIndex);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIndexBufferIndex, value);
+        }
+
+        public void SetIndexType(MTLIndexType indexType) {
+
+        }
+
+        public void SetIndexBufferIndex(ulong indexBufferIndex) {
+
         }
 
         private static readonly Selector sel_stageInputOutputDescriptor = "stageInputOutputDescriptor";

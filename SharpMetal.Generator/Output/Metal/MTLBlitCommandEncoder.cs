@@ -18,6 +18,106 @@ namespace SharpMetal
         public static implicit operator IntPtr(MTLBlitCommandEncoder obj) => obj.NativePtr;
         public MTLBlitCommandEncoder(IntPtr ptr) => NativePtr = ptr;
 
+        public void SynchronizeResource(MTLResource resource) {
+
+        }
+
+        public void SynchronizeTexture(MTLTexture texture, ulong slice, ulong level) {
+
+        }
+
+        public void CopyFromTexture(MTLTexture sourceTexture, ulong sourceSlice, ulong sourceLevel, MTLOrigin sourceOrigin, MTLSize sourceSize, MTLTexture destinationTexture, ulong destinationSlice, ulong destinationLevel, MTLOrigin destinationOrigin) {
+
+        }
+
+        public void CopyFromBuffer(MTLBuffer sourceBuffer, ulong sourceOffset, ulong sourceBytesPerRow, ulong sourceBytesPerImage, MTLSize sourceSize, MTLTexture destinationTexture, ulong destinationSlice, ulong destinationLevel, MTLOrigin destinationOrigin) {
+
+        }
+
+        public void CopyFromBuffer(MTLBuffer sourceBuffer, ulong sourceOffset, ulong sourceBytesPerRow, ulong sourceBytesPerImage, MTLSize sourceSize, MTLTexture destinationTexture, ulong destinationSlice, ulong destinationLevel, MTLOrigin destinationOrigin, MTLBlitOption options) {
+
+        }
+
+        public void CopyFromTexture(MTLTexture sourceTexture, ulong sourceSlice, ulong sourceLevel, MTLOrigin sourceOrigin, MTLSize sourceSize, MTLBuffer destinationBuffer, ulong destinationOffset, ulong destinationBytesPerRow, ulong destinationBytesPerImage) {
+
+        }
+
+        public void CopyFromTexture(MTLTexture sourceTexture, ulong sourceSlice, ulong sourceLevel, MTLOrigin sourceOrigin, MTLSize sourceSize, MTLBuffer destinationBuffer, ulong destinationOffset, ulong destinationBytesPerRow, ulong destinationBytesPerImage, MTLBlitOption options) {
+
+        }
+
+        public void GenerateMipmaps(MTLTexture texture) {
+
+        }
+
+        public void FillBuffer(MTLBuffer buffer, NSRange range, byte value) {
+
+        }
+
+        public void CopyFromTexture(MTLTexture sourceTexture, ulong sourceSlice, ulong sourceLevel, MTLTexture destinationTexture, ulong destinationSlice, ulong destinationLevel, ulong sliceCount, ulong levelCount) {
+
+        }
+
+        public void CopyFromTexture(MTLTexture sourceTexture, MTLTexture destinationTexture) {
+
+        }
+
+        public void CopyFromBuffer(MTLBuffer sourceBuffer, ulong sourceOffset, MTLBuffer destinationBuffer, ulong destinationOffset, ulong size) {
+
+        }
+
+        public void UpdateFence(MTLFence fence) {
+
+        }
+
+        public void WaitForFence(MTLFence fence) {
+
+        }
+
+        public void GetTextureAccessCounters(MTLTexture texture, MTLRegion region, ulong mipLevel, ulong slice, bool resetCounters, MTLBuffer countersBuffer, ulong countersBufferOffset) {
+
+        }
+
+        public void ResetTextureAccessCounters(MTLTexture texture, MTLRegion region, ulong mipLevel, ulong slice) {
+
+        }
+
+        public void OptimizeContentsForGPUAccess(MTLTexture texture) {
+
+        }
+
+        public void OptimizeContentsForGPUAccess(MTLTexture texture, ulong slice, ulong level) {
+
+        }
+
+        public void OptimizeContentsForCPUAccess(MTLTexture texture) {
+
+        }
+
+        public void OptimizeContentsForCPUAccess(MTLTexture texture, ulong slice, ulong level) {
+
+        }
+
+        public void ResetCommandsInBuffer(MTLIndirectCommandBuffer buffer, NSRange range) {
+
+        }
+
+        public void CopyIndirectCommandBuffer(MTLIndirectCommandBuffer source, NSRange sourceRange, MTLIndirectCommandBuffer destination, ulong destinationIndex) {
+
+        }
+
+        public void OptimizeIndirectCommandBuffer(MTLIndirectCommandBuffer indirectCommandBuffer, NSRange range) {
+
+        }
+
+        public void SampleCountersInBuffer(MTLCounterSampleBuffer sampleBuffer, ulong sampleIndex, bool barrier) {
+
+        }
+
+        public void ResolveCounters(MTLCounterSampleBuffer sampleBuffer, NSRange range, MTLBuffer destinationBuffer, ulong destinationOffset) {
+
+        }
+
         private static readonly Selector sel_synchronizeResource = "synchronizeResource:";
         private static readonly Selector sel_synchronizeTextureslicelevel = "synchronizeTexture:slice:level:";
         private static readonly Selector sel_copyFromTexturesourceSlicesourceLevelsourceOriginsourceSizetoTexturedestinationSlicedestinationLeveldestinationOrigin = "copyFromTexture:sourceSlice:sourceLevel:sourceOrigin:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:";

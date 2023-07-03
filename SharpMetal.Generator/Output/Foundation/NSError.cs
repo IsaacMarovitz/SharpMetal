@@ -30,6 +30,14 @@ namespace SharpMetal
 
         public NSString LocalizedFailureReason => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_localizedFailureReason));
 
+        public NSError Error(IntPtr domain, long code, NSDictionary pDictionary) {
+
+        }
+
+        public NSError Init(IntPtr domain, long code, NSDictionary pDictionary) {
+
+        }
+
         private static readonly Selector sel_errorWithDomaincodeuserInfo = "errorWithDomain:code:userInfo:";
         private static readonly Selector sel_initWithDomaincodeuserInfo = "initWithDomain:code:userInfo:";
         private static readonly Selector sel_code = "code";

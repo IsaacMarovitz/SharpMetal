@@ -35,6 +35,10 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctionCount, value);
         }
 
+        public void SetFunctionCount(ulong functionCount) {
+
+        }
+
         private static readonly Selector sel_intersectionFunctionTableDescriptor = "intersectionFunctionTableDescriptor";
         private static readonly Selector sel_functionCount = "functionCount";
         private static readonly Selector sel_setFunctionCount = "setFunctionCount:";
@@ -48,6 +52,38 @@ namespace SharpMetal
         public MTLIntersectionFunctionTable(IntPtr ptr) => NativePtr = ptr;
 
         public MTLResourceID GpuResourceID => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_gpuResourceID));
+
+        public void SetBuffer(MTLBuffer buffer, ulong offset, ulong index) {
+
+        }
+
+        public void SetBuffers(MTLBuffer[] buffers, ulong[] offsets, NSRange range) {
+
+        }
+
+        public void SetFunction(MTLFunctionHandle function, ulong index) {
+
+        }
+
+        public void SetFunctions(MTLFunctionHandle[] functions, NSRange range) {
+
+        }
+
+        public void SetOpaqueTriangleIntersectionFunction(MTLIntersectionFunctionSignature signature, ulong index) {
+
+        }
+
+        public void SetOpaqueTriangleIntersectionFunction(MTLIntersectionFunctionSignature signature, NSRange range) {
+
+        }
+
+        public void SetVisibleFunctionTable(MTLVisibleFunctionTable functionTable, ulong bufferIndex) {
+
+        }
+
+        public void SetVisibleFunctionTables(MTLVisibleFunctionTable[] functionTables, NSRange bufferRange) {
+
+        }
 
         private static readonly Selector sel_setBufferoffsetatIndex = "setBuffer:offset:atIndex:";
         private static readonly Selector sel_setBuffersoffsetswithRange = "setBuffers:offsets:withRange:";

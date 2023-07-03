@@ -48,6 +48,10 @@ namespace SharpMetal
 
         public NSString DebugDescription => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_debugDescription));
 
+        public bool IsEqual(NSObject pObject) {
+
+        }
+
         private static readonly Selector sel_methodSignatureForSelector = "methodSignatureForSelector:";
         private static readonly Selector sel_respondsToSelector = "respondsToSelector:";
         private static readonly Selector sel_alloc = "alloc";

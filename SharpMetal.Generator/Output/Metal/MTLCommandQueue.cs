@@ -22,6 +22,14 @@ namespace SharpMetal
 
         public MTLCommandBuffer CommandBufferWithUnretainedReferences => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_commandBufferWithUnretainedReferences));
 
+        public void SetLabel(NSString label) {
+
+        }
+
+        public MTLCommandBuffer CommandBuffer(MTLCommandBufferDescriptor descriptor) {
+
+        }
+
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_setLabel = "setLabel:";
         private static readonly Selector sel_device = "device";

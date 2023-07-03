@@ -10,6 +10,10 @@ namespace SharpMetal
         public static implicit operator IntPtr(NSDate obj) => obj.NativePtr;
         public NSDate(IntPtr ptr) => NativePtr = ptr;
 
+        public NSDate DateWithTimeIntervalSinceNow(IntPtr secs) {
+
+        }
+
         private static readonly Selector sel_dateWithTimeIntervalSinceNow = "dateWithTimeIntervalSinceNow:";
     }
 }

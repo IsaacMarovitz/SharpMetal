@@ -24,6 +24,10 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctionCount, value);
         }
 
+        public void SetFunctionCount(ulong functionCount) {
+
+        }
+
         private static readonly Selector sel_visibleFunctionTableDescriptor = "visibleFunctionTableDescriptor";
         private static readonly Selector sel_functionCount = "functionCount";
         private static readonly Selector sel_setFunctionCount = "setFunctionCount:";
@@ -37,6 +41,14 @@ namespace SharpMetal
         public MTLVisibleFunctionTable(IntPtr ptr) => NativePtr = ptr;
 
         public MTLResourceID GpuResourceID => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_gpuResourceID));
+
+        public void SetFunction(MTLFunctionHandle function, ulong index) {
+
+        }
+
+        public void SetFunctions(MTLFunctionHandle[] functions, NSRange range) {
+
+        }
 
         private static readonly Selector sel_gpuResourceID = "gpuResourceID";
         private static readonly Selector sel_setFunctionatIndex = "setFunction:atIndex:";

@@ -10,6 +10,34 @@ namespace SharpMetal
         public static implicit operator IntPtr(MTLIndirectRenderCommand obj) => obj.NativePtr;
         public MTLIndirectRenderCommand(IntPtr ptr) => NativePtr = ptr;
 
+        public void SetRenderPipelineState(MTLRenderPipelineState pipelineState) {
+
+        }
+
+        public void SetVertexBuffer(MTLBuffer buffer, ulong offset, ulong index) {
+
+        }
+
+        public void SetFragmentBuffer(MTLBuffer buffer, ulong offset, ulong index) {
+
+        }
+
+        public void DrawPatches(ulong numberOfPatchControlPoints, ulong patchStart, ulong patchCount, MTLBuffer patchIndexBuffer, ulong patchIndexBufferOffset, ulong instanceCount, ulong baseInstance, MTLBuffer buffer, ulong offset, ulong instanceStride) {
+
+        }
+
+        public void DrawIndexedPatches(ulong numberOfPatchControlPoints, ulong patchStart, ulong patchCount, MTLBuffer patchIndexBuffer, ulong patchIndexBufferOffset, MTLBuffer controlPointIndexBuffer, ulong controlPointIndexBufferOffset, ulong instanceCount, ulong baseInstance, MTLBuffer buffer, ulong offset, ulong instanceStride) {
+
+        }
+
+        public void DrawPrimitives(MTLPrimitiveType primitiveType, ulong vertexStart, ulong vertexCount, ulong instanceCount, ulong baseInstance) {
+
+        }
+
+        public void DrawIndexedPrimitives(MTLPrimitiveType primitiveType, ulong indexCount, MTLIndexType indexType, MTLBuffer indexBuffer, ulong indexBufferOffset, ulong instanceCount, long baseVertex, ulong baseInstance) {
+
+        }
+
         private static readonly Selector sel_setRenderPipelineState = "setRenderPipelineState:";
         private static readonly Selector sel_setVertexBufferoffsetatIndex = "setVertexBuffer:offset:atIndex:";
         private static readonly Selector sel_setFragmentBufferoffsetatIndex = "setFragmentBuffer:offset:atIndex:";
@@ -26,6 +54,34 @@ namespace SharpMetal
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIndirectComputeCommand obj) => obj.NativePtr;
         public MTLIndirectComputeCommand(IntPtr ptr) => NativePtr = ptr;
+
+        public void SetComputePipelineState(MTLComputePipelineState pipelineState) {
+
+        }
+
+        public void SetKernelBuffer(MTLBuffer buffer, ulong offset, ulong index) {
+
+        }
+
+        public void ConcurrentDispatchThreadgroups(MTLSize threadgroupsPerGrid, MTLSize threadsPerThreadgroup) {
+
+        }
+
+        public void ConcurrentDispatchThreads(MTLSize threadsPerGrid, MTLSize threadsPerThreadgroup) {
+
+        }
+
+        public void SetImageblockWidth(ulong width, ulong height) {
+
+        }
+
+        public void SetThreadgroupMemoryLength(ulong length, ulong index) {
+
+        }
+
+        public void SetStageInRegion(MTLRegion region) {
+
+        }
 
         private static readonly Selector sel_setComputePipelineState = "setComputePipelineState:";
         private static readonly Selector sel_setKernelBufferoffsetatIndex = "setKernelBuffer:offset:atIndex:";

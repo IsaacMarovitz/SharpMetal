@@ -16,6 +16,18 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
+        public void SetConstantValue(IntPtr value, MTLDataType type, ulong index) {
+
+        }
+
+        public void SetConstantValues(IntPtr values, MTLDataType type, NSRange range) {
+
+        }
+
+        public void SetConstantValue(IntPtr value, MTLDataType type, NSString name) {
+
+        }
+
         private static readonly Selector sel_setConstantValuetypeatIndex = "setConstantValue:type:atIndex:";
         private static readonly Selector sel_setConstantValuestypewithRange = "setConstantValues:type:withRange:";
         private static readonly Selector sel_setConstantValuetypewithName = "setConstantValue:type:withName:";

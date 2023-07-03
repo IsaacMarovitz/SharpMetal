@@ -16,6 +16,62 @@ namespace SharpMetal
         public static implicit operator IntPtr(MTLAccelerationStructureCommandEncoder obj) => obj.NativePtr;
         public MTLAccelerationStructureCommandEncoder(IntPtr ptr) => NativePtr = ptr;
 
+        public void BuildAccelerationStructure(MTLAccelerationStructure accelerationStructure, MTLAccelerationStructureDescriptor descriptor, MTLBuffer scratchBuffer, ulong scratchBufferOffset) {
+
+        }
+
+        public void RefitAccelerationStructure(MTLAccelerationStructure sourceAccelerationStructure, MTLAccelerationStructureDescriptor descriptor, MTLAccelerationStructure destinationAccelerationStructure, MTLBuffer scratchBuffer, ulong scratchBufferOffset) {
+
+        }
+
+        public void RefitAccelerationStructure(MTLAccelerationStructure sourceAccelerationStructure, MTLAccelerationStructureDescriptor descriptor, MTLAccelerationStructure destinationAccelerationStructure, MTLBuffer scratchBuffer, ulong scratchBufferOffset, MTLAccelerationStructureRefitOptions options) {
+
+        }
+
+        public void CopyAccelerationStructure(MTLAccelerationStructure sourceAccelerationStructure, MTLAccelerationStructure destinationAccelerationStructure) {
+
+        }
+
+        public void WriteCompactedAccelerationStructureSize(MTLAccelerationStructure accelerationStructure, MTLBuffer buffer, ulong offset) {
+
+        }
+
+        public void WriteCompactedAccelerationStructureSize(MTLAccelerationStructure accelerationStructure, MTLBuffer buffer, ulong offset, MTLDataType sizeDataType) {
+
+        }
+
+        public void CopyAndCompactAccelerationStructure(MTLAccelerationStructure sourceAccelerationStructure, MTLAccelerationStructure destinationAccelerationStructure) {
+
+        }
+
+        public void UpdateFence(MTLFence fence) {
+
+        }
+
+        public void WaitForFence(MTLFence fence) {
+
+        }
+
+        public void UseResource(MTLResource resource, MTLResourceUsage usage) {
+
+        }
+
+        public void UseResources(MTLResource[] resources, ulong count, MTLResourceUsage usage) {
+
+        }
+
+        public void UseHeap(MTLHeap heap) {
+
+        }
+
+        public void UseHeaps(MTLHeap[] heaps, ulong count) {
+
+        }
+
+        public void SampleCountersInBuffer(MTLCounterSampleBuffer sampleBuffer, ulong sampleIndex, bool barrier) {
+
+        }
+
         private static readonly Selector sel_buildAccelerationStructuredescriptorscratchBufferscratchBufferOffset = "buildAccelerationStructure:descriptor:scratchBuffer:scratchBufferOffset:";
         private static readonly Selector sel_refitAccelerationStructuredescriptordestinationscratchBufferscratchBufferOffset = "refitAccelerationStructure:descriptor:destination:scratchBuffer:scratchBufferOffset:";
         private static readonly Selector sel_refitAccelerationStructuredescriptordestinationscratchBufferscratchBufferOffsetoptions = "refitAccelerationStructure:descriptor:destination:scratchBuffer:scratchBufferOffset:options:";
@@ -63,6 +119,18 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setEndOfEncoderSampleIndex, value);
         }
 
+        public void SetSampleBuffer(MTLCounterSampleBuffer sampleBuffer) {
+
+        }
+
+        public void SetStartOfEncoderSampleIndex(ulong startOfEncoderSampleIndex) {
+
+        }
+
+        public void SetEndOfEncoderSampleIndex(ulong endOfEncoderSampleIndex) {
+
+        }
+
         private static readonly Selector sel_sampleBuffer = "sampleBuffer";
         private static readonly Selector sel_setSampleBuffer = "setSampleBuffer:";
         private static readonly Selector sel_startOfEncoderSampleIndex = "startOfEncoderSampleIndex";
@@ -82,6 +150,14 @@ namespace SharpMetal
         {
             var cls = new ObjectiveCClass("MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray");
             NativePtr = cls.AllocInit();
+        }
+
+        public MTLAccelerationStructurePassSampleBufferAttachmentDescriptor Object(ulong attachmentIndex) {
+
+        }
+
+        public void SetObject(MTLAccelerationStructurePassSampleBufferAttachmentDescriptor attachment, ulong attachmentIndex) {
+
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";

@@ -22,6 +22,94 @@ namespace SharpMetal
 
         public ulong Alignment => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_alignment);
 
+        public void SetLabel(NSString label) {
+
+        }
+
+        public void SetArgumentBuffer(MTLBuffer argumentBuffer, ulong offset) {
+
+        }
+
+        public void SetArgumentBuffer(MTLBuffer argumentBuffer, ulong startOffset, ulong arrayElement) {
+
+        }
+
+        public void SetBuffer(MTLBuffer buffer, ulong offset, ulong index) {
+
+        }
+
+        public void SetBuffers(MTLBuffer[] buffers, ulong[] offsets, NSRange range) {
+
+        }
+
+        public void SetTexture(MTLTexture texture, ulong index) {
+
+        }
+
+        public void SetTextures(MTLTexture[] textures, NSRange range) {
+
+        }
+
+        public void SetSamplerState(MTLSamplerState sampler, ulong index) {
+
+        }
+
+        public void SetSamplerStates(MTLSamplerState[] samplers, NSRange range) {
+
+        }
+
+        public IntPtr ConstantData(ulong index) {
+
+        }
+
+        public void SetRenderPipelineState(MTLRenderPipelineState pipeline, ulong index) {
+
+        }
+
+        public void SetRenderPipelineStates(MTLRenderPipelineState[] pipelines, NSRange range) {
+
+        }
+
+        public void SetComputePipelineState(MTLComputePipelineState pipeline, ulong index) {
+
+        }
+
+        public void SetComputePipelineStates(MTLComputePipelineState[] pipelines, NSRange range) {
+
+        }
+
+        public void SetIndirectCommandBuffer(MTLIndirectCommandBuffer indirectCommandBuffer, ulong index) {
+
+        }
+
+        public void SetIndirectCommandBuffers(MTLIndirectCommandBuffer[] buffers, NSRange range) {
+
+        }
+
+        public void SetAccelerationStructure(MTLAccelerationStructure accelerationStructure, ulong index) {
+
+        }
+
+        public MTLArgumentEncoder NewArgumentEncoder(ulong index) {
+
+        }
+
+        public void SetVisibleFunctionTable(MTLVisibleFunctionTable visibleFunctionTable, ulong index) {
+
+        }
+
+        public void SetVisibleFunctionTables(MTLVisibleFunctionTable[] visibleFunctionTables, NSRange range) {
+
+        }
+
+        public void SetIntersectionFunctionTable(MTLIntersectionFunctionTable intersectionFunctionTable, ulong index) {
+
+        }
+
+        public void SetIntersectionFunctionTables(MTLIntersectionFunctionTable[] intersectionFunctionTables, NSRange range) {
+
+        }
+
         private static readonly Selector sel_device = "device";
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_setLabel = "setLabel:";

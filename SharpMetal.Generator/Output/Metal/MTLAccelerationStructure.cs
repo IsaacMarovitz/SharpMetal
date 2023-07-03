@@ -53,6 +53,10 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setUsage, (ulong)value);
         }
 
+        public void SetUsage(MTLAccelerationStructureUsage usage) {
+
+        }
+
         private static readonly Selector sel_usage = "usage";
         private static readonly Selector sel_setUsage = "setUsage:";
     }
@@ -116,6 +120,38 @@ namespace SharpMetal
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_primitiveDataElementSize);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataElementSize, value);
+        }
+
+        public void SetIntersectionFunctionTableOffset(ulong intersectionFunctionTableOffset) {
+
+        }
+
+        public void SetOpaque(bool opaque) {
+
+        }
+
+        public void SetAllowDuplicateIntersectionFunctionInvocation(bool allowDuplicateIntersectionFunctionInvocation) {
+
+        }
+
+        public void SetLabel(NSString label) {
+
+        }
+
+        public void SetPrimitiveDataBuffer(MTLBuffer primitiveDataBuffer) {
+
+        }
+
+        public void SetPrimitiveDataBufferOffset(ulong primitiveDataBufferOffset) {
+
+        }
+
+        public void SetPrimitiveDataStride(ulong primitiveDataStride) {
+
+        }
+
+        public void SetPrimitiveDataElementSize(ulong primitiveDataElementSize) {
+
         }
 
         private static readonly Selector sel_intersectionFunctionTableOffset = "intersectionFunctionTableOffset";
@@ -186,6 +222,30 @@ namespace SharpMetal
         }
 
         public MTLPrimitiveAccelerationStructureDescriptor Descriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_descriptor));
+
+        public void SetGeometryDescriptors(NSArray geometryDescriptors) {
+
+        }
+
+        public void SetMotionStartBorderMode(MTLMotionBorderMode motionStartBorderMode) {
+
+        }
+
+        public void SetMotionEndBorderMode(MTLMotionBorderMode motionEndBorderMode) {
+
+        }
+
+        public void SetMotionStartTime(float motionStartTime) {
+
+        }
+
+        public void SetMotionEndTime(float motionEndTime) {
+
+        }
+
+        public void SetMotionKeyframeCount(ulong motionKeyframeCount) {
+
+        }
 
         private static readonly Selector sel_geometryDescriptors = "geometryDescriptors";
         private static readonly Selector sel_setGeometryDescriptors = "setGeometryDescriptors:";
@@ -277,6 +337,46 @@ namespace SharpMetal
 
         public MTLAccelerationStructureTriangleGeometryDescriptor Descriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_descriptor));
 
+        public void SetVertexBuffer(MTLBuffer vertexBuffer) {
+
+        }
+
+        public void SetVertexBufferOffset(ulong vertexBufferOffset) {
+
+        }
+
+        public void SetVertexFormat(MTLAttributeFormat vertexFormat) {
+
+        }
+
+        public void SetVertexStride(ulong vertexStride) {
+
+        }
+
+        public void SetIndexBuffer(MTLBuffer indexBuffer) {
+
+        }
+
+        public void SetIndexBufferOffset(ulong indexBufferOffset) {
+
+        }
+
+        public void SetIndexType(MTLIndexType indexType) {
+
+        }
+
+        public void SetTriangleCount(ulong triangleCount) {
+
+        }
+
+        public void SetTransformationMatrixBuffer(MTLBuffer transformationMatrixBuffer) {
+
+        }
+
+        public void SetTransformationMatrixBufferOffset(ulong transformationMatrixBufferOffset) {
+
+        }
+
         private static readonly Selector sel_vertexBuffer = "vertexBuffer";
         private static readonly Selector sel_setVertexBuffer = "setVertexBuffer:";
         private static readonly Selector sel_vertexBufferOffset = "vertexBufferOffset";
@@ -339,6 +439,22 @@ namespace SharpMetal
 
         public MTLAccelerationStructureBoundingBoxGeometryDescriptor Descriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_descriptor));
 
+        public void SetBoundingBoxBuffer(MTLBuffer boundingBoxBuffer) {
+
+        }
+
+        public void SetBoundingBoxBufferOffset(ulong boundingBoxBufferOffset) {
+
+        }
+
+        public void SetBoundingBoxStride(ulong boundingBoxStride) {
+
+        }
+
+        public void SetBoundingBoxCount(ulong boundingBoxCount) {
+
+        }
+
         private static readonly Selector sel_boundingBoxBuffer = "boundingBoxBuffer";
         private static readonly Selector sel_setBoundingBoxBuffer = "setBoundingBoxBuffer:";
         private static readonly Selector sel_boundingBoxBufferOffset = "boundingBoxBufferOffset";
@@ -376,6 +492,14 @@ namespace SharpMetal
         }
 
         public MTLMotionKeyframeData Data => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_data));
+
+        public void SetBuffer(MTLBuffer buffer) {
+
+        }
+
+        public void SetOffset(ulong offset) {
+
+        }
 
         private static readonly Selector sel_buffer = "buffer";
         private static readonly Selector sel_setBuffer = "setBuffer:";
@@ -453,6 +577,42 @@ namespace SharpMetal
 
         public MTLAccelerationStructureMotionTriangleGeometryDescriptor Descriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_descriptor));
 
+        public void SetVertexBuffers(NSArray vertexBuffers) {
+
+        }
+
+        public void SetVertexFormat(MTLAttributeFormat vertexFormat) {
+
+        }
+
+        public void SetVertexStride(ulong vertexStride) {
+
+        }
+
+        public void SetIndexBuffer(MTLBuffer indexBuffer) {
+
+        }
+
+        public void SetIndexBufferOffset(ulong indexBufferOffset) {
+
+        }
+
+        public void SetIndexType(MTLIndexType indexType) {
+
+        }
+
+        public void SetTriangleCount(ulong triangleCount) {
+
+        }
+
+        public void SetTransformationMatrixBuffer(MTLBuffer transformationMatrixBuffer) {
+
+        }
+
+        public void SetTransformationMatrixBufferOffset(ulong transformationMatrixBufferOffset) {
+
+        }
+
         private static readonly Selector sel_vertexBuffers = "vertexBuffers";
         private static readonly Selector sel_setVertexBuffers = "setVertexBuffers:";
         private static readonly Selector sel_vertexFormat = "vertexFormat";
@@ -506,6 +666,18 @@ namespace SharpMetal
         }
 
         public MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor Descriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_descriptor));
+
+        public void SetBoundingBoxBuffers(NSArray boundingBoxBuffers) {
+
+        }
+
+        public void SetBoundingBoxStride(ulong boundingBoxStride) {
+
+        }
+
+        public void SetBoundingBoxCount(ulong boundingBoxCount) {
+
+        }
 
         private static readonly Selector sel_boundingBoxBuffers = "boundingBoxBuffers";
         private static readonly Selector sel_setBoundingBoxBuffers = "setBoundingBoxBuffers:";
@@ -655,6 +827,42 @@ namespace SharpMetal
         }
 
         public MTLInstanceAccelerationStructureDescriptor Descriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_descriptor));
+
+        public void SetInstanceDescriptorBuffer(MTLBuffer instanceDescriptorBuffer) {
+
+        }
+
+        public void SetInstanceDescriptorBufferOffset(ulong instanceDescriptorBufferOffset) {
+
+        }
+
+        public void SetInstanceDescriptorStride(ulong instanceDescriptorStride) {
+
+        }
+
+        public void SetInstanceCount(ulong instanceCount) {
+
+        }
+
+        public void SetInstancedAccelerationStructures(NSArray instancedAccelerationStructures) {
+
+        }
+
+        public void SetInstanceDescriptorType(MTLAccelerationStructureInstanceDescriptorType instanceDescriptorType) {
+
+        }
+
+        public void SetMotionTransformBuffer(MTLBuffer motionTransformBuffer) {
+
+        }
+
+        public void SetMotionTransformBufferOffset(ulong motionTransformBufferOffset) {
+
+        }
+
+        public void SetMotionTransformCount(ulong motionTransformCount) {
+
+        }
 
         private static readonly Selector sel_instanceDescriptorBuffer = "instanceDescriptorBuffer";
         private static readonly Selector sel_setInstanceDescriptorBuffer = "setInstanceDescriptorBuffer:";

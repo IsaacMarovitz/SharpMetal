@@ -76,6 +76,30 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setWriteMask, value);
         }
 
+        public void SetStencilCompareFunction(MTLCompareFunction stencilCompareFunction) {
+
+        }
+
+        public void SetStencilFailureOperation(MTLStencilOperation stencilFailureOperation) {
+
+        }
+
+        public void SetDepthFailureOperation(MTLStencilOperation depthFailureOperation) {
+
+        }
+
+        public void SetDepthStencilPassOperation(MTLStencilOperation depthStencilPassOperation) {
+
+        }
+
+        public void SetReadMask(uint readMask) {
+
+        }
+
+        public void SetWriteMask(uint writeMask) {
+
+        }
+
         private static readonly Selector sel_stencilCompareFunction = "stencilCompareFunction";
         private static readonly Selector sel_setStencilCompareFunction = "setStencilCompareFunction:";
         private static readonly Selector sel_stencilFailureOperation = "stencilFailureOperation";
@@ -127,6 +151,26 @@ namespace SharpMetal
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
+        }
+
+        public void SetDepthCompareFunction(MTLCompareFunction depthCompareFunction) {
+
+        }
+
+        public void SetDepthWriteEnabled(bool depthWriteEnabled) {
+
+        }
+
+        public void SetFrontFaceStencil(MTLStencilDescriptor frontFaceStencil) {
+
+        }
+
+        public void SetBackFaceStencil(MTLStencilDescriptor backFaceStencil) {
+
+        }
+
+        public void SetLabel(NSString label) {
+
         }
 
         private static readonly Selector sel_depthCompareFunction = "depthCompareFunction";

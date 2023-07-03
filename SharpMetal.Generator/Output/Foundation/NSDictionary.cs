@@ -22,6 +22,26 @@ namespace SharpMetal
 
         public ulong Count => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_count);
 
+        public NSDictionary Dictionary(NSObject pObject, NSObject pKey) {
+
+        }
+
+        public NSDictionary Dictionary(NSObject pObjects, NSObject pKeys, ulong count) {
+
+        }
+
+        public NSDictionary Init(NSObject pObjects, NSObject pKeys, ulong count) {
+
+        }
+
+        public NSDictionary Init(NSCoder pCoder) {
+
+        }
+
+        public NS_Object Object(NSObject pKey) {
+
+        }
+
         private static readonly Selector sel_dictionary = "dictionary";
         private static readonly Selector sel_dictionaryWithObjectforKey = "dictionaryWithObject:forKey:";
         private static readonly Selector sel_dictionaryWithObjectsforKeyscount = "dictionaryWithObjects:forKeys:count:";

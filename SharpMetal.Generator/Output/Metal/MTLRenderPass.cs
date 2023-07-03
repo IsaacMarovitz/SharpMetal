@@ -137,6 +137,50 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStoreActionOptions, (ulong)value);
         }
 
+        public void SetTexture(MTLTexture texture) {
+
+        }
+
+        public void SetLevel(ulong level) {
+
+        }
+
+        public void SetSlice(ulong slice) {
+
+        }
+
+        public void SetDepthPlane(ulong depthPlane) {
+
+        }
+
+        public void SetResolveTexture(MTLTexture resolveTexture) {
+
+        }
+
+        public void SetResolveLevel(ulong resolveLevel) {
+
+        }
+
+        public void SetResolveSlice(ulong resolveSlice) {
+
+        }
+
+        public void SetResolveDepthPlane(ulong resolveDepthPlane) {
+
+        }
+
+        public void SetLoadAction(MTLLoadAction loadAction) {
+
+        }
+
+        public void SetStoreAction(MTLStoreAction storeAction) {
+
+        }
+
+        public void SetStoreActionOptions(MTLStoreActionOptions storeActionOptions) {
+
+        }
+
         private static readonly Selector sel_texture = "texture";
         private static readonly Selector sel_setTexture = "setTexture:";
         private static readonly Selector sel_level = "level";
@@ -180,6 +224,10 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setClearColor, value);
         }
 
+        public void SetClearColor(MTLClearColor clearColor) {
+
+        }
+
         private static readonly Selector sel_clearColor = "clearColor";
         private static readonly Selector sel_setClearColor = "setClearColor:";
     }
@@ -207,6 +255,14 @@ namespace SharpMetal
         {
             get => (MTLMultisampleDepthResolveFilter)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_depthResolveFilter);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthResolveFilter, (ulong)value);
+        }
+
+        public void SetClearDepth(double clearDepth) {
+
+        }
+
+        public void SetDepthResolveFilter(MTLMultisampleDepthResolveFilter depthResolveFilter) {
+
         }
 
         private static readonly Selector sel_clearDepth = "clearDepth";
@@ -240,6 +296,14 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStencilResolveFilter, (ulong)value);
         }
 
+        public void SetClearStencil(uint clearStencil) {
+
+        }
+
+        public void SetStencilResolveFilter(MTLMultisampleStencilResolveFilter stencilResolveFilter) {
+
+        }
+
         private static readonly Selector sel_clearStencil = "clearStencil";
         private static readonly Selector sel_setClearStencil = "setClearStencil:";
         private static readonly Selector sel_stencilResolveFilter = "stencilResolveFilter";
@@ -257,6 +321,14 @@ namespace SharpMetal
         {
             var cls = new ObjectiveCClass("MTLRenderPassColorAttachmentDescriptorArray");
             NativePtr = cls.AllocInit();
+        }
+
+        public MTLRenderPassColorAttachmentDescriptor Object(ulong attachmentIndex) {
+
+        }
+
+        public void SetObject(MTLRenderPassColorAttachmentDescriptor attachment, ulong attachmentIndex) {
+
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
@@ -306,6 +378,26 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setEndOfFragmentSampleIndex, value);
         }
 
+        public void SetSampleBuffer(MTLCounterSampleBuffer sampleBuffer) {
+
+        }
+
+        public void SetStartOfVertexSampleIndex(ulong startOfVertexSampleIndex) {
+
+        }
+
+        public void SetEndOfVertexSampleIndex(ulong endOfVertexSampleIndex) {
+
+        }
+
+        public void SetStartOfFragmentSampleIndex(ulong startOfFragmentSampleIndex) {
+
+        }
+
+        public void SetEndOfFragmentSampleIndex(ulong endOfFragmentSampleIndex) {
+
+        }
+
         private static readonly Selector sel_sampleBuffer = "sampleBuffer";
         private static readonly Selector sel_setSampleBuffer = "setSampleBuffer:";
         private static readonly Selector sel_startOfVertexSampleIndex = "startOfVertexSampleIndex";
@@ -329,6 +421,14 @@ namespace SharpMetal
         {
             var cls = new ObjectiveCClass("MTLRenderPassSampleBufferAttachmentDescriptorArray");
             NativePtr = cls.AllocInit();
+        }
+
+        public MTLRenderPassSampleBufferAttachmentDescriptor Object(ulong attachmentIndex) {
+
+        }
+
+        public void SetObject(MTLRenderPassSampleBufferAttachmentDescriptor attachment, ulong attachmentIndex) {
+
         }
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
@@ -425,6 +525,62 @@ namespace SharpMetal
         }
 
         public MTLRenderPassSampleBufferAttachmentDescriptorArray SampleBufferAttachments => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_sampleBufferAttachments));
+
+        public void SetDepthAttachment(MTLRenderPassDepthAttachmentDescriptor depthAttachment) {
+
+        }
+
+        public void SetStencilAttachment(MTLRenderPassStencilAttachmentDescriptor stencilAttachment) {
+
+        }
+
+        public void SetVisibilityResultBuffer(MTLBuffer visibilityResultBuffer) {
+
+        }
+
+        public void SetRenderTargetArrayLength(ulong renderTargetArrayLength) {
+
+        }
+
+        public void SetImageblockSampleLength(ulong imageblockSampleLength) {
+
+        }
+
+        public void SetThreadgroupMemoryLength(ulong threadgroupMemoryLength) {
+
+        }
+
+        public void SetTileWidth(ulong tileWidth) {
+
+        }
+
+        public void SetTileHeight(ulong tileHeight) {
+
+        }
+
+        public void SetDefaultRasterSampleCount(ulong defaultRasterSampleCount) {
+
+        }
+
+        public void SetRenderTargetWidth(ulong renderTargetWidth) {
+
+        }
+
+        public void SetRenderTargetHeight(ulong renderTargetHeight) {
+
+        }
+
+        public void SetSamplePositions(MTLSamplePosition positions, ulong count) {
+
+        }
+
+        public ulong GetSamplePositions(MTLSamplePosition positions, ulong count) {
+
+        }
+
+        public void SetRasterizationRateMap(MTLRasterizationRateMap rasterizationRateMap) {
+
+        }
 
         private static readonly Selector sel_renderPassDescriptor = "renderPassDescriptor";
         private static readonly Selector sel_colorAttachments = "colorAttachments";

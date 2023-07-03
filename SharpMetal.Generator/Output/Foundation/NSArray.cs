@@ -20,6 +20,26 @@ namespace SharpMetal
 
         public ulong Count => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_count);
 
+        public NSArray Array(NSObject pObject) {
+
+        }
+
+        public NSArray Array(NSObject pObjects, ulong count) {
+
+        }
+
+        public NSArray Init(NSObject pObjects, ulong count) {
+
+        }
+
+        public NSArray Init(NSCoder pCoder) {
+
+        }
+
+        public NS_Object Object(ulong index) {
+
+        }
+
         private static readonly Selector sel_array = "array";
         private static readonly Selector sel_arrayWithObject = "arrayWithObject:";
         private static readonly Selector sel_arrayWithObjectscount = "arrayWithObjects:count:";

@@ -22,6 +22,10 @@ namespace SharpMetal
         public static implicit operator IntPtr(NSFastEnumeration obj) => obj.NativePtr;
         public NSFastEnumeration(IntPtr ptr) => NativePtr = ptr;
 
+        public ulong CountByEnumerating(NSFastEnumerationState pState, NSObject pBuffer, ulong len) {
+
+        }
+
         private static readonly Selector sel_countByEnumeratingWithStateobjectscount = "countByEnumeratingWithState:objects:count:";
     }
 

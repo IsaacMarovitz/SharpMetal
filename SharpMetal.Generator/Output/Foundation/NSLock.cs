@@ -24,6 +24,10 @@ namespace SharpMetal
             NativePtr = cls.AllocInit();
         }
 
+        public bool WaitUntilDate(NSDate pLimit) {
+
+        }
+
         private static readonly Selector sel_wait = "wait";
         private static readonly Selector sel_waitUntilDate = "waitUntilDate:";
         private static readonly Selector sel_signal = "signal";

@@ -52,6 +52,14 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setArgumentIndex, value);
         }
 
+        public void SetArgumentIndex(ulong argumentIndex) {
+
+        }
+
+        public MTLFunctionStitchingInputNode Init(ulong argument) {
+
+        }
+
         private static readonly Selector sel_argumentIndex = "argumentIndex";
         private static readonly Selector sel_setArgumentIndex = "setArgumentIndex:";
         private static readonly Selector sel_initWithArgumentIndex = "initWithArgumentIndex:";
@@ -86,6 +94,22 @@ namespace SharpMetal
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_controlDependencies));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setControlDependencies, value);
+        }
+
+        public void SetName(NSString name) {
+
+        }
+
+        public void SetArguments(NSArray arguments) {
+
+        }
+
+        public void SetControlDependencies(NSArray controlDependencies) {
+
+        }
+
+        public MTLFunctionStitchingFunctionNode Init(NSString name, NSArray arguments, NSArray controlDependencies) {
+
         }
 
         private static readonly Selector sel_name = "name";
@@ -134,6 +158,26 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAttributes, value);
         }
 
+        public void SetFunctionName(NSString functionName) {
+
+        }
+
+        public void SetNodes(NSArray nodes) {
+
+        }
+
+        public void SetOutputNode(MTLFunctionStitchingFunctionNode outputNode) {
+
+        }
+
+        public void SetAttributes(NSArray attributes) {
+
+        }
+
+        public MTLFunctionStitchingGraph Init(NSString functionName, NSArray nodes, MTLFunctionStitchingFunctionNode outputNode, NSArray attributes) {
+
+        }
+
         private static readonly Selector sel_functionName = "functionName";
         private static readonly Selector sel_setFunctionName = "setFunctionName:";
         private static readonly Selector sel_nodes = "nodes";
@@ -168,6 +212,14 @@ namespace SharpMetal
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_functions));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctions, value);
+        }
+
+        public void SetFunctionGraphs(NSArray functionGraphs) {
+
+        }
+
+        public void SetFunctions(NSArray functions) {
+
         }
 
         private static readonly Selector sel_functionGraphs = "functionGraphs";

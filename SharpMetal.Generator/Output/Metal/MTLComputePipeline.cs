@@ -111,6 +111,54 @@ namespace SharpMetal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxCallStackDepth, value);
         }
 
+        public void SetLabel(NSString label) {
+
+        }
+
+        public void SetComputeFunction(MTLFunction computeFunction) {
+
+        }
+
+        public void SetThreadGroupSizeIsMultipleOfThreadExecutionWidth(bool threadGroupSizeIsMultipleOfThreadExecutionWidth) {
+
+        }
+
+        public void SetMaxTotalThreadsPerThreadgroup(ulong maxTotalThreadsPerThreadgroup) {
+
+        }
+
+        public void SetStageInputDescriptor(MTLStageInputOutputDescriptor stageInputDescriptor) {
+
+        }
+
+        public void SetSupportIndirectCommandBuffers(bool supportIndirectCommandBuffers) {
+
+        }
+
+        public void SetInsertLibraries(NSArray insertLibraries) {
+
+        }
+
+        public void SetPreloadedLibraries(NSArray preloadedLibraries) {
+
+        }
+
+        public void SetBinaryArchives(NSArray binaryArchives) {
+
+        }
+
+        public void SetLinkedFunctions(MTLLinkedFunctions linkedFunctions) {
+
+        }
+
+        public void SetSupportAddingBinaryFunctions(bool supportAddingBinaryFunctions) {
+
+        }
+
+        public void SetMaxCallStackDepth(ulong maxCallStackDepth) {
+
+        }
+
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_setLabel = "setLabel:";
         private static readonly Selector sel_computeFunction = "computeFunction";
@@ -159,6 +207,26 @@ namespace SharpMetal
         public bool SupportIndirectCommandBuffers => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportIndirectCommandBuffers);
 
         public MTLResourceID GpuResourceID => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_gpuResourceID));
+
+        public ulong ImageblockMemoryLength(MTLSize imageblockDimensions) {
+
+        }
+
+        public MTLFunctionHandle FunctionHandle(MTLFunction function) {
+
+        }
+
+        public MTLComputePipelineState NewComputePipelineState(NSArray functions, NSError error) {
+
+        }
+
+        public MTLVisibleFunctionTable NewVisibleFunctionTable(MTLVisibleFunctionTableDescriptor descriptor) {
+
+        }
+
+        public MTLIntersectionFunctionTable NewIntersectionFunctionTable(MTLIntersectionFunctionTableDescriptor descriptor) {
+
+        }
 
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_device = "device";

@@ -64,6 +64,46 @@ namespace SharpMetal
 
         public NSDictionary LocalizedInfoDictionary => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_localizedInfoDictionary));
 
+        public NSBundle Bundle(NSString pPath) {
+
+        }
+
+        public NSBundle Bundle(NSURL pURL) {
+
+        }
+
+        public NSBundle Init(NSString pPath) {
+
+        }
+
+        public NSBundle Init(NSURL pURL) {
+
+        }
+
+        public bool PreflightAndReturnError(NSError pError) {
+
+        }
+
+        public bool LoadAndReturnError(NSError pError) {
+
+        }
+
+        public NSURL URLForAuxiliaryExecutable(NSString pExecutableName) {
+
+        }
+
+        public NSString PathForAuxiliaryExecutable(NSString pExecutableName) {
+
+        }
+
+        public NSObject ObjectForInfoDictionaryKey(NSString pKey) {
+
+        }
+
+        public NSString LocalizedString(NSString pKey) {
+
+        }
+
         private static readonly Selector sel_mainBundle = "mainBundle";
         private static readonly Selector sel_bundleWithPath = "bundleWithPath:";
         private static readonly Selector sel_bundleWithURL = "bundleWithURL:";
