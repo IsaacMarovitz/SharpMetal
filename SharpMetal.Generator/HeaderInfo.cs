@@ -61,10 +61,6 @@ namespace SharpMetal.Generator
 
                     SelectorInstance.Build(line, namespacePrefix, sr, propertyOwners);
                 }
-                else if (line.Contains("(") && line.Contains(")") && line.Contains(";") && !line.Contains("//") && !line.Contains("using") && !line.Contains("extern") && !line.Contains("_") && !line.Contains("return"))
-                {
-                    // Probably a namespace level function
-                }
             }
         }
     }

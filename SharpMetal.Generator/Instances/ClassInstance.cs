@@ -2,7 +2,7 @@ using SharpMetal.Generator.Utilities;
 
 namespace SharpMetal.Generator.Instances
 {
-    public partial class ClassInstance : IPropertyOwner
+    public class ClassInstance : IPropertyOwner
     {
         public string Name { get; set; }
         public bool HasAlloc;
@@ -158,19 +158,12 @@ namespace SharpMetal.Generator.Instances
                     continue;
                 }
 
-                if (nextLine.Contains("template") || nextLine.Contains("^") || nextLine.Contains("typename") || nextLine.Contains("operator") || nextLine.Contains("std::function") || nextLine.Contains("Handler") || nextLine.Contains("Observer"))
+                if (!StringUtils.IsValidFunctionSignature(nextLine))
                 {
                     continue;
                 }
 
-                nextLine = nextLine.Replace(";", "");
-                nextLine = nextLine.Replace("~", "Destroy");
-                nextLine = nextLine.Replace("::", "");
-                nextLine = nextLine.Replace("void*", "IntPtr");
-                nextLine = nextLine.Replace("void()", "void");
-                nextLine = nextLine.Replace("*", "");
-                nextLine = nextLine.Replace("class ", "");
-                nextLine = nextLine.Replace("const ", "");
+                nextLine = StringUtils.FunctionSignautreCleanup(nextLine);
 
                 bool isStatic = false;
 
