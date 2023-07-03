@@ -192,12 +192,12 @@ namespace SharpMetal
             throw new NotImplementedException();
         }
 
-        public void EncodeWait(MTLEvent event, ulong value)
+        public void EncodeWait(MTLEvent mltEvent, ulong value)
         {
             throw new NotImplementedException();
         }
 
-        public void EncodeSignalEvent(MTLEvent event, ulong value)
+        public void EncodeSignalEvent(MTLEvent mltEvent, ulong value)
         {
             throw new NotImplementedException();
         }

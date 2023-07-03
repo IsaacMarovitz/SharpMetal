@@ -584,7 +584,7 @@ namespace SharpMetal
             throw new NotImplementedException();
         }
 
-        public void SampleTimestamps(MTLTimestamp cpuTimestamp, MTLTimestamp gpuTimestamp)
+        public void SampleTimestamps(ulong cpuTimestamp, ulong gpuTimestamp)
         {
             throw new NotImplementedException();
         }

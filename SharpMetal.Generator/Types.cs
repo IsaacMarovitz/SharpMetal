@@ -6,6 +6,7 @@ namespace SharpMetal.Generator
         public static Dictionary<string, string> TypeMap = new()
         {
             { "uint64_t", "ulong" },
+            { "MTLTimestamp", "ulong" },
             { "stduint64_t", "ulong" },
             { "NSUInteger", "ulong" },
             { "UInteger", "ulong" },

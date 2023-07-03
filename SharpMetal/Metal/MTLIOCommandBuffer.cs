@@ -53,12 +53,12 @@ namespace SharpMetal
             throw new NotImplementedException();
         }
 
-        public void Wait(MTLSharedEvent event, ulong value)
+        public void Wait(MTLSharedEvent mltEvent, ulong value)
         {
             throw new NotImplementedException();
         }
 
-        public void SignalEvent(MTLSharedEvent event, ulong value)
+        public void SignalEvent(MTLSharedEvent mltEvent, ulong value)
         {
             throw new NotImplementedException();
         }
