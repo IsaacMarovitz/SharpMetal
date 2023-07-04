@@ -26,7 +26,7 @@ namespace SharpMetal.Generator.Instances
                 context.Write($"{Type}_");
             }
 
-            context.Write("objc_msgSend(IntPtr receiver, Selector selector");
+            context.Write("objc_msgSend(IntPtr receiver, IntPtr selector");
 
             for (var i = 0; i < Inputs.Count; i++)
             {
