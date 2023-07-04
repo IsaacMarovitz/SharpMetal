@@ -17,7 +17,7 @@ namespace SharpMetal.Generator.Instances
             InputInstances = inputInstances;
         }
 
-        public void Generate(List<EnumInstance> enumCache, IPropertyOwner instance, CodeGenContext context, bool prependSpace = true)
+        public ObjectiveCInstance Generate(List<EnumInstance> enumCache, IPropertyOwner instance, CodeGenContext context, bool prependSpace = true)
         {
             var rawNameComponents = RawName.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
             for (var index = 0; index < rawNameComponents.Length; index++)
@@ -152,6 +152,54 @@ namespace SharpMetal.Generator.Instances
                 }
                 context.LeaveScope();
             }
+
+            ObjectiveCInstance objcInstance = new ObjectiveCInstance("", new List<string>());
+            for (var i = 0; i < InputInstances.Count; i++)
+            {
+                if (Types.CSharpNativeTypes.Contains(InputInstances[i].Type))
+                {
+                    objcInstance.Inputs.Add(InputInstances[i].Type);
+                }
+                else
+                {
+                    var enumInstance = enumCache.Find(x => x.Name == InputInstances[i].Type);
+
+                    if (enumInstance != null)
+                    {
+                        objcInstance.Inputs.Add(enumInstance.Type);
+                    }
+                    else
+                    {
+                        objcInstance.Inputs.Add("IntPtr");
+                    }
+                }
+            }
+
+            if (ReturnType == "void")
+            {
+                objcInstance.Type = ReturnType;
+            }
+            else
+            {
+                if (Types.CSharpNativeTypes.Contains(ReturnType))
+                {
+                    objcInstance.Type = ReturnType;
+                }
+                else
+                {
+                    var returnEnumInstance = enumCache.Find(x => x.Name == ReturnType);
+                    if (returnEnumInstance != null)
+                    {
+                        objcInstance.Type = returnEnumInstance.Type;
+                    }
+                    else
+                    {
+                        objcInstance.Type = "IntPtr";
+                    }
+                }
+            }
+
+            return objcInstance;
         }
     }
 }

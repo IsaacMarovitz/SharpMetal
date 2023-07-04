@@ -31,6 +31,7 @@ namespace SharpMetal.Generator
                 .Where(header => !header.Contains("Defines") && !header.Contains("Private")).ToArray();
 
             var enumCache = new List<EnumInstance>();
+            var objectiveCInstances = new HashSet<ObjectiveCInstance>();
 
             foreach (var header in headers)
             {
@@ -39,8 +40,10 @@ namespace SharpMetal.Generator
 
             foreach (var header in headers)
             {
-                Generate(header, enumCache);
+                Generate(header, enumCache, ref objectiveCInstances);
             }
+
+            GenerateObjectiveC(objectiveCInstances);
         }
 
         public static void GenerateEnumCache(string filePath, ref List<EnumInstance> enumCache)
@@ -59,7 +62,7 @@ namespace SharpMetal.Generator
             }
         }
 
-        public static void Generate(string filePath, List<EnumInstance> enumCache)
+        public static void Generate(string filePath, List<EnumInstance> enumCache, ref HashSet<ObjectiveCInstance> objectiveCInstances)
         {
             var headerInfo = new HeaderInfo(filePath);
 
@@ -101,7 +104,12 @@ namespace SharpMetal.Generator
 
             for (var i = 0; i < headerInfo.ClassInstances.Count; i++)
             {
-                headerInfo.ClassInstances[i].Generate(enumCache, context);
+                var instances = headerInfo.ClassInstances[i].Generate(enumCache, context);
+
+                foreach (var instance in instances)
+                {
+                    objectiveCInstances.Add(instance);
+                }
 
                 if (headerInfo.InFlightUnscopedMethods.Any())
                 {
@@ -168,7 +176,7 @@ namespace SharpMetal.Generator
 
             if (hasSelectors)
             {
-                context.WriteLine("using SharpMetal.ObjectiveC;");
+                context.WriteLine("using SharpMetal.ObjectiveCCore;");
             }
 
             if (headerInfo.IncludeFlags != IncludeFlags.None)
@@ -201,6 +209,39 @@ namespace SharpMetal.Generator
             {
                 context.WriteLine();
             }
+        }
+
+        public static void GenerateObjectiveC(HashSet<ObjectiveCInstance> objectiveCInstances)
+        {
+            objectiveCInstances.RemoveWhere(x => x.Type == string.Empty);
+
+            using CodeGenContext context = new(File.CreateText("ObjectiveCRuntime.cs"));
+
+            context.WriteLine("using System.Runtime.InteropServices;");
+            context.WriteLine("using System.Runtime.Versioning;");
+            context.WriteLine("using SharpMetal.ObjectiveCCore;");
+            context.WriteLine();
+
+            context.WriteLine("namespace SharpMetal");
+            context.EnterScope();
+
+            context.WriteLine("[SupportedOSPlatform(\"macos\")]");
+            context.WriteLine("public static partial class ObjectiveCRuntime");
+            context.EnterScope();
+
+            var list = objectiveCInstances.ToList();
+
+            for (var i = 0; i < list.Count; i++)
+            {
+                list[i].Generate(context);
+                if (i != list.Count - 1)
+                {
+                    context.WriteLine();
+                }
+            }
+
+            context.LeaveScope();
+            context.LeaveScope();
         }
     }
 }

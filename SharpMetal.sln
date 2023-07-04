@@ -1,10 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMetal", "SharpMetal\SharpMetal.csproj", "{6B22F189-90FF-458F-ACC1-40434D12DAA1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8A1148D0-A743-411A-8FF9-1CE13C551EFF} = {8A1148D0-A743-411A-8FF9-1CE13C551EFF}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMetal.Examples", "SharpMetal.Examples\SharpMetal.Examples.csproj", "{5787CD6E-B9A9-498C-BEC3-D53C4842FA81}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMetal.Generator", "SharpMetal.Generator\SharpMetal.Generator.csproj", "{DC5CB695-76EC-4BA8-86D0-0D27A6625E60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMetal.ObjectiveCCore", "SharpMetal.ObjectiveCCore\SharpMetal.ObjectiveCCore.csproj", "{8A1148D0-A743-411A-8FF9-1CE13C551EFF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +29,9 @@ Global
 		{DC5CB695-76EC-4BA8-86D0-0D27A6625E60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC5CB695-76EC-4BA8-86D0-0D27A6625E60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC5CB695-76EC-4BA8-86D0-0D27A6625E60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A1148D0-A743-411A-8FF9-1CE13C551EFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A1148D0-A743-411A-8FF9-1CE13C551EFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A1148D0-A743-411A-8FF9-1CE13C551EFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A1148D0-A743-411A-8FF9-1CE13C551EFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

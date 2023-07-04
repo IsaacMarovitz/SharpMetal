@@ -11,10 +11,11 @@ namespace SharpMetal.Generator.Instances
             Name = name;
         }
 
-        public void Generate(IPropertyOwner instance, List<EnumInstance> enumCache, CodeGenContext context)
+        public ObjectiveCInstance Generate(IPropertyOwner instance, List<EnumInstance> enumCache, CodeGenContext context)
         {
             var selectorInstances = instance.GetSelectors();
             var selector = selectorInstances.Find(x => x.Selector.ToLower() == Name.ToLower());
+            var objcInstance = new ObjectiveCInstance("", new List<string>());
 
             if (selector == null)
             {
@@ -44,6 +45,7 @@ namespace SharpMetal.Generator.Instances
 
                     if (enumInstance != null)
                     {
+                        objcInstance.Type = enumInstance.Type;
                         if (setterSelector != null)
                         {
                             context.WriteLine($"public {Type} {Name}");
@@ -61,6 +63,7 @@ namespace SharpMetal.Generator.Instances
                     }
                     else
                     {
+                        objcInstance.Type = runtimeFuncReturn;
                         if (setterSelector != null)
                         {
                             context.WriteLine($"public {Type} {Name}");
@@ -79,6 +82,7 @@ namespace SharpMetal.Generator.Instances
                 }
                 else
                 {
+                    objcInstance.Type = runtimeFuncReturn;
                     if (setterSelector != null)
                     {
                         context.WriteLine($"public {Type} {Name}");
@@ -99,6 +103,8 @@ namespace SharpMetal.Generator.Instances
             {
                 context.WriteLine($"public {Type} {Name};");
             }
+
+            return objcInstance;
         }
 
         public bool Equals(PropertyInstance? other)

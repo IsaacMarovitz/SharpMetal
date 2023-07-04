@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace SharpMetal.ObjectiveC
+namespace SharpMetal.ObjectiveCCore
 {
     public partial struct Selector
     {

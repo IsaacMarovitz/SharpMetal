@@ -1,6 +1,6 @@
 using System.Runtime.Versioning;
 
-namespace SharpMetal.ObjectiveC
+namespace SharpMetal.ObjectiveCCore
 {
     [SupportedOSPlatform("macos")]
     public struct ObjectiveCClass
@@ -10,7 +10,7 @@ namespace SharpMetal.ObjectiveC
 
         public ObjectiveCClass(string name)
         {
-            var ptr = ObjectiveCRuntime.objc_getClass(name);
+            var ptr = ObjectiveC.objc_getClass(name);
 
             if (ptr == IntPtr.Zero)
             {
@@ -22,14 +22,14 @@ namespace SharpMetal.ObjectiveC
 
         public IntPtr AllocInit()
         {
-            var value = ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, "alloc");
-            ObjectiveCRuntime.objc_msgSend(value, "init");
+            var value = ObjectiveC.IntPtr_objc_msgSend(NativePtr, "alloc");
+            ObjectiveC.objc_msgSend(value, "init");
             return value;
         }
 
         public IntPtr Alloc()
         {
-            var value = ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, "alloc");
+            var value = ObjectiveC.IntPtr_objc_msgSend(NativePtr, "alloc");
             return value;
         }
     }

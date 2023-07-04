@@ -53,8 +53,10 @@ namespace SharpMetal.Generator.Instances
             }
         }
 
-        public void Generate(List<EnumInstance> enumCache, CodeGenContext context)
+        public List<ObjectiveCInstance> Generate(List<EnumInstance> enumCache, CodeGenContext context)
         {
+            var objectiveCInstances = new List<ObjectiveCInstance>();
+
             context.WriteLine("[SupportedOSPlatform(\"macos\")]");
 
             context.WriteLine($"public class {Name}");
@@ -91,7 +93,7 @@ namespace SharpMetal.Generator.Instances
 
             for (var j = 0; j < _propertyInstances.Count; j++)
             {
-                _propertyInstances[j].Generate(this, enumCache, context);
+                objectiveCInstances.Add(_propertyInstances[j].Generate(this, enumCache, context));
 
                 if (j != _propertyInstances.Count - 1)
                 {
@@ -101,7 +103,7 @@ namespace SharpMetal.Generator.Instances
 
             foreach (var method in _methodInstances)
             {
-                method.Generate(enumCache, this, context);
+                objectiveCInstances.Add(method.Generate(enumCache, this, context));
             }
 
             if (_selectorInstances.Any())
@@ -115,6 +117,7 @@ namespace SharpMetal.Generator.Instances
             }
 
             context.LeaveScope();
+            return objectiveCInstances;
         }
 
         public static ClassInstance Build(string line, string namespacePrefix, StreamReader sr, List<MethodInstance> inFlightUnscopedMethods)
