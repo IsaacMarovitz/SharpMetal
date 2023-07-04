@@ -20,12 +20,12 @@ namespace SharpMetal.Foundation
 
         public static NSArray Array(NSObject pObject)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSArray"), sel_arrayWithObject, pObject));
         }
 
         public static NSArray Array(NSObject pObjects, ulong count)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSArray"), sel_arrayWithObjectscount, pObjects, count));
         }
 
         public NSArray Init(NSObject pObjects, ulong count)

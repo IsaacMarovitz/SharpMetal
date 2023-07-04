@@ -22,12 +22,12 @@ namespace SharpMetal.Foundation
 
         public static NSValue Value(IntPtr pValue, ushort pType)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSValue"), sel_valueWithBytesobjCType, pValue, pType));
         }
 
         public static NSValue Value(IntPtr pPointer)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSValue"), sel_valueWithPointer, pPointer));
         }
 
         public NSValue Init(IntPtr pValue, ushort pType)
@@ -107,52 +107,52 @@ namespace SharpMetal.Foundation
 
         public static NSNumber Number(ushort value)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSNumber"), sel_numberWithChar, value));
         }
 
         public static NSNumber Number(byte value)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSNumber"), sel_numberWithUnsignedChar, value));
         }
 
         public static NSNumber Number(short value)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSNumber"), sel_numberWithShort, value));
         }
 
         public static NSNumber Number(int value)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSNumber"), sel_numberWithInt, value));
         }
 
         public static NSNumber Number(uint value)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSNumber"), sel_numberWithUnsignedInt, value));
         }
 
         public static NSNumber Number(long value)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSNumber"), sel_numberWithLong, value));
         }
 
         public static NSNumber Number(ulong value)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSNumber"), sel_numberWithUnsignedLong, value));
         }
 
         public static NSNumber Number(float value)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSNumber"), sel_numberWithFloat, value));
         }
 
         public static NSNumber Number(double value)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSNumber"), sel_numberWithDouble, value));
         }
 
         public static NSNumber Number(bool value)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSNumber"), sel_numberWithBool, value));
         }
 
         public NSNumber Init(IntPtr pCoder)

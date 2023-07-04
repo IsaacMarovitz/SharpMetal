@@ -64,17 +64,17 @@ namespace SharpMetal.Foundation
 
         public static NSBundle MainBundle()
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSBundle"), sel_mainBundle));
         }
 
         public static NSBundle Bundle(NSString pPath)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSBundle"), sel_bundleWithPath, pPath));
         }
 
         public static NSBundle Bundle(NSURL pURL)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSBundle"), sel_bundleWithURL, pURL));
         }
 
         public NSBundle Init(NSString pPath)

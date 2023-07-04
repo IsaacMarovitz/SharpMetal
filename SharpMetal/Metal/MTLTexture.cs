@@ -193,17 +193,17 @@ namespace SharpMetal.Metal
 
         public static MTLTextureDescriptor Texture2DDescriptor(MTLPixelFormat pixelFormat, ulong width, ulong height, bool mipmapped)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("MTLTextureDescriptor"), sel_texture2DDescriptorWithPixelFormatwidthheightmipmapped, (ulong)pixelFormat, width, height, mipmapped));
         }
 
         public static MTLTextureDescriptor TextureCubeDescriptor(MTLPixelFormat pixelFormat, ulong size, bool mipmapped)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("MTLTextureDescriptor"), sel_textureCubeDescriptorWithPixelFormatsizemipmapped, (ulong)pixelFormat, size, mipmapped));
         }
 
         public static MTLTextureDescriptor TextureBufferDescriptor(MTLPixelFormat pixelFormat, ulong width, MTLResourceOptions resourceOptions, MTLTextureUsage usage)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("MTLTextureDescriptor"), sel_textureBufferDescriptorWithPixelFormatwidthresourceOptionsusage, (ulong)pixelFormat, width, (ulong)resourceOptions, (ulong)usage));
         }
 
         public void SetTextureType(MTLTextureType textureType)

@@ -12,7 +12,7 @@ namespace SharpMetal.Foundation
 
         public static NSDate DateWithTimeIntervalSinceNow(IntPtr secs)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSDate"), sel_dateWithTimeIntervalSinceNow, secs));
         }
 
         private static readonly Selector sel_dateWithTimeIntervalSinceNow = "dateWithTimeIntervalSinceNow:";

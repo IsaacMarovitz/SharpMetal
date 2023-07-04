@@ -22,12 +22,12 @@ namespace SharpMetal.Foundation
 
         public static NSDictionary Dictionary(NSObject pObject, NSObject pKey)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSDictionary"), sel_dictionaryWithObjectforKey, pObject, pKey));
         }
 
         public static NSDictionary Dictionary(NSObject pObjects, NSObject pKeys, ulong count)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSDictionary"), sel_dictionaryWithObjectsforKeyscount, pObjects, pKeys, count));
         }
 
         public NSDictionary Init(NSObject pObjects, NSObject pKeys, ulong count)

@@ -28,7 +28,7 @@ namespace SharpMetal.Foundation
 
         public static void ShowPools()
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
         private static readonly Selector sel_drain = "drain";

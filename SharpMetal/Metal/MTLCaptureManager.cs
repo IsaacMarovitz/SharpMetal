@@ -94,7 +94,7 @@ namespace SharpMetal.Metal
 
         public static MTLCaptureManager SharedCaptureManager()
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("MTLCaptureManager"), sel_sharedCaptureManager));
         }
 
         public MTLCaptureScope NewCaptureScope(MTLDevice device)

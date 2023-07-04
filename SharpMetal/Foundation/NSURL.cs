@@ -20,7 +20,7 @@ namespace SharpMetal.Foundation
 
         public static NSURL FileURLWithPath(NSString pPath)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSURL"), sel_fileURLWithPath, pPath));
         }
 
         public NSURL Init(NSString pString)

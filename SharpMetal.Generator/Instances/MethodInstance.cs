@@ -83,25 +83,32 @@ namespace SharpMetal.Generator.Instances
 
                 context.Write(")\n");
                 context.EnterScope();
-                if (ReturnType == "void" && !IsStatic && !hasArrayInput)
+                if (ReturnType == "void" && !hasArrayInput)
                 {
-                    context.Write($"{context.Indentation}ObjectiveCRuntime.objc_msgSend(NativePtr, {selector.Name}");
-
-                    for (var index = 0; index < InputInstances.Count; index++)
+                    if (IsStatic)
                     {
-                        var cast = "";
-                        var enumInstance = enumCache.Find(x => x.Name == InputInstances[index].Type);
-
-                        if (enumInstance != null)
-                        {
-                            cast = $"({enumInstance.Type})";
-                        }
-
-                        context.Write($", {cast}{InputInstances[index].Name}");
+                        context.WriteLine("throw new NotSupportedException();");
                     }
-                    context.Write(");\n");
+                    else
+                    {
+                        context.Write($"{context.Indentation}ObjectiveCRuntime.objc_msgSend(NativePtr, {selector.Name}");
+
+                        for (var index = 0; index < InputInstances.Count; index++)
+                        {
+                            var cast = "";
+                            var enumInstance = enumCache.Find(x => x.Name == InputInstances[index].Type);
+
+                            if (enumInstance != null)
+                            {
+                                cast = $"({enumInstance.Type})";
+                            }
+
+                            context.Write($", {cast}{InputInstances[index].Name}");
+                        }
+                        context.Write(");\n");
+                    }
                 }
-                else if (!IsStatic && !hasArrayInput)
+                else if (!hasArrayInput)
                 {
                     context.Write($"{context.Indentation}return ");
                     var returnEnum = enumCache.Find(x => x.Name == ReturnType);
@@ -124,7 +131,18 @@ namespace SharpMetal.Generator.Instances
                         }
                     }
 
-                    context.Write($"objc_msgSend(NativePtr, {selector.Name}");
+                    context.Write($"objc_msgSend(");
+
+                    if (IsStatic)
+                    {
+                        context.Write($"new ObjectiveCClass(\"{ReturnType}\")");
+                    }
+                    else
+                    {
+                        context.Write("NativePtr");
+                    }
+
+                    context.Write($", {selector.Name}");
 
                     for (var index = 0; index < InputInstances.Count; index++)
                     {

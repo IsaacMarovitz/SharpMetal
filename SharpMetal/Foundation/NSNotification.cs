@@ -30,7 +30,7 @@ namespace SharpMetal.Foundation
 
         public static NSNotificationCenter DefaultCenter()
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSNotificationCenter"), sel_defaultCenter));
         }
 
         private static readonly Selector sel_defaultCenter = "defaultCenter";

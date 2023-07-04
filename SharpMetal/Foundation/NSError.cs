@@ -32,7 +32,7 @@ namespace SharpMetal.Foundation
 
         public static NSError Error(IntPtr domain, long code, NSDictionary pDictionary)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSError"), sel_errorWithDomaincodeuserInfo, domain, code, pDictionary));
         }
 
         public NSError Init(IntPtr domain, long code, NSDictionary pDictionary)

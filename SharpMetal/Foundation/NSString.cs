@@ -64,12 +64,12 @@ namespace SharpMetal.Foundation
 
         public static NSString String(NSString pString)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSString"), sel_stringWithString, pString));
         }
 
         public static NSString String(ushort pString, NSStringEncoding encoding)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSString"), sel_stringWithCStringencoding, pString, (ulong)encoding));
         }
 
         public NSString Init(NSString pString)

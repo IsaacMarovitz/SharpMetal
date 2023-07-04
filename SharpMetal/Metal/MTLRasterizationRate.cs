@@ -144,17 +144,17 @@ namespace SharpMetal.Metal
 
         public static MTLRasterizationRateMapDescriptor RasterizationRateMapDescriptor(MTLSize screenSize)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("MTLRasterizationRateMapDescriptor"), sel_rasterizationRateMapDescriptorWithScreenSize, screenSize));
         }
 
         public static MTLRasterizationRateMapDescriptor RasterizationRateMapDescriptor(MTLSize screenSize, MTLRasterizationRateLayerDescriptor layer)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("MTLRasterizationRateMapDescriptor"), sel_rasterizationRateMapDescriptorWithScreenSizelayer, screenSize, layer));
         }
 
         public static MTLRasterizationRateMapDescriptor RasterizationRateMapDescriptor(MTLSize screenSize, ulong layerCount, MTLRasterizationRateLayerDescriptor layers)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("MTLRasterizationRateMapDescriptor"), sel_rasterizationRateMapDescriptorWithScreenSizelayerCountlayers, screenSize, layerCount, layers));
         }
 
         public MTLRasterizationRateLayerDescriptor Layer(ulong layerIndex)
