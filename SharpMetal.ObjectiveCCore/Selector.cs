@@ -27,5 +27,6 @@ namespace SharpMetal.ObjectiveCCore
         }
 
         public static implicit operator Selector(string value) => new(value);
+        public static implicit operator IntPtr(Selector sel) => sel.SelPtr;
     }
 }
