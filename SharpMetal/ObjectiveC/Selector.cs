@@ -12,7 +12,7 @@ namespace SharpMetal.ObjectiveC
 
         public readonly IntPtr SelPtr;
 
-        public unsafe Selector(string name)
+        public Selector(string name)
         {
             SelPtr = sel_getUid(name);
         }
