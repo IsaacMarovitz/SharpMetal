@@ -1,5 +1,5 @@
 using System.Runtime.Versioning;
-using SharpMetal.ObjectiveC;
+using SharpMetal.ObjectiveCCore;
 using SharpMetal.Metal;
 
 namespace SharpMetal.Examples
@@ -10,8 +10,8 @@ namespace SharpMetal.Examples
         public static void Main(string[] args)
         {
             // "Link" Metal and CoreGraphics
-            ObjectiveCRuntime.dlopen("/System/Library/Frameworks/Metal.framework/Metal", 0);
-            ObjectiveCRuntime.dlopen("/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics", 0);
+            ObjectiveC.dlopen("/System/Library/Frameworks/Metal.framework/Metal", 0);
+            ObjectiveC.dlopen("/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics", 0);
 
             // Get the default device
             // var device = MTLDevice.CreateSystemDefaultDevice();
@@ -29,8 +29,8 @@ namespace SharpMetal.Examples
 
         public static void Test()
         {
-            ObjectiveCRuntime.dlopen("/System/Library/Frameworks/Metal.framework/Metal", 0);
-            ObjectiveCRuntime.dlopen("/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics", 0);
+            ObjectiveC.dlopen("/System/Library/Frameworks/Metal.framework/Metal", 0);
+            ObjectiveC.dlopen("/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics", 0);
 
             // var device = MTLDevice.CreateSystemDefaultDevice();
             // Console.WriteLine(device.MaxThreadgroupMemoryLength);
