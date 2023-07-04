@@ -5,6 +5,7 @@ namespace SharpMetal.Generator.Instances
     public class ClassInstance : IPropertyOwner
     {
         public string Name { get; set; }
+        public string NamespacePrefix;
         public bool HasAlloc;
         public bool HasInit;
         private List<PropertyInstance> _propertyInstances;
@@ -103,7 +104,7 @@ namespace SharpMetal.Generator.Instances
 
             foreach (var method in _methodInstances)
             {
-                objectiveCInstances.Add(method.Generate(enumCache, this, context));
+                objectiveCInstances.Add(method.Generate(enumCache, this, context, NamespacePrefix));
             }
 
             if (_selectorInstances.Any())
@@ -127,6 +128,7 @@ namespace SharpMetal.Generator.Instances
 
             var instance = new ClassInstance(className);
             instance._methodInstances.AddRange(inFlightUnscopedMethods);
+            instance.NamespacePrefix = namespacePrefix;
 
             bool classEnded = false;
             bool enteredComment = false;

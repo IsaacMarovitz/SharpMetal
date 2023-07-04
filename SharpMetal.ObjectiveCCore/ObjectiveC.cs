@@ -7,6 +7,7 @@ namespace SharpMetal.ObjectiveCCore
     public static partial class ObjectiveC
     {
         public const string ObjCRuntime = "/usr/lib/libobjc.A.dylib";
+        private const string MetalFramework = "/System/Library/Frameworks/Metal.framework/Metal";
 
         [LibraryImport(ObjCRuntime, StringMarshalling = StringMarshalling.Utf8)]
         public static partial IntPtr objc_getClass(string name);

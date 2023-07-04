@@ -17,7 +17,7 @@ namespace SharpMetal.Generator.Instances
             InputInstances = inputInstances;
         }
 
-        public ObjectiveCInstance Generate(List<EnumInstance> enumCache, IPropertyOwner instance, CodeGenContext context, bool prependSpace = true)
+        public ObjectiveCInstance Generate(List<EnumInstance> enumCache, IPropertyOwner instance, CodeGenContext context, string namespacePrefix, bool prependSpace = true)
         {
             var rawNameComponents = RawName.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
             for (var index = 0; index < rawNameComponents.Length; index++)
@@ -42,14 +42,17 @@ namespace SharpMetal.Generator.Instances
 
             var selectorInstances = instance.GetSelectors();
             var selector = selectorInstances.Find(x => x.RawName.ToLower().Replace(" class ", " ").Replace("mtl::", "").Replace("ns::", "").Contains(RawName.ToLower()));
-            var candidatesGeneral = selectorInstances.Where(x => x.Name.ToLower().Contains(Name.ToLower()));
 
             if (selector == null)
             {
-                Console.WriteLine($"Failed to get selector! {RawName.ToLower()}");
-                foreach (var candidate in candidatesGeneral)
+                if (RawName != "lock()" && RawName != "unlock()" && RawName != "release()")
                 {
-                    Console.WriteLine(candidate.RawName.ToLower().Replace(" class ", " ").Replace("mtl::", "").Replace("ns::", ""));
+                    if (prependSpace)
+                    {
+                        context.WriteLine();
+                    }
+                    context.WriteLine("[LibraryImport(ObjectiveC.MetalFramework)]");
+                    context.WriteLine($"public static partial {ReturnType} {namespacePrefix}{RawName};");
                 }
             }
             else
