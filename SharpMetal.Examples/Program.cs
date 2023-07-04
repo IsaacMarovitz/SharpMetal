@@ -1,4 +1,5 @@
 using System.Runtime.Versioning;
+using SharpMetal.Foundation;
 using SharpMetal.ObjectiveCCore;
 using SharpMetal.Metal;
 
@@ -14,9 +15,15 @@ namespace SharpMetal.Examples
             ObjectiveC.dlopen("/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics", 0);
 
             // Get the default device
-            var device = MTLDevice.MTLCreateSystemDefaultDevice();
+            var device = new MTLDevice(MTLDevice.MTLCreateSystemDefaultDevice());
 
-            var descriptor = new MTLRenderPipelineDescriptor();
+            var textureDescriptor = MTLTextureDescriptor.Texture2DDescriptor(MTLPixelFormat.R16Float, 200, 200, false);
+            var renderPipelineDescriptor = new MTLRenderPipelineDescriptor();
+            renderPipelineDescriptor.SampleCount = 60;
+            // TODO: This is invalid NSError() usage and needs to be fixed for these APIs to work
+            var pipelineState = device.NewRenderPipelineState(renderPipelineDescriptor, new NSError());
+            Console.WriteLine(pipelineState.Device.MaxArgumentBufferSamplerCount);
+            // TODO: Make NSStrings actually work nicely with C#
             // descriptor.Label = new NSString("Simple Pipeline");
             // descriptor.VertexFunction = new MTLFunction();
             // descriptor.FragmentFunction = new MTLFunction();
@@ -32,9 +39,10 @@ namespace SharpMetal.Examples
             ObjectiveC.dlopen("/System/Library/Frameworks/Metal.framework/Metal", 0);
             ObjectiveC.dlopen("/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics", 0);
 
+            // TODO: Update this to work as `var device = MTLDevice.CreateSystemDefaultDevice();`
             var device = new MTLDevice(MTLDevice.MTLCreateSystemDefaultDevice());
             Console.WriteLine(device.MaxThreadgroupMemoryLength);
-            // sigabrts
+            // TODO: Fix crash that occurs when trying to use MTLSize
             // Console.WriteLine(device.MaxThreadsPerThreadgroup);
             Console.WriteLine(device.SupportsRaytracing);
             Console.WriteLine(device.SupportsPrimitiveMotionBlur);
@@ -55,7 +63,7 @@ namespace SharpMetal.Examples
             Console.WriteLine(device.RecommendedMaxWorkingSetSize);
             Console.WriteLine(device.HasUnifiedMemory);
             Console.WriteLine(device.MaxTransferRate);
-            Console.WriteLine(device.Name);
+            Console.WriteLine($"Name: {device.Name}");
             Console.WriteLine(device.RegistryID);
             Console.WriteLine(device.Location);
             Console.WriteLine(device.LocationNumber);
