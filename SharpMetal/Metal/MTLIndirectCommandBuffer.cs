@@ -152,12 +152,12 @@ namespace SharpMetal.Metal
 
         public MTLIndirectRenderCommand IndirectRenderCommand(ulong commandIndex)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_indirectRenderCommandAtIndex, commandIndex));
         }
 
         public MTLIndirectComputeCommand IndirectComputeCommand(ulong commandIndex)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_indirectComputeCommandAtIndex, commandIndex));
         }
 
         private static readonly Selector sel_size = "size";

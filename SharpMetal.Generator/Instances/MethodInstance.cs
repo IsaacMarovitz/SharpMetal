@@ -101,6 +101,51 @@ namespace SharpMetal.Generator.Instances
                     }
                     context.Write(");\n");
                 }
+                else if (!IsStatic && !hasArrayInput)
+                {
+                    context.Write($"{context.Indentation}return ");
+                    var returnEnum = enumCache.Find(x => x.Name == ReturnType);
+                    var needsOuterBracket = false;
+
+                    if (returnEnum != null)
+                    {
+                        context.Write($"({ReturnType})ObjectiveCRuntime.{returnEnum.Type}_");
+                    }
+                    else
+                    {
+                        if (Types.CSharpNativeTypes.Contains(ReturnType))
+                        {
+                            context.Write($"ObjectiveCRuntime.{ReturnType}_");
+                        }
+                        else
+                        {
+                            context.Write($"new(ObjectiveCRuntime.IntPtr_");
+                            needsOuterBracket = true;
+                        }
+                    }
+
+                    context.Write($"objc_msgSend(NativePtr, {selector.Name}");
+
+                    for (var index = 0; index < InputInstances.Count; index++)
+                    {
+                        var cast = "";
+                        var enumInstance = enumCache.Find(x => x.Name == InputInstances[index].Type);
+
+                        if (enumInstance != null)
+                        {
+                            cast = $"({enumInstance.Type})";
+                        }
+
+                        context.Write($", {cast}{InputInstances[index].Name}");
+                    }
+
+                    if (needsOuterBracket)
+                    {
+                        context.Write(")");
+                    }
+
+                    context.Write(");\n");
+                }
                 else
                 {
                     context.WriteLine("throw new NotImplementedException();");

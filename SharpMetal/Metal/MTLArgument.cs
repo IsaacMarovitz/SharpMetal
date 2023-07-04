@@ -209,7 +209,7 @@ namespace SharpMetal.Metal
 
         public MTLStructMember MemberByName(NSString name)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_memberByName, name));
         }
 
         private static readonly Selector sel_members = "members";

@@ -70,7 +70,7 @@ namespace SharpMetal.Metal
 
         public IntPtr ConstantData(ulong index)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_constantDataAtIndex, index));
         }
 
         public void SetRenderPipelineState(MTLRenderPipelineState pipeline, ulong index)
@@ -110,7 +110,7 @@ namespace SharpMetal.Metal
 
         public MTLArgumentEncoder NewArgumentEncoder(ulong index)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newArgumentEncoderForBufferAtIndex, index));
         }
 
         public void SetVisibleFunctionTable(MTLVisibleFunctionTable visibleFunctionTable, ulong index)

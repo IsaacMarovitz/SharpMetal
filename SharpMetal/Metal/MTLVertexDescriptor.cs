@@ -138,7 +138,7 @@ namespace SharpMetal.Metal
 
         public MTLVertexBufferLayoutDescriptor Object(ulong index)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_objectAtIndexedSubscript, index));
         }
 
         public void SetObject(MTLVertexBufferLayoutDescriptor bufferDesc, ulong index)
@@ -219,7 +219,7 @@ namespace SharpMetal.Metal
 
         public MTLVertexAttributeDescriptor Object(ulong index)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_objectAtIndexedSubscript, index));
         }
 
         public void SetObject(MTLVertexAttributeDescriptor attributeDesc, ulong index)

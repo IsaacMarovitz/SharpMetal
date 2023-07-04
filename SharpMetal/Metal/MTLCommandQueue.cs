@@ -28,12 +28,12 @@ namespace SharpMetal.Metal
 
         public MTLCommandBuffer CommandBuffer(MTLCommandBufferDescriptor descriptor)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_commandBufferWithDescriptor, descriptor));
         }
 
         public MTLCommandBuffer CommandBuffer()
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_commandBufferWithDescriptor));
         }
 
         public void InsertDebugCaptureBoundary()

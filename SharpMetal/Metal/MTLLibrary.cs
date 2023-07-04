@@ -194,12 +194,12 @@ namespace SharpMetal.Metal
 
         public MTLArgumentEncoder NewArgumentEncoder(ulong bufferIndex)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newArgumentEncoderWithBufferIndex, bufferIndex));
         }
 
         public MTLArgumentEncoder NewArgumentEncoder(ulong bufferIndex, IntPtr reflection)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newArgumentEncoderWithBufferIndexreflection, bufferIndex, reflection));
         }
 
         private static readonly Selector sel_label = "label";
@@ -403,22 +403,22 @@ namespace SharpMetal.Metal
 
         public MTLFunction NewFunction(NSString functionName)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newFunctionWithName, functionName));
         }
 
         public MTLFunction NewFunction(NSString name, MTLFunctionConstantValues constantValues, NSError error)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newFunctionWithNameconstantValueserror, name, constantValues, error));
         }
 
         public MTLFunction NewFunction(MTLFunctionDescriptor descriptor, NSError error)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newFunctionWithDescriptorerror, descriptor, error));
         }
 
         public MTLFunction NewIntersectionFunction(MTLIntersectionFunctionDescriptor descriptor, NSError error)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newIntersectionFunctionWithDescriptorerror, descriptor, error));
         }
 
         private static readonly Selector sel_label = "label";

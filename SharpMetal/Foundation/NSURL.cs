@@ -25,12 +25,12 @@ namespace SharpMetal.Foundation
 
         public NSURL Init(NSString pString)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithString, pString));
         }
 
         public NSURL InitFileURLWithPath(NSString pPath)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initFileURLWithPath, pPath));
         }
 
         private static readonly Selector sel_fileURLWithPath = "fileURLWithPath:";

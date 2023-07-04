@@ -26,7 +26,7 @@ namespace SharpMetal.Metal
 
         public MTLTexture NewTexture(MTLTextureDescriptor descriptor, ulong offset, ulong bytesPerRow)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newTextureWithDescriptoroffsetbytesPerRow, descriptor, offset, bytesPerRow));
         }
 
         public void AddDebugMarker(NSString marker, NSRange range)
@@ -41,7 +41,7 @@ namespace SharpMetal.Metal
 
         public MTLBuffer NewRemoteBufferViewForDevice(MTLDevice device)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newRemoteBufferViewForDevice, device));
         }
 
         private static readonly Selector sel_length = "length";

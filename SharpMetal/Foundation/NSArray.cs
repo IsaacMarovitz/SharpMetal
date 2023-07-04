@@ -30,17 +30,17 @@ namespace SharpMetal.Foundation
 
         public NSArray Init(NSObject pObjects, ulong count)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithObjectscount, pObjects, count));
         }
 
         public NSArray Init(IntPtr pCoder)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithCoder, pCoder));
         }
 
         public IntPtr Object(ulong index)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_objectAtIndex, index));
         }
 
         private static readonly Selector sel_array = "array";

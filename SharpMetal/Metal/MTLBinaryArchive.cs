@@ -63,27 +63,27 @@ namespace SharpMetal.Metal
 
         public bool AddComputePipelineFunctions(MTLComputePipelineDescriptor descriptor, NSError error)
         {
-            throw new NotImplementedException();
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_addComputePipelineFunctionsWithDescriptorerror, descriptor, error);
         }
 
         public bool AddRenderPipelineFunctions(MTLRenderPipelineDescriptor descriptor, NSError error)
         {
-            throw new NotImplementedException();
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_addRenderPipelineFunctionsWithDescriptorerror, descriptor, error);
         }
 
         public bool AddTileRenderPipelineFunctions(MTLTileRenderPipelineDescriptor descriptor, NSError error)
         {
-            throw new NotImplementedException();
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_addTileRenderPipelineFunctionsWithDescriptorerror, descriptor, error);
         }
 
         public bool SerializeToURL(NSURL url, NSError error)
         {
-            throw new NotImplementedException();
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_serializeToURLerror, url, error);
         }
 
         public bool AddFunction(MTLFunctionDescriptor descriptor, MTLLibrary library, NSError error)
         {
-            throw new NotImplementedException();
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_addFunctionWithDescriptorlibraryerror, descriptor, library, error);
         }
 
         private static readonly Selector sel_label = "label";

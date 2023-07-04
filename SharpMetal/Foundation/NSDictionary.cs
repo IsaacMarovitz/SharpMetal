@@ -32,17 +32,17 @@ namespace SharpMetal.Foundation
 
         public NSDictionary Init(NSObject pObjects, NSObject pKeys, ulong count)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithObjectsforKeyscount, pObjects, pKeys, count));
         }
 
         public NSDictionary Init(IntPtr pCoder)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithCoder, pCoder));
         }
 
         public IntPtr Object(NSObject pKey)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_objectForKey, pKey));
         }
 
         private static readonly Selector sel_dictionary = "dictionary";

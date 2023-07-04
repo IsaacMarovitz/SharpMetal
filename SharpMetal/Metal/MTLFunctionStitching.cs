@@ -60,7 +60,7 @@ namespace SharpMetal.Metal
 
         public MTLFunctionStitchingInputNode Init(ulong argument)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithArgumentIndex, argument));
         }
 
         private static readonly Selector sel_argumentIndex = "argumentIndex";
@@ -116,7 +116,7 @@ namespace SharpMetal.Metal
 
         public MTLFunctionStitchingFunctionNode Init(NSString name, NSArray arguments, NSArray controlDependencies)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithNameargumentscontrolDependencies, name, arguments, controlDependencies));
         }
 
         private static readonly Selector sel_name = "name";
@@ -187,7 +187,7 @@ namespace SharpMetal.Metal
 
         public MTLFunctionStitchingGraph Init(NSString functionName, NSArray nodes, MTLFunctionStitchingFunctionNode outputNode, NSArray attributes)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithFunctionNamenodesoutputNodeattributes, functionName, nodes, outputNode, attributes));
         }
 
         private static readonly Selector sel_functionName = "functionName";

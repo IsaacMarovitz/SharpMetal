@@ -37,7 +37,7 @@ namespace SharpMetal.Foundation
 
         public NSError Init(IntPtr domain, long code, NSDictionary pDictionary)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithDomaincodeuserInfo, domain, code, pDictionary));
         }
 
         private static readonly Selector sel_errorWithDomaincodeuserInfo = "errorWithDomain:code:userInfo:";

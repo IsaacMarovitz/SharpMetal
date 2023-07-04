@@ -342,7 +342,7 @@ namespace SharpMetal.Metal
 
         public MTLRenderPassColorAttachmentDescriptor Object(ulong attachmentIndex)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_objectAtIndexedSubscript, attachmentIndex));
         }
 
         public void SetObject(MTLRenderPassColorAttachmentDescriptor attachment, ulong attachmentIndex)
@@ -449,7 +449,7 @@ namespace SharpMetal.Metal
 
         public MTLRenderPassSampleBufferAttachmentDescriptor Object(ulong attachmentIndex)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_objectAtIndexedSubscript, attachmentIndex));
         }
 
         public void SetObject(MTLRenderPassSampleBufferAttachmentDescriptor attachment, ulong attachmentIndex)
@@ -612,7 +612,7 @@ namespace SharpMetal.Metal
 
         public ulong GetSamplePositions(MTLSamplePosition positions, ulong count)
         {
-            throw new NotImplementedException();
+            return ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_getSamplePositionscount, positions, count);
         }
 
         public void SetRasterizationRateMap(MTLRasterizationRateMap rasterizationRateMap)

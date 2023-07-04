@@ -79,37 +79,37 @@ namespace SharpMetal.Foundation
 
         public NSBundle Init(NSString pPath)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithPath, pPath));
         }
 
         public NSBundle Init(NSURL pURL)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithURL, pURL));
         }
 
         public bool PreflightAndReturnError(NSError pError)
         {
-            throw new NotImplementedException();
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_preflightAndReturnError, pError);
         }
 
         public bool LoadAndReturnError(NSError pError)
         {
-            throw new NotImplementedException();
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_loadAndReturnError, pError);
         }
 
         public NSURL URLForAuxiliaryExecutable(NSString pExecutableName)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_URLForAuxiliaryExecutable, pExecutableName));
         }
 
         public NSString PathForAuxiliaryExecutable(NSString pExecutableName)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_pathForAuxiliaryExecutable, pExecutableName));
         }
 
         public NSObject ObjectForInfoDictionaryKey(NSString pKey)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_objectForInfoDictionaryKey, pKey));
         }
 
         private static readonly Selector sel_mainBundle = "mainBundle";

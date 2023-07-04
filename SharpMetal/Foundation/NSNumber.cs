@@ -32,12 +32,12 @@ namespace SharpMetal.Foundation
 
         public NSValue Init(IntPtr pValue, ushort pType)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithBytesobjCType, pValue, pType));
         }
 
         public NSValue Init(IntPtr pCoder)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithCoder, pCoder));
         }
 
         public void GetValue(IntPtr pValue, ulong size)
@@ -47,7 +47,7 @@ namespace SharpMetal.Foundation
 
         public bool IsEqualToValue(NSValue pValue)
         {
-            throw new NotImplementedException();
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isEqualToValue, pValue);
         }
 
         private static readonly Selector sel_valueWithBytesobjCType = "valueWithBytes:objCType:";
@@ -157,72 +157,72 @@ namespace SharpMetal.Foundation
 
         public NSNumber Init(IntPtr pCoder)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithCoder, pCoder));
         }
 
         public NSNumber Init(ushort value)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithChar, value));
         }
 
         public NSNumber Init(byte value)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithUnsignedChar, value));
         }
 
         public NSNumber Init(short value)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithShort, value));
         }
 
         public NSNumber Init(int value)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithInt, value));
         }
 
         public NSNumber Init(uint value)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithUnsignedInt, value));
         }
 
         public NSNumber Init(long value)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithLong, value));
         }
 
         public NSNumber Init(ulong value)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithUnsignedLong, value));
         }
 
         public NSNumber Init(float value)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithFloat, value));
         }
 
         public NSNumber Init(double value)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithDouble, value));
         }
 
         public NSNumber Init(bool value)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithBool, value));
         }
 
         public NSComparisonResult Compare(NSNumber pOtherNumber)
         {
-            throw new NotImplementedException();
+            return (NSComparisonResult)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_compare, pOtherNumber);
         }
 
         public bool IsEqualToNumber(NSNumber pNumber)
         {
-            throw new NotImplementedException();
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isEqualToNumber, pNumber);
         }
 
         public NSString DescriptionWithLocale(NSObject pLocale)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_descriptionWithLocale, pLocale));
         }
 
         private static readonly Selector sel_numberWithChar = "numberWithChar:";

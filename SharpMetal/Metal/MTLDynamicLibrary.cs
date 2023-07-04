@@ -38,7 +38,7 @@ namespace SharpMetal.Metal
 
         public bool SerializeToURL(NSURL url, NSError error)
         {
-            throw new NotImplementedException();
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_serializeToURLerror, url, error);
         }
 
         private static readonly Selector sel_label = "label";

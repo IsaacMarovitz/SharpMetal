@@ -50,7 +50,7 @@ namespace SharpMetal.Foundation
 
         public bool IsEqual(NSObject pObject)
         {
-            throw new NotImplementedException();
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isEqual, pObject);
         }
 
         private static readonly Selector sel_methodSignatureForSelector = "methodSignatureForSelector:";

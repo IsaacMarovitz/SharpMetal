@@ -73,7 +73,7 @@ namespace SharpMetal.Metal
 
         public MTLComputePassSampleBufferAttachmentDescriptor Object(ulong attachmentIndex)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_objectAtIndexedSubscript, attachmentIndex));
         }
 
         public void SetObject(MTLComputePassSampleBufferAttachmentDescriptor attachment, ulong attachmentIndex)

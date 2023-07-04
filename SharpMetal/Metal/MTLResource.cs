@@ -86,7 +86,7 @@ namespace SharpMetal.Metal
 
         public MTLPurgeableState SetPurgeableState(MTLPurgeableState state)
         {
-            throw new NotImplementedException();
+            return (MTLPurgeableState)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_setPurgeableState, (ulong)state);
         }
 
         public void MakeAliasable()

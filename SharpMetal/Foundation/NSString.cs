@@ -74,57 +74,57 @@ namespace SharpMetal.Foundation
 
         public NSString Init(NSString pString)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithString, pString));
         }
 
         public NSString Init(ushort pString, NSStringEncoding encoding)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithCStringencoding, pString, (ulong)encoding));
         }
 
         public NSString Init(IntPtr pBytes, ulong len, NSStringEncoding encoding, bool freeBuffer)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithBytesNoCopylengthencodingfreeWhenDone, pBytes, len, (ulong)encoding, freeBuffer));
         }
 
         public ushort Character(ulong index)
         {
-            throw new NotImplementedException();
+            return ObjectiveCRuntime.ushort_objc_msgSend(NativePtr, sel_characterAtIndex, index);
         }
 
         public ushort CString(NSStringEncoding encoding)
         {
-            throw new NotImplementedException();
+            return ObjectiveCRuntime.ushort_objc_msgSend(NativePtr, sel_cStringUsingEncoding, (ulong)encoding);
         }
 
         public ulong MaximumLengthOfBytes(NSStringEncoding encoding)
         {
-            throw new NotImplementedException();
+            return ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maximumLengthOfBytesUsingEncoding, (ulong)encoding);
         }
 
         public ulong LengthOfBytes(NSStringEncoding encoding)
         {
-            throw new NotImplementedException();
+            return ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maximumLengthOfBytesUsingEncoding, (ulong)encoding);
         }
 
         public bool IsEqualToString(NSString pString)
         {
-            throw new NotImplementedException();
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isEqualToString, pString);
         }
 
         public NSRange RangeOfString(NSString pString, NSStringCompareOptions options)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_rangeOfStringoptions, pString, (ulong)options));
         }
 
         public NSString StringByAppendingString(NSString pString)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_stringByAppendingString, pString));
         }
 
         public NSComparisonResult CaseInsensitiveCompare(NSString pString)
         {
-            throw new NotImplementedException();
+            return (NSComparisonResult)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_caseInsensitiveCompare, pString);
         }
 
         private static readonly Selector sel_string = "string";

@@ -22,12 +22,12 @@ namespace SharpMetal.Foundation
 
         public NSSet Init(NSObject pObjects, ulong count)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithObjectscount, pObjects, count));
         }
 
         public NSSet Init(IntPtr pCoder)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithCoder, pCoder));
         }
 
         private static readonly Selector sel_count = "count";

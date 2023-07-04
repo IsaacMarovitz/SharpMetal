@@ -31,7 +31,7 @@ namespace SharpMetal.Foundation
 
         public bool WaitUntilDate(NSDate pLimit)
         {
-            throw new NotImplementedException();
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_waitUntilDate, pLimit);
         }
 
         public void Signal()

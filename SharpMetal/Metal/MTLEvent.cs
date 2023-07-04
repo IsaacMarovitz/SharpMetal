@@ -46,7 +46,7 @@ namespace SharpMetal.Metal
 
         public MTLSharedEventListener Init(IntPtr dispatchQueue)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithDispatchQueue, dispatchQueue));
         }
 
         private static readonly Selector sel_initWithDispatchQueue = "initWithDispatchQueue:";

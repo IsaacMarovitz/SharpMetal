@@ -178,7 +178,7 @@ namespace SharpMetal.Metal
 
         public NSData ResolveCounterRange(NSRange range)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_resolveCounterRange, range));
         }
 
         private static readonly Selector sel_device = "device";

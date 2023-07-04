@@ -54,7 +54,7 @@ namespace SharpMetal.Metal
 
         public MTLPipelineBufferDescriptor Object(ulong bufferIndex)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_objectAtIndexedSubscript, bufferIndex));
         }
 
         public void SetObject(MTLPipelineBufferDescriptor buffer, ulong bufferIndex)

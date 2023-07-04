@@ -78,7 +78,7 @@ namespace SharpMetal.Metal
 
         public IntPtr NewScratchBuffer(ulong minimumSize)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newScratchBufferWithMinimumSize, minimumSize));
         }
 
         private static readonly Selector sel_newScratchBufferWithMinimumSize = "newScratchBufferWithMinimumSize:";

@@ -19,7 +19,7 @@ namespace SharpMetal.Metal
 
         public NSNumber Object(ulong index)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_objectAtIndexedSubscript, index));
         }
 
         public void SetObject(NSNumber value, ulong index)
@@ -62,12 +62,12 @@ namespace SharpMetal.Metal
 
         public MTLRasterizationRateLayerDescriptor Init(MTLSize sampleCount)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithSampleCount, sampleCount));
         }
 
         public MTLRasterizationRateLayerDescriptor Init(MTLSize sampleCount, float horizontal, float vertical)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithSampleCounthorizontalvertical, sampleCount, horizontal, vertical));
         }
 
         public void SetSampleCount(MTLSize sampleCount)
@@ -101,7 +101,7 @@ namespace SharpMetal.Metal
 
         public MTLRasterizationRateLayerDescriptor Object(ulong layerIndex)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_objectAtIndexedSubscript, layerIndex));
         }
 
         public void SetObject(MTLRasterizationRateLayerDescriptor layer, ulong layerIndex)
@@ -159,7 +159,7 @@ namespace SharpMetal.Metal
 
         public MTLRasterizationRateLayerDescriptor Layer(ulong layerIndex)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_layerAtIndex, layerIndex));
         }
 
         public void SetLayer(MTLRasterizationRateLayerDescriptor layer, ulong layerIndex)
@@ -216,17 +216,17 @@ namespace SharpMetal.Metal
 
         public MTLSize PhysicalSize(ulong layerIndex)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_physicalSizeForLayer, layerIndex));
         }
 
         public IntPtr MapScreenToPhysicalCoordinates(IntPtr screenCoordinates, ulong layerIndex)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_mapScreenToPhysicalCoordinatesforLayer, screenCoordinates, layerIndex));
         }
 
         public IntPtr MapPhysicalToScreenCoordinates(IntPtr physicalCoordinates, ulong layerIndex)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_mapPhysicalToScreenCoordinatesforLayer, physicalCoordinates, layerIndex));
         }
 
         private static readonly Selector sel_device = "device";

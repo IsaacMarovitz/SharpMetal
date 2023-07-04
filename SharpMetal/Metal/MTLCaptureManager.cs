@@ -99,22 +99,22 @@ namespace SharpMetal.Metal
 
         public MTLCaptureScope NewCaptureScope(MTLDevice device)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newCaptureScopeWithDevice, device));
         }
 
         public MTLCaptureScope NewCaptureScope(MTLCommandQueue commandQueue)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newCaptureScopeWithCommandQueue, commandQueue));
         }
 
         public bool SupportsDestination(MTLCaptureDestination destination)
         {
-            throw new NotImplementedException();
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsDestination, (long)destination);
         }
 
         public bool StartCapture(MTLCaptureDescriptor descriptor, NSError error)
         {
-            throw new NotImplementedException();
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_startCaptureWithDescriptorerror, descriptor, error);
         }
 
         public void StartCapture(MTLDevice device)

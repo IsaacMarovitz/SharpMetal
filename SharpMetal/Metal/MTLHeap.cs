@@ -155,52 +155,52 @@ namespace SharpMetal.Metal
 
         public ulong MaxAvailableSize(ulong alignment)
         {
-            throw new NotImplementedException();
+            return ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxAvailableSizeWithAlignment, alignment);
         }
 
         public MTLBuffer NewBuffer(ulong length, MTLResourceOptions options)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newBufferWithLengthoptions, length, (ulong)options));
         }
 
         public MTLTexture NewTexture(MTLTextureDescriptor desc)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newTextureWithDescriptor, desc));
         }
 
         public MTLPurgeableState SetPurgeableState(MTLPurgeableState state)
         {
-            throw new NotImplementedException();
+            return (MTLPurgeableState)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_setPurgeableState, (ulong)state);
         }
 
         public MTLBuffer NewBuffer(ulong length, MTLResourceOptions options, ulong offset)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newBufferWithLengthoptionsoffset, length, (ulong)options, offset));
         }
 
         public MTLTexture NewTexture(MTLTextureDescriptor descriptor, ulong offset)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newTextureWithDescriptoroffset, descriptor, offset));
         }
 
         public MTLAccelerationStructure NewAccelerationStructure(ulong size)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newAccelerationStructureWithSize, size));
         }
 
         public MTLAccelerationStructure NewAccelerationStructure(MTLAccelerationStructureDescriptor descriptor)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newAccelerationStructureWithDescriptor, descriptor));
         }
 
         public MTLAccelerationStructure NewAccelerationStructure(ulong size, ulong offset)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newAccelerationStructureWithSizeoffset, size, offset));
         }
 
         public MTLAccelerationStructure NewAccelerationStructure(MTLAccelerationStructureDescriptor descriptor, ulong offset)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newAccelerationStructureWithDescriptoroffset, descriptor, offset));
         }
 
         private static readonly Selector sel_label = "label";

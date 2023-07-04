@@ -85,7 +85,7 @@ namespace SharpMetal.Foundation
 
         public bool IsOperatingSystemAtLeastVersion(NSOperatingSystemVersion version)
         {
-            throw new NotImplementedException();
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isOperatingSystemAtLeastVersion, version);
         }
 
         public void DisableSuddenTermination()
@@ -115,7 +115,7 @@ namespace SharpMetal.Foundation
 
         public NSObject BeginActivity(NSActivityOptions options, NSString pReason)
         {
-            throw new NotImplementedException();
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_beginActivityWithOptionsreason, (ulong)options, pReason));
         }
 
         public void EndActivity(NSObject pActivity)
