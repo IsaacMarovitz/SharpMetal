@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveCCore;
 namespace SharpMetal.Foundation
 {
     [SupportedOSPlatform("macos")]
-    public class NSError
+    public partial class NSError
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(NSError obj) => obj.NativePtr;

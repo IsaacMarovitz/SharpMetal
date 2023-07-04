@@ -60,7 +60,7 @@ namespace SharpMetal.Generator.Instances
 
             context.WriteLine("[SupportedOSPlatform(\"macos\")]");
 
-            context.WriteLine($"public class {Name}");
+            context.WriteLine($"public partial class {Name}");
             context.EnterScope();
 
             context.WriteLine("public readonly IntPtr NativePtr;");

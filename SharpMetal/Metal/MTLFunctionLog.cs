@@ -10,7 +10,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLLogContainer
+    public partial class MTLLogContainer
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLLogContainer obj) => obj.NativePtr;
@@ -18,7 +18,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLFunctionLogDebugLocation
+    public partial class MTLFunctionLogDebugLocation
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionLogDebugLocation obj) => obj.NativePtr;
@@ -39,7 +39,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLFunctionLog
+    public partial class MTLFunctionLog
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionLog obj) => obj.NativePtr;

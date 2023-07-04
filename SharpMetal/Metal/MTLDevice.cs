@@ -155,7 +155,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLArgumentDescriptor
+    public partial class MTLArgumentDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLArgumentDescriptor obj) => obj.NativePtr;
@@ -249,7 +249,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLDevice
+    public partial class MTLDevice
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLDevice obj) => obj.NativePtr;
@@ -346,10 +346,10 @@ namespace SharpMetal.Metal
         public ulong MaximumConcurrentCompilationTaskCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maximumConcurrentCompilationTaskCount);
 
         [LibraryImport(ObjectiveC.MetalFramework)]
-        public static partial MTLDevice MTLCreateSystemDefaultDevice();
+        public static partial IntPtr MTLCreateSystemDefaultDevice();
 
         [LibraryImport(ObjectiveC.MetalFramework)]
-        public static partial NSArray MTLCopyAllDevices();
+        public static partial IntPtr MTLCopyAllDevices();
 
         public MTLCommandQueue NewCommandQueue(ulong maxCommandBufferCount)
         {

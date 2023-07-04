@@ -136,7 +136,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLType
+    public partial class MTLType
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLType obj) => obj.NativePtr;
@@ -154,7 +154,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLStructMember
+    public partial class MTLStructMember
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLStructMember obj) => obj.NativePtr;
@@ -193,7 +193,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLStructType
+    public partial class MTLStructType
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLStructType obj) => obj.NativePtr;
@@ -217,7 +217,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLArrayType
+    public partial class MTLArrayType
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLArrayType obj) => obj.NativePtr;
@@ -256,7 +256,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLPointerType
+    public partial class MTLPointerType
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLPointerType obj) => obj.NativePtr;
@@ -292,7 +292,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLTextureReferenceType
+    public partial class MTLTextureReferenceType
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLTextureReferenceType obj) => obj.NativePtr;
@@ -319,7 +319,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLArgument
+    public partial class MTLArgument
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLArgument obj) => obj.NativePtr;
@@ -382,7 +382,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLBinding
+    public partial class MTLBinding
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLBinding obj) => obj.NativePtr;
@@ -409,7 +409,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLBufferBinding
+    public partial class MTLBufferBinding
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLBufferBinding obj) => obj.NativePtr;
@@ -433,7 +433,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLThreadgroupBinding
+    public partial class MTLThreadgroupBinding
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLThreadgroupBinding obj) => obj.NativePtr;
@@ -448,7 +448,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLTextureBinding
+    public partial class MTLTextureBinding
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLTextureBinding obj) => obj.NativePtr;
@@ -469,7 +469,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLObjectPayloadBinding
+    public partial class MTLObjectPayloadBinding
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLObjectPayloadBinding obj) => obj.NativePtr;

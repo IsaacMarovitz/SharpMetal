@@ -107,7 +107,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLAccelerationStructureDescriptor
+    public partial class MTLAccelerationStructureDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureDescriptor obj) => obj.NativePtr;
@@ -135,7 +135,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLAccelerationStructureGeometryDescriptor
+    public partial class MTLAccelerationStructureGeometryDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureGeometryDescriptor obj) => obj.NativePtr;
@@ -254,7 +254,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLPrimitiveAccelerationStructureDescriptor
+    public partial class MTLPrimitiveAccelerationStructureDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLPrimitiveAccelerationStructureDescriptor obj) => obj.NativePtr;
@@ -348,7 +348,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLAccelerationStructureTriangleGeometryDescriptor
+    public partial class MTLAccelerationStructureTriangleGeometryDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureTriangleGeometryDescriptor obj) => obj.NativePtr;
@@ -494,7 +494,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLAccelerationStructureBoundingBoxGeometryDescriptor
+    public partial class MTLAccelerationStructureBoundingBoxGeometryDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureBoundingBoxGeometryDescriptor obj) => obj.NativePtr;
@@ -562,7 +562,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLMotionKeyframeData
+    public partial class MTLMotionKeyframeData
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLMotionKeyframeData obj) => obj.NativePtr;
@@ -604,7 +604,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLAccelerationStructureMotionTriangleGeometryDescriptor
+    public partial class MTLAccelerationStructureMotionTriangleGeometryDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureMotionTriangleGeometryDescriptor obj) => obj.NativePtr;
@@ -737,7 +737,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor
+    public partial class MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor obj) => obj.NativePtr;
@@ -792,7 +792,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLInstanceAccelerationStructureDescriptor
+    public partial class MTLInstanceAccelerationStructureDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLInstanceAccelerationStructureDescriptor obj) => obj.NativePtr;
@@ -925,7 +925,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLAccelerationStructure
+    public partial class MTLAccelerationStructure
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructure obj) => obj.NativePtr;

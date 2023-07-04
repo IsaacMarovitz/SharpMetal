@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveCCore;
 namespace SharpMetal.Foundation
 {
     [SupportedOSPlatform("macos")]
-    public class NSSet
+    public partial class NSSet
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(NSSet obj) => obj.NativePtr;

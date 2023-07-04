@@ -5,7 +5,7 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public class MTLVisibleFunctionTableDescriptor
+    public partial class MTLVisibleFunctionTableDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLVisibleFunctionTableDescriptor obj) => obj.NativePtr;
@@ -34,7 +34,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLVisibleFunctionTable
+    public partial class MTLVisibleFunctionTable
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLVisibleFunctionTable obj) => obj.NativePtr;

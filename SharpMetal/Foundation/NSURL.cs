@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveCCore;
 namespace SharpMetal.Foundation
 {
     [SupportedOSPlatform("macos")]
-    public class NSURL
+    public partial class NSURL
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(NSURL obj) => obj.NativePtr;
