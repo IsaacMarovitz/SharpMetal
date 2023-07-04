@@ -28,6 +28,21 @@ namespace SharpMetal.ObjectiveC
         public static partial void objc_msgSend(IntPtr receiver, Selector selector, IntPtr a, ulong b);
 
         [LibraryImport(ObjCRuntime)]
+        public static partial void objc_msgSend(IntPtr receiver, Selector selector, IntPtr a, ulong b, bool c);
+
+        [LibraryImport(ObjCRuntime)]
+        public static partial void objc_msgSend(IntPtr receiver, Selector selector, IntPtr a, ulong b, ulong c, ulong d, IntPtr e, IntPtr f, ulong g, ulong h, IntPtr i, ulong j);
+
+        [LibraryImport(ObjCRuntime)]
+        public static partial void objc_msgSend(IntPtr receiver, Selector selector, IntPtr a, ulong b, ulong c, ulong d, IntPtr e, IntPtr f, ulong g, ulong h, IntPtr i);
+
+        [LibraryImport(ObjCRuntime)]
+        public static partial void objc_msgSend(IntPtr receiver, Selector selector, IntPtr a, ulong b, ulong c, IntPtr d, IntPtr e, IntPtr f, ulong g, ulong h, ulong i);
+
+        [LibraryImport(ObjCRuntime)]
+        public static partial void objc_msgSend(IntPtr receiver, Selector selector, IntPtr a, ulong b, ulong c, IntPtr d, IntPtr e, IntPtr f, ulong g, ulong h, ulong i, ulong j);
+
+        [LibraryImport(ObjCRuntime)]
         public static partial void objc_msgSend(IntPtr receiver, Selector selector, IntPtr a, float b, float c, ulong d);
 
         [LibraryImport(ObjCRuntime)]
@@ -56,6 +71,12 @@ namespace SharpMetal.ObjectiveC
 
         [LibraryImport(ObjCRuntime)]
         public static partial void objc_msgSend(IntPtr receiver, Selector selector, IntPtr a, IntPtr b, IntPtr c, ulong d);
+
+        [LibraryImport(ObjCRuntime)]
+        public static partial void objc_msgSend(IntPtr receiver, Selector selector, IntPtr a, IntPtr b, IntPtr c, IntPtr d, ulong e);
+
+        [LibraryImport(ObjCRuntime)]
+        public static partial void objc_msgSend(IntPtr receiver, Selector selector, IntPtr a, IntPtr b, IntPtr c, IntPtr d, ulong e, ulong f);
 
         [LibraryImport(ObjCRuntime)]
         public static partial void objc_msgSend(IntPtr receiver, Selector selector, IntPtr a, IntPtr b, IntPtr c, ulong d, ulong e);
@@ -99,6 +120,14 @@ namespace SharpMetal.ObjectiveC
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         [return: MarshalAs(UnmanagedType.Bool)]
+        public static partial bool bool_objc_msgSend(IntPtr receiver, Selector selector, IntPtr a, IntPtr b);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static partial bool bool_objc_msgSend(IntPtr receiver, Selector selector, IntPtr a, IntPtr b, IntPtr c);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static partial bool bool_objc_msgSend(IntPtr receiver, Selector selector, long a);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
@@ -107,6 +136,9 @@ namespace SharpMetal.ObjectiveC
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial long long_objc_msgSend(IntPtr receiver, Selector selector);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial long long_objc_msgSend(IntPtr receiver, Selector selector, IntPtr a);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial int int_objc_msgSend(IntPtr receiver, Selector selector);
@@ -122,6 +154,15 @@ namespace SharpMetal.ObjectiveC
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial ulong ulong_objc_msgSend(IntPtr receiver, Selector selector, ulong a);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial ulong ulong_objc_msgSend(IntPtr receiver, Selector selector, long a);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial ulong ulong_objc_msgSend(IntPtr receiver, Selector selector, IntPtr a, IntPtr b, ulong c);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial ulong ulong_objc_msgSend(IntPtr receiver, Selector selector, IntPtr a, ulong b);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial ulong uint64_objc_msgSend(IntPtr receiver, Selector selector);
@@ -141,6 +182,9 @@ namespace SharpMetal.ObjectiveC
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial ushort ushort_objc_msgSend(IntPtr receiver, Selector selector);
 
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial ushort ushort_objc_msgSend(IntPtr receiver, Selector selector, ulong a);
+
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend", StringMarshalling = StringMarshalling.Utf8)]
         public static partial string string_objc_msgSend(IntPtr receiver, Selector selector);
 
@@ -157,10 +201,67 @@ namespace SharpMetal.ObjectiveC
         public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, ulong a);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, byte a);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, ushort a);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, long a);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, float a);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, double a);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, bool a);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, ulong a, ulong b);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, ulong a, ulong b, IntPtr c, IntPtr d);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, ulong a, ulong b, IntPtr c, IntPtr d, IntPtr e);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, ushort a, ulong b);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, IntPtr a);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, IntPtr a, float b, float c);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, IntPtr a, IntPtr b);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, IntPtr a, IntPtr b, IntPtr c, IntPtr d);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, IntPtr a, ulong b, IntPtr c, IntPtr d);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, ulong a, IntPtr b);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, IntPtr a, IntPtr b, ulong c);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, IntPtr a, ulong b);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, IntPtr a, ulong b, ulong c, bool d);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, IntPtr a, long b, IntPtr c);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, IntPtr a, ushort b);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, uint a);
