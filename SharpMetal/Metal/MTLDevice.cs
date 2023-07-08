@@ -130,14 +130,8 @@ namespace SharpMetal.Metal
     [StructLayout(LayoutKind.Sequential)]
     public struct MTLAccelerationStructureSizes
     {
-        public readonly IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLAccelerationStructureSizes obj) => obj.NativePtr;
-        public MTLAccelerationStructureSizes(IntPtr ptr) => NativePtr = ptr;
-
         public ulong accelerationStructureSize;
-
         public ulong buildScratchBufferSize;
-
         public ulong refitScratchBufferSize;
     }
 
@@ -145,12 +139,7 @@ namespace SharpMetal.Metal
     [StructLayout(LayoutKind.Sequential)]
     public struct MTLSizeAndAlign
     {
-        public readonly IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLSizeAndAlign obj) => obj.NativePtr;
-        public MTLSizeAndAlign(IntPtr ptr) => NativePtr = ptr;
-
         public ulong size;
-
         public ulong align;
     }
 

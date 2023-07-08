@@ -39,11 +39,10 @@ namespace SharpMetal.Examples
             ObjectiveC.dlopen("/System/Library/Frameworks/Metal.framework/Metal", 0);
             ObjectiveC.dlopen("/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics", 0);
 
-            // TODO: Update this to work as `var device = MTLDevice.CreateSystemDefaultDevice();`
             var device = MTLDevice.CreateSystemDefaultDevice();
             Console.WriteLine(device.MaxThreadgroupMemoryLength);
             // TODO: Fix crash that occurs when trying to use MTLSize
-            // Console.WriteLine(device.MaxThreadsPerThreadgroup);
+            Console.WriteLine(device.MaxThreadsPerThreadgroup);
             Console.WriteLine(device.SupportsRaytracing);
             Console.WriteLine(device.SupportsPrimitiveMotionBlur);
             Console.WriteLine(device.SupportsRaytracingFromRender);

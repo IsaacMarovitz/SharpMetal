@@ -39,18 +39,10 @@ namespace SharpMetal.Metal
     [StructLayout(LayoutKind.Sequential)]
     public struct MTLAccelerationStructureInstanceDescriptor
     {
-        public readonly IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLAccelerationStructureInstanceDescriptor obj) => obj.NativePtr;
-        public MTLAccelerationStructureInstanceDescriptor(IntPtr ptr) => NativePtr = ptr;
-
         public MTLPackedFloat4x3 transformationMatrix;
-
         public MTLAccelerationStructureInstanceOptions options;
-
         public uint mask;
-
         public uint intersectionFunctionTableOffset;
-
         public uint accelerationStructureIndex;
     }
 
@@ -58,20 +50,11 @@ namespace SharpMetal.Metal
     [StructLayout(LayoutKind.Sequential)]
     public struct MTLAccelerationStructureUserIDInstanceDescriptor
     {
-        public readonly IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLAccelerationStructureUserIDInstanceDescriptor obj) => obj.NativePtr;
-        public MTLAccelerationStructureUserIDInstanceDescriptor(IntPtr ptr) => NativePtr = ptr;
-
         public MTLPackedFloat4x3 transformationMatrix;
-
         public MTLAccelerationStructureInstanceOptions options;
-
         public uint mask;
-
         public uint intersectionFunctionTableOffset;
-
         public uint accelerationStructureIndex;
-
         public uint userID;
     }
 
@@ -79,30 +62,16 @@ namespace SharpMetal.Metal
     [StructLayout(LayoutKind.Sequential)]
     public struct MTLAccelerationStructureMotionInstanceDescriptor
     {
-        public readonly IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLAccelerationStructureMotionInstanceDescriptor obj) => obj.NativePtr;
-        public MTLAccelerationStructureMotionInstanceDescriptor(IntPtr ptr) => NativePtr = ptr;
-
         public MTLAccelerationStructureInstanceOptions options;
-
         public uint mask;
-
         public uint intersectionFunctionTableOffset;
-
         public uint accelerationStructureIndex;
-
         public uint userID;
-
         public uint motionTransformsStartIndex;
-
         public uint motionTransformsCount;
-
         public MTLMotionBorderMode motionStartBorderMode;
-
         public MTLMotionBorderMode motionEndBorderMode;
-
         public float motionStartTime;
-
         public float motionEndTime;
     }
 

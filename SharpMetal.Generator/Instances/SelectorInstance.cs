@@ -13,7 +13,7 @@ namespace SharpMetal.Generator.Instances
             Selector = selector;
         }
 
-        public static void Build(string line, string namespacePrefix, StreamReader sr, List<IPropertyOwner> propertyOwners)
+        public static void Build(string line, string namespacePrefix, StreamReader sr, List<ClassInstance> propertyOwners)
         {
             var inlineInfo = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
             var parentStructName = string.Empty;

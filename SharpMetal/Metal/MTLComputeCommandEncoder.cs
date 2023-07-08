@@ -9,10 +9,6 @@ namespace SharpMetal.Metal
     [StructLayout(LayoutKind.Sequential)]
     public struct MTLDispatchThreadgroupsIndirectArguments
     {
-        public readonly IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLDispatchThreadgroupsIndirectArguments obj) => obj.NativePtr;
-        public MTLDispatchThreadgroupsIndirectArguments(IntPtr ptr) => NativePtr = ptr;
-
         public uint threadgroupsPerGrid;
     }
 
@@ -20,12 +16,7 @@ namespace SharpMetal.Metal
     [StructLayout(LayoutKind.Sequential)]
     public struct MTLStageInRegionIndirectArguments
     {
-        public readonly IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLStageInRegionIndirectArguments obj) => obj.NativePtr;
-        public MTLStageInRegionIndirectArguments(IntPtr ptr) => NativePtr = ptr;
-
         public uint stageInOrigin;
-
         public uint stageInSize;
     }
 

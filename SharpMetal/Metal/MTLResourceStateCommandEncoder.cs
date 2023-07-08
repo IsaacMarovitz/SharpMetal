@@ -15,24 +15,13 @@ namespace SharpMetal.Metal
     [StructLayout(LayoutKind.Sequential)]
     public struct MTLMapIndirectArguments
     {
-        public readonly IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLMapIndirectArguments obj) => obj.NativePtr;
-        public MTLMapIndirectArguments(IntPtr ptr) => NativePtr = ptr;
-
         public uint regionOriginX;
-
         public uint regionOriginY;
-
         public uint regionOriginZ;
-
         public uint regionSizeWidth;
-
         public uint regionSizeHeight;
-
         public uint regionSizeDepth;
-
         public uint mipMapLevel;
-
         public uint sliceId;
     }
 

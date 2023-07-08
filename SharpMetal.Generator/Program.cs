@@ -125,14 +125,6 @@ namespace SharpMetal.Generator
             var hasAnyUsings = false;
             var hasSelectors = false;
 
-            foreach (var instance in headerInfo.StructInstances)
-            {
-                if (instance.GetSelectors().Any())
-                {
-                    hasSelectors = true;
-                }
-            }
-
             foreach (var instance in headerInfo.ClassInstances)
             {
                 if (instance.GetSelectors().Any())

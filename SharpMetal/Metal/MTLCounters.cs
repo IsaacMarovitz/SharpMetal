@@ -16,10 +16,6 @@ namespace SharpMetal.Metal
     [StructLayout(LayoutKind.Sequential)]
     public struct MTLCounterResultTimestamp
     {
-        public readonly IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLCounterResultTimestamp obj) => obj.NativePtr;
-        public MTLCounterResultTimestamp(IntPtr ptr) => NativePtr = ptr;
-
         public ulong timestamp;
     }
 
@@ -27,20 +23,11 @@ namespace SharpMetal.Metal
     [StructLayout(LayoutKind.Sequential)]
     public struct MTLCounterResultStageUtilization
     {
-        public readonly IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLCounterResultStageUtilization obj) => obj.NativePtr;
-        public MTLCounterResultStageUtilization(IntPtr ptr) => NativePtr = ptr;
-
         public ulong totalCycles;
-
         public ulong vertexCycles;
-
         public ulong tessellationCycles;
-
         public ulong postTessellationVertexCycles;
-
         public ulong fragmentCycles;
-
         public ulong renderTargetCycles;
     }
 
@@ -48,24 +35,13 @@ namespace SharpMetal.Metal
     [StructLayout(LayoutKind.Sequential)]
     public struct MTLCounterResultStatistic
     {
-        public readonly IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLCounterResultStatistic obj) => obj.NativePtr;
-        public MTLCounterResultStatistic(IntPtr ptr) => NativePtr = ptr;
-
         public ulong tessellationInputPatches;
-
         public ulong vertexInvocations;
-
         public ulong postTessellationVertexInvocations;
-
         public ulong clipperInvocations;
-
         public ulong clipperPrimitivesOut;
-
         public ulong fragmentInvocations;
-
         public ulong fragmentsPassed;
-
         public ulong computeKernelInvocations;
     }
 

@@ -115,12 +115,7 @@ namespace SharpMetal.Generator
                 // These contain all the selectors we need
                 else if (line.StartsWith($"_{namespacePrefix}_INLINE"))
                 {
-                    List<IPropertyOwner> propertyOwners = new();
-
-                    propertyOwners.AddRange(StructInstances);
-                    propertyOwners.AddRange(ClassInstances);
-
-                    SelectorInstance.Build(line, namespacePrefix, sr, propertyOwners);
+                    SelectorInstance.Build(line, namespacePrefix, sr, ClassInstances);
                 }
                 else
                 {

@@ -19,12 +19,7 @@ namespace SharpMetal.Metal
     [StructLayout(LayoutKind.Sequential)]
     public struct MTLIndirectCommandBufferExecutionRange
     {
-        public readonly IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLIndirectCommandBufferExecutionRange obj) => obj.NativePtr;
-        public MTLIndirectCommandBufferExecutionRange(IntPtr ptr) => NativePtr = ptr;
-
         public uint location;
-
         public uint length;
     }
 

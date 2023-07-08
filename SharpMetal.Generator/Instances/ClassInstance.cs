@@ -2,7 +2,7 @@ using SharpMetal.Generator.Utilities;
 
 namespace SharpMetal.Generator.Instances
 {
-    public class ClassInstance : IPropertyOwner
+    public class ClassInstance
     {
         public string Name { get; set; }
         public string NamespacePrefix;

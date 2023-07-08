@@ -17,7 +17,7 @@ namespace SharpMetal.Generator.Instances
             InputInstances = inputInstances;
         }
 
-        public ObjectiveCInstance Generate(List<EnumInstance> enumCache, IPropertyOwner instance, CodeGenContext context, string namespacePrefix, bool prependSpace = true)
+        public ObjectiveCInstance Generate(List<EnumInstance> enumCache, ClassInstance instance, CodeGenContext context, string namespacePrefix, bool prependSpace = true)
         {
             var rawNameComponents = RawName.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
             for (var index = 0; index < rawNameComponents.Length; index++)

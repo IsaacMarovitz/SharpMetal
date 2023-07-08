@@ -8,10 +8,6 @@ namespace SharpMetal.Foundation
     [StructLayout(LayoutKind.Sequential)]
     public struct NSFastEnumerationState
     {
-        public readonly IntPtr NativePtr;
-        public static implicit operator IntPtr(NSFastEnumerationState obj) => obj.NativePtr;
-        public NSFastEnumerationState(IntPtr ptr) => NativePtr = ptr;
-
         public IntPtr itemsPtr;
     }
 

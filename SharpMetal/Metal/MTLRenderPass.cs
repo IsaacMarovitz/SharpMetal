@@ -46,16 +46,9 @@ namespace SharpMetal.Metal
     [StructLayout(LayoutKind.Sequential)]
     public struct MTLClearColor
     {
-        public readonly IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLClearColor obj) => obj.NativePtr;
-        public MTLClearColor(IntPtr ptr) => NativePtr = ptr;
-
         public double red;
-
         public double green;
-
         public double blue;
-
         public double alpha;
     }
 

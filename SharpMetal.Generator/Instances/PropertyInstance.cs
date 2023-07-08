@@ -11,7 +11,7 @@ namespace SharpMetal.Generator.Instances
             Name = name;
         }
 
-        public ObjectiveCInstance Generate(IPropertyOwner instance, List<EnumInstance> enumCache, CodeGenContext context)
+        public ObjectiveCInstance Generate(ClassInstance instance, List<EnumInstance> enumCache, CodeGenContext context)
         {
             var selectorInstances = instance.GetSelectors();
             var selector = selectorInstances.Find(x => x.Selector.ToLower() == Name.ToLower());
@@ -105,6 +105,11 @@ namespace SharpMetal.Generator.Instances
             }
 
             return objcInstance;
+        }
+
+        public void Generate(List<EnumInstance> enumCache, CodeGenContext context)
+        {
+            context.WriteLine($"public {Type} {Name};");
         }
 
         public bool Equals(PropertyInstance? other)

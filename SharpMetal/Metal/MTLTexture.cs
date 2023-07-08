@@ -48,16 +48,9 @@ namespace SharpMetal.Metal
     [StructLayout(LayoutKind.Sequential)]
     public struct MTLTextureSwizzleChannels
     {
-        public readonly IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLTextureSwizzleChannels obj) => obj.NativePtr;
-        public MTLTextureSwizzleChannels(IntPtr ptr) => NativePtr = ptr;
-
         public MTLTextureSwizzle red;
-
         public MTLTextureSwizzle green;
-
         public MTLTextureSwizzle blue;
-
         public MTLTextureSwizzle alpha;
     }
 

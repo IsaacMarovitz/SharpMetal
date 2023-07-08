@@ -59,16 +59,9 @@ namespace SharpMetal.Metal
     [StructLayout(LayoutKind.Sequential)]
     public struct MTLScissorRect
     {
-        public readonly IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLScissorRect obj) => obj.NativePtr;
-        public MTLScissorRect(IntPtr ptr) => NativePtr = ptr;
-
         public ulong x;
-
         public ulong y;
-
         public ulong width;
-
         public ulong height;
     }
 
@@ -76,20 +69,11 @@ namespace SharpMetal.Metal
     [StructLayout(LayoutKind.Sequential)]
     public struct MTLViewport
     {
-        public readonly IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLViewport obj) => obj.NativePtr;
-        public MTLViewport(IntPtr ptr) => NativePtr = ptr;
-
         public double originX;
-
         public double originY;
-
         public double width;
-
         public double height;
-
         public double znear;
-
         public double zfar;
     }
 
@@ -97,16 +81,9 @@ namespace SharpMetal.Metal
     [StructLayout(LayoutKind.Sequential)]
     public struct MTLDrawPrimitivesIndirectArguments
     {
-        public readonly IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLDrawPrimitivesIndirectArguments obj) => obj.NativePtr;
-        public MTLDrawPrimitivesIndirectArguments(IntPtr ptr) => NativePtr = ptr;
-
         public uint vertexCount;
-
         public uint instanceCount;
-
         public uint vertexStart;
-
         public uint baseInstance;
     }
 
@@ -114,18 +91,10 @@ namespace SharpMetal.Metal
     [StructLayout(LayoutKind.Sequential)]
     public struct MTLDrawIndexedPrimitivesIndirectArguments
     {
-        public readonly IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLDrawIndexedPrimitivesIndirectArguments obj) => obj.NativePtr;
-        public MTLDrawIndexedPrimitivesIndirectArguments(IntPtr ptr) => NativePtr = ptr;
-
         public uint indexCount;
-
         public uint instanceCount;
-
         public uint indexStart;
-
         public int baseVertex;
-
         public uint baseInstance;
     }
 
@@ -133,12 +102,7 @@ namespace SharpMetal.Metal
     [StructLayout(LayoutKind.Sequential)]
     public struct MTLVertexAmplificationViewMapping
     {
-        public readonly IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLVertexAmplificationViewMapping obj) => obj.NativePtr;
-        public MTLVertexAmplificationViewMapping(IntPtr ptr) => NativePtr = ptr;
-
         public uint viewportArrayIndexOffset;
-
         public uint renderTargetArrayIndexOffset;
     }
 
@@ -146,16 +110,9 @@ namespace SharpMetal.Metal
     [StructLayout(LayoutKind.Sequential)]
     public struct MTLDrawPatchIndirectArguments
     {
-        public readonly IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLDrawPatchIndirectArguments obj) => obj.NativePtr;
-        public MTLDrawPatchIndirectArguments(IntPtr ptr) => NativePtr = ptr;
-
         public uint patchCount;
-
         public uint instanceCount;
-
         public uint patchStart;
-
         public uint baseInstance;
     }
 
@@ -163,12 +120,7 @@ namespace SharpMetal.Metal
     [StructLayout(LayoutKind.Sequential)]
     public struct MTLQuadTessellationFactorsHalf
     {
-        public readonly IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLQuadTessellationFactorsHalf obj) => obj.NativePtr;
-        public MTLQuadTessellationFactorsHalf(IntPtr ptr) => NativePtr = ptr;
-
         public ushort edgeTessellationFactor;
-
         public ushort insideTessellationFactor;
     }
 
@@ -176,12 +128,7 @@ namespace SharpMetal.Metal
     [StructLayout(LayoutKind.Sequential)]
     public struct MTLTriangleTessellationFactorsHalf
     {
-        public readonly IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLTriangleTessellationFactorsHalf obj) => obj.NativePtr;
-        public MTLTriangleTessellationFactorsHalf(IntPtr ptr) => NativePtr = ptr;
-
         public ushort edgeTessellationFactor;
-
         public ushort insideTessellationFactor;
     }
 

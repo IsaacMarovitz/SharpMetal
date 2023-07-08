@@ -2,25 +2,15 @@ using System.Text.RegularExpressions;
 
 namespace SharpMetal.Generator.Instances
 {
-    public class StructInstance : IPropertyOwner
+    public class StructInstance
     {
         public string Name { get; set; }
         private List<PropertyInstance> _propertyInstances;
-        private List<SelectorInstance> _selectorInstances;
 
         private StructInstance(string name)
         {
             Name = name;
-            _selectorInstances = new();
             _propertyInstances = new();
-        }
-
-        public void AddSelector(SelectorInstance selectorInstance)
-        {
-            if (!_selectorInstances.Exists(x => x.Selector == selectorInstance.Selector))
-            {
-                _selectorInstances.Add(selectorInstance);
-            }
         }
 
         public void AddProperty(PropertyInstance propertyInstance)
@@ -45,33 +35,9 @@ namespace SharpMetal.Generator.Instances
             context.WriteLine($"public struct {Name}");
             context.EnterScope();
 
-            context.WriteLine("public readonly IntPtr NativePtr;");
-            context.WriteLine($"public static implicit operator IntPtr({Name} obj) => obj.NativePtr;");
-            context.WriteLine($"public {Name}(IntPtr ptr) => NativePtr = ptr;");
-
-            if (_propertyInstances.Any())
-            {
-                context.WriteLine();
-            }
-
             for (var j = 0; j < _propertyInstances.Count; j++)
             {
-                _propertyInstances[j].Generate(this, enumCache, context);
-
-                if (j != _propertyInstances.Count - 1)
-                {
-                    context.WriteLine();
-                }
-            }
-
-            if (_selectorInstances.Any())
-            {
-                context.WriteLine();
-            }
-
-            foreach (var selector in _selectorInstances)
-            {
-                context.WriteLine($"private static readonly Selector {selector.Name} = \"{selector.Selector}\";");
+                _propertyInstances[j].Generate(enumCache, context);
             }
 
             context.LeaveScope();
@@ -112,11 +78,6 @@ namespace SharpMetal.Generator.Instances
             }
 
             return instance;
-        }
-
-        public List<SelectorInstance> GetSelectors()
-        {
-            return _selectorInstances;
         }
     }
 }
