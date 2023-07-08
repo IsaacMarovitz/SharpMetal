@@ -15,7 +15,7 @@ namespace SharpMetal.Examples
             ObjectiveC.dlopen("/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics", 0);
 
             // Get the default device
-            var device = new MTLDevice(MTLDevice.MTLCreateSystemDefaultDevice());
+            var device = MTLDevice.CreateSystemDefaultDevice();
 
             var textureDescriptor = MTLTextureDescriptor.Texture2DDescriptor(MTLPixelFormat.R16Float, 200, 200, false);
             var renderPipelineDescriptor = new MTLRenderPipelineDescriptor();
@@ -40,7 +40,7 @@ namespace SharpMetal.Examples
             ObjectiveC.dlopen("/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics", 0);
 
             // TODO: Update this to work as `var device = MTLDevice.CreateSystemDefaultDevice();`
-            var device = new MTLDevice(MTLDevice.MTLCreateSystemDefaultDevice());
+            var device = MTLDevice.CreateSystemDefaultDevice();
             Console.WriteLine(device.MaxThreadgroupMemoryLength);
             // TODO: Fix crash that occurs when trying to use MTLSize
             // Console.WriteLine(device.MaxThreadsPerThreadgroup);

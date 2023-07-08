@@ -52,7 +52,12 @@ namespace SharpMetal.Generator.Instances
                         context.WriteLine();
                     }
                     context.WriteLine("[LibraryImport(ObjectiveC.MetalFramework)]");
-                    context.WriteLine($"public static partial IntPtr {namespacePrefix}{RawName};");
+                    context.WriteLine($"private static partial IntPtr {namespacePrefix}{RawName};");
+                    context.WriteLine();
+                    context.WriteLine($"public static {ReturnType} {RawName}");
+                    context.EnterScope();
+                    context.WriteLine($"return new({namespacePrefix}{RawName});");
+                    context.LeaveScope();
                 }
             }
             else
