@@ -303,6 +303,22 @@ namespace SharpMetal.Metal
 
         public ulong MaximumConcurrentCompilationTaskCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maximumConcurrentCompilationTaskCount);
 
+        [LibraryImport(ObjectiveC.MetalFramework)]
+        private static partial IntPtr MTLCreateSystemDefaultDevice();
+
+        public static MTLDevice CreateSystemDefaultDevice()
+        {
+            return new(MTLCreateSystemDefaultDevice());
+        }
+
+        [LibraryImport(ObjectiveC.MetalFramework)]
+        private static partial IntPtr MTLCopyAllDevices();
+
+        public static NSArray CopyAllDevices()
+        {
+            return new(MTLCopyAllDevices());
+        }
+
         public MTLCommandQueue NewCommandQueue(ulong maxCommandBufferCount)
         {
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newCommandQueueWithMaxCommandBufferCount, maxCommandBufferCount));

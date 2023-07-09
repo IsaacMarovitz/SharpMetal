@@ -6,14 +6,16 @@ namespace SharpMetal.Generator.Instances
         public string Name;
         public string RawName;
         public bool IsStatic;
+        public bool Unscoped;
         public List<PropertyInstance> InputInstances;
 
-        public MethodInstance(string returnType, string name, string rawName, bool isStatic, List<PropertyInstance> inputInstances)
+        public MethodInstance(string returnType, string name, string rawName, bool isStatic, bool unscoped, List<PropertyInstance> inputInstances)
         {
             ReturnType = returnType;
             Name = name;
             RawName = rawName;
             IsStatic = isStatic;
+            Unscoped = unscoped;
             InputInstances = inputInstances;
         }
 
@@ -44,20 +46,20 @@ namespace SharpMetal.Generator.Instances
 
             if (selector == null)
             {
-                // if (RawName != "lock()" && RawName != "unlock()" && RawName != "release()")
-                // {
-                //     if (prependSpace)
-                //     {
-                //         context.WriteLine();
-                //     }
-                //     context.WriteLine("[LibraryImport(ObjectiveC.MetalFramework)]");
-                //     context.WriteLine($"private static partial IntPtr {namespacePrefix}{RawName};");
-                //     context.WriteLine();
-                //     context.WriteLine($"public static {ReturnType} {RawName}");
-                //     context.EnterScope();
-                //     context.WriteLine($"return new({namespacePrefix}{RawName});");
-                //     context.LeaveScope();
-                // }
+                if (RawName != "lock()" && RawName != "unlock()" && RawName != "release()" && Unscoped)
+                {
+                    if (prependSpace)
+                    {
+                        context.WriteLine();
+                    }
+                    context.WriteLine("[LibraryImport(ObjectiveC.MetalFramework)]");
+                    context.WriteLine($"private static partial IntPtr {namespacePrefix}{RawName};");
+                    context.WriteLine();
+                    context.WriteLine($"public static {ReturnType} {RawName}");
+                    context.EnterScope();
+                    context.WriteLine($"return new({namespacePrefix}{RawName});");
+                    context.LeaveScope();
+                }
             }
             else
             {
