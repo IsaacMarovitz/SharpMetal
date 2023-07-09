@@ -1,6 +1,6 @@
 namespace SharpMetal.Generator.Instances
 {
-    public class ObjectiveCInstance : IEquatable<ObjectiveCInstance>
+    public class ObjectiveCInstance : IEquatable<ObjectiveCInstance>, IComparable<ObjectiveCInstance>
     {
         public string Type;
         public List<string> Inputs;
@@ -70,6 +70,13 @@ namespace SharpMetal.Generator.Instances
             hashCode.Add(Type);
 
             return hashCode.ToHashCode();
+        }
+
+        public int CompareTo(ObjectiveCInstance? other)
+        {
+            if (ReferenceEquals(this, other)) return 0;
+            if (ReferenceEquals(null, other)) return 1;
+            return string.Compare(Type, other.Type, StringComparison.Ordinal);
         }
     }
 }

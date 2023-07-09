@@ -210,6 +210,7 @@ namespace SharpMetal.Generator
             context.EnterScope();
 
             var list = objectiveCInstances.ToList();
+            list.Sort();
 
             for (var i = 0; i < list.Count; i++)
             {

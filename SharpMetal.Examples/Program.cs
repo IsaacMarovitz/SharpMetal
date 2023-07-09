@@ -41,8 +41,7 @@ namespace SharpMetal.Examples
 
             var device = MTLDevice.CreateSystemDefaultDevice();
             Console.WriteLine(device.MaxThreadgroupMemoryLength);
-            // TODO: Fix crash that occurs when trying to use MTLSize
-            Console.WriteLine(device.MaxThreadsPerThreadgroup);
+            Console.WriteLine(device.MaxThreadsPerThreadgroup.depth);
             Console.WriteLine(device.SupportsRaytracing);
             Console.WriteLine(device.SupportsPrimitiveMotionBlur);
             Console.WriteLine(device.SupportsRaytracingFromRender);
