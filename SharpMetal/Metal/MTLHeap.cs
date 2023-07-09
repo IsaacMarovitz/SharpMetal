@@ -66,41 +66,6 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setType, (long)value);
         }
 
-        public void SetSize(ulong size)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSize, size);
-        }
-
-        public void SetStorageMode(MTLStorageMode storageMode)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStorageMode, (ulong)storageMode);
-        }
-
-        public void SetCpuCacheMode(MTLCPUCacheMode cpuCacheMode)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setCpuCacheMode, (ulong)cpuCacheMode);
-        }
-
-        public void SetSparsePageSize(MTLSparsePageSize sparsePageSize)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSparsePageSize, (long)sparsePageSize);
-        }
-
-        public void SetHazardTrackingMode(MTLHazardTrackingMode hazardTrackingMode)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setHazardTrackingMode, (ulong)hazardTrackingMode);
-        }
-
-        public void SetResourceOptions(MTLResourceOptions resourceOptions)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setResourceOptions, (ulong)resourceOptions);
-        }
-
-        public void SetType(MTLHeapType type)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setType, (long)type);
-        }
-
         private static readonly Selector sel_size = "size";
         private static readonly Selector sel_setSize = "setSize:";
         private static readonly Selector sel_storageMode = "storageMode";
@@ -147,11 +112,6 @@ namespace SharpMetal.Metal
         public ulong CurrentAllocatedSize => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_currentAllocatedSize);
 
         public MTLHeapType Type => (MTLHeapType)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_type);
-
-        public void SetLabel(NSString label)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, label);
-        }
 
         public ulong MaxAvailableSize(ulong alignment)
         {

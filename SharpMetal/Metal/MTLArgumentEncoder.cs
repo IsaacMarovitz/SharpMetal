@@ -23,11 +23,6 @@ namespace SharpMetal.Metal
 
         public ulong Alignment => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_alignment);
 
-        public void SetLabel(NSString label)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, label);
-        }
-
         public void SetArgumentBuffer(MTLBuffer argumentBuffer, ulong offset)
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setArgumentBufferoffset, argumentBuffer, offset);

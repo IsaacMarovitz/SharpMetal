@@ -94,11 +94,6 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_signalEventvalue, mltEvent, value);
         }
 
-        public void SetLabel(NSString label)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, label);
-        }
-
         private static readonly Selector sel_loadBytessizesourceHandlesourceHandleOffset = "loadBytes:size:sourceHandle:sourceHandleOffset:";
         private static readonly Selector sel_loadBufferoffsetsizesourceHandlesourceHandleOffset = "loadBuffer:offset:size:sourceHandle:sourceHandleOffset:";
         private static readonly Selector sel_loadTextureslicelevelsizesourceBytesPerRowsourceBytesPerImagedestinationOriginsourceHandlesourceHandleOffset = "loadTexture:slice:level:size:sourceBytesPerRow:sourceBytesPerImage:destinationOrigin:sourceHandle:sourceHandleOffset:";

@@ -94,11 +94,6 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setUsage, (ulong)value);
         }
 
-        public void SetUsage(MTLAccelerationStructureUsage usage)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setUsage, (ulong)usage);
-        }
-
         private static readonly Selector sel_usage = "usage";
         private static readonly Selector sel_setUsage = "setUsage:";
     }
@@ -162,46 +157,6 @@ namespace SharpMetal.Metal
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_primitiveDataElementSize);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataElementSize, value);
-        }
-
-        public void SetIntersectionFunctionTableOffset(ulong intersectionFunctionTableOffset)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIntersectionFunctionTableOffset, intersectionFunctionTableOffset);
-        }
-
-        public void SetOpaque(bool opaque)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOpaque, opaque);
-        }
-
-        public void SetAllowDuplicateIntersectionFunctionInvocation(bool allowDuplicateIntersectionFunctionInvocation)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAllowDuplicateIntersectionFunctionInvocation, allowDuplicateIntersectionFunctionInvocation);
-        }
-
-        public void SetLabel(NSString label)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, label);
-        }
-
-        public void SetPrimitiveDataBuffer(MTLBuffer primitiveDataBuffer)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataBuffer, primitiveDataBuffer);
-        }
-
-        public void SetPrimitiveDataBufferOffset(ulong primitiveDataBufferOffset)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataBufferOffset, primitiveDataBufferOffset);
-        }
-
-        public void SetPrimitiveDataStride(ulong primitiveDataStride)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataStride, primitiveDataStride);
-        }
-
-        public void SetPrimitiveDataElementSize(ulong primitiveDataElementSize)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataElementSize, primitiveDataElementSize);
         }
 
         private static readonly Selector sel_intersectionFunctionTableOffset = "intersectionFunctionTableOffset";
@@ -269,36 +224,6 @@ namespace SharpMetal.Metal
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_motionKeyframeCount);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMotionKeyframeCount, value);
-        }
-
-        public void SetGeometryDescriptors(NSArray geometryDescriptors)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setGeometryDescriptors, geometryDescriptors);
-        }
-
-        public void SetMotionStartBorderMode(MTLMotionBorderMode motionStartBorderMode)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMotionStartBorderMode, (uint)motionStartBorderMode);
-        }
-
-        public void SetMotionEndBorderMode(MTLMotionBorderMode motionEndBorderMode)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMotionEndBorderMode, (uint)motionEndBorderMode);
-        }
-
-        public void SetMotionStartTime(float motionStartTime)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMotionStartTime, motionStartTime);
-        }
-
-        public void SetMotionEndTime(float motionEndTime)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMotionEndTime, motionEndTime);
-        }
-
-        public void SetMotionKeyframeCount(ulong motionKeyframeCount)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMotionKeyframeCount, motionKeyframeCount);
         }
 
         private static readonly Selector sel_geometryDescriptors = "geometryDescriptors";
@@ -389,56 +314,6 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTransformationMatrixBufferOffset, value);
         }
 
-        public void SetVertexBuffer(MTLBuffer vertexBuffer)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexBuffer, vertexBuffer);
-        }
-
-        public void SetVertexBufferOffset(ulong vertexBufferOffset)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexBufferOffset, vertexBufferOffset);
-        }
-
-        public void SetVertexFormat(MTLAttributeFormat vertexFormat)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexFormat, (ulong)vertexFormat);
-        }
-
-        public void SetVertexStride(ulong vertexStride)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexStride, vertexStride);
-        }
-
-        public void SetIndexBuffer(MTLBuffer indexBuffer)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIndexBuffer, indexBuffer);
-        }
-
-        public void SetIndexBufferOffset(ulong indexBufferOffset)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIndexBufferOffset, indexBufferOffset);
-        }
-
-        public void SetIndexType(MTLIndexType indexType)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIndexType, (ulong)indexType);
-        }
-
-        public void SetTriangleCount(ulong triangleCount)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTriangleCount, triangleCount);
-        }
-
-        public void SetTransformationMatrixBuffer(MTLBuffer transformationMatrixBuffer)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTransformationMatrixBuffer, transformationMatrixBuffer);
-        }
-
-        public void SetTransformationMatrixBufferOffset(ulong transformationMatrixBufferOffset)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTransformationMatrixBufferOffset, transformationMatrixBufferOffset);
-        }
-
         private static readonly Selector sel_vertexBuffer = "vertexBuffer";
         private static readonly Selector sel_setVertexBuffer = "setVertexBuffer:";
         private static readonly Selector sel_vertexBufferOffset = "vertexBufferOffset";
@@ -499,26 +374,6 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBoundingBoxCount, value);
         }
 
-        public void SetBoundingBoxBuffer(MTLBuffer boundingBoxBuffer)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBoundingBoxBuffer, boundingBoxBuffer);
-        }
-
-        public void SetBoundingBoxBufferOffset(ulong boundingBoxBufferOffset)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBoundingBoxBufferOffset, boundingBoxBufferOffset);
-        }
-
-        public void SetBoundingBoxStride(ulong boundingBoxStride)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBoundingBoxStride, boundingBoxStride);
-        }
-
-        public void SetBoundingBoxCount(ulong boundingBoxCount)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBoundingBoxCount, boundingBoxCount);
-        }
-
         private static readonly Selector sel_boundingBoxBuffer = "boundingBoxBuffer";
         private static readonly Selector sel_setBoundingBoxBuffer = "setBoundingBoxBuffer:";
         private static readonly Selector sel_boundingBoxBufferOffset = "boundingBoxBufferOffset";
@@ -553,16 +408,6 @@ namespace SharpMetal.Metal
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_offset);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOffset, value);
-        }
-
-        public void SetBuffer(MTLBuffer buffer)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBuffer, buffer);
-        }
-
-        public void SetOffset(ulong offset)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOffset, offset);
         }
 
         private static readonly Selector sel_buffer = "buffer";
@@ -639,51 +484,6 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTransformationMatrixBufferOffset, value);
         }
 
-        public void SetVertexBuffers(NSArray vertexBuffers)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexBuffers, vertexBuffers);
-        }
-
-        public void SetVertexFormat(MTLAttributeFormat vertexFormat)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexFormat, (ulong)vertexFormat);
-        }
-
-        public void SetVertexStride(ulong vertexStride)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexStride, vertexStride);
-        }
-
-        public void SetIndexBuffer(MTLBuffer indexBuffer)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIndexBuffer, indexBuffer);
-        }
-
-        public void SetIndexBufferOffset(ulong indexBufferOffset)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIndexBufferOffset, indexBufferOffset);
-        }
-
-        public void SetIndexType(MTLIndexType indexType)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIndexType, (ulong)indexType);
-        }
-
-        public void SetTriangleCount(ulong triangleCount)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTriangleCount, triangleCount);
-        }
-
-        public void SetTransformationMatrixBuffer(MTLBuffer transformationMatrixBuffer)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTransformationMatrixBuffer, transformationMatrixBuffer);
-        }
-
-        public void SetTransformationMatrixBufferOffset(ulong transformationMatrixBufferOffset)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTransformationMatrixBufferOffset, transformationMatrixBufferOffset);
-        }
-
         private static readonly Selector sel_vertexBuffers = "vertexBuffers";
         private static readonly Selector sel_setVertexBuffers = "setVertexBuffers:";
         private static readonly Selector sel_vertexFormat = "vertexFormat";
@@ -734,21 +534,6 @@ namespace SharpMetal.Metal
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_boundingBoxCount);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBoundingBoxCount, value);
-        }
-
-        public void SetBoundingBoxBuffers(NSArray boundingBoxBuffers)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBoundingBoxBuffers, boundingBoxBuffers);
-        }
-
-        public void SetBoundingBoxStride(ulong boundingBoxStride)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBoundingBoxStride, boundingBoxStride);
-        }
-
-        public void SetBoundingBoxCount(ulong boundingBoxCount)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBoundingBoxCount, boundingBoxCount);
         }
 
         private static readonly Selector sel_boundingBoxBuffers = "boundingBoxBuffers";
@@ -825,51 +610,6 @@ namespace SharpMetal.Metal
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_motionTransformCount);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMotionTransformCount, value);
-        }
-
-        public void SetInstanceDescriptorBuffer(MTLBuffer instanceDescriptorBuffer)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInstanceDescriptorBuffer, instanceDescriptorBuffer);
-        }
-
-        public void SetInstanceDescriptorBufferOffset(ulong instanceDescriptorBufferOffset)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInstanceDescriptorBufferOffset, instanceDescriptorBufferOffset);
-        }
-
-        public void SetInstanceDescriptorStride(ulong instanceDescriptorStride)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInstanceDescriptorStride, instanceDescriptorStride);
-        }
-
-        public void SetInstanceCount(ulong instanceCount)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInstanceCount, instanceCount);
-        }
-
-        public void SetInstancedAccelerationStructures(NSArray instancedAccelerationStructures)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInstancedAccelerationStructures, instancedAccelerationStructures);
-        }
-
-        public void SetInstanceDescriptorType(MTLAccelerationStructureInstanceDescriptorType instanceDescriptorType)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInstanceDescriptorType, (ulong)instanceDescriptorType);
-        }
-
-        public void SetMotionTransformBuffer(MTLBuffer motionTransformBuffer)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMotionTransformBuffer, motionTransformBuffer);
-        }
-
-        public void SetMotionTransformBufferOffset(ulong motionTransformBufferOffset)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMotionTransformBufferOffset, motionTransformBufferOffset);
-        }
-
-        public void SetMotionTransformCount(ulong motionTransformCount)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMotionTransformCount, motionTransformCount);
         }
 
         private static readonly Selector sel_instanceDescriptorBuffer = "instanceDescriptorBuffer";

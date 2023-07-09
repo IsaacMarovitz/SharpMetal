@@ -11,9 +11,8 @@ namespace SharpMetal.Generator.Instances
             Name = name;
         }
 
-        public ObjectiveCInstance Generate(ClassInstance instance, List<EnumInstance> enumCache, List<StructInstance> structCache, CodeGenContext context)
+        public ObjectiveCInstance Generate(List<SelectorInstance> selectorInstances, List<EnumInstance> enumCache, List<StructInstance> structCache, CodeGenContext context)
         {
-            var selectorInstances = instance.GetSelectors();
             var selector = selectorInstances.Find(x => x.Selector.ToLower() == Name.ToLower());
             var objcInstance = new ObjectiveCInstance("", new List<string>());
 
@@ -25,6 +24,7 @@ namespace SharpMetal.Generator.Instances
 
             if (selector != null)
             {
+                selectorInstances.Remove(selector);
                 // We assume a type of IntPtr, which encapsulates any possible type
                 var runtimeFuncReturn = "IntPtr";
                 var setterSelector = selectorInstances.Find(x => x.Selector.ToLower().Contains("set" + selector.Selector.ToLower()));
@@ -36,91 +36,69 @@ namespace SharpMetal.Generator.Instances
                     runtimeFuncReturn = Type;
                 }
 
-                // Return type of IntPtr could either mean it returns a struct of some kind
-                // or it returns an enum value, so we need to check if an enum with a matching
-                // name exists.
-                if (runtimeFuncReturn == "IntPtr")
+                var enumInstance = enumCache.Find(x => x.Name == Type);
+                var structInstance = structCache.Find(x => x.Name == Type);
+
+                if (setterSelector != null)
                 {
-                    var enumInstance = enumCache.Find(x => x.Name == Type);
-                    var structInstance = structCache.Find(x => x.Name == Type);
+                    selectorInstances.Remove(setterSelector);
+                    context.WriteLine($"public {Type} {Name}");
+                    context.EnterScope();
 
                     if (enumInstance != null)
                     {
                         objcInstance.Type = enumInstance.Type;
-                        if (setterSelector != null)
-                        {
-                            context.WriteLine($"public {Type} {Name}");
-                            context.EnterScope();
 
-                            context.WriteLine($"get => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend(NativePtr, {selector.Name});");
-                            context.WriteLine($"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, ({enumInstance.Type})value);");
-
-                            context.LeaveScope();
-                        }
-                        else
-                        {
-                            context.WriteLine($"public {Type} {Name} => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend(NativePtr, {selector.Name});");
-                        }
+                        context.WriteLine($"get => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend(NativePtr, {selector.Name});");
+                        context.WriteLine($"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, ({enumInstance.Type})value);");
                     }
                     else if (structInstance != null)
                     {
                         objcInstance.Type = structInstance.Name;
-                        if (setterSelector != null)
-                        {
-                            context.WriteLine($"public {Type} {Name}");
-                            context.EnterScope();
 
-                            context.WriteLine($"get => ObjectiveCRuntime.{structInstance.Name}_objc_msgSend(NativePtr, {selector.Name});");
-                            context.WriteLine($"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, value);");
-
-                            context.LeaveScope();
-                        }
-                        else
-                        {
-                            context.WriteLine($"public {Type} {Name} => ObjectiveCRuntime.{structInstance.Name}_objc_msgSend(NativePtr, {selector.Name});");
-                        }
+                        context.WriteLine($"get => ObjectiveCRuntime.{structInstance.Name}_objc_msgSend(NativePtr, {selector.Name});");
+                        context.WriteLine($"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, value);");
                     }
                     else
                     {
                         objcInstance.Type = runtimeFuncReturn;
-                        if (setterSelector != null)
-                        {
-                            context.WriteLine($"public {Type} {Name}");
-                            context.EnterScope();
 
+                        if (runtimeFuncReturn == "IntPtr")
+                        {
                             context.WriteLine($"get => new(ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name}));");
                             context.WriteLine($"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, value);");
-
-                            context.LeaveScope();
                         }
                         else
                         {
-                            context.WriteLine($"public {Type} {Name} => new(ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name}));");
+                            context.WriteLine($"get => ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name});");
+                            context.WriteLine($"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, value);");
                         }
                     }
+
+                    context.LeaveScope();
                 }
                 else
                 {
-                    objcInstance.Type = runtimeFuncReturn;
-                    if (setterSelector != null)
+                    if (enumInstance != null)
                     {
-                        context.WriteLine($"public {Type} {Name}");
-                        context.EnterScope();
-
-                        context.WriteLine($"get => ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name});");
-                        context.WriteLine($"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, value);");
-
-                        context.LeaveScope();
+                        context.WriteLine($"public {Type} {Name} => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend(NativePtr, {selector.Name});");
+                    }
+                    else if (structInstance != null)
+                    {
+                        context.WriteLine($"public {Type} {Name} => ObjectiveCRuntime.{structInstance.Name}_objc_msgSend(NativePtr, {selector.Name});");
                     }
                     else
                     {
-                        context.WriteLine($"public {Type} {Name} => ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name});");
+                        if (runtimeFuncReturn == "IntPtr")
+                        {
+                            context.WriteLine($"public {Type} {Name} => new(ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name}));");
+                        }
+                        else
+                        {
+                            context.WriteLine($"public {Type} {Name} => ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name});");
+                        }
                     }
                 }
-            }
-            else
-            {
-                context.WriteLine($"public {Type} {Name};");
             }
 
             return objcInstance;

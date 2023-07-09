@@ -78,41 +78,6 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSupportRayTracing, value);
         }
 
-        public void SetCommandTypes(MTLIndirectCommandType commandTypes)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setCommandTypes, (ulong)commandTypes);
-        }
-
-        public void SetInheritPipelineState(bool inheritPipelineState)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInheritPipelineState, inheritPipelineState);
-        }
-
-        public void SetInheritBuffers(bool inheritBuffers)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInheritBuffers, inheritBuffers);
-        }
-
-        public void SetMaxVertexBufferBindCount(ulong maxVertexBufferBindCount)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxVertexBufferBindCount, maxVertexBufferBindCount);
-        }
-
-        public void SetMaxFragmentBufferBindCount(ulong maxFragmentBufferBindCount)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxFragmentBufferBindCount, maxFragmentBufferBindCount);
-        }
-
-        public void SetMaxKernelBufferBindCount(ulong maxKernelBufferBindCount)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxKernelBufferBindCount, maxKernelBufferBindCount);
-        }
-
-        public void SetSupportRayTracing(bool supportRayTracing)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSupportRayTracing, supportRayTracing);
-        }
-
         private static readonly Selector sel_commandTypes = "commandTypes";
         private static readonly Selector sel_setCommandTypes = "setCommandTypes:";
         private static readonly Selector sel_inheritPipelineState = "inheritPipelineState";

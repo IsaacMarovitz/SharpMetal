@@ -17,7 +17,7 @@ namespace SharpMetal.Generator.Instances
             InputInstances = inputInstances;
         }
 
-        public ObjectiveCInstance Generate(List<EnumInstance> enumCache, List<StructInstance> structCache, ClassInstance instance, CodeGenContext context, string namespacePrefix, bool prependSpace = true)
+        public ObjectiveCInstance Generate(List<SelectorInstance> selectorInstances, List<EnumInstance> enumCache, List<StructInstance> structCache, CodeGenContext context, string namespacePrefix, bool prependSpace = true)
         {
             var rawNameComponents = RawName.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
             for (var index = 0; index < rawNameComponents.Length; index++)
@@ -40,25 +40,24 @@ namespace SharpMetal.Generator.Instances
             RawName = RawName.Replace("MTL::", "");
             RawName = RawName.Replace("NS::", "");
 
-            var selectorInstances = instance.GetSelectors();
             var selector = selectorInstances.Find(x => x.RawName.ToLower().Replace(" class ", " ").Replace("mtl::", "").Replace("ns::", "").Contains(RawName.ToLower()));
 
             if (selector == null)
             {
-                if (RawName != "lock()" && RawName != "unlock()" && RawName != "release()")
-                {
-                    if (prependSpace)
-                    {
-                        context.WriteLine();
-                    }
-                    context.WriteLine("[LibraryImport(ObjectiveC.MetalFramework)]");
-                    context.WriteLine($"private static partial IntPtr {namespacePrefix}{RawName};");
-                    context.WriteLine();
-                    context.WriteLine($"public static {ReturnType} {RawName}");
-                    context.EnterScope();
-                    context.WriteLine($"return new({namespacePrefix}{RawName});");
-                    context.LeaveScope();
-                }
+                // if (RawName != "lock()" && RawName != "unlock()" && RawName != "release()")
+                // {
+                //     if (prependSpace)
+                //     {
+                //         context.WriteLine();
+                //     }
+                //     context.WriteLine("[LibraryImport(ObjectiveC.MetalFramework)]");
+                //     context.WriteLine($"private static partial IntPtr {namespacePrefix}{RawName};");
+                //     context.WriteLine();
+                //     context.WriteLine($"public static {ReturnType} {RawName}");
+                //     context.EnterScope();
+                //     context.WriteLine($"return new({namespacePrefix}{RawName});");
+                //     context.LeaveScope();
+                // }
             }
             else
             {

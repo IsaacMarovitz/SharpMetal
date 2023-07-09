@@ -92,9 +92,11 @@ namespace SharpMetal.Generator.Instances
                 context.WriteLine();
             }
 
+            var selectorInstances = new List<SelectorInstance>(_selectorInstances);
+
             for (var j = 0; j < _propertyInstances.Count; j++)
             {
-                objectiveCInstances.Add(_propertyInstances[j].Generate(this, enumCache, structCache, context));
+                objectiveCInstances.Add(_propertyInstances[j].Generate(selectorInstances, enumCache, structCache, context));
 
                 if (j != _propertyInstances.Count - 1)
                 {
@@ -104,7 +106,7 @@ namespace SharpMetal.Generator.Instances
 
             foreach (var method in _methodInstances)
             {
-                objectiveCInstances.Add(method.Generate(enumCache, structCache, this, context, NamespacePrefix));
+                objectiveCInstances.Add(method.Generate(selectorInstances, enumCache, structCache, context, NamespacePrefix));
             }
 
             if (_selectorInstances.Any())

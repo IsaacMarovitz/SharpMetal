@@ -30,11 +30,6 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMutability, (ulong)value);
         }
 
-        public void SetMutability(MTLMutability mutability)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMutability, (ulong)mutability);
-        }
-
         private static readonly Selector sel_mutability = "mutability";
         private static readonly Selector sel_setMutability = "setMutability:";
     }

@@ -76,16 +76,6 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setErrorOptions, (ulong)value);
         }
 
-        public void SetRetainedReferences(bool retainedReferences)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRetainedReferences, retainedReferences);
-        }
-
-        public void SetErrorOptions(MTLCommandBufferErrorOption errorOptions)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setErrorOptions, (ulong)errorOptions);
-        }
-
         private static readonly Selector sel_retainedReferences = "retainedReferences";
         private static readonly Selector sel_setRetainedReferences = "setRetainedReferences:";
         private static readonly Selector sel_errorOptions = "errorOptions";
@@ -144,11 +134,6 @@ namespace SharpMetal.Metal
         public MTLCommandBufferStatus Status => (MTLCommandBufferStatus)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_status);
 
         public NSError Error => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_error));
-
-        public void SetLabel(NSString label)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, label);
-        }
 
         public void Enqueue()
         {

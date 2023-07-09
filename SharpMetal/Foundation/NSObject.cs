@@ -10,11 +10,8 @@ namespace SharpMetal.Foundation
         public static implicit operator IntPtr(NS_NS_EXPORT obj) => obj.NativePtr;
         public NS_NS_EXPORT(IntPtr ptr) => NativePtr = ptr;
 
-        public IntPtr Retain;
 
-        public IntPtr Autorelease;
 
-        public ulong RetainCount;
     }
 
     [SupportedOSPlatform("macos")]
@@ -24,7 +21,6 @@ namespace SharpMetal.Foundation
         public static implicit operator IntPtr(NSCopying obj) => obj.NativePtr;
         public NSCopying(IntPtr ptr) => NativePtr = ptr;
 
-        public IntPtr Copy;
     }
 
     [SupportedOSPlatform("macos")]

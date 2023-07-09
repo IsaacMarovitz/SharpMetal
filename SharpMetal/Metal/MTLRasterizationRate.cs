@@ -70,11 +70,6 @@ namespace SharpMetal.Metal
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithSampleCounthorizontalvertical, sampleCount, horizontal, vertical));
         }
 
-        public void SetSampleCount(MTLSize sampleCount)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSampleCount, sampleCount);
-        }
-
         private static readonly Selector sel_initWithSampleCount = "initWithSampleCount:";
         private static readonly Selector sel_initWithSampleCounthorizontalvertical = "initWithSampleCount:horizontal:vertical:";
         private static readonly Selector sel_sampleCount = "sampleCount";
@@ -165,16 +160,6 @@ namespace SharpMetal.Metal
         public void SetLayer(MTLRasterizationRateLayerDescriptor layer, ulong layerIndex)
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLayeratIndex, layer, layerIndex);
-        }
-
-        public void SetScreenSize(MTLSize screenSize)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setScreenSize, screenSize);
-        }
-
-        public void SetLabel(NSString label)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, label);
         }
 
         private static readonly Selector sel_rasterizationRateMapDescriptorWithScreenSize = "rasterizationRateMapDescriptorWithScreenSize:";

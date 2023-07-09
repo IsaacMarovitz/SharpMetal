@@ -35,21 +35,6 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setEndOfEncoderSampleIndex, value);
         }
 
-        public void SetSampleBuffer(MTLCounterSampleBuffer sampleBuffer)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSampleBuffer, sampleBuffer);
-        }
-
-        public void SetStartOfEncoderSampleIndex(ulong startOfEncoderSampleIndex)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStartOfEncoderSampleIndex, startOfEncoderSampleIndex);
-        }
-
-        public void SetEndOfEncoderSampleIndex(ulong endOfEncoderSampleIndex)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setEndOfEncoderSampleIndex, endOfEncoderSampleIndex);
-        }
-
         private static readonly Selector sel_sampleBuffer = "sampleBuffer";
         private static readonly Selector sel_setSampleBuffer = "setSampleBuffer:";
         private static readonly Selector sel_startOfEncoderSampleIndex = "startOfEncoderSampleIndex";

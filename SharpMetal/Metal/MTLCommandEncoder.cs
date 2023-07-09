@@ -33,11 +33,6 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
         }
 
-        public void SetLabel(NSString label)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, label);
-        }
-
         public void EndEncoding()
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_endEncoding);

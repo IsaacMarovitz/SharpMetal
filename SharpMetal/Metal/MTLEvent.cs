@@ -19,11 +19,6 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
         }
 
-        public void SetLabel(NSString label)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, label);
-        }
-
         private static readonly Selector sel_device = "device";
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_setLabel = "setLabel:";
@@ -71,11 +66,6 @@ namespace SharpMetal.Metal
         public void NotifyListener(MTLSharedEventListener listener, ulong value, IntPtr block)
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_notifyListeneratValueblock, listener, value, block);
-        }
-
-        public void SetSignaledValue(ulong signaledValue)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSignaledValue, signaledValue);
         }
 
         private static readonly Selector sel_notifyListeneratValueblock = "notifyListener:atValue:block:";

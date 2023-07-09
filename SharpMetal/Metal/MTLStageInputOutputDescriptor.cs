@@ -110,21 +110,6 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStepRate, value);
         }
 
-        public void SetStride(ulong stride)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStride, stride);
-        }
-
-        public void SetStepFunction(MTLStepFunction stepFunction)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStepFunction, (ulong)stepFunction);
-        }
-
-        public void SetStepRate(ulong stepRate)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStepRate, stepRate);
-        }
-
         private static readonly Selector sel_stride = "stride";
         private static readonly Selector sel_setStride = "setStride:";
         private static readonly Selector sel_stepFunction = "stepFunction";
@@ -191,21 +176,6 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBufferIndex, value);
         }
 
-        public void SetFormat(MTLAttributeFormat format)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFormat, (ulong)format);
-        }
-
-        public void SetOffset(ulong offset)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOffset, offset);
-        }
-
-        public void SetBufferIndex(ulong bufferIndex)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBufferIndex, bufferIndex);
-        }
-
         private static readonly Selector sel_format = "format";
         private static readonly Selector sel_setFormat = "setFormat:";
         private static readonly Selector sel_offset = "offset";
@@ -268,16 +238,6 @@ namespace SharpMetal.Metal
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_indexBufferIndex);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIndexBufferIndex, value);
-        }
-
-        public void SetIndexType(MTLIndexType indexType)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIndexType, (ulong)indexType);
-        }
-
-        public void SetIndexBufferIndex(ulong indexBufferIndex)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIndexBufferIndex, indexBufferIndex);
         }
 
         public void Reset()

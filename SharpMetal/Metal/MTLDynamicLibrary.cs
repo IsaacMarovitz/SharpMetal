@@ -31,11 +31,6 @@ namespace SharpMetal.Metal
 
         public NSString InstallName => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_installName));
 
-        public void SetLabel(NSString label)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, label);
-        }
-
         public bool SerializeToURL(NSURL url, NSError error)
         {
             return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_serializeToURLerror, url, error);

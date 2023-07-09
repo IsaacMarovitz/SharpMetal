@@ -34,11 +34,6 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctionCount, value);
         }
 
-        public void SetFunctionCount(ulong functionCount)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctionCount, functionCount);
-        }
-
         private static readonly Selector sel_intersectionFunctionTableDescriptor = "intersectionFunctionTableDescriptor";
         private static readonly Selector sel_functionCount = "functionCount";
         private static readonly Selector sel_setFunctionCount = "setFunctionCount:";

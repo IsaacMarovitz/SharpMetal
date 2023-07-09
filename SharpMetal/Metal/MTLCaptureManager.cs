@@ -48,21 +48,6 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOutputURL, value);
         }
 
-        public void SetCaptureObject(IntPtr captureObject)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setCaptureObject, captureObject);
-        }
-
-        public void SetDestination(MTLCaptureDestination destination)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDestination, (long)destination);
-        }
-
-        public void SetOutputURL(NSURL outputURL)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOutputURL, outputURL);
-        }
-
         private static readonly Selector sel_captureObject = "captureObject";
         private static readonly Selector sel_setCaptureObject = "setCaptureObject:";
         private static readonly Selector sel_destination = "destination";
@@ -135,11 +120,6 @@ namespace SharpMetal.Metal
         public void StopCapture()
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_stopCapture);
-        }
-
-        public void SetDefaultCaptureScope(MTLCaptureScope defaultCaptureScope)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDefaultCaptureScope, defaultCaptureScope);
         }
 
         private static readonly Selector sel_sharedCaptureManager = "sharedCaptureManager";

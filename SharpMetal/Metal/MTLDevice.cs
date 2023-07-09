@@ -192,36 +192,6 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setConstantBlockAlignment, value);
         }
 
-        public void SetDataType(MTLDataType dataType)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDataType, (ulong)dataType);
-        }
-
-        public void SetIndex(ulong index)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIndex, index);
-        }
-
-        public void SetArrayLength(ulong arrayLength)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setArrayLength, arrayLength);
-        }
-
-        public void SetAccess(MTLArgumentAccess access)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAccess, (ulong)access);
-        }
-
-        public void SetTextureType(MTLTextureType textureType)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTextureType, (ulong)textureType);
-        }
-
-        public void SetConstantBlockAlignment(ulong constantBlockAlignment)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setConstantBlockAlignment, constantBlockAlignment);
-        }
-
         private static readonly Selector sel_argumentDescriptor = "argumentDescriptor";
         private static readonly Selector sel_dataType = "dataType";
         private static readonly Selector sel_setDataType = "setDataType:";
@@ -254,7 +224,6 @@ namespace SharpMetal.Metal
 
         public bool LowPower => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isLowPower);
 
-        public bool Headless => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isHeadless);
 
         public bool Removable => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isRemovable);
 
@@ -333,22 +302,6 @@ namespace SharpMetal.Metal
         }
 
         public ulong MaximumConcurrentCompilationTaskCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maximumConcurrentCompilationTaskCount);
-
-        [LibraryImport(ObjectiveC.MetalFramework)]
-        private static partial IntPtr MTLCreateSystemDefaultDevice();
-
-        public static MTLDevice CreateSystemDefaultDevice()
-        {
-            return new(MTLCreateSystemDefaultDevice());
-        }
-
-        [LibraryImport(ObjectiveC.MetalFramework)]
-        private static partial IntPtr MTLCopyAllDevices();
-
-        public static NSArray CopyAllDevices()
-        {
-            return new(MTLCopyAllDevices());
-        }
 
         public MTLCommandQueue NewCommandQueue(ulong maxCommandBufferCount)
         {
@@ -653,11 +606,6 @@ namespace SharpMetal.Metal
         public MTLSizeAndAlign HeapAccelerationStructureSizeAndAlign(MTLAccelerationStructureDescriptor descriptor)
         {
             return ObjectiveCRuntime.MTLSizeAndAlign_objc_msgSend(NativePtr, sel_heapAccelerationStructureSizeAndAlignWithDescriptor, descriptor);
-        }
-
-        public void SetShouldMaximizeConcurrentCompilation(bool shouldMaximizeConcurrentCompilation)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setShouldMaximizeConcurrentCompilation, shouldMaximizeConcurrentCompilation);
         }
 
         private static readonly Selector sel_name = "name";

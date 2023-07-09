@@ -53,31 +53,6 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBinaryArchives, value);
         }
 
-        public void SetName(NSString name)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setName, name);
-        }
-
-        public void SetSpecializedName(NSString specializedName)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSpecializedName, specializedName);
-        }
-
-        public void SetConstantValues(MTLFunctionConstantValues constantValues)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setConstantValues, constantValues);
-        }
-
-        public void SetOptions(MTLFunctionOptions options)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOptions, (ulong)options);
-        }
-
-        public void SetBinaryArchives(NSArray binaryArchives)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBinaryArchives, binaryArchives);
-        }
-
         private static readonly Selector sel_functionDescriptor = "functionDescriptor";
         private static readonly Selector sel_name = "name";
         private static readonly Selector sel_setName = "setName:";

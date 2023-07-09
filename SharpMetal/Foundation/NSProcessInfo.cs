@@ -78,11 +78,6 @@ namespace SharpMetal.Foundation
 
         public bool IsMacCatalystApp => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isMacCatalystApp);
 
-        public void SetProcessName(NSString pString)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setProcessName, pString);
-        }
-
         public bool IsOperatingSystemAtLeastVersion(NSOperatingSystemVersion version)
         {
             return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isOperatingSystemAtLeastVersion, version);
@@ -106,11 +101,6 @@ namespace SharpMetal.Foundation
         public void EnableAutomaticTermination(NSString pReason)
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_enableAutomaticTermination, pReason);
-        }
-
-        public void SetAutomaticTerminationSupportEnabled(bool enabled)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAutomaticTerminationSupportEnabled, enabled);
         }
 
         public NSObject BeginActivity(NSActivityOptions options, NSString pReason)

@@ -35,21 +35,6 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setEndOfEncoderSampleIndex, value);
         }
 
-        public void SetSampleBuffer(MTLCounterSampleBuffer sampleBuffer)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSampleBuffer, sampleBuffer);
-        }
-
-        public void SetStartOfEncoderSampleIndex(ulong startOfEncoderSampleIndex)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStartOfEncoderSampleIndex, startOfEncoderSampleIndex);
-        }
-
-        public void SetEndOfEncoderSampleIndex(ulong endOfEncoderSampleIndex)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setEndOfEncoderSampleIndex, endOfEncoderSampleIndex);
-        }
-
         private static readonly Selector sel_sampleBuffer = "sampleBuffer";
         private static readonly Selector sel_setSampleBuffer = "setSampleBuffer:";
         private static readonly Selector sel_startOfEncoderSampleIndex = "startOfEncoderSampleIndex";
@@ -105,11 +90,6 @@ namespace SharpMetal.Metal
         }
 
         public MTLComputePassSampleBufferAttachmentDescriptorArray SampleBufferAttachments => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_sampleBufferAttachments));
-
-        public void SetDispatchType(MTLDispatchType dispatchType)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDispatchType, (ulong)dispatchType);
-        }
 
         private static readonly Selector sel_computePassDescriptor = "computePassDescriptor";
         private static readonly Selector sel_dispatchType = "dispatchType";

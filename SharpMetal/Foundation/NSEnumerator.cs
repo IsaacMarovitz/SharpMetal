@@ -33,8 +33,6 @@ namespace SharpMetal.Foundation
         public static implicit operator IntPtr(NSEnumerator obj) => obj.NativePtr;
         public NSEnumerator(IntPtr ptr) => NativePtr = ptr;
 
-        public IntPtr NextObject;
 
-        public NSArray AllObjects;
     }
 }

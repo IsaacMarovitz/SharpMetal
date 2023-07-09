@@ -131,61 +131,6 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStoreActionOptions, (ulong)value);
         }
 
-        public void SetTexture(MTLTexture texture)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTexture, texture);
-        }
-
-        public void SetLevel(ulong level)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLevel, level);
-        }
-
-        public void SetSlice(ulong slice)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSlice, slice);
-        }
-
-        public void SetDepthPlane(ulong depthPlane)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthPlane, depthPlane);
-        }
-
-        public void SetResolveTexture(MTLTexture resolveTexture)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setResolveTexture, resolveTexture);
-        }
-
-        public void SetResolveLevel(ulong resolveLevel)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setResolveLevel, resolveLevel);
-        }
-
-        public void SetResolveSlice(ulong resolveSlice)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setResolveSlice, resolveSlice);
-        }
-
-        public void SetResolveDepthPlane(ulong resolveDepthPlane)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setResolveDepthPlane, resolveDepthPlane);
-        }
-
-        public void SetLoadAction(MTLLoadAction loadAction)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLoadAction, (ulong)loadAction);
-        }
-
-        public void SetStoreAction(MTLStoreAction storeAction)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStoreAction, (ulong)storeAction);
-        }
-
-        public void SetStoreActionOptions(MTLStoreActionOptions storeActionOptions)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStoreActionOptions, (ulong)storeActionOptions);
-        }
-
         private static readonly Selector sel_texture = "texture";
         private static readonly Selector sel_setTexture = "setTexture:";
         private static readonly Selector sel_level = "level";
@@ -229,11 +174,6 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setClearColor, value);
         }
 
-        public void SetClearColor(MTLClearColor clearColor)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setClearColor, clearColor);
-        }
-
         private static readonly Selector sel_clearColor = "clearColor";
         private static readonly Selector sel_setClearColor = "setClearColor:";
     }
@@ -261,16 +201,6 @@ namespace SharpMetal.Metal
         {
             get => (MTLMultisampleDepthResolveFilter)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_depthResolveFilter);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthResolveFilter, (ulong)value);
-        }
-
-        public void SetClearDepth(double clearDepth)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setClearDepth, clearDepth);
-        }
-
-        public void SetDepthResolveFilter(MTLMultisampleDepthResolveFilter depthResolveFilter)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthResolveFilter, (ulong)depthResolveFilter);
         }
 
         private static readonly Selector sel_clearDepth = "clearDepth";
@@ -302,16 +232,6 @@ namespace SharpMetal.Metal
         {
             get => (MTLMultisampleStencilResolveFilter)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stencilResolveFilter);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStencilResolveFilter, (ulong)value);
-        }
-
-        public void SetClearStencil(uint clearStencil)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setClearStencil, clearStencil);
-        }
-
-        public void SetStencilResolveFilter(MTLMultisampleStencilResolveFilter stencilResolveFilter)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStencilResolveFilter, (ulong)stencilResolveFilter);
         }
 
         private static readonly Selector sel_clearStencil = "clearStencil";
@@ -388,31 +308,6 @@ namespace SharpMetal.Metal
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_endOfFragmentSampleIndex);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setEndOfFragmentSampleIndex, value);
-        }
-
-        public void SetSampleBuffer(MTLCounterSampleBuffer sampleBuffer)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSampleBuffer, sampleBuffer);
-        }
-
-        public void SetStartOfVertexSampleIndex(ulong startOfVertexSampleIndex)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStartOfVertexSampleIndex, startOfVertexSampleIndex);
-        }
-
-        public void SetEndOfVertexSampleIndex(ulong endOfVertexSampleIndex)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setEndOfVertexSampleIndex, endOfVertexSampleIndex);
-        }
-
-        public void SetStartOfFragmentSampleIndex(ulong startOfFragmentSampleIndex)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStartOfFragmentSampleIndex, startOfFragmentSampleIndex);
-        }
-
-        public void SetEndOfFragmentSampleIndex(ulong endOfFragmentSampleIndex)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setEndOfFragmentSampleIndex, endOfFragmentSampleIndex);
         }
 
         private static readonly Selector sel_sampleBuffer = "sampleBuffer";
@@ -543,61 +438,6 @@ namespace SharpMetal.Metal
 
         public MTLRenderPassSampleBufferAttachmentDescriptorArray SampleBufferAttachments => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_sampleBufferAttachments));
 
-        public void SetDepthAttachment(MTLRenderPassDepthAttachmentDescriptor depthAttachment)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthAttachment, depthAttachment);
-        }
-
-        public void SetStencilAttachment(MTLRenderPassStencilAttachmentDescriptor stencilAttachment)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStencilAttachment, stencilAttachment);
-        }
-
-        public void SetVisibilityResultBuffer(MTLBuffer visibilityResultBuffer)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVisibilityResultBuffer, visibilityResultBuffer);
-        }
-
-        public void SetRenderTargetArrayLength(ulong renderTargetArrayLength)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRenderTargetArrayLength, renderTargetArrayLength);
-        }
-
-        public void SetImageblockSampleLength(ulong imageblockSampleLength)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setImageblockSampleLength, imageblockSampleLength);
-        }
-
-        public void SetThreadgroupMemoryLength(ulong threadgroupMemoryLength)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setThreadgroupMemoryLength, threadgroupMemoryLength);
-        }
-
-        public void SetTileWidth(ulong tileWidth)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTileWidth, tileWidth);
-        }
-
-        public void SetTileHeight(ulong tileHeight)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTileHeight, tileHeight);
-        }
-
-        public void SetDefaultRasterSampleCount(ulong defaultRasterSampleCount)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDefaultRasterSampleCount, defaultRasterSampleCount);
-        }
-
-        public void SetRenderTargetWidth(ulong renderTargetWidth)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRenderTargetWidth, renderTargetWidth);
-        }
-
-        public void SetRenderTargetHeight(ulong renderTargetHeight)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRenderTargetHeight, renderTargetHeight);
-        }
-
         public void SetSamplePositions(MTLSamplePosition positions, ulong count)
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSamplePositionscount, positions, count);
@@ -606,11 +446,6 @@ namespace SharpMetal.Metal
         public ulong GetSamplePositions(MTLSamplePosition positions, ulong count)
         {
             return ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_getSamplePositionscount, positions, count);
-        }
-
-        public void SetRasterizationRateMap(MTLRasterizationRateMap rasterizationRateMap)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRasterizationRateMap, rasterizationRateMap);
         }
 
         private static readonly Selector sel_renderPassDescriptor = "renderPassDescriptor";

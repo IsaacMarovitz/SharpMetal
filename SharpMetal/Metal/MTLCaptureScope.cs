@@ -21,11 +21,6 @@ namespace SharpMetal.Metal
 
         public MTLCommandQueue CommandQueue => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_commandQueue));
 
-        public void SetLabel(NSString pLabel)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, pLabel);
-        }
-
         public void BeginScope()
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_beginScope);
