@@ -52,7 +52,7 @@ namespace SharpMetal.Foundation
 
         public ulong OperatingSystem => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_operatingSystem);
 
-        public NSOperatingSystemVersion OperatingSystemVersion => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_operatingSystemVersion));
+        public NSOperatingSystemVersion OperatingSystemVersion => ObjectiveCRuntime.NSOperatingSystemVersion_objc_msgSend(NativePtr, sel_operatingSystemVersion);
 
         public NSString OperatingSystemVersionString => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_operatingSystemVersionString));
 

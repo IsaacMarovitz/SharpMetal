@@ -27,7 +27,7 @@ namespace SharpMetal.Generator.Instances
             }
         }
 
-        public void Generate(List<EnumInstance> enumCache, CodeGenContext context)
+        public void Generate(CodeGenContext context)
         {
             context.WriteLine("[SupportedOSPlatform(\"macos\")]");
             context.WriteLine("[StructLayout(LayoutKind.Sequential)]");
@@ -37,13 +37,13 @@ namespace SharpMetal.Generator.Instances
 
             for (var j = 0; j < _propertyInstances.Count; j++)
             {
-                _propertyInstances[j].Generate(enumCache, context);
+                _propertyInstances[j].Generate(context);
             }
 
             context.LeaveScope();
         }
 
-        public static StructInstance Build(string line, string namespacePrefix, StreamReader sr)
+        public static StructInstance Build(string line, string namespacePrefix, StreamReader sr, bool skipValues = false)
         {
             var structInfo = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
             var structName = namespacePrefix + structInfo[1];
@@ -62,19 +62,22 @@ namespace SharpMetal.Generator.Instances
                     continue;
                 }
 
-                if (propertyLine.Contains('(') && propertyLine.Contains(')')) continue;
+                if (!skipValues)
+                {
+                    if (propertyLine.Contains('(') && propertyLine.Contains(')')) continue;
 
-                var propertyInfo = propertyLine.Replace(";", "").Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+                    var propertyInfo = propertyLine.Replace(";", "").Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
 
-                if (propertyInfo.Length != 2) continue;
+                    if (propertyInfo.Length != 2) continue;
 
-                var type = Types.ConvertType(propertyInfo[0], namespacePrefix);
-                var propertyName = propertyInfo[1];
+                    var type = Types.ConvertType(propertyInfo[0], namespacePrefix);
+                    var propertyName = propertyInfo[1];
 
-                string pattern = @"\[.*?\]";
-                propertyName = Regex.Replace(propertyName, pattern, "");
+                    string pattern = @"\[.*?\]";
+                    propertyName = Regex.Replace(propertyName, pattern, "");
 
-                instance.AddProperty(new PropertyInstance(type, propertyName));
+                    instance.AddProperty(new PropertyInstance(type, propertyName));
+                }
             }
 
             return instance;

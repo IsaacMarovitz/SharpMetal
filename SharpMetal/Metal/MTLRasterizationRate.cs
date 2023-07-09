@@ -46,11 +46,11 @@ namespace SharpMetal.Metal
 
         public MTLSize SampleCount
         {
-            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_sampleCount));
+            get => ObjectiveCRuntime.MTLSize_objc_msgSend(NativePtr, sel_sampleCount);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSampleCount, value);
         }
 
-        public MTLSize MaxSampleCount => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_maxSampleCount));
+        public MTLSize MaxSampleCount => ObjectiveCRuntime.MTLSize_objc_msgSend(NativePtr, sel_maxSampleCount);
 
         public float HorizontalSampleStorage => ObjectiveCRuntime.float_objc_msgSend(NativePtr, sel_horizontalSampleStorage);
 
@@ -130,7 +130,7 @@ namespace SharpMetal.Metal
 
         public MTLSize ScreenSize
         {
-            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_screenSize));
+            get => ObjectiveCRuntime.MTLSize_objc_msgSend(NativePtr, sel_screenSize);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setScreenSize, value);
         }
 
@@ -201,13 +201,13 @@ namespace SharpMetal.Metal
 
         public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
 
-        public MTLSize ScreenSize => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_screenSize));
+        public MTLSize ScreenSize => ObjectiveCRuntime.MTLSize_objc_msgSend(NativePtr, sel_screenSize);
 
-        public MTLSize PhysicalGranularity => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_physicalGranularity));
+        public MTLSize PhysicalGranularity => ObjectiveCRuntime.MTLSize_objc_msgSend(NativePtr, sel_physicalGranularity);
 
         public ulong LayerCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_layerCount);
 
-        public MTLSizeAndAlign ParameterBufferSizeAndAlign => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_parameterBufferSizeAndAlign));
+        public MTLSizeAndAlign ParameterBufferSizeAndAlign => ObjectiveCRuntime.MTLSizeAndAlign_objc_msgSend(NativePtr, sel_parameterBufferSizeAndAlign);
 
         public void CopyParameterDataToBuffer(MTLBuffer buffer, ulong offset)
         {
@@ -216,7 +216,7 @@ namespace SharpMetal.Metal
 
         public MTLSize PhysicalSize(ulong layerIndex)
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_physicalSizeForLayer, layerIndex));
+            return ObjectiveCRuntime.MTLSize_objc_msgSend(NativePtr, sel_physicalSizeForLayer, layerIndex);
         }
 
         public IntPtr MapScreenToPhysicalCoordinates(IntPtr screenCoordinates, ulong layerIndex)

@@ -114,7 +114,7 @@ namespace SharpMetal.Foundation
 
         public NSRange RangeOfString(NSString pString, NSStringCompareOptions options)
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_rangeOfStringoptions, pString, (ulong)options));
+            return ObjectiveCRuntime.NSRange_objc_msgSend(NativePtr, sel_rangeOfStringoptions, pString, (ulong)options);
         }
 
         public NSString StringByAppendingString(NSString pString)

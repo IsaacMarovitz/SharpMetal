@@ -17,7 +17,7 @@ namespace SharpMetal.Generator.Instances
             InputInstances = inputInstances;
         }
 
-        public ObjectiveCInstance Generate(List<EnumInstance> enumCache, ClassInstance instance, CodeGenContext context, string namespacePrefix, bool prependSpace = true)
+        public ObjectiveCInstance Generate(List<EnumInstance> enumCache, List<StructInstance> structCache, ClassInstance instance, CodeGenContext context, string namespacePrefix, bool prependSpace = true)
         {
             var rawNameComponents = RawName.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
             for (var index = 0; index < rawNameComponents.Length; index++)
@@ -120,6 +120,7 @@ namespace SharpMetal.Generator.Instances
                 {
                     context.Write($"{context.Indentation}return ");
                     var returnEnum = enumCache.Find(x => x.Name == ReturnType);
+                    var returnStruct = structCache.Find(x => x.Name == ReturnType);
                     var needsOuterBracket = false;
 
                     if (returnEnum != null)
@@ -128,7 +129,7 @@ namespace SharpMetal.Generator.Instances
                     }
                     else
                     {
-                        if (Types.CSharpNativeTypes.Contains(ReturnType))
+                        if (Types.CSharpNativeTypes.Contains(ReturnType) || returnStruct != null)
                         {
                             context.Write($"ObjectiveCRuntime.{ReturnType}_");
                         }
@@ -189,10 +190,15 @@ namespace SharpMetal.Generator.Instances
                 else
                 {
                     var enumInstance = enumCache.Find(x => x.Name == InputInstances[i].Type);
+                    var structInstance = structCache.Find(x => x.Name == InputInstances[i].Type);
 
                     if (enumInstance != null)
                     {
                         objcInstance.Inputs.Add(enumInstance.Type);
+                    }
+                    else if (structInstance != null)
+                    {
+                        objcInstance.Inputs.Add(structInstance.Name);
                     }
                     else
                     {
@@ -207,16 +213,17 @@ namespace SharpMetal.Generator.Instances
             }
             else
             {
-                if (Types.CSharpNativeTypes.Contains(ReturnType))
+                var returnStruct = structCache.Find(x => x.Name == ReturnType);
+                if (Types.CSharpNativeTypes.Contains(ReturnType) || returnStruct != null)
                 {
                     objcInstance.Type = ReturnType;
                 }
                 else
                 {
-                    var returnEnumInstance = enumCache.Find(x => x.Name == ReturnType);
-                    if (returnEnumInstance != null)
+                    var returnEnum = enumCache.Find(x => x.Name == ReturnType);
+                    if (returnEnum != null)
                     {
-                        objcInstance.Type = returnEnumInstance.Type;
+                        objcInstance.Type = returnEnum.Type;
                     }
                     else
                     {

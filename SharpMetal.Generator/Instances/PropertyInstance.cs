@@ -11,7 +11,7 @@ namespace SharpMetal.Generator.Instances
             Name = name;
         }
 
-        public ObjectiveCInstance Generate(ClassInstance instance, List<EnumInstance> enumCache, CodeGenContext context)
+        public ObjectiveCInstance Generate(ClassInstance instance, List<EnumInstance> enumCache, List<StructInstance> structCache, CodeGenContext context)
         {
             var selectorInstances = instance.GetSelectors();
             var selector = selectorInstances.Find(x => x.Selector.ToLower() == Name.ToLower());
@@ -42,6 +42,7 @@ namespace SharpMetal.Generator.Instances
                 if (runtimeFuncReturn == "IntPtr")
                 {
                     var enumInstance = enumCache.Find(x => x.Name == Type);
+                    var structInstance = structCache.Find(x => x.Name == Type);
 
                     if (enumInstance != null)
                     {
@@ -59,6 +60,24 @@ namespace SharpMetal.Generator.Instances
                         else
                         {
                             context.WriteLine($"public {Type} {Name} => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend(NativePtr, {selector.Name});");
+                        }
+                    }
+                    else if (structInstance != null)
+                    {
+                        objcInstance.Type = structInstance.Name;
+                        if (setterSelector != null)
+                        {
+                            context.WriteLine($"public {Type} {Name}");
+                            context.EnterScope();
+
+                            context.WriteLine($"get => ObjectiveCRuntime.{structInstance.Name}_objc_msgSend(NativePtr, {selector.Name});");
+                            context.WriteLine($"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, value);");
+
+                            context.LeaveScope();
+                        }
+                        else
+                        {
+                            context.WriteLine($"public {Type} {Name} => ObjectiveCRuntime.{structInstance.Name}_objc_msgSend(NativePtr, {selector.Name});");
                         }
                     }
                     else
@@ -107,7 +126,7 @@ namespace SharpMetal.Generator.Instances
             return objcInstance;
         }
 
-        public void Generate(List<EnumInstance> enumCache, CodeGenContext context)
+        public void Generate(CodeGenContext context)
         {
             context.WriteLine($"public {Type} {Name};");
         }

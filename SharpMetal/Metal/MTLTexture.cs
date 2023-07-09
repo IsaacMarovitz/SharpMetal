@@ -180,7 +180,7 @@ namespace SharpMetal.Metal
 
         public MTLTextureSwizzleChannels Swizzle
         {
-            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_swizzle));
+            get => ObjectiveCRuntime.MTLTextureSwizzleChannels_objc_msgSend(NativePtr, sel_swizzle);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSwizzle, value);
         }
 
@@ -373,13 +373,13 @@ namespace SharpMetal.Metal
 
         public MTLTextureCompressionType CompressionType => (MTLTextureCompressionType)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_compressionType);
 
-        public MTLResourceID GpuResourceID => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_gpuResourceID));
+        public MTLResourceID GpuResourceID => ObjectiveCRuntime.MTLResourceID_objc_msgSend(NativePtr, sel_gpuResourceID);
 
         public MTLSharedTextureHandle NewSharedTextureHandle => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newSharedTextureHandle));
 
         public MTLTexture RemoteStorageTexture => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_remoteStorageTexture));
 
-        public MTLTextureSwizzleChannels Swizzle => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_swizzle));
+        public MTLTextureSwizzleChannels Swizzle => ObjectiveCRuntime.MTLTextureSwizzleChannels_objc_msgSend(NativePtr, sel_swizzle);
 
         public void GetBytes(IntPtr pixelBytes, ulong bytesPerRow, ulong bytesPerImage, MTLRegion region, ulong level, ulong slice)
         {

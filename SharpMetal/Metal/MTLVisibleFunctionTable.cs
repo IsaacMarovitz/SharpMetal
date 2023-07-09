@@ -40,7 +40,7 @@ namespace SharpMetal.Metal
         public static implicit operator IntPtr(MTLVisibleFunctionTable obj) => obj.NativePtr;
         public MTLVisibleFunctionTable(IntPtr ptr) => NativePtr = ptr;
 
-        public MTLResourceID GpuResourceID => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_gpuResourceID));
+        public MTLResourceID GpuResourceID => ObjectiveCRuntime.MTLResourceID_objc_msgSend(NativePtr, sel_gpuResourceID);
 
         public void SetFunction(MTLFunctionHandle function, ulong index)
         {

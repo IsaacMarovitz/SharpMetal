@@ -225,7 +225,7 @@ namespace SharpMetal.Metal
 
         public MTLClearColor ClearColor
         {
-            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_clearColor));
+            get => ObjectiveCRuntime.MTLClearColor_objc_msgSend(NativePtr, sel_clearColor);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setClearColor, value);
         }
 

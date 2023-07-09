@@ -51,7 +51,7 @@ namespace SharpMetal.Metal
         public static implicit operator IntPtr(MTLIntersectionFunctionTable obj) => obj.NativePtr;
         public MTLIntersectionFunctionTable(IntPtr ptr) => NativePtr = ptr;
 
-        public MTLResourceID GpuResourceID => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_gpuResourceID));
+        public MTLResourceID GpuResourceID => ObjectiveCRuntime.MTLResourceID_objc_msgSend(NativePtr, sel_gpuResourceID);
 
         public void SetBuffer(MTLBuffer buffer, ulong offset, ulong index)
         {
