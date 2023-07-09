@@ -81,14 +81,20 @@ namespace SharpMetal.Generator.Instances
                 {
                     if (enumInstance != null)
                     {
+                        objcInstance.Type = enumInstance.Type;
+
                         context.WriteLine($"public {Type} {Name} => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend(NativePtr, {selector.Name});");
                     }
                     else if (structInstance != null)
                     {
+                        objcInstance.Type = structInstance.Name;
+
                         context.WriteLine($"public {Type} {Name} => ObjectiveCRuntime.{structInstance.Name}_objc_msgSend(NativePtr, {selector.Name});");
                     }
                     else
                     {
+                        objcInstance.Type = runtimeFuncReturn;
+
                         if (runtimeFuncReturn == "IntPtr")
                         {
                             context.WriteLine($"public {Type} {Name} => new(ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name}));");
