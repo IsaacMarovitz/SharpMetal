@@ -67,7 +67,7 @@ namespace SharpMetal.Examples
             Console.WriteLine(device.LocationNumber);
             Console.WriteLine(device.LowPower);
             Console.WriteLine(device.Removable);
-            Console.WriteLine(device.Headless);
+            Console.WriteLine(device.IsHeadless);
             Console.WriteLine(device.PeerCount);
             Console.WriteLine(device.PeerIndex);
         }
