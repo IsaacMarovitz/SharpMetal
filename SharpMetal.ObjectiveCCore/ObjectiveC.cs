@@ -19,6 +19,48 @@ namespace SharpMetal.ObjectiveCCore
         public static partial void objc_msgSend(IntPtr receiver, Selector selector);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial void objc_msgSend(IntPtr receiver, Selector selector, NSRect rect);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial void objc_msgSend(IntPtr receiver, Selector selector, byte value);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial void objc_msgSend(IntPtr receiver, Selector selector, double value);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial void objc_msgSend(IntPtr receiver, Selector selector, IntPtr ptr);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial void objc_msgSend(IntPtr receiver, Selector selector, NSRect rect, byte value);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial void objc_msgSend(IntPtr receiver, Selector selector, NSRect rect, ulong a, ulong b, byte c);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector);
+
+        public readonly struct NSPoint
+        {
+            public readonly double X;
+            public readonly double Y;
+
+            public NSPoint(double x, double y)
+            {
+                X = x;
+                Y = y;
+            }
+        }
+
+        public readonly struct NSRect
+        {
+            public readonly NSPoint Pos;
+            public readonly NSPoint Size;
+
+            public NSRect(double x, double y, double width, double height)
+            {
+                Pos = new NSPoint(x, y);
+                Size = new NSPoint(width, height);
+            }
+        }
     }
 }

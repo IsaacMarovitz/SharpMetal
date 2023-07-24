@@ -10,28 +10,36 @@ namespace SharpMetal.Examples
     {
         public static void Main(string[] args)
         {
-            // "Link" Metal and CoreGraphics
+            // "Link" Metal, CoreGraphics, and AppKit
             ObjectiveC.dlopen("/System/Library/Frameworks/Metal.framework/Metal", 0);
             ObjectiveC.dlopen("/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics", 0);
+            ObjectiveC.dlopen("/System/Library/Frameworks/AppKit.framework/AppKit", 0);
 
-            // Get the default device
-            var device = MTLDevice.CreateSystemDefaultDevice();
+            // Create CAMetalLayer
+            ObjectiveCClass layerObject = new("CAMetalLayer");
+            var metalLayer = layerObject.AllocInit();
 
-            var textureDescriptor = MTLTextureDescriptor.Texture2DDescriptor(MTLPixelFormat.R16Float, 200, 200, false);
-            var renderPipelineDescriptor = new MTLRenderPipelineDescriptor();
-            renderPipelineDescriptor.SampleCount = 60;
-            // TODO: This is invalid NSError() usage and needs to be fixed for these APIs to work
-            var pipelineState = device.NewRenderPipelineState(renderPipelineDescriptor, new NSError());
-            Console.WriteLine(pipelineState.Device.MaxArgumentBufferSamplerCount);
-            // TODO: Make NSStrings actually work nicely with C#
-            // descriptor.Label = new NSString("Simple Pipeline");
-            // descriptor.VertexFunction = new MTLFunction();
-            // descriptor.FragmentFunction = new MTLFunction();
-            // device.NewCommandQueue();
-            // descriptor.ColorAttachments[0].PixelFormat = MTLPixelFormat.RG32Float;
-            //
-            // Console.WriteLine(device.Name);
-            // descriptor.ColorAttachments[0].PixelFormat = MTLPixelFormat.Stencil8;
+            // Create a child NSView to render to
+            ObjectiveCClass nsViewObject = new("NSView");
+            var child = nsViewObject.Alloc();
+            child.SendMessage("init", new ObjectiveC.NSRect(0, 0, 1000, 1000));
+            child.SendMessage("setWantsLayer:", 1);
+            child.SendMessage("setLayer:", metalLayer);
+
+            // Create NSApplication
+            ObjectiveCClass nsApplicationObject = new("NSApplication");
+            ObjectiveCClass application = new(ObjectiveC.IntPtr_objc_msgSend(nsApplicationObject, "sharedApplication"));
+            // Create and show NSWindow
+            ObjectiveCClass nsWindowObject = new("NSWindow");
+            var window = nsWindowObject.Alloc();
+            window.SendMessage("initWithContentRect:styleMask:backing:defer:", new ObjectiveC.NSRect(0, 0, 1000, 1000), 0, 0, 0);
+            window.SendMessage("setContentView:", child);
+            window.SendMessage("makeKeyAndOrderFront:");
+
+            application.SendMessage("run");
+
+
+            while (true) { }
         }
 
         public static void Test()

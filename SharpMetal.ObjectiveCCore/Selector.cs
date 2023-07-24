@@ -14,7 +14,14 @@ namespace SharpMetal.ObjectiveCCore
 
         public Selector(string name)
         {
-            SelPtr = sel_getUid(name);
+            var ptr = sel_getUid(name);
+
+            if (ptr == IntPtr.Zero)
+            {
+                Console.WriteLine($"Failed to get selector {name}!");
+            }
+
+            SelPtr = ptr;
         }
 
         public string Name
