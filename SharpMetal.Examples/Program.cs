@@ -35,11 +35,36 @@ namespace SharpMetal.Examples
             var window = nsWindowObject.Alloc();
             window.SendMessage("initWithContentRect:styleMask:backing:defer:", new ObjectiveC.NSRect(0, 0, 1000, 1000), 0, 0, 0);
             window.SendMessage("setContentView:", child);
-            window.SendMessage("makeKeyAndOrderFront:");
+            window.SendMessage("makeKeyAndOrderFront:", IntPtr.Zero);
+
+            var device = MTLDevice.CreateSystemDefaultDevice();
+            metalLayer.SendMessage("device", device);
+
+            // Draw color to CAMetalLayer
+            MTLDrawable drawable = new(ObjectiveC.IntPtr_objc_msgSend(metalLayer, "nextDrawable"));
+            var renderPassDescriptor = new MTLRenderPassDescriptor();
+            var attachmentDescriptor = new MTLRenderPassAttachmentDescriptor(renderPassDescriptor.ColorAttachments.Object(0));
+            attachmentDescriptor.Texture = new(ObjectiveC.IntPtr_objc_msgSend(drawable, "texture"));
+            attachmentDescriptor.LoadAction = MTLLoadAction.Clear;
+            attachmentDescriptor.StoreAction = MTLStoreAction.Store;
+            new MTLRenderPassColorAttachmentDescriptor(attachmentDescriptor).ClearColor = new MTLClearColor
+            {
+                red = 0.0,
+                green = 1.0,
+                blue = 1.0,
+                alpha = 1.0
+            };
+
+            var queue = device.NewCommandQueue();
+            var buffer = queue.CommandBuffer();
+            var encoder = buffer.RenderCommandEncoder(renderPassDescriptor);
+            encoder.DrawPrimitives(MTLPrimitiveType.Triangle, 0, 6);
+            var generic = new MTLCommandEncoder(encoder);
+            generic.EndEncoding();
+            buffer.PresentDrawable(drawable);
+            buffer.Commit();
 
             application.SendMessage("run");
-
-            while (true) { }
         }
 
         public static void Test()
