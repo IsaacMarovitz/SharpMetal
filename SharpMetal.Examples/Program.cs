@@ -29,6 +29,7 @@ namespace SharpMetal.Examples
             // Create NSApplication
             ObjectiveCClass nsApplicationObject = new("NSApplication");
             ObjectiveCClass application = new(ObjectiveC.IntPtr_objc_msgSend(nsApplicationObject, "sharedApplication"));
+
             // Create and show NSWindow
             ObjectiveCClass nsWindowObject = new("NSWindow");
             var window = nsWindowObject.Alloc();
@@ -37,7 +38,6 @@ namespace SharpMetal.Examples
             window.SendMessage("makeKeyAndOrderFront:");
 
             application.SendMessage("run");
-
 
             while (true) { }
         }
