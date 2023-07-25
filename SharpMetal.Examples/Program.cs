@@ -67,7 +67,11 @@ namespace SharpMetal.Examples
                 captureDescriptor.OutputURL = NSURL.FileURLWithPath(StringHelper.InitNSString(CaptureFilePath));
                 var captureError = new NSError(IntPtr.Zero);
                 MTLCaptureManager.SharedCaptureManager().StartCapture(captureDescriptor, ref captureError);
-                Console.Write($"MTL_ERROR {captureError.Code}: {StringHelper.GetError(captureError)}");
+                if (captureError != IntPtr.Zero)
+                {
+                    Console.Write($"Failed to start capture! {StringHelper.GetError(captureError)}");
+
+                }
             }
 
             // Create a child NSView to render to
@@ -88,7 +92,11 @@ namespace SharpMetal.Examples
             // Build shader
             var error = new NSError(IntPtr.Zero);
             var library = device.NewLibrary(StringHelper.InitNSString(ShaderSource), new(IntPtr.Zero), ref error);
-            Console.WriteLine(StringHelper.GetError(error));
+            if (error != IntPtr.Zero)
+            {
+                throw new Exception($"Failed to create library! {StringHelper.GetError(error)}");
+            }
+
             var vertexFunction = library.NewFunction(StringHelper.InitNSString("vertexMain"));
             var fragmentFunction = library.NewFunction(StringHelper.InitNSString("fragmentMain"));
 
