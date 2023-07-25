@@ -18,7 +18,8 @@ namespace SharpMetal.Examples
             var metalLayer = new CAMetalLayer();
 
             // Create a child NSView to render to
-            var nsView = new NSView(new NSRect(0, 0, 1000, 1000));
+            var rect = new NSRect(0, 0, 1000, 1000);
+            var nsView = new NSView(rect);
             nsView.WantsLayer = true;
             nsView.Layer = metalLayer;
 
@@ -26,7 +27,7 @@ namespace SharpMetal.Examples
             var nsApplication = new NSApplication();
 
             // Create and show NSWindow
-            var window = new NSWindow(new NSRect(0, 0, 1000, 1000));
+            var window = new NSWindow(rect);
             window.SetContentView(nsView);
             window.MakeKeyAndOrderFront();
 
