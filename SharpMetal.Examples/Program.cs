@@ -10,9 +10,9 @@ namespace SharpMetal.Examples
         public static void Main(string[] args)
         {
             // "Link" Metal, CoreGraphics, and AppKit
-            ObjectiveC.dlopen("/System/Library/Frameworks/Metal.framework/Metal", 0);
-            ObjectiveC.dlopen("/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics", 0);
-            ObjectiveC.dlopen("/System/Library/Frameworks/AppKit.framework/AppKit", 0);
+            ObjectiveC.LinkMetal();
+            ObjectiveC.LinkCG();
+            ObjectiveC.LinkAppKit();
 
             // Create CAMetalLayer
             var metalLayer = new CAMetalLayer();
@@ -61,8 +61,8 @@ namespace SharpMetal.Examples
 
         public static void Test()
         {
-            ObjectiveC.dlopen("/System/Library/Frameworks/Metal.framework/Metal", 0);
-            ObjectiveC.dlopen("/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics", 0);
+            ObjectiveC.LinkMetal();
+            ObjectiveC.LinkCG();
 
             var device = MTLDevice.CreateSystemDefaultDevice();
             Console.WriteLine(device.MaxThreadgroupMemoryLength);

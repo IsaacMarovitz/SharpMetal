@@ -13,7 +13,7 @@ namespace SharpMetal.ObjectiveCCore
         public static partial IntPtr objc_getClass(string name);
 
         [LibraryImport("libdl.dylib", StringMarshalling = StringMarshalling.Utf8)]
-        public static partial void dlopen(string path, int mode);
+        private static partial void dlopen(string path, int mode);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial void objc_msgSend(IntPtr receiver, Selector selector);
@@ -45,6 +45,21 @@ namespace SharpMetal.ObjectiveCCore
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static partial bool bool_objc_msgSend(IntPtr receiver, Selector selector);
+
+        public static void LinkMetal()
+        {
+            dlopen("/System/Library/Frameworks/Metal.framework/Metal", 0);
+        }
+
+        public static void LinkCG()
+        {
+            dlopen("/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics", 0);
+        }
+
+        public static void LinkAppKit()
+        {
+            dlopen("/System/Library/Frameworks/AppKit.framework/AppKit", 0);
+        }
     }
 
     public readonly struct NSPoint
