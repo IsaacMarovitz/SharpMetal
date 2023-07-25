@@ -2,7 +2,6 @@ using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using SharpMetal.ObjectiveCCore;
 using SharpMetal.Metal;
-using System.Numerics;
 using SharpMetal.Foundation;
 
 namespace SharpMetal.Examples
@@ -133,8 +132,11 @@ namespace SharpMetal.Examples
 
             unsafe
             {
-                Buffer.MemoryCopy(&positions, vertexPositionsBuffer.Contents.ToPointer(), positionsDataSize, positionsDataSize);
-                Buffer.MemoryCopy(&colors, vertexColorsBuffer.Contents.ToPointer(), colorsDataSize, colorsDataSize);
+                var posSpan = new Span<Vector3>(vertexPositionsBuffer.Contents.ToPointer(), numVerticies);
+                var colSpan = new Span<Vector3>(vertexColorsBuffer.Contents.ToPointer(), numVerticies);
+
+                positions.CopyTo(posSpan);
+                colors.CopyTo(colSpan);
             }
 
             vertexPositionsBuffer.DidModifyRange(new NSRange
