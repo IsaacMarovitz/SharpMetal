@@ -23,7 +23,7 @@ namespace SharpMetal.Examples
         public MTLDevice Device
         {
             get => new(ObjectiveC.IntPtr_objc_msgSend(NativePtr, "device"));
-            set => ObjectiveC.objc_msgSend(NativePtr, "device", value);
+            set => ObjectiveC.objc_msgSend(NativePtr, "setDevice:", value);
         }
 
         public CAMetalDrawable NextDrawable

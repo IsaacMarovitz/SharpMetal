@@ -11,7 +11,7 @@ namespace SharpMetal.Examples
         {
             // "Link" Metal, CoreGraphics, and AppKit
             ObjectiveC.LinkMetal();
-            ObjectiveC.LinkCG();
+            ObjectiveC.LinkCoreGraphics();
             ObjectiveC.LinkAppKit();
 
             // Create CAMetalLayer
@@ -52,7 +52,7 @@ namespace SharpMetal.Examples
             var queue = device.NewCommandQueue();
             var buffer = queue.CommandBuffer();
             var encoder = buffer.RenderCommandEncoder(renderPassDescriptor);
-            encoder.DrawPrimitives(MTLPrimitiveType.Triangle, 0, 6);
+            // encoder.DrawPrimitives(MTLPrimitiveType.Triangle, 0, 6);
             encoder.EndEncoding();
             buffer.PresentDrawable(drawable);
             buffer.Commit();
@@ -63,7 +63,7 @@ namespace SharpMetal.Examples
         public static void Test()
         {
             ObjectiveC.LinkMetal();
-            ObjectiveC.LinkCG();
+            ObjectiveC.LinkCoreGraphics();
 
             var device = MTLDevice.CreateSystemDefaultDevice();
             Console.WriteLine(device.MaxThreadgroupMemoryLength);

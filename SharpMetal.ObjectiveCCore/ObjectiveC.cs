@@ -51,7 +51,7 @@ namespace SharpMetal.ObjectiveCCore
             dlopen("/System/Library/Frameworks/Metal.framework/Metal", 0);
         }
 
-        public static void LinkCG()
+        public static void LinkCoreGraphics()
         {
             dlopen("/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics", 0);
         }

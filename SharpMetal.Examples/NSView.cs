@@ -18,13 +18,13 @@ namespace SharpMetal.Examples
         public bool WantsLayer
         {
             get => ObjectiveC.bool_objc_msgSend(NativePtr, "wantsLayer");
-            set => ObjectiveC.objc_msgSend(NativePtr, "wantsLayer", value);
+            set => ObjectiveC.objc_msgSend(NativePtr, "setWantsLayer:", value);
         }
 
         public CAMetalLayer Layer
         {
             get => new(ObjectiveC.IntPtr_objc_msgSend(NativePtr, "layer"));
-            set => ObjectiveC.objc_msgSend(NativePtr, "layer", value);
+            set => ObjectiveC.objc_msgSend(NativePtr, "setLayer:", value);
         }
     }
 }
