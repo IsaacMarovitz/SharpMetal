@@ -23,8 +23,7 @@ namespace SharpMetal.Examples
             nsView.Layer = metalLayer;
 
             // Create NSApplication
-            ObjectiveCClass nsApplicationObject = new("NSApplication");
-            ObjectiveCClass application = new(ObjectiveC.IntPtr_objc_msgSend(nsApplicationObject, "sharedApplication"));
+            var nsApplication = new NSApplication();
 
             // Create and show NSWindow
             var window = new NSWindow(new NSRect(0, 0, 1000, 1000));
@@ -57,7 +56,7 @@ namespace SharpMetal.Examples
             buffer.PresentDrawable(drawable);
             buffer.Commit();
 
-            application.SendMessage("run");
+            nsApplication.Run();
         }
 
         public static void Test()
