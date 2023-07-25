@@ -50,6 +50,9 @@ namespace SharpMetal.Examples
             ObjectiveC.LinkCoreGraphics();
             ObjectiveC.LinkAppKit();
 
+            // Create autorelease pool
+            var autoreleasePool = new NSAutoreleasePool();
+
             // Create MTLDevice
             var device = MTLDevice.CreateSystemDefaultDevice();
 
@@ -182,6 +185,9 @@ namespace SharpMetal.Examples
             }
 
             nsApplication.Run();
+
+            // Release pool
+            autoreleasePool.Drain();
         }
 
         public static void Test()
