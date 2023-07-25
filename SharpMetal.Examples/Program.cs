@@ -15,6 +15,8 @@ namespace SharpMetal.Examples
         private const int Width = 512;
         private const int Height = 512;
         private const string WindowTitle = "SharpMetal - Primitive";
+        private const bool CaptureWorkload = false;
+        private const string CaptureFilePath = "/Users/isaacmarovitz/Desktop/Trace.gputrace";
 
         private const string ShaderSource = """
         #include <metal_stdlib>
@@ -56,15 +58,17 @@ namespace SharpMetal.Examples
             var metalLayer = new CAMetalLayer();
             metalLayer.Device = device;
 
-            // Setup Capture
-            var captureDescriptor = new MTLCaptureDescriptor();
-            captureDescriptor.CaptureObject = device;
-            captureDescriptor.Destination = MTLCaptureDestination.GPUTraceDocument;
-            var captureURL = NSURL.FileURLWithPath(StringHelper.InitNSString("/Users/isaacmarovitz/Desktop/Trace.gputrace"));
-            captureDescriptor.OutputURL = captureURL;
-            var captureError = new NSError(IntPtr.Zero);
-            MTLCaptureManager.SharedCaptureManager().StartCapture(captureDescriptor, ref captureError);
-            Console.WriteLine($"Capture error: {StringHelper.GetError(captureError)}");
+            if (CaptureWorkload)
+            {
+                // Setup Capture
+                var captureDescriptor = new MTLCaptureDescriptor();
+                captureDescriptor.CaptureObject = device;
+                captureDescriptor.Destination = MTLCaptureDestination.GPUTraceDocument;
+                captureDescriptor.OutputURL = NSURL.FileURLWithPath(StringHelper.InitNSString(CaptureFilePath));
+                var captureError = new NSError(IntPtr.Zero);
+                MTLCaptureManager.SharedCaptureManager().StartCapture(captureDescriptor, ref captureError);
+                Console.Write($"MTL_ERROR {captureError.Code}: {StringHelper.GetError(captureError)}");
+            }
 
             // Create a child NSView to render to
             var rect = new NSRect(X, Y, Width, Height);
@@ -161,7 +165,11 @@ namespace SharpMetal.Examples
 
             buffer.PresentDrawable(drawable);
             buffer.Commit();
-            MTLCaptureManager.SharedCaptureManager().StopCapture();
+
+            if (CaptureWorkload)
+            {
+                MTLCaptureManager.SharedCaptureManager().StopCapture();
+            }
 
             nsApplication.Run();
         }
