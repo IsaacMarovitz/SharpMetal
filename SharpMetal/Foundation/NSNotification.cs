@@ -6,7 +6,7 @@ namespace SharpMetal.Foundation
     [SupportedOSPlatform("macos")]
     public partial class NSNotification
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(NSNotification obj) => obj.NativePtr;
         public NSNotification(IntPtr ptr) => NativePtr = ptr;
 
@@ -29,7 +29,7 @@ namespace SharpMetal.Foundation
     [SupportedOSPlatform("macos")]
     public partial class NSNotificationCenter
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(NSNotificationCenter obj) => obj.NativePtr;
         public NSNotificationCenter(IntPtr ptr) => NativePtr = ptr;
 

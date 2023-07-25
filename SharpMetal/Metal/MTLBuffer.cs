@@ -7,7 +7,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLBuffer : MTLResource
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLBuffer obj) => obj.NativePtr;
         public MTLBuffer(IntPtr ptr) : base(ptr) => NativePtr = ptr;
 

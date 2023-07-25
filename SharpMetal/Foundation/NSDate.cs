@@ -6,7 +6,7 @@ namespace SharpMetal.Foundation
     [SupportedOSPlatform("macos")]
     public partial class NSDate
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(NSDate obj) => obj.NativePtr;
         public NSDate(IntPtr ptr) => NativePtr = ptr;
 

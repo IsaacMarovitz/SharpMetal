@@ -72,7 +72,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLVertexBufferLayoutDescriptor
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLVertexBufferLayoutDescriptor obj) => obj.NativePtr;
         public MTLVertexBufferLayoutDescriptor(IntPtr ptr) => NativePtr = ptr;
 
@@ -111,7 +111,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLVertexBufferLayoutDescriptorArray
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLVertexBufferLayoutDescriptorArray obj) => obj.NativePtr;
         public MTLVertexBufferLayoutDescriptorArray(IntPtr ptr) => NativePtr = ptr;
 
@@ -138,7 +138,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLVertexAttributeDescriptor
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLVertexAttributeDescriptor obj) => obj.NativePtr;
         public MTLVertexAttributeDescriptor(IntPtr ptr) => NativePtr = ptr;
 
@@ -177,7 +177,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLVertexAttributeDescriptorArray
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLVertexAttributeDescriptorArray obj) => obj.NativePtr;
         public MTLVertexAttributeDescriptorArray(IntPtr ptr) => NativePtr = ptr;
 
@@ -204,7 +204,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLVertexDescriptor
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLVertexDescriptor obj) => obj.NativePtr;
         public MTLVertexDescriptor(IntPtr ptr) => NativePtr = ptr;
 

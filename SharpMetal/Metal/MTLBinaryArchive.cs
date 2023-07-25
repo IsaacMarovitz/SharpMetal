@@ -16,7 +16,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLBinaryArchiveDescriptor
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLBinaryArchiveDescriptor obj) => obj.NativePtr;
         public MTLBinaryArchiveDescriptor(IntPtr ptr) => NativePtr = ptr;
 
@@ -39,7 +39,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLBinaryArchive
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLBinaryArchive obj) => obj.NativePtr;
         public MTLBinaryArchive(IntPtr ptr) => NativePtr = ptr;
 
@@ -56,29 +56,29 @@ namespace SharpMetal.Metal
 
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
 
-        public bool AddComputePipelineFunctions(MTLComputePipelineDescriptor descriptor, NSError error)
+        public bool AddComputePipelineFunctions(MTLComputePipelineDescriptor descriptor, ref NSError error)
         {
-            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_addComputePipelineFunctionsWithDescriptorerror, descriptor, error);
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_addComputePipelineFunctionsWithDescriptorerror, descriptor, ref error.NativePtr);
         }
 
-        public bool AddRenderPipelineFunctions(MTLRenderPipelineDescriptor descriptor, NSError error)
+        public bool AddRenderPipelineFunctions(MTLRenderPipelineDescriptor descriptor, ref NSError error)
         {
-            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_addRenderPipelineFunctionsWithDescriptorerror, descriptor, error);
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_addRenderPipelineFunctionsWithDescriptorerror, descriptor, ref error.NativePtr);
         }
 
-        public bool AddTileRenderPipelineFunctions(MTLTileRenderPipelineDescriptor descriptor, NSError error)
+        public bool AddTileRenderPipelineFunctions(MTLTileRenderPipelineDescriptor descriptor, ref NSError error)
         {
-            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_addTileRenderPipelineFunctionsWithDescriptorerror, descriptor, error);
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_addTileRenderPipelineFunctionsWithDescriptorerror, descriptor, ref error.NativePtr);
         }
 
-        public bool SerializeToURL(NSURL url, NSError error)
+        public bool SerializeToURL(NSURL url, ref NSError error)
         {
-            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_serializeToURLerror, url, error);
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_serializeToURLerror, url, ref error.NativePtr);
         }
 
-        public bool AddFunction(MTLFunctionDescriptor descriptor, MTLLibrary library, NSError error)
+        public bool AddFunction(MTLFunctionDescriptor descriptor, MTLLibrary library, ref NSError error)
         {
-            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_addFunctionWithDescriptorlibraryerror, descriptor, library, error);
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_addFunctionWithDescriptorlibraryerror, descriptor, library, ref error.NativePtr);
         }
 
         private static readonly Selector sel_label = "label";

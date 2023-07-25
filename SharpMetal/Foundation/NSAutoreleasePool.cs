@@ -6,7 +6,7 @@ namespace SharpMetal.Foundation
     [SupportedOSPlatform("macos")]
     public partial class NSAutoreleasePool
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(NSAutoreleasePool obj) => obj.NativePtr;
         public NSAutoreleasePool(IntPtr ptr) => NativePtr = ptr;
 

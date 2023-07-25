@@ -7,7 +7,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLArgumentEncoder
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLArgumentEncoder obj) => obj.NativePtr;
         public MTLArgumentEncoder(IntPtr ptr) => NativePtr = ptr;
 

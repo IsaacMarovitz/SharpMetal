@@ -92,11 +92,11 @@ namespace SharpMetal.Examples
             window.Title = StringHelper.InitNSString(WindowTitle);
 
             // Build shader
-            var error = new NSError(IntPtr.Zero);
-            var library = device.NewLibrary(StringHelper.InitNSString(ShaderSource), new(IntPtr.Zero), ref error);
-            if (error != IntPtr.Zero)
+            var libraryError = new NSError(IntPtr.Zero);
+            var library = device.NewLibrary(StringHelper.InitNSString(ShaderSource), new(IntPtr.Zero), ref libraryError);
+            if (libraryError != IntPtr.Zero)
             {
-                throw new Exception($"Failed to create library! {StringHelper.GetError(error)}");
+                throw new Exception($"Failed to create library! {StringHelper.GetError(libraryError)}");
             }
 
             var vertexFunction = library.NewFunction(StringHelper.InitNSString("vertexMain"));
@@ -108,7 +108,12 @@ namespace SharpMetal.Examples
             pipeline.FragmentFunction = fragmentFunction;
             pipeline.ColorAttachments.Object(0).PixelFormat = MTLPixelFormat.BGRA8Unorm;
 
-            var pipelineState = device.NewRenderPipelineState(pipeline, new NSError(IntPtr.Zero));
+            var pipelineStateError = new NSError(IntPtr.Zero);
+            var pipelineState = device.NewRenderPipelineState(pipeline, ref pipelineStateError);
+            if (pipelineStateError != IntPtr.Zero)
+            {
+                throw new Exception($"Failed to create render pipeline state! {StringHelper.GetError(pipelineStateError)}");
+            }
 
             // Build buffers
             int numVerticies = 3;

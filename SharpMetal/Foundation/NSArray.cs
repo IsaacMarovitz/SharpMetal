@@ -6,7 +6,7 @@ namespace SharpMetal.Foundation
     [SupportedOSPlatform("macos")]
     public partial class NSArray
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(NSArray obj) => obj.NativePtr;
         public NSArray(IntPtr ptr) => NativePtr = ptr;
 

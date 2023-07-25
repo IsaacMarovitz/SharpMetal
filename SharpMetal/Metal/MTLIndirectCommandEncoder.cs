@@ -7,7 +7,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLIndirectRenderCommand
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIndirectRenderCommand obj) => obj.NativePtr;
         public MTLIndirectRenderCommand(IntPtr ptr) => NativePtr = ptr;
 
@@ -69,7 +69,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLIndirectComputeCommand
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIndirectComputeCommand obj) => obj.NativePtr;
         public MTLIndirectComputeCommand(IntPtr ptr) => NativePtr = ptr;
 

@@ -17,7 +17,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLDynamicLibrary
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLDynamicLibrary obj) => obj.NativePtr;
         public MTLDynamicLibrary(IntPtr ptr) => NativePtr = ptr;
 
@@ -36,9 +36,9 @@ namespace SharpMetal.Metal
 
         public NSString InstallName => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_installName));
 
-        public bool SerializeToURL(NSURL url, NSError error)
+        public bool SerializeToURL(NSURL url, ref NSError error)
         {
-            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_serializeToURLerror, url, error);
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_serializeToURLerror, url, ref error.NativePtr);
         }
 
         private static readonly Selector sel_label = "label";

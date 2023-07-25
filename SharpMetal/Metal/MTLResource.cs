@@ -51,7 +51,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLResource
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLResource obj) => obj.NativePtr;
         public MTLResource(IntPtr ptr) => NativePtr = ptr;
 

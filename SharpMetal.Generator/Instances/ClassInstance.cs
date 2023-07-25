@@ -72,7 +72,7 @@ namespace SharpMetal.Generator.Instances
 
             context.EnterScope();
 
-            context.WriteLine("public readonly IntPtr NativePtr;");
+            context.WriteLine("public IntPtr NativePtr;");
             context.WriteLine($"public static implicit operator IntPtr({Name} obj) => obj.NativePtr;");
 
             if (_parent != string.Empty)
@@ -309,8 +309,9 @@ namespace SharpMetal.Generator.Instances
                         var array = argument.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
                         var argumentType = Types.ConvertType(string.Join(" ", array[..^1]), namespacePrefix);
                         var argumentName = array.Last();
+                        var reference = false;
 
-                        // Fix array inputs
+                        // TODO: Fix array inputs
                         // Might need to be NSArray
                         if (argumentName.Contains("[]"))
                         {
@@ -330,7 +331,12 @@ namespace SharpMetal.Generator.Instances
                             argumentName = "mltEvent";
                         }
 
-                        arguments.Add(new PropertyInstance(argumentType, argumentName));
+                        if (argumentType == "NSError")
+                        {
+                            reference = true;
+                        }
+
+                        arguments.Add(new PropertyInstance(argumentType, argumentName, reference));
                     }
 
                     if (returnType != string.Empty)

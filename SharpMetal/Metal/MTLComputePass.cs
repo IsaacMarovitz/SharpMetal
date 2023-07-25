@@ -7,7 +7,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLComputePassSampleBufferAttachmentDescriptor
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLComputePassSampleBufferAttachmentDescriptor obj) => obj.NativePtr;
         public MTLComputePassSampleBufferAttachmentDescriptor(IntPtr ptr) => NativePtr = ptr;
 
@@ -46,7 +46,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLComputePassSampleBufferAttachmentDescriptorArray
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLComputePassSampleBufferAttachmentDescriptorArray obj) => obj.NativePtr;
         public MTLComputePassSampleBufferAttachmentDescriptorArray(IntPtr ptr) => NativePtr = ptr;
 
@@ -73,7 +73,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLComputePassDescriptor
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLComputePassDescriptor obj) => obj.NativePtr;
         public MTLComputePassDescriptor(IntPtr ptr) => NativePtr = ptr;
 

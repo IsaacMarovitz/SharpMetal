@@ -82,7 +82,7 @@ namespace SharpMetal.Generator.Instances
                         hasArrayInput = true;
                     }
 
-                    context.Write($"{input.Type} {input.Name}");
+                    context.Write($"{(input.Reference ? "ref " : "")}{input.Type} {input.Name}");
 
                     if (i != InputInstances.Count - 1)
                     {
@@ -156,15 +156,21 @@ namespace SharpMetal.Generator.Instances
 
                     for (var index = 0; index < InputInstances.Count; index++)
                     {
-                        var cast = "";
                         var enumInstance = enumCache.Find(x => x.Name == InputInstances[index].Type);
+                        var input = InputInstances[index];
 
                         if (enumInstance != null)
                         {
-                            cast = $"({enumInstance.Type})";
+                            context.Write($", ({enumInstance.Type}){input.Name}");
                         }
-
-                        context.Write($", {cast}{InputInstances[index].Name}");
+                        else if (input.Reference)
+                        {
+                            context.Write($", ref {input.Name}.NativePtr");
+                        }
+                        else
+                        {
+                            context.Write($", {input.Name}");
+                        }
                     }
 
                     if (needsOuterBracket)
@@ -200,6 +206,10 @@ namespace SharpMetal.Generator.Instances
                     else if (structInstance != null)
                     {
                         objcInstance.Inputs.Add(structInstance.Name);
+                    }
+                    else if (InputInstances[i].Type == "NSError")
+                    {
+                        objcInstance.Inputs.Add("ref IntPtr");
                     }
                     else
                     {

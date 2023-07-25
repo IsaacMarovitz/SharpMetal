@@ -7,7 +7,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLCommandQueue
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCommandQueue obj) => obj.NativePtr;
         public MTLCommandQueue(IntPtr ptr) => NativePtr = ptr;
 

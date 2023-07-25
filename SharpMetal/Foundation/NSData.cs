@@ -6,7 +6,7 @@ namespace SharpMetal.Foundation
     [SupportedOSPlatform("macos")]
     public partial class NSData
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(NSData obj) => obj.NativePtr;
         public NSData(IntPtr ptr) => NativePtr = ptr;
 

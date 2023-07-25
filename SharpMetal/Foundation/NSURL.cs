@@ -6,7 +6,7 @@ namespace SharpMetal.Foundation
     [SupportedOSPlatform("macos")]
     public partial class NSURL
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(NSURL obj) => obj.NativePtr;
         public NSURL(IntPtr ptr) => NativePtr = ptr;
 

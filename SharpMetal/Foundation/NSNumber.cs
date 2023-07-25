@@ -6,7 +6,7 @@ namespace SharpMetal.Foundation
     [SupportedOSPlatform("macos")]
     public partial class NSValue
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(NSValue obj) => obj.NativePtr;
         public NSValue(IntPtr ptr) => NativePtr = ptr;
 
@@ -63,7 +63,7 @@ namespace SharpMetal.Foundation
     [SupportedOSPlatform("macos")]
     public partial class NSNumber
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(NSNumber obj) => obj.NativePtr;
         public NSNumber(IntPtr ptr) => NativePtr = ptr;
 

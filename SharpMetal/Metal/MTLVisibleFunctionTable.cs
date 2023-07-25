@@ -7,7 +7,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLVisibleFunctionTableDescriptor
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLVisibleFunctionTableDescriptor obj) => obj.NativePtr;
         public MTLVisibleFunctionTableDescriptor(IntPtr ptr) => NativePtr = ptr;
 
@@ -31,7 +31,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLVisibleFunctionTable : MTLResource
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLVisibleFunctionTable obj) => obj.NativePtr;
         public MTLVisibleFunctionTable(IntPtr ptr) : base(ptr) => NativePtr = ptr;
 

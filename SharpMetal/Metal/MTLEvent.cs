@@ -7,7 +7,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLEvent
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLEvent obj) => obj.NativePtr;
         public MTLEvent(IntPtr ptr) => NativePtr = ptr;
 
@@ -32,7 +32,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLSharedEventListener
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLSharedEventListener obj) => obj.NativePtr;
         public MTLSharedEventListener(IntPtr ptr) => NativePtr = ptr;
 
@@ -56,7 +56,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLSharedEvent : MTLEvent
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLSharedEvent obj) => obj.NativePtr;
         public MTLSharedEvent(IntPtr ptr) : base(ptr) => NativePtr = ptr;
 
@@ -87,7 +87,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLSharedEventHandle
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLSharedEventHandle obj) => obj.NativePtr;
         public MTLSharedEventHandle(IntPtr ptr) => NativePtr = ptr;
 

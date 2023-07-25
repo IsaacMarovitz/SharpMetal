@@ -20,7 +20,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLCaptureDescriptor
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCaptureDescriptor obj) => obj.NativePtr;
         public MTLCaptureDescriptor(IntPtr ptr) => NativePtr = ptr;
 
@@ -59,7 +59,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLCaptureManager
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCaptureManager obj) => obj.NativePtr;
         public MTLCaptureManager(IntPtr ptr) => NativePtr = ptr;
 

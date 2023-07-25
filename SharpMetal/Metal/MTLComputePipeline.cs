@@ -7,7 +7,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLComputePipelineReflection
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLComputePipelineReflection obj) => obj.NativePtr;
         public MTLComputePipelineReflection(IntPtr ptr) => NativePtr = ptr;
 
@@ -28,7 +28,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLComputePipelineDescriptor
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLComputePipelineDescriptor obj) => obj.NativePtr;
         public MTLComputePipelineDescriptor(IntPtr ptr) => NativePtr = ptr;
 
@@ -148,7 +148,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLComputePipelineState
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLComputePipelineState obj) => obj.NativePtr;
         public MTLComputePipelineState(IntPtr ptr) => NativePtr = ptr;
 
@@ -181,9 +181,9 @@ namespace SharpMetal.Metal
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_functionHandleWithFunction, function));
         }
 
-        public MTLComputePipelineState NewComputePipelineState(NSArray functions, NSError error)
+        public MTLComputePipelineState NewComputePipelineState(NSArray functions, ref NSError error)
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newComputePipelineStateWithAdditionalBinaryFunctionserror, functions, error));
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newComputePipelineStateWithAdditionalBinaryFunctionserror, functions, ref error.NativePtr));
         }
 
         public MTLVisibleFunctionTable NewVisibleFunctionTable(MTLVisibleFunctionTableDescriptor descriptor)

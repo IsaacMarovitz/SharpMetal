@@ -37,7 +37,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLSamplerDescriptor
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLSamplerDescriptor obj) => obj.NativePtr;
         public MTLSamplerDescriptor(IntPtr ptr) => NativePtr = ptr;
 
@@ -172,7 +172,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLSamplerState
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLSamplerState obj) => obj.NativePtr;
         public MTLSamplerState(IntPtr ptr) => NativePtr = ptr;
 

@@ -15,7 +15,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLIOCommandBuffer
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIOCommandBuffer obj) => obj.NativePtr;
         public MTLIOCommandBuffer(IntPtr ptr) => NativePtr = ptr;
 

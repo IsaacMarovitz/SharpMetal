@@ -7,7 +7,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLDrawable
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLDrawable obj) => obj.NativePtr;
         public MTLDrawable(IntPtr ptr) => NativePtr = ptr;
 

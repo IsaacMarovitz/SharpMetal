@@ -66,7 +66,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLVertexAttribute
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLVertexAttribute obj) => obj.NativePtr;
         public MTLVertexAttribute(IntPtr ptr) => NativePtr = ptr;
 
@@ -99,7 +99,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLAttribute
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAttribute obj) => obj.NativePtr;
         public MTLAttribute(IntPtr ptr) => NativePtr = ptr;
 
@@ -132,7 +132,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLFunctionConstant
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionConstant obj) => obj.NativePtr;
         public MTLFunctionConstant(IntPtr ptr) => NativePtr = ptr;
 
@@ -159,7 +159,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLFunction
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunction obj) => obj.NativePtr;
         public MTLFunction(IntPtr ptr) => NativePtr = ptr;
 
@@ -220,7 +220,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLCompileOptions
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCompileOptions obj) => obj.NativePtr;
         public MTLCompileOptions(IntPtr ptr) => NativePtr = ptr;
 
@@ -323,7 +323,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLLibrary
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLLibrary obj) => obj.NativePtr;
         public MTLLibrary(IntPtr ptr) => NativePtr = ptr;
 
@@ -351,19 +351,19 @@ namespace SharpMetal.Metal
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newFunctionWithName, functionName));
         }
 
-        public MTLFunction NewFunction(NSString name, MTLFunctionConstantValues constantValues, NSError error)
+        public MTLFunction NewFunction(NSString name, MTLFunctionConstantValues constantValues, ref NSError error)
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newFunctionWithNameconstantValueserror, name, constantValues, error));
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newFunctionWithNameconstantValueserror, name, constantValues, ref error.NativePtr));
         }
 
-        public MTLFunction NewFunction(MTLFunctionDescriptor descriptor, NSError error)
+        public MTLFunction NewFunction(MTLFunctionDescriptor descriptor, ref NSError error)
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newFunctionWithDescriptorerror, descriptor, error));
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newFunctionWithDescriptorerror, descriptor, ref error.NativePtr));
         }
 
-        public MTLFunction NewIntersectionFunction(MTLIntersectionFunctionDescriptor descriptor, NSError error)
+        public MTLFunction NewIntersectionFunction(MTLIntersectionFunctionDescriptor descriptor, ref NSError error)
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newIntersectionFunctionWithDescriptorerror, descriptor, error));
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newIntersectionFunctionWithDescriptorerror, descriptor, ref error.NativePtr));
         }
 
         private static readonly Selector sel_label = "label";

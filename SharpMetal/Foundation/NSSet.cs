@@ -6,7 +6,7 @@ namespace SharpMetal.Foundation
     [SupportedOSPlatform("macos")]
     public partial class NSSet
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(NSSet obj) => obj.NativePtr;
         public NSSet(IntPtr ptr) => NativePtr = ptr;
 

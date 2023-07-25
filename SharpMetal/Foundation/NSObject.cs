@@ -6,7 +6,7 @@ namespace SharpMetal.Foundation
     [SupportedOSPlatform("macos")]
     public partial class NS_NS_EXPORT
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(NS_NS_EXPORT obj) => obj.NativePtr;
         public NS_NS_EXPORT(IntPtr ptr) => NativePtr = ptr;
 
@@ -22,7 +22,7 @@ namespace SharpMetal.Foundation
     [SupportedOSPlatform("macos")]
     public partial class NSCopying
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(NSCopying obj) => obj.NativePtr;
         public NSCopying(IntPtr ptr) => NativePtr = ptr;
 
@@ -36,7 +36,7 @@ namespace SharpMetal.Foundation
     [SupportedOSPlatform("macos")]
     public partial class NSSecureCoding
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(NSSecureCoding obj) => obj.NativePtr;
         public NSSecureCoding(IntPtr ptr) => NativePtr = ptr;
 
@@ -49,7 +49,7 @@ namespace SharpMetal.Foundation
     [SupportedOSPlatform("macos")]
     public partial class NSObject
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(NSObject obj) => obj.NativePtr;
         public NSObject(IntPtr ptr) => NativePtr = ptr;
 

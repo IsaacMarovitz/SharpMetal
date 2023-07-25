@@ -7,7 +7,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLFunctionHandle
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionHandle obj) => obj.NativePtr;
         public MTLFunctionHandle(IntPtr ptr) => NativePtr = ptr;
 

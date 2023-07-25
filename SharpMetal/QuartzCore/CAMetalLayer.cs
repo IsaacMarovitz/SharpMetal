@@ -7,7 +7,7 @@ namespace SharpMetal.QuartzCore
     [SupportedOSPlatform("macos")]
     public partial class CAMetalLayer
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(CAMetalLayer obj) => obj.NativePtr;
         public CAMetalLayer(IntPtr ptr) => NativePtr = ptr;
 

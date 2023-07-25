@@ -6,7 +6,7 @@ namespace SharpMetal.Foundation
     [SupportedOSPlatform("macos")]
     public partial class NSBundle
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(NSBundle obj) => obj.NativePtr;
         public NSBundle(IntPtr ptr) => NativePtr = ptr;
 
@@ -87,14 +87,14 @@ namespace SharpMetal.Foundation
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithURL, pURL));
         }
 
-        public bool PreflightAndReturnError(NSError pError)
+        public bool PreflightAndReturnError(ref NSError pError)
         {
-            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_preflightAndReturnError, pError);
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_preflightAndReturnError, ref pError.NativePtr);
         }
 
-        public bool LoadAndReturnError(NSError pError)
+        public bool LoadAndReturnError(ref NSError pError)
         {
-            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_loadAndReturnError, pError);
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_loadAndReturnError, ref pError.NativePtr);
         }
 
         public NSURL URLForAuxiliaryExecutable(NSString pExecutableName)

@@ -6,7 +6,7 @@ namespace SharpMetal.Foundation
     [SupportedOSPlatform("macos")]
     public partial class NSLocking
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(NSLocking obj) => obj.NativePtr;
         public NSLocking(IntPtr ptr) => NativePtr = ptr;
 
@@ -19,7 +19,7 @@ namespace SharpMetal.Foundation
     [SupportedOSPlatform("macos")]
     public partial class NSCondition
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(NSCondition obj) => obj.NativePtr;
         public NSCondition(IntPtr ptr) => NativePtr = ptr;
 

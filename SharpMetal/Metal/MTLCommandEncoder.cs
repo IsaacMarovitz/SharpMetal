@@ -21,7 +21,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLCommandEncoder
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCommandEncoder obj) => obj.NativePtr;
         public MTLCommandEncoder(IntPtr ptr) => NativePtr = ptr;
 

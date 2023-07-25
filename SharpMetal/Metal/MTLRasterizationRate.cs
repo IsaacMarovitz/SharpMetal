@@ -7,7 +7,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLRasterizationRateSampleArray
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRasterizationRateSampleArray obj) => obj.NativePtr;
         public MTLRasterizationRateSampleArray(IntPtr ptr) => NativePtr = ptr;
 
@@ -34,7 +34,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLRasterizationRateLayerDescriptor
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRasterizationRateLayerDescriptor obj) => obj.NativePtr;
         public MTLRasterizationRateLayerDescriptor(IntPtr ptr) => NativePtr = ptr;
 
@@ -84,7 +84,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLRasterizationRateLayerArray
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRasterizationRateLayerArray obj) => obj.NativePtr;
         public MTLRasterizationRateLayerArray(IntPtr ptr) => NativePtr = ptr;
 
@@ -111,7 +111,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLRasterizationRateMapDescriptor
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRasterizationRateMapDescriptor obj) => obj.NativePtr;
         public MTLRasterizationRateMapDescriptor(IntPtr ptr) => NativePtr = ptr;
 
@@ -178,7 +178,7 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial class MTLRasterizationRateMap
     {
-        public readonly IntPtr NativePtr;
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRasterizationRateMap obj) => obj.NativePtr;
         public MTLRasterizationRateMap(IntPtr ptr) => NativePtr = ptr;
 

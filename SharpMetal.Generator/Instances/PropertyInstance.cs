@@ -4,11 +4,13 @@ namespace SharpMetal.Generator.Instances
     {
         public string Type;
         public string Name;
+        public bool Reference;
 
-        public PropertyInstance(string type, string name)
+        public PropertyInstance(string type, string name, bool reference = false)
         {
             Type = type;
             Name = name;
+            Reference = reference;
         }
 
         public ObjectiveCInstance Generate(List<SelectorInstance> selectorInstances, List<EnumInstance> enumCache, List<StructInstance> structCache, CodeGenContext context)
