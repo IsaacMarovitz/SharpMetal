@@ -414,9 +414,9 @@ namespace SharpMetal.Metal
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newLibraryWithDataerror, data, error));
         }
 
-        public MTLLibrary NewLibrary(NSString source, MTLCompileOptions options, NSError error)
+        public MTLLibrary NewLibrary(NSString source, MTLCompileOptions options, ref NSError error)
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newLibraryWithSourceoptionserror, source, options, error));
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newLibraryWithSourceoptionserror, source, options, ref error.NativePtr));
         }
 
         public MTLLibrary NewLibrary(MTLStitchedLibraryDescriptor descriptor, NSError error)
