@@ -53,17 +53,17 @@ namespace SharpMetal.ObjectiveCCore
             ObjectiveC.objc_msgSend(NativePtr, selector, objectiveCClass.NativePtr);
         }
 
-        public void SendMessage(Selector selector, ObjectiveC.NSRect point)
+        public void SendMessage(Selector selector, NSRect point)
         {
             ObjectiveC.objc_msgSend(NativePtr, selector, point);
         }
 
-        public void SendMessage(Selector selector, ObjectiveC.NSRect rect, ulong a, ulong b, byte c)
+        public void SendMessage(Selector selector, NSRect rect, ulong a, ulong b, byte c)
         {
             ObjectiveC.objc_msgSend(NativePtr, selector, rect, a, b, c);
         }
 
-        public void SendMessage(Selector selector, ObjectiveC.NSRect frame, byte value)
+        public void SendMessage(Selector selector, NSRect frame, byte value)
         {
             ObjectiveC.objc_msgSend(NativePtr, selector, frame, value);
         }

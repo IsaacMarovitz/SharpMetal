@@ -1,5 +1,4 @@
 using System.Runtime.Versioning;
-using SharpMetal.Foundation;
 using SharpMetal.ObjectiveCCore;
 using SharpMetal.Metal;
 
@@ -16,35 +15,30 @@ namespace SharpMetal.Examples
             ObjectiveC.dlopen("/System/Library/Frameworks/AppKit.framework/AppKit", 0);
 
             // Create CAMetalLayer
-            ObjectiveCClass layerObject = new("CAMetalLayer");
-            var metalLayer = layerObject.AllocInit();
+            var metalLayer = new CAMetalLayer();
 
             // Create a child NSView to render to
-            ObjectiveCClass nsViewObject = new("NSView");
-            var child = nsViewObject.Alloc();
-            child.SendMessage("init", new ObjectiveC.NSRect(0, 0, 1000, 1000));
-            child.SendMessage("setWantsLayer:", 1);
-            child.SendMessage("setLayer:", metalLayer);
+            var nsView = new NSView(new NSRect(0, 0, 1000, 1000));
+            nsView.WantsLayer = true;
+            nsView.Layer = metalLayer;
 
             // Create NSApplication
             ObjectiveCClass nsApplicationObject = new("NSApplication");
             ObjectiveCClass application = new(ObjectiveC.IntPtr_objc_msgSend(nsApplicationObject, "sharedApplication"));
 
             // Create and show NSWindow
-            ObjectiveCClass nsWindowObject = new("NSWindow");
-            var window = nsWindowObject.Alloc();
-            window.SendMessage("initWithContentRect:styleMask:backing:defer:", new ObjectiveC.NSRect(0, 0, 1000, 1000), 0, 0, 0);
-            window.SendMessage("setContentView:", child);
-            window.SendMessage("makeKeyAndOrderFront:", IntPtr.Zero);
+            var window = new NSWindow(new NSRect(0, 0, 1000, 1000));
+            window.SetContentView(nsView);
+            window.MakeKeyAndOrderFront();
 
             var device = MTLDevice.CreateSystemDefaultDevice();
-            metalLayer.SendMessage("device", device);
+            metalLayer.Device = device;
 
             // Draw color to CAMetalLayer
-            MTLDrawable drawable = new(ObjectiveC.IntPtr_objc_msgSend(metalLayer, "nextDrawable"));
+            var drawable = metalLayer.NextDrawable;
             var renderPassDescriptor = new MTLRenderPassDescriptor();
             var attachmentDescriptor = renderPassDescriptor.ColorAttachments.Object(0);
-            attachmentDescriptor.Texture = new(ObjectiveC.IntPtr_objc_msgSend(drawable, "texture"));
+            attachmentDescriptor.Texture = drawable.Texture;
             attachmentDescriptor.LoadAction = MTLLoadAction.Clear;
             attachmentDescriptor.StoreAction = MTLStoreAction.Store;
             attachmentDescriptor.ClearColor = new MTLClearColor

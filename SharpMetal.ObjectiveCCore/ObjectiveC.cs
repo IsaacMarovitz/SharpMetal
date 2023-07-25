@@ -34,33 +34,40 @@ namespace SharpMetal.ObjectiveCCore
         public static partial void objc_msgSend(IntPtr receiver, Selector selector, NSRect rect, byte value);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial void objc_msgSend(IntPtr receiver, Selector selector, [MarshalAs(UnmanagedType.Bool)] bool value);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial void objc_msgSend(IntPtr receiver, Selector selector, NSRect rect, ulong a, ulong b, byte c);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector);
 
-        public readonly struct NSPoint
-        {
-            public readonly double X;
-            public readonly double Y;
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static partial bool bool_objc_msgSend(IntPtr receiver, Selector selector);
+    }
 
-            public NSPoint(double x, double y)
-            {
-                X = x;
-                Y = y;
-            }
+    public readonly struct NSPoint
+    {
+        public readonly double X;
+        public readonly double Y;
+
+        public NSPoint(double x, double y)
+        {
+            X = x;
+            Y = y;
         }
+    }
 
-        public readonly struct NSRect
+    public readonly struct NSRect
+    {
+        public readonly NSPoint Pos;
+        public readonly NSPoint Size;
+
+        public NSRect(double x, double y, double width, double height)
         {
-            public readonly NSPoint Pos;
-            public readonly NSPoint Size;
-
-            public NSRect(double x, double y, double width, double height)
-            {
-                Pos = new NSPoint(x, y);
-                Size = new NSPoint(width, height);
-            }
+            Pos = new NSPoint(x, y);
+            Size = new NSPoint(width, height);
         }
     }
 }
