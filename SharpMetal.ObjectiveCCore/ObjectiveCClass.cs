@@ -37,40 +37,5 @@ namespace SharpMetal.ObjectiveCCore
             var value = ObjectiveC.IntPtr_objc_msgSend(NativePtr, "alloc");
             return new ObjectiveCClass(value);
         }
-
-        public void SendMessage(Selector selector)
-        {
-            ObjectiveC.objc_msgSend(NativePtr, selector);
-        }
-
-        public void SendMessage(Selector selector, byte value)
-        {
-            ObjectiveC.objc_msgSend(NativePtr, selector, value);
-        }
-
-        public void SendMessage(Selector selector, ObjectiveCClass objectiveCClass)
-        {
-            ObjectiveC.objc_msgSend(NativePtr, selector, objectiveCClass.NativePtr);
-        }
-
-        public void SendMessage(Selector selector, NSRect point)
-        {
-            ObjectiveC.objc_msgSend(NativePtr, selector, point);
-        }
-
-        public void SendMessage(Selector selector, NSRect rect, ulong a, ulong b, byte c)
-        {
-            ObjectiveC.objc_msgSend(NativePtr, selector, rect, a, b, c);
-        }
-
-        public void SendMessage(Selector selector, NSRect frame, byte value)
-        {
-            ObjectiveC.objc_msgSend(NativePtr, selector, frame, value);
-        }
-
-        public void SendMessage(Selector selector, double value)
-        {
-            ObjectiveC.objc_msgSend(NativePtr, selector, value);
-        }
     }
 }

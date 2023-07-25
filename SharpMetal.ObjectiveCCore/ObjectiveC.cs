@@ -37,10 +37,13 @@ namespace SharpMetal.ObjectiveCCore
         public static partial void objc_msgSend(IntPtr receiver, Selector selector, [MarshalAs(UnmanagedType.Bool)] bool value);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
-        public static partial void objc_msgSend(IntPtr receiver, Selector selector, NSRect rect, ulong a, ulong b, byte c);
+        public static partial void objc_msgSend(IntPtr receiver, Selector selector, NSRect contentRect, ulong style, ulong backingStoreType, [MarshalAs(UnmanagedType.Bool)] bool flag);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend", StringMarshalling = StringMarshalling.Utf8)]
+        public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, string param);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         [return: MarshalAs(UnmanagedType.Bool)]

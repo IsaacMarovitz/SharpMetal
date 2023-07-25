@@ -7,6 +7,10 @@ namespace SharpMetal.Examples
     [SupportedOSPlatform("macos")]
     public class Program
     {
+        private const int Width = 1920;
+        private const int Height = 1080;
+        private const string WindowTitle = "SharpMetal";
+
         public static void Main(string[] args)
         {
             // "Link" Metal, CoreGraphics, and AppKit
@@ -18,7 +22,7 @@ namespace SharpMetal.Examples
             var metalLayer = new CAMetalLayer();
 
             // Create a child NSView to render to
-            var rect = new NSRect(0, 0, 1000, 1000);
+            var rect = new NSRect(0, 0, Width, Height);
             var nsView = new NSView(rect);
             nsView.WantsLayer = true;
             nsView.Layer = metalLayer;
@@ -27,9 +31,10 @@ namespace SharpMetal.Examples
             var nsApplication = new NSApplication();
 
             // Create and show NSWindow
-            var window = new NSWindow(rect);
+            var window = new NSWindow(rect, (ulong)(NSStyleMask.Titled | NSStyleMask.Resizable));
             window.SetContentView(nsView);
             window.MakeKeyAndOrderFront();
+            window.Title = new(ObjectiveC.IntPtr_objc_msgSend(new ObjectiveCClass("NSString"), "stringWithUTF8String:", WindowTitle));
 
             var device = MTLDevice.CreateSystemDefaultDevice();
             metalLayer.Device = device;
