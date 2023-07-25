@@ -10,10 +10,11 @@ namespace SharpMetal.Examples
     [SupportedOSPlatform("macos")]
     public class Program
     {
-        private const int Width = 1920;
-        private const int Height = 1080;
-        private const string WindowTitle = "SharpMetal";
-        private const float TriangleSize = 64;
+        private const int X = 100;
+        private const int Y = 100;
+        private const int Width = 512;
+        private const int Height = 512;
+        private const string WindowTitle = "SharpMetal - Primitive";
 
         private const string ShaderSource = """
         #include <metal_stdlib>
@@ -56,7 +57,7 @@ namespace SharpMetal.Examples
             metalLayer.Device = device;
 
             // Create a child NSView to render to
-            var rect = new NSRect(0, 0, Width, Height);
+            var rect = new NSRect(X, Y, Width, Height);
             var nsView = new NSView(rect);
             nsView.WantsLayer = true;
             nsView.Layer = metalLayer;
@@ -134,17 +135,20 @@ namespace SharpMetal.Examples
             attachmentDescriptor.StoreAction = MTLStoreAction.Store;
             attachmentDescriptor.ClearColor = new MTLClearColor
             {
-                red = 0.0,
-                green = 1.0,
-                blue = 1.0,
+                red = 1.0,
+                green = 0.0,
+                blue = 0.0,
                 alpha = 1.0
             };
-
             var queue = device.NewCommandQueue();
             var buffer = queue.CommandBuffer();
             var encoder = buffer.RenderCommandEncoder(renderPassDescriptor);
-            // encoder.DrawPrimitives(MTLPrimitiveType.Triangle, 0, 3);
+            encoder.SetRenderPipelineState(pipelineState);
+            encoder.SetVertexBuffer(vertexPositionsBuffer, 0, 0);
+            encoder.SetVertexBuffer(vertexColorsBuffer, 0, 1);
+            encoder.DrawPrimitives(MTLPrimitiveType.Triangle, 0, 3);
             encoder.EndEncoding();
+
             buffer.PresentDrawable(drawable);
             buffer.Commit();
 
