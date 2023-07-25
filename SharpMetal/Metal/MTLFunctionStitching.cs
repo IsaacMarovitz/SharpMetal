@@ -10,14 +10,19 @@ namespace SharpMetal.Metal
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingAttribute obj) => obj.NativePtr;
         public MTLFunctionStitchingAttribute(IntPtr ptr) => NativePtr = ptr;
+
+        protected MTLFunctionStitchingAttribute()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLFunctionStitchingAttributeAlwaysInline
+    public partial class MTLFunctionStitchingAttributeAlwaysInline : MTLFunctionStitchingAttribute
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingAttributeAlwaysInline obj) => obj.NativePtr;
-        public MTLFunctionStitchingAttributeAlwaysInline(IntPtr ptr) => NativePtr = ptr;
+        public MTLFunctionStitchingAttributeAlwaysInline(IntPtr ptr) : base(ptr) => NativePtr = ptr;
 
         public MTLFunctionStitchingAttributeAlwaysInline()
         {
@@ -32,14 +37,19 @@ namespace SharpMetal.Metal
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingNode obj) => obj.NativePtr;
         public MTLFunctionStitchingNode(IntPtr ptr) => NativePtr = ptr;
+
+        protected MTLFunctionStitchingNode()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLFunctionStitchingInputNode
+    public partial class MTLFunctionStitchingInputNode : MTLFunctionStitchingNode
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingInputNode obj) => obj.NativePtr;
-        public MTLFunctionStitchingInputNode(IntPtr ptr) => NativePtr = ptr;
+        public MTLFunctionStitchingInputNode(IntPtr ptr) : base(ptr) => NativePtr = ptr;
 
         public MTLFunctionStitchingInputNode()
         {
@@ -64,11 +74,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLFunctionStitchingFunctionNode
+    public partial class MTLFunctionStitchingFunctionNode : MTLFunctionStitchingNode
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingFunctionNode obj) => obj.NativePtr;
-        public MTLFunctionStitchingFunctionNode(IntPtr ptr) => NativePtr = ptr;
+        public MTLFunctionStitchingFunctionNode(IntPtr ptr) : base(ptr) => NativePtr = ptr;
 
         public MTLFunctionStitchingFunctionNode()
         {

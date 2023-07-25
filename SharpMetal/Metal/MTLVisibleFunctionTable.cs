@@ -29,11 +29,16 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLVisibleFunctionTable
+    public partial class MTLVisibleFunctionTable : MTLResource
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLVisibleFunctionTable obj) => obj.NativePtr;
-        public MTLVisibleFunctionTable(IntPtr ptr) => NativePtr = ptr;
+        public MTLVisibleFunctionTable(IntPtr ptr) : base(ptr) => NativePtr = ptr;
+
+        protected MTLVisibleFunctionTable()
+        {
+            throw new NotImplementedException();
+        }
 
         public MTLResourceID GpuResourceID => ObjectiveCRuntime.MTLResourceID_objc_msgSend(NativePtr, sel_gpuResourceID);
 

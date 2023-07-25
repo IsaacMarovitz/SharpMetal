@@ -11,6 +11,11 @@ namespace SharpMetal.QuartzCore
         public static implicit operator IntPtr(CAMetalLayer obj) => obj.NativePtr;
         public CAMetalLayer(IntPtr ptr) => NativePtr = ptr;
 
+        protected CAMetalLayer()
+        {
+            throw new NotImplementedException();
+        }
+
         public MTLDevice Device
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));

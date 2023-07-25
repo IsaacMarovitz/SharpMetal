@@ -10,6 +10,11 @@ namespace SharpMetal.Foundation
         public static implicit operator IntPtr(NS_NS_EXPORT obj) => obj.NativePtr;
         public NS_NS_EXPORT(IntPtr ptr) => NativePtr = ptr;
 
+        protected NS_NS_EXPORT()
+        {
+            throw new NotImplementedException();
+        }
+
 
 
     }
@@ -21,6 +26,11 @@ namespace SharpMetal.Foundation
         public static implicit operator IntPtr(NSCopying obj) => obj.NativePtr;
         public NSCopying(IntPtr ptr) => NativePtr = ptr;
 
+        protected NSCopying()
+        {
+            throw new NotImplementedException();
+        }
+
     }
 
     [SupportedOSPlatform("macos")]
@@ -29,6 +39,11 @@ namespace SharpMetal.Foundation
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(NSSecureCoding obj) => obj.NativePtr;
         public NSSecureCoding(IntPtr ptr) => NativePtr = ptr;
+
+        protected NSSecureCoding()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     [SupportedOSPlatform("macos")]
@@ -37,6 +52,11 @@ namespace SharpMetal.Foundation
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(NSObject obj) => obj.NativePtr;
         public NSObject(IntPtr ptr) => NativePtr = ptr;
+
+        protected NSObject()
+        {
+            throw new NotImplementedException();
+        }
 
         public ulong Hash => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_hash);
 

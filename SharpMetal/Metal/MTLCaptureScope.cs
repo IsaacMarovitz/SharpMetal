@@ -11,6 +11,11 @@ namespace SharpMetal.Metal
         public static implicit operator IntPtr(MTLCaptureScope obj) => obj.NativePtr;
         public MTLCaptureScope(IntPtr ptr) => NativePtr = ptr;
 
+        protected MTLCaptureScope()
+        {
+            throw new NotImplementedException();
+        }
+
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
 
         public NSString Label

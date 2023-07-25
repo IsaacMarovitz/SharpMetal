@@ -67,11 +67,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLIntersectionFunctionDescriptor
+    public partial class MTLIntersectionFunctionDescriptor : MTLFunctionDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIntersectionFunctionDescriptor obj) => obj.NativePtr;
-        public MTLIntersectionFunctionDescriptor(IntPtr ptr) => NativePtr = ptr;
+        public MTLIntersectionFunctionDescriptor(IntPtr ptr) : base(ptr) => NativePtr = ptr;
 
         public MTLIntersectionFunctionDescriptor()
         {

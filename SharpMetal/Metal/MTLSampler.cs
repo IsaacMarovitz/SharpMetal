@@ -176,6 +176,11 @@ namespace SharpMetal.Metal
         public static implicit operator IntPtr(MTLSamplerState obj) => obj.NativePtr;
         public MTLSamplerState(IntPtr ptr) => NativePtr = ptr;
 
+        protected MTLSamplerState()
+        {
+            throw new NotImplementedException();
+        }
+
         public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
 
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));

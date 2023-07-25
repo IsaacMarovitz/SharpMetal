@@ -11,6 +11,11 @@ namespace SharpMetal.Metal
         public static implicit operator IntPtr(MTLCommandQueue obj) => obj.NativePtr;
         public MTLCommandQueue(IntPtr ptr) => NativePtr = ptr;
 
+        protected MTLCommandQueue()
+        {
+            throw new NotImplementedException();
+        }
+
         public NSString Label
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));

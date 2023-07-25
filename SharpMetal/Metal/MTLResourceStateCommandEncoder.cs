@@ -26,11 +26,16 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLResourceStateCommandEncoder
+    public partial class MTLResourceStateCommandEncoder : MTLCommandEncoder
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLResourceStateCommandEncoder obj) => obj.NativePtr;
-        public MTLResourceStateCommandEncoder(IntPtr ptr) => NativePtr = ptr;
+        public MTLResourceStateCommandEncoder(IntPtr ptr) : base(ptr) => NativePtr = ptr;
+
+        protected MTLResourceStateCommandEncoder()
+        {
+            throw new NotImplementedException();
+        }
 
         public void UpdateTextureMappings(MTLTexture texture, MTLSparseTextureMappingMode mode, MTLRegion regions, ulong mipLevels, ulong slices, ulong numRegions)
         {

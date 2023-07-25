@@ -11,6 +11,11 @@ namespace SharpMetal.Metal
         public static implicit operator IntPtr(MTLEvent obj) => obj.NativePtr;
         public MTLEvent(IntPtr ptr) => NativePtr = ptr;
 
+        protected MTLEvent()
+        {
+            throw new NotImplementedException();
+        }
+
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
 
         public NSString Label
@@ -49,11 +54,16 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLSharedEvent
+    public partial class MTLSharedEvent : MTLEvent
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLSharedEvent obj) => obj.NativePtr;
-        public MTLSharedEvent(IntPtr ptr) => NativePtr = ptr;
+        public MTLSharedEvent(IntPtr ptr) : base(ptr) => NativePtr = ptr;
+
+        protected MTLSharedEvent()
+        {
+            throw new NotImplementedException();
+        }
 
         public MTLSharedEventHandle NewSharedEventHandle => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newSharedEventHandle));
 

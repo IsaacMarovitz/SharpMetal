@@ -152,6 +152,11 @@ namespace SharpMetal.Metal
         public static implicit operator IntPtr(MTLComputePipelineState obj) => obj.NativePtr;
         public MTLComputePipelineState(IntPtr ptr) => NativePtr = ptr;
 
+        protected MTLComputePipelineState()
+        {
+            throw new NotImplementedException();
+        }
+
         public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
 
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));

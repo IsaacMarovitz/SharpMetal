@@ -89,6 +89,11 @@ namespace SharpMetal.Metal
         public static implicit operator IntPtr(MTLCommandBufferEncoderInfo obj) => obj.NativePtr;
         public MTLCommandBufferEncoderInfo(IntPtr ptr) => NativePtr = ptr;
 
+        protected MTLCommandBufferEncoderInfo()
+        {
+            throw new NotImplementedException();
+        }
+
         public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
 
         public NSArray DebugSignposts => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_debugSignposts));
@@ -106,6 +111,11 @@ namespace SharpMetal.Metal
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCommandBuffer obj) => obj.NativePtr;
         public MTLCommandBuffer(IntPtr ptr) => NativePtr = ptr;
+
+        protected MTLCommandBuffer()
+        {
+            throw new NotImplementedException();
+        }
 
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
 

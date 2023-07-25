@@ -10,6 +10,11 @@ namespace SharpMetal.Foundation
         public static implicit operator IntPtr(NSData obj) => obj.NativePtr;
         public NSData(IntPtr ptr) => NativePtr = ptr;
 
+        protected NSData()
+        {
+            throw new NotImplementedException();
+        }
+
         public IntPtr MutableBytes => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_mutableBytes));
 
         public ulong Length => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_length);

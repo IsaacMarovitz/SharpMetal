@@ -11,6 +11,11 @@ namespace SharpMetal.Metal
         public static implicit operator IntPtr(MTLIndirectRenderCommand obj) => obj.NativePtr;
         public MTLIndirectRenderCommand(IntPtr ptr) => NativePtr = ptr;
 
+        protected MTLIndirectRenderCommand()
+        {
+            throw new NotImplementedException();
+        }
+
         public void SetRenderPipelineState(MTLRenderPipelineState pipelineState)
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRenderPipelineState, pipelineState);
@@ -67,6 +72,11 @@ namespace SharpMetal.Metal
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIndirectComputeCommand obj) => obj.NativePtr;
         public MTLIndirectComputeCommand(IntPtr ptr) => NativePtr = ptr;
+
+        protected MTLIndirectComputeCommand()
+        {
+            throw new NotImplementedException();
+        }
 
         public void SetComputePipelineState(MTLComputePipelineState pipelineState)
         {

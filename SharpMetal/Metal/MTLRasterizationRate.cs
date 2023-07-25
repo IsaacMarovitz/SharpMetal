@@ -182,6 +182,11 @@ namespace SharpMetal.Metal
         public static implicit operator IntPtr(MTLRasterizationRateMap obj) => obj.NativePtr;
         public MTLRasterizationRateMap(IntPtr ptr) => NativePtr = ptr;
 
+        protected MTLRasterizationRateMap()
+        {
+            throw new NotImplementedException();
+        }
+
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
 
         public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));

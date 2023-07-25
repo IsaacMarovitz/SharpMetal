@@ -11,6 +11,7 @@ namespace SharpMetal.Generator.Instances
         private List<PropertyInstance> _propertyInstances;
         private List<MethodInstance> _methodInstances;
         private List<SelectorInstance> _selectorInstances;
+        private string _parent = string.Empty;
 
         private ClassInstance(string name)
         {
@@ -60,12 +61,28 @@ namespace SharpMetal.Generator.Instances
 
             context.WriteLine("[SupportedOSPlatform(\"macos\")]");
 
-            context.WriteLine($"public partial class {Name}");
+            context.Write($"{context.Indentation}public partial class {Name}");
+
+            if (_parent != string.Empty)
+            {
+                context.Write($" : {_parent}");
+            }
+
+            context.Write("\n");
+
             context.EnterScope();
 
             context.WriteLine("public readonly IntPtr NativePtr;");
             context.WriteLine($"public static implicit operator IntPtr({Name} obj) => obj.NativePtr;");
-            context.WriteLine($"public {Name}(IntPtr ptr) => NativePtr = ptr;");
+
+            if (_parent != string.Empty)
+            {
+                context.WriteLine($"public {Name}(IntPtr ptr) : base(ptr) => NativePtr = ptr;");
+            }
+            else
+            {
+                context.WriteLine($"public {Name}(IntPtr ptr) => NativePtr = ptr;");
+            }
 
             if (HasAlloc)
             {
@@ -84,6 +101,14 @@ namespace SharpMetal.Generator.Instances
                     context.WriteLine("NativePtr = cls.Alloc();");
                 }
 
+                context.LeaveScope();
+            }
+            else
+            {
+                context.WriteLine();
+                context.WriteLine($"protected {Name}()");
+                context.EnterScope();
+                context.WriteLine("throw new NotImplementedException();");
                 context.LeaveScope();
             }
 
@@ -127,8 +152,31 @@ namespace SharpMetal.Generator.Instances
         {
             var classInfo = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
             var className = namespacePrefix + classInfo[1];
-
             var instance = new ClassInstance(className);
+
+            if (classInfo[2] == ":")
+            {
+                var ancestorInfo = string.Join(" ", classInfo[3..]);
+                int index = ancestorInfo.IndexOf("<");
+                if (index >= 0)
+                {
+                    var info = ancestorInfo.Substring(index);
+                    info = info.Replace(">", "").Replace("<", "");
+                    var ancestors = info.Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+                    for (var i = 0; i < ancestors.Length; i++)
+                    {
+                        if (i > 0)
+                        {
+                            if (ancestors[i] != "_Base" && ancestors[i] != "Type" && ancestors[i] != "objc_object" &&
+                                ancestors[i] != "Value")
+                            {
+                                instance._parent = Types.ConvertType(ancestors[i], namespacePrefix);
+                            }
+                        }
+                    }
+                }
+            }
+
             instance._methodInstances.AddRange(inFlightUnscopedMethods);
             instance.NamespacePrefix = namespacePrefix;
 

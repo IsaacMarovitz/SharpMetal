@@ -52,6 +52,11 @@ namespace SharpMetal.Metal
         public static implicit operator IntPtr(MTLCounter obj) => obj.NativePtr;
         public MTLCounter(IntPtr ptr) => NativePtr = ptr;
 
+        protected MTLCounter()
+        {
+            throw new NotImplementedException();
+        }
+
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
 
         private static readonly Selector sel_name = "name";
@@ -63,6 +68,11 @@ namespace SharpMetal.Metal
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCounterSet obj) => obj.NativePtr;
         public MTLCounterSet(IntPtr ptr) => NativePtr = ptr;
+
+        protected MTLCounterSet()
+        {
+            throw new NotImplementedException();
+        }
 
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
 
@@ -125,6 +135,11 @@ namespace SharpMetal.Metal
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCounterSampleBuffer obj) => obj.NativePtr;
         public MTLCounterSampleBuffer(IntPtr ptr) => NativePtr = ptr;
+
+        protected MTLCounterSampleBuffer()
+        {
+            throw new NotImplementedException();
+        }
 
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
 

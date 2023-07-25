@@ -5,11 +5,16 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public partial class MTLParallelRenderCommandEncoder
+    public partial class MTLParallelRenderCommandEncoder : MTLCommandEncoder
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLParallelRenderCommandEncoder obj) => obj.NativePtr;
-        public MTLParallelRenderCommandEncoder(IntPtr ptr) => NativePtr = ptr;
+        public MTLParallelRenderCommandEncoder(IntPtr ptr) : base(ptr) => NativePtr = ptr;
+
+        protected MTLParallelRenderCommandEncoder()
+        {
+            throw new NotImplementedException();
+        }
 
         public MTLRenderCommandEncoder RenderCommandEncoder => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_renderCommandEncoder));
 

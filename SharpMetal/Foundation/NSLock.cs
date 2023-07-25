@@ -9,6 +9,11 @@ namespace SharpMetal.Foundation
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(NSLocking obj) => obj.NativePtr;
         public NSLocking(IntPtr ptr) => NativePtr = ptr;
+
+        protected NSLocking()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     [SupportedOSPlatform("macos")]

@@ -89,6 +89,11 @@ namespace SharpMetal.Metal
         public static implicit operator IntPtr(MTLHeap obj) => obj.NativePtr;
         public MTLHeap(IntPtr ptr) => NativePtr = ptr;
 
+        protected MTLHeap()
+        {
+            throw new NotImplementedException();
+        }
+
         public NSString Label
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));

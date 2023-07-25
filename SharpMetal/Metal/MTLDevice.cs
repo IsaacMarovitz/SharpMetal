@@ -214,6 +214,11 @@ namespace SharpMetal.Metal
         public static implicit operator IntPtr(MTLDevice obj) => obj.NativePtr;
         public MTLDevice(IntPtr ptr) => NativePtr = ptr;
 
+        protected MTLDevice()
+        {
+            throw new NotImplementedException();
+        }
+
         public bool IsHeadless => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isHeadless);
 
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));

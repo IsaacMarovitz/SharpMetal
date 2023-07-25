@@ -163,6 +163,11 @@ namespace SharpMetal.Metal
         public static implicit operator IntPtr(MTLFunction obj) => obj.NativePtr;
         public MTLFunction(IntPtr ptr) => NativePtr = ptr;
 
+        protected MTLFunction()
+        {
+            throw new NotImplementedException();
+        }
+
         public NSString Label
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
@@ -321,6 +326,11 @@ namespace SharpMetal.Metal
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLLibrary obj) => obj.NativePtr;
         public MTLLibrary(IntPtr ptr) => NativePtr = ptr;
+
+        protected MTLLibrary()
+        {
+            throw new NotImplementedException();
+        }
 
         public NSString Label
         {

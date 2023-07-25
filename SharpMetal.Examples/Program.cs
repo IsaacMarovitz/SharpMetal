@@ -43,11 +43,11 @@ namespace SharpMetal.Examples
             // Draw color to CAMetalLayer
             MTLDrawable drawable = new(ObjectiveC.IntPtr_objc_msgSend(metalLayer, "nextDrawable"));
             var renderPassDescriptor = new MTLRenderPassDescriptor();
-            var attachmentDescriptor = new MTLRenderPassAttachmentDescriptor(renderPassDescriptor.ColorAttachments.Object(0));
+            var attachmentDescriptor = renderPassDescriptor.ColorAttachments.Object(0);
             attachmentDescriptor.Texture = new(ObjectiveC.IntPtr_objc_msgSend(drawable, "texture"));
             attachmentDescriptor.LoadAction = MTLLoadAction.Clear;
             attachmentDescriptor.StoreAction = MTLStoreAction.Store;
-            new MTLRenderPassColorAttachmentDescriptor(attachmentDescriptor).ClearColor = new MTLClearColor
+            attachmentDescriptor.ClearColor = new MTLClearColor
             {
                 red = 0.0,
                 green = 1.0,
@@ -59,8 +59,7 @@ namespace SharpMetal.Examples
             var buffer = queue.CommandBuffer();
             var encoder = buffer.RenderCommandEncoder(renderPassDescriptor);
             encoder.DrawPrimitives(MTLPrimitiveType.Triangle, 0, 6);
-            var generic = new MTLCommandEncoder(encoder);
-            generic.EndEncoding();
+            encoder.EndEncoding();
             buffer.PresentDrawable(drawable);
             buffer.Commit();
 

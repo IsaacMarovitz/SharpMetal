@@ -43,6 +43,11 @@ namespace SharpMetal.Metal
         public static implicit operator IntPtr(MTLBinaryArchive obj) => obj.NativePtr;
         public MTLBinaryArchive(IntPtr ptr) => NativePtr = ptr;
 
+        protected MTLBinaryArchive()
+        {
+            throw new NotImplementedException();
+        }
+
         public NSString Label
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));

@@ -30,6 +30,11 @@ namespace SharpMetal.Foundation
         public static implicit operator IntPtr(NSProcessInfo obj) => obj.NativePtr;
         public NSProcessInfo(IntPtr ptr) => NativePtr = ptr;
 
+        protected NSProcessInfo()
+        {
+            throw new NotImplementedException();
+        }
+
         public NSArray Arguments => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_arguments));
 
         public NSDictionary Environment => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_environment));

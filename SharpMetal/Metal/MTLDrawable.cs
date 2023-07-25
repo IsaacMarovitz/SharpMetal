@@ -11,6 +11,11 @@ namespace SharpMetal.Metal
         public static implicit operator IntPtr(MTLDrawable obj) => obj.NativePtr;
         public MTLDrawable(IntPtr ptr) => NativePtr = ptr;
 
+        protected MTLDrawable()
+        {
+            throw new NotImplementedException();
+        }
+
         public IntPtr PresentedTime => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_presentedTime));
 
         public ulong DrawableID => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_drawableID);

@@ -10,6 +10,11 @@ namespace SharpMetal.Foundation
         public static implicit operator IntPtr(NSNotification obj) => obj.NativePtr;
         public NSNotification(IntPtr ptr) => NativePtr = ptr;
 
+        protected NSNotification()
+        {
+            throw new NotImplementedException();
+        }
+
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
 
         public NSObject Object => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_object));
@@ -27,6 +32,11 @@ namespace SharpMetal.Foundation
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(NSNotificationCenter obj) => obj.NativePtr;
         public NSNotificationCenter(IntPtr ptr) => NativePtr = ptr;
+
+        protected NSNotificationCenter()
+        {
+            throw new NotImplementedException();
+        }
 
         public static NSNotificationCenter DefaultCenter()
         {

@@ -11,11 +11,16 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLAccelerationStructureCommandEncoder
+    public partial class MTLAccelerationStructureCommandEncoder : MTLCommandEncoder
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureCommandEncoder obj) => obj.NativePtr;
-        public MTLAccelerationStructureCommandEncoder(IntPtr ptr) => NativePtr = ptr;
+        public MTLAccelerationStructureCommandEncoder(IntPtr ptr) : base(ptr) => NativePtr = ptr;
+
+        protected MTLAccelerationStructureCommandEncoder()
+        {
+            throw new NotImplementedException();
+        }
 
         public void BuildAccelerationStructure(MTLAccelerationStructure accelerationStructure, MTLAccelerationStructureDescriptor descriptor, MTLBuffer scratchBuffer, ulong scratchBufferOffset)
         {

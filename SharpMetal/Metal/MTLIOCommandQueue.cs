@@ -30,6 +30,11 @@ namespace SharpMetal.Metal
         public static implicit operator IntPtr(MTLIOCommandQueue obj) => obj.NativePtr;
         public MTLIOCommandQueue(IntPtr ptr) => NativePtr = ptr;
 
+        protected MTLIOCommandQueue()
+        {
+            throw new NotImplementedException();
+        }
+
         public MTLIOCommandBuffer CommandBuffer => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_commandBuffer));
 
         public MTLIOCommandBuffer CommandBufferWithUnretainedReferences => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_commandBufferWithUnretainedReferences));
@@ -59,6 +64,11 @@ namespace SharpMetal.Metal
         public static implicit operator IntPtr(MTLIOScratchBuffer obj) => obj.NativePtr;
         public MTLIOScratchBuffer(IntPtr ptr) => NativePtr = ptr;
 
+        protected MTLIOScratchBuffer()
+        {
+            throw new NotImplementedException();
+        }
+
         public MTLBuffer Buffer => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_buffer));
 
         private static readonly Selector sel_buffer = "buffer";
@@ -70,6 +80,11 @@ namespace SharpMetal.Metal
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIOScratchBufferAllocator obj) => obj.NativePtr;
         public MTLIOScratchBufferAllocator(IntPtr ptr) => NativePtr = ptr;
+
+        protected MTLIOScratchBufferAllocator()
+        {
+            throw new NotImplementedException();
+        }
 
         public IntPtr NewScratchBuffer(ulong minimumSize)
         {
@@ -140,6 +155,11 @@ namespace SharpMetal.Metal
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIOFileHandle obj) => obj.NativePtr;
         public MTLIOFileHandle(IntPtr ptr) => NativePtr = ptr;
+
+        protected MTLIOFileHandle()
+        {
+            throw new NotImplementedException();
+        }
 
         public NSString Label
         {

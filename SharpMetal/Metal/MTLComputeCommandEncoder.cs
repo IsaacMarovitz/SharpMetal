@@ -21,11 +21,16 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLComputeCommandEncoder
+    public partial class MTLComputeCommandEncoder : MTLCommandEncoder
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLComputeCommandEncoder obj) => obj.NativePtr;
-        public MTLComputeCommandEncoder(IntPtr ptr) => NativePtr = ptr;
+        public MTLComputeCommandEncoder(IntPtr ptr) : base(ptr) => NativePtr = ptr;
+
+        protected MTLComputeCommandEncoder()
+        {
+            throw new NotImplementedException();
+        }
 
         public MTLDispatchType DispatchType => (MTLDispatchType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_dispatchType);
 

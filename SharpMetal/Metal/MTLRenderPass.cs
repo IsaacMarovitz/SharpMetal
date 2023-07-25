@@ -156,11 +156,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLRenderPassColorAttachmentDescriptor
+    public partial class MTLRenderPassColorAttachmentDescriptor : MTLRenderPassAttachmentDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPassColorAttachmentDescriptor obj) => obj.NativePtr;
-        public MTLRenderPassColorAttachmentDescriptor(IntPtr ptr) => NativePtr = ptr;
+        public MTLRenderPassColorAttachmentDescriptor(IntPtr ptr) : base(ptr) => NativePtr = ptr;
 
         public MTLRenderPassColorAttachmentDescriptor()
         {
@@ -179,11 +179,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLRenderPassDepthAttachmentDescriptor
+    public partial class MTLRenderPassDepthAttachmentDescriptor : MTLRenderPassAttachmentDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPassDepthAttachmentDescriptor obj) => obj.NativePtr;
-        public MTLRenderPassDepthAttachmentDescriptor(IntPtr ptr) => NativePtr = ptr;
+        public MTLRenderPassDepthAttachmentDescriptor(IntPtr ptr) : base(ptr) => NativePtr = ptr;
 
         public MTLRenderPassDepthAttachmentDescriptor()
         {
@@ -210,11 +210,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLRenderPassStencilAttachmentDescriptor
+    public partial class MTLRenderPassStencilAttachmentDescriptor : MTLRenderPassAttachmentDescriptor
     {
         public readonly IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPassStencilAttachmentDescriptor obj) => obj.NativePtr;
-        public MTLRenderPassStencilAttachmentDescriptor(IntPtr ptr) => NativePtr = ptr;
+        public MTLRenderPassStencilAttachmentDescriptor(IntPtr ptr) : base(ptr) => NativePtr = ptr;
 
         public MTLRenderPassStencilAttachmentDescriptor()
         {

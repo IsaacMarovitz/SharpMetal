@@ -154,6 +154,11 @@ namespace SharpMetal.Metal
         public static implicit operator IntPtr(MTLDepthStencilState obj) => obj.NativePtr;
         public MTLDepthStencilState(IntPtr ptr) => NativePtr = ptr;
 
+        protected MTLDepthStencilState()
+        {
+            throw new NotImplementedException();
+        }
+
         public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
 
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));

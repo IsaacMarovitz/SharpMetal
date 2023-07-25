@@ -25,6 +25,11 @@ namespace SharpMetal.Metal
         public static implicit operator IntPtr(MTLCommandEncoder obj) => obj.NativePtr;
         public MTLCommandEncoder(IntPtr ptr) => NativePtr = ptr;
 
+        protected MTLCommandEncoder()
+        {
+            throw new NotImplementedException();
+        }
+
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
 
         public NSString Label
