@@ -97,9 +97,9 @@ namespace SharpMetal.Metal
             return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsDestination, (long)destination);
         }
 
-        public bool StartCapture(MTLCaptureDescriptor descriptor, NSError error)
+        public bool StartCapture(MTLCaptureDescriptor descriptor, ref NSError error)
         {
-            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_startCaptureWithDescriptorerror, descriptor, error);
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_startCaptureWithDescriptorerror, descriptor, ref error.NativePtr);
         }
 
         public void StartCapture(MTLDevice device)

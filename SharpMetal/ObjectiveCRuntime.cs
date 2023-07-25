@@ -168,6 +168,10 @@ namespace SharpMetal
 
         [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
         [return: MarshalAs(UnmanagedType.Bool)]
+        public static partial bool bool_objc_msgSend(IntPtr receiver, IntPtr selector, IntPtr a, ref IntPtr b);
+
+        [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static partial bool bool_objc_msgSend(IntPtr receiver, IntPtr selector, ulong a);
 
         [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]

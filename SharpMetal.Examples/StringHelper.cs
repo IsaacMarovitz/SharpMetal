@@ -16,13 +16,13 @@ namespace SharpMetal.Examples
 
         public static unsafe string GetError(NSError error)
         {
-            char[] errorDescription = new char[error.LocalizedDescription];
+            char[] errorDescription = new char[error.LocalizedDescription.Length];
             fixed(char* pointer = errorDescription)
             {
                 ObjectiveC.bool_objc_msgSend(error.LocalizedDescription,
                     "getCString:maxLength:encoding:",
                     pointer,
-                    error.LocalizedDescription.MaximumLengthOfBytes(NSStringEncoding.UTF16),
+                    error.LocalizedDescription.MaximumLengthOfBytes(NSStringEncoding.UTF16) + 1,
                     (ulong)NSStringEncoding.UTF16);
             }
 

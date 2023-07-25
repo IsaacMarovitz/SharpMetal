@@ -56,6 +56,16 @@ namespace SharpMetal.Examples
             var metalLayer = new CAMetalLayer();
             metalLayer.Device = device;
 
+            // Setup Capture
+            var captureDescriptor = new MTLCaptureDescriptor();
+            captureDescriptor.CaptureObject = device;
+            captureDescriptor.Destination = MTLCaptureDestination.GPUTraceDocument;
+            var captureURL = NSURL.FileURLWithPath(StringHelper.InitNSString("/Users/isaacmarovitz/Desktop/Trace.gputrace"));
+            captureDescriptor.OutputURL = captureURL;
+            var captureError = new NSError(IntPtr.Zero);
+            MTLCaptureManager.SharedCaptureManager().StartCapture(captureDescriptor, ref captureError);
+            Console.WriteLine($"Capture error: {StringHelper.GetError(captureError)}");
+
             // Create a child NSView to render to
             var rect = new NSRect(X, Y, Width, Height);
             var nsView = new NSView(rect);
@@ -82,7 +92,7 @@ namespace SharpMetal.Examples
             var pipeline = new MTLRenderPipelineDescriptor();
             pipeline.VertexFunction = vertexFunction;
             pipeline.FragmentFunction = fragmentFunction;
-            pipeline.ColorAttachments.Object(0).PixelFormat = MTLPixelFormat.BGRA8UnormsRGB;
+            pipeline.ColorAttachments.Object(0).PixelFormat = MTLPixelFormat.BGRA8Unorm;
 
             var pipelineState = device.NewRenderPipelineState(pipeline, new NSError(IntPtr.Zero));
 
@@ -151,6 +161,7 @@ namespace SharpMetal.Examples
 
             buffer.PresentDrawable(drawable);
             buffer.Commit();
+            MTLCaptureManager.SharedCaptureManager().StopCapture();
 
             nsApplication.Run();
         }
