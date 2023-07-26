@@ -64,11 +64,17 @@ namespace SharpMetal.Generator.Instances
 
                 if (!skipValues)
                 {
-                    if (propertyLine.Contains('(') && propertyLine.Contains(')')) continue;
+                    if (propertyLine.Contains('(') && propertyLine.Contains(')'))
+                    {
+                        continue;
+                    }
 
                     var propertyInfo = propertyLine.Replace(";", "").Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
 
-                    if (propertyInfo.Length != 2) continue;
+                    if (propertyInfo.Length != 2)
+                    {
+                        continue;
+                    }
 
                     var type = Types.ConvertType(propertyInfo[0], namespacePrefix);
                     var propertyName = propertyInfo[1];

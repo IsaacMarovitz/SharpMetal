@@ -45,16 +45,36 @@ namespace SharpMetal.Generator.Instances
 
         public bool Equals(ObjectiveCInstance? other)
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
             return Type == other.Type && Inputs.All(other.Inputs.Contains) && other.Inputs.All(Inputs.Contains);
         }
 
         public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+
             return Equals((ObjectiveCInstance)obj);
         }
 
@@ -74,8 +94,16 @@ namespace SharpMetal.Generator.Instances
 
         public int CompareTo(ObjectiveCInstance? other)
         {
-            if (ReferenceEquals(this, other)) return 0;
-            if (ReferenceEquals(null, other)) return 1;
+            if (ReferenceEquals(this, other))
+            {
+                return 0;
+            }
+
+            if (ReferenceEquals(null, other))
+            {
+                return 1;
+            }
+
             return string.Compare(Type, other.Type, StringComparison.Ordinal);
         }
     }

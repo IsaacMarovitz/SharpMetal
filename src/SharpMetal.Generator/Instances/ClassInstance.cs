@@ -5,7 +5,7 @@ namespace SharpMetal.Generator.Instances
     public class ClassInstance
     {
         public string Name { get; set; }
-        public string NamespacePrefix;
+        public string NamespacePrefix = "";
         public bool HasAlloc;
         public bool HasInit;
         private List<PropertyInstance> _propertyInstances;
@@ -31,8 +31,6 @@ namespace SharpMetal.Generator.Instances
 
         public void AddMethod(MethodInstance methodInstance)
         {
-            bool methodExists = false;
-
             foreach (var method in _methodInstances)
             {
                 if (method.Name == methodInstance.Name)

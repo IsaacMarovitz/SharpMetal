@@ -132,7 +132,7 @@ namespace SharpMetal.Generator
                         var returnType = "";
                         var name = "";
                         var nameIndex = 0;
-                        MethodInstance method = null;
+                        MethodInstance? method = null;
 
                         for (int i = 0; i < info.Length; i++)
                         {
