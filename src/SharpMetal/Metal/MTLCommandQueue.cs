@@ -33,7 +33,7 @@ namespace SharpMetal.Metal
 
         public MTLCommandBuffer CommandBuffer()
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_commandBufferWithDescriptor));
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_commandBuffer));
         }
 
         public void InsertDebugCaptureBoundary()

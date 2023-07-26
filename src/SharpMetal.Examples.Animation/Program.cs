@@ -1,20 +1,21 @@
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
-using SharpMetal.ObjectiveCCore;
-using SharpMetal.Metal;
-using SharpMetal.Foundation;
 using SharpMetal.Examples.Common;
+using SharpMetal.Foundation;
+using SharpMetal.Metal;
+using SharpMetal.ObjectiveCCore;
 
-namespace SharpMetal.Examples.Primitive
+namespace SharpMetal.Examples.Animation
 {
     [SupportedOSPlatform("macos")]
-    public static class Program
+    public class Program
     {
         private const int X = 100;
         private const int Y = 100;
         private const int Width = 512;
         private const int Height = 512;
-        private const string WindowTitle = "SharpMetal - Primitive";
+        private const int MaxFramesInFlight = 3;
+        private const string WindowTitle = "SharpMetal - Animation";
         private const bool CaptureWorkload = false;
         private const string CaptureFilePath = "/Users/isaacmarovitz/Desktop/Trace.gputrace";
 
@@ -28,13 +29,24 @@ namespace SharpMetal.Examples.Primitive
             half3 color;
         };
 
-        v2f vertex vertexMain( uint vertexId [[vertex_id]],
-                               device const float3* positions [[buffer(0)]],
-                               device const float3* colors [[buffer(1)]] )
+        struct VertexData
         {
+            device float3* positions [[id(0)]];
+            device float3* colors [[id(1)]];
+        };
+
+        struct FrameData
+        {
+            float angle;
+        };
+
+        v2f vertex vertexMain( device const VertexData* vertexData [[buffer(0)]], constant FrameData* frameData [[buffer(1)]], uint vertexId [[vertex_id]] )
+        {
+            float a = frameData->angle;
+            float3x3 rotationMatrix = float3x3( sin(a), cos(a), 0.0, cos(a), -sin(a), 0.0, 0.0, 0.0, 1.0 );
             v2f o;
-            o.position = float4( positions[ vertexId ], 1.0 );
-            o.color = half3 ( colors[ vertexId ] );
+            o.position = float4( rotationMatrix * vertexData->positions[ vertexId ], 1.0 );
+            o.color = half3(vertexData->colors[ vertexId ]);
             return o;
         }
 
@@ -159,6 +171,24 @@ namespace SharpMetal.Examples.Primitive
                 length = vertexColorsBuffer.Length
             });
 
+            var argumentEncoder = vertexFunction.NewArgumentEncoder(0);
+            var argumentBuffer = device.NewBuffer(argumentEncoder.EncodedLength, MTLResourceOptions.ResourceStorageModeManaged);
+            argumentEncoder.SetArgumentBuffer(argumentBuffer, 0);
+            argumentEncoder.SetBuffer(vertexPositionsBuffer, 0, 0);
+            argumentEncoder.SetBuffer(vertexColorsBuffer, 0, 0);
+            argumentBuffer.DidModifyRange(new NSRange
+            {
+                location = 0,
+                length = argumentBuffer.Length
+            });
+
+            var frameData = new MTLBuffer[MaxFramesInFlight];
+
+            for (int i = 0; i < frameData.Length; i++)
+            {
+                frameData[i] = device.NewBuffer((ulong)Marshal.SizeOf<FrameData>(), MTLResourceOptions.ResourceStorageModeManaged);
+            }
+
             // Draw
             var drawable = metalLayer.NextDrawable;
             var renderPassDescriptor = new MTLRenderPassDescriptor();
@@ -175,13 +205,33 @@ namespace SharpMetal.Examples.Primitive
             };
             var queue = device.NewCommandQueue();
             var buffer = queue.CommandBuffer();
+
+            // _frame = (_frame + 1) % Renderer::kMaxFramesInFlight;
+            var frame = 0;
+            var frameDataBuffer = frameData[frame];
+
+            unsafe
+            {
+                FrameData* pFrameData = (FrameData*)frameDataBuffer.Contents.ToPointer();
+                // (_angle += 0.01f)
+                pFrameData->Angle = 0f;
+                frameDataBuffer.DidModifyRange(new NSRange
+                {
+                    location = 0,
+                    length = (ulong)Marshal.SizeOf<FrameData>()
+                });
+            }
+
             var encoder = buffer.RenderCommandEncoder(renderPassDescriptor);
             encoder.SetRenderPipelineState(pipelineState);
-            encoder.SetVertexBuffer(vertexPositionsBuffer, 0, 0);
-            encoder.SetVertexBuffer(vertexColorsBuffer, 0, 1);
-            encoder.DrawPrimitives(MTLPrimitiveType.Triangle, 0, 3);
-            encoder.EndEncoding();
+            encoder.SetVertexBuffer(argumentBuffer, 0, 0);
+            encoder.UseResource(vertexPositionsBuffer, MTLResourceUsage.Read);
+            encoder.UseResource(vertexColorsBuffer, MTLResourceUsage.Read);
 
+            encoder.SetVertexBuffer(frameDataBuffer, 0, 1);
+            encoder.DrawPrimitives(MTLPrimitiveType.Triangle, 0, 3);
+
+            encoder.EndEncoding();
             buffer.PresentDrawable(drawable);
             buffer.Commit();
 
@@ -195,5 +245,11 @@ namespace SharpMetal.Examples.Primitive
             // Release pool
             autoreleasePool.Drain();
         }
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct FrameData
+    {
+        public float Angle;
     }
 }
