@@ -175,7 +175,7 @@ namespace SharpMetal.Examples.Animation
             var argumentBuffer = device.NewBuffer(argumentEncoder.EncodedLength, MTLResourceOptions.ResourceStorageModeManaged);
             argumentEncoder.SetArgumentBuffer(argumentBuffer, 0);
             argumentEncoder.SetBuffer(vertexPositionsBuffer, 0, 0);
-            argumentEncoder.SetBuffer(vertexColorsBuffer, 0, 0);
+            argumentEncoder.SetBuffer(vertexColorsBuffer, 0, 1);
             argumentBuffer.DidModifyRange(new NSRange
             {
                 location = 0,
