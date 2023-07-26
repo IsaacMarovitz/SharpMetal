@@ -274,7 +274,7 @@ namespace SharpMetal.Generator.Instances
                         // This is probably a constructor, in which case we have our own implementation
                         if (!returnType.Contains(name))
                         {
-                            instance.AddMethod(new MethodInstance(returnType, name, rawName, isStatic, false,new List<PropertyInstance>()));
+                            instance.AddMethod(new MethodInstance(returnType, name, rawName, isStatic, false, new List<PropertyInstance>()));
                         }
                     }
                     else

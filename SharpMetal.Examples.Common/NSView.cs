@@ -1,7 +1,7 @@
 using System.Runtime.Versioning;
 using SharpMetal.ObjectiveCCore;
 
-namespace SharpMetal.Examples
+namespace SharpMetal.Examples.Common
 {
     [SupportedOSPlatform("macos")]
     public class NSView

@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace SharpMetal.Examples
+namespace SharpMetal.Examples.Common
 {
     [StructLayout(LayoutKind.Sequential, Size = 16)]
     public struct Vector3

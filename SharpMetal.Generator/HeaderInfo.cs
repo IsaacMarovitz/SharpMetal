@@ -93,7 +93,8 @@ namespace SharpMetal.Generator
                     {
                         IncludeFlags = IncludeFlags | IncludeFlags.QuartzCore;
                     }
-                } else if (line.StartsWith("class"))
+                }
+                else if (line.StartsWith("class"))
                 {
                     if (!line.Contains(';'))
                     {

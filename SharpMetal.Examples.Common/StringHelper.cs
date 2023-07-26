@@ -4,7 +4,7 @@ using System.Text;
 using SharpMetal.Foundation;
 using SharpMetal.ObjectiveCCore;
 
-namespace SharpMetal.Examples
+namespace SharpMetal.Examples.Common
 {
     [SupportedOSPlatform("macos")]
     public static class StringHelper
@@ -17,7 +17,7 @@ namespace SharpMetal.Examples
         public static unsafe string GetError(NSError error)
         {
             char[] errorDescription = new char[error.LocalizedDescription.Length];
-            fixed(char* pointer = errorDescription)
+            fixed (char* pointer = errorDescription)
             {
                 ObjectiveC.bool_objc_msgSend(error.LocalizedDescription,
                     "getCString:maxLength:encoding:",

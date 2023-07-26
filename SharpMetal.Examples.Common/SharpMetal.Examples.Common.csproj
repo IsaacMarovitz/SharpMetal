@@ -2,12 +2,9 @@
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
-        <RuntimeIdentifiers>osx-x64</RuntimeIdentifiers>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <OutputType>Exe</OutputType>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-        <RootNamespace>SharpMetal.Examples</RootNamespace>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(RuntimeIdentifier)' != ''">

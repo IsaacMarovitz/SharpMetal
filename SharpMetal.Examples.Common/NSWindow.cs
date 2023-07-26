@@ -2,7 +2,7 @@ using System.Runtime.Versioning;
 using SharpMetal.Foundation;
 using SharpMetal.ObjectiveCCore;
 
-namespace SharpMetal.Examples
+namespace SharpMetal.Examples.Common
 {
     [SupportedOSPlatform("macos")]
     public class NSWindow
