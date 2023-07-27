@@ -117,7 +117,7 @@ namespace SharpMetal.Examples.Primitive
             }
 
             // Build buffers
-            int numVerticies = 3;
+            const int numVertices = 3;
 
             Vector3[] positions =
             {
@@ -133,16 +133,16 @@ namespace SharpMetal.Examples.Primitive
                 new(0.8f, 0.0f, 1.0f)
             };
 
-            var positionsDataSize = (ulong)(numVerticies * Marshal.SizeOf<Vector3>());
-            var colorsDataSize = (ulong)(numVerticies * Marshal.SizeOf<Vector3>());
+            var positionsDataSize = (ulong)(numVertices * Marshal.SizeOf<Vector3>());
+            var colorsDataSize = (ulong)(numVertices * Marshal.SizeOf<Vector3>());
 
             var vertexPositionsBuffer = device.NewBuffer(positionsDataSize, MTLResourceOptions.ResourceStorageModeManaged);
             var vertexColorsBuffer = device.NewBuffer(colorsDataSize, MTLResourceOptions.ResourceStorageModeManaged);
 
             unsafe
             {
-                var posSpan = new Span<Vector3>(vertexPositionsBuffer.Contents.ToPointer(), numVerticies);
-                var colSpan = new Span<Vector3>(vertexColorsBuffer.Contents.ToPointer(), numVerticies);
+                var posSpan = new Span<Vector3>(vertexPositionsBuffer.Contents.ToPointer(), numVertices);
+                var colSpan = new Span<Vector3>(vertexColorsBuffer.Contents.ToPointer(), numVertices);
 
                 positions.CopyTo(posSpan);
                 colors.CopyTo(colSpan);
@@ -179,7 +179,7 @@ namespace SharpMetal.Examples.Primitive
             encoder.SetRenderPipelineState(pipelineState);
             encoder.SetVertexBuffer(vertexPositionsBuffer, 0, 0);
             encoder.SetVertexBuffer(vertexColorsBuffer, 0, 1);
-            encoder.DrawPrimitives(MTLPrimitiveType.Triangle, 0, 3);
+            encoder.DrawPrimitives(MTLPrimitiveType.Triangle, 0, (ulong)numVertices);
             encoder.EndEncoding();
 
             buffer.PresentDrawable(drawable);
