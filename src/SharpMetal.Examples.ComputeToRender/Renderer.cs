@@ -154,17 +154,35 @@ namespace SharpMetal.Examples.ComputeToRender
         private int Frame;
         private float Angle;
         private uint AnimationIndex;
+        private const bool CaptureWorkload = true;
+        private const string CaptureFilePath = "/Users/isaacmarovitz/Desktop/Trace.gputrace";
 
         public Renderer(MTLDevice device)
         {
             Device = device;
             Queue = device.NewCommandQueue();
+
+            if (CaptureWorkload)
+            {
+                // Setup Capture
+                var captureDescriptor = new MTLCaptureDescriptor();
+                captureDescriptor.CaptureObject = device;
+                captureDescriptor.Destination = MTLCaptureDestination.GPUTraceDocument;
+                captureDescriptor.OutputURL = NSURL.FileURLWithPath(StringHelper.NSString(CaptureFilePath));
+                var captureError = new NSError(IntPtr.Zero);
+                MTLCaptureManager.SharedCaptureManager().StartCapture(captureDescriptor, ref captureError);
+                if (captureError != IntPtr.Zero)
+                {
+                    Console.WriteLine($"Failed to start capture! {StringHelper.String(captureError.LocalizedDescription)}");
+
+                }
+            }
+
             BuildShaders();
             BuildComputePipeline();
             BuildDepthStencilStates();
             BuildTextures();
             BuildBuffers();
-            Console.WriteLine("Hello");
         }
 
         public static IRenderer Init(MTLDevice device)
@@ -282,7 +300,7 @@ namespace SharpMetal.Examples.ComputeToRender
                 4, 5, 6, 6, 7, 4, // Right
                 8, 9, 10, 10, 11, 8, // Back
                 12, 13, 14, 14, 15, 12, // Left
-                16, 17, 18, 18, 18, 16, // Top
+                16, 17, 18, 18, 19, 16, // Top
                 20, 21, 22, 22, 23, 20 // Bottom
             };
 
@@ -363,7 +381,7 @@ namespace SharpMetal.Examples.ComputeToRender
             var rr1 = Matrix4x4.CreateRotationY(-Angle);
             var rr0 = Matrix4x4.CreateRotationX(Angle * 0.5f);
             var rtInv = Matrix4x4.CreateTranslation(-objectPosition);
-            var fullObjectRotation = rt * rr1 * rr0 * rtInv;
+            var fullObjectRotation = rtInv * rr0 * rr1 * rt;
 
             var indexX = 0;
             var indexY = 0;
@@ -378,7 +396,7 @@ namespace SharpMetal.Examples.ComputeToRender
                 if (indexY == InstanceRows)
                 {
                     indexY = 0;
-                    indexX++;
+                    indexZ++;
                 }
 
                 var scaleMatrix = Matrix4x4.CreateScale(new Vector3(scale, scale, scale));
@@ -390,14 +408,13 @@ namespace SharpMetal.Examples.ComputeToRender
                 var z = (indexZ - InstanceDepth / 2.0f) * (2.0f * scale);
                 var translate = Matrix4x4.CreateTranslation(objectPosition + new Vector3(x, y, z));
 
-                var transform = fullObjectRotation * translate * yRotation * zRotation * scaleMatrix;
+                var transform = scaleMatrix * zRotation * yRotation * translate * fullObjectRotation;
                 pInstanceData[i].instanceTransform = transform;
-                pInstanceData[i].instanceNormalTransform = new Matrix4x4(
-                    transform[0, 0], transform[0, 1], transform[0, 2], 0f,
-                    transform[1, 0], transform[1, 1], transform[1, 2], 0f,
-                    transform[2, 0], transform[2, 1], transform[2, 2], 0f,
-                    0f, 0f, 0f, 0f
-                );
+                pInstanceData[i].instanceNormalTransform = new Matrix3x3{
+                    a = new Vector4(transform[0, 0], transform[0, 1], transform[0, 2], 0f),
+                    b = new Vector4(transform[1, 0], transform[1, 1], transform[1, 2], 0f),
+                    c = new Vector4(transform[2, 0], transform[2, 1], transform[2, 2], 0f),
+                };
 
                 var iDivNumInstances = i / (float)TotalInstances;
                 var r = iDivNumInstances;
@@ -419,12 +436,11 @@ namespace SharpMetal.Examples.ComputeToRender
             CameraData* pCameraData = (CameraData*)cameraDataBuffer.Contents.ToPointer();
             pCameraData->perspectiveTransform = Matrix4x4.CreatePerspectiveFieldOfView(45.0f * float.Pi / 180.0f, 1.0f, 0.03f, 500.0f);
             pCameraData->worldTransform = cameraTransform;
-            pCameraData->worldNormalTransform = new Matrix4x4(
-                cameraTransform[0, 0], cameraTransform[0, 1], cameraTransform[0, 2], 0f,
-                cameraTransform[1, 0], cameraTransform[1, 1], cameraTransform[1, 2], 0f,
-                cameraTransform[2, 0], cameraTransform[2, 1], cameraTransform[2, 2], 0f,
-                0f, 0f, 0f, 0f
-            );
+            pCameraData->worldNormalTransform = new Matrix3x3{
+                a = new Vector4(cameraTransform[0, 0], cameraTransform[0, 1], cameraTransform[0, 2], 0f),
+                b = new Vector4(cameraTransform[1, 0], cameraTransform[1, 1], cameraTransform[1, 2], 0f),
+                c = new Vector4(cameraTransform[2, 0], cameraTransform[2, 1], cameraTransform[2, 2], 0f),
+            };
             cameraDataBuffer.DidModifyRange(new NSRange
             {
                 location = 0,
@@ -454,10 +470,15 @@ namespace SharpMetal.Examples.ComputeToRender
             encoder.EndEncoding();
             buffer.PresentDrawable(view.CurrentDrawable);
             buffer.Commit();
+
+            if (CaptureWorkload)
+            {
+                MTLCaptureManager.SharedCaptureManager().StopCapture();
+            }
         }
     }
 
-    [StructLayout(LayoutKind.Sequential)]
+    [StructLayout(LayoutKind.Sequential, Size = 48)]
     public struct VertexData
     {
         public Vector4 position;
@@ -476,7 +497,7 @@ namespace SharpMetal.Examples.ComputeToRender
     public struct InstanceData
     {
         public Matrix4x4 instanceTransform;
-        public Matrix4x4 instanceNormalTransform;
+        public Matrix3x3 instanceNormalTransform;
         public Vector4 instanceColor;
     }
 
@@ -485,6 +506,14 @@ namespace SharpMetal.Examples.ComputeToRender
     {
         public Matrix4x4 perspectiveTransform;
         public Matrix4x4 worldTransform;
-        public Matrix4x4 worldNormalTransform;
+        public Matrix3x3 worldNormalTransform;
+    }
+
+    [StructLayout(LayoutKind.Sequential, Size = 48)]
+    public struct Matrix3x3
+    {
+        public Vector4 a;
+        public Vector4 b;
+        public Vector4 c;
     }
 }
