@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{CD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMetal.Examples.Animation", "src\SharpMetal.Examples.Animation\SharpMetal.Examples.Animation.csproj", "{D3874AA7-1C5F-4440-B27E-609D83D200FE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMetal.Examples.ComputeToRender", "src\SharpMetal.Examples.ComputeToRender\SharpMetal.Examples.ComputeToRender.csproj", "{2AD41EE3-DF0A-40AD-8433-A8B52E4DBE5F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,10 +49,15 @@ Global
 		{D3874AA7-1C5F-4440-B27E-609D83D200FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3874AA7-1C5F-4440-B27E-609D83D200FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3874AA7-1C5F-4440-B27E-609D83D200FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AD41EE3-DF0A-40AD-8433-A8B52E4DBE5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AD41EE3-DF0A-40AD-8433-A8B52E4DBE5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AD41EE3-DF0A-40AD-8433-A8B52E4DBE5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AD41EE3-DF0A-40AD-8433-A8B52E4DBE5F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5787CD6E-B9A9-498C-BEC3-D53C4842FA81} = {CD15799B-6BE2-46FE-84EE-39CAF17E3F70}
 		{6BA63D0A-5289-45CC-87BE-743745C236D4} = {CD15799B-6BE2-46FE-84EE-39CAF17E3F70}
 		{D3874AA7-1C5F-4440-B27E-609D83D200FE} = {CD15799B-6BE2-46FE-84EE-39CAF17E3F70}
+		{2AD41EE3-DF0A-40AD-8433-A8B52E4DBE5F} = {CD15799B-6BE2-46FE-84EE-39CAF17E3F70}
 	EndGlobalSection
 EndGlobal

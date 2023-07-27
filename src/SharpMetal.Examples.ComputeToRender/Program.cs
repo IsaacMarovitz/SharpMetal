@@ -5,15 +5,15 @@ using SharpMetal.Foundation;
 using SharpMetal.Metal;
 using SharpMetal.ObjectiveCCore;
 
-namespace SharpMetal.Examples.Animation
+namespace SharpMetal.Examples.ComputeToRender
 {
     [SupportedOSPlatform("macos")]
     public class Program
     {
         private const int X = 100;
         private const int Y = 100;
-        private const int Width = 512;
-        private const int Height = 512;
+        private const int Width = 1024;
+        private const int Height = 1024;
         private const string WindowTitle = "SharpMetal - Animation";
 
         public static void Main()
