@@ -17,5 +17,15 @@ namespace SharpMetal.Examples.Common
         {
             ObjectiveC.objc_msgSend(NativePtr, "run");
         }
+
+        public void Stop()
+        {
+            ObjectiveC.objc_msgSend(NativePtr, "stop:", IntPtr.Zero);
+        }
+
+        public void SetDelegate(NSApplicationDelegate appDelegate)
+        {
+            ObjectiveC.objc_msgSend(NativePtr, "setDelegate:", appDelegate.NativePtr);
+        }
     }
 }

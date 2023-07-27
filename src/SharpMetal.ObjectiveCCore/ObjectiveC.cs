@@ -15,6 +15,16 @@ namespace SharpMetal.ObjectiveCCore
         [LibraryImport("libdl.dylib", StringMarshalling = StringMarshalling.Utf8)]
         private static partial void dlopen(string path, int mode);
 
+        [LibraryImport(ObjCRuntime)]
+        public static unsafe partial IntPtr objc_allocateClassPair(IntPtr superclass, char* name, int extraBytes);
+
+        [LibraryImport(ObjCRuntime)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe partial bool class_addMethod(IntPtr cls, Selector selector, IntPtr imp, char* types);
+
+        [LibraryImport(ObjCRuntime)]
+        public static partial void objc_registerClassPair(IntPtr cls);
+
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial void objc_msgSend(IntPtr receiver, Selector selector);
 

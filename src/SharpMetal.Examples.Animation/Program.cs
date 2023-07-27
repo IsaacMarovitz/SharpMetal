@@ -97,6 +97,9 @@ namespace SharpMetal.Examples.Animation
 
             // Create NSApplication
             var nsApplication = new NSApplication();
+            var appDelegate = new NSApplicationDelegate(nsApplication);
+            nsApplication.SetDelegate(appDelegate);
+            appDelegate.OnDidFinishLaunching += OnDidFinishLaunching;
 
             // Create and show NSWindow
             var window = new NSWindow(rect, (ulong)(NSStyleMask.Titled | NSStyleMask.Resizable));
@@ -242,8 +245,18 @@ namespace SharpMetal.Examples.Animation
 
             nsApplication.Run();
 
+            while (true)
+            {
+                // Do stuff
+            }
+
             // Release pool
             autoreleasePool.Drain();
+        }
+
+        private static void OnDidFinishLaunching(NSApplication application)
+        {
+            application.Stop();
         }
     }
 
