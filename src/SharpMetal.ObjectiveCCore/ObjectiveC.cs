@@ -45,7 +45,14 @@ namespace SharpMetal.ObjectiveCCore
         public static unsafe partial bool bool_objc_msgSend(IntPtr receiver, Selector selector, char* buffer, ulong maxBufferCount, ulong encoding);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static partial bool bool_objc_msgSend(IntPtr receiver, Selector selector, long activationPolicy);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial void objc_msgSend(IntPtr receiver, Selector selector, NSRect rect, byte value);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, NSRect rect, IntPtr value);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial void objc_msgSend(IntPtr receiver, Selector selector, [MarshalAs(UnmanagedType.Bool)] bool value);
@@ -66,6 +73,9 @@ namespace SharpMetal.ObjectiveCCore
         [return: MarshalAs(UnmanagedType.Bool)]
         public static partial bool bool_objc_msgSend(IntPtr receiver, Selector selector);
 
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial ulong ulong_objc_msgSend(IntPtr receiver, Selector selector);
+
         public static void LinkMetal()
         {
             dlopen("/System/Library/Frameworks/Metal.framework/Metal", 0);
@@ -79,6 +89,11 @@ namespace SharpMetal.ObjectiveCCore
         public static void LinkAppKit()
         {
             dlopen("/System/Library/Frameworks/AppKit.framework/AppKit", 0);
+        }
+
+        public static void LinkMetalKit()
+        {
+            dlopen("/System/Library/Frameworks/MetalKit.framework/MetalKit", 0);
         }
     }
 

@@ -1,5 +1,6 @@
 using System.Runtime.Versioning;
 using SharpMetal.ObjectiveCCore;
+using SharpMetal.QuartzCore;
 
 namespace SharpMetal.Examples.Common
 {
