@@ -67,12 +67,12 @@ namespace SharpMetal.Examples.Primitive
                 var captureDescriptor = new MTLCaptureDescriptor();
                 captureDescriptor.CaptureObject = device;
                 captureDescriptor.Destination = MTLCaptureDestination.GPUTraceDocument;
-                captureDescriptor.OutputURL = NSURL.FileURLWithPath(StringHelper.InitNSString(CaptureFilePath));
+                captureDescriptor.OutputURL = NSURL.FileURLWithPath(StringHelper.NSString(CaptureFilePath));
                 var captureError = new NSError(IntPtr.Zero);
                 MTLCaptureManager.SharedCaptureManager().StartCapture(captureDescriptor, ref captureError);
                 if (captureError != IntPtr.Zero)
                 {
-                    Console.Write($"Failed to start capture! {StringHelper.GetError(captureError)}");
+                    Console.Write($"Failed to start capture! {StringHelper.String(captureError.LocalizedDescription)}");
 
                 }
             }
@@ -90,18 +90,18 @@ namespace SharpMetal.Examples.Primitive
             var window = new NSWindow(rect, (ulong)(NSStyleMask.Titled | NSStyleMask.Resizable));
             window.SetContentView(nsView);
             window.MakeKeyAndOrderFront();
-            window.Title = StringHelper.InitNSString(WindowTitle);
+            window.Title = StringHelper.NSString(WindowTitle);
 
             // Build shader
             var libraryError = new NSError(IntPtr.Zero);
-            var library = device.NewLibrary(StringHelper.InitNSString(ShaderSource), new(IntPtr.Zero), ref libraryError);
+            var library = device.NewLibrary(StringHelper.NSString(ShaderSource), new(IntPtr.Zero), ref libraryError);
             if (libraryError != IntPtr.Zero)
             {
-                throw new Exception($"Failed to create library! {StringHelper.GetError(libraryError)}");
+                throw new Exception($"Failed to create library! {StringHelper.String(libraryError.LocalizedDescription)}");
             }
 
-            var vertexFunction = library.NewFunction(StringHelper.InitNSString("vertexMain"));
-            var fragmentFunction = library.NewFunction(StringHelper.InitNSString("fragmentMain"));
+            var vertexFunction = library.NewFunction(StringHelper.NSString("vertexMain"));
+            var fragmentFunction = library.NewFunction(StringHelper.NSString("fragmentMain"));
 
             // Build pipeline
             var pipeline = new MTLRenderPipelineDescriptor();
@@ -113,7 +113,7 @@ namespace SharpMetal.Examples.Primitive
             var pipelineState = device.NewRenderPipelineState(pipeline, ref pipelineStateError);
             if (pipelineStateError != IntPtr.Zero)
             {
-                throw new Exception($"Failed to create render pipeline state! {StringHelper.GetError(pipelineStateError)}");
+                throw new Exception($"Failed to create render pipeline state! {StringHelper.String(pipelineStateError.LocalizedDescription)}");
             }
 
             // Build buffers
@@ -139,14 +139,8 @@ namespace SharpMetal.Examples.Primitive
             var vertexPositionsBuffer = device.NewBuffer(positionsDataSize, MTLResourceOptions.ResourceStorageModeManaged);
             var vertexColorsBuffer = device.NewBuffer(colorsDataSize, MTLResourceOptions.ResourceStorageModeManaged);
 
-            unsafe
-            {
-                var posSpan = new Span<Vector3>(vertexPositionsBuffer.Contents.ToPointer(), numVertices);
-                var colSpan = new Span<Vector3>(vertexColorsBuffer.Contents.ToPointer(), numVertices);
-
-                positions.CopyTo(posSpan);
-                colors.CopyTo(colSpan);
-            }
+            BufferHelper.CopyToBuffer(positions, vertexPositionsBuffer);
+            BufferHelper.CopyToBuffer(colors, vertexColorsBuffer);
 
             vertexPositionsBuffer.DidModifyRange(new NSRange
             {

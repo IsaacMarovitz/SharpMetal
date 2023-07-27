@@ -1,6 +1,4 @@
-using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
-using System.Text;
 using SharpMetal.Foundation;
 using SharpMetal.ObjectiveCCore;
 
@@ -9,24 +7,24 @@ namespace SharpMetal.Examples.Common
     [SupportedOSPlatform("macos")]
     public static class StringHelper
     {
-        public static NSString InitNSString(string source)
+        public static NSString NSString(string source)
         {
             return new(ObjectiveC.IntPtr_objc_msgSend(new ObjectiveCClass("NSString"), "stringWithUTF8String:", source));
         }
 
-        public static unsafe string GetError(NSError error)
+        public static unsafe string String(NSString source)
         {
-            char[] errorDescription = new char[error.LocalizedDescription.Length];
-            fixed (char* pointer = errorDescription)
+            char[] sourceBuffer = new char[source.Length];
+            fixed (char* pSourceBuffer = sourceBuffer)
             {
-                ObjectiveC.bool_objc_msgSend(error.LocalizedDescription,
+                ObjectiveC.bool_objc_msgSend(source,
                     "getCString:maxLength:encoding:",
-                    pointer,
-                    error.LocalizedDescription.MaximumLengthOfBytes(NSStringEncoding.UTF16) + 1,
+                    pSourceBuffer,
+                    source.MaximumLengthOfBytes(NSStringEncoding.UTF16) + 1,
                     (ulong)NSStringEncoding.UTF16);
             }
 
-            return new string(errorDescription);
+            return new string(sourceBuffer);
         }
     }
 }
