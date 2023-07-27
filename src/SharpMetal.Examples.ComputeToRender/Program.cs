@@ -14,7 +14,7 @@ namespace SharpMetal.Examples.ComputeToRender
         private const int Y = 100;
         private const int Width = 1024;
         private const int Height = 1024;
-        private const string WindowTitle = "SharpMetal - Animation";
+        private const string WindowTitle = "SharpMetal - Compute to Render";
 
         public static void Main()
         {
