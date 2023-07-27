@@ -146,5 +146,37 @@ namespace SharpMetal.Examples.Common
                 new Vector4(0.0f, 0.0f, 0.0f, 1.0f)
             );
         }
+
+        public static Matrix4x4 MakeTranslate(Vector3 v)
+        {
+            return new Matrix4x4
+            (
+                new Vector4(1.0f, 0.0f, 0.0f, 0.0f),
+                new Vector4(0.0f, 1.0f, 0.0f, 0.0f),
+                new Vector4(0.0f, 0.0f, 1.0f, 0.0f),
+                new Vector4(v.x, v.y, v.z, 1.0f)
+            );
+        }
+
+        public static Matrix4x4 MakeScale(Vector3 v)
+        {
+            return new Matrix4x4
+            (
+                new Vector4(v.x, 0.0f, 0.0f, 0.0f),
+                new Vector4(0.0f, v.y, 0.0f, 0.0f),
+                new Vector4(0.0f, 0.0f, v.z, 0.0f),
+                new Vector4(0.0f, 0.0f, 0.0f, 1.0f)
+            );
+        }
+
+        public static Matrix3x3 DiscardTranslation(Matrix4x4 m)
+        {
+            return new Matrix3x3
+            (
+                new Vector3(m.a.x, m.a.y, m.a.z),
+                new Vector3(m.b.x, m.b.y, m.b.z),
+                new Vector3(m.c.x, m.c.y, m.c.z)
+            );
+        }
     }
 }
