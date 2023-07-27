@@ -24,7 +24,7 @@ namespace SharpMetal.Examples.Primitive
 
         public MTLPixelFormat ColorPixelFormat
         {
-            set => ObjectiveC.objc_msgSend(NativePtr, "setColorPixelFormat:", (ulong)value);
+            set => ObjectiveC.objc_msgSend(NativePtr, "setColorPixelFormat:atIndex:", (ulong)value, 0);
         }
 
         public MTLClearColor ClearColor

@@ -49,6 +49,9 @@ namespace SharpMetal.ObjectiveCCore
         public static partial bool bool_objc_msgSend(IntPtr receiver, Selector selector, long activationPolicy);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial void objc_msgSend(IntPtr receiver, Selector selector, ulong format, ulong index);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial void objc_msgSend(IntPtr receiver, Selector selector, NSRect rect, byte value);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]

@@ -207,7 +207,7 @@ namespace SharpMetal.Examples.ComputeToRender
             var pipeline = new MTLRenderPipelineDescriptor();
             pipeline.VertexFunction = vertexFunction;
             pipeline.FragmentFunction = fragmentFunction;
-            pipeline.ColorAttachments.Object(0).PixelFormat = MTLPixelFormat.BGRA8Unorm;
+            pipeline.ColorAttachments.Object(0).PixelFormat = MTLPixelFormat.BGRA8UnormsRGB;
             pipeline.DepthAttachmentPixelFormat = MTLPixelFormat.Depth16Unorm;
 
             var pipelineStateError = new NSError(IntPtr.Zero);
