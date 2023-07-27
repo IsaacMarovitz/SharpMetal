@@ -1,6 +1,5 @@
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
-using SharpMetal.Examples.Common;
 using SharpMetal.Metal;
 using SharpMetal.ObjectiveCCore;
 
