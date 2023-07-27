@@ -410,7 +410,8 @@ namespace SharpMetal.Examples.ComputeToRender
 
                 var transform = scaleMatrix * zRotation * yRotation * translate * fullObjectRotation;
                 pInstanceData[i].instanceTransform = transform;
-                pInstanceData[i].instanceNormalTransform = new Matrix3x3{
+                pInstanceData[i].instanceNormalTransform = new Matrix3x3
+                {
                     a = new Vector4(transform[0, 0], transform[0, 1], transform[0, 2], 0f),
                     b = new Vector4(transform[1, 0], transform[1, 1], transform[1, 2], 0f),
                     c = new Vector4(transform[2, 0], transform[2, 1], transform[2, 2], 0f),
@@ -436,7 +437,8 @@ namespace SharpMetal.Examples.ComputeToRender
             CameraData* pCameraData = (CameraData*)cameraDataBuffer.Contents.ToPointer();
             pCameraData->perspectiveTransform = Matrix4x4.CreatePerspectiveFieldOfView(45.0f * float.Pi / 180.0f, 1.0f, 0.03f, 500.0f);
             pCameraData->worldTransform = cameraTransform;
-            pCameraData->worldNormalTransform = new Matrix3x3{
+            pCameraData->worldNormalTransform = new Matrix3x3
+            {
                 a = new Vector4(cameraTransform[0, 0], cameraTransform[0, 1], cameraTransform[0, 2], 0f),
                 b = new Vector4(cameraTransform[1, 0], cameraTransform[1, 1], cameraTransform[1, 2], 0f),
                 c = new Vector4(cameraTransform[2, 0], cameraTransform[2, 1], cameraTransform[2, 2], 0f),
