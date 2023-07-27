@@ -1,8 +1,8 @@
 using System.Runtime.Versioning;
-using SharpMetal.ObjectiveCCore;
 using SharpMetal.Metal;
 using SharpMetal.Foundation;
 using SharpMetal.Examples.Common;
+using SharpMetal.ObjectiveCCore;
 
 namespace SharpMetal.Examples.Primitive
 {

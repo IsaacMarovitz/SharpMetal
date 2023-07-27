@@ -6,13 +6,15 @@
         <Nullable>enable</Nullable>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Version>1.0.0-preview6</Version>
+        <Version>1.0.0-preview8</Version>
         <Description>Handcrafted Metal bindings for C#</Description>
         <RepositoryUrl>https://github.com/IsaacMarovitz/SharpMetal</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>Metal Graphics macOS</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <Title>SharpMetal</Title>
+        <Authors>Isaac Marovitz</Authors>
     </PropertyGroup>
 
     <ItemGroup>
@@ -20,7 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\SharpMetal.ObjectiveCCore\SharpMetal.ObjectiveCCore.csproj" />
+        <ProjectReference PrivateAssets="all" Include="..\SharpMetal.ObjectiveCCore\SharpMetal.ObjectiveCCore.csproj" />
     </ItemGroup>
 
 </Project>

@@ -2,19 +2,16 @@
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
+        <RuntimeIdentifiers>osx-x64</RuntimeIdentifiers>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(RuntimeIdentifier)' != ''">
-        <PublishSingleFile>true</PublishSingleFile>
-        <PublishTrimmed>true</PublishTrimmed>
-        <TrimMode>partial</TrimMode>
+        <IsPackable>false</IsPackable>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\SharpMetal\SharpMetal.csproj" />
+        <ProjectReference Include="..\SharpMetal\SharpMetal.csproj" />
+        <ProjectReference Include="..\SharpMetal.ObjectiveCCore\SharpMetal.ObjectiveCCore.csproj" />
     </ItemGroup>
 
 </Project>

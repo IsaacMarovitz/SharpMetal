@@ -2,16 +2,9 @@
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
-        <OutputPath>Exe</OutputPath>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(RuntimeIdentifier)' != ''">
-        <PublishSingleFile>true</PublishSingleFile>
-        <PublishTrimmed>true</PublishTrimmed>
-        <TrimMode>partial</TrimMode>
     </PropertyGroup>
 
 </Project>
