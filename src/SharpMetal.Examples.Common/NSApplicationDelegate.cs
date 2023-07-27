@@ -8,7 +8,7 @@ namespace SharpMetal.Examples.Common
     public class NSApplicationDelegate
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void OnDidFinishLaunchingDelegate(IntPtr id, IntPtr cmd, IntPtr notification);
+        private delegate void OnDidFinishLaunchingDelegate(IntPtr id, IntPtr cmd, IntPtr notification);
 
         private OnDidFinishLaunchingDelegate _onDidFinishLaunching;
         private NSApplication _application;
@@ -30,7 +30,7 @@ namespace SharpMetal.Examples.Common
                     var delegatePtr = Marshal.GetFunctionPointerForDelegate(_onDidFinishLaunching);
 
                     var appDelegateClass = ObjectiveC.objc_allocateClassPair(new ObjectiveCClass("NSObject"), pName, 0);
-                    var test = ObjectiveC.class_addMethod(appDelegateClass, "applicationDidFinishLaunching:", delegatePtr, pTypes);
+                    ObjectiveC.class_addMethod(appDelegateClass, "applicationDidFinishLaunching:", delegatePtr, pTypes);
                     ObjectiveC.objc_registerClassPair(appDelegateClass);
 
                     NativePtr = new ObjectiveCClass(appDelegateClass).AllocInit();
