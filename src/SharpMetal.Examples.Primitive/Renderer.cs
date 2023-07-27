@@ -7,7 +7,7 @@ using SharpMetal.Metal;
 namespace SharpMetal.Examples.Primitive
 {
     [SupportedOSPlatform("macos")]
-    public class Renderer
+    public class Renderer : IRenderer
     {
         private const string ShaderSource = """
         #include <metal_stdlib>
@@ -48,6 +48,11 @@ namespace SharpMetal.Examples.Primitive
             Queue = device.NewCommandQueue();
             BuildShaders();
             BuildBuffers();
+        }
+
+        public static IRenderer Init(MTLDevice device)
+        {
+            return new Renderer(device);
         }
 
         private void BuildShaders()

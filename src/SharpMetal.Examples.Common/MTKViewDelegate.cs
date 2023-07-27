@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
+using SharpMetal.Examples.Common;
 using SharpMetal.Metal;
 using SharpMetal.ObjectiveCCore;
 
@@ -18,9 +19,8 @@ namespace SharpMetal.Examples.Primitive
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTKViewDelegate mtkDelegate) => mtkDelegate.NativePtr;
 
-        public unsafe MTKViewDelegate(MTLDevice device)
+        public unsafe MTKViewDelegate(IRenderer renderer)
         {
-            var renderer = new Renderer(device);
             OnDrawInMTKView += renderer.Draw;
 
             char[] name = "MTKViewDelegate".ToCharArray();
@@ -42,6 +42,12 @@ namespace SharpMetal.Examples.Primitive
                     NativePtr = new ObjectiveCClass(mtkDelegateClass).AllocInit();
                 }
             }
+        }
+
+        public static MTKViewDelegate Init<T>(MTLDevice device) where T : IRenderer
+        {
+            var renderer = T.Init(device);
+            return new MTKViewDelegate(renderer);
         }
     }
 }
