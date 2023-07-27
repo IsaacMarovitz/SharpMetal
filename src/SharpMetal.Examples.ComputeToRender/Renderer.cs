@@ -321,9 +321,15 @@ namespace SharpMetal.Examples.ComputeToRender
             TextureAnimationBuffer = Device.NewBuffer(sizeof(uint), MTLResourceOptions.ResourceStorageModeManaged);
         }
 
-        public void GenerateMandelbrotTexture(MTLCommandBuffer commandBuffer)
+        public unsafe void GenerateMandelbrotTexture(MTLCommandBuffer commandBuffer)
         {
-            // TODO: Animate buffer stuff
+            uint* animationIndex = (uint*)TextureAnimationBuffer.Contents.ToPointer();
+            animationIndex[0] = AnimationIndex++ % 500;
+            TextureAnimationBuffer.DidModifyRange(new NSRange
+            {
+                location = 0,
+                length = sizeof(uint)
+            });
 
             var computeEncoder = commandBuffer.ComputeCommandEncoder();
 
