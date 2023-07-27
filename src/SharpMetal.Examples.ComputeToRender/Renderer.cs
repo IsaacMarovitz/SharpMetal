@@ -1,3 +1,5 @@
+using System.Numerics;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using SharpMetal.Examples.Common;
@@ -137,6 +139,11 @@ namespace SharpMetal.Examples.ComputeToRender
         private MTLDepthStencilState DepthStencilState;
         private MTLLibrary ShaderLibrary;
         private MTLTexture Texture;
+        private MTLBuffer VertexBuffer;
+        private MTLBuffer IndexBuffer;
+        private MTLBuffer TextureAnimationBuffer;
+        private MTLBuffer[] InstanceDataBuffer = new MTLBuffer[MaxFramesInFlight];
+        private MTLBuffer[] CameraDataBuffer = new MTLBuffer[MaxFramesInFlight];
         private const int MaxFramesInFlight = 3;
         private const int TextureWidth = 128;
         private const int TextureHeight = 128;
@@ -144,6 +151,9 @@ namespace SharpMetal.Examples.ComputeToRender
         private const int InstanceColumns = 10;
         private const int InstanceDepth = 10;
         private const int TotalInstances = InstanceRows * InstanceColumns * InstanceDepth;
+        private int Frame;
+        private float Angle;
+        private uint AnimationIndex;
 
         public Renderer(MTLDevice device)
         {
@@ -154,6 +164,7 @@ namespace SharpMetal.Examples.ComputeToRender
             BuildDepthStencilStates();
             BuildTextures();
             BuildBuffers();
+            Console.WriteLine("Hello");
         }
 
         public static IRenderer Init(MTLDevice device)
@@ -234,38 +245,38 @@ namespace SharpMetal.Examples.ComputeToRender
 
             VertexData[] verts =
             {
-                new(new Vector3(-s, -s, +s), new Vector3(0.0f, 0.0f, 1.0f), new Vector2(0.0f, 1.0f)),
-                new(new Vector3(+s, -s, +s), new Vector3(0.0f, 0.0f, 1.0f), new Vector2(1.0f, 1.0f)),
-                new(new Vector3(+s, +s, +s), new Vector3(0.0f, 0.0f, 1.0f), new Vector2(1.0f, 0.0f)),
-                new(new Vector3(-s, +s, +s), new Vector3(0.0f, 0.0f, 1.0f), new Vector2(0.0f, 0.0f)),
+                new(new Vector4(-s, -s, +s, 0.0f), new Vector4(0.0f, 0.0f, 1.0f, 0.0f), new Vector2(0.0f, 1.0f)),
+                new(new Vector4(+s, -s, +s, 0.0f), new Vector4(0.0f, 0.0f, 1.0f, 0.0f), new Vector2(1.0f, 1.0f)),
+                new(new Vector4(+s, +s, +s, 0.0f), new Vector4(0.0f, 0.0f, 1.0f, 0.0f), new Vector2(1.0f, 0.0f)),
+                new(new Vector4(-s, +s, +s, 0.0f), new Vector4(0.0f, 0.0f, 1.0f, 0.0f), new Vector2(0.0f, 0.0f)),
 
-                new(new Vector3(+s, -s, +s), new Vector3(1.0f, 0.0f, 0.0f), new Vector2(0.0f, 1.0f)),
-                new(new Vector3(+s, -s, -s), new Vector3(1.0f, 0.0f, 0.0f), new Vector2(1.0f, 1.0f)),
-                new(new Vector3(+s, +s, -s), new Vector3(1.0f, 0.0f, 0.0f), new Vector2(1.0f, 0.0f)),
-                new(new Vector3(+s, +s, +s), new Vector3(1.0f, 0.0f, 0.0f), new Vector2(0.0f, 0.0f)),
+                new(new Vector4(+s, -s, +s, 0.0f), new Vector4(1.0f, 0.0f, 0.0f, 0.0f), new Vector2(0.0f, 1.0f)),
+                new(new Vector4(+s, -s, -s, 0.0f), new Vector4(1.0f, 0.0f, 0.0f, 0.0f), new Vector2(1.0f, 1.0f)),
+                new(new Vector4(+s, +s, -s, 0.0f), new Vector4(1.0f, 0.0f, 0.0f, 0.0f), new Vector2(1.0f, 0.0f)),
+                new(new Vector4(+s, +s, +s, 0.0f), new Vector4(1.0f, 0.0f, 0.0f, 0.0f), new Vector2(0.0f, 0.0f)),
 
-                new(new Vector3(+s, -s, -s), new Vector3(0.0f, 0.0f, -1.0f), new Vector2(0.0f, 1.0f)),
-                new(new Vector3(-s, -s, -s), new Vector3(0.0f, 0.0f, -1.0f), new Vector2(1.0f, 1.0f)),
-                new(new Vector3(-s, +s, -s), new Vector3(0.0f, 0.0f, -1.0f), new Vector2(1.0f, 0.0f)),
-                new(new Vector3(+s, +s, -s), new Vector3(0.0f, 0.0f, -1.0f), new Vector2(0.0f, 0.0f)),
+                new(new Vector4(+s, -s, -s, 0.0f), new Vector4(0.0f, 0.0f, -1.0f, 0.0f), new Vector2(0.0f, 1.0f)),
+                new(new Vector4(-s, -s, -s, 0.0f), new Vector4(0.0f, 0.0f, -1.0f, 0.0f), new Vector2(1.0f, 1.0f)),
+                new(new Vector4(-s, +s, -s, 0.0f), new Vector4(0.0f, 0.0f, -1.0f, 0.0f), new Vector2(1.0f, 0.0f)),
+                new(new Vector4(+s, +s, -s, 0.0f), new Vector4(0.0f, 0.0f, -1.0f, 0.0f), new Vector2(0.0f, 0.0f)),
 
-                new(new Vector3(-s, -s, -s), new Vector3(-1.0f, 0.0f, 0.0f), new Vector2(0.0f, 1.0f)),
-                new(new Vector3(-s, -s, +s), new Vector3(-1.0f, 0.0f, 0.0f), new Vector2(1.0f, 1.0f)),
-                new(new Vector3(-s, +s, +s), new Vector3(-1.0f, 0.0f, 0.0f), new Vector2(1.0f, 0.0f)),
-                new(new Vector3(-s, +s, -s), new Vector3(-1.0f, 0.0f, 0.0f), new Vector2(0.0f, 0.0f)),
+                new(new Vector4(-s, -s, -s, 0.0f), new Vector4(-1.0f, 0.0f, 0.0f, 0.0f), new Vector2(0.0f, 1.0f)),
+                new(new Vector4(-s, -s, +s, 0.0f), new Vector4(-1.0f, 0.0f, 0.0f, 0.0f), new Vector2(1.0f, 1.0f)),
+                new(new Vector4(-s, +s, +s, 0.0f), new Vector4(-1.0f, 0.0f, 0.0f, 0.0f), new Vector2(1.0f, 0.0f)),
+                new(new Vector4(-s, +s, -s, 0.0f), new Vector4(-1.0f, 0.0f, 0.0f, 0.0f), new Vector2(0.0f, 0.0f)),
 
-                new(new Vector3(-s, +s, +s), new Vector3(0.0f, 1.0f, 0.0f), new Vector2(0.0f, 1.0f)),
-                new(new Vector3(+s, +s, +s), new Vector3(0.0f, 1.0f, 0.0f), new Vector2(1.0f, 1.0f)),
-                new(new Vector3(+s, +s, -s), new Vector3(0.0f, 1.0f, 0.0f), new Vector2(1.0f, 0.0f)),
-                new(new Vector3(-s, +s, -s), new Vector3(0.0f, 1.0f, 0.0f), new Vector2(0.0f, 0.0f)),
+                new(new Vector4(-s, +s, +s, 0.0f), new Vector4(0.0f, 1.0f, 0.0f, 0.0f), new Vector2(0.0f, 1.0f)),
+                new(new Vector4(+s, +s, +s, 0.0f), new Vector4(0.0f, 1.0f, 0.0f, 0.0f), new Vector2(1.0f, 1.0f)),
+                new(new Vector4(+s, +s, -s, 0.0f), new Vector4(0.0f, 1.0f, 0.0f, 0.0f), new Vector2(1.0f, 0.0f)),
+                new(new Vector4(-s, +s, -s, 0.0f), new Vector4(0.0f, 1.0f, 0.0f, 0.0f), new Vector2(0.0f, 0.0f)),
 
-                new(new Vector3(-s, -s, -s), new Vector3(0.0f, -1.0f, 0.0f), new Vector2(0.0f, 1.0f)),
-                new(new Vector3(+s, -s, -s), new Vector3(0.0f, -1.0f, 0.0f), new Vector2(1.0f, 1.0f)),
-                new(new Vector3(+s, -s, +s), new Vector3(0.0f, -1.0f, 0.0f), new Vector2(1.0f, 0.0f)),
-                new(new Vector3(-s, -s, +s), new Vector3(0.0f, -1.0f, 0.0f), new Vector2(0.0f, 0.0f)),
+                new(new Vector4(-s, -s, -s, 0.0f), new Vector4(0.0f, -1.0f, 0.0f, 0.0f), new Vector2(0.0f, 1.0f)),
+                new(new Vector4(+s, -s, -s, 0.0f), new Vector4(0.0f, -1.0f, 0.0f, 0.0f), new Vector2(1.0f, 1.0f)),
+                new(new Vector4(+s, -s, +s, 0.0f), new Vector4(0.0f, -1.0f, 0.0f, 0.0f), new Vector2(1.0f, 0.0f)),
+                new(new Vector4(-s, -s, +s, 0.0f), new Vector4(0.0f, -1.0f, 0.0f, 0.0f), new Vector2(0.0f, 0.0f)),
             };
 
-            ushort[] indicies =
+            ushort[] indices =
             {
                 0, 1, 2, 2, 3, 0, // Front
                 4, 5, 6, 6, 7, 4, // Right
@@ -275,24 +286,179 @@ namespace SharpMetal.Examples.ComputeToRender
                 20, 21, 22, 22, 23, 20 // Bottom
             };
 
-            var vertexDataSize = Marshal.SizeOf(verts);
-            var indexDataSize = Marshal.SizeOf(indicies);
+            var vertexDataSize = (ulong)(Unsafe.SizeOf<VertexData>() * verts.Length);
+            var indexDataSize = (ulong)(sizeof(ushort) * indices.Length);
+
+            VertexBuffer = Device.NewBuffer(vertexDataSize, MTLResourceOptions.ResourceStorageModeManaged);
+            IndexBuffer = Device.NewBuffer(indexDataSize, MTLResourceOptions.ResourceStorageModeManaged);
+
+            BufferHelper.CopyToBuffer(verts, VertexBuffer);
+            BufferHelper.CopyToBuffer(indices, IndexBuffer);
+
+            VertexBuffer.DidModifyRange(new NSRange
+            {
+                location = 0,
+                length = VertexBuffer.Length
+            });
+            IndexBuffer.DidModifyRange(new NSRange
+            {
+                location = 0,
+                length = IndexBuffer.Length
+            });
+
+            var instanceDataSize = (ulong)(MaxFramesInFlight * TotalInstances * Marshal.SizeOf<InstanceData>());
+            for (int i = 0; i < MaxFramesInFlight; i++)
+            {
+                InstanceDataBuffer[i] = Device.NewBuffer(instanceDataSize, MTLResourceOptions.ResourceStorageModeManaged);
+            }
+
+            var cameraDataSize = (ulong)(MaxFramesInFlight * TotalInstances * Marshal.SizeOf<CameraData>());
+            for (int i = 0; i < MaxFramesInFlight; i++)
+            {
+                CameraDataBuffer[i] = Device.NewBuffer(cameraDataSize, MTLResourceOptions.ResourceStorageModeManaged);
+            }
+
+            TextureAnimationBuffer = Device.NewBuffer(sizeof(uint), MTLResourceOptions.ResourceStorageModeManaged);
         }
 
-        public void Draw(MTKView view)
+        public void GenerateMandelbrotTexture(MTLCommandBuffer commandBuffer)
         {
-            throw new NotImplementedException();
+            // TODO: Animate buffer stuff
+
+            var computeEncoder = commandBuffer.ComputeCommandEncoder();
+
+            computeEncoder.SetComputePipelineState(ComputePipelineState);
+            computeEncoder.SetTexture(Texture, 0);
+            computeEncoder.SetBuffer(TextureAnimationBuffer, 0, 0);
+
+            var gridSize = new MTLSize { width = TextureWidth, height = TextureHeight, depth = 1 };
+
+            var maxThreads = ComputePipelineState.MaxTotalThreadsPerThreadgroup;
+            var threadGroupSize = new MTLSize { width = maxThreads, height = 1, depth = 1 };
+
+            computeEncoder.DispatchThreads(gridSize, threadGroupSize);
+
+            computeEncoder.EndEncoding();
+        }
+
+        public unsafe void Draw(MTKView view)
+        {
+            Frame = (Frame + 1) % MaxFramesInFlight;
+            var instanceDataBuffer = InstanceDataBuffer[Frame];
+
+            InstanceData* pInstanceData = (InstanceData*)instanceDataBuffer.Contents.ToPointer();
+
+            Angle += 0.002f;
+
+            const float scale = 0.2f;
+            var objectPosition = new Vector3(0.0f, 0.0f, -10.0f);
+
+            var rt = Matrix4x4.CreateTranslation(objectPosition);
+            var rr1 = Matrix4x4.CreateRotationY(-Angle);
+            var rr0 = Matrix4x4.CreateRotationX(Angle * 0.5f);
+            var rtInv = Matrix4x4.CreateTranslation(-objectPosition);
+            var fullObjectRotation = rt * rr1 * rr0 * rtInv;
+
+            var indexX = 0;
+            var indexY = 0;
+            var indexZ = 0;
+            for (int i = 0; i < TotalInstances; i++)
+            {
+                if (indexX == InstanceRows)
+                {
+                    indexX = 0;
+                    indexY++;
+                }
+                if (indexY == InstanceRows)
+                {
+                    indexY = 0;
+                    indexX++;
+                }
+
+                var scaleMatrix = Matrix4x4.CreateScale(new Vector3(scale, scale, scale));
+                var zRotation = Matrix4x4.CreateRotationZ(Angle * float.Sin(indexX));
+                var yRotation = Matrix4x4.CreateRotationY(Angle * float.Cos(indexY));
+
+                var x = (indexX - InstanceRows / 2.0f) * (2.0f * scale) + scale;
+                var y = (indexY - InstanceColumns / 2.0f) * (2.0f * scale) + scale;
+                var z = (indexZ - InstanceDepth / 2.0f) * (2.0f * scale);
+                var translate = Matrix4x4.CreateTranslation(objectPosition + new Vector3(x, y, z));
+
+                var transform = fullObjectRotation * translate * yRotation * zRotation * scaleMatrix;
+                pInstanceData[i].instanceTransform = transform;
+                pInstanceData[i].instanceNormalTransform = new Matrix4x4(
+                    transform[0, 0], transform[0, 1], transform[0, 2], 0f,
+                    transform[1, 0], transform[1, 1], transform[1, 2], 0f,
+                    transform[2, 0], transform[2, 1], transform[2, 2], 0f,
+                    0f, 0f, 0f, 0f
+                );
+
+                var iDivNumInstances = i / (float)TotalInstances;
+                var r = iDivNumInstances;
+                var g = 1.0f - r;
+                var b = float.Sin(float.Pi * 2.0f * iDivNumInstances);
+                pInstanceData[i].instanceColor = new Vector4(r, g, b, 1.0f);
+
+                indexX++;
+            }
+
+            instanceDataBuffer.DidModifyRange(new NSRange
+            {
+                location = 0,
+                length = instanceDataBuffer.Length
+            });
+
+            var cameraDataBuffer = CameraDataBuffer[Frame];
+            var cameraTransform = Matrix4x4.Identity;
+            CameraData* pCameraData = (CameraData*)cameraDataBuffer.Contents.ToPointer();
+            pCameraData->perspectiveTransform = Matrix4x4.CreatePerspectiveFieldOfView(45.0f * float.Pi / 180.0f, 1.0f, 0.03f, 500.0f);
+            pCameraData->worldTransform = cameraTransform;
+            pCameraData->worldNormalTransform = new Matrix4x4(
+                cameraTransform[0, 0], cameraTransform[0, 1], cameraTransform[0, 2], 0f,
+                cameraTransform[1, 0], cameraTransform[1, 1], cameraTransform[1, 2], 0f,
+                cameraTransform[2, 0], cameraTransform[2, 1], cameraTransform[2, 2], 0f,
+                0f, 0f, 0f, 0f
+            );
+            cameraDataBuffer.DidModifyRange(new NSRange
+            {
+                location = 0,
+                length = (ulong)Marshal.SizeOf<CameraData>()
+            });
+
+            var buffer = Queue.CommandBuffer();
+            GenerateMandelbrotTexture(buffer);
+
+            var descriptor = view.CurrentRenderPassDescriptor;
+            var encoder = buffer.RenderCommandEncoder(descriptor);
+
+            encoder.SetRenderPipelineState(RenderPipelineState);
+            encoder.SetDepthStencilState(DepthStencilState);
+
+            encoder.SetVertexBuffer(VertexBuffer, 0, 0);
+            encoder.SetVertexBuffer(instanceDataBuffer, 0, 1);
+            encoder.SetVertexBuffer(cameraDataBuffer, 0, 2);
+
+            encoder.SetFragmentTexture(Texture, 0);
+
+            encoder.SetCullMode(MTLCullMode.Back);
+            encoder.SetFrontFacingWinding(MTLWinding.CounterClockwise);
+
+            encoder.DrawIndexedPrimitives(MTLPrimitiveType.Triangle, 6 * 6, MTLIndexType.UInt16, IndexBuffer, 0, TotalInstances);
+
+            encoder.EndEncoding();
+            buffer.PresentDrawable(view.CurrentDrawable);
+            buffer.Commit();
         }
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct VertexData
     {
-        public Vector3 position;
-        public Vector3 normal;
+        public Vector4 position;
+        public Vector4 normal;
         public Vector2 texcoord;
 
-        public VertexData(Vector3 position, Vector3 normal, Vector2 texcoord)
+        public VertexData(Vector4 position, Vector4 normal, Vector2 texcoord)
         {
             this.position = position;
             this.normal = normal;
@@ -304,7 +470,7 @@ namespace SharpMetal.Examples.ComputeToRender
     public struct InstanceData
     {
         public Matrix4x4 instanceTransform;
-        public Matrix3x3 instanceNormalTransform;
+        public Matrix4x4 instanceNormalTransform;
         public Vector4 instanceColor;
     }
 
@@ -313,6 +479,6 @@ namespace SharpMetal.Examples.ComputeToRender
     {
         public Matrix4x4 perspectiveTransform;
         public Matrix4x4 worldTransform;
-        public Matrix3x3 worldNormalTransform;
+        public Matrix4x4 worldNormalTransform;
     }
 }

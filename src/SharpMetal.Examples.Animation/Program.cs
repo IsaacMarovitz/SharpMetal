@@ -1,9 +1,11 @@
-﻿using System.Runtime.Versioning;
+﻿using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 using SharpMetal.Examples.Common;
 using SharpMetal.Examples.Primitive;
 using SharpMetal.Foundation;
 using SharpMetal.Metal;
 using SharpMetal.ObjectiveCCore;
+using Vector2 = System.Numerics.Vector2;
 
 namespace SharpMetal.Examples.Animation
 {
@@ -31,6 +33,8 @@ namespace SharpMetal.Examples.Animation
 
             appDelegate.OnApplicationDidFinishLaunching += OnApplicationDidFinishLaunching;
             appDelegate.OnApplicationWillFinishLaunching += OnApplicationWillFinishLaunching;
+
+            Console.WriteLine(Marshal.SizeOf<Vector2>());
 
             nsApplication.Run();
         }

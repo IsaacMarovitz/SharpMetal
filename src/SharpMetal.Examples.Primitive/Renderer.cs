@@ -1,3 +1,4 @@
+using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using SharpMetal.Examples.Common;
@@ -85,22 +86,22 @@ namespace SharpMetal.Examples.Primitive
         private void BuildBuffers()
         {
             // Build buffers
-            Vector3[] positions =
+            Vector4[] positions =
             {
-                new(-0.8f, 0.8f, 0.0f),
-                new(0.0f, -0.8f, 0.0f),
-                new(0.8f, 0.8f, 0.0f)
+                new(-0.8f, 0.8f, 0.0f, 0.0f),
+                new(0.0f, -0.8f, 0.0f, 0.0f),
+                new(0.8f, 0.8f, 0.0f, 0.0f)
             };
 
-            Vector3[] colors =
+            Vector4[] colors =
             {
-                new(1.0f, 0.3f, 0.2f),
-                new(0.8f, 1.0f, 0.0f),
-                new(0.8f, 0.0f, 1.0f)
+                new(1.0f, 0.3f, 0.2f, 0.0f),
+                new(0.8f, 1.0f, 0.0f, 0.0f),
+                new(0.8f, 0.0f, 1.0f, 0.0f)
             };
 
-            var positionsDataSize = (ulong)(NumVertices * Marshal.SizeOf<Vector3>());
-            var colorsDataSize = (ulong)(NumVertices * Marshal.SizeOf<Vector3>());
+            var positionsDataSize = (ulong)(NumVertices * Marshal.SizeOf<Vector4>());
+            var colorsDataSize = (ulong)(NumVertices * Marshal.SizeOf<Vector4>());
 
             VertexPositionsBuffer = Device.NewBuffer(positionsDataSize, MTLResourceOptions.ResourceStorageModeManaged);
             VertexColorsBuffer = Device.NewBuffer(colorsDataSize, MTLResourceOptions.ResourceStorageModeManaged);
