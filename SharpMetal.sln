@@ -1,9 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMetal", "src\SharpMetal\SharpMetal.csproj", "{6B22F189-90FF-458F-ACC1-40434D12DAA1}"
-	ProjectSection(ProjectDependencies) = postProject
-		{8A1148D0-A743-411A-8FF9-1CE13C551EFF} = {8A1148D0-A743-411A-8FF9-1CE13C551EFF}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMetal.Examples.Common", "src\SharpMetal.Examples.Common\SharpMetal.Examples.Common.csproj", "{5787CD6E-B9A9-498C-BEC3-D53C4842FA81}"
 EndProject
