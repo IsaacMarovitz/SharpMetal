@@ -21,8 +21,4 @@
         <None Include="..\..\README.md" Pack="true" PackagePath="\" />
     </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference PrivateAssets="all" Include="..\SharpMetal.ObjectiveCCore\SharpMetal.ObjectiveCCore.csproj" />
-    </ItemGroup>
-
 </Project>
