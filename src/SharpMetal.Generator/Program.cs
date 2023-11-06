@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using SharpMetal.Generator.Instances;
 
@@ -26,9 +27,30 @@ namespace SharpMetal.Generator
                 }
             }
 
+            // Check if Xcode is installed and get path
+            Process process = new Process();
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.CreateNoWindow = true;
+            startInfo.FileName = "/usr/bin/xcode-select";
+            startInfo.Arguments = "-p";
+            startInfo.RedirectStandardOutput = true;
+            process.StartInfo = startInfo;
+            process.Start();
+            process.WaitForExit();
+
+            if (process.ExitCode != 0)
+            {
+                Console.WriteLine("Xcode is not installed!");
+                return;
+            }
+
+            var path = process.StandardOutput.ReadToEnd().Trim();
+            Console.WriteLine($"Found Xcode at '{path}'");
+
+            var pathToHeaders = $"{path}/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Metal.framework/Versions/A/Headers";
+
             // Get the paths to all the header files
-            var headers = Directory.GetFiles(generatorProjectPath.FullName, "*.hpp", SearchOption.AllDirectories)
-                .Where(header => !header.Contains("Defines") && !header.Contains("Private")).ToArray();
+            var headers = Directory.GetFiles(pathToHeaders, "*.h", SearchOption.AllDirectories);
 
             var enumCache = new List<EnumInstance>();
             var structCache = new List<StructInstance>();

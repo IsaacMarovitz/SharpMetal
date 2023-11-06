@@ -9,10 +9,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Headers\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\SharpMetal\SharpMetal.csproj" />
     </ItemGroup>
 
