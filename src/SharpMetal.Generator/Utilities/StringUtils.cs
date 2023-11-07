@@ -18,22 +18,12 @@ namespace SharpMetal.Generator.Utilities
             return value;
         }
 
-        public static string FunctionSignautreCleanup(string value)
+        public static string StringBetween(string source, char left, char right)
         {
-            value = value.Replace(";", "");
-            value = value.Replace("~", "Destroy");
-            value = value.Replace("::", "");
-            value = value.Replace("void*", "IntPtr");
-            value = value.Replace("void()", "void");
-            value = value.Replace("*", "");
-            value = value.Replace("class ", "");
-            value = value.Replace("const ", "");
-            return value;
-        }
+            var indexOfLeft = source.IndexOf(left) + 1;
+            var indexOfRight = source.IndexOf(right);
 
-        public static bool IsValidFunctionSignature(string value)
-        {
-            return !(value.Contains("template") || value.Contains("^") || value.Contains("=") || value.Contains("typename") || value.Contains("operator") || value.Contains("std::function") || value.Contains("Handler") || value.Contains("Observer"));
+            return source.Substring(indexOfLeft, indexOfRight - indexOfLeft);
         }
     }
 }

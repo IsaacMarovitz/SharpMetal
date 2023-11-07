@@ -1,117 +1,49 @@
-using System.Text.RegularExpressions;
+using SharpMetal.Generator.Utilities;
 
 namespace SharpMetal.Generator.Instances
 {
-    public partial class EnumInstance
+    public class EnumInstance
     {
-        public string Type;
-        public string Name;
-        public Dictionary<string, string> Values;
+        private bool _isBitflag = false;
+        private Types.NativeType _type;
+        private string _name;
+        private Dictionary<string, string> _values = new();
 
-        private EnumInstance(string type, string name, Dictionary<string, string> values)
+        public EnumInstance(StreamReader sr, string line)
         {
-            Type = type;
-            Name = name;
-            Values = values;
-        }
+            _isBitflag = line.Contains("OPTIONS");
 
-        public void Generate(CodeGenContext context)
-        {
-            context.WriteLine($"public enum {Name} : {Type}");
-            context.EnterScope();
+            // Example Line:
+            // "typedef NS_ENUM(NSUInteger, MTLDataType) {"
+            // "NSUInteger" is the underlying type
+            // "MTLDataType" is the enum's name
 
-            foreach (var value in Values)
+            var enumInfoString = StringUtils.StringBetween(line, '(', ')');
+            var enumInfo = enumInfoString.Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+
+            _type = Types.ConvertType(enumInfo[0]);
+            _name = enumInfo[1];
+
+            var parsingComplete = false;
+
+            while (!parsingComplete)
             {
-                if (value.Value != string.Empty)
+                line = sr.ReadLine();
+
+                if (line.Contains("}"))
                 {
-                    context.WriteLine($"{value.Key} = {value.Value},");
-                }
-                else
-                {
-                    context.WriteLine($"{value.Key},");
-                }
-            }
-
-            context.LeaveScope();
-            context.WriteLine();
-        }
-
-        public static EnumInstance Build(string line, string namespacePrefix, StreamReader sr, bool skipValues = false)
-        {
-            line = line.Replace($"_{namespacePrefix}_ENUM(", "");
-            line = line.Replace($"_{namespacePrefix}_OPTIONS(", "");
-            line = line.Replace(") {", "");
-            var info = line.Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-            var convertedType = Types.ConvertType(info[0], namespacePrefix);
-            var ogName = info[1];
-
-            var name = namespacePrefix + ogName;
-
-            var values = new Dictionary<string, string>();
-            var finishedEnumerating = false;
-
-            while (!finishedEnumerating)
-            {
-                var nextLine = sr.ReadLine();
-                if (nextLine == "};")
-                {
-                    finishedEnumerating = true;
+                    parsingComplete = true;
                     continue;
                 }
 
-                if (nextLine == string.Empty)
-                {
-                    continue;
-                }
-
-
-                if (!skipValues)
-                {
-                    nextLine = nextLine.Trim().Replace(",", "");
-                    var cleanedValueName = string.Empty;
-                    var cleanedValueValue = string.Empty;
-
-                    if (nextLine.Contains("="))
-                    {
-                        var valueInfo = nextLine.Split("=", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-                        cleanedValueName = valueInfo[0];
-                        cleanedValueValue = valueInfo[1];
-                    }
-                    else
-                    {
-                        cleanedValueName = nextLine;
-                    }
-
-                    // Remove original name from each enum's name and value IOCompressionMethodZlib -> Zlib
-                    cleanedValueName = cleanedValueName.Replace(ogName, "");
-                    cleanedValueValue = cleanedValueValue.Replace(ogName, "");
-
-                    // Sometimes the first character of en enum value's name will be a number after we
-                    // remove the full name. In that case, add back the last part of the enum's name
-                    if (char.IsDigit(cleanedValueName[0]))
-                    {
-                        cleanedValueName = NameRegex().Replace(name, " ").Split(" ").Last() + cleanedValueName;
-                    }
-
-                    cleanedValueName = cleanedValueName.Replace("_", "");
-
-                    // Happens in one place in MTLDevice
-                    if (cleanedValueValue == "NS::UIntegerMax")
-                    {
-                        cleanedValueValue = "UInt64.MaxValue";
-                    }
-
-                    // Happens in NSProcessInfo
-                    cleanedValueValue = cleanedValueValue.Replace("ULL", "UL");
-
-                    values.Add(cleanedValueName, cleanedValueValue);
-                }
+                // Example Line:
+                // "MTLStepFunctionPerPatch API_AVAILABLE(macos(10.12), ios(10.0)) = 3, // Comment"
+                // Definitions can span multiple lines
+                // The final "," is optional if it's the final value definition
+                // Spacing between value name and "=" not guaranteed or consistent
+                // Bitwise definitions may reference other enum members
+                // There may be multiple pre-processor defines between the value name and the "="
             }
-
-            return new EnumInstance(convertedType, name, values);
         }
-
-        [GeneratedRegex("(?<=[A-Z])(?=[A-Z][a-z])|(?<=[^A-Z])(?=[A-Z])|(?<=[A-Za-z])(?=[^A-Za-z])")]
-        private static partial Regex NameRegex();
     }
 }

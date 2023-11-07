@@ -2,82 +2,66 @@ namespace SharpMetal.Generator
 {
     public static class Types
     {
-        public static string[] CSharpNativeTypes = { "bool", "ulong", "uint", "int", "float", "double", "long", "byte", "short", "ushort" };
-        public static Dictionary<string, string> TypeMap = new()
+        public enum NativeType
         {
-            { "uint64_t", "ulong" },
-            { "MTLTimestamp", "ulong" },
-            { "stduint64_t", "ulong" },
-            { "NSUInteger", "ulong" },
-            { "UInteger", "ulong" },
-            { "unsigned long", "ulong" },
-            { "unsigned long long", "ulong" },
+            Ulong,
+            Uint,
+            Int,
+            Long,
+            Byte,
+            UShort,
+            IntPtr,
+            Void
+        }
 
-            { "NSInteger", "long" },
-            { "Integer", "long" },
-            { "long long", "long" },
+        public static readonly Dictionary<string, NativeType> TypeMap = new()
+        {
+            { "uint64_t", NativeType.Ulong },
+            { "MTLTimestamp", NativeType.Ulong },
+            { "NSUInteger", NativeType.Ulong },
+            { "UInteger", NativeType.Ulong },
 
-            { "unsigned short", "ushort" },
-            { "char", "ushort" },
-            { "unichar", "ushort" },
-            { "uint16_t", "ushort" },
+            { "NSInteger", NativeType.Long },
 
-            { "uint32_t", "uint" },
-            { "unsigned int", "uint" },
+            { "uint16_t", NativeType.UShort },
 
-            { "int32_t", "int" },
+            { "uint32_t", NativeType.Uint },
 
-            { "uint8_t", "byte" },
-            { "unsigned char", "byte" },
+            { "int32_t", NativeType.Int },
 
-            { "Enumerator<_KeyType>", "NSEnumerator" },
-            { "IOScratchBufferAllocator", "MTLIOScratchBufferAllocator" },
-            { "IOCommandBuffer", "MTLIOCommandBuffer" },
-            { "IOCompressionMethod", "MTLIOCompressionMethod" },
-            { "IOCompressionStatus", "MTLIOCompressionStatus" },
+            { "uint8_t", NativeType.Byte },
 
-            { "stdfunction<void>&", "IntPtr" },
-            { "Object**", "IntPtr" },
-            { "id", "IntPtr" },
-            { "CGSize", "IntPtr" },
-            { "CFTimeInterval", "IntPtr" },
-            { "TimeInterval", "IntPtr" },
-            { "ErrorDomain", "IntPtr" },
-            { "Coder", "IntPtr" },
-            { "dispatch_queue_t", "IntPtr" },
-            { "dispatch_data_t", "IntPtr" },
-            { "IOSurfaceRef", "IntPtr" },
-            { "IOFileHandle", "IntPtr" },
-            { "IOScratchBuffer", "IntPtr" },
-            { "IOCommandQueue", "IntPtr" },
-            { "IOCommandQueueDescriptor", "IntPtr" },
-            { "_Class", "IntPtr"},
-            { "_ObjectType", "IntPtr" },
-            { "_Object", "IntPtr" },
-            { "MTLSharedEventNotificationBlock", "IntPtr"},
-            { "MTLCoordinate2D", "IntPtr" },
-            { "MTLAutoreleasedComputePipelineReflection", "IntPtr" },
-            { "MTLAutoreleasedRenderPipelineReflection", "IntPtr" },
-            { "MTLAutoreleasedArgument", "IntPtr" },
-            { "Enumerator<Object>", "IntPtr" },
-            { "size_t", "IntPtr" },
+            { "id", NativeType.IntPtr },
+            { "CFTimeInterval", NativeType.IntPtr },
+            { "ErrorDomain", NativeType.IntPtr },
+            { "Coder", NativeType.IntPtr },
+            { "dispatch_queue_t", NativeType.IntPtr },
+            { "dispatch_data_t", NativeType.IntPtr },
+            { "IOSurfaceRef", NativeType.IntPtr },
+            { "IOFileHandle", NativeType.IntPtr },
+            { "IOScratchBuffer", NativeType.IntPtr },
+            { "IOCommandQueue", NativeType.IntPtr },
+            { "IOCommandQueueDescriptor", NativeType.IntPtr },
+            { "_Class", NativeType.IntPtr},
+            { "_ObjectType", NativeType.IntPtr },
+            { "_Object", NativeType.IntPtr },
+            { "MTLSharedEventNotificationBlock", NativeType.IntPtr},
+            { "MTLCoordinate2D", NativeType.IntPtr },
+            { "MTLAutoreleasedComputePipelineReflection", NativeType.IntPtr },
+            { "MTLAutoreleasedRenderPipelineReflection", NativeType.IntPtr },
+            { "MTLAutoreleasedArgument", NativeType.IntPtr },
+            { "Enumerator<Object>", NativeType.IntPtr },
+            { "size_t", NativeType.IntPtr },
 
-            { "IntPtr", "IntPtr" },
-            { "void", "void" },
+            { "IntPtr", NativeType.IntPtr },
+            { "void", NativeType.Void },
         };
 
-        public static string ConvertType(string type, string namespacePrefix)
+        public static NativeType ConvertType(string type)
         {
             if (type == string.Empty)
             {
-                return type;
-            }
-
-            type = type.Replace("::", "");
-
-            if (CSharpNativeTypes.Contains(type))
-            {
-                return type;
+                return NativeType.Void;
             }
 
             if (TypeMap.TryGetValue(type, out var convertType))
@@ -85,22 +69,7 @@ namespace SharpMetal.Generator
                 return convertType;
             }
 
-            var startsWithPrefix = false;
-
-            foreach (var prefix in Namespaces.Prefixes)
-            {
-                if (type.StartsWith(prefix))
-                {
-                    startsWithPrefix = true;
-                }
-            }
-
-            if (!startsWithPrefix)
-            {
-                return namespacePrefix + type;
-            }
-
-            return type;
+            return NativeType.Void;
         }
     }
 }

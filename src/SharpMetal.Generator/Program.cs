@@ -11,8 +11,6 @@ namespace SharpMetal.Generator
         public static void Main(string[] args)
         {
             var projectPaths = new DirectoryInfo(GetSourceFilePathName()).Parent.Parent.GetDirectories();
-
-            var generatorProjectPath = projectPaths.First(x => x.Name == "SharpMetal.Generator");
             var mainProjectPath = projectPaths.First(x => x.Name == "SharpMetal");
 
             // Set working directory to the actual project directory
@@ -52,199 +50,27 @@ namespace SharpMetal.Generator
             // Get the paths to all the header files
             var headers = Directory.GetFiles(pathToHeaders, "*.h", SearchOption.AllDirectories);
 
-            var enumCache = new List<EnumInstance>();
-            var structCache = new List<StructInstance>();
-            var objectiveCInstances = new HashSet<ObjectiveCInstance>();
+            var pathToApiNotes = $"{pathToHeaders}/Metal.apinotes";
+
+            // 1. Parse API Notes
+            // API notes contain the Swift signatures for each function selector. Swift function names
+            // are much less verbose and match C#'s method name styling better than their Objective-C counterparts.
+            // by parsing this data, we can make the library nicer to use. This data is formatted in YML.
+
+            // 2. Parse Headers
+            // Parse all headers into an intermediate data representation. This allows us to only have to read
+            // the sources files once, and have all the information we need to complete generation.
+
+            // 3. Generate Bindings
+            // Using the intermediate representation, and the API notes we gained earlier, create complete
+            // C# bindings of the whole API, including comments.
 
             foreach (var header in headers)
             {
-                GenerateCaches(header, ref enumCache, ref structCache);
+                using var sr = new StreamReader(File.OpenRead(header));
+
+                var _ = new HeaderInstance(sr);
             }
-
-            foreach (var header in headers)
-            {
-                Generate(header, enumCache, structCache, ref objectiveCInstances);
-            }
-
-            GenerateObjectiveC(objectiveCInstances);
-        }
-
-        public static void GenerateCaches(string filePath, ref List<EnumInstance> enumCache, ref List<StructInstance> structCache)
-        {
-            using var sr = new StreamReader(File.OpenRead(filePath));
-            var namespacePrefix = Namespaces.GetNamespace(filePath);
-
-            while (!sr.EndOfStream)
-            {
-                var line = sr.ReadLine();
-
-                if (line.StartsWith("struct"))
-                {
-                    if (!line.Contains(";"))
-                    {
-                        structCache.Add(StructInstance.Build(line, namespacePrefix, sr, true));
-                    }
-                }
-                else if (line.StartsWith($"_{namespacePrefix}_ENUM") || line.StartsWith($"_{namespacePrefix}_OPTIONS"))
-                {
-                    enumCache.Add(EnumInstance.Build(line, namespacePrefix, sr, true));
-                }
-            }
-        }
-        public static void Generate(string filePath, List<EnumInstance> enumCache, List<StructInstance> structCache, ref HashSet<ObjectiveCInstance> objectiveCInstances)
-        {
-            var headerInfo = new HeaderInfo(filePath);
-
-            if (headerInfo.StructInstances.Count == 0 && headerInfo.ClassInstances.Count == 0 && headerInfo.EnumInstances.Count == 0)
-            {
-                return;
-            }
-
-            string fileName = Path.GetFileNameWithoutExtension(filePath);
-            var fullNamespace = Namespaces.GetFullNamespace(filePath);
-
-            Directory.CreateDirectory(fullNamespace);
-
-            using CodeGenContext context = new(File.CreateText($"{fullNamespace}/{fileName}.cs"));
-
-            GenerateUsings(headerInfo, context, fullNamespace);
-
-            context.WriteLine($"namespace SharpMetal.{fullNamespace}");
-            context.EnterScope();
-
-            foreach (var instance in headerInfo.EnumInstances)
-            {
-                instance.Generate(context);
-            }
-
-            for (var i = 0; i < headerInfo.StructInstances.Count; i++)
-            {
-                headerInfo.StructInstances[i].Generate(context);
-
-                if (headerInfo.ClassInstances.Any())
-                {
-                    context.WriteLine();
-                }
-                else if (i != headerInfo.StructInstances.Count - 1)
-                {
-                    context.WriteLine();
-                }
-            }
-
-            for (var i = 0; i < headerInfo.ClassInstances.Count; i++)
-            {
-                var instances = headerInfo.ClassInstances[i].Generate(enumCache, structCache, context);
-
-                foreach (var instance in instances)
-                {
-                    objectiveCInstances.Add(instance);
-                }
-
-                if (i != headerInfo.ClassInstances.Count - 1)
-                {
-                    context.WriteLine();
-                }
-            }
-
-            context.LeaveScope();
-        }
-
-        public static void GenerateUsings(HeaderInfo headerInfo, CodeGenContext context, string fullNamespace)
-        {
-            var hasAnyUsings = false;
-            var hasSelectors = false;
-
-            foreach (var instance in headerInfo.ClassInstances)
-            {
-                if (instance.GetSelectors().Any())
-                {
-                    hasSelectors = true;
-                }
-            }
-
-            if (headerInfo.StructInstances.Any())
-            {
-                context.WriteLine("using System.Runtime.InteropServices;");
-                hasAnyUsings = true;
-            }
-
-            if (headerInfo.StructInstances.Any() || headerInfo.ClassInstances.Any())
-            {
-                context.WriteLine("using System.Runtime.Versioning;");
-                hasAnyUsings = true;
-            }
-
-            if (hasSelectors)
-            {
-                context.WriteLine("using SharpMetal.ObjectiveCCore;");
-            }
-
-            if (headerInfo.IncludeFlags != IncludeFlags.None)
-            {
-                hasAnyUsings = true;
-                if ((headerInfo.IncludeFlags & IncludeFlags.Foundation) == IncludeFlags.Foundation)
-                {
-                    if (fullNamespace != "Foundation")
-                    {
-                        context.WriteLine("using SharpMetal.Foundation;");
-                    }
-                }
-                if ((headerInfo.IncludeFlags & IncludeFlags.Metal) == IncludeFlags.Metal)
-                {
-                    if (fullNamespace != "Metal")
-                    {
-                        context.WriteLine("using SharpMetal.Metal;");
-                    }
-                }
-                if ((headerInfo.IncludeFlags & IncludeFlags.QuartzCore) == IncludeFlags.QuartzCore)
-                {
-                    if (fullNamespace != "QuartzCore")
-                    {
-                        context.WriteLine("using SharpMetal.QuartzCore;");
-                    }
-                }
-            }
-
-            if (hasAnyUsings)
-            {
-                context.WriteLine();
-            }
-        }
-
-        public static void GenerateObjectiveC(HashSet<ObjectiveCInstance> objectiveCInstances)
-        {
-            objectiveCInstances.RemoveWhere(x => x.Type == string.Empty);
-
-            using CodeGenContext context = new(File.CreateText("ObjectiveCRuntime.cs"));
-
-            context.WriteLine("using System.Runtime.InteropServices;");
-            context.WriteLine("using System.Runtime.Versioning;");
-            context.WriteLine("using SharpMetal.ObjectiveCCore;");
-            context.WriteLine("using SharpMetal.Foundation;");
-            context.WriteLine("using SharpMetal.Metal;");
-            context.WriteLine();
-
-            context.WriteLine("namespace SharpMetal");
-            context.EnterScope();
-
-            context.WriteLine("[SupportedOSPlatform(\"macos\")]");
-            context.WriteLine("public static partial class ObjectiveCRuntime");
-            context.EnterScope();
-
-            var list = objectiveCInstances.ToList();
-            list.Sort();
-
-            for (var i = 0; i < list.Count; i++)
-            {
-                list[i].Generate(context);
-                if (i != list.Count - 1)
-                {
-                    context.WriteLine();
-                }
-            }
-
-            context.LeaveScope();
-            context.LeaveScope();
         }
     }
 }
