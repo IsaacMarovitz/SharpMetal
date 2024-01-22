@@ -1,6 +1,6 @@
-namespace SharpMetal.Generator.Instances
+namespace SharpMetal.Generator.Instances.Property
 {
-    public class PropertyInstance : Instance
+    public class PropertyInstance : IInstance
     {
         /// <summary>
         /// A string that defines the type that this property represents.
@@ -18,6 +18,9 @@ namespace SharpMetal.Generator.Instances
         public string? ReadSelector;
         public string? WriteSelector;
 
+        public string InstanceName { get; set; }
+        public Compatability Compatability { get; set; }
+
         public PropertyInstance(
             string name,
             string type,
@@ -32,6 +35,11 @@ namespace SharpMetal.Generator.Instances
             Readonly = isReadonly;
             ReadSelector = readSelector;
             WriteSelector = writeSelector;
+        }
+
+        public void Generate(CodeGenContext context)
+        {
+            throw new NotImplementedException();
         }
     }
 }

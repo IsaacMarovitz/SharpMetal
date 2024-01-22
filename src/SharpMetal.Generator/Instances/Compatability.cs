@@ -24,7 +24,7 @@ namespace SharpMetal.Generator.Instances
 
         public void Generate()
         {
-            // TODO: Generation code for compatibility attributes
+            throw new NotImplementedException();
         }
     }
 }

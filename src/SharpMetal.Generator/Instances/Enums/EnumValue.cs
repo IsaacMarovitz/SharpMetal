@@ -1,6 +1,6 @@
 namespace SharpMetal.Generator.Instances.Enums
 {
-    public class EnumValue : Instance
+    public class EnumValue : IInstance
     {
         public string Value;
         /// <summary>
@@ -11,6 +11,8 @@ namespace SharpMetal.Generator.Instances.Enums
         public bool IsBitwise;
         public bool ShiftRight;
         public int ShiftValue;
+        public string InstanceName { get; set; }
+        public Compatability Compatability { get; set; }
 
         public EnumValue(string valueName, string value)
         {
@@ -33,6 +35,11 @@ namespace SharpMetal.Generator.Instances.Enums
             IsBitwise = true;
             ShiftRight = shiftRight;
             ShiftValue = shiftValue;
+        }
+
+        public void Generate(CodeGenContext context)
+        {
+            throw new NotImplementedException();
         }
     }
 }
