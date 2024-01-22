@@ -3,7 +3,8 @@ namespace SharpMetal.Generator.Instances.Property
     public class PropertyInstance : IInstance
     {
         /// <summary>
-        /// A string that defines the type that this property represents.
+        /// Defines the type of this property.
+        /// Must be a valid C# type or a generated type.
         /// </summary>
         public string Type;
         /// <summary>
@@ -15,12 +16,35 @@ namespace SharpMetal.Generator.Instances.Property
         /// </summary>
         public bool Readonly;
 
+        /// <summary>
+        /// A custom read selector.
+        /// If not set, default <c>property:</c> format will be used.
+        /// </summary>
         public string? ReadSelector;
+        /// <summary>
+        /// A custom write selector.
+        /// If not set, default <c>setProperty:</c> format will be used.
+        /// </summary>
         public string? WriteSelector;
 
+        /// <summary>
+        /// The name of the property instance.
+        /// </summary>
         public string InstanceName { get; set; }
+        /// <summary>
+        /// Defines in which SDKs this property is available.
+        /// </summary>
         public Compatability Compatability { get; set; }
 
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        /// <param name="name">The name of the property.</param>
+        /// <param name="type">The type of the property.</param>
+        /// <param name="isNullable">Is this property nullable?</param>
+        /// <param name="isReadonly">Is this property readonly?</param>
+        /// <param name="readSelector">Custom selector for property read.</param>
+        /// <param name="writeSelector">Custom selector for property write.</param>
         public PropertyInstance(
             string name,
             string type,
@@ -37,6 +61,11 @@ namespace SharpMetal.Generator.Instances.Property
             WriteSelector = writeSelector;
         }
 
+        /// <summary>
+        /// Generate C# code from the given property instance.
+        /// </summary>
+        /// <param name="context">The context in which to write code.</param>
+        /// <exception cref="NotImplementedException">Not yet implemented.</exception>
         public void Generate(CodeGenContext context)
         {
             throw new NotImplementedException();

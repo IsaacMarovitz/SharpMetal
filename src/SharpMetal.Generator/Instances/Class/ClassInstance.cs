@@ -1,3 +1,4 @@
+using SharpMetal.Generator.Instances.Method;
 using SharpMetal.Generator.Instances.Property;
 
 namespace SharpMetal.Generator.Instances.Class
@@ -17,6 +18,10 @@ namespace SharpMetal.Generator.Instances.Class
         /// </summary>
         public PropertyInstance[] Properties;
         /// <summary>
+        /// Defines all methods available in this class.
+        /// </summary>
+        public MethodInstance[] Methods;
+        /// <summary>
         /// Defines the name of the class.
         /// </summary>
         public string InstanceName { get; set; }
@@ -31,11 +36,17 @@ namespace SharpMetal.Generator.Instances.Class
         /// <param name="className">Name of the class.</param>
         /// <param name="isProtocol">True if the class is an Objective-C Protocol.</param>
         /// <param name="properties">Array of all properties available in this class.</param>
-        public ClassInstance(string className, bool isProtocol, PropertyInstance[] properties)
+        /// <param name="methods">Array of all methods available in this class.</param>
+        public ClassInstance(
+            string className,
+            bool isProtocol,
+            PropertyInstance[] properties,
+            MethodInstance[] methods)
         {
             InstanceName = className;
             IsProtocol = isProtocol;
             Properties = properties;
+            Methods = methods;
         }
 
         /// <summary>

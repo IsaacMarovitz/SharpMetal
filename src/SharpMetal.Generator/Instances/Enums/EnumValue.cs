@@ -2,6 +2,10 @@ namespace SharpMetal.Generator.Instances.Enums
 {
     public class EnumValue : IInstance
     {
+        /// <summary>
+        /// The base value of this enum value.
+        /// If <c>IsBitwise</c> is true, this will be the base value that gets shifted.
+        /// </summary>
         public int Value;
         /// <summary>
         /// Defines if this value is calculated as bitwise value.
@@ -11,12 +15,12 @@ namespace SharpMetal.Generator.Instances.Enums
         public bool IsBitwise;
         /// <summary>
         /// True if shift direction is right.
-        /// Ignored if instance if <c>IsBitwise</c> is false.
+        /// Ignored if <c>IsBitwise</c> is false.
         /// </summary>
         public bool ShiftRight;
         /// <summary>
         /// The amount with which to shift the base value.
-        /// Ignored if instance if <c>IsBitwise</c> is false.
+        /// Ignored if <c>IsBitwise</c> is false.
         /// </summary>
         public int ShiftValue;
         /// <summary>
