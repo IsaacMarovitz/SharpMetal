@@ -22,9 +22,28 @@ namespace SharpMetal.Generator.Instances
             VisionOSMinVersion = visionOSMinVersion;
         }
 
-        public void Generate()
+        public void Generate(CodeGenContext context)
         {
-            throw new NotImplementedException();
+            if (MacOSMinVersion is not null)
+            {
+                context.WriteLine($"[SupportedOSPlatform(\"macos{MacOSMinVersion}\")]");
+            }
+            if (MacCatalystMinVersion is not null)
+            {
+                context.WriteLine($"[SupportedOSPlatform(\"macCatalyst{MacCatalystMinVersion}\")]");
+            }
+            if (IOSMinVersion is not null)
+            {
+                context.WriteLine($"[SupportedOSPlatform(\"iOS{IOSMinVersion}\")]");
+            }
+            if (TvOSMinVersion is not null)
+            {
+                context.WriteLine($"[SupportedOSPlatform(\"tvOS{TvOSMinVersion}\")]");
+            }
+            if (VisionOSMinVersion is not null)
+            {
+                context.WriteLine($"[SupportedOSPlatform(\"visionOS{VisionOSMinVersion}\")]");
+            }
         }
     }
 }
