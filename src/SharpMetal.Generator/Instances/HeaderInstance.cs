@@ -1,40 +1,25 @@
-using SharpMetal.Generator.Utilities;
+using SharpMetal.Generator.Instances.Class;
+using SharpMetal.Generator.Instances.Enums;
+using SharpMetal.Generator.Instances.Struct;
 
 namespace SharpMetal.Generator.Instances
 {
-    public class HeaderInstance
+    public class HeaderInstance : Instance
     {
-        public List<EnumInstance> EnumInstances = new();
-        // public List<ClassInstance> ClassInstances = new();
-        // public List<StructInstance> StructInstances = new();
-        // public List<MethodInstance> InFlightUnscopedMethods = new();
+        public ClassInstance[] ClassInstances;
+        public EnumInstance[] EnumInstances;
+        public StructInstance[] StructInstances;
 
-        public HeaderInstance(StreamReader sr)
+        public HeaderInstance(
+            string headerName,
+            ClassInstance[] classes,
+            EnumInstance[] enums,
+            StructInstance[] structs)
         {
-            while (!sr.EndOfStream)
-            {
-                var line = sr.ReadLine().Trim();
-
-                // Ignore empty and pre-processors
-                if (line == string.Empty ||
-                    line.StartsWith("#"))
-                {
-                    continue;
-                }
-
-                if (line.StartsWith("typedef"))
-                {
-                    if (line.Contains("NS_OPTIONS") || line.Contains("NS_ENUM"))
-                    {
-                        EnumInstances.Add(new EnumInstance(sr, line));
-                    }
-
-                    if (line.Contains("struct"))
-                    {
-                    }
-                    continue;
-                }
-            }
+            InstanceName = headerName;
+            ClassInstances = classes;
+            EnumInstances = enums;
+            StructInstances = structs;
         }
     }
 }
