@@ -29,6 +29,7 @@ namespace SharpMetal.Generator.Instances.Class
         /// Defines in which SDKs this class is available.
         /// </summary>
         public Compatability Compatability { get; set; }
+        public Documentation Documentation { get; set; }
 
         /// <summary>
         /// Default constructor.

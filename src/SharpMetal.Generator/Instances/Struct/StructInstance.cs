@@ -23,6 +23,7 @@ namespace SharpMetal.Generator.Instances.Struct
         /// <param name="context">The context in which to write code.</param>
         /// <exception cref="NotImplementedException">Not yet implemented.</exception>
         public Compatability Compatability { get; set; }
+        public Documentation Documentation { get; set; }
 
         /// <summary>
         /// Default constructor.

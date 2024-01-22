@@ -21,6 +21,7 @@ namespace SharpMetal.Generator.Instances.Method
         /// Defines in which SDKs this method input is available.
         /// </summary>
         public Compatability Compatability { get; set; }
+        public Documentation Documentation { get; set; }
 
         /// <summary>
         /// Default constructor.

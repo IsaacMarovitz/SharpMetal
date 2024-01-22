@@ -35,6 +35,7 @@ namespace SharpMetal.Generator.Instances.Property
         /// Defines in which SDKs this property is available.
         /// </summary>
         public Compatability Compatability { get; set; }
+        public Documentation Documentation { get; set; }
 
         /// <summary>
         /// Default constructor.
