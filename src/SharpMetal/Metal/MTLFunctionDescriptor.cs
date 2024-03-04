@@ -8,6 +8,7 @@ namespace SharpMetal.Metal
     {
         FunctionOptionNone = 0,
         FunctionOptionCompileToBinary = 1,
+        FunctionOptionStoreFunctionInMetalScript = 2,
     }
 
     [SupportedOSPlatform("macos")]

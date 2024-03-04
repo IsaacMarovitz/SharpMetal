@@ -37,8 +37,8 @@ namespace SharpMetal.Metal
         OSXGPUFamily1v1 = 10000,
         macOSGPUFamily1v2 = 10001,
         OSXGPUFamily1v2 = 10001,
-        OSXReadWriteTextureTier2 = 10002,
         macOSReadWriteTextureTier2 = 10002,
+        OSXReadWriteTextureTier2 = 10002,
         macOSGPUFamily1v3 = 10003,
         macOSGPUFamily1v4 = 10004,
         macOSGPUFamily2v1 = 10005,
@@ -65,6 +65,7 @@ namespace SharpMetal.Metal
         Apple6 = 1006,
         Apple7 = 1007,
         Apple8 = 1008,
+        Apple9 = 1009,
         Mac1 = 2001,
         Mac2 = 2002,
         Common1 = 3001,
@@ -174,9 +175,9 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setArrayLength, value);
         }
 
-        public MTLArgumentAccess Access
+        public MTLBindingAccess Access
         {
-            get => (MTLArgumentAccess)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_access);
+            get => (MTLBindingAccess)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_access);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAccess, (ulong)value);
         }
 
@@ -208,6 +209,24 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
+    public partial class MTLArchitecture
+    {
+        public IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLArchitecture obj) => obj.NativePtr;
+        public MTLArchitecture(IntPtr ptr) => NativePtr = ptr;
+
+        public MTLArchitecture()
+        {
+            var cls = new ObjectiveCClass("MTLArchitecture");
+            NativePtr = cls.AllocInit();
+        }
+
+        public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
+
+        private static readonly Selector sel_name = "name";
+    }
+
+    [SupportedOSPlatform("macos")]
     public partial class MTLDevice
     {
         public IntPtr NativePtr;
@@ -224,6 +243,8 @@ namespace SharpMetal.Metal
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
 
         public ulong RegistryID => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_registryID);
+
+        public MTLArchitecture Architecture => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_architecture));
 
         public MTLSize MaxThreadsPerThreadgroup => ObjectiveCRuntime.MTLSize_objc_msgSend(NativePtr, sel_maxThreadsPerThreadgroup);
 
@@ -534,6 +555,16 @@ namespace SharpMetal.Metal
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newIOHandleWithURLcompressionMethoderror, url, (long)compressionMethod, ref error.NativePtr));
         }
 
+        public IntPtr NewIOFileHandle(NSURL url, ref NSError error)
+        {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newIOFileHandleWithURLerror, url, ref error.NativePtr));
+        }
+
+        public IntPtr NewIOFileHandle(NSURL url, MTLIOCompressionMethod compressionMethod, ref NSError error)
+        {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newIOFileHandleWithURLcompressionMethoderror, url, (long)compressionMethod, ref error.NativePtr));
+        }
+
         public MTLSize SparseTileSize(MTLTextureType textureType, MTLPixelFormat pixelFormat, ulong sampleCount)
         {
             return ObjectiveCRuntime.MTLSize_objc_msgSend(NativePtr, sel_sparseTileSizeWithTextureTypepixelFormatsampleCount, (ulong)textureType, (ulong)pixelFormat, sampleCount);
@@ -631,6 +662,7 @@ namespace SharpMetal.Metal
 
         private static readonly Selector sel_name = "name";
         private static readonly Selector sel_registryID = "registryID";
+        private static readonly Selector sel_architecture = "architecture";
         private static readonly Selector sel_maxThreadsPerThreadgroup = "maxThreadsPerThreadgroup";
         private static readonly Selector sel_isLowPower = "isLowPower";
         private static readonly Selector sel_isHeadless = "isHeadless";
@@ -703,6 +735,8 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_newIOHandleWithURLerror = "newIOHandleWithURL:error:";
         private static readonly Selector sel_newIOCommandQueueWithDescriptorerror = "newIOCommandQueueWithDescriptor:error:";
         private static readonly Selector sel_newIOHandleWithURLcompressionMethoderror = "newIOHandleWithURL:compressionMethod:error:";
+        private static readonly Selector sel_newIOFileHandleWithURLerror = "newIOFileHandleWithURL:error:";
+        private static readonly Selector sel_newIOFileHandleWithURLcompressionMethoderror = "newIOFileHandleWithURL:compressionMethod:error:";
         private static readonly Selector sel_sparseTileSizeWithTextureTypepixelFormatsampleCount = "sparseTileSizeWithTextureType:pixelFormat:sampleCount:";
         private static readonly Selector sel_sparseTileSizeInBytes = "sparseTileSizeInBytes";
         private static readonly Selector sel_convertSparsePixelRegionstoTileRegionswithTileSizealignmentModenumRegions = "convertSparsePixelRegions:toTileRegions:withTileSize:alignmentMode:numRegions:";

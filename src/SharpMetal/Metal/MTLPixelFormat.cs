@@ -45,6 +45,8 @@ namespace SharpMetal.Metal
         RG11B10Float = 92,
         RGB9E5Float = 93,
         BGR10A2Unorm = 94,
+        BGR10XR = 554,
+        BGR10XRsRGB = 555,
         RG32Uint = 103,
         RG32Sint = 104,
         RG32Float = 105,
@@ -53,6 +55,8 @@ namespace SharpMetal.Metal
         RGBA16Uint = 113,
         RGBA16Sint = 114,
         RGBA16Float = 115,
+        BGRA10XR = 552,
+        BGRA10XRsRGB = 553,
         RGBA32Uint = 123,
         RGBA32Sint = 124,
         RGBA32Float = 125,
@@ -139,10 +143,6 @@ namespace SharpMetal.Metal
         Depth32FloatStencil8 = 260,
         X32Stencil8 = 261,
         X24Stencil8 = 262,
-        BGRA10XR = 552,
-        BGRA10XRsRGB = 553,
-        BGR10XR = 554,
-        BGR10XRsRGB = 555,
     }
 
 }

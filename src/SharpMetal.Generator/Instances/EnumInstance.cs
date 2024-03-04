@@ -59,11 +59,10 @@ namespace SharpMetal.Generator.Instances
                     continue;
                 }
 
-                if (nextLine == string.Empty)
+                if (string.IsNullOrEmpty(nextLine))
                 {
                     continue;
                 }
-
 
                 if (!skipValues)
                 {
@@ -104,7 +103,14 @@ namespace SharpMetal.Generator.Instances
                     // Happens in NSProcessInfo
                     cleanedValueValue = cleanedValueValue.Replace("ULL", "UL");
 
-                    values.Add(cleanedValueName, cleanedValueValue);
+                    try
+                    {
+                        values.Add(cleanedValueName, cleanedValueValue);
+                    }
+                    catch
+                    {
+                        Console.WriteLine($"Attempted to write repeat value! {line}");
+                    }
                 }
             }
 

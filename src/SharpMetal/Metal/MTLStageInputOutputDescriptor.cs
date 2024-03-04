@@ -58,6 +58,8 @@ namespace SharpMetal.Metal
         UShortNormalized = 51,
         ShortNormalized = 52,
         Half = 53,
+        FloatRG11B10 = 54,
+        FloatRGB9E5 = 55,
     }
 
     public enum MTLIndexType : ulong

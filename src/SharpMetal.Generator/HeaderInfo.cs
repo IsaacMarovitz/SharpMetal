@@ -83,15 +83,15 @@ namespace SharpMetal.Generator
                 {
                     if (line.Contains("Foundation"))
                     {
-                        IncludeFlags = IncludeFlags | IncludeFlags.Foundation;
+                        IncludeFlags |= IncludeFlags.Foundation;
                     }
                     else if (line.Contains("Metal"))
                     {
-                        IncludeFlags = IncludeFlags | IncludeFlags.Metal;
+                        IncludeFlags |= IncludeFlags.Metal;
                     }
                     else if (line.Contains("QuartzCore"))
                     {
-                        IncludeFlags = IncludeFlags | IncludeFlags.QuartzCore;
+                        IncludeFlags |= IncludeFlags.QuartzCore;
                     }
                 }
                 else if (line.StartsWith("class"))
@@ -230,5 +230,6 @@ namespace SharpMetal.Generator
         Foundation = 1 << 0,
         Metal = 2 << 0,
         QuartzCore = 3 << 0,
+        MetalFX = 4 << 0
     }
 }

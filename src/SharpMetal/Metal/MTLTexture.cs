@@ -36,6 +36,7 @@ namespace SharpMetal.Metal
         ShaderWrite = 2,
         RenderTarget = 4,
         PixelFormatView = 16,
+        ShaderAtomic = 32,
     }
 
     public enum MTLTextureCompressionType : long

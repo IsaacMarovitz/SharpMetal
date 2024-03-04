@@ -173,6 +173,26 @@ namespace SharpMetal.Metal
             throw new NotImplementedException();
         }
 
+        public void SetVertexBuffer(MTLBuffer buffer, ulong offset, ulong stride, ulong index)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexBufferoffsetattributeStrideatIndex, buffer, offset, stride, index);
+        }
+
+        public void SetVertexBuffers(MTLBuffer[] buffers, ulong offsets, ulong strides, NSRange range)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetVertexBufferOffset(ulong offset, ulong stride, ulong index)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexBufferOffsetattributeStrideatIndex, offset, stride, index);
+        }
+
+        public void SetVertexBytes(IntPtr bytes, ulong length, ulong stride, ulong index)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexByteslengthattributeStrideatIndex, bytes, length, stride, index);
+        }
+
         public void SetVertexTexture(MTLTexture texture, ulong index)
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexTextureatIndex, texture, index);
@@ -768,6 +788,10 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setVertexBufferoffsetatIndex = "setVertexBuffer:offset:atIndex:";
         private static readonly Selector sel_setVertexBufferOffsetatIndex = "setVertexBufferOffset:atIndex:";
         private static readonly Selector sel_setVertexBuffersoffsetswithRange = "setVertexBuffers:offsets:withRange:";
+        private static readonly Selector sel_setVertexBufferoffsetattributeStrideatIndex = "setVertexBuffer:offset:attributeStride:atIndex:";
+        private static readonly Selector sel_setVertexBuffersoffsetsattributeStrideswithRange = "setVertexBuffers:offsets:attributeStrides:withRange:";
+        private static readonly Selector sel_setVertexBufferOffsetattributeStrideatIndex = "setVertexBufferOffset:attributeStride:atIndex:";
+        private static readonly Selector sel_setVertexByteslengthattributeStrideatIndex = "setVertexBytes:length:attributeStride:atIndex:";
         private static readonly Selector sel_setVertexTextureatIndex = "setVertexTexture:atIndex:";
         private static readonly Selector sel_setVertexTextureswithRange = "setVertexTextures:withRange:";
         private static readonly Selector sel_setVertexSamplerStateatIndex = "setVertexSamplerState:atIndex:";

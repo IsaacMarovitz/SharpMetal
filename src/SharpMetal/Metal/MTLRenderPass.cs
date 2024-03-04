@@ -25,8 +25,8 @@ namespace SharpMetal.Metal
     public enum MTLStoreActionOptions : ulong
     {
         StoreActionOptionNone = 0,
-        StoreActionOptionValidMask = 1,
         StoreActionOptionCustomSamplePositions = 1,
+        StoreActionOptionValidMask = 1,
     }
 
     public enum MTLMultisampleDepthResolveFilter : ulong

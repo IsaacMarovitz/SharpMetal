@@ -33,6 +33,7 @@ namespace SharpMetal.Metal
         Version23 = 131075,
         Version24 = 131076,
         Version30 = 196608,
+        Version31 = 196609,
     }
 
     public enum MTLLibraryType : long

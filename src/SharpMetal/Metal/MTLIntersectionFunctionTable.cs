@@ -13,6 +13,8 @@ namespace SharpMetal.Metal
         InstanceMotion = 8,
         PrimitiveMotion = 16,
         ExtendedLimits = 32,
+        MaxLevels = 64,
+        CurveData = 128,
     }
 
     [SupportedOSPlatform("macos")]
@@ -83,6 +85,16 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOpaqueTriangleIntersectionFunctionWithSignaturewithRange, (ulong)signature, range);
         }
 
+        public void SetOpaqueCurveIntersectionFunction(MTLIntersectionFunctionSignature signature, ulong index)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOpaqueCurveIntersectionFunctionWithSignatureatIndex, (ulong)signature, index);
+        }
+
+        public void SetOpaqueCurveIntersectionFunction(MTLIntersectionFunctionSignature signature, NSRange range)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOpaqueCurveIntersectionFunctionWithSignaturewithRange, (ulong)signature, range);
+        }
+
         public void SetVisibleFunctionTable(MTLVisibleFunctionTable functionTable, ulong bufferIndex)
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVisibleFunctionTableatBufferIndex, functionTable, bufferIndex);
@@ -100,6 +112,8 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setFunctionswithRange = "setFunctions:withRange:";
         private static readonly Selector sel_setOpaqueTriangleIntersectionFunctionWithSignatureatIndex = "setOpaqueTriangleIntersectionFunctionWithSignature:atIndex:";
         private static readonly Selector sel_setOpaqueTriangleIntersectionFunctionWithSignaturewithRange = "setOpaqueTriangleIntersectionFunctionWithSignature:withRange:";
+        private static readonly Selector sel_setOpaqueCurveIntersectionFunctionWithSignatureatIndex = "setOpaqueCurveIntersectionFunctionWithSignature:atIndex:";
+        private static readonly Selector sel_setOpaqueCurveIntersectionFunctionWithSignaturewithRange = "setOpaqueCurveIntersectionFunctionWithSignature:withRange:";
         private static readonly Selector sel_setVisibleFunctionTableatBufferIndex = "setVisibleFunctionTable:atBufferIndex:";
         private static readonly Selector sel_setVisibleFunctionTableswithBufferRange = "setVisibleFunctionTables:withBufferRange:";
     }

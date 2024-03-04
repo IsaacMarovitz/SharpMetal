@@ -39,6 +39,7 @@
 #include "NSProcessInfo.hpp"
 #include "NSRange.hpp"
 #include "NSSet.hpp"
+#include "NSSharedPtr.hpp"
 #include "NSString.hpp"
 #include "NSTypes.hpp"
 #include "NSURL.hpp"

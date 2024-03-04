@@ -39,10 +39,10 @@ namespace SharpMetal.Metal
     public enum MTLColorWriteMask : ulong
     {
         None = 0,
-        Alpha = 1,
-        Blue = 2,
-        Green = 4,
         Red = 8,
+        Green = 4,
+        Blue = 2,
+        Alpha = 1,
         All = 15,
     }
 
@@ -897,6 +897,30 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStencilAttachmentPixelFormat, (ulong)value);
         }
 
+        public bool SupportIndirectCommandBuffers
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportIndirectCommandBuffers);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSupportIndirectCommandBuffers, value);
+        }
+
+        public MTLLinkedFunctions ObjectLinkedFunctions
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_objectLinkedFunctions));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setObjectLinkedFunctions, value);
+        }
+
+        public MTLLinkedFunctions MeshLinkedFunctions
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_meshLinkedFunctions));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMeshLinkedFunctions, value);
+        }
+
+        public MTLLinkedFunctions FragmentLinkedFunctions
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_fragmentLinkedFunctions));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFragmentLinkedFunctions, value);
+        }
+
         public void SetAlphaToCoverageEnabled(bool alphaToCoverageEnabled)
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAlphaToCoverageEnabled, alphaToCoverageEnabled);
@@ -955,6 +979,14 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setDepthAttachmentPixelFormat = "setDepthAttachmentPixelFormat:";
         private static readonly Selector sel_stencilAttachmentPixelFormat = "stencilAttachmentPixelFormat";
         private static readonly Selector sel_setStencilAttachmentPixelFormat = "setStencilAttachmentPixelFormat:";
+        private static readonly Selector sel_supportIndirectCommandBuffers = "supportIndirectCommandBuffers";
+        private static readonly Selector sel_setSupportIndirectCommandBuffers = "setSupportIndirectCommandBuffers:";
+        private static readonly Selector sel_objectLinkedFunctions = "objectLinkedFunctions";
+        private static readonly Selector sel_setObjectLinkedFunctions = "setObjectLinkedFunctions:";
+        private static readonly Selector sel_meshLinkedFunctions = "meshLinkedFunctions";
+        private static readonly Selector sel_setMeshLinkedFunctions = "setMeshLinkedFunctions:";
+        private static readonly Selector sel_fragmentLinkedFunctions = "fragmentLinkedFunctions";
+        private static readonly Selector sel_setFragmentLinkedFunctions = "setFragmentLinkedFunctions:";
         private static readonly Selector sel_reset = "reset";
     }
 }

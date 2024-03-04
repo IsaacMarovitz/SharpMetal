@@ -97,6 +97,10 @@ namespace SharpMetal.Metal
         IntersectionFunctionTable = 116,
         PrimitiveAccelerationStructure = 117,
         InstanceAccelerationStructure = 118,
+        BFloat = 121,
+        BFloat2 = 122,
+        BFloat3 = 123,
+        BFloat4 = 124,
     }
 
     public enum MTLBindingType : long
@@ -128,11 +132,14 @@ namespace SharpMetal.Metal
         IntersectionFunctionTable = 27,
     }
 
-    public enum MTLArgumentAccess : ulong
+    public enum MTLBindingAccess : ulong
     {
         ReadOnly = 0,
         ReadWrite = 1,
         WriteOnly = 2,
+        ArgumentAccessReadOnly = 0,
+        ArgumentAccessReadWrite = 1,
+        ArgumentAccessWriteOnly = 2,
     }
 
     [SupportedOSPlatform("macos")]
@@ -270,7 +277,7 @@ namespace SharpMetal.Metal
 
         public MTLDataType ElementType => (MTLDataType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_elementType);
 
-        public MTLArgumentAccess Access => (MTLArgumentAccess)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_access);
+        public MTLBindingAccess Access => (MTLBindingAccess)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_access);
 
         public ulong Alignment => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_alignment);
 
@@ -308,7 +315,7 @@ namespace SharpMetal.Metal
 
         public MTLTextureType TextureType => (MTLTextureType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_textureType);
 
-        public MTLArgumentAccess Access => (MTLArgumentAccess)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_access);
+        public MTLBindingAccess Access => (MTLBindingAccess)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_access);
 
         public bool IsDepthTexture => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isDepthTexture);
 
@@ -335,7 +342,7 @@ namespace SharpMetal.Metal
 
         public MTLArgumentType Type => (MTLArgumentType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_type);
 
-        public MTLArgumentAccess Access => (MTLArgumentAccess)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_access);
+        public MTLBindingAccess Access => (MTLBindingAccess)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_access);
 
         public ulong Index => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_index);
 
@@ -397,7 +404,7 @@ namespace SharpMetal.Metal
 
         public MTLBindingType Type => (MTLBindingType)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_type);
 
-        public MTLArgumentAccess Access => (MTLArgumentAccess)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_access);
+        public MTLBindingAccess Access => (MTLBindingAccess)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_access);
 
         public ulong Index => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_index);
 

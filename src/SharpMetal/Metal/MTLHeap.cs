@@ -128,9 +128,9 @@ namespace SharpMetal.Metal
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newBufferWithLengthoptions, length, (ulong)options));
         }
 
-        public MTLTexture NewTexture(MTLTextureDescriptor desc)
+        public MTLTexture NewTexture(MTLTextureDescriptor descriptor)
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newTextureWithDescriptor, desc));
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newTextureWithDescriptor, descriptor));
         }
 
         public MTLPurgeableState SetPurgeableState(MTLPurgeableState state)

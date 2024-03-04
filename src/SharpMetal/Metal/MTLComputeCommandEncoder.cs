@@ -59,6 +59,26 @@ namespace SharpMetal.Metal
             throw new NotImplementedException();
         }
 
+        public void SetBuffer(MTLBuffer buffer, ulong offset, ulong stride, ulong index)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBufferoffsetattributeStrideatIndex, buffer, offset, stride, index);
+        }
+
+        public void SetBuffers(MTLBuffer[] buffers, ulong offsets, ulong strides, NSRange range)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetBufferOffset(ulong offset, ulong stride, ulong index)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBufferOffsetattributeStrideatIndex, offset, stride, index);
+        }
+
+        public void SetBytes(IntPtr bytes, ulong length, ulong stride, ulong index)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setByteslengthattributeStrideatIndex, bytes, length, stride, index);
+        }
+
         public void SetVisibleFunctionTable(MTLVisibleFunctionTable visibleFunctionTable, ulong bufferIndex)
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVisibleFunctionTableatBufferIndex, visibleFunctionTable, bufferIndex);
@@ -210,6 +230,10 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setBufferoffsetatIndex = "setBuffer:offset:atIndex:";
         private static readonly Selector sel_setBufferOffsetatIndex = "setBufferOffset:atIndex:";
         private static readonly Selector sel_setBuffersoffsetswithRange = "setBuffers:offsets:withRange:";
+        private static readonly Selector sel_setBufferoffsetattributeStrideatIndex = "setBuffer:offset:attributeStride:atIndex:";
+        private static readonly Selector sel_setBuffersoffsetsattributeStrideswithRange = "setBuffers:offsets:attributeStrides:withRange:";
+        private static readonly Selector sel_setBufferOffsetattributeStrideatIndex = "setBufferOffset:attributeStride:atIndex:";
+        private static readonly Selector sel_setByteslengthattributeStrideatIndex = "setBytes:length:attributeStride:atIndex:";
         private static readonly Selector sel_setVisibleFunctionTableatBufferIndex = "setVisibleFunctionTable:atBufferIndex:";
         private static readonly Selector sel_setVisibleFunctionTableswithBufferRange = "setVisibleFunctionTables:withBufferRange:";
         private static readonly Selector sel_setIntersectionFunctionTableatBufferIndex = "setIntersectionFunctionTable:atBufferIndex:";
