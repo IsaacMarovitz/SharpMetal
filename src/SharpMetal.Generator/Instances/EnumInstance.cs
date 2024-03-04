@@ -40,7 +40,18 @@ namespace SharpMetal.Generator.Instances
         {
             line = line.Replace($"_{namespacePrefix}_ENUM(", "");
             line = line.Replace($"_{namespacePrefix}_OPTIONS(", "");
-            line = line.Replace(") {", "");
+
+            if (line.Contains("{"))
+            {
+                line = line.Replace(") {", "");
+            }
+            else
+            {
+                line = line.Replace(")", "");
+                // Consume the next line
+                sr.ReadLine();
+            }
+
             var info = line.Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
             var convertedType = Types.ConvertType(info[0], namespacePrefix);
             var ogName = info[1];
@@ -53,14 +64,15 @@ namespace SharpMetal.Generator.Instances
             while (!finishedEnumerating)
             {
                 var nextLine = sr.ReadLine();
-                if (nextLine == "};")
-                {
-                    finishedEnumerating = true;
-                    continue;
-                }
 
                 if (string.IsNullOrEmpty(nextLine))
                 {
+                    continue;
+                }
+
+                if (nextLine.Contains("};"))
+                {
+                    finishedEnumerating = true;
                     continue;
                 }
 

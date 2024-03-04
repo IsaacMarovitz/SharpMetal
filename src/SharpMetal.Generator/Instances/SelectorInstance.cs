@@ -59,7 +59,7 @@ namespace SharpMetal.Generator.Instances
 
                 if (parentIndex != -1)
                 {
-                    propertyOwners[parentIndex].AddSelector(new SelectorInstance(selector, rawName));
+                    propertyOwners[parentIndex].AddSelector(new SelectorInstance(selector.Trim(), rawName));
                 }
                 else
                 {
