@@ -90,7 +90,7 @@ namespace SharpMetal.MetalFX
 
         public ulong OutputHeight => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_outputHeight);
 
-        public MTLFXSpatialScalerColorProcessingMode ColorProcessingMode => (MTLFXSpatialScalerColorProcessingMode)ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr,  sel_colorProcessingMode);
+        public MTLFXSpatialScalerColorProcessingMode ColorProcessingMode => (MTLFXSpatialScalerColorProcessingMode)ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_colorProcessingMode);
 
         public MTLFence Fence => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_fence));
 
