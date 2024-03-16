@@ -49,6 +49,7 @@ namespace SharpMetal.Examples.ComputeToRender
             var device = MTLDevice.CreateSystemDefaultDevice();
             var mtkView = new MTKView(rect, device);
             mtkView.ColorPixelFormat = MTLPixelFormat.BGRA8UnormsRGB;
+            mtkView.DepthStencilPixelFormat = MTLPixelFormat.Depth16Unorm;
             mtkView.ClearColor = new MTLClearColor { red = 0.1, green = 0.1, blue = 0.1, alpha = 1.0 };
             mtkView.Delegate = MTKViewDelegate.Init<Renderer>(device);
 

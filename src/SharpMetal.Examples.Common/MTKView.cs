@@ -32,6 +32,11 @@ namespace SharpMetal.Examples.Primitive
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, new Selector("setClearColor:"), value);
         }
 
+        public MTLPixelFormat DepthStencilPixelFormat
+        {
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, new Selector("setDepthStencilPixelFormat:"), (ulong)value);
+        }
+
         public MTKViewDelegate Delegate
         {
             set => ObjectiveC.objc_msgSend(NativePtr, "setDelegate:", value);
