@@ -2,6 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
+        <AssemblyName>ComputeToRender</AssemblyName>
         <OutputType>Exe</OutputType>
         <RuntimeIdentifiers>osx-x64</RuntimeIdentifiers>
         <ImplicitUsings>enable</ImplicitUsings>

@@ -154,29 +154,11 @@ namespace SharpMetal.Examples.ComputeToRender
         private int Frame;
         private float Angle;
         private uint AnimationIndex;
-        private const bool CaptureWorkload = true;
-        private const string CaptureFilePath = "/Users/isaacmarovitz/Desktop/Trace.gputrace";
 
         public Renderer(MTLDevice device)
         {
             Device = device;
             Queue = device.NewCommandQueue();
-
-            if (CaptureWorkload)
-            {
-                // Setup Capture
-                var captureDescriptor = new MTLCaptureDescriptor();
-                captureDescriptor.CaptureObject = device;
-                captureDescriptor.Destination = MTLCaptureDestination.GPUTraceDocument;
-                captureDescriptor.OutputURL = NSURL.FileURLWithPath(StringHelper.NSString(CaptureFilePath));
-                var captureError = new NSError(IntPtr.Zero);
-                MTLCaptureManager.SharedCaptureManager().StartCapture(captureDescriptor, ref captureError);
-                if (captureError != IntPtr.Zero)
-                {
-                    Console.WriteLine($"Failed to start capture! {StringHelper.String(captureError.LocalizedDescription)}");
-
-                }
-            }
 
             BuildShaders();
             BuildComputePipeline();
@@ -472,11 +454,6 @@ namespace SharpMetal.Examples.ComputeToRender
             encoder.EndEncoding();
             buffer.PresentDrawable(view.CurrentDrawable);
             buffer.Commit();
-
-            if (CaptureWorkload)
-            {
-                MTLCaptureManager.SharedCaptureManager().StopCapture();
-            }
         }
     }
 
