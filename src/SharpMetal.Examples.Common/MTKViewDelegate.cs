@@ -1,10 +1,9 @@
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
-using SharpMetal.Examples.Common;
 using SharpMetal.Metal;
 using SharpMetal.ObjectiveCCore;
 
-namespace SharpMetal.Examples.Primitive
+namespace SharpMetal.Examples.Common
 {
     [SupportedOSPlatform("macos")]
     public class MTKViewDelegate

@@ -3,7 +3,7 @@ using SharpMetal.Metal;
 using SharpMetal.ObjectiveCCore;
 using SharpMetal.QuartzCore;
 
-namespace SharpMetal.Examples.Primitive
+namespace SharpMetal.Examples.Common
 {
     [SupportedOSPlatform("macos")]
     public class MTKView

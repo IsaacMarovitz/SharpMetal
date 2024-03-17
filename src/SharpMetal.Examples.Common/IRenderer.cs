@@ -1,5 +1,4 @@
 using System.Runtime.Versioning;
-using SharpMetal.Examples.Primitive;
 using SharpMetal.Metal;
 
 namespace SharpMetal.Examples.Common

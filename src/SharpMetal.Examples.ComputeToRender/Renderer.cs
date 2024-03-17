@@ -3,7 +3,6 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using SharpMetal.Examples.Common;
-using SharpMetal.Examples.Primitive;
 using SharpMetal.Foundation;
 using SharpMetal.Metal;
 
@@ -74,7 +73,7 @@ namespace SharpMetal.Examples.ComputeToRender
             constexpr sampler s( address::repeat, filter::linear );
             half3 texel = tex.sample( s, in.texcoord ).rgb;
 
-            // assume light coming from (front-top-right)
+            // Assume light coming from (front-top-right)
             float3 l = normalize(float3( 1.0, 1.0, 0.8 ));
             float3 n = normalize( in.normal );
 
@@ -108,7 +107,7 @@ namespace SharpMetal.Examples.ComputeToRender
             // Speed up zooming
             zoom = pow(zoom, kAnimationSpeed);
 
-            //Scale
+            // Scale
             float x0 = zoom * kMandelbrotScale.x * ((float)index.x / gridSize.x + kMandelbrotPixelOffset.x) + kMandelbrotOrigin.x;
             float y0 = zoom * kMandelbrotScale.y * ((float)index.y / gridSize.y + kMandelbrotPixelOffset.y) + kMandelbrotOrigin.y;
 
