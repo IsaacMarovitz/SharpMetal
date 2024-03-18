@@ -12,7 +12,7 @@
         <RepositoryType>git</RepositoryType>
         <PackageTags>Metal Graphics macOS</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageReadmeFile>Package_README.md</PackageReadmeFile>
         <Title>SharpMetal</Title>
         <Authors>Isaac Marovitz</Authors>
     </PropertyGroup>
