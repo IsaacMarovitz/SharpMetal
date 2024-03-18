@@ -5,16 +5,11 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public partial class MTLFence
+    public class MTLFence
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFence obj) => obj.NativePtr;
         public MTLFence(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLFence()
-        {
-            throw new NotImplementedException();
-        }
 
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
 

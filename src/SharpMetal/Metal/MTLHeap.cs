@@ -12,7 +12,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLHeapDescriptor
+    public class MTLHeapDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLHeapDescriptor obj) => obj.NativePtr;
@@ -83,16 +83,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLHeap
+    public class MTLHeap
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLHeap obj) => obj.NativePtr;
         public MTLHeap(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLHeap()
-        {
-            throw new NotImplementedException();
-        }
 
         public NSString Label
         {

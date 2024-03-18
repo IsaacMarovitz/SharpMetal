@@ -18,7 +18,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLIntersectionFunctionTableDescriptor
+    public class MTLIntersectionFunctionTableDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIntersectionFunctionTableDescriptor obj) => obj.NativePtr;
@@ -42,16 +42,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLIntersectionFunctionTable : MTLResource
+    public class MTLIntersectionFunctionTable : MTLResource
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIntersectionFunctionTable obj) => obj.NativePtr;
         public MTLIntersectionFunctionTable(IntPtr ptr) : base(ptr) => NativePtr = ptr;
-
-        protected MTLIntersectionFunctionTable()
-        {
-            throw new NotImplementedException();
-        }
 
         public MTLResourceID GpuResourceID => ObjectiveCRuntime.MTLResourceID_objc_msgSend(NativePtr, sel_gpuResourceID);
 

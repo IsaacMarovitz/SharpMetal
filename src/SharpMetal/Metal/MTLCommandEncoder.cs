@@ -19,16 +19,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLCommandEncoder
+    public class MTLCommandEncoder
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCommandEncoder obj) => obj.NativePtr;
         public MTLCommandEncoder(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLCommandEncoder()
-        {
-            throw new NotImplementedException();
-        }
 
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
 

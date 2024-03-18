@@ -29,7 +29,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLStencilDescriptor
+    public class MTLStencilDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLStencilDescriptor obj) => obj.NativePtr;
@@ -92,7 +92,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLDepthStencilDescriptor
+    public class MTLDepthStencilDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLDepthStencilDescriptor obj) => obj.NativePtr;
@@ -152,16 +152,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLDepthStencilState
+    public class MTLDepthStencilState
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLDepthStencilState obj) => obj.NativePtr;
         public MTLDepthStencilState(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLDepthStencilState()
-        {
-            throw new NotImplementedException();
-        }
 
         public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
 

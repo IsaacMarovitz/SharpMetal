@@ -143,7 +143,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLType
+    public class MTLType
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLType obj) => obj.NativePtr;
@@ -161,7 +161,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLStructMember
+    public class MTLStructMember
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLStructMember obj) => obj.NativePtr;
@@ -200,7 +200,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLStructType
+    public class MTLStructType
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLStructType obj) => obj.NativePtr;
@@ -224,7 +224,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLArrayType
+    public class MTLArrayType
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLArrayType obj) => obj.NativePtr;
@@ -263,7 +263,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLPointerType
+    public class MTLPointerType
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLPointerType obj) => obj.NativePtr;
@@ -299,7 +299,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLTextureReferenceType
+    public class MTLTextureReferenceType
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLTextureReferenceType obj) => obj.NativePtr;
@@ -326,7 +326,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLArgument
+    public class MTLArgument
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLArgument obj) => obj.NativePtr;
@@ -389,16 +389,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLBinding
+    public class MTLBinding
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLBinding obj) => obj.NativePtr;
         public MTLBinding(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLBinding()
-        {
-            throw new NotImplementedException();
-        }
 
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
 
@@ -421,16 +416,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLBufferBinding : MTLBinding
+    public class MTLBufferBinding : MTLBinding
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLBufferBinding obj) => obj.NativePtr;
         public MTLBufferBinding(IntPtr ptr) : base(ptr) => NativePtr = ptr;
-
-        protected MTLBufferBinding()
-        {
-            throw new NotImplementedException();
-        }
 
         public ulong BufferAlignment => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_bufferAlignment);
 
@@ -450,16 +440,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLThreadgroupBinding : MTLBinding
+    public class MTLThreadgroupBinding : MTLBinding
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLThreadgroupBinding obj) => obj.NativePtr;
         public MTLThreadgroupBinding(IntPtr ptr) : base(ptr) => NativePtr = ptr;
-
-        protected MTLThreadgroupBinding()
-        {
-            throw new NotImplementedException();
-        }
 
         public ulong ThreadgroupMemoryAlignment => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_threadgroupMemoryAlignment);
 
@@ -470,16 +455,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLTextureBinding : MTLBinding
+    public class MTLTextureBinding : MTLBinding
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLTextureBinding obj) => obj.NativePtr;
         public MTLTextureBinding(IntPtr ptr) : base(ptr) => NativePtr = ptr;
-
-        protected MTLTextureBinding()
-        {
-            throw new NotImplementedException();
-        }
 
         public MTLTextureType TextureType => (MTLTextureType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_textureType);
 
@@ -496,16 +476,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLObjectPayloadBinding : MTLBinding
+    public class MTLObjectPayloadBinding : MTLBinding
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLObjectPayloadBinding obj) => obj.NativePtr;
         public MTLObjectPayloadBinding(IntPtr ptr) : base(ptr) => NativePtr = ptr;
-
-        protected MTLObjectPayloadBinding()
-        {
-            throw new NotImplementedException();
-        }
 
         public ulong ObjectPayloadAlignment => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_objectPayloadAlignment);
 

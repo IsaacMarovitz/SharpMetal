@@ -12,7 +12,7 @@ namespace SharpMetal.MetalFX
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLFXSpatialScalerDescriptor
+    public class MTLFXSpatialScalerDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFXSpatialScalerDescriptor obj) => obj.NativePtr;
@@ -55,16 +55,11 @@ namespace SharpMetal.MetalFX
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLFXSpatialScaler
+    public class MTLFXSpatialScaler
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFXSpatialScaler obj) => obj.NativePtr;
         public MTLFXSpatialScaler(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLFXSpatialScaler()
-        {
-            throw new NotImplementedException();
-        }
 
         public MTLTextureUsage ColorTextureUsage => (MTLTextureUsage)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_colorTextureUsage);
 

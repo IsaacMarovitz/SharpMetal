@@ -14,7 +14,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLBinaryArchiveDescriptor
+    public class MTLBinaryArchiveDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLBinaryArchiveDescriptor obj) => obj.NativePtr;
@@ -37,16 +37,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLBinaryArchive
+    public class MTLBinaryArchive
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLBinaryArchive obj) => obj.NativePtr;
         public MTLBinaryArchive(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLBinaryArchive()
-        {
-            throw new NotImplementedException();
-        }
 
         public NSString Label
         {

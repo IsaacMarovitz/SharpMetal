@@ -4,16 +4,11 @@ using SharpMetal.ObjectiveCCore;
 namespace SharpMetal.Foundation
 {
     [SupportedOSPlatform("macos")]
-    public partial class NSDate
+    public class NSDate
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSDate obj) => obj.NativePtr;
         public NSDate(IntPtr ptr) => NativePtr = ptr;
-
-        protected NSDate()
-        {
-            throw new NotImplementedException();
-        }
 
         public static NSDate DateWithTimeIntervalSinceNow(IntPtr secs)
         {

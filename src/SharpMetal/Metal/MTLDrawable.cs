@@ -5,16 +5,11 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public partial class MTLDrawable
+    public class MTLDrawable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLDrawable obj) => obj.NativePtr;
         public MTLDrawable(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLDrawable()
-        {
-            throw new NotImplementedException();
-        }
 
         public IntPtr PresentedTime => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_presentedTime));
 

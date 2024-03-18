@@ -24,16 +24,11 @@ namespace SharpMetal.Foundation
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class NSProcessInfo
+    public class NSProcessInfo
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSProcessInfo obj) => obj.NativePtr;
         public NSProcessInfo(IntPtr ptr) => NativePtr = ptr;
-
-        protected NSProcessInfo()
-        {
-            throw new NotImplementedException();
-        }
 
         public NSArray Arguments => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_arguments));
 

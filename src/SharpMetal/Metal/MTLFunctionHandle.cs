@@ -5,16 +5,11 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public partial class MTLFunctionHandle
+    public class MTLFunctionHandle
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionHandle obj) => obj.NativePtr;
         public MTLFunctionHandle(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLFunctionHandle()
-        {
-            throw new NotImplementedException();
-        }
 
         public MTLFunctionType FunctionType => (MTLFunctionType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_functionType);
 

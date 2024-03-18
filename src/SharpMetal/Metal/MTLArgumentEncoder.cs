@@ -5,16 +5,11 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public partial class MTLArgumentEncoder
+    public class MTLArgumentEncoder
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLArgumentEncoder obj) => obj.NativePtr;
         public MTLArgumentEncoder(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLArgumentEncoder()
-        {
-            throw new NotImplementedException();
-        }
 
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
 

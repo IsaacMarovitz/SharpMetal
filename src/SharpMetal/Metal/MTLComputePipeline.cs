@@ -5,7 +5,7 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public partial class MTLComputePipelineReflection
+    public class MTLComputePipelineReflection
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLComputePipelineReflection obj) => obj.NativePtr;
@@ -26,7 +26,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLComputePipelineDescriptor
+    public class MTLComputePipelineDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLComputePipelineDescriptor obj) => obj.NativePtr;
@@ -146,16 +146,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLComputePipelineState
+    public class MTLComputePipelineState
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLComputePipelineState obj) => obj.NativePtr;
         public MTLComputePipelineState(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLComputePipelineState()
-        {
-            throw new NotImplementedException();
-        }
 
         public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
 

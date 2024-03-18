@@ -56,7 +56,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLSharedTextureHandle
+    public class MTLSharedTextureHandle
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLSharedTextureHandle obj) => obj.NativePtr;
@@ -77,7 +77,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLTextureDescriptor
+    public class MTLTextureDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLTextureDescriptor obj) => obj.NativePtr;
@@ -238,16 +238,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLTexture : MTLResource
+    public class MTLTexture : MTLResource
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLTexture obj) => obj.NativePtr;
         public MTLTexture(IntPtr ptr) : base(ptr) => NativePtr = ptr;
-
-        protected MTLTexture()
-        {
-            throw new NotImplementedException();
-        }
 
         public MTLResource RootResource => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_rootResource));
 

@@ -201,7 +201,7 @@ namespace SharpMetal.Generator
                                 // Event is a keyword in C#
                                 if (argumentName == "event")
                                 {
-                                    argumentName = "mltEvent";
+                                    argumentName = "mtlEvent";
                                 }
 
                                 arguments.Add(new PropertyInstance(argumentType, argumentName));

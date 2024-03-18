@@ -5,7 +5,7 @@ using SharpMetal.Metal;
 namespace SharpMetal.MetalFX
 {
     [SupportedOSPlatform("macos")]
-    public partial class MTLFXTemporalScalerDescriptor
+    public class MTLFXTemporalScalerDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFXTemporalScalerDescriptor obj) => obj.NativePtr;
@@ -68,16 +68,11 @@ namespace SharpMetal.MetalFX
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLFXTemporalScaler
+    public class MTLFXTemporalScaler
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFXTemporalScaler obj) => obj.NativePtr;
         public MTLFXTemporalScaler(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLFXTemporalScaler()
-        {
-            throw new NotImplementedException();
-        }
 
         public MTLTextureUsage ColorTextureUsage => (MTLTextureUsage)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_colorTextureUsage);
 

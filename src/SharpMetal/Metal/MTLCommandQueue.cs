@@ -5,16 +5,11 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public partial class MTLCommandQueue
+    public class MTLCommandQueue
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCommandQueue obj) => obj.NativePtr;
         public MTLCommandQueue(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLCommandQueue()
-        {
-            throw new NotImplementedException();
-        }
 
         public NSString Label
         {

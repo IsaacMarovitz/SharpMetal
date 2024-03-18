@@ -5,16 +5,11 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public partial class MTLIndirectRenderCommand
+    public class MTLIndirectRenderCommand
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIndirectRenderCommand obj) => obj.NativePtr;
         public MTLIndirectRenderCommand(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLIndirectRenderCommand()
-        {
-            throw new NotImplementedException();
-        }
 
         public void SetRenderPipelineState(MTLRenderPipelineState pipelineState)
         {
@@ -115,16 +110,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLIndirectComputeCommand
+    public class MTLIndirectComputeCommand
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIndirectComputeCommand obj) => obj.NativePtr;
         public MTLIndirectComputeCommand(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLIndirectComputeCommand()
-        {
-            throw new NotImplementedException();
-        }
 
         public void SetComputePipelineState(MTLComputePipelineState pipelineState)
         {

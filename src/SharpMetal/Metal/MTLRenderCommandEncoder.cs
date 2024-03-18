@@ -133,16 +133,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLRenderCommandEncoder : MTLCommandEncoder
+    public class MTLRenderCommandEncoder : MTLCommandEncoder
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderCommandEncoder obj) => obj.NativePtr;
         public MTLRenderCommandEncoder(IntPtr ptr) : base(ptr) => NativePtr = ptr;
-
-        protected MTLRenderCommandEncoder()
-        {
-            throw new NotImplementedException();
-        }
 
         public ulong TileWidth => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_tileWidth);
 

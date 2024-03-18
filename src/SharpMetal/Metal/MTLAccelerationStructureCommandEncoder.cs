@@ -11,16 +11,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLAccelerationStructureCommandEncoder : MTLCommandEncoder
+    public class MTLAccelerationStructureCommandEncoder : MTLCommandEncoder
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureCommandEncoder obj) => obj.NativePtr;
         public MTLAccelerationStructureCommandEncoder(IntPtr ptr) : base(ptr) => NativePtr = ptr;
-
-        protected MTLAccelerationStructureCommandEncoder()
-        {
-            throw new NotImplementedException();
-        }
 
         public void BuildAccelerationStructure(MTLAccelerationStructure accelerationStructure, MTLAccelerationStructureDescriptor descriptor, MTLBuffer scratchBuffer, ulong scratchBufferOffset)
         {
@@ -109,7 +104,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLAccelerationStructurePassSampleBufferAttachmentDescriptor
+    public class MTLAccelerationStructurePassSampleBufferAttachmentDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructurePassSampleBufferAttachmentDescriptor obj) => obj.NativePtr;
@@ -148,7 +143,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray
+    public class MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray obj) => obj.NativePtr;
@@ -175,7 +170,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLAccelerationStructurePassDescriptor
+    public class MTLAccelerationStructurePassDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructurePassDescriptor obj) => obj.NativePtr;

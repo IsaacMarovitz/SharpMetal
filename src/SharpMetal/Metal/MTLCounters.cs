@@ -46,16 +46,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLCounter
+    public class MTLCounter
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCounter obj) => obj.NativePtr;
         public MTLCounter(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLCounter()
-        {
-            throw new NotImplementedException();
-        }
 
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
 
@@ -63,16 +58,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLCounterSet
+    public class MTLCounterSet
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCounterSet obj) => obj.NativePtr;
         public MTLCounterSet(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLCounterSet()
-        {
-            throw new NotImplementedException();
-        }
 
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
 
@@ -83,7 +73,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLCounterSampleBufferDescriptor
+    public class MTLCounterSampleBufferDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCounterSampleBufferDescriptor obj) => obj.NativePtr;
@@ -130,16 +120,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLCounterSampleBuffer
+    public class MTLCounterSampleBuffer
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCounterSampleBuffer obj) => obj.NativePtr;
         public MTLCounterSampleBuffer(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLCounterSampleBuffer()
-        {
-            throw new NotImplementedException();
-        }
 
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
 

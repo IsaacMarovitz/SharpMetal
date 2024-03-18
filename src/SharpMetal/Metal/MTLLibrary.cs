@@ -65,7 +65,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLVertexAttribute
+    public class MTLVertexAttribute
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLVertexAttribute obj) => obj.NativePtr;
@@ -98,7 +98,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLAttribute
+    public class MTLAttribute
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAttribute obj) => obj.NativePtr;
@@ -131,7 +131,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLFunctionConstant
+    public class MTLFunctionConstant
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionConstant obj) => obj.NativePtr;
@@ -158,16 +158,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLFunction
+    public class MTLFunction
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunction obj) => obj.NativePtr;
         public MTLFunction(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLFunction()
-        {
-            throw new NotImplementedException();
-        }
 
         public NSString Label
         {
@@ -219,7 +214,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLCompileOptions
+    public class MTLCompileOptions
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCompileOptions obj) => obj.NativePtr;
@@ -322,16 +317,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLLibrary
+    public class MTLLibrary
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLLibrary obj) => obj.NativePtr;
         public MTLLibrary(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLLibrary()
-        {
-            throw new NotImplementedException();
-        }
 
         public NSString Label
         {

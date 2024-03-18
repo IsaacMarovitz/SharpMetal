@@ -49,16 +49,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLResource
+    public class MTLResource
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLResource obj) => obj.NativePtr;
         public MTLResource(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLResource()
-        {
-            throw new NotImplementedException();
-        }
 
         public NSString Label
         {

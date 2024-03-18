@@ -59,14 +59,12 @@ namespace SharpMetal.Generator.Instances
 
             context.WriteLine("[SupportedOSPlatform(\"macos\")]");
 
-            context.Write($"{context.Indentation}public partial class {Name}");
-
+            var classDecl = $"public class {Name}";
             if (_parent != string.Empty)
             {
-                context.Write($" : {_parent}");
+                classDecl += $" : {_parent}";
             }
-
-            context.Write("\n");
+            context.WriteLine(classDecl);
 
             context.EnterScope();
 
@@ -99,14 +97,6 @@ namespace SharpMetal.Generator.Instances
                     context.WriteLine("NativePtr = cls.Alloc();");
                 }
 
-                context.LeaveScope();
-            }
-            else
-            {
-                context.WriteLine();
-                context.WriteLine($"protected {Name}()");
-                context.EnterScope();
-                context.WriteLine("throw new NotImplementedException();");
                 context.LeaveScope();
             }
 

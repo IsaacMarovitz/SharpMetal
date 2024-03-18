@@ -24,16 +24,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLIOCommandQueue
+    public class MTLIOCommandQueue
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIOCommandQueue obj) => obj.NativePtr;
         public MTLIOCommandQueue(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLIOCommandQueue()
-        {
-            throw new NotImplementedException();
-        }
 
         public MTLIOCommandBuffer CommandBuffer => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_commandBuffer));
 
@@ -58,16 +53,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLIOScratchBuffer
+    public class MTLIOScratchBuffer
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIOScratchBuffer obj) => obj.NativePtr;
         public MTLIOScratchBuffer(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLIOScratchBuffer()
-        {
-            throw new NotImplementedException();
-        }
 
         public MTLBuffer Buffer => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_buffer));
 
@@ -75,16 +65,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLIOScratchBufferAllocator
+    public class MTLIOScratchBufferAllocator
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIOScratchBufferAllocator obj) => obj.NativePtr;
         public MTLIOScratchBufferAllocator(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLIOScratchBufferAllocator()
-        {
-            throw new NotImplementedException();
-        }
 
         public IntPtr NewScratchBuffer(ulong minimumSize)
         {
@@ -95,7 +80,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLIOCommandQueueDescriptor
+    public class MTLIOCommandQueueDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIOCommandQueueDescriptor obj) => obj.NativePtr;
@@ -150,16 +135,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLIOFileHandle
+    public class MTLIOFileHandle
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIOFileHandle obj) => obj.NativePtr;
         public MTLIOFileHandle(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLIOFileHandle()
-        {
-            throw new NotImplementedException();
-        }
 
         public NSString Label
         {

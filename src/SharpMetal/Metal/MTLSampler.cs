@@ -35,7 +35,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLSamplerDescriptor
+    public class MTLSamplerDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLSamplerDescriptor obj) => obj.NativePtr;
@@ -170,16 +170,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLSamplerState
+    public class MTLSamplerState
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLSamplerState obj) => obj.NativePtr;
         public MTLSamplerState(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLSamplerState()
-        {
-            throw new NotImplementedException();
-        }
 
         public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
 

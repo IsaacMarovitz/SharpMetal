@@ -5,16 +5,11 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public partial class MTLBuffer : MTLResource
+    public class MTLBuffer : MTLResource
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLBuffer obj) => obj.NativePtr;
         public MTLBuffer(IntPtr ptr) : base(ptr) => NativePtr = ptr;
-
-        protected MTLBuffer()
-        {
-            throw new NotImplementedException();
-        }
 
         public ulong Length => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_length);
 

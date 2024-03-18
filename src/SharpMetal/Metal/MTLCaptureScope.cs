@@ -5,16 +5,11 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public partial class MTLCaptureScope
+    public class MTLCaptureScope
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCaptureScope obj) => obj.NativePtr;
         public MTLCaptureScope(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLCaptureScope()
-        {
-            throw new NotImplementedException();
-        }
 
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
 

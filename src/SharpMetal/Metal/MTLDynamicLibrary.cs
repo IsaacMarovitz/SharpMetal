@@ -15,16 +15,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLDynamicLibrary
+    public class MTLDynamicLibrary
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLDynamicLibrary obj) => obj.NativePtr;
         public MTLDynamicLibrary(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLDynamicLibrary()
-        {
-            throw new NotImplementedException();
-        }
 
         public NSString Label
         {

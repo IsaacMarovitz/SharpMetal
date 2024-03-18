@@ -26,7 +26,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLIndirectCommandBufferDescriptor
+    public class MTLIndirectCommandBufferDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIndirectCommandBufferDescriptor obj) => obj.NativePtr;
@@ -137,16 +137,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLIndirectCommandBuffer : MTLResource
+    public class MTLIndirectCommandBuffer : MTLResource
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIndirectCommandBuffer obj) => obj.NativePtr;
         public MTLIndirectCommandBuffer(IntPtr ptr) : base(ptr) => NativePtr = ptr;
-
-        protected MTLIndirectCommandBuffer()
-        {
-            throw new NotImplementedException();
-        }
 
         public ulong Size => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_size);
 

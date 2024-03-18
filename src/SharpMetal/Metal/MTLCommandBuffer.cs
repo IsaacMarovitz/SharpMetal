@@ -52,7 +52,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLCommandBufferDescriptor
+    public class MTLCommandBufferDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCommandBufferDescriptor obj) => obj.NativePtr;
@@ -83,16 +83,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLCommandBufferEncoderInfo
+    public class MTLCommandBufferEncoderInfo
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCommandBufferEncoderInfo obj) => obj.NativePtr;
         public MTLCommandBufferEncoderInfo(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLCommandBufferEncoderInfo()
-        {
-            throw new NotImplementedException();
-        }
 
         public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
 
@@ -106,16 +101,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLCommandBuffer
+    public class MTLCommandBuffer
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCommandBuffer obj) => obj.NativePtr;
         public MTLCommandBuffer(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLCommandBuffer()
-        {
-            throw new NotImplementedException();
-        }
 
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
 

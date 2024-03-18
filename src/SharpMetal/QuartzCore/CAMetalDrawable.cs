@@ -5,16 +5,11 @@ using SharpMetal.Metal;
 namespace SharpMetal.QuartzCore
 {
     [SupportedOSPlatform("macos")]
-    public partial class CAMetalDrawable : MTLDrawable
+    public class CAMetalDrawable : MTLDrawable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(CAMetalDrawable obj) => obj.NativePtr;
         public CAMetalDrawable(IntPtr ptr) : base(ptr) => NativePtr = ptr;
-
-        protected CAMetalDrawable()
-        {
-            throw new NotImplementedException();
-        }
 
         public CAMetalLayer Layer => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_layer));
 

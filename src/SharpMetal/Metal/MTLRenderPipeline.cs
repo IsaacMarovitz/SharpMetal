@@ -83,7 +83,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLRenderPipelineColorAttachmentDescriptor
+    public class MTLRenderPipelineColorAttachmentDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPipelineColorAttachmentDescriptor obj) => obj.NativePtr;
@@ -171,7 +171,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLRenderPipelineReflection
+    public class MTLRenderPipelineReflection
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPipelineReflection obj) => obj.NativePtr;
@@ -210,7 +210,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLRenderPipelineDescriptor
+    public class MTLRenderPipelineDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPipelineDescriptor obj) => obj.NativePtr;
@@ -484,7 +484,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLRenderPipelineFunctionsDescriptor
+    public class MTLRenderPipelineFunctionsDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPipelineFunctionsDescriptor obj) => obj.NativePtr;
@@ -523,16 +523,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLRenderPipelineState
+    public class MTLRenderPipelineState
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPipelineState obj) => obj.NativePtr;
         public MTLRenderPipelineState(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLRenderPipelineState()
-        {
-            throw new NotImplementedException();
-        }
 
         public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
 
@@ -603,7 +598,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLRenderPipelineColorAttachmentDescriptorArray
+    public class MTLRenderPipelineColorAttachmentDescriptorArray
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPipelineColorAttachmentDescriptorArray obj) => obj.NativePtr;
@@ -630,7 +625,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLTileRenderPipelineColorAttachmentDescriptor
+    public class MTLTileRenderPipelineColorAttachmentDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLTileRenderPipelineColorAttachmentDescriptor obj) => obj.NativePtr;
@@ -653,7 +648,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLTileRenderPipelineColorAttachmentDescriptorArray
+    public class MTLTileRenderPipelineColorAttachmentDescriptorArray
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLTileRenderPipelineColorAttachmentDescriptorArray obj) => obj.NativePtr;
@@ -680,7 +675,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLTileRenderPipelineDescriptor
+    public class MTLTileRenderPipelineDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLTileRenderPipelineDescriptor obj) => obj.NativePtr;
@@ -787,7 +782,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLMeshRenderPipelineDescriptor
+    public class MTLMeshRenderPipelineDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLMeshRenderPipelineDescriptor obj) => obj.NativePtr;

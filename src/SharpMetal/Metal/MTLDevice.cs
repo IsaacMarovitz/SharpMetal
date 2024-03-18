@@ -145,7 +145,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLArgumentDescriptor
+    public class MTLArgumentDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLArgumentDescriptor obj) => obj.NativePtr;
@@ -209,7 +209,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLArchitecture
+    public class MTLArchitecture
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLArchitecture obj) => obj.NativePtr;
@@ -227,16 +227,11 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLDevice
+    public class MTLDevice
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLDevice obj) => obj.NativePtr;
         public MTLDevice(IntPtr ptr) => NativePtr = ptr;
-
-        protected MTLDevice()
-        {
-            throw new NotImplementedException();
-        }
 
         public bool IsHeadless => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isHeadless);
 

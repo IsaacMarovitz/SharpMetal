@@ -4,16 +4,11 @@ using SharpMetal.ObjectiveCCore;
 namespace SharpMetal.Foundation
 {
     [SupportedOSPlatform("macos")]
-    public partial class NSNotification
+    public class NSNotification
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSNotification obj) => obj.NativePtr;
         public NSNotification(IntPtr ptr) => NativePtr = ptr;
-
-        protected NSNotification()
-        {
-            throw new NotImplementedException();
-        }
 
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
 
@@ -27,16 +22,11 @@ namespace SharpMetal.Foundation
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class NSNotificationCenter
+    public class NSNotificationCenter
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSNotificationCenter obj) => obj.NativePtr;
         public NSNotificationCenter(IntPtr ptr) => NativePtr = ptr;
-
-        protected NSNotificationCenter()
-        {
-            throw new NotImplementedException();
-        }
 
         public static NSNotificationCenter DefaultCenter()
         {

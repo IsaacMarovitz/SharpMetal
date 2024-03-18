@@ -82,7 +82,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLBufferLayoutDescriptor
+    public class MTLBufferLayoutDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLBufferLayoutDescriptor obj) => obj.NativePtr;
@@ -121,7 +121,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLBufferLayoutDescriptorArray
+    public class MTLBufferLayoutDescriptorArray
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLBufferLayoutDescriptorArray obj) => obj.NativePtr;
@@ -148,7 +148,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLAttributeDescriptor
+    public class MTLAttributeDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAttributeDescriptor obj) => obj.NativePtr;
@@ -187,7 +187,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLAttributeDescriptorArray
+    public class MTLAttributeDescriptorArray
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAttributeDescriptorArray obj) => obj.NativePtr;
@@ -214,7 +214,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLStageInputOutputDescriptor
+    public class MTLStageInputOutputDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLStageInputOutputDescriptor obj) => obj.NativePtr;
