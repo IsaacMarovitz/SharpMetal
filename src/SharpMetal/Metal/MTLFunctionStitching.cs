@@ -10,6 +10,11 @@ namespace SharpMetal.Metal
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingAttribute obj) => obj.NativePtr;
         public MTLFunctionStitchingAttribute(IntPtr ptr) => NativePtr = ptr;
+
+        public MTLFunctionStitchingAttribute()
+        {
+
+        }
     }
 
     [SupportedOSPlatform("macos")]
@@ -32,6 +37,11 @@ namespace SharpMetal.Metal
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingNode obj) => obj.NativePtr;
         public MTLFunctionStitchingNode(IntPtr ptr) => NativePtr = ptr;
+
+        public MTLFunctionStitchingNode()
+        {
+
+        }
     }
 
     [SupportedOSPlatform("macos")]
