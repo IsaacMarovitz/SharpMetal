@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveCCore;
 namespace SharpMetal.Foundation
 {
     [SupportedOSPlatform("macos")]
-    public class NSLocking
+    public struct NSLocking
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSLocking obj) => obj.NativePtr;
@@ -12,7 +12,7 @@ namespace SharpMetal.Foundation
     }
 
     [SupportedOSPlatform("macos")]
-    public class NSCondition
+    public struct NSCondition
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSCondition obj) => obj.NativePtr;

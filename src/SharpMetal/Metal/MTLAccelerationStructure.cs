@@ -128,7 +128,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLAccelerationStructureDescriptor
+    public struct MTLAccelerationStructureDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureDescriptor obj) => obj.NativePtr;
@@ -151,7 +151,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLAccelerationStructureGeometryDescriptor
+    public struct MTLAccelerationStructureGeometryDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureGeometryDescriptor obj) => obj.NativePtr;
@@ -230,10 +230,12 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLPrimitiveAccelerationStructureDescriptor : MTLAccelerationStructureDescriptor
+    public struct MTLPrimitiveAccelerationStructureDescriptor
     {
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLPrimitiveAccelerationStructureDescriptor obj) => obj.NativePtr;
-        public MTLPrimitiveAccelerationStructureDescriptor(IntPtr ptr) : base(ptr) => NativePtr = ptr;
+        public static implicit operator MTLAccelerationStructureDescriptor(MTLPrimitiveAccelerationStructureDescriptor obj) => new(obj.NativePtr);
+        public MTLPrimitiveAccelerationStructureDescriptor(IntPtr ptr) => NativePtr = ptr;
 
         public MTLPrimitiveAccelerationStructureDescriptor()
         {
@@ -277,6 +279,12 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMotionKeyframeCount, value);
         }
 
+        public MTLAccelerationStructureUsage Usage
+        {
+            get => (MTLAccelerationStructureUsage)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_usage);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setUsage, (ulong)value);
+        }
+
         private static readonly Selector sel_geometryDescriptors = "geometryDescriptors";
         private static readonly Selector sel_setGeometryDescriptors = "setGeometryDescriptors:";
         private static readonly Selector sel_motionStartBorderMode = "motionStartBorderMode";
@@ -290,13 +298,17 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_motionKeyframeCount = "motionKeyframeCount";
         private static readonly Selector sel_setMotionKeyframeCount = "setMotionKeyframeCount:";
         private static readonly Selector sel_descriptor = "descriptor";
+        private static readonly Selector sel_usage = "usage";
+        private static readonly Selector sel_setUsage = "setUsage:";
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLAccelerationStructureTriangleGeometryDescriptor : MTLAccelerationStructureGeometryDescriptor
+    public struct MTLAccelerationStructureTriangleGeometryDescriptor
     {
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureTriangleGeometryDescriptor obj) => obj.NativePtr;
-        public MTLAccelerationStructureTriangleGeometryDescriptor(IntPtr ptr) : base(ptr) => NativePtr = ptr;
+        public static implicit operator MTLAccelerationStructureGeometryDescriptor(MTLAccelerationStructureTriangleGeometryDescriptor obj) => new(obj.NativePtr);
+        public MTLAccelerationStructureTriangleGeometryDescriptor(IntPtr ptr) => NativePtr = ptr;
 
         public MTLAccelerationStructureTriangleGeometryDescriptor()
         {
@@ -364,6 +376,54 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTransformationMatrixBufferOffset, value);
         }
 
+        public ulong IntersectionFunctionTableOffset
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_intersectionFunctionTableOffset);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIntersectionFunctionTableOffset, value);
+        }
+
+        public bool Opaque
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_opaque);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOpaque, value);
+        }
+
+        public bool AllowDuplicateIntersectionFunctionInvocation
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_allowDuplicateIntersectionFunctionInvocation);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAllowDuplicateIntersectionFunctionInvocation, value);
+        }
+
+        public NSString Label
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
+        }
+
+        public MTLBuffer PrimitiveDataBuffer
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_primitiveDataBuffer));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataBuffer, value);
+        }
+
+        public ulong PrimitiveDataBufferOffset
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_primitiveDataBufferOffset);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataBufferOffset, value);
+        }
+
+        public ulong PrimitiveDataStride
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_primitiveDataStride);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataStride, value);
+        }
+
+        public ulong PrimitiveDataElementSize
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_primitiveDataElementSize);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataElementSize, value);
+        }
+
         private static readonly Selector sel_vertexBuffer = "vertexBuffer";
         private static readonly Selector sel_setVertexBuffer = "setVertexBuffer:";
         private static readonly Selector sel_vertexBufferOffset = "vertexBufferOffset";
@@ -385,13 +445,31 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_transformationMatrixBufferOffset = "transformationMatrixBufferOffset";
         private static readonly Selector sel_setTransformationMatrixBufferOffset = "setTransformationMatrixBufferOffset:";
         private static readonly Selector sel_descriptor = "descriptor";
+        private static readonly Selector sel_intersectionFunctionTableOffset = "intersectionFunctionTableOffset";
+        private static readonly Selector sel_setIntersectionFunctionTableOffset = "setIntersectionFunctionTableOffset:";
+        private static readonly Selector sel_opaque = "opaque";
+        private static readonly Selector sel_setOpaque = "setOpaque:";
+        private static readonly Selector sel_allowDuplicateIntersectionFunctionInvocation = "allowDuplicateIntersectionFunctionInvocation";
+        private static readonly Selector sel_setAllowDuplicateIntersectionFunctionInvocation = "setAllowDuplicateIntersectionFunctionInvocation:";
+        private static readonly Selector sel_label = "label";
+        private static readonly Selector sel_setLabel = "setLabel:";
+        private static readonly Selector sel_primitiveDataBuffer = "primitiveDataBuffer";
+        private static readonly Selector sel_setPrimitiveDataBuffer = "setPrimitiveDataBuffer:";
+        private static readonly Selector sel_primitiveDataBufferOffset = "primitiveDataBufferOffset";
+        private static readonly Selector sel_setPrimitiveDataBufferOffset = "setPrimitiveDataBufferOffset:";
+        private static readonly Selector sel_primitiveDataStride = "primitiveDataStride";
+        private static readonly Selector sel_setPrimitiveDataStride = "setPrimitiveDataStride:";
+        private static readonly Selector sel_primitiveDataElementSize = "primitiveDataElementSize";
+        private static readonly Selector sel_setPrimitiveDataElementSize = "setPrimitiveDataElementSize:";
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLAccelerationStructureBoundingBoxGeometryDescriptor : MTLAccelerationStructureGeometryDescriptor
+    public struct MTLAccelerationStructureBoundingBoxGeometryDescriptor
     {
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureBoundingBoxGeometryDescriptor obj) => obj.NativePtr;
-        public MTLAccelerationStructureBoundingBoxGeometryDescriptor(IntPtr ptr) : base(ptr) => NativePtr = ptr;
+        public static implicit operator MTLAccelerationStructureGeometryDescriptor(MTLAccelerationStructureBoundingBoxGeometryDescriptor obj) => new(obj.NativePtr);
+        public MTLAccelerationStructureBoundingBoxGeometryDescriptor(IntPtr ptr) => NativePtr = ptr;
 
         public MTLAccelerationStructureBoundingBoxGeometryDescriptor()
         {
@@ -423,6 +501,54 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBoundingBoxCount, value);
         }
 
+        public ulong IntersectionFunctionTableOffset
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_intersectionFunctionTableOffset);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIntersectionFunctionTableOffset, value);
+        }
+
+        public bool Opaque
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_opaque);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOpaque, value);
+        }
+
+        public bool AllowDuplicateIntersectionFunctionInvocation
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_allowDuplicateIntersectionFunctionInvocation);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAllowDuplicateIntersectionFunctionInvocation, value);
+        }
+
+        public NSString Label
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
+        }
+
+        public MTLBuffer PrimitiveDataBuffer
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_primitiveDataBuffer));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataBuffer, value);
+        }
+
+        public ulong PrimitiveDataBufferOffset
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_primitiveDataBufferOffset);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataBufferOffset, value);
+        }
+
+        public ulong PrimitiveDataStride
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_primitiveDataStride);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataStride, value);
+        }
+
+        public ulong PrimitiveDataElementSize
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_primitiveDataElementSize);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataElementSize, value);
+        }
+
         private static readonly Selector sel_boundingBoxBuffer = "boundingBoxBuffer";
         private static readonly Selector sel_setBoundingBoxBuffer = "setBoundingBoxBuffer:";
         private static readonly Selector sel_boundingBoxBufferOffset = "boundingBoxBufferOffset";
@@ -432,10 +558,26 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_boundingBoxCount = "boundingBoxCount";
         private static readonly Selector sel_setBoundingBoxCount = "setBoundingBoxCount:";
         private static readonly Selector sel_descriptor = "descriptor";
+        private static readonly Selector sel_intersectionFunctionTableOffset = "intersectionFunctionTableOffset";
+        private static readonly Selector sel_setIntersectionFunctionTableOffset = "setIntersectionFunctionTableOffset:";
+        private static readonly Selector sel_opaque = "opaque";
+        private static readonly Selector sel_setOpaque = "setOpaque:";
+        private static readonly Selector sel_allowDuplicateIntersectionFunctionInvocation = "allowDuplicateIntersectionFunctionInvocation";
+        private static readonly Selector sel_setAllowDuplicateIntersectionFunctionInvocation = "setAllowDuplicateIntersectionFunctionInvocation:";
+        private static readonly Selector sel_label = "label";
+        private static readonly Selector sel_setLabel = "setLabel:";
+        private static readonly Selector sel_primitiveDataBuffer = "primitiveDataBuffer";
+        private static readonly Selector sel_setPrimitiveDataBuffer = "setPrimitiveDataBuffer:";
+        private static readonly Selector sel_primitiveDataBufferOffset = "primitiveDataBufferOffset";
+        private static readonly Selector sel_setPrimitiveDataBufferOffset = "setPrimitiveDataBufferOffset:";
+        private static readonly Selector sel_primitiveDataStride = "primitiveDataStride";
+        private static readonly Selector sel_setPrimitiveDataStride = "setPrimitiveDataStride:";
+        private static readonly Selector sel_primitiveDataElementSize = "primitiveDataElementSize";
+        private static readonly Selector sel_setPrimitiveDataElementSize = "setPrimitiveDataElementSize:";
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLMotionKeyframeData
+    public struct MTLMotionKeyframeData
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLMotionKeyframeData obj) => obj.NativePtr;
@@ -467,10 +609,12 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLAccelerationStructureMotionTriangleGeometryDescriptor : MTLAccelerationStructureGeometryDescriptor
+    public struct MTLAccelerationStructureMotionTriangleGeometryDescriptor
     {
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureMotionTriangleGeometryDescriptor obj) => obj.NativePtr;
-        public MTLAccelerationStructureMotionTriangleGeometryDescriptor(IntPtr ptr) : base(ptr) => NativePtr = ptr;
+        public static implicit operator MTLAccelerationStructureGeometryDescriptor(MTLAccelerationStructureMotionTriangleGeometryDescriptor obj) => new(obj.NativePtr);
+        public MTLAccelerationStructureMotionTriangleGeometryDescriptor(IntPtr ptr) => NativePtr = ptr;
 
         public MTLAccelerationStructureMotionTriangleGeometryDescriptor()
         {
@@ -532,6 +676,54 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTransformationMatrixBufferOffset, value);
         }
 
+        public ulong IntersectionFunctionTableOffset
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_intersectionFunctionTableOffset);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIntersectionFunctionTableOffset, value);
+        }
+
+        public bool Opaque
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_opaque);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOpaque, value);
+        }
+
+        public bool AllowDuplicateIntersectionFunctionInvocation
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_allowDuplicateIntersectionFunctionInvocation);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAllowDuplicateIntersectionFunctionInvocation, value);
+        }
+
+        public NSString Label
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
+        }
+
+        public MTLBuffer PrimitiveDataBuffer
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_primitiveDataBuffer));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataBuffer, value);
+        }
+
+        public ulong PrimitiveDataBufferOffset
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_primitiveDataBufferOffset);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataBufferOffset, value);
+        }
+
+        public ulong PrimitiveDataStride
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_primitiveDataStride);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataStride, value);
+        }
+
+        public ulong PrimitiveDataElementSize
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_primitiveDataElementSize);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataElementSize, value);
+        }
+
         private static readonly Selector sel_vertexBuffers = "vertexBuffers";
         private static readonly Selector sel_setVertexBuffers = "setVertexBuffers:";
         private static readonly Selector sel_vertexFormat = "vertexFormat";
@@ -551,13 +743,31 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_transformationMatrixBufferOffset = "transformationMatrixBufferOffset";
         private static readonly Selector sel_setTransformationMatrixBufferOffset = "setTransformationMatrixBufferOffset:";
         private static readonly Selector sel_descriptor = "descriptor";
+        private static readonly Selector sel_intersectionFunctionTableOffset = "intersectionFunctionTableOffset";
+        private static readonly Selector sel_setIntersectionFunctionTableOffset = "setIntersectionFunctionTableOffset:";
+        private static readonly Selector sel_opaque = "opaque";
+        private static readonly Selector sel_setOpaque = "setOpaque:";
+        private static readonly Selector sel_allowDuplicateIntersectionFunctionInvocation = "allowDuplicateIntersectionFunctionInvocation";
+        private static readonly Selector sel_setAllowDuplicateIntersectionFunctionInvocation = "setAllowDuplicateIntersectionFunctionInvocation:";
+        private static readonly Selector sel_label = "label";
+        private static readonly Selector sel_setLabel = "setLabel:";
+        private static readonly Selector sel_primitiveDataBuffer = "primitiveDataBuffer";
+        private static readonly Selector sel_setPrimitiveDataBuffer = "setPrimitiveDataBuffer:";
+        private static readonly Selector sel_primitiveDataBufferOffset = "primitiveDataBufferOffset";
+        private static readonly Selector sel_setPrimitiveDataBufferOffset = "setPrimitiveDataBufferOffset:";
+        private static readonly Selector sel_primitiveDataStride = "primitiveDataStride";
+        private static readonly Selector sel_setPrimitiveDataStride = "setPrimitiveDataStride:";
+        private static readonly Selector sel_primitiveDataElementSize = "primitiveDataElementSize";
+        private static readonly Selector sel_setPrimitiveDataElementSize = "setPrimitiveDataElementSize:";
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor : MTLAccelerationStructureGeometryDescriptor
+    public struct MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor
     {
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor obj) => obj.NativePtr;
-        public MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor(IntPtr ptr) : base(ptr) => NativePtr = ptr;
+        public static implicit operator MTLAccelerationStructureGeometryDescriptor(MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor obj) => new(obj.NativePtr);
+        public MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor(IntPtr ptr) => NativePtr = ptr;
 
         public MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor()
         {
@@ -583,6 +793,54 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBoundingBoxCount, value);
         }
 
+        public ulong IntersectionFunctionTableOffset
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_intersectionFunctionTableOffset);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIntersectionFunctionTableOffset, value);
+        }
+
+        public bool Opaque
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_opaque);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOpaque, value);
+        }
+
+        public bool AllowDuplicateIntersectionFunctionInvocation
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_allowDuplicateIntersectionFunctionInvocation);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAllowDuplicateIntersectionFunctionInvocation, value);
+        }
+
+        public NSString Label
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
+        }
+
+        public MTLBuffer PrimitiveDataBuffer
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_primitiveDataBuffer));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataBuffer, value);
+        }
+
+        public ulong PrimitiveDataBufferOffset
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_primitiveDataBufferOffset);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataBufferOffset, value);
+        }
+
+        public ulong PrimitiveDataStride
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_primitiveDataStride);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataStride, value);
+        }
+
+        public ulong PrimitiveDataElementSize
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_primitiveDataElementSize);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataElementSize, value);
+        }
+
         private static readonly Selector sel_boundingBoxBuffers = "boundingBoxBuffers";
         private static readonly Selector sel_setBoundingBoxBuffers = "setBoundingBoxBuffers:";
         private static readonly Selector sel_boundingBoxStride = "boundingBoxStride";
@@ -590,13 +848,31 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_boundingBoxCount = "boundingBoxCount";
         private static readonly Selector sel_setBoundingBoxCount = "setBoundingBoxCount:";
         private static readonly Selector sel_descriptor = "descriptor";
+        private static readonly Selector sel_intersectionFunctionTableOffset = "intersectionFunctionTableOffset";
+        private static readonly Selector sel_setIntersectionFunctionTableOffset = "setIntersectionFunctionTableOffset:";
+        private static readonly Selector sel_opaque = "opaque";
+        private static readonly Selector sel_setOpaque = "setOpaque:";
+        private static readonly Selector sel_allowDuplicateIntersectionFunctionInvocation = "allowDuplicateIntersectionFunctionInvocation";
+        private static readonly Selector sel_setAllowDuplicateIntersectionFunctionInvocation = "setAllowDuplicateIntersectionFunctionInvocation:";
+        private static readonly Selector sel_label = "label";
+        private static readonly Selector sel_setLabel = "setLabel:";
+        private static readonly Selector sel_primitiveDataBuffer = "primitiveDataBuffer";
+        private static readonly Selector sel_setPrimitiveDataBuffer = "setPrimitiveDataBuffer:";
+        private static readonly Selector sel_primitiveDataBufferOffset = "primitiveDataBufferOffset";
+        private static readonly Selector sel_setPrimitiveDataBufferOffset = "setPrimitiveDataBufferOffset:";
+        private static readonly Selector sel_primitiveDataStride = "primitiveDataStride";
+        private static readonly Selector sel_setPrimitiveDataStride = "setPrimitiveDataStride:";
+        private static readonly Selector sel_primitiveDataElementSize = "primitiveDataElementSize";
+        private static readonly Selector sel_setPrimitiveDataElementSize = "setPrimitiveDataElementSize:";
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLAccelerationStructureCurveGeometryDescriptor : MTLAccelerationStructureGeometryDescriptor
+    public struct MTLAccelerationStructureCurveGeometryDescriptor
     {
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureCurveGeometryDescriptor obj) => obj.NativePtr;
-        public MTLAccelerationStructureCurveGeometryDescriptor(IntPtr ptr) : base(ptr) => NativePtr = ptr;
+        public static implicit operator MTLAccelerationStructureGeometryDescriptor(MTLAccelerationStructureCurveGeometryDescriptor obj) => new(obj.NativePtr);
+        public MTLAccelerationStructureCurveGeometryDescriptor(IntPtr ptr) => NativePtr = ptr;
 
         public MTLAccelerationStructureCurveGeometryDescriptor()
         {
@@ -706,6 +982,54 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setCurveEndCaps, (long)value);
         }
 
+        public ulong IntersectionFunctionTableOffset
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_intersectionFunctionTableOffset);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIntersectionFunctionTableOffset, value);
+        }
+
+        public bool Opaque
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_opaque);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOpaque, value);
+        }
+
+        public bool AllowDuplicateIntersectionFunctionInvocation
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_allowDuplicateIntersectionFunctionInvocation);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAllowDuplicateIntersectionFunctionInvocation, value);
+        }
+
+        public NSString Label
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
+        }
+
+        public MTLBuffer PrimitiveDataBuffer
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_primitiveDataBuffer));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataBuffer, value);
+        }
+
+        public ulong PrimitiveDataBufferOffset
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_primitiveDataBufferOffset);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataBufferOffset, value);
+        }
+
+        public ulong PrimitiveDataStride
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_primitiveDataStride);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataStride, value);
+        }
+
+        public ulong PrimitiveDataElementSize
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_primitiveDataElementSize);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataElementSize, value);
+        }
+
         private static readonly Selector sel_controlPointBuffer = "controlPointBuffer";
         private static readonly Selector sel_setControlPointBuffer = "setControlPointBuffer:";
         private static readonly Selector sel_controlPointBufferOffset = "controlPointBufferOffset";
@@ -741,13 +1065,31 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_curveEndCaps = "curveEndCaps";
         private static readonly Selector sel_setCurveEndCaps = "setCurveEndCaps:";
         private static readonly Selector sel_descriptor = "descriptor";
+        private static readonly Selector sel_intersectionFunctionTableOffset = "intersectionFunctionTableOffset";
+        private static readonly Selector sel_setIntersectionFunctionTableOffset = "setIntersectionFunctionTableOffset:";
+        private static readonly Selector sel_opaque = "opaque";
+        private static readonly Selector sel_setOpaque = "setOpaque:";
+        private static readonly Selector sel_allowDuplicateIntersectionFunctionInvocation = "allowDuplicateIntersectionFunctionInvocation";
+        private static readonly Selector sel_setAllowDuplicateIntersectionFunctionInvocation = "setAllowDuplicateIntersectionFunctionInvocation:";
+        private static readonly Selector sel_label = "label";
+        private static readonly Selector sel_setLabel = "setLabel:";
+        private static readonly Selector sel_primitiveDataBuffer = "primitiveDataBuffer";
+        private static readonly Selector sel_setPrimitiveDataBuffer = "setPrimitiveDataBuffer:";
+        private static readonly Selector sel_primitiveDataBufferOffset = "primitiveDataBufferOffset";
+        private static readonly Selector sel_setPrimitiveDataBufferOffset = "setPrimitiveDataBufferOffset:";
+        private static readonly Selector sel_primitiveDataStride = "primitiveDataStride";
+        private static readonly Selector sel_setPrimitiveDataStride = "setPrimitiveDataStride:";
+        private static readonly Selector sel_primitiveDataElementSize = "primitiveDataElementSize";
+        private static readonly Selector sel_setPrimitiveDataElementSize = "setPrimitiveDataElementSize:";
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLAccelerationStructureMotionCurveGeometryDescriptor : MTLAccelerationStructureGeometryDescriptor
+    public struct MTLAccelerationStructureMotionCurveGeometryDescriptor
     {
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureMotionCurveGeometryDescriptor obj) => obj.NativePtr;
-        public MTLAccelerationStructureMotionCurveGeometryDescriptor(IntPtr ptr) : base(ptr) => NativePtr = ptr;
+        public static implicit operator MTLAccelerationStructureGeometryDescriptor(MTLAccelerationStructureMotionCurveGeometryDescriptor obj) => new(obj.NativePtr);
+        public MTLAccelerationStructureMotionCurveGeometryDescriptor(IntPtr ptr) => NativePtr = ptr;
 
         public MTLAccelerationStructureMotionCurveGeometryDescriptor()
         {
@@ -845,6 +1187,54 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setCurveEndCaps, (long)value);
         }
 
+        public ulong IntersectionFunctionTableOffset
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_intersectionFunctionTableOffset);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIntersectionFunctionTableOffset, value);
+        }
+
+        public bool Opaque
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_opaque);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOpaque, value);
+        }
+
+        public bool AllowDuplicateIntersectionFunctionInvocation
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_allowDuplicateIntersectionFunctionInvocation);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAllowDuplicateIntersectionFunctionInvocation, value);
+        }
+
+        public NSString Label
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
+        }
+
+        public MTLBuffer PrimitiveDataBuffer
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_primitiveDataBuffer));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataBuffer, value);
+        }
+
+        public ulong PrimitiveDataBufferOffset
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_primitiveDataBufferOffset);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataBufferOffset, value);
+        }
+
+        public ulong PrimitiveDataStride
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_primitiveDataStride);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataStride, value);
+        }
+
+        public ulong PrimitiveDataElementSize
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_primitiveDataElementSize);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrimitiveDataElementSize, value);
+        }
+
         private static readonly Selector sel_controlPointBuffers = "controlPointBuffers";
         private static readonly Selector sel_setControlPointBuffers = "setControlPointBuffers:";
         private static readonly Selector sel_controlPointCount = "controlPointCount";
@@ -876,13 +1266,31 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_curveEndCaps = "curveEndCaps";
         private static readonly Selector sel_setCurveEndCaps = "setCurveEndCaps:";
         private static readonly Selector sel_descriptor = "descriptor";
+        private static readonly Selector sel_intersectionFunctionTableOffset = "intersectionFunctionTableOffset";
+        private static readonly Selector sel_setIntersectionFunctionTableOffset = "setIntersectionFunctionTableOffset:";
+        private static readonly Selector sel_opaque = "opaque";
+        private static readonly Selector sel_setOpaque = "setOpaque:";
+        private static readonly Selector sel_allowDuplicateIntersectionFunctionInvocation = "allowDuplicateIntersectionFunctionInvocation";
+        private static readonly Selector sel_setAllowDuplicateIntersectionFunctionInvocation = "setAllowDuplicateIntersectionFunctionInvocation:";
+        private static readonly Selector sel_label = "label";
+        private static readonly Selector sel_setLabel = "setLabel:";
+        private static readonly Selector sel_primitiveDataBuffer = "primitiveDataBuffer";
+        private static readonly Selector sel_setPrimitiveDataBuffer = "setPrimitiveDataBuffer:";
+        private static readonly Selector sel_primitiveDataBufferOffset = "primitiveDataBufferOffset";
+        private static readonly Selector sel_setPrimitiveDataBufferOffset = "setPrimitiveDataBufferOffset:";
+        private static readonly Selector sel_primitiveDataStride = "primitiveDataStride";
+        private static readonly Selector sel_setPrimitiveDataStride = "setPrimitiveDataStride:";
+        private static readonly Selector sel_primitiveDataElementSize = "primitiveDataElementSize";
+        private static readonly Selector sel_setPrimitiveDataElementSize = "setPrimitiveDataElementSize:";
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLInstanceAccelerationStructureDescriptor : MTLAccelerationStructureDescriptor
+    public struct MTLInstanceAccelerationStructureDescriptor
     {
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLInstanceAccelerationStructureDescriptor obj) => obj.NativePtr;
-        public MTLInstanceAccelerationStructureDescriptor(IntPtr ptr) : base(ptr) => NativePtr = ptr;
+        public static implicit operator MTLAccelerationStructureDescriptor(MTLInstanceAccelerationStructureDescriptor obj) => new(obj.NativePtr);
+        public MTLInstanceAccelerationStructureDescriptor(IntPtr ptr) => NativePtr = ptr;
 
         public MTLInstanceAccelerationStructureDescriptor()
         {
@@ -944,6 +1352,12 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMotionTransformCount, value);
         }
 
+        public MTLAccelerationStructureUsage Usage
+        {
+            get => (MTLAccelerationStructureUsage)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_usage);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setUsage, (ulong)value);
+        }
+
         private static readonly Selector sel_instanceDescriptorBuffer = "instanceDescriptorBuffer";
         private static readonly Selector sel_setInstanceDescriptorBuffer = "setInstanceDescriptorBuffer:";
         private static readonly Selector sel_instanceDescriptorBufferOffset = "instanceDescriptorBufferOffset";
@@ -963,13 +1377,17 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_motionTransformCount = "motionTransformCount";
         private static readonly Selector sel_setMotionTransformCount = "setMotionTransformCount:";
         private static readonly Selector sel_descriptor = "descriptor";
+        private static readonly Selector sel_usage = "usage";
+        private static readonly Selector sel_setUsage = "setUsage:";
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLIndirectInstanceAccelerationStructureDescriptor : MTLAccelerationStructureDescriptor
+    public struct MTLIndirectInstanceAccelerationStructureDescriptor
     {
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIndirectInstanceAccelerationStructureDescriptor obj) => obj.NativePtr;
-        public MTLIndirectInstanceAccelerationStructureDescriptor(IntPtr ptr) : base(ptr) => NativePtr = ptr;
+        public static implicit operator MTLAccelerationStructureDescriptor(MTLIndirectInstanceAccelerationStructureDescriptor obj) => new(obj.NativePtr);
+        public MTLIndirectInstanceAccelerationStructureDescriptor(IntPtr ptr) => NativePtr = ptr;
 
         public MTLIndirectInstanceAccelerationStructureDescriptor()
         {
@@ -1049,6 +1467,12 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMotionTransformCountBufferOffset, value);
         }
 
+        public MTLAccelerationStructureUsage Usage
+        {
+            get => (MTLAccelerationStructureUsage)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_usage);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setUsage, (ulong)value);
+        }
+
         private static readonly Selector sel_instanceDescriptorBuffer = "instanceDescriptorBuffer";
         private static readonly Selector sel_setInstanceDescriptorBuffer = "setInstanceDescriptorBuffer:";
         private static readonly Selector sel_instanceDescriptorBufferOffset = "instanceDescriptorBufferOffset";
@@ -1074,19 +1498,70 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_motionTransformCountBufferOffset = "motionTransformCountBufferOffset";
         private static readonly Selector sel_setMotionTransformCountBufferOffset = "setMotionTransformCountBufferOffset:";
         private static readonly Selector sel_descriptor = "descriptor";
+        private static readonly Selector sel_usage = "usage";
+        private static readonly Selector sel_setUsage = "setUsage:";
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLAccelerationStructure : MTLResource
+    public struct MTLAccelerationStructure
     {
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructure obj) => obj.NativePtr;
-        public MTLAccelerationStructure(IntPtr ptr) : base(ptr) => NativePtr = ptr;
+        public static implicit operator MTLResource(MTLAccelerationStructure obj) => new(obj.NativePtr);
+        public MTLAccelerationStructure(IntPtr ptr) => NativePtr = ptr;
 
         public ulong Size => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_size);
 
         public MTLResourceID GpuResourceID => ObjectiveCRuntime.MTLResourceID_objc_msgSend(NativePtr, sel_gpuResourceID);
 
+        public NSString Label
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
+        }
+
+        public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
+
+        public MTLCPUCacheMode CpuCacheMode => (MTLCPUCacheMode)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_cpuCacheMode);
+
+        public MTLStorageMode StorageMode => (MTLStorageMode)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_storageMode);
+
+        public MTLHazardTrackingMode HazardTrackingMode => (MTLHazardTrackingMode)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_hazardTrackingMode);
+
+        public MTLResourceOptions ResourceOptions => (MTLResourceOptions)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_resourceOptions);
+
+        public MTLHeap Heap => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_heap));
+
+        public ulong HeapOffset => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_heapOffset);
+
+        public ulong AllocatedSize => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_allocatedSize);
+
+        public bool IsAliasable => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isAliasable);
+
+        public MTLPurgeableState SetPurgeableState(MTLPurgeableState state)
+        {
+            return (MTLPurgeableState)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_setPurgeableState, (ulong)state);
+        }
+
+        public void MakeAliasable()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_makeAliasable);
+        }
+
         private static readonly Selector sel_size = "size";
         private static readonly Selector sel_gpuResourceID = "gpuResourceID";
+        private static readonly Selector sel_label = "label";
+        private static readonly Selector sel_setLabel = "setLabel:";
+        private static readonly Selector sel_device = "device";
+        private static readonly Selector sel_cpuCacheMode = "cpuCacheMode";
+        private static readonly Selector sel_storageMode = "storageMode";
+        private static readonly Selector sel_hazardTrackingMode = "hazardTrackingMode";
+        private static readonly Selector sel_resourceOptions = "resourceOptions";
+        private static readonly Selector sel_setPurgeableState = "setPurgeableState:";
+        private static readonly Selector sel_heap = "heap";
+        private static readonly Selector sel_heapOffset = "heapOffset";
+        private static readonly Selector sel_allocatedSize = "allocatedSize";
+        private static readonly Selector sel_makeAliasable = "makeAliasable";
+        private static readonly Selector sel_isAliasable = "isAliasable";
     }
 }

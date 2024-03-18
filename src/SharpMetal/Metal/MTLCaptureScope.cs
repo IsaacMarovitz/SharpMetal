@@ -5,7 +5,7 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public class MTLCaptureScope
+    public struct MTLCaptureScope
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCaptureScope obj) => obj.NativePtr;

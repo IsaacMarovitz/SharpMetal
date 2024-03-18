@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveCCore;
 namespace SharpMetal.Foundation
 {
     [SupportedOSPlatform("macos")]
-    public class NSArray
+    public struct NSArray
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSArray obj) => obj.NativePtr;

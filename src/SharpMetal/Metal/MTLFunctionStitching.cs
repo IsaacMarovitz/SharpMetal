@@ -5,23 +5,20 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public class MTLFunctionStitchingAttribute
+    public struct MTLFunctionStitchingAttribute
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingAttribute obj) => obj.NativePtr;
         public MTLFunctionStitchingAttribute(IntPtr ptr) => NativePtr = ptr;
-
-        public MTLFunctionStitchingAttribute()
-        {
-
-        }
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLFunctionStitchingAttributeAlwaysInline : MTLFunctionStitchingAttribute
+    public struct MTLFunctionStitchingAttributeAlwaysInline
     {
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingAttributeAlwaysInline obj) => obj.NativePtr;
-        public MTLFunctionStitchingAttributeAlwaysInline(IntPtr ptr) : base(ptr) => NativePtr = ptr;
+        public static implicit operator MTLFunctionStitchingAttribute(MTLFunctionStitchingAttributeAlwaysInline obj) => new(obj.NativePtr);
+        public MTLFunctionStitchingAttributeAlwaysInline(IntPtr ptr) => NativePtr = ptr;
 
         public MTLFunctionStitchingAttributeAlwaysInline()
         {
@@ -31,23 +28,20 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLFunctionStitchingNode
+    public struct MTLFunctionStitchingNode
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingNode obj) => obj.NativePtr;
         public MTLFunctionStitchingNode(IntPtr ptr) => NativePtr = ptr;
-
-        public MTLFunctionStitchingNode()
-        {
-
-        }
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLFunctionStitchingInputNode : MTLFunctionStitchingNode
+    public struct MTLFunctionStitchingInputNode
     {
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingInputNode obj) => obj.NativePtr;
-        public MTLFunctionStitchingInputNode(IntPtr ptr) : base(ptr) => NativePtr = ptr;
+        public static implicit operator MTLFunctionStitchingNode(MTLFunctionStitchingInputNode obj) => new(obj.NativePtr);
+        public MTLFunctionStitchingInputNode(IntPtr ptr) => NativePtr = ptr;
 
         public MTLFunctionStitchingInputNode()
         {
@@ -72,10 +66,12 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLFunctionStitchingFunctionNode : MTLFunctionStitchingNode
+    public struct MTLFunctionStitchingFunctionNode
     {
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingFunctionNode obj) => obj.NativePtr;
-        public MTLFunctionStitchingFunctionNode(IntPtr ptr) : base(ptr) => NativePtr = ptr;
+        public static implicit operator MTLFunctionStitchingNode(MTLFunctionStitchingFunctionNode obj) => new(obj.NativePtr);
+        public MTLFunctionStitchingFunctionNode(IntPtr ptr) => NativePtr = ptr;
 
         public MTLFunctionStitchingFunctionNode()
         {
@@ -116,7 +112,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLFunctionStitchingGraph
+    public struct MTLFunctionStitchingGraph
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingGraph obj) => obj.NativePtr;
@@ -169,7 +165,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLStitchedLibraryDescriptor
+    public struct MTLStitchedLibraryDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLStitchedLibraryDescriptor obj) => obj.NativePtr;

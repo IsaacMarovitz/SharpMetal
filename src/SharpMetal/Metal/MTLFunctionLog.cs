@@ -10,14 +10,23 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLLogContainer : NSFastEnumeration
+    public struct MTLLogContainer
     {
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLLogContainer obj) => obj.NativePtr;
-        public MTLLogContainer(IntPtr ptr) : base(ptr) => NativePtr = ptr;
+        public static implicit operator NSFastEnumeration(MTLLogContainer obj) => new(obj.NativePtr);
+        public MTLLogContainer(IntPtr ptr) => NativePtr = ptr;
+
+        public ulong CountByEnumerating(NSFastEnumerationState pState, NSObject pBuffer, ulong len)
+        {
+            return ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_countByEnumeratingWithStateobjectscount, pState, pBuffer, len);
+        }
+
+        private static readonly Selector sel_countByEnumeratingWithStateobjectscount = "countByEnumeratingWithState:objects:count:";
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLFunctionLogDebugLocation
+    public struct MTLFunctionLogDebugLocation
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionLogDebugLocation obj) => obj.NativePtr;
@@ -38,7 +47,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLFunctionLog
+    public struct MTLFunctionLog
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionLog obj) => obj.NativePtr;

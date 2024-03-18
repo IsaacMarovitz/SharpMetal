@@ -65,7 +65,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLVertexAttribute
+    public struct MTLVertexAttribute
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLVertexAttribute obj) => obj.NativePtr;
@@ -98,7 +98,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLAttribute
+    public struct MTLAttribute
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAttribute obj) => obj.NativePtr;
@@ -131,7 +131,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLFunctionConstant
+    public struct MTLFunctionConstant
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionConstant obj) => obj.NativePtr;
@@ -158,7 +158,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLFunction
+    public struct MTLFunction
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunction obj) => obj.NativePtr;
@@ -214,7 +214,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLCompileOptions
+    public struct MTLCompileOptions
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCompileOptions obj) => obj.NativePtr;
@@ -317,7 +317,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLLibrary
+    public struct MTLLibrary
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLLibrary obj) => obj.NativePtr;

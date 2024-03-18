@@ -24,7 +24,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLIOCommandQueue
+    public struct MTLIOCommandQueue
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIOCommandQueue obj) => obj.NativePtr;
@@ -53,7 +53,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLIOScratchBuffer
+    public struct MTLIOScratchBuffer
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIOScratchBuffer obj) => obj.NativePtr;
@@ -65,7 +65,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLIOScratchBufferAllocator
+    public struct MTLIOScratchBufferAllocator
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIOScratchBufferAllocator obj) => obj.NativePtr;
@@ -80,7 +80,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLIOCommandQueueDescriptor
+    public struct MTLIOCommandQueueDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIOCommandQueueDescriptor obj) => obj.NativePtr;
@@ -135,7 +135,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLIOFileHandle
+    public struct MTLIOFileHandle
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIOFileHandle obj) => obj.NativePtr;

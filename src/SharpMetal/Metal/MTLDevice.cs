@@ -145,7 +145,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLArgumentDescriptor
+    public struct MTLArgumentDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLArgumentDescriptor obj) => obj.NativePtr;
@@ -209,7 +209,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLArchitecture
+    public struct MTLArchitecture
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLArchitecture obj) => obj.NativePtr;
@@ -227,7 +227,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial class MTLDevice
+    public partial struct MTLDevice
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLDevice obj) => obj.NativePtr;

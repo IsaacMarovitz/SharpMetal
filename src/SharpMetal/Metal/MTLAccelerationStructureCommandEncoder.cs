@@ -11,10 +11,20 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLAccelerationStructureCommandEncoder : MTLCommandEncoder
+    public struct MTLAccelerationStructureCommandEncoder
     {
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureCommandEncoder obj) => obj.NativePtr;
-        public MTLAccelerationStructureCommandEncoder(IntPtr ptr) : base(ptr) => NativePtr = ptr;
+        public static implicit operator MTLCommandEncoder(MTLAccelerationStructureCommandEncoder obj) => new(obj.NativePtr);
+        public MTLAccelerationStructureCommandEncoder(IntPtr ptr) => NativePtr = ptr;
+
+        public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
+
+        public NSString Label
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
+        }
 
         public void BuildAccelerationStructure(MTLAccelerationStructure accelerationStructure, MTLAccelerationStructureDescriptor descriptor, MTLBuffer scratchBuffer, ulong scratchBufferOffset)
         {
@@ -86,6 +96,26 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_sampleCountersInBufferatSampleIndexwithBarrier, sampleBuffer, sampleIndex, barrier);
         }
 
+        public void EndEncoding()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_endEncoding);
+        }
+
+        public void InsertDebugSignpost(NSString nsString)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_insertDebugSignpost, nsString);
+        }
+
+        public void PushDebugGroup(NSString nsString)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_pushDebugGroup, nsString);
+        }
+
+        public void PopDebugGroup()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_popDebugGroup);
+        }
+
         private static readonly Selector sel_buildAccelerationStructuredescriptorscratchBufferscratchBufferOffset = "buildAccelerationStructure:descriptor:scratchBuffer:scratchBufferOffset:";
         private static readonly Selector sel_refitAccelerationStructuredescriptordestinationscratchBufferscratchBufferOffset = "refitAccelerationStructure:descriptor:destination:scratchBuffer:scratchBufferOffset:";
         private static readonly Selector sel_refitAccelerationStructuredescriptordestinationscratchBufferscratchBufferOffsetoptions = "refitAccelerationStructure:descriptor:destination:scratchBuffer:scratchBufferOffset:options:";
@@ -100,10 +130,17 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_useHeap = "useHeap:";
         private static readonly Selector sel_useHeapscount = "useHeaps:count:";
         private static readonly Selector sel_sampleCountersInBufferatSampleIndexwithBarrier = "sampleCountersInBuffer:atSampleIndex:withBarrier:";
+        private static readonly Selector sel_device = "device";
+        private static readonly Selector sel_label = "label";
+        private static readonly Selector sel_setLabel = "setLabel:";
+        private static readonly Selector sel_endEncoding = "endEncoding";
+        private static readonly Selector sel_insertDebugSignpost = "insertDebugSignpost:";
+        private static readonly Selector sel_pushDebugGroup = "pushDebugGroup:";
+        private static readonly Selector sel_popDebugGroup = "popDebugGroup";
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLAccelerationStructurePassSampleBufferAttachmentDescriptor
+    public struct MTLAccelerationStructurePassSampleBufferAttachmentDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructurePassSampleBufferAttachmentDescriptor obj) => obj.NativePtr;
@@ -142,7 +179,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray
+    public struct MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray obj) => obj.NativePtr;
@@ -169,7 +206,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLAccelerationStructurePassDescriptor
+    public struct MTLAccelerationStructurePassDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructurePassDescriptor obj) => obj.NativePtr;

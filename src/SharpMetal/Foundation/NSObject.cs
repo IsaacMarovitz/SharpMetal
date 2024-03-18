@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveCCore;
 namespace SharpMetal.Foundation
 {
     [SupportedOSPlatform("macos")]
-    public class NS_NS_EXPORT
+    public struct NS_NS_EXPORT
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NS_NS_EXPORT obj) => obj.NativePtr;
@@ -15,7 +15,7 @@ namespace SharpMetal.Foundation
     }
 
     [SupportedOSPlatform("macos")]
-    public class NSCopying
+    public struct NSCopying
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSCopying obj) => obj.NativePtr;
@@ -24,7 +24,7 @@ namespace SharpMetal.Foundation
     }
 
     [SupportedOSPlatform("macos")]
-    public class NSSecureCoding
+    public struct NSSecureCoding
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSSecureCoding obj) => obj.NativePtr;
@@ -32,7 +32,7 @@ namespace SharpMetal.Foundation
     }
 
     [SupportedOSPlatform("macos")]
-    public class NSObject
+    public struct NSObject
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSObject obj) => obj.NativePtr;

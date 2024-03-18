@@ -21,12 +21,22 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLComputeCommandEncoder : MTLCommandEncoder
+    public struct MTLComputeCommandEncoder
     {
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLComputeCommandEncoder obj) => obj.NativePtr;
-        public MTLComputeCommandEncoder(IntPtr ptr) : base(ptr) => NativePtr = ptr;
+        public static implicit operator MTLCommandEncoder(MTLComputeCommandEncoder obj) => new(obj.NativePtr);
+        public MTLComputeCommandEncoder(IntPtr ptr) => NativePtr = ptr;
 
         public MTLDispatchType DispatchType => (MTLDispatchType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_dispatchType);
+
+        public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
+
+        public NSString Label
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
+        }
 
         public void SetComputePipelineState(MTLComputePipelineState state)
         {
@@ -218,6 +228,26 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_sampleCountersInBufferatSampleIndexwithBarrier, sampleBuffer, sampleIndex, barrier);
         }
 
+        public void EndEncoding()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_endEncoding);
+        }
+
+        public void InsertDebugSignpost(NSString nsString)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_insertDebugSignpost, nsString);
+        }
+
+        public void PushDebugGroup(NSString nsString)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_pushDebugGroup, nsString);
+        }
+
+        public void PopDebugGroup()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_popDebugGroup);
+        }
+
         private static readonly Selector sel_dispatchType = "dispatchType";
         private static readonly Selector sel_setComputePipelineState = "setComputePipelineState:";
         private static readonly Selector sel_setByteslengthatIndex = "setBytes:length:atIndex:";
@@ -257,5 +287,12 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_memoryBarrierWithScope = "memoryBarrierWithScope:";
         private static readonly Selector sel_memoryBarrierWithResourcescount = "memoryBarrierWithResources:count:";
         private static readonly Selector sel_sampleCountersInBufferatSampleIndexwithBarrier = "sampleCountersInBuffer:atSampleIndex:withBarrier:";
+        private static readonly Selector sel_device = "device";
+        private static readonly Selector sel_label = "label";
+        private static readonly Selector sel_setLabel = "setLabel:";
+        private static readonly Selector sel_endEncoding = "endEncoding";
+        private static readonly Selector sel_insertDebugSignpost = "insertDebugSignpost:";
+        private static readonly Selector sel_pushDebugGroup = "pushDebugGroup:";
+        private static readonly Selector sel_popDebugGroup = "popDebugGroup";
     }
 }

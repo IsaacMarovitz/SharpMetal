@@ -13,6 +13,10 @@ namespace SharpMetal.Generator.Instances
         private List<SelectorInstance> _selectorInstances;
         private string _parent = string.Empty;
 
+        public List<PropertyInstance> PropertyInstances => _propertyInstances;
+        public List<MethodInstance> MethodInstances => _methodInstances;
+        public List<SelectorInstance> SelectorInstances => _selectorInstances;
+
         private ClassInstance(string name)
         {
             Name = name;
@@ -53,37 +57,50 @@ namespace SharpMetal.Generator.Instances
             }
         }
 
-        public List<ObjectiveCInstance> Generate(List<EnumInstance> enumCache, List<StructInstance> structCache, CodeGenContext context)
+        public List<ObjectiveCInstance> Generate(List<HeaderInfo> headerInfos, List<EnumInstance> enumCache, List<StructInstance> structCache, CodeGenContext context)
         {
             var objectiveCInstances = new List<ObjectiveCInstance>();
 
             context.WriteLine("[SupportedOSPlatform(\"macos\")]");
 
-            var classDecl = $"public class {Name}";
-            var inherits = false;
+            var classDecl = $"public struct {Name}";
+
             if (_parent != string.Empty)
             {
-                inherits = true;
-                classDecl += $" : {_parent}";
+                // To properly fit within expected C# patterns, we
+                // should generate an interface to hold the associated
+                // properties and methods to allow for proper casting
+                // between types. Right now, due to the limitations of
+                // struct inheritance, we will just duplicate all
+                // properties and methods from the parent to the child.
+                // This limitation is not present with the old method
+                // using classes, however that comes with performance
+                // and memory drawbacks, that structs are able to avoid.
+
+                var classInstances = new List<ClassInstance>();
+
+                foreach (var header in headerInfos)
+                {
+                    classInstances.AddRange(header.ClassInstances);
+                }
+
+                var parent = classInstances.FirstOrDefault(x => x.Name == _parent);
+                _propertyInstances.AddRange(parent.PropertyInstances);
+                _methodInstances.AddRange(parent.MethodInstances);
+                _selectorInstances.AddRange(parent.SelectorInstances);
             }
+
             context.WriteLine(classDecl);
 
             context.EnterScope();
 
-            if (!inherits)
-            {
-                context.WriteLine("public IntPtr NativePtr;");
-            }
+            context.WriteLine("public IntPtr NativePtr;");
             context.WriteLine($"public static implicit operator IntPtr({Name} obj) => obj.NativePtr;");
-
             if (_parent != string.Empty)
             {
-                context.WriteLine($"public {Name}(IntPtr ptr) : base(ptr) => NativePtr = ptr;");
+                context.WriteLine($"public static implicit operator {_parent}({Name} obj) => new(obj.NativePtr);");
             }
-            else
-            {
-                context.WriteLine($"public {Name}(IntPtr ptr) => NativePtr = ptr;");
-            }
+            context.WriteLine($"public {Name}(IntPtr ptr) => NativePtr = ptr;");
 
             if (HasAlloc)
             {

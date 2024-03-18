@@ -143,7 +143,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLType
+    public struct MTLType
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLType obj) => obj.NativePtr;
@@ -161,7 +161,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLStructMember
+    public struct MTLStructMember
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLStructMember obj) => obj.NativePtr;
@@ -200,7 +200,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLStructType
+    public struct MTLStructType
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLStructType obj) => obj.NativePtr;
@@ -224,7 +224,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLArrayType
+    public struct MTLArrayType
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLArrayType obj) => obj.NativePtr;
@@ -263,7 +263,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLPointerType
+    public struct MTLPointerType
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLPointerType obj) => obj.NativePtr;
@@ -299,7 +299,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLTextureReferenceType
+    public struct MTLTextureReferenceType
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLTextureReferenceType obj) => obj.NativePtr;
@@ -326,7 +326,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLArgument
+    public struct MTLArgument
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLArgument obj) => obj.NativePtr;
@@ -389,7 +389,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLBinding
+    public struct MTLBinding
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLBinding obj) => obj.NativePtr;
@@ -416,10 +416,12 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLBufferBinding : MTLBinding
+    public struct MTLBufferBinding
     {
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLBufferBinding obj) => obj.NativePtr;
-        public MTLBufferBinding(IntPtr ptr) : base(ptr) => NativePtr = ptr;
+        public static implicit operator MTLBinding(MTLBufferBinding obj) => new(obj.NativePtr);
+        public MTLBufferBinding(IntPtr ptr) => NativePtr = ptr;
 
         public ulong BufferAlignment => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_bufferAlignment);
 
@@ -431,32 +433,72 @@ namespace SharpMetal.Metal
 
         public MTLPointerType BufferPointerType => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_bufferPointerType));
 
+        public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
+
+        public MTLBindingType Type => (MTLBindingType)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_type);
+
+        public MTLBindingAccess Access => (MTLBindingAccess)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_access);
+
+        public ulong Index => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_index);
+
+        public bool Used => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isUsed);
+
+        public bool Argument => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isArgument);
+
         private static readonly Selector sel_bufferAlignment = "bufferAlignment";
         private static readonly Selector sel_bufferDataSize = "bufferDataSize";
         private static readonly Selector sel_bufferDataType = "bufferDataType";
         private static readonly Selector sel_bufferStructType = "bufferStructType";
         private static readonly Selector sel_bufferPointerType = "bufferPointerType";
+        private static readonly Selector sel_name = "name";
+        private static readonly Selector sel_type = "type";
+        private static readonly Selector sel_access = "access";
+        private static readonly Selector sel_index = "index";
+        private static readonly Selector sel_isUsed = "isUsed";
+        private static readonly Selector sel_isArgument = "isArgument";
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLThreadgroupBinding : MTLBinding
+    public struct MTLThreadgroupBinding
     {
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLThreadgroupBinding obj) => obj.NativePtr;
-        public MTLThreadgroupBinding(IntPtr ptr) : base(ptr) => NativePtr = ptr;
+        public static implicit operator MTLBinding(MTLThreadgroupBinding obj) => new(obj.NativePtr);
+        public MTLThreadgroupBinding(IntPtr ptr) => NativePtr = ptr;
 
         public ulong ThreadgroupMemoryAlignment => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_threadgroupMemoryAlignment);
 
         public ulong ThreadgroupMemoryDataSize => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_threadgroupMemoryDataSize);
 
+        public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
+
+        public MTLBindingType Type => (MTLBindingType)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_type);
+
+        public MTLBindingAccess Access => (MTLBindingAccess)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_access);
+
+        public ulong Index => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_index);
+
+        public bool Used => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isUsed);
+
+        public bool Argument => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isArgument);
+
         private static readonly Selector sel_threadgroupMemoryAlignment = "threadgroupMemoryAlignment";
         private static readonly Selector sel_threadgroupMemoryDataSize = "threadgroupMemoryDataSize";
+        private static readonly Selector sel_name = "name";
+        private static readonly Selector sel_type = "type";
+        private static readonly Selector sel_access = "access";
+        private static readonly Selector sel_index = "index";
+        private static readonly Selector sel_isUsed = "isUsed";
+        private static readonly Selector sel_isArgument = "isArgument";
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLTextureBinding : MTLBinding
+    public struct MTLTextureBinding
     {
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLTextureBinding obj) => obj.NativePtr;
-        public MTLTextureBinding(IntPtr ptr) : base(ptr) => NativePtr = ptr;
+        public static implicit operator MTLBinding(MTLTextureBinding obj) => new(obj.NativePtr);
+        public MTLTextureBinding(IntPtr ptr) => NativePtr = ptr;
 
         public MTLTextureType TextureType => (MTLTextureType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_textureType);
 
@@ -466,23 +508,61 @@ namespace SharpMetal.Metal
 
         public ulong ArrayLength => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_arrayLength);
 
+        public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
+
+        public MTLBindingType Type => (MTLBindingType)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_type);
+
+        public MTLBindingAccess Access => (MTLBindingAccess)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_access);
+
+        public ulong Index => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_index);
+
+        public bool Used => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isUsed);
+
+        public bool Argument => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isArgument);
+
         private static readonly Selector sel_textureType = "textureType";
         private static readonly Selector sel_textureDataType = "textureDataType";
         private static readonly Selector sel_isDepthTexture = "isDepthTexture";
         private static readonly Selector sel_arrayLength = "arrayLength";
+        private static readonly Selector sel_name = "name";
+        private static readonly Selector sel_type = "type";
+        private static readonly Selector sel_access = "access";
+        private static readonly Selector sel_index = "index";
+        private static readonly Selector sel_isUsed = "isUsed";
+        private static readonly Selector sel_isArgument = "isArgument";
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLObjectPayloadBinding : MTLBinding
+    public struct MTLObjectPayloadBinding
     {
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLObjectPayloadBinding obj) => obj.NativePtr;
-        public MTLObjectPayloadBinding(IntPtr ptr) : base(ptr) => NativePtr = ptr;
+        public static implicit operator MTLBinding(MTLObjectPayloadBinding obj) => new(obj.NativePtr);
+        public MTLObjectPayloadBinding(IntPtr ptr) => NativePtr = ptr;
 
         public ulong ObjectPayloadAlignment => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_objectPayloadAlignment);
 
         public ulong ObjectPayloadDataSize => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_objectPayloadDataSize);
 
+        public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
+
+        public MTLBindingType Type => (MTLBindingType)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_type);
+
+        public MTLBindingAccess Access => (MTLBindingAccess)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_access);
+
+        public ulong Index => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_index);
+
+        public bool Used => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isUsed);
+
+        public bool Argument => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isArgument);
+
         private static readonly Selector sel_objectPayloadAlignment = "objectPayloadAlignment";
         private static readonly Selector sel_objectPayloadDataSize = "objectPayloadDataSize";
+        private static readonly Selector sel_name = "name";
+        private static readonly Selector sel_type = "type";
+        private static readonly Selector sel_access = "access";
+        private static readonly Selector sel_index = "index";
+        private static readonly Selector sel_isUsed = "isUsed";
+        private static readonly Selector sel_isArgument = "isArgument";
     }
 }

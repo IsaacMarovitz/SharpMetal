@@ -39,9 +39,16 @@ namespace SharpMetal.Generator
                 GenerateCaches(header, ref enumCache, ref structCache);
             }
 
+            var headerInfos = new List<HeaderInfo>();
+
             foreach (var header in headers)
             {
-                Generate(header, enumCache, structCache, ref objectiveCInstances);
+                GenerateHeaderInfos(header, ref headerInfos);
+            }
+
+            foreach (var header in headerInfos)
+            {
+                Generate(header, headerInfos, enumCache, structCache, ref objectiveCInstances);
             }
 
             GenerateObjectiveC(objectiveCInstances);
@@ -69,7 +76,8 @@ namespace SharpMetal.Generator
                 }
             }
         }
-        public static void Generate(string filePath, List<EnumInstance> enumCache, List<StructInstance> structCache, ref HashSet<ObjectiveCInstance> objectiveCInstances)
+
+        public static void GenerateHeaderInfos(string filePath, ref List<HeaderInfo> headerInfos)
         {
             var headerInfo = new HeaderInfo(filePath);
 
@@ -78,8 +86,13 @@ namespace SharpMetal.Generator
                 return;
             }
 
-            string fileName = Path.GetFileNameWithoutExtension(filePath);
-            var fullNamespace = Namespaces.GetFullNamespace(filePath);
+            headerInfos.Add(headerInfo);
+        }
+
+        public static void Generate(HeaderInfo headerInfo, List<HeaderInfo> headerInfos, List<EnumInstance> enumCache, List<StructInstance> structCache, ref HashSet<ObjectiveCInstance> objectiveCInstances)
+        {
+            string fileName = Path.GetFileNameWithoutExtension(headerInfo.FilePath);
+            var fullNamespace = Namespaces.GetFullNamespace(headerInfo.FilePath);
 
             Directory.CreateDirectory(fullNamespace);
 
@@ -111,7 +124,7 @@ namespace SharpMetal.Generator
 
             for (var i = 0; i < headerInfo.ClassInstances.Count; i++)
             {
-                var instances = headerInfo.ClassInstances[i].Generate(enumCache, structCache, context);
+                var instances = headerInfo.ClassInstances[i].Generate(headerInfos, enumCache, structCache, context);
 
                 foreach (var instance in instances)
                 {

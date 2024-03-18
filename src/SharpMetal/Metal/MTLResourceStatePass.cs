@@ -5,7 +5,7 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public class MTLResourceStatePassSampleBufferAttachmentDescriptor
+    public struct MTLResourceStatePassSampleBufferAttachmentDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLResourceStatePassSampleBufferAttachmentDescriptor obj) => obj.NativePtr;
@@ -44,7 +44,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLResourceStatePassSampleBufferAttachmentDescriptorArray
+    public struct MTLResourceStatePassSampleBufferAttachmentDescriptorArray
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLResourceStatePassSampleBufferAttachmentDescriptorArray obj) => obj.NativePtr;
@@ -71,7 +71,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLResourceStatePassDescriptor
+    public struct MTLResourceStatePassDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLResourceStatePassDescriptor obj) => obj.NativePtr;

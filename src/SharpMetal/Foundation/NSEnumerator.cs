@@ -12,7 +12,7 @@ namespace SharpMetal.Foundation
     }
 
     [SupportedOSPlatform("macos")]
-    public class NSFastEnumeration
+    public struct NSFastEnumeration
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSFastEnumeration obj) => obj.NativePtr;
@@ -27,11 +27,20 @@ namespace SharpMetal.Foundation
     }
 
     [SupportedOSPlatform("macos")]
-    public class NSEnumerator : NSFastEnumeration
+    public struct NSEnumerator
     {
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(NSEnumerator obj) => obj.NativePtr;
-        public NSEnumerator(IntPtr ptr) : base(ptr) => NativePtr = ptr;
+        public static implicit operator NSFastEnumeration(NSEnumerator obj) => new(obj.NativePtr);
+        public NSEnumerator(IntPtr ptr) => NativePtr = ptr;
 
 
+
+        public ulong CountByEnumerating(NSFastEnumerationState pState, NSObject pBuffer, ulong len)
+        {
+            return ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_countByEnumeratingWithStateobjectscount, pState, pBuffer, len);
+        }
+
+        private static readonly Selector sel_countByEnumeratingWithStateobjectscount = "countByEnumeratingWithState:objects:count:";
     }
 }

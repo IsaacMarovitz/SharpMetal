@@ -12,7 +12,7 @@ namespace SharpMetal.MetalFX
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLFXSpatialScalerDescriptor
+    public struct MTLFXSpatialScalerDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFXSpatialScalerDescriptor obj) => obj.NativePtr;
@@ -55,7 +55,7 @@ namespace SharpMetal.MetalFX
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLFXSpatialScaler
+    public struct MTLFXSpatialScaler
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFXSpatialScaler obj) => obj.NativePtr;

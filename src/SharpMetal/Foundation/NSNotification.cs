@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveCCore;
 namespace SharpMetal.Foundation
 {
     [SupportedOSPlatform("macos")]
-    public class NSNotification
+    public struct NSNotification
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSNotification obj) => obj.NativePtr;
@@ -22,7 +22,7 @@ namespace SharpMetal.Foundation
     }
 
     [SupportedOSPlatform("macos")]
-    public class NSNotificationCenter
+    public struct NSNotificationCenter
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSNotificationCenter obj) => obj.NativePtr;

@@ -5,7 +5,7 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public class MTLEvent
+    public struct MTLEvent
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLEvent obj) => obj.NativePtr;
@@ -25,7 +25,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLSharedEventListener
+    public struct MTLSharedEventListener
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLSharedEventListener obj) => obj.NativePtr;
@@ -49,10 +49,12 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLSharedEvent : MTLEvent
+    public struct MTLSharedEvent
     {
+        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLSharedEvent obj) => obj.NativePtr;
-        public MTLSharedEvent(IntPtr ptr) : base(ptr) => NativePtr = ptr;
+        public static implicit operator MTLEvent(MTLSharedEvent obj) => new(obj.NativePtr);
+        public MTLSharedEvent(IntPtr ptr) => NativePtr = ptr;
 
         public MTLSharedEventHandle NewSharedEventHandle => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newSharedEventHandle));
 
@@ -60,6 +62,14 @@ namespace SharpMetal.Metal
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_signaledValue);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSignaledValue, value);
+        }
+
+        public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
+
+        public NSString Label
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
         }
 
         public void NotifyListener(MTLSharedEventListener listener, ulong value, IntPtr block)
@@ -71,10 +81,13 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_newSharedEventHandle = "newSharedEventHandle";
         private static readonly Selector sel_signaledValue = "signaledValue";
         private static readonly Selector sel_setSignaledValue = "setSignaledValue:";
+        private static readonly Selector sel_device = "device";
+        private static readonly Selector sel_label = "label";
+        private static readonly Selector sel_setLabel = "setLabel:";
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLSharedEventHandle
+    public struct MTLSharedEventHandle
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLSharedEventHandle obj) => obj.NativePtr;

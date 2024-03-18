@@ -12,7 +12,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLHeapDescriptor
+    public struct MTLHeapDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLHeapDescriptor obj) => obj.NativePtr;
@@ -83,7 +83,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLHeap
+    public struct MTLHeap
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLHeap obj) => obj.NativePtr;

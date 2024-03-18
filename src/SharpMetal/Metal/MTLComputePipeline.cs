@@ -5,7 +5,7 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public class MTLComputePipelineReflection
+    public struct MTLComputePipelineReflection
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLComputePipelineReflection obj) => obj.NativePtr;
@@ -26,7 +26,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLComputePipelineDescriptor
+    public struct MTLComputePipelineDescriptor
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLComputePipelineDescriptor obj) => obj.NativePtr;
@@ -146,7 +146,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public class MTLComputePipelineState
+    public struct MTLComputePipelineState
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLComputePipelineState obj) => obj.NativePtr;
