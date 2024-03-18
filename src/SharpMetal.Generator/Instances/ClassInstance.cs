@@ -59,12 +59,6 @@ namespace SharpMetal.Generator.Instances
 
         public List<ObjectiveCInstance> Generate(List<HeaderInfo> headerInfos, List<EnumInstance> enumCache, List<StructInstance> structCache, CodeGenContext context)
         {
-            var objectiveCInstances = new List<ObjectiveCInstance>();
-
-            context.WriteLine("[SupportedOSPlatform(\"macos\")]");
-
-            var classDecl = $"public struct {Name}";
-
             if (_parent != string.Empty)
             {
                 // To properly fit within expected C# patterns, we
@@ -89,6 +83,13 @@ namespace SharpMetal.Generator.Instances
                 _methodInstances.AddRange(parent.MethodInstances);
                 _selectorInstances.AddRange(parent.SelectorInstances);
             }
+
+            var objectiveCInstances = new List<ObjectiveCInstance>();
+
+            context.WriteLine("[SupportedOSPlatform(\"macos\")]");
+
+            // TODO: Handle LibraryImport usage on MTLDevice (requires partial)
+            var classDecl = $"public struct {Name}";
 
             context.WriteLine(classDecl);
 
