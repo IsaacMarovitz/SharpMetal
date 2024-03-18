@@ -418,7 +418,6 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public class MTLBufferBinding : MTLBinding
     {
-        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLBufferBinding obj) => obj.NativePtr;
         public MTLBufferBinding(IntPtr ptr) : base(ptr) => NativePtr = ptr;
 
@@ -442,7 +441,6 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public class MTLThreadgroupBinding : MTLBinding
     {
-        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLThreadgroupBinding obj) => obj.NativePtr;
         public MTLThreadgroupBinding(IntPtr ptr) : base(ptr) => NativePtr = ptr;
 
@@ -457,7 +455,6 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public class MTLTextureBinding : MTLBinding
     {
-        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLTextureBinding obj) => obj.NativePtr;
         public MTLTextureBinding(IntPtr ptr) : base(ptr) => NativePtr = ptr;
 
@@ -478,7 +475,6 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public class MTLObjectPayloadBinding : MTLBinding
     {
-        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLObjectPayloadBinding obj) => obj.NativePtr;
         public MTLObjectPayloadBinding(IntPtr ptr) : base(ptr) => NativePtr = ptr;
 

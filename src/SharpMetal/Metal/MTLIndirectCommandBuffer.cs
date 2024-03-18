@@ -139,7 +139,6 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public class MTLIndirectCommandBuffer : MTLResource
     {
-        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIndirectCommandBuffer obj) => obj.NativePtr;
         public MTLIndirectCommandBuffer(IntPtr ptr) : base(ptr) => NativePtr = ptr;
 

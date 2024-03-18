@@ -29,7 +29,6 @@ namespace SharpMetal.Foundation
     [SupportedOSPlatform("macos")]
     public class NSEnumerator : NSFastEnumeration
     {
-        public IntPtr NativePtr;
         public static implicit operator IntPtr(NSEnumerator obj) => obj.NativePtr;
         public NSEnumerator(IntPtr ptr) : base(ptr) => NativePtr = ptr;
 

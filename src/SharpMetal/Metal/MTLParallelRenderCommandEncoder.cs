@@ -7,7 +7,6 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public class MTLParallelRenderCommandEncoder : MTLCommandEncoder
     {
-        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLParallelRenderCommandEncoder obj) => obj.NativePtr;
         public MTLParallelRenderCommandEncoder(IntPtr ptr) : base(ptr) => NativePtr = ptr;
 

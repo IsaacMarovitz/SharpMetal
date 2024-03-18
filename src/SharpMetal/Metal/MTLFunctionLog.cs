@@ -12,7 +12,6 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public class MTLLogContainer : NSFastEnumeration
     {
-        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLLogContainer obj) => obj.NativePtr;
         public MTLLogContainer(IntPtr ptr) : base(ptr) => NativePtr = ptr;
     }

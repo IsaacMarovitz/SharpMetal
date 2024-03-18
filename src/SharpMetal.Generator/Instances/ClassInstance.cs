@@ -60,15 +60,20 @@ namespace SharpMetal.Generator.Instances
             context.WriteLine("[SupportedOSPlatform(\"macos\")]");
 
             var classDecl = $"public class {Name}";
+            var inherits = false;
             if (_parent != string.Empty)
             {
+                inherits = true;
                 classDecl += $" : {_parent}";
             }
             context.WriteLine(classDecl);
 
             context.EnterScope();
 
-            context.WriteLine("public IntPtr NativePtr;");
+            if (!inherits)
+            {
+                context.WriteLine("public IntPtr NativePtr;");
+            }
             context.WriteLine($"public static implicit operator IntPtr({Name} obj) => obj.NativePtr;");
 
             if (_parent != string.Empty)

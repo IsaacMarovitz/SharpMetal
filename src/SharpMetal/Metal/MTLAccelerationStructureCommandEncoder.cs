@@ -13,7 +13,6 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public class MTLAccelerationStructureCommandEncoder : MTLCommandEncoder
     {
-        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureCommandEncoder obj) => obj.NativePtr;
         public MTLAccelerationStructureCommandEncoder(IntPtr ptr) : base(ptr) => NativePtr = ptr;
 

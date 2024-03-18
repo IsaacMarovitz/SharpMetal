@@ -7,7 +7,6 @@ namespace SharpMetal.QuartzCore
     [SupportedOSPlatform("macos")]
     public class CAMetalDrawable : MTLDrawable
     {
-        public IntPtr NativePtr;
         public static implicit operator IntPtr(CAMetalDrawable obj) => obj.NativePtr;
         public CAMetalDrawable(IntPtr ptr) : base(ptr) => NativePtr = ptr;
 

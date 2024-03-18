@@ -240,7 +240,6 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public class MTLTexture : MTLResource
     {
-        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLTexture obj) => obj.NativePtr;
         public MTLTexture(IntPtr ptr) : base(ptr) => NativePtr = ptr;
 

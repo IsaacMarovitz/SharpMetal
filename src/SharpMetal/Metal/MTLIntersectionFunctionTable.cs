@@ -44,7 +44,6 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public class MTLIntersectionFunctionTable : MTLResource
     {
-        public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIntersectionFunctionTable obj) => obj.NativePtr;
         public MTLIntersectionFunctionTable(IntPtr ptr) : base(ptr) => NativePtr = ptr;
 
