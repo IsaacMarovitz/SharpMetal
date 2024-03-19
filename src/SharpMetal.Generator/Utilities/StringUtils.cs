@@ -18,7 +18,7 @@ namespace SharpMetal.Generator.Utilities
             return value;
         }
 
-        public static string FunctionSignautreCleanup(string value)
+        public static string FunctionSignatureCleanup(string value)
         {
             value = value.Replace(";", "");
             value = value.Replace("~", "Destroy");

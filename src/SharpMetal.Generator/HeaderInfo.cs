@@ -128,7 +128,7 @@ namespace SharpMetal.Generator
                         var rawName = line;
                         // These are static methods that aren't in a class
                         // Just so happens that one of these is incredibly important
-                        line = StringUtils.FunctionSignautreCleanup(line);
+                        line = StringUtils.FunctionSignatureCleanup(line);
 
                         var info = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
                         var returnType = "";

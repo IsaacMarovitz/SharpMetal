@@ -224,7 +224,7 @@ namespace SharpMetal.Generator.Instances
                 }
 
                 var rawName = nextLine;
-                nextLine = StringUtils.FunctionSignautreCleanup(nextLine);
+                nextLine = StringUtils.FunctionSignatureCleanup(nextLine);
 
                 bool isStatic = false;
 
