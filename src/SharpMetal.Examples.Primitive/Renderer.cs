@@ -10,32 +10,6 @@ namespace SharpMetal.Examples.Primitive
     [SupportedOSPlatform("macos")]
     public class Renderer : IRenderer
     {
-        private const string ShaderSource = """
-        #include <metal_stdlib>
-        using namespace metal;
-
-        struct v2f
-        {
-            float4 position [[position]];
-            half3 color;
-        };
-
-        v2f vertex vertexMain( uint vertexId [[vertex_id]],
-                               device const float3* positions [[buffer(0)]],
-                               device const float3* colors [[buffer(1)]] )
-        {
-            v2f o;
-            o.position = float4( positions[ vertexId ], 1.0 );
-            o.color = half3 ( colors[ vertexId ] );
-            return o;
-        }
-
-        half4 fragment fragmentMain( v2f in [[stage_in]] )
-        {
-            return half4( in.color, 1.0 );
-        }
-        """;
-
         const int NumVertices = 3;
 
         private MTLDevice _device;
@@ -60,8 +34,9 @@ namespace SharpMetal.Examples.Primitive
         private void BuildShaders()
         {
             // Build shader
+            var shaderSource = EmbeddedResources.ReadAllText("Primitive/Shaders/Shader.metal");
             var libraryError = new NSError(IntPtr.Zero);
-            var library = _device.NewLibrary(StringHelper.NSString(ShaderSource), new(IntPtr.Zero), ref libraryError);
+            var library = _device.NewLibrary(StringHelper.NSString(shaderSource), new(IntPtr.Zero), ref libraryError);
             if (libraryError != IntPtr.Zero)
             {
                 throw new Exception($"Failed to create library! {StringHelper.String(libraryError.LocalizedDescription)}");

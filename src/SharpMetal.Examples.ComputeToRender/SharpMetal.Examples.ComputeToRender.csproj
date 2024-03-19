@@ -15,4 +15,9 @@
         <ProjectReference Include="..\SharpMetal.Examples.Common\SharpMetal.Examples.Common.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <EmbeddedResource Include="Shaders\Shader.metal" />
+        <EmbeddedResource Include="Shaders\Compute.metal" />
+    </ItemGroup>
+
 </Project>

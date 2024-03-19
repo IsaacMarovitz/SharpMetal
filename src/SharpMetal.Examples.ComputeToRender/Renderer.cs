@@ -11,126 +11,6 @@ namespace SharpMetal.Examples.ComputeToRender
     [SupportedOSPlatform("macos")]
     public class Renderer : IRenderer
     {
-        private const string ShaderSource = """
-        #include <metal_stdlib>
-        using namespace metal;
-
-        struct v2f
-        {
-            float4 position [[position]];
-            float3 normal;
-            half3 color;
-            float2 texcoord;
-        };
-
-        struct VertexData
-        {
-            float3 position;
-            float3 normal;
-            float2 texcoord;
-        };
-
-        struct InstanceData
-        {
-            float4x4 instanceTransform;
-            float3x3 instanceNormalTransform;
-            float4 instanceColor;
-        };
-
-        struct CameraData
-        {
-            float4x4 perspectiveTransform;
-            float4x4 worldTransform;
-            float3x3 worldNormalTransform;
-        };
-
-        v2f vertex vertexMain( device const VertexData* vertexData [[buffer(0)]],
-                               device const InstanceData* instanceData [[buffer(1)]],
-                               device const CameraData& cameraData [[buffer(2)]],
-                               uint vertexId [[vertex_id]],
-                               uint instanceId [[instance_id]] )
-        {
-            v2f o;
-
-            const device VertexData& vd = vertexData[ vertexId ];
-            float4 pos = float4( vd.position, 1.0 );
-            pos = instanceData[ instanceId ].instanceTransform * pos;
-            pos = cameraData.perspectiveTransform * cameraData.worldTransform * pos;
-            o.position = pos;
-
-            float3 normal = instanceData[ instanceId ].instanceNormalTransform * vd.normal;
-            normal = cameraData.worldNormalTransform * normal;
-            o.normal = normal;
-
-            o.texcoord = vd.texcoord.xy;
-
-            o.color = half3( instanceData[ instanceId ].instanceColor.rgb );
-            return o;
-        }
-
-        half4 fragment fragmentMain( v2f in [[stage_in]], texture2d< half, access::sample > tex [[texture(0)]] )
-        {
-            constexpr sampler s( address::repeat, filter::linear );
-            half3 texel = tex.sample( s, in.texcoord ).rgb;
-
-            // Assume light coming from (front-top-right)
-            float3 l = normalize(float3( 1.0, 1.0, 0.8 ));
-            float3 n = normalize( in.normal );
-
-            half ndotl = half( saturate( dot( n, l ) ) );
-
-            half3 illum = (in.color * texel * 0.1) + (in.color * texel * ndotl);
-            return half4( illum, 1.0 );
-        }
-        """;
-
-        private const string KernelSource = """
-        #include <metal_stdlib>
-        using namespace metal;
-
-        kernel void mandelbrot_set(texture2d< half, access::write > tex [[texture(0)]],
-                                   uint2 index [[thread_position_in_grid]],
-                                   uint2 gridSize [[threads_per_grid]],
-                                   device const uint* frame [[buffer(0)]])
-        {
-            constexpr float kAnimationFrequency = 0.01;
-            constexpr float kAnimationSpeed = 4;
-            constexpr float kAnimationScaleLow = 0.62;
-            constexpr float kAnimationScale = 0.38;
-
-            constexpr float2 kMandelbrotPixelOffset = {-0.2, -0.35};
-            constexpr float2 kMandelbrotOrigin = {-1.2, -0.32};
-            constexpr float2 kMandelbrotScale = {2.2, 2.0};
-
-            // Map time to zoom value in [kAnimationScaleLow, 1]
-            float zoom = kAnimationScaleLow + kAnimationScale * cos(kAnimationFrequency * *frame);
-            // Speed up zooming
-            zoom = pow(zoom, kAnimationSpeed);
-
-            // Scale
-            float x0 = zoom * kMandelbrotScale.x * ((float)index.x / gridSize.x + kMandelbrotPixelOffset.x) + kMandelbrotOrigin.x;
-            float y0 = zoom * kMandelbrotScale.y * ((float)index.y / gridSize.y + kMandelbrotPixelOffset.y) + kMandelbrotOrigin.y;
-
-            // Implement Mandelbrot set
-            float x = 0.0;
-            float y = 0.0;
-            uint iteration = 0;
-            uint max_iteration = 1000;
-            float xtmp = 0.0;
-            while(x * x + y * y <= 4 && iteration < max_iteration)
-            {
-                xtmp = x * x - y * y + x0;
-                y = 2 * x * y + y0;
-                x = xtmp;
-                iteration += 1;
-            }
-
-            // Convert iteration result to colors
-            half color = (0.5 + 0.5 * cos(3.0 + iteration * 0.15));
-            tex.write(half4(color, color, color, 1.0), index, 0);
-        }
-        """;
-
         private const int MaxFramesInFlight = 3;
         private const int TextureWidth = 128;
         private const int TextureHeight = 128;
@@ -176,8 +56,9 @@ namespace SharpMetal.Examples.ComputeToRender
         private void BuildShaders()
         {
             // Build shader
+            var shaderSource = EmbeddedResources.ReadAllText("ComputeToRender/Shaders/Shader.metal");
             var libraryError = new NSError(IntPtr.Zero);
-            _shaderLibrary = _device.NewLibrary(StringHelper.NSString(ShaderSource), new(IntPtr.Zero), ref libraryError);
+            _shaderLibrary = _device.NewLibrary(StringHelper.NSString(shaderSource), new(IntPtr.Zero), ref libraryError);
             if (libraryError != IntPtr.Zero)
             {
                 throw new Exception($"Failed to create library! {StringHelper.String(libraryError.LocalizedDescription)}");
@@ -205,8 +86,9 @@ namespace SharpMetal.Examples.ComputeToRender
 
         private void BuildComputePipeline()
         {
+            var kernelSource = EmbeddedResources.ReadAllText("ComputeToRender/Shaders/Compute.metal");
             var error = new NSError(IntPtr.Zero);
-            var library = _device.NewLibrary(StringHelper.NSString(KernelSource), new(IntPtr.Zero), ref error);
+            var library = _device.NewLibrary(StringHelper.NSString(kernelSource), new(IntPtr.Zero), ref error);
             if (error != IntPtr.Zero)
             {
                 throw new Exception($"Failed to create library! {StringHelper.String(error.LocalizedDescription)}");
