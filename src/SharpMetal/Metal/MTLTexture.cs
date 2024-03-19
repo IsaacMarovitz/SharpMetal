@@ -5,6 +5,7 @@ using SharpMetal.Foundation;
 
 namespace SharpMetal.Metal
 {
+    [SupportedOSPlatform("macos")]
     public enum MTLTextureType : ulong
     {
         Type1D = 0,
@@ -19,6 +20,7 @@ namespace SharpMetal.Metal
         TextureBuffer = 9,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLTextureSwizzle : byte
     {
         Zero = 0,
@@ -29,6 +31,8 @@ namespace SharpMetal.Metal
         Alpha = 5,
     }
 
+    [SupportedOSPlatform("macos")]
+    [Flags]
     public enum MTLTextureUsage : ulong
     {
         Unknown = 0,
@@ -39,6 +43,7 @@ namespace SharpMetal.Metal
         ShaderAtomic = 32,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLTextureCompressionType : long
     {
         Lossless = 0,

@@ -4,6 +4,8 @@ using SharpMetal.Foundation;
 
 namespace SharpMetal.Metal
 {
+    [SupportedOSPlatform("macos")]
+    [Flags]
     public enum MTLIntersectionFunctionSignature : ulong
     {
         None = 0,

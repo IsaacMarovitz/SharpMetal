@@ -2,6 +2,7 @@ using SharpMetal.Foundation;
 
 namespace SharpMetal.Metal
 {
+    [SupportedOSPlatform("macos")]
     public enum MTLPixelFormat : ulong
     {
         Invalid = 0,

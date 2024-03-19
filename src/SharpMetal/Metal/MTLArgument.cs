@@ -4,6 +4,7 @@ using SharpMetal.Foundation;
 
 namespace SharpMetal.Metal
 {
+    [SupportedOSPlatform("macos")]
     public enum MTLDataType : ulong
     {
         None = 0,
@@ -103,6 +104,7 @@ namespace SharpMetal.Metal
         BFloat4 = 124,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLBindingType : long
     {
         Buffer = 0,
@@ -118,6 +120,7 @@ namespace SharpMetal.Metal
         ObjectPayload = 34,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLArgumentType : ulong
     {
         Buffer = 0,
@@ -132,6 +135,7 @@ namespace SharpMetal.Metal
         IntersectionFunctionTable = 27,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLBindingAccess : ulong
     {
         ReadOnly = 0,

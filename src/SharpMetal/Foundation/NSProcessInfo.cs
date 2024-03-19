@@ -3,6 +3,7 @@ using SharpMetal.ObjectiveCCore;
 
 namespace SharpMetal.Foundation
 {
+    [SupportedOSPlatform("macos")]
     public enum NSProcessInfoThermalState : long
     {
         Nominal = 0,
@@ -11,6 +12,8 @@ namespace SharpMetal.Foundation
         Critical = 3,
     }
 
+    [SupportedOSPlatform("macos")]
+    [Flags]
     public enum NSActivityOptions : ulong
     {
         ActivityIdleDisplaySleepDisabled = (1UL << 40),

@@ -4,6 +4,7 @@ using SharpMetal.Foundation;
 
 namespace SharpMetal.Metal
 {
+    [SupportedOSPlatform("macos")]
     public enum MTLVertexFormat : ulong
     {
         Invalid = 0,
@@ -62,6 +63,7 @@ namespace SharpMetal.Metal
         FloatRGB9E5 = 55,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLVertexStepFunction : ulong
     {
         Constant = 0,

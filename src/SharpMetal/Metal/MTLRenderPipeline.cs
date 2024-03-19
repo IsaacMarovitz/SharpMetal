@@ -4,6 +4,7 @@ using SharpMetal.Foundation;
 
 namespace SharpMetal.Metal
 {
+    [SupportedOSPlatform("macos")]
     public enum MTLBlendFactor : ulong
     {
         Zero = 0,
@@ -27,6 +28,7 @@ namespace SharpMetal.Metal
         OneMinusSource1Alpha = 18,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLBlendOperation : ulong
     {
         Add = 0,
@@ -36,6 +38,8 @@ namespace SharpMetal.Metal
         Max = 4,
     }
 
+    [SupportedOSPlatform("macos")]
+    [Flags]
     public enum MTLColorWriteMask : ulong
     {
         None = 0,
@@ -46,6 +50,7 @@ namespace SharpMetal.Metal
         All = 15,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLPrimitiveTopologyClass : ulong
     {
         Unspecified = 0,
@@ -54,6 +59,7 @@ namespace SharpMetal.Metal
         Triangle = 3,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLTessellationPartitionMode : ulong
     {
         Pow2 = 0,
@@ -62,6 +68,7 @@ namespace SharpMetal.Metal
         FractionalEven = 3,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLTessellationFactorStepFunction : ulong
     {
         Constant = 0,
@@ -70,11 +77,13 @@ namespace SharpMetal.Metal
         PerPatchAndPerInstance = 3,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLTessellationFactorFormat : ulong
     {
         Half = 0,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLTessellationControlPointIndexType : ulong
     {
         None = 0,

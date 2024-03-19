@@ -4,6 +4,8 @@ using SharpMetal.Foundation;
 
 namespace SharpMetal.Metal
 {
+    [SupportedOSPlatform("macos")]
+    [Flags]
     public enum MTLResourceUsage : ulong
     {
         Read = 1,
@@ -11,6 +13,8 @@ namespace SharpMetal.Metal
         Sample = 4,
     }
 
+    [SupportedOSPlatform("macos")]
+    [Flags]
     public enum MTLBarrierScope : ulong
     {
         Buffers = 1,

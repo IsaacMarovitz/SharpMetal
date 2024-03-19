@@ -4,6 +4,7 @@ using SharpMetal.Metal;
 
 namespace SharpMetal.MetalFX
 {
+    [SupportedOSPlatform("macos")]
     public enum MTLFXSpatialScalerColorProcessingMode : long
     {
         Perceptual = 0,

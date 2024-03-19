@@ -4,6 +4,7 @@ using SharpMetal.Foundation;
 
 namespace SharpMetal.Metal
 {
+    [SupportedOSPlatform("macos")]
     public enum MTLCompareFunction : ulong
     {
         Never = 0,
@@ -16,6 +17,7 @@ namespace SharpMetal.Metal
         Always = 7,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLStencilOperation : ulong
     {
         Keep = 0,

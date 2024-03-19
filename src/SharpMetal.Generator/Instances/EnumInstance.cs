@@ -6,17 +6,24 @@ namespace SharpMetal.Generator.Instances
     {
         public string Type;
         public string Name;
+        public bool IsFlag;
         public Dictionary<string, string> Values;
 
-        private EnumInstance(string type, string name, Dictionary<string, string> values)
+        private EnumInstance(string type, string name, bool isFlag, Dictionary<string, string> values)
         {
             Type = type;
             Name = name;
+            IsFlag = isFlag;
             Values = values;
         }
 
         public void Generate(CodeGenContext context)
         {
+            context.WriteLine("[SupportedOSPlatform(\"macos\")]");
+            if (IsFlag)
+            {
+                context.WriteLine("[Flags]");
+            }
             context.WriteLine($"public enum {Name} : {Type}");
             context.EnterScope();
 
@@ -38,6 +45,8 @@ namespace SharpMetal.Generator.Instances
 
         public static EnumInstance Build(string line, string namespacePrefix, StreamReader sr, bool skipValues = false)
         {
+            bool isFlag = line.Contains($"_{namespacePrefix}_OPTIONS(");
+
             line = line.Replace($"_{namespacePrefix}_ENUM(", "");
             line = line.Replace($"_{namespacePrefix}_OPTIONS(", "");
 
@@ -93,9 +102,14 @@ namespace SharpMetal.Generator.Instances
                         cleanedValueName = nextLine;
                     }
 
+                    var nameTrim = ogName;
+
+                    // MTLAccelerationStructureInstanceOptions vs AccelerationStructureInstanceOption for it's values
+                    nameTrim = nameTrim.Replace("Options", "Option");
+
                     // Remove original name from each enum's name and value IOCompressionMethodZlib -> Zlib
-                    cleanedValueName = cleanedValueName.Replace(ogName, "");
-                    cleanedValueValue = cleanedValueValue.Replace(ogName, "");
+                    cleanedValueName = cleanedValueName.Replace(nameTrim, "");
+                    cleanedValueValue = cleanedValueValue.Replace(nameTrim, "");
 
                     // Sometimes the first character of en enum value's name will be a number after we
                     // remove the full name. In that case, add back the last part of the enum's name
@@ -126,7 +140,7 @@ namespace SharpMetal.Generator.Instances
                 }
             }
 
-            return new EnumInstance(convertedType, name, values);
+            return new EnumInstance(convertedType, name, isFlag, values);
         }
 
         [GeneratedRegex("(?<=[A-Z])(?=[A-Z][a-z])|(?<=[^A-Z])(?=[A-Z])|(?<=[A-Za-z])(?=[^A-Za-z])")]

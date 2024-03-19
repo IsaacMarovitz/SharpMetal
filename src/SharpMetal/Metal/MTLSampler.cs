@@ -4,12 +4,14 @@ using SharpMetal.Foundation;
 
 namespace SharpMetal.Metal
 {
+    [SupportedOSPlatform("macos")]
     public enum MTLSamplerMinMagFilter : ulong
     {
         Nearest = 0,
         Linear = 1,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLSamplerMipFilter : ulong
     {
         NotMipmapped = 0,
@@ -17,6 +19,7 @@ namespace SharpMetal.Metal
         Linear = 2,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLSamplerAddressMode : ulong
     {
         ClampToEdge = 0,
@@ -27,6 +30,7 @@ namespace SharpMetal.Metal
         ClampToBorderColor = 5,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLSamplerBorderColor : ulong
     {
         TransparentBlack = 0,

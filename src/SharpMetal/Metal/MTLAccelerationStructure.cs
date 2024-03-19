@@ -5,6 +5,8 @@ using SharpMetal.Foundation;
 
 namespace SharpMetal.Metal
 {
+    [SupportedOSPlatform("macos")]
+    [Flags]
     public enum MTLAccelerationStructureUsage : ulong
     {
         None = 0,
@@ -13,27 +15,32 @@ namespace SharpMetal.Metal
         ExtendedLimits = 4,
     }
 
+    [SupportedOSPlatform("macos")]
+    [Flags]
     public enum MTLAccelerationStructureInstanceOptions : uint
     {
-        AccelerationStructureInstanceOptionNone = 0,
-        AccelerationStructureInstanceOptionDisableTriangleCulling = 1,
-        AccelerationStructureInstanceOptionTriangleFrontFacingWindingCounterClockwise = 2,
-        AccelerationStructureInstanceOptionOpaque = 4,
-        AccelerationStructureInstanceOptionNonOpaque = 8,
+        None = 0,
+        DisableTriangleCulling = 1,
+        TriangleFrontFacingWindingCounterClockwise = 2,
+        Opaque = 4,
+        NonOpaque = 8,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLMotionBorderMode : uint
     {
         Clamp = 0,
         Vanish = 1,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLCurveType : long
     {
         Round = 0,
         Flat = 1,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLCurveBasis : long
     {
         BSpline = 0,
@@ -42,6 +49,7 @@ namespace SharpMetal.Metal
         Bezier = 3,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLCurveEndCaps : long
     {
         None = 0,
@@ -49,6 +57,7 @@ namespace SharpMetal.Metal
         Sphere = 2,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLAccelerationStructureInstanceDescriptorType : ulong
     {
         Default = 0,

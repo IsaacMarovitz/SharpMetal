@@ -5,6 +5,8 @@ using SharpMetal.Foundation;
 
 namespace SharpMetal.Metal
 {
+    [SupportedOSPlatform("macos")]
+    [Flags]
     public enum MTLIndirectCommandType : ulong
     {
         Draw = 1,

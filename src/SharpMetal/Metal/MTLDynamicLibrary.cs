@@ -4,6 +4,7 @@ using SharpMetal.Foundation;
 
 namespace SharpMetal.Metal
 {
+    [SupportedOSPlatform("macos")]
     public enum MTLDynamicLibraryError : ulong
     {
         None = 0,

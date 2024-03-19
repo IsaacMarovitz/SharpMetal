@@ -4,10 +4,12 @@ using SharpMetal.Foundation;
 
 namespace SharpMetal.Metal
 {
+    [SupportedOSPlatform("macos")]
+    [Flags]
     public enum MTLAccelerationStructureRefitOptions : ulong
     {
-        AccelerationStructureRefitOptionVertexData = 1,
-        AccelerationStructureRefitOptionPerPrimitiveData = 2,
+        VertexData = 1,
+        PerPrimitiveData = 2,
     }
 
     [SupportedOSPlatform("macos")]

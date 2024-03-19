@@ -4,6 +4,7 @@ using SharpMetal.Foundation;
 
 namespace SharpMetal.Metal
 {
+    [SupportedOSPlatform("macos")]
     public enum MTLIOPriority : long
     {
         High = 0,
@@ -11,12 +12,14 @@ namespace SharpMetal.Metal
         Low = 2,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLIOCommandQueueType : long
     {
         Concurrent = 0,
         Serial = 1,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLIOError : long
     {
         URLInvalid = 1,

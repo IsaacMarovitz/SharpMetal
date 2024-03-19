@@ -5,6 +5,7 @@ using SharpMetal.Foundation;
 
 namespace SharpMetal.Metal
 {
+    [SupportedOSPlatform("macos")]
     public enum MTLLoadAction : ulong
     {
         DontCare = 0,
@@ -12,6 +13,7 @@ namespace SharpMetal.Metal
         Clear = 2,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLStoreAction : ulong
     {
         DontCare = 0,
@@ -22,13 +24,16 @@ namespace SharpMetal.Metal
         CustomSampleDepthStore = 5,
     }
 
+    [SupportedOSPlatform("macos")]
+    [Flags]
     public enum MTLStoreActionOptions : ulong
     {
-        StoreActionOptionNone = 0,
-        StoreActionOptionCustomSamplePositions = 1,
-        StoreActionOptionValidMask = 1,
+        None = 0,
+        CustomSamplePositions = 1,
+        ValidMask = 1,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLMultisampleDepthResolveFilter : ulong
     {
         Sample0 = 0,
@@ -36,6 +41,7 @@ namespace SharpMetal.Metal
         Max = 2,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLMultisampleStencilResolveFilter : ulong
     {
         Sample0 = 0,

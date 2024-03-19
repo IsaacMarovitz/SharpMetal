@@ -4,6 +4,7 @@ using SharpMetal.Foundation;
 
 namespace SharpMetal.Metal
 {
+    [SupportedOSPlatform("macos")]
     public enum MTLCommandBufferStatus : ulong
     {
         NotEnqueued = 0,
@@ -14,6 +15,7 @@ namespace SharpMetal.Metal
         Error = 5,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLCommandBufferError : ulong
     {
         None = 0,
@@ -30,12 +32,15 @@ namespace SharpMetal.Metal
         StackOverflow = 12,
     }
 
+    [SupportedOSPlatform("macos")]
+    [Flags]
     public enum MTLCommandBufferErrorOption : ulong
     {
         None = 0,
         EncoderExecutionStatus = 1,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLCommandEncoderErrorState : long
     {
         Unknown = 0,
@@ -45,6 +50,7 @@ namespace SharpMetal.Metal
         Faulted = 4,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLDispatchType : ulong
     {
         Serial = 0,

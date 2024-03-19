@@ -5,6 +5,7 @@ using SharpMetal.Foundation;
 
 namespace SharpMetal.Metal
 {
+    [SupportedOSPlatform("macos")]
     public enum MTLPrimitiveType : ulong
     {
         Point = 0,
@@ -14,6 +15,7 @@ namespace SharpMetal.Metal
         TriangleStrip = 4,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLVisibilityResultMode : ulong
     {
         Disabled = 0,
@@ -21,6 +23,7 @@ namespace SharpMetal.Metal
         Counting = 2,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLCullMode : ulong
     {
         None = 0,
@@ -28,24 +31,29 @@ namespace SharpMetal.Metal
         Back = 2,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLWinding : ulong
     {
         Clockwise = 0,
         CounterClockwise = 1,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLDepthClipMode : ulong
     {
         Clip = 0,
         Clamp = 1,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLTriangleFillMode : ulong
     {
         Fill = 0,
         Lines = 1,
     }
 
+    [SupportedOSPlatform("macos")]
+    [Flags]
     public enum MTLRenderStages : ulong
     {
         RenderStageVertex = 1,

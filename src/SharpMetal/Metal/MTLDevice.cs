@@ -5,6 +5,7 @@ using SharpMetal.Foundation;
 
 namespace SharpMetal.Metal
 {
+    [SupportedOSPlatform("macos")]
     public enum MTLIOCompressionMethod : long
     {
         Zlib = 0,
@@ -14,6 +15,7 @@ namespace SharpMetal.Metal
         LZBitmap = 4,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLFeatureSet : ulong
     {
         iOSGPUFamily1v1 = 0,
@@ -55,6 +57,7 @@ namespace SharpMetal.Metal
         tvOSGPUFamily2v2 = 30005,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLGPUFamily : long
     {
         Apple1 = 1001,
@@ -76,6 +79,7 @@ namespace SharpMetal.Metal
         Metal3 = 5001,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLDeviceLocation : ulong
     {
         BuiltIn = 0,
@@ -84,6 +88,8 @@ namespace SharpMetal.Metal
         Unspecified = UInt64.MaxValue,
     }
 
+    [SupportedOSPlatform("macos")]
+    [Flags]
     public enum MTLPipelineOption : ulong
     {
         None = 0,
@@ -92,6 +98,7 @@ namespace SharpMetal.Metal
         FailOnBinaryArchiveMiss = 4,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLReadWriteTextureTier : ulong
     {
         None = 0,
@@ -99,18 +106,21 @@ namespace SharpMetal.Metal
         Tier2 = 2,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLArgumentBuffersTier : ulong
     {
         Tier1 = 0,
         Tier2 = 1,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLSparseTextureRegionAlignmentMode : ulong
     {
         Outward = 0,
         Inward = 1,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLSparsePageSize : long
     {
         Size16 = 101,
@@ -118,6 +128,7 @@ namespace SharpMetal.Metal
         Size256 = 103,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLCounterSamplingPoint : ulong
     {
         AtStageBoundary = 0,

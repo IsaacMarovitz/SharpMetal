@@ -4,6 +4,7 @@ using SharpMetal.Foundation;
 
 namespace SharpMetal.Metal
 {
+    [SupportedOSPlatform("macos")]
     public enum MTLCaptureError : long
     {
         NotSupported = 1,
@@ -11,6 +12,7 @@ namespace SharpMetal.Metal
         InvalidDescriptor = 3,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLCaptureDestination : long
     {
         DeveloperTools = 1,

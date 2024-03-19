@@ -3,6 +3,7 @@ using SharpMetal.ObjectiveCCore;
 
 namespace SharpMetal.Foundation
 {
+    [SupportedOSPlatform("macos")]
     public enum NSStringEncoding : ulong
     {
         ASCII = 1,
@@ -30,6 +31,8 @@ namespace SharpMetal.Foundation
         UTF32LittleEndian = 0x9c000100,
     }
 
+    [SupportedOSPlatform("macos")]
+    [Flags]
     public enum NSStringCompareOptions : ulong
     {
         CaseInsensitiveSearch = 1,

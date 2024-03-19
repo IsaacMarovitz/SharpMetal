@@ -4,6 +4,7 @@ using SharpMetal.Foundation;
 
 namespace SharpMetal.Metal
 {
+    [SupportedOSPlatform("macos")]
     public enum MTLPurgeableState : ulong
     {
         KeepCurrent = 1,
@@ -12,12 +13,14 @@ namespace SharpMetal.Metal
         Empty = 4,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLCPUCacheMode : ulong
     {
         DefaultCache = 0,
         WriteCombined = 1,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLStorageMode : ulong
     {
         Shared = 0,
@@ -26,6 +29,7 @@ namespace SharpMetal.Metal
         Memoryless = 3,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLHazardTrackingMode : ulong
     {
         Default = 0,
@@ -33,6 +37,8 @@ namespace SharpMetal.Metal
         Tracked = 2,
     }
 
+    [SupportedOSPlatform("macos")]
+    [Flags]
     public enum MTLResourceOptions : ulong
     {
         ResourceCPUCacheModeDefaultCache = 0,
@@ -44,8 +50,8 @@ namespace SharpMetal.Metal
         ResourceHazardTrackingModeDefault = 0,
         ResourceHazardTrackingModeUntracked = 256,
         ResourceHazardTrackingModeTracked = 512,
-        ResourceOptionCPUCacheModeDefault = 0,
-        ResourceOptionCPUCacheModeWriteCombined = 1,
+        CPUCacheModeDefault = 0,
+        CPUCacheModeWriteCombined = 1,
     }
 
     [SupportedOSPlatform("macos")]

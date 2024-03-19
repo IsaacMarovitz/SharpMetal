@@ -4,6 +4,7 @@ using SharpMetal.Foundation;
 
 namespace SharpMetal.Metal
 {
+    [SupportedOSPlatform("macos")]
     public enum MTLAttributeFormat : ulong
     {
         Invalid = 0,
@@ -62,12 +63,14 @@ namespace SharpMetal.Metal
         FloatRGB9E5 = 55,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLIndexType : ulong
     {
         UInt16 = 0,
         UInt32 = 1,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLStepFunction : ulong
     {
         Constant = 0,

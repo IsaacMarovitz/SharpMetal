@@ -4,6 +4,7 @@ using SharpMetal.Foundation;
 
 namespace SharpMetal.Metal
 {
+    [SupportedOSPlatform("macos")]
     public enum MTLPatchType : ulong
     {
         None = 0,
@@ -11,6 +12,7 @@ namespace SharpMetal.Metal
         Quad = 2,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLFunctionType : ulong
     {
         Vertex = 1,
@@ -22,6 +24,7 @@ namespace SharpMetal.Metal
         Object = 8,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLLanguageVersion : ulong
     {
         Version10 = 65536,
@@ -36,24 +39,28 @@ namespace SharpMetal.Metal
         Version31 = 196609,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLLibraryType : long
     {
         Executable = 0,
         Dynamic = 1,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLLibraryOptimizationLevel : long
     {
         Default = 0,
         Size = 1,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLCompileSymbolVisibility : long
     {
         Default = 0,
         Hidden = 1,
     }
 
+    [SupportedOSPlatform("macos")]
     public enum MTLLibraryError : ulong
     {
         Unsupported = 1,

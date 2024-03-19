@@ -4,11 +4,13 @@ using SharpMetal.Foundation;
 
 namespace SharpMetal.Metal
 {
+    [SupportedOSPlatform("macos")]
+    [Flags]
     public enum MTLFunctionOptions : ulong
     {
-        FunctionOptionNone = 0,
-        FunctionOptionCompileToBinary = 1,
-        FunctionOptionStoreFunctionInMetalScript = 2,
+        None = 0,
+        CompileToBinary = 1,
+        StoreFunctionInMetalScript = 2,
     }
 
     [SupportedOSPlatform("macos")]
