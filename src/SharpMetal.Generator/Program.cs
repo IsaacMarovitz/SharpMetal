@@ -135,13 +135,13 @@ namespace SharpMetal.Generator
                 }
             }
 
-            if (headerInfo.StructInstances.Any() || headerInfo.EnumInstances.Any())
+            if (headerInfo.StructInstances.Any())
             {
                 context.WriteLine("using System.Runtime.InteropServices;");
                 hasAnyUsings = true;
             }
 
-            if (headerInfo.StructInstances.Any() || headerInfo.ClassInstances.Any())
+            if (headerInfo.StructInstances.Any() || headerInfo.ClassInstances.Any() || headerInfo.EnumInstances.Any())
             {
                 context.WriteLine("using System.Runtime.Versioning;");
                 hasAnyUsings = true;
