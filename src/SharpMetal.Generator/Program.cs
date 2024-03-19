@@ -20,7 +20,7 @@ namespace SharpMetal.Generator
             foreach (var subDirectory in mainProjectPath.GetDirectories())
             {
                 // Get rid of this condition when this folder is also generated
-                if (subDirectory.Name != "ObjectiveC" && subDirectory.Name != "bin" && subDirectory.Name != "obj")
+                if (subDirectory.Name != "ObjectiveCCore" && subDirectory.Name != "bin" && subDirectory.Name != "obj")
                 {
                     subDirectory.Delete(true);
                 }
