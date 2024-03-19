@@ -30,51 +30,33 @@ namespace SharpMetal.Generator
             var headers = Directory.GetFiles(generatorProjectPath.FullName, "*.hpp", SearchOption.AllDirectories)
                 .Where(header => !header.Contains("Defines") && !header.Contains("Private")).ToArray();
 
-            var enumCache = new List<EnumInstance>();
-            var structCache = new List<StructInstance>();
-            var objectiveCInstances = new HashSet<ObjectiveCInstance>();
-
-            foreach (var header in headers)
-            {
-                GenerateCaches(header, ref enumCache, ref structCache);
-            }
 
             var headerInfos = new List<HeaderInfo>();
+
+            var enumCache = new List<EnumInstance>();
+            var structCache = new List<StructInstance>();
+            var classCache = new List<ClassInstance>();
 
             foreach (var header in headers)
             {
                 GenerateHeaderInfos(header, ref headerInfos);
             }
 
+            foreach (var info in headerInfos)
+            {
+                enumCache.AddRange(info.EnumInstances);
+                structCache.AddRange(info.StructInstances);
+                classCache.AddRange(info.ClassInstances);
+            }
+
+            var objectiveCInstances = new HashSet<ObjectiveCInstance>();
+
             foreach (var header in headerInfos)
             {
-                Generate(header, headerInfos, enumCache, structCache, ref objectiveCInstances);
+                Generate(header, classCache, enumCache, structCache, ref objectiveCInstances);
             }
 
             GenerateObjectiveC(objectiveCInstances);
-        }
-
-        public static void GenerateCaches(string filePath, ref List<EnumInstance> enumCache, ref List<StructInstance> structCache)
-        {
-            using var sr = new StreamReader(File.OpenRead(filePath));
-            var namespacePrefix = Namespaces.GetNamespace(filePath);
-
-            while (!sr.EndOfStream)
-            {
-                var line = sr.ReadLine();
-
-                if (line.StartsWith("struct"))
-                {
-                    if (!line.Contains(";"))
-                    {
-                        structCache.Add(StructInstance.Build(line, namespacePrefix, sr, true));
-                    }
-                }
-                else if (line.StartsWith($"_{namespacePrefix}_ENUM") || line.StartsWith($"_{namespacePrefix}_OPTIONS"))
-                {
-                    enumCache.Add(EnumInstance.Build(line, namespacePrefix, sr, true));
-                }
-            }
         }
 
         public static void GenerateHeaderInfos(string filePath, ref List<HeaderInfo> headerInfos)
@@ -89,7 +71,7 @@ namespace SharpMetal.Generator
             headerInfos.Add(headerInfo);
         }
 
-        public static void Generate(HeaderInfo headerInfo, List<HeaderInfo> headerInfos, List<EnumInstance> enumCache, List<StructInstance> structCache, ref HashSet<ObjectiveCInstance> objectiveCInstances)
+        public static void Generate(HeaderInfo headerInfo, List<ClassInstance> classCache, List<EnumInstance> enumCache, List<StructInstance> structCache, ref HashSet<ObjectiveCInstance> objectiveCInstances)
         {
             string fileName = Path.GetFileNameWithoutExtension(headerInfo.FilePath);
             var fullNamespace = Namespaces.GetFullNamespace(headerInfo.FilePath);
@@ -124,7 +106,7 @@ namespace SharpMetal.Generator
 
             for (var i = 0; i < headerInfo.ClassInstances.Count; i++)
             {
-                var instances = headerInfo.ClassInstances[i].Generate(headerInfos, enumCache, structCache, context);
+                var instances = headerInfo.ClassInstances[i].Generate(classCache, enumCache, structCache, context);
 
                 foreach (var instance in instances)
                 {

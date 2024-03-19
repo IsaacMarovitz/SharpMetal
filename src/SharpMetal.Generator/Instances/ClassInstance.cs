@@ -57,7 +57,7 @@ namespace SharpMetal.Generator.Instances
             }
         }
 
-        public List<ObjectiveCInstance> Generate(List<HeaderInfo> headerInfos, List<EnumInstance> enumCache, List<StructInstance> structCache, CodeGenContext context)
+        public List<ObjectiveCInstance> Generate(List<ClassInstance> classCache, List<EnumInstance> enumCache, List<StructInstance> structCache, CodeGenContext context)
         {
             if (_parent != string.Empty)
             {
@@ -71,14 +71,7 @@ namespace SharpMetal.Generator.Instances
                 // using classes, however that comes with performance
                 // and memory drawbacks, that structs are able to avoid.
 
-                var classInstances = new List<ClassInstance>();
-
-                foreach (var header in headerInfos)
-                {
-                    classInstances.AddRange(header.ClassInstances);
-                }
-
-                var parent = classInstances.FirstOrDefault(x => x.Name == _parent);
+                var parent = classCache.FirstOrDefault(x => x.Name == _parent);
                 _propertyInstances.AddRange(parent.PropertyInstances);
                 _methodInstances.AddRange(parent.MethodInstances);
                 _selectorInstances.AddRange(parent.SelectorInstances);
