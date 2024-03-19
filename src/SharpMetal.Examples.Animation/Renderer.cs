@@ -47,23 +47,25 @@ namespace SharpMetal.Examples.Animation
         }
         """;
 
-        private MTLDevice Device;
-        private MTLCommandQueue Queue;
-        private MTLRenderPipelineState PipelineState;
-        private MTLBuffer VertexPositionsBuffer;
-        private MTLBuffer VertexColorsBuffer;
-        private MTLBuffer ArgumentBuffer;
-        private MTLLibrary ShaderLibrary;
         private const int MaxFramesInFlight = 3;
-        private MTLBuffer[] FrameData = new MTLBuffer[MaxFramesInFlight];
-        private int Frame;
-        private float Angle;
-        const int NumVertices = 3;
+        private const int NumVertices = 3;
+
+        private MTLDevice _device;
+        private MTLCommandQueue _queue;
+        private MTLRenderPipelineState _pipelineState;
+        private MTLBuffer _vertexPositionsBuffer;
+        private MTLBuffer _vertexColorsBuffer;
+        private MTLBuffer _argumentBuffer;
+        private MTLLibrary _shaderLibrary;
+        private MTLBuffer[] _frameData = new MTLBuffer[MaxFramesInFlight];
+
+        private int _frame;
+        private float _angle;
 
         public Renderer(MTLDevice device)
         {
-            Device = device;
-            Queue = device.NewCommandQueue();
+            _device = device;
+            _queue = device.NewCommandQueue();
             BuildShaders();
             BuildBuffers();
             BuildFrameData();
@@ -78,14 +80,14 @@ namespace SharpMetal.Examples.Animation
         {
             // Build shader
             var libraryError = new NSError(IntPtr.Zero);
-            ShaderLibrary = Device.NewLibrary(StringHelper.NSString(ShaderSource), new(IntPtr.Zero), ref libraryError);
+            _shaderLibrary = _device.NewLibrary(StringHelper.NSString(ShaderSource), new(IntPtr.Zero), ref libraryError);
             if (libraryError != IntPtr.Zero)
             {
                 throw new Exception($"Failed to create library! {StringHelper.String(libraryError.LocalizedDescription)}");
             }
 
-            var vertexFunction = ShaderLibrary.NewFunction(StringHelper.NSString("vertexMain"));
-            var fragmentFunction = ShaderLibrary.NewFunction(StringHelper.NSString("fragmentMain"));
+            var vertexFunction = _shaderLibrary.NewFunction(StringHelper.NSString("vertexMain"));
+            var fragmentFunction = _shaderLibrary.NewFunction(StringHelper.NSString("fragmentMain"));
 
             // Build pipeline
             var pipeline = new MTLRenderPipelineDescriptor();
@@ -96,7 +98,7 @@ namespace SharpMetal.Examples.Animation
             pipeline.ColorAttachments.SetObject(colorAttachment, 0);
 
             var pipelineStateError = new NSError(IntPtr.Zero);
-            PipelineState = Device.NewRenderPipelineState(pipeline, ref pipelineStateError);
+            _pipelineState = _device.NewRenderPipelineState(pipeline, ref pipelineStateError);
             if (pipelineStateError != IntPtr.Zero)
             {
                 throw new Exception($"Failed to create render pipeline state! {StringHelper.String(pipelineStateError.LocalizedDescription)}");
@@ -123,54 +125,54 @@ namespace SharpMetal.Examples.Animation
             var positionsDataSize = (ulong)(NumVertices * Marshal.SizeOf<Vector4>());
             var colorsDataSize = (ulong)(NumVertices * Marshal.SizeOf<Vector4>());
 
-            VertexPositionsBuffer = Device.NewBuffer(positionsDataSize, MTLResourceOptions.ResourceStorageModeManaged);
-            VertexColorsBuffer = Device.NewBuffer(colorsDataSize, MTLResourceOptions.ResourceStorageModeManaged);
+            _vertexPositionsBuffer = _device.NewBuffer(positionsDataSize, MTLResourceOptions.ResourceStorageModeManaged);
+            _vertexColorsBuffer = _device.NewBuffer(colorsDataSize, MTLResourceOptions.ResourceStorageModeManaged);
 
-            BufferHelper.CopyToBuffer(positions, VertexPositionsBuffer);
-            BufferHelper.CopyToBuffer(colors, VertexColorsBuffer);
+            BufferHelper.CopyToBuffer(positions, _vertexPositionsBuffer);
+            BufferHelper.CopyToBuffer(colors, _vertexColorsBuffer);
 
-            VertexPositionsBuffer.DidModifyRange(new NSRange
+            _vertexPositionsBuffer.DidModifyRange(new NSRange
             {
                 location = 0,
-                length = VertexPositionsBuffer.Length
+                length = _vertexPositionsBuffer.Length
             });
-            VertexColorsBuffer.DidModifyRange(new NSRange
+            _vertexColorsBuffer.DidModifyRange(new NSRange
             {
                 location = 0,
-                length = VertexColorsBuffer.Length
+                length = _vertexColorsBuffer.Length
             });
 
-            var vertexFunction = ShaderLibrary.NewFunction(StringHelper.NSString("vertexMain"));
+            var vertexFunction = _shaderLibrary.NewFunction(StringHelper.NSString("vertexMain"));
             var argumentEncoder = vertexFunction.NewArgumentEncoder(0);
-            ArgumentBuffer = Device.NewBuffer(argumentEncoder.EncodedLength, MTLResourceOptions.ResourceStorageModeManaged);
-            argumentEncoder.SetArgumentBuffer(ArgumentBuffer, 0);
-            argumentEncoder.SetBuffer(VertexPositionsBuffer, 0, 0);
-            argumentEncoder.SetBuffer(VertexColorsBuffer, 0, 1);
+            _argumentBuffer = _device.NewBuffer(argumentEncoder.EncodedLength, MTLResourceOptions.ResourceStorageModeManaged);
+            argumentEncoder.SetArgumentBuffer(_argumentBuffer, 0);
+            argumentEncoder.SetBuffer(_vertexPositionsBuffer, 0, 0);
+            argumentEncoder.SetBuffer(_vertexColorsBuffer, 0, 1);
 
-            ArgumentBuffer.DidModifyRange(new NSRange
+            _argumentBuffer.DidModifyRange(new NSRange
             {
                 location = 0,
-                length = ArgumentBuffer.Length
+                length = _argumentBuffer.Length
             });
         }
 
         private void BuildFrameData()
         {
-            for (int i = 0; i < FrameData.Length; i++)
+            for (int i = 0; i < _frameData.Length; i++)
             {
-                FrameData[i] = Device.NewBuffer((ulong)Marshal.SizeOf<FrameData>(), MTLResourceOptions.ResourceStorageModeManaged);
+                _frameData[i] = _device.NewBuffer((ulong)Marshal.SizeOf<FrameData>(), MTLResourceOptions.ResourceStorageModeManaged);
             }
         }
 
         public void Draw(MTKView view)
         {
-            Frame = (Frame + 1) % MaxFramesInFlight;
-            var frameDataBuffer = FrameData[Frame];
+            _frame = (_frame + 1) % MaxFramesInFlight;
+            var frameDataBuffer = _frameData[_frame];
 
             unsafe
             {
                 FrameData* pFrameData = (FrameData*)frameDataBuffer.Contents.ToPointer();
-                pFrameData->Angle = Angle += 0.01f;
+                pFrameData->Angle = _angle += 0.01f;
                 frameDataBuffer.DidModifyRange(new NSRange
                 {
                     location = 0,
@@ -178,14 +180,14 @@ namespace SharpMetal.Examples.Animation
                 });
             }
 
-            var buffer = Queue.CommandBuffer();
+            var buffer = _queue.CommandBuffer();
             var renderPassDescriptor = view.CurrentRenderPassDescriptor;
             var encoder = buffer.RenderCommandEncoder(renderPassDescriptor);
 
-            encoder.SetRenderPipelineState(PipelineState);
-            encoder.SetVertexBuffer(ArgumentBuffer, 0, 0);
-            encoder.UseResource(VertexPositionsBuffer, MTLResourceUsage.Read);
-            encoder.UseResource(VertexColorsBuffer, MTLResourceUsage.Read);
+            encoder.SetRenderPipelineState(_pipelineState);
+            encoder.SetVertexBuffer(_argumentBuffer, 0, 0);
+            encoder.UseResource(_vertexPositionsBuffer, MTLResourceUsage.Read);
+            encoder.UseResource(_vertexColorsBuffer, MTLResourceUsage.Read);
 
             encoder.SetVertexBuffer(frameDataBuffer, 0, 1);
             encoder.DrawPrimitives(MTLPrimitiveType.Triangle, 0, NumVertices);

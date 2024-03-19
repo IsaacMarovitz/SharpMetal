@@ -131,18 +131,6 @@ namespace SharpMetal.Examples.ComputeToRender
         }
         """;
 
-        private MTLDevice Device;
-        private MTLCommandQueue Queue;
-        private MTLRenderPipelineState RenderPipelineState;
-        private MTLComputePipelineState ComputePipelineState;
-        private MTLDepthStencilState DepthStencilState;
-        private MTLLibrary ShaderLibrary;
-        private MTLTexture Texture;
-        private MTLBuffer VertexBuffer;
-        private MTLBuffer IndexBuffer;
-        private MTLBuffer TextureAnimationBuffer;
-        private MTLBuffer[] InstanceDataBuffer = new MTLBuffer[MaxFramesInFlight];
-        private MTLBuffer[] CameraDataBuffer = new MTLBuffer[MaxFramesInFlight];
         private const int MaxFramesInFlight = 3;
         private const int TextureWidth = 128;
         private const int TextureHeight = 128;
@@ -150,14 +138,28 @@ namespace SharpMetal.Examples.ComputeToRender
         private const int InstanceColumns = 10;
         private const int InstanceDepth = 10;
         private const int TotalInstances = InstanceRows * InstanceColumns * InstanceDepth;
-        private int Frame;
-        private float Angle;
-        private uint AnimationIndex;
+
+        private MTLDevice _device;
+        private MTLCommandQueue _queue;
+        private MTLRenderPipelineState _renderPipelineState;
+        private MTLComputePipelineState _computePipelineState;
+        private MTLDepthStencilState _depthStencilState;
+        private MTLLibrary _shaderLibrary;
+        private MTLTexture _texture;
+        private MTLBuffer _vertexBuffer;
+        private MTLBuffer _indexBuffer;
+        private MTLBuffer _textureAnimationBuffer;
+        private MTLBuffer[] _instanceDataBuffer = new MTLBuffer[MaxFramesInFlight];
+        private MTLBuffer[] _cameraDataBuffer = new MTLBuffer[MaxFramesInFlight];
+
+        private int _frame;
+        private float _angle;
+        private uint _animationIndex;
 
         public Renderer(MTLDevice device)
         {
-            Device = device;
-            Queue = device.NewCommandQueue();
+            _device = device;
+            _queue = device.NewCommandQueue();
 
             BuildShaders();
             BuildComputePipeline();
@@ -175,14 +177,14 @@ namespace SharpMetal.Examples.ComputeToRender
         {
             // Build shader
             var libraryError = new NSError(IntPtr.Zero);
-            ShaderLibrary = Device.NewLibrary(StringHelper.NSString(ShaderSource), new(IntPtr.Zero), ref libraryError);
+            _shaderLibrary = _device.NewLibrary(StringHelper.NSString(ShaderSource), new(IntPtr.Zero), ref libraryError);
             if (libraryError != IntPtr.Zero)
             {
                 throw new Exception($"Failed to create library! {StringHelper.String(libraryError.LocalizedDescription)}");
             }
 
-            var vertexFunction = ShaderLibrary.NewFunction(StringHelper.NSString("vertexMain"));
-            var fragmentFunction = ShaderLibrary.NewFunction(StringHelper.NSString("fragmentMain"));
+            var vertexFunction = _shaderLibrary.NewFunction(StringHelper.NSString("vertexMain"));
+            var fragmentFunction = _shaderLibrary.NewFunction(StringHelper.NSString("fragmentMain"));
 
             // Build pipeline
             var pipeline = new MTLRenderPipelineDescriptor();
@@ -194,7 +196,7 @@ namespace SharpMetal.Examples.ComputeToRender
             pipeline.DepthAttachmentPixelFormat = MTLPixelFormat.Depth16Unorm;
 
             var pipelineStateError = new NSError(IntPtr.Zero);
-            RenderPipelineState = Device.NewRenderPipelineState(pipeline, ref pipelineStateError);
+            _renderPipelineState = _device.NewRenderPipelineState(pipeline, ref pipelineStateError);
             if (pipelineStateError != IntPtr.Zero)
             {
                 throw new Exception($"Failed to create render pipeline state! {StringHelper.String(pipelineStateError.LocalizedDescription)}");
@@ -204,14 +206,14 @@ namespace SharpMetal.Examples.ComputeToRender
         private void BuildComputePipeline()
         {
             var error = new NSError(IntPtr.Zero);
-            var library = Device.NewLibrary(StringHelper.NSString(KernelSource), new(IntPtr.Zero), ref error);
+            var library = _device.NewLibrary(StringHelper.NSString(KernelSource), new(IntPtr.Zero), ref error);
             if (error != IntPtr.Zero)
             {
                 throw new Exception($"Failed to create library! {StringHelper.String(error.LocalizedDescription)}");
             }
 
             var mandelbrotFunction = library.NewFunction(StringHelper.NSString("mandelbrot_set"));
-            ComputePipelineState = Device.NewComputePipelineState(mandelbrotFunction, ref error);
+            _computePipelineState = _device.NewComputePipelineState(mandelbrotFunction, ref error);
             if (error != IntPtr.Zero)
             {
                 throw new Exception($"Failed to create compute pipline state! {StringHelper.String(error.LocalizedDescription)}");
@@ -224,7 +226,7 @@ namespace SharpMetal.Examples.ComputeToRender
             descriptor.DepthCompareFunction = MTLCompareFunction.Less;
             descriptor.DepthWriteEnabled = true;
 
-            DepthStencilState = Device.NewDepthStencilState(descriptor);
+            _depthStencilState = _device.NewDepthStencilState(descriptor);
         }
 
         private void BuildTextures()
@@ -237,7 +239,7 @@ namespace SharpMetal.Examples.ComputeToRender
             descriptor.StorageMode = MTLStorageMode.Managed;
             descriptor.Usage = MTLTextureUsage.ShaderRead | MTLTextureUsage.ShaderWrite | MTLTextureUsage.RenderTarget;
 
-            Texture = Device.NewTexture(descriptor);
+            _texture = _device.NewTexture(descriptor);
         }
 
         private void BuildBuffers()
@@ -290,43 +292,43 @@ namespace SharpMetal.Examples.ComputeToRender
             var vertexDataSize = (ulong)(Unsafe.SizeOf<VertexData>() * verts.Length);
             var indexDataSize = (ulong)(sizeof(ushort) * indices.Length);
 
-            VertexBuffer = Device.NewBuffer(vertexDataSize, MTLResourceOptions.ResourceStorageModeManaged);
-            IndexBuffer = Device.NewBuffer(indexDataSize, MTLResourceOptions.ResourceStorageModeManaged);
+            _vertexBuffer = _device.NewBuffer(vertexDataSize, MTLResourceOptions.ResourceStorageModeManaged);
+            _indexBuffer = _device.NewBuffer(indexDataSize, MTLResourceOptions.ResourceStorageModeManaged);
 
-            BufferHelper.CopyToBuffer(verts, VertexBuffer);
-            BufferHelper.CopyToBuffer(indices, IndexBuffer);
+            BufferHelper.CopyToBuffer(verts, _vertexBuffer);
+            BufferHelper.CopyToBuffer(indices, _indexBuffer);
 
-            VertexBuffer.DidModifyRange(new NSRange
+            _vertexBuffer.DidModifyRange(new NSRange
             {
                 location = 0,
-                length = VertexBuffer.Length
+                length = _vertexBuffer.Length
             });
-            IndexBuffer.DidModifyRange(new NSRange
+            _indexBuffer.DidModifyRange(new NSRange
             {
                 location = 0,
-                length = IndexBuffer.Length
+                length = _indexBuffer.Length
             });
 
             var instanceDataSize = (ulong)(MaxFramesInFlight * TotalInstances * Marshal.SizeOf<InstanceData>());
             for (int i = 0; i < MaxFramesInFlight; i++)
             {
-                InstanceDataBuffer[i] = Device.NewBuffer(instanceDataSize, MTLResourceOptions.ResourceStorageModeManaged);
+                _instanceDataBuffer[i] = _device.NewBuffer(instanceDataSize, MTLResourceOptions.ResourceStorageModeManaged);
             }
 
             var cameraDataSize = (ulong)(MaxFramesInFlight * TotalInstances * Marshal.SizeOf<CameraData>());
             for (int i = 0; i < MaxFramesInFlight; i++)
             {
-                CameraDataBuffer[i] = Device.NewBuffer(cameraDataSize, MTLResourceOptions.ResourceStorageModeManaged);
+                _cameraDataBuffer[i] = _device.NewBuffer(cameraDataSize, MTLResourceOptions.ResourceStorageModeManaged);
             }
 
-            TextureAnimationBuffer = Device.NewBuffer(sizeof(uint), MTLResourceOptions.ResourceStorageModeManaged);
+            _textureAnimationBuffer = _device.NewBuffer(sizeof(uint), MTLResourceOptions.ResourceStorageModeManaged);
         }
 
         public unsafe void GenerateMandelbrotTexture(MTLCommandBuffer commandBuffer)
         {
-            uint* animationIndex = (uint*)TextureAnimationBuffer.Contents.ToPointer();
-            animationIndex[0] = AnimationIndex++ % 500;
-            TextureAnimationBuffer.DidModifyRange(new NSRange
+            uint* animationIndex = (uint*)_textureAnimationBuffer.Contents.ToPointer();
+            animationIndex[0] = _animationIndex++ % 500;
+            _textureAnimationBuffer.DidModifyRange(new NSRange
             {
                 location = 0,
                 length = sizeof(uint)
@@ -334,13 +336,13 @@ namespace SharpMetal.Examples.ComputeToRender
 
             var computeEncoder = commandBuffer.ComputeCommandEncoder();
 
-            computeEncoder.SetComputePipelineState(ComputePipelineState);
-            computeEncoder.SetTexture(Texture, 0);
-            computeEncoder.SetBuffer(TextureAnimationBuffer, 0, 0);
+            computeEncoder.SetComputePipelineState(_computePipelineState);
+            computeEncoder.SetTexture(_texture, 0);
+            computeEncoder.SetBuffer(_textureAnimationBuffer, 0, 0);
 
             var gridSize = new MTLSize { width = TextureWidth, height = TextureHeight, depth = 1 };
 
-            var maxThreads = ComputePipelineState.MaxTotalThreadsPerThreadgroup;
+            var maxThreads = _computePipelineState.MaxTotalThreadsPerThreadgroup;
             var threadGroupSize = new MTLSize { width = maxThreads, height = 1, depth = 1 };
 
             computeEncoder.DispatchThreads(gridSize, threadGroupSize);
@@ -350,19 +352,19 @@ namespace SharpMetal.Examples.ComputeToRender
 
         public unsafe void Draw(MTKView view)
         {
-            Frame = (Frame + 1) % MaxFramesInFlight;
-            var instanceDataBuffer = InstanceDataBuffer[Frame];
+            _frame = (_frame + 1) % MaxFramesInFlight;
+            var instanceDataBuffer = _instanceDataBuffer[_frame];
 
             InstanceData* pInstanceData = (InstanceData*)instanceDataBuffer.Contents.ToPointer();
 
-            Angle += 0.002f;
+            _angle += 0.002f;
 
             const float scale = 0.2f;
             var objectPosition = new Vector3(0.0f, 0.0f, -10.0f);
 
             var rt = Matrix4x4.CreateTranslation(objectPosition);
-            var rr1 = Matrix4x4.CreateRotationY(-Angle);
-            var rr0 = Matrix4x4.CreateRotationX(Angle * 0.5f);
+            var rr1 = Matrix4x4.CreateRotationY(-_angle);
+            var rr0 = Matrix4x4.CreateRotationX(_angle * 0.5f);
             var rtInv = Matrix4x4.CreateTranslation(-objectPosition);
             var fullObjectRotation = rtInv * rr0 * rr1 * rt;
 
@@ -383,8 +385,8 @@ namespace SharpMetal.Examples.ComputeToRender
                 }
 
                 var scaleMatrix = Matrix4x4.CreateScale(new Vector3(scale, scale, scale));
-                var zRotation = Matrix4x4.CreateRotationZ(Angle * float.Sin(indexX));
-                var yRotation = Matrix4x4.CreateRotationY(Angle * float.Cos(indexY));
+                var zRotation = Matrix4x4.CreateRotationZ(_angle * float.Sin(indexX));
+                var yRotation = Matrix4x4.CreateRotationY(_angle * float.Cos(indexY));
 
                 var x = (indexX - InstanceRows / 2.0f) * (2.0f * scale) + scale;
                 var y = (indexY - InstanceColumns / 2.0f) * (2.0f * scale) + scale;
@@ -415,7 +417,7 @@ namespace SharpMetal.Examples.ComputeToRender
                 length = instanceDataBuffer.Length
             });
 
-            var cameraDataBuffer = CameraDataBuffer[Frame];
+            var cameraDataBuffer = _cameraDataBuffer[_frame];
             var cameraTransform = Matrix4x4.Identity;
             CameraData* pCameraData = (CameraData*)cameraDataBuffer.Contents.ToPointer();
             pCameraData->perspectiveTransform = Matrix4x4.CreatePerspectiveFieldOfView(45.0f * float.Pi / 180.0f, 1.0f, 0.03f, 500.0f);
@@ -432,25 +434,25 @@ namespace SharpMetal.Examples.ComputeToRender
                 length = (ulong)Marshal.SizeOf<CameraData>()
             });
 
-            var buffer = Queue.CommandBuffer();
+            var buffer = _queue.CommandBuffer();
             GenerateMandelbrotTexture(buffer);
 
             var descriptor = view.CurrentRenderPassDescriptor;
             var encoder = buffer.RenderCommandEncoder(descriptor);
 
-            encoder.SetRenderPipelineState(RenderPipelineState);
-            encoder.SetDepthStencilState(DepthStencilState);
+            encoder.SetRenderPipelineState(_renderPipelineState);
+            encoder.SetDepthStencilState(_depthStencilState);
 
-            encoder.SetVertexBuffer(VertexBuffer, 0, 0);
+            encoder.SetVertexBuffer(_vertexBuffer, 0, 0);
             encoder.SetVertexBuffer(instanceDataBuffer, 0, 1);
             encoder.SetVertexBuffer(cameraDataBuffer, 0, 2);
 
-            encoder.SetFragmentTexture(Texture, 0);
+            encoder.SetFragmentTexture(_texture, 0);
 
             encoder.SetCullMode(MTLCullMode.Back);
             encoder.SetFrontFacingWinding(MTLWinding.CounterClockwise);
 
-            encoder.DrawIndexedPrimitives(MTLPrimitiveType.Triangle, 6 * 6, MTLIndexType.UInt16, IndexBuffer, 0, TotalInstances);
+            encoder.DrawIndexedPrimitives(MTLPrimitiveType.Triangle, 6 * 6, MTLIndexType.UInt16, _indexBuffer, 0, TotalInstances);
 
             encoder.EndEncoding();
             buffer.PresentDrawable(view.CurrentDrawable);
@@ -459,18 +461,11 @@ namespace SharpMetal.Examples.ComputeToRender
     }
 
     [StructLayout(LayoutKind.Sequential, Size = 48)]
-    public struct VertexData
+    public struct VertexData(Vector4 position, Vector4 normal, Vector2 texcoord)
     {
-        public Vector4 position;
-        public Vector4 normal;
-        public Vector2 texcoord;
-
-        public VertexData(Vector4 position, Vector4 normal, Vector2 texcoord)
-        {
-            this.position = position;
-            this.normal = normal;
-            this.texcoord = texcoord;
-        }
+        public Vector4 position = position;
+        public Vector4 normal = normal;
+        public Vector2 texcoord = texcoord;
     }
 
     [StructLayout(LayoutKind.Sequential)]

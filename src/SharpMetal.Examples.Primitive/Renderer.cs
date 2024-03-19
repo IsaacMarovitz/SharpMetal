@@ -36,17 +36,18 @@ namespace SharpMetal.Examples.Primitive
         }
         """;
 
-        private MTLDevice Device;
-        private MTLCommandQueue Queue;
-        private MTLRenderPipelineState PipelineState;
-        private MTLBuffer VertexPositionsBuffer;
-        private MTLBuffer VertexColorsBuffer;
         const int NumVertices = 3;
+
+        private MTLDevice _device;
+        private MTLCommandQueue _queue;
+        private MTLRenderPipelineState _pipelineState;
+        private MTLBuffer _vertexPositionsBuffer;
+        private MTLBuffer _vertexColorsBuffer;
 
         public Renderer(MTLDevice device)
         {
-            Device = device;
-            Queue = device.NewCommandQueue();
+            _device = device;
+            _queue = device.NewCommandQueue();
             BuildShaders();
             BuildBuffers();
         }
@@ -60,7 +61,7 @@ namespace SharpMetal.Examples.Primitive
         {
             // Build shader
             var libraryError = new NSError(IntPtr.Zero);
-            var library = Device.NewLibrary(StringHelper.NSString(ShaderSource), new(IntPtr.Zero), ref libraryError);
+            var library = _device.NewLibrary(StringHelper.NSString(ShaderSource), new(IntPtr.Zero), ref libraryError);
             if (libraryError != IntPtr.Zero)
             {
                 throw new Exception($"Failed to create library! {StringHelper.String(libraryError.LocalizedDescription)}");
@@ -79,7 +80,7 @@ namespace SharpMetal.Examples.Primitive
             pipeline.ColorAttachments.SetObject(colorAttachment, 0);
 
             var pipelineStateError = new NSError(IntPtr.Zero);
-            PipelineState = Device.NewRenderPipelineState(pipeline, ref pipelineStateError);
+            _pipelineState = _device.NewRenderPipelineState(pipeline, ref pipelineStateError);
             if (pipelineStateError != IntPtr.Zero)
             {
                 throw new Exception($"Failed to create render pipeline state! {StringHelper.String(pipelineStateError.LocalizedDescription)}");
@@ -106,33 +107,33 @@ namespace SharpMetal.Examples.Primitive
             var positionsDataSize = (ulong)(NumVertices * Marshal.SizeOf<Vector4>());
             var colorsDataSize = (ulong)(NumVertices * Marshal.SizeOf<Vector4>());
 
-            VertexPositionsBuffer = Device.NewBuffer(positionsDataSize, MTLResourceOptions.ResourceStorageModeManaged);
-            VertexColorsBuffer = Device.NewBuffer(colorsDataSize, MTLResourceOptions.ResourceStorageModeManaged);
+            _vertexPositionsBuffer = _device.NewBuffer(positionsDataSize, MTLResourceOptions.ResourceStorageModeManaged);
+            _vertexColorsBuffer = _device.NewBuffer(colorsDataSize, MTLResourceOptions.ResourceStorageModeManaged);
 
-            BufferHelper.CopyToBuffer(positions, VertexPositionsBuffer);
-            BufferHelper.CopyToBuffer(colors, VertexColorsBuffer);
+            BufferHelper.CopyToBuffer(positions, _vertexPositionsBuffer);
+            BufferHelper.CopyToBuffer(colors, _vertexColorsBuffer);
 
-            VertexPositionsBuffer.DidModifyRange(new NSRange
+            _vertexPositionsBuffer.DidModifyRange(new NSRange
             {
                 location = 0,
-                length = VertexPositionsBuffer.Length
+                length = _vertexPositionsBuffer.Length
             });
-            VertexColorsBuffer.DidModifyRange(new NSRange
+            _vertexColorsBuffer.DidModifyRange(new NSRange
             {
                 location = 0,
-                length = VertexColorsBuffer.Length
+                length = _vertexColorsBuffer.Length
             });
         }
 
         public void Draw(MTKView mtkView)
         {
-            var buffer = Queue.CommandBuffer();
+            var buffer = _queue.CommandBuffer();
             var renderPassDescriptor = mtkView.CurrentRenderPassDescriptor;
             var encoder = buffer.RenderCommandEncoder(renderPassDescriptor);
 
-            encoder.SetRenderPipelineState(PipelineState);
-            encoder.SetVertexBuffer(VertexPositionsBuffer, 0, 0);
-            encoder.SetVertexBuffer(VertexColorsBuffer, 0, 1);
+            encoder.SetRenderPipelineState(_pipelineState);
+            encoder.SetVertexBuffer(_vertexPositionsBuffer, 0, 0);
+            encoder.SetVertexBuffer(_vertexColorsBuffer, 0, 1);
             encoder.DrawPrimitives(MTLPrimitiveType.Triangle, 0, NumVertices);
 
             encoder.EndEncoding();
