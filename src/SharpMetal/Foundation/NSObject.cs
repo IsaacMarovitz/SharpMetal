@@ -4,17 +4,6 @@ using SharpMetal.ObjectiveCCore;
 namespace SharpMetal.Foundation
 {
     [SupportedOSPlatform("macos")]
-    public struct NS_NS_EXPORT
-    {
-        public IntPtr NativePtr;
-        public static implicit operator IntPtr(NS_NS_EXPORT obj) => obj.NativePtr;
-        public NS_NS_EXPORT(IntPtr ptr) => NativePtr = ptr;
-
-
-
-    }
-
-    [SupportedOSPlatform("macos")]
     public struct NSCopying
     {
         public IntPtr NativePtr;
