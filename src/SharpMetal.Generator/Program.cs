@@ -135,7 +135,7 @@ namespace SharpMetal.Generator
                 }
             }
 
-            if (headerInfo.StructInstances.Any())
+            if (headerInfo.StructInstances.Any() || headerInfo.EnumInstances.Any())
             {
                 context.WriteLine("using System.Runtime.InteropServices;");
                 hasAnyUsings = true;
