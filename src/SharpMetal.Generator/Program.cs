@@ -30,7 +30,6 @@ namespace SharpMetal.Generator
             var headers = Directory.GetFiles(generatorProjectPath.FullName, "*.hpp", SearchOption.AllDirectories)
                 .Where(header => !header.Contains("Defines") && !header.Contains("Private")).ToArray();
 
-
             var headerInfos = new List<HeaderInfo>();
 
             var enumCache = new List<EnumInstance>();
@@ -39,14 +38,15 @@ namespace SharpMetal.Generator
 
             foreach (var header in headers)
             {
-                GenerateHeaderInfos(header, ref headerInfos);
-            }
+                var info = GenerateHeaderInfo(header);
 
-            foreach (var info in headerInfos)
-            {
-                enumCache.AddRange(info.EnumInstances);
-                structCache.AddRange(info.StructInstances);
-                classCache.AddRange(info.ClassInstances);
+                if (info != null)
+                {
+                    headerInfos.Add(info);
+                    enumCache.AddRange(info.EnumInstances);
+                    structCache.AddRange(info.StructInstances);
+                    classCache.AddRange(info.ClassInstances);
+                }
             }
 
             var objectiveCInstances = new HashSet<ObjectiveCInstance>();
@@ -59,16 +59,16 @@ namespace SharpMetal.Generator
             GenerateObjectiveC(objectiveCInstances);
         }
 
-        public static void GenerateHeaderInfos(string filePath, ref List<HeaderInfo> headerInfos)
+        public static HeaderInfo? GenerateHeaderInfo(string filePath)
         {
             var headerInfo = new HeaderInfo(filePath);
 
             if (headerInfo.StructInstances.Count == 0 && headerInfo.ClassInstances.Count == 0 && headerInfo.EnumInstances.Count == 0)
             {
-                return;
+                return null;
             }
 
-            headerInfos.Add(headerInfo);
+            return headerInfo;
         }
 
         public static void Generate(HeaderInfo headerInfo, List<ClassInstance> classCache, List<EnumInstance> enumCache, List<StructInstance> structCache, ref HashSet<ObjectiveCInstance> objectiveCInstances)
