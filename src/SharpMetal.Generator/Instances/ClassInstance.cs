@@ -332,7 +332,7 @@ namespace SharpMetal.Generator.Instances
                         // Event is a keyword in C#
                         if (argumentName == "event")
                         {
-                            argumentName = "mltEvent";
+                            argumentName = "mtlEvent";
                         }
 
                         if (argumentType == "NSError")

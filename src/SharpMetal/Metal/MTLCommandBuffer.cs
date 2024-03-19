@@ -200,14 +200,14 @@ namespace SharpMetal.Metal
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_computeCommandEncoderWithDispatchType, (ulong)dispatchType));
         }
 
-        public void EncodeWait(MTLEvent mltEvent, ulong value)
+        public void EncodeWait(MTLEvent mtlEvent, ulong value)
         {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_encodeWaitForEventvalue, mltEvent, value);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_encodeWaitForEventvalue, mtlEvent, value);
         }
 
-        public void EncodeSignalEvent(MTLEvent mltEvent, ulong value)
+        public void EncodeSignalEvent(MTLEvent mtlEvent, ulong value)
         {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_encodeSignalEventvalue, mltEvent, value);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_encodeSignalEventvalue, mtlEvent, value);
         }
 
         public MTLParallelRenderCommandEncoder ParallelRenderCommandEncoder(MTLRenderPassDescriptor renderPassDescriptor)

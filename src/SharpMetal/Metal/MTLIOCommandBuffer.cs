@@ -84,14 +84,14 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_enqueue);
         }
 
-        public void Wait(MTLSharedEvent mltEvent, ulong value)
+        public void Wait(MTLSharedEvent mtlEvent, ulong value)
         {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_waitForEventvalue, mltEvent, value);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_waitForEventvalue, mtlEvent, value);
         }
 
-        public void SignalEvent(MTLSharedEvent mltEvent, ulong value)
+        public void SignalEvent(MTLSharedEvent mtlEvent, ulong value)
         {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_signalEventvalue, mltEvent, value);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_signalEventvalue, mtlEvent, value);
         }
 
         private static readonly Selector sel_loadBytessizesourceHandlesourceHandleOffset = "loadBytes:size:sourceHandle:sourceHandleOffset:";
