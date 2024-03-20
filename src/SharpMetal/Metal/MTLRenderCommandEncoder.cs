@@ -265,7 +265,7 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setViewport, viewport);
         }
 
-        public void SetViewports(MTLViewport viewports, ulong count)
+        public void SetViewports(IntPtr viewports, ulong count)
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setViewportscount, viewports, count);
         }
@@ -300,7 +300,7 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setScissorRect, rect);
         }
 
-        public void SetScissorRects(MTLScissorRect scissorRects, ulong count)
+        public void SetScissorRects(IntPtr scissorRects, ulong count)
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setScissorRectscount, scissorRects, count);
         }
