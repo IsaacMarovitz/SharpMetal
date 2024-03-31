@@ -52,7 +52,7 @@ namespace SharpMetal.Generator.Instances
                 context.WriteLine("[Flags]");
             }
 
-            context.WriteLine($"public enum {name} : {StringUtils.TypeToString(type).Item2}");
+            context.WriteLine($"public enum {name} : {StringUtils.TypeToString(type).Type}");
             context.EnterScope();
 
             foreach (var value in valuesDict)

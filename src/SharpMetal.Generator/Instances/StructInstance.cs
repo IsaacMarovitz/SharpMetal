@@ -24,12 +24,12 @@ namespace SharpMetal.Generator.Instances
             {
                 var type = StringUtils.TypeToString(field.Type);
 
-                foreach (var attribute in type.Item1)
+                foreach (var attribute in type.Attributes)
                 {
                     context.WriteLine(attribute);
                 }
 
-                context.WriteLine($"{StringUtils.VisibilityToString(field.Visibility)} {type.Item2} {field.Name};");
+                context.WriteLine($"{StringUtils.VisibilityToString(field.Visibility)} {type.Type} {field.Name};");
             }
 
             context.LeaveScope();

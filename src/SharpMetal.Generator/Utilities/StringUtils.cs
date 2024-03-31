@@ -4,40 +4,6 @@ namespace SharpMetal.Generator.Utilities
 {
     public static class StringUtils
     {
-        /// <summary>
-        /// Turns camelCase text to PascaleCase.
-        /// </summary>
-        /// <param name="value">Input value in camelCase</param>
-        /// <returns>Input value in PascaleCase</returns>
-        public static string CamelToPascale(string value)
-        {
-            if (value != string.Empty)
-            {
-                var firstChar = char.ToUpper(value[0]);
-                return firstChar + value[1..];
-            }
-
-            return value;
-        }
-
-        public static string FunctionSignatureCleanup(string value)
-        {
-            value = value.Replace(";", "");
-            value = value.Replace("~", "Destroy");
-            value = value.Replace("::", "");
-            value = value.Replace("void*", "IntPtr");
-            value = value.Replace("void()", "void");
-            value = value.Replace("*", "");
-            value = value.Replace("class ", "");
-            value = value.Replace("const ", "");
-            return value;
-        }
-
-        public static bool IsValidFunctionSignature(string value)
-        {
-            return !(value.Contains("template") || value.Contains("^") || value.Contains("=") || value.Contains("typename") || value.Contains("operator") || value.Contains("std::function") || value.Contains("Handler") || value.Contains("Observer"));
-        }
-
         public static string VisibilityToString(CppVisibility visibility)
         {
             return visibility switch
@@ -64,36 +30,56 @@ namespace SharpMetal.Generator.Utilities
         /// <exception cref="NotImplementedException">
         /// Thrown when the given <c>CppTypeKind</c> has not been implemented.
         /// </exception>
-        public static (string[], string) TypeToString(CppType type)
+        public static StringiseArgs TypeToString(CppType type)
         {
             var primitiveType = TypeToPrimitive(type);
 
             if (primitiveType is CppClass cppClass)
             {
-                return ([], cppClass.Name);
+                return new StringiseArgs
+                {
+                    Attributes = [],
+                    Type = cppClass.Name
+                };
             }
 
             if (primitiveType is CppEnum cppEnum)
             {
-                return ([], cppEnum.Name);
+                return new StringiseArgs
+                {
+                    Attributes = [],
+                    Type = cppEnum.Name
+                };
             }
 
             if (primitiveType is CppPrimitiveType cppPrimitiveType)
             {
-                return ([], PrimitiveToString(cppPrimitiveType.Kind));
+                return new StringiseArgs
+                {
+                    Attributes = [],
+                    Type = PrimitiveToString(cppPrimitiveType.Kind)
+                };
             }
 
             if (primitiveType is CppArrayType cppArrayType)
             {
                 var size = cppArrayType.Size;
-                var arrayType = TypeToString(cppArrayType.ElementType).Item2;
+                var arrayType = TypeToString(cppArrayType.ElementType).Type;
 
-                return ([ $"[MarshalAs(UnmanagedType.ByValArray, SizeConst = {size})]" ], $"{arrayType}[]");
+                return new StringiseArgs
+                {
+                    Attributes = [ $"[MarshalAs(UnmanagedType.ByValArray, SizeConst = {size})]" ],
+                    Type = $"{arrayType}[]"
+                };
             }
 
             if (primitiveType is CppPointerType)
             {
-                return ([], "IntPtr");
+                return new StringiseArgs
+                {
+                    Attributes = [],
+                    Type = "IntPtr"
+                };
             }
 
             throw new NotImplementedException($"Unknown primitive type: {primitiveType.TypeKind}");
