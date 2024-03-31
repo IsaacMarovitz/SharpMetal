@@ -40,6 +40,7 @@ namespace SharpMetal.Generator.Instances
 
             foreach (var value in values)
             {
+                // TODO: This algorithm is overly aggressive and it fails on enums with only one member
                 var cleanName = string.IsNullOrEmpty(commonStart) ? value.Name : value.Name.Replace(commonStart, "");
 
                 valuesDict.Add(cleanName, value.Value.ToString());
@@ -55,6 +56,8 @@ namespace SharpMetal.Generator.Instances
             {
                 context.WriteLine("[Flags]");
             }
+
+            // TODO: The type here is not a valid C# type, it will need to be mapped properly
             context.WriteLine($"public enum {Name} : {Type}");
             context.EnterScope();
 
