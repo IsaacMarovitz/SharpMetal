@@ -86,14 +86,14 @@ namespace SharpMetal.Generator
             }
 
             var startsWithPrefix = false;
-
-            foreach (var prefix in Namespaces.Prefixes)
-            {
-                if (type.StartsWith(prefix))
-                {
-                    startsWithPrefix = true;
-                }
-            }
+            //
+            // foreach (var prefix in Namespaces.Prefixes)
+            // {
+            //     if (type.StartsWith(prefix))
+            //     {
+            //         startsWithPrefix = true;
+            //     }
+            // }
 
             if (!startsWithPrefix)
             {

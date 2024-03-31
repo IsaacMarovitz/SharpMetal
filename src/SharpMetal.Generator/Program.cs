@@ -1,4 +1,6 @@
 using System.Runtime.CompilerServices;
+using CppAst;
+using Microsoft.Extensions.Logging;
 using SharpMetal.Generator.Instances;
 
 namespace SharpMetal.Generator
@@ -6,6 +8,7 @@ namespace SharpMetal.Generator
     public class Program
     {
         public static string GetSourceFilePathName([CallerFilePath] string? callerFilePath = null) => callerFilePath ?? "";
+        public const bool LogClang = false;
 
         public static void Main(string[] args)
         {
@@ -27,197 +30,177 @@ namespace SharpMetal.Generator
             }
 
             // Get the paths to all the header files
-            var headers = Directory.GetFiles(generatorProjectPath.FullName, "*.hpp", SearchOption.AllDirectories)
-                .Where(header => !header.Contains("Defines") && !header.Contains("Private")).ToArray();
+            var headers = Directory.GetFiles(generatorProjectPath.FullName, "*.hpp", SearchOption.AllDirectories);
 
-            var headerInfos = new List<HeaderInfo>();
-
-            var enumCache = new List<EnumInstance>();
-            var structCache = new List<StructInstance>();
-            var classCache = new List<ClassInstance>();
-
-            foreach (var header in headers)
+            var parserOptions = new CppParserOptions
             {
-                var info = GenerateHeaderInfo(header);
-
-                if (info != null)
+                SystemIncludeFolders =
                 {
-                    headerInfos.Add(info);
-                    enumCache.AddRange(info.EnumInstances);
-                    structCache.AddRange(info.StructInstances);
-                    classCache.AddRange(info.ClassInstances);
+                    "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1",
+                    "/Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include"
+                },
+                AdditionalArguments =
+                {
+                    "-isysroot",
+                    "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+                },
+                TargetCpu = CppTargetCpu.ARM64,
+                TargetSystem = "darwin",
+                TargetVendor = "apple",
+                ParseSystemIncludes = true,
+                ParseMacros = true
+            };
+
+            var compilation = CppParser.ParseFiles(headers.ToList(), parserOptions);
+
+            if (LogClang)
+            {
+                var loggerFactory = LoggerFactory.Create(builder => builder
+                    .AddConsole()
+                    .SetMinimumLevel(LogLevel.Information));
+                var logger = loggerFactory.CreateLogger<Program>();
+
+                foreach (var message in compilation.Diagnostics.Messages)
+                {
+                    switch(message.Type)
+                    {
+                        case CppLogMessageType.Info:
+                            logger.LogInformation(message.Text);
+                            break;
+                        case CppLogMessageType.Warning:
+                            logger.LogWarning(message.Text);
+                            break;
+                        case CppLogMessageType.Error:
+                            logger.LogError(message.Text);
+                            break;
+                    }
                 }
             }
 
-            var objectiveCInstances = new HashSet<ObjectiveCInstance>();
-
-            foreach (var header in headerInfos)
+            foreach (var cppNamespace in compilation.Namespaces)
             {
-                Generate(header, classCache, enumCache, structCache, ref objectiveCInstances);
+                Generate(cppNamespace);
             }
-
-            GenerateObjectiveC(objectiveCInstances);
         }
 
-        public static HeaderInfo? GenerateHeaderInfo(string filePath)
+        public static void Generate(CppNamespace cppNamespace)
         {
-            var headerInfo = new HeaderInfo(filePath);
+            Console.WriteLine($"Generating Namespace: \"{cppNamespace.Name}\"");
+            Directory.CreateDirectory(cppNamespace.Name);
 
-            if (headerInfo.StructInstances.Count == 0 && headerInfo.ClassInstances.Count == 0 && headerInfo.EnumInstances.Count == 0)
+            Dictionary<string, CodeGenContext> sourceFileMap = new();
+
+            foreach (var cppEnum in cppNamespace.Enums)
             {
-                return null;
+                var codeGenContext = GetOrCreateContext(cppEnum.SourceFile, cppNamespace, ref sourceFileMap);
+
+                var enumInstance = new EnumInstance(cppEnum);
+                enumInstance.Generate(codeGenContext);
+                Console.WriteLine($"Generating Enum: \"{cppEnum.Name}\"");
             }
 
-            return headerInfo;
+            foreach (var cppClass in cppNamespace.Classes)
+            {
+                var context = GetOrCreateContext(cppClass.SourceFile, cppNamespace, ref sourceFileMap);
+
+                if (cppClass.ClassKind == CppClassKind.Struct)
+                {
+                    var structInstance = new StructInstance(cppClass);
+                    structInstance.Generate(context);
+                    Console.WriteLine($"Generating Struct: \"{cppClass.Name}\"");
+                }
+                else
+                {
+                    var classInstance = new ClassInstance(cppClass);
+                    classInstance.Generate(context);
+                    Console.WriteLine($"Generating Class: \"{cppClass.Name}\"");
+                }
+            }
+
+            foreach (var context in sourceFileMap.Values)
+            {
+                context.LeaveScope();
+                context.Dispose();
+            }
         }
 
-        public static void Generate(HeaderInfo headerInfo, List<ClassInstance> classCache, List<EnumInstance> enumCache, List<StructInstance> structCache, ref HashSet<ObjectiveCInstance> objectiveCInstances)
+        public static CodeGenContext GetOrCreateContext(
+            string sourceFile,
+            CppNamespace cppNamespace,
+            ref Dictionary<string, CodeGenContext> sourceFileMap)
         {
-            string fileName = Path.GetFileNameWithoutExtension(headerInfo.FilePath);
-            var fullNamespace = Namespaces.GetFullNamespace(headerInfo.FilePath);
-
-            Directory.CreateDirectory(fullNamespace);
-
-            using CodeGenContext context = new(File.CreateText($"{fullNamespace}/{fileName}.cs"));
-
-            GenerateUsings(headerInfo, context, fullNamespace);
-
-            context.WriteLine($"namespace SharpMetal.{fullNamespace}");
-            context.EnterScope();
-
-            foreach (var instance in headerInfo.EnumInstances)
+            if (!sourceFileMap.TryGetValue(sourceFile, out var codeGenContext))
             {
-                instance.Generate(context);
+                var fileInfo = new FileInfo(sourceFile);
+                var fileName = fileInfo.Name.Replace(fileInfo.Extension, "");
+
+                codeGenContext = new CodeGenContext(File.CreateText($"{cppNamespace.Name}/{fileName}.cs"));
+
+                GenerateUsings(cppNamespace, codeGenContext);
+                codeGenContext.WriteLine($"namespace SharpMetal.{cppNamespace.Name}");
+                codeGenContext.EnterScope();
+
+                sourceFileMap.Add(sourceFile, codeGenContext);
             }
 
-            for (var i = 0; i < headerInfo.StructInstances.Count; i++)
-            {
-                headerInfo.StructInstances[i].Generate(context);
-
-                if (headerInfo.ClassInstances.Any())
-                {
-                    context.WriteLine();
-                }
-                else if (i != headerInfo.StructInstances.Count - 1)
-                {
-                    context.WriteLine();
-                }
-            }
-
-            for (var i = 0; i < headerInfo.ClassInstances.Count; i++)
-            {
-                var instances = headerInfo.ClassInstances[i].Generate(classCache, enumCache, structCache, context);
-
-                foreach (var instance in instances)
-                {
-                    objectiveCInstances.Add(instance);
-                }
-
-                if (i != headerInfo.ClassInstances.Count - 1)
-                {
-                    context.WriteLine();
-                }
-            }
-
-            context.LeaveScope();
+            return codeGenContext;
         }
 
-        public static void GenerateUsings(HeaderInfo headerInfo, CodeGenContext context, string fullNamespace)
+        public static void GenerateUsings(CppNamespace cppNamespace, CodeGenContext context)
         {
-            var hasAnyUsings = false;
-            var hasSelectors = false;
-
-            foreach (var instance in headerInfo.ClassInstances)
-            {
-                if (instance.GetSelectors().Any())
-                {
-                    hasSelectors = true;
-                }
-            }
-
-            if (headerInfo.StructInstances.Any())
+            if (cppNamespace.Classes.Any())
             {
                 context.WriteLine("using System.Runtime.InteropServices;");
-                hasAnyUsings = true;
             }
 
-            if (headerInfo.StructInstances.Any() || headerInfo.ClassInstances.Any() || headerInfo.EnumInstances.Any())
+            if (cppNamespace.Classes.Any() ||cppNamespace.Enums.Any())
             {
                 context.WriteLine("using System.Runtime.Versioning;");
-                hasAnyUsings = true;
             }
 
-            if (hasSelectors)
-            {
-                context.WriteLine("using SharpMetal.ObjectiveCCore;");
-            }
-
-            if (headerInfo.IncludeFlags != IncludeFlags.None)
-            {
-                hasAnyUsings = true;
-                if ((headerInfo.IncludeFlags & IncludeFlags.Foundation) == IncludeFlags.Foundation)
-                {
-                    if (fullNamespace != "Foundation")
-                    {
-                        context.WriteLine("using SharpMetal.Foundation;");
-                    }
-                }
-                if ((headerInfo.IncludeFlags & IncludeFlags.Metal) == IncludeFlags.Metal)
-                {
-                    if (fullNamespace != "Metal")
-                    {
-                        context.WriteLine("using SharpMetal.Metal;");
-                    }
-                }
-                if ((headerInfo.IncludeFlags & IncludeFlags.QuartzCore) == IncludeFlags.QuartzCore)
-                {
-                    if (fullNamespace != "QuartzCore")
-                    {
-                        context.WriteLine("using SharpMetal.QuartzCore;");
-                    }
-                }
-            }
-
-            if (hasAnyUsings)
-            {
-                context.WriteLine();
-            }
+            // TODO: See if we can minify these
+            // TODO: Don't hardcode this
+            context.WriteLine("using SharpMetal.ObjectiveCCore;");
+            context.WriteLine("using SharpMetal.NS;");
+            context.WriteLine("using SharpMetal.MTL;");
+            context.WriteLine("using SharpMetal.CA;");
+            context.WriteLine();
         }
 
         public static void GenerateObjectiveC(HashSet<ObjectiveCInstance> objectiveCInstances)
         {
-            objectiveCInstances.RemoveWhere(x => x.Type == string.Empty);
-
-            using CodeGenContext context = new(File.CreateText("ObjectiveCRuntime.cs"));
-
-            context.WriteLine("using System.Runtime.InteropServices;");
-            context.WriteLine("using System.Runtime.Versioning;");
-            context.WriteLine("using SharpMetal.ObjectiveCCore;");
-            context.WriteLine("using SharpMetal.Foundation;");
-            context.WriteLine("using SharpMetal.Metal;");
-            context.WriteLine();
-
-            context.WriteLine("namespace SharpMetal");
-            context.EnterScope();
-
-            context.WriteLine("[SupportedOSPlatform(\"macos\")]");
-            context.WriteLine("public static partial class ObjectiveCRuntime");
-            context.EnterScope();
-
-            var list = objectiveCInstances.ToList();
-            list.Sort();
-
-            for (var i = 0; i < list.Count; i++)
-            {
-                list[i].Generate(context);
-                if (i != list.Count - 1)
-                {
-                    context.WriteLine();
-                }
-            }
-
-            context.LeaveScope();
-            context.LeaveScope();
+            // objectiveCInstances.RemoveWhere(x => x.Type == string.Empty);
+            //
+            // using CodeGenContext context = new(File.CreateText("ObjectiveCRuntime.cs"));
+            //
+            // context.WriteLine("using System.Runtime.InteropServices;");
+            // context.WriteLine("using System.Runtime.Versioning;");
+            // context.WriteLine("using SharpMetal.ObjectiveCCore;");
+            // context.WriteLine("using SharpMetal.Foundation;");
+            // context.WriteLine("using SharpMetal.Metal;");
+            // context.WriteLine();
+            //
+            // context.WriteLine("namespace SharpMetal");
+            // context.EnterScope();
+            //
+            // context.WriteLine("[SupportedOSPlatform(\"macos\")]");
+            // context.WriteLine("public static partial class ObjectiveCRuntime");
+            // context.EnterScope();
+            //
+            // var list = objectiveCInstances.ToList();
+            // list.Sort();
+            //
+            // for (var i = 0; i < list.Count; i++)
+            // {
+            //     list[i].Generate(context);
+            //     if (i != list.Count - 1)
+            //     {
+            //         context.WriteLine();
+            //     }
+            // }
+            //
+            // context.LeaveScope();
+            // context.LeaveScope();
         }
     }
 }
