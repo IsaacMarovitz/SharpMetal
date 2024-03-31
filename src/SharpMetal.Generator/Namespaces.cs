@@ -2,46 +2,16 @@ namespace SharpMetal.Generator
 {
     public static class Namespaces
     {
-        public static string[] Prefixes = { "MTLFX", "MTL", "NS", "CA", "CF", "CG", "IO" };
-
-        public static string GetNamespace(string filePath)
+        public static string GetPrettyNamespace(string space)
         {
-            if (filePath.Contains("Foundation"))
+            return space switch
             {
-                return "NS";
-            }
-
-            if (filePath.Contains("QuartzCore"))
-            {
-                return "CA";
-            }
-
-            if (filePath.Contains("MetalFX"))
-            {
-                return "MTLFX";
-            }
-
-            return "MTL";
-        }
-
-        public static string GetFullNamespace(string filePath)
-        {
-            if (filePath.Contains("Foundation"))
-            {
-                return "Foundation";
-            }
-
-            if (filePath.Contains("QuartzCore"))
-            {
-                return "QuartzCore";
-            }
-
-            if (filePath.Contains("MetalFX"))
-            {
-                return "MetalFX";
-            }
-
-            return "Metal";
+                "NS" => "Foundation",
+                "MTL" => "Metal",
+                "MTLFX" => "MetalFX",
+                "CA" => "QuartzCore",
+                _ => space
+            };
         }
     }
 }

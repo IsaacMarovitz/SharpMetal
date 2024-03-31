@@ -201,7 +201,7 @@ namespace SharpMetal.Generator.Instances
 
                     if (enumInstance != null)
                     {
-                        objcInstance.Inputs.Add(enumInstance.Type);
+                        // objcInstance.Inputs.Add(enumInstance.Type);
                     }
                     else if (structInstance != null)
                     {
@@ -234,7 +234,7 @@ namespace SharpMetal.Generator.Instances
                     var returnEnum = enumCache.Find(x => x.Name == ReturnType);
                     if (returnEnum != null)
                     {
-                        objcInstance.Type = returnEnum.Type;
+                        //objcInstance.Type = returnEnum.Type;
                     }
                     else
                     {

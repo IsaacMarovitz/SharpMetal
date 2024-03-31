@@ -6,6 +6,13 @@ The .NET ecosystem is very much lacking a good Metal binding package. Existing o
 
 Progress is underway to build a full set of working reimplementations of the metal-cpp samples. Thanks to the generator, the entire Metal API, from compute shaders to raytracing, should be available, although specific things may take further tweaking.
 
+## How do you generate the bindings?
+
+1. Download the latest headers from [Apple's website](https://developer.apple.com/metal/cpp/).
+2. Copy all the headers to `SharpMetal.Generator/Headers/`, make sure to remove the `SingleHeader` folder.
+3. Find and replace `#include <Foundation/Foundation.hpp>` with `#include "../Foundation/Foundation.hpp"`, this is due to an including problem, if you can find a nicer way to fix this please let me know.
+4. Build and run `SharpMetal.Generator`.
+
 ## I want to contribute!
 
 Wonderful! SharpMetal is built with .NET 8.0, and follows a couple of specific guidelines:

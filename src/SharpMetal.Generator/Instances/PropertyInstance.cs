@@ -49,7 +49,7 @@ namespace SharpMetal.Generator.Instances
 
                     if (enumInstance != null)
                     {
-                        objcInstance.Type = enumInstance.Type;
+                        //objcInstance.Type = enumInstance.Type;
 
                         context.WriteLine($"get => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend(NativePtr, {selector.Name});");
                         context.WriteLine($"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, ({enumInstance.Type})value);");
@@ -83,7 +83,7 @@ namespace SharpMetal.Generator.Instances
                 {
                     if (enumInstance != null)
                     {
-                        objcInstance.Type = enumInstance.Type;
+                        //objcInstance.Type = enumInstance.Type;
 
                         context.WriteLine($"public {Type} {Name} => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend(NativePtr, {selector.Name});");
                     }
