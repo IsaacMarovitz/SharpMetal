@@ -39,7 +39,7 @@ namespace SharpMetal.Generator.Instances
                 }
 
                 var enumInstance = enumCache.Find(x => x.Name == Type);
-                var structInstance = structCache.Find(x => x.Name == Type);
+                //var structInstance = structCache.Find(x => x.Name == Type);
 
                 if (setterSelector != null)
                 {
@@ -54,13 +54,13 @@ namespace SharpMetal.Generator.Instances
                         context.WriteLine($"get => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend(NativePtr, {selector.Name});");
                         context.WriteLine($"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, ({enumInstance.Type})value);");
                     }
-                    else if (structInstance != null)
-                    {
-                        objcInstance.Type = structInstance.Name;
-
-                        context.WriteLine($"get => ObjectiveCRuntime.{structInstance.Name}_objc_msgSend(NativePtr, {selector.Name});");
-                        context.WriteLine($"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, value);");
-                    }
+                    // else if (structInstance != null)
+                    // {
+                    //     // objcInstance.Type = structInstance.Name;
+                    //     //
+                    //     // context.WriteLine($"get => ObjectiveCRuntime.{structInstance.Name}_objc_msgSend(NativePtr, {selector.Name});");
+                    //     // context.WriteLine($"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, value);");
+                    // }
                     else
                     {
                         objcInstance.Type = runtimeFuncReturn;
@@ -87,12 +87,12 @@ namespace SharpMetal.Generator.Instances
 
                         context.WriteLine($"public {Type} {Name} => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend(NativePtr, {selector.Name});");
                     }
-                    else if (structInstance != null)
-                    {
-                        objcInstance.Type = structInstance.Name;
-
-                        context.WriteLine($"public {Type} {Name} => ObjectiveCRuntime.{structInstance.Name}_objc_msgSend(NativePtr, {selector.Name});");
-                    }
+                    // else if (structInstance != null)
+                    // {
+                    //     //objcInstance.Type = structInstance.Name;
+                    //
+                    //     //context.WriteLine($"public {Type} {Name} => ObjectiveCRuntime.{structInstance.Name}_objc_msgSend(NativePtr, {selector.Name});");
+                    // }
                     else
                     {
                         objcInstance.Type = runtimeFuncReturn;

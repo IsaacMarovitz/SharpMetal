@@ -111,6 +111,36 @@ namespace SharpMetal.Generator
                 enumInstance.Generate(codeGenContext);
             }
 
+            foreach (var cppClass in cppNamespace.Classes)
+            {
+                CodeGenContext codeGenContext;
+
+                if (!sourceFileMap.TryGetValue(cppClass.SourceFile, out codeGenContext))
+                {
+                    var fileInfo = new FileInfo(cppClass.SourceFile);
+                    var fileName = fileInfo.Name.Replace(fileInfo.Extension, "");
+
+                    codeGenContext = new CodeGenContext(fullNamespace, fileName);
+
+                    GenerateUsings(cppNamespace, codeGenContext);
+                    codeGenContext.WriteLine($"namespace SharpMetal.{fullNamespace}");
+                    codeGenContext.EnterScope();
+
+                    sourceFileMap.Add(cppClass.SourceFile, codeGenContext);
+                }
+
+                if (cppClass.ClassKind == CppClassKind.Struct)
+                {
+                    var structInstance = new StructInstance(cppClass);
+                    structInstance.Generate(codeGenContext);
+                    Console.WriteLine($"Generating Struct: \"{cppClass.Name}\"");
+                }
+                else
+                {
+                    Console.WriteLine($"Generating Class: \"{cppClass.Name}\"");
+                }
+            }
+
             foreach (var context in sourceFileMap.Values)
             {
                 context.LeaveScope();

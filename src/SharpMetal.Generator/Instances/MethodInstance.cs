@@ -121,25 +121,25 @@ namespace SharpMetal.Generator.Instances
                 {
                     context.Write($"{context.Indentation}return ");
                     var returnEnum = enumCache.Find(x => x.Name == ReturnType);
-                    var returnStruct = structCache.Find(x => x.Name == ReturnType);
+                    //var returnStruct = structCache.Find(x => x.Name == ReturnType);
                     var needsOuterBracket = false;
 
                     if (returnEnum != null)
                     {
                         context.Write($"({ReturnType})ObjectiveCRuntime.{returnEnum.Type}_");
                     }
-                    else
-                    {
-                        if (Types.CSharpNativeTypes.Contains(ReturnType) || returnStruct != null)
-                        {
-                            context.Write($"ObjectiveCRuntime.{ReturnType}_");
-                        }
-                        else
-                        {
-                            context.Write($"new(ObjectiveCRuntime.IntPtr_");
-                            needsOuterBracket = true;
-                        }
-                    }
+                    // else
+                    // {
+                    //     if (Types.CSharpNativeTypes.Contains(ReturnType) || returnStruct != null)
+                    //     {
+                    //         context.Write($"ObjectiveCRuntime.{ReturnType}_");
+                    //     }
+                    //     else
+                    //     {
+                    //         context.Write($"new(ObjectiveCRuntime.IntPtr_");
+                    //         needsOuterBracket = true;
+                    //     }
+                    // }
 
                     context.Write($"objc_msgSend(");
 
@@ -197,16 +197,16 @@ namespace SharpMetal.Generator.Instances
                 else
                 {
                     var enumInstance = enumCache.Find(x => x.Name == InputInstances[i].Type);
-                    var structInstance = structCache.Find(x => x.Name == InputInstances[i].Type);
+                    //var structInstance = structCache.Find(x => x.Name == InputInstances[i].Type);
 
                     if (enumInstance != null)
                     {
                         // objcInstance.Inputs.Add(enumInstance.Type);
                     }
-                    else if (structInstance != null)
-                    {
-                        objcInstance.Inputs.Add(structInstance.Name);
-                    }
+                    // else if (structInstance != null)
+                    // {
+                    //     //objcInstance.Inputs.Add(structInstance.Name);
+                    // }
                     else if (InputInstances[i].Type == "NSError")
                     {
                         objcInstance.Inputs.Add("ref IntPtr");
@@ -224,23 +224,23 @@ namespace SharpMetal.Generator.Instances
             }
             else
             {
-                var returnStruct = structCache.Find(x => x.Name == ReturnType);
-                if (Types.CSharpNativeTypes.Contains(ReturnType) || returnStruct != null)
-                {
-                    objcInstance.Type = ReturnType;
-                }
-                else
-                {
-                    var returnEnum = enumCache.Find(x => x.Name == ReturnType);
-                    if (returnEnum != null)
-                    {
-                        //objcInstance.Type = returnEnum.Type;
-                    }
-                    else
-                    {
-                        objcInstance.Type = "IntPtr";
-                    }
-                }
+                //var returnStruct = structCache.Find(x => x.Name == ReturnType);
+                // if (Types.CSharpNativeTypes.Contains(ReturnType) || returnStruct != null)
+                // {
+                //     objcInstance.Type = ReturnType;
+                // }
+                // else
+                // {
+                //     var returnEnum = enumCache.Find(x => x.Name == ReturnType);
+                //     if (returnEnum != null)
+                //     {
+                //         //objcInstance.Type = returnEnum.Type;
+                //     }
+                //     else
+                //     {
+                //         objcInstance.Type = "IntPtr";
+                //     }
+                // }
             }
 
             return objcInstance;
