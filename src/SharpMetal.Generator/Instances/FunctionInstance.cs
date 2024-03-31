@@ -21,7 +21,22 @@ namespace SharpMetal.Generator.Instances
             var signature = $"{visibility} ";
             signature += _cppFunction.IsStatic ? "static " : "";
             signature += $"{returnType} ";
-            signature += $"{name}()";
+            signature += $"{name}(";
+
+            for (var i = 0; i < _cppFunction.Parameters.Count; i++)
+            {
+                var parameter = _cppFunction.Parameters[i];
+                var parameterType = StringUtils.TypeToString(parameter.Type).Type;
+                var parameterName = parameter.Name;
+                signature += $"{parameterType} {parameterName}";
+
+                if (i != _cppFunction.Parameters.Count - 1)
+                {
+                    signature += ", ";
+                }
+            }
+
+            signature += ")";
 
             context.WriteLine(signature);
             context.EnterScope();
