@@ -91,43 +91,16 @@ namespace SharpMetal.Generator
 
             foreach (var cppEnum in cppNamespace.Enums)
             {
-                CodeGenContext codeGenContext;
-
-                if (!sourceFileMap.TryGetValue(cppEnum.SourceFile, out codeGenContext))
-                {
-                    var fileInfo = new FileInfo(cppEnum.SourceFile);
-                    var fileName = fileInfo.Name.Replace(fileInfo.Extension, "");
-
-                    codeGenContext = new CodeGenContext(fullNamespace, fileName);
-
-                    GenerateUsings(cppNamespace, codeGenContext);
-                    codeGenContext.WriteLine($"namespace SharpMetal.{fullNamespace}");
-                    codeGenContext.EnterScope();
-
-                    sourceFileMap.Add(cppEnum.SourceFile, codeGenContext);
-                }
+                var codeGenContext = GetOrCreateContext(cppEnum.SourceFile, cppNamespace, ref sourceFileMap);
 
                 var enumInstance = new EnumInstance(cppEnum);
                 enumInstance.Generate(codeGenContext);
+                Console.WriteLine($"Generating Enum: \"{cppEnum.Name}\"");
             }
 
             foreach (var cppClass in cppNamespace.Classes)
             {
-                CodeGenContext codeGenContext;
-
-                if (!sourceFileMap.TryGetValue(cppClass.SourceFile, out codeGenContext))
-                {
-                    var fileInfo = new FileInfo(cppClass.SourceFile);
-                    var fileName = fileInfo.Name.Replace(fileInfo.Extension, "");
-
-                    codeGenContext = new CodeGenContext(fullNamespace, fileName);
-
-                    GenerateUsings(cppNamespace, codeGenContext);
-                    codeGenContext.WriteLine($"namespace SharpMetal.{fullNamespace}");
-                    codeGenContext.EnterScope();
-
-                    sourceFileMap.Add(cppClass.SourceFile, codeGenContext);
-                }
+                var codeGenContext = GetOrCreateContext(cppClass.SourceFile, cppNamespace, ref sourceFileMap);
 
                 if (cppClass.ClassKind == CppClassKind.Struct)
                 {
@@ -146,6 +119,29 @@ namespace SharpMetal.Generator
                 context.LeaveScope();
                 context.Dispose();
             }
+        }
+
+        public static CodeGenContext GetOrCreateContext(string sourceFile,
+            CppNamespace cppNamespace,
+            ref Dictionary<string, CodeGenContext> sourceFileMap)
+        {
+            var fullNamespace = Namespaces.GetPrettyNamespace(cppNamespace.Name);
+
+            if (!sourceFileMap.TryGetValue(sourceFile, out var codeGenContext))
+            {
+                var fileInfo = new FileInfo(sourceFile);
+                var fileName = fileInfo.Name.Replace(fileInfo.Extension, "");
+
+                codeGenContext = new CodeGenContext(fullNamespace, fileName);
+
+                GenerateUsings(cppNamespace, codeGenContext);
+                codeGenContext.WriteLine($"namespace SharpMetal.{fullNamespace}");
+                codeGenContext.EnterScope();
+
+                sourceFileMap.Add(sourceFile, codeGenContext);
+            }
+
+            return codeGenContext;
         }
 
         public static void GenerateUsings(CppNamespace cppNamespace, CodeGenContext context)
