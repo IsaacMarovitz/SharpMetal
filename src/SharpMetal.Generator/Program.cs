@@ -132,7 +132,7 @@ namespace SharpMetal.Generator
                 var fileInfo = new FileInfo(sourceFile);
                 var fileName = fileInfo.Name.Replace(fileInfo.Extension, "");
 
-                codeGenContext = new CodeGenContext(fullNamespace, fileName);
+                codeGenContext = new CodeGenContext(File.CreateText($"{fullNamespace}/{fileName}.cs"));
 
                 GenerateUsings(cppNamespace, codeGenContext);
                 codeGenContext.WriteLine($"namespace SharpMetal.{fullNamespace}");

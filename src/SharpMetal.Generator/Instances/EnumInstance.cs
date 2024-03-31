@@ -5,25 +5,28 @@ namespace SharpMetal.Generator.Instances
 {
     public class EnumInstance
     {
-        public CppType Type;
-        public string Name;
-        public bool IsFlag;
-        public Dictionary<string, string> Values;
+        private CppEnum _cppEnum;
 
         public EnumInstance(CppEnum cppEnum)
         {
-            var type = cppEnum.IntegerType;
-            var name = cppEnum.Name;
-            var values = cppEnum.Items.ToArray();
+            _cppEnum = cppEnum;
+        }
+
+        public void Generate(CodeGenContext context)
+        {
+            var type = _cppEnum.IntegerType;
+            var name = _cppEnum.Name;
+            var values = _cppEnum.Items.ToArray();
+            var isFlag = type.TypeKind == CppTypeKind.Typedef;
 
             if (type.TypeKind == CppTypeKind.Typedef)
             {
                 var typedef = type as CppTypedef;
-                Type = typedef.ElementType;
+                type = typedef.ElementType;
             }
             else
             {
-                Type = type;
+                type = type;
             }
 
             // ClangSharp failed to get the real name
@@ -31,10 +34,6 @@ namespace SharpMetal.Generator.Instances
             {
                 name = type.GetDisplayName();
             }
-
-            Type = type;
-            Name = name;
-            IsFlag = type.TypeKind == CppTypeKind.Typedef;
 
             var commonStart = GetCommonStartingSubString(values.Select(x => x.Name).ToList());
             var valuesDict = new Dictionary<string, string>();
@@ -47,22 +46,16 @@ namespace SharpMetal.Generator.Instances
                 valuesDict.Add(cleanName, value.Value.ToString());
             }
 
-            Values = valuesDict;
-        }
-
-        public void Generate(CodeGenContext context)
-        {
             context.WriteLine("[SupportedOSPlatform(\"macos\")]");
-            if (IsFlag)
+            if (isFlag)
             {
                 context.WriteLine("[Flags]");
             }
 
-            var type = StringUtils.TypeToString(Type);
-            context.WriteLine($"public enum {Name} : {type}");
+            context.WriteLine($"public enum {name} : {StringUtils.TypeToString(type)}");
             context.EnterScope();
 
-            foreach (var value in Values)
+            foreach (var value in valuesDict)
             {
                 context.WriteLine($"{value.Key} = {value.Value},");
             }

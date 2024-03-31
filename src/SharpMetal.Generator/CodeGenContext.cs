@@ -13,9 +13,9 @@ namespace SharpMetal.Generator
 
         private string _indentation;
 
-        public CodeGenContext(string fullNamespace, string fileName)
+        public CodeGenContext(StreamWriter sw)
         {
-            _sw = File.CreateText($"{fullNamespace}/{fileName}.cs");
+            _sw = sw;
             _indentation = "";
         }
 
