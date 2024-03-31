@@ -50,21 +50,53 @@ namespace SharpMetal.Generator.Utilities
             };
         }
 
-        public static string TypeToString(CppType type)
+        /// <summary>
+        /// Takes in a <c>CppType</c> and returns the type represented in valid C#, along with any
+        /// necessary marshalling attributes.
+        /// </summary>
+        /// <param name="type">
+        /// The type to generate C# for.
+        /// </param>
+        /// <returns>
+        /// Returns a tuple containing a <c>string[]</c> with the necessary marshalling attributes
+        /// and a <c>string</c> containing the C# name for the given type.
+        /// </returns>
+        /// <exception cref="NotImplementedException">
+        /// Thrown when the given <c>CppTypeKind</c> has not been implemented.
+        /// </exception>
+        public static (string[], string) TypeToString(CppType type)
         {
             var primitiveType = TypeToPrimitive(type);
 
             if (primitiveType is CppClass cppClass)
             {
-                return cppClass.Name;
+                return ([], cppClass.Name);
+            }
+
+            if (primitiveType is CppEnum cppEnum)
+            {
+                return ([], cppEnum.Name);
             }
 
             if (primitiveType is CppPrimitiveType cppPrimitiveType)
             {
-                return PrimitiveToString(cppPrimitiveType.Kind);
+                return ([], PrimitiveToString(cppPrimitiveType.Kind));
             }
 
-            return primitiveType.GetDisplayName();
+            if (primitiveType is CppArrayType cppArrayType)
+            {
+                var size = cppArrayType.Size;
+                var arrayType = TypeToString(cppArrayType.ElementType).Item2;
+
+                return ([ $"[MarshalAs(UnmanagedType.ByValArray, SizeConst = {size})]" ], $"{arrayType}[]");
+            }
+
+            if (primitiveType is CppPointerType)
+            {
+                return ([], "IntPtr");
+            }
+
+            throw new NotImplementedException($"Unknown primitive type: {primitiveType.TypeKind}");
         }
 
         public static CppType TypeToPrimitive(CppType type)

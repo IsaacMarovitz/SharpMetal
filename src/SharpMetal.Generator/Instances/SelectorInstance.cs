@@ -55,16 +55,16 @@ namespace SharpMetal.Generator.Instances
                     return;
                 }
 
-                var parentIndex = propertyOwners.FindIndex(x => x.Name == parentStructName);
-
-                if (parentIndex != -1)
-                {
-                    propertyOwners[parentIndex].AddSelector(new SelectorInstance(selector.Trim(), rawName));
-                }
-                else
-                {
-                    Console.WriteLine($"Orphaned Selector! Looking for {parentStructName}");
-                }
+                // var parentIndex = propertyOwners.FindIndex(x => x.Name == parentStructName);
+                //
+                // if (parentIndex != -1)
+                // {
+                //     propertyOwners[parentIndex].AddSelector(new SelectorInstance(selector.Trim(), rawName));
+                // }
+                // else
+                // {
+                //     Console.WriteLine($"Orphaned Selector! Looking for {parentStructName}");
+                // }
             }
         }
     }

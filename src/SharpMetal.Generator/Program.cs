@@ -100,16 +100,18 @@ namespace SharpMetal.Generator
 
             foreach (var cppClass in cppNamespace.Classes)
             {
-                var codeGenContext = GetOrCreateContext(cppClass.SourceFile, cppNamespace, ref sourceFileMap);
+                var context = GetOrCreateContext(cppClass.SourceFile, cppNamespace, ref sourceFileMap);
 
                 if (cppClass.ClassKind == CppClassKind.Struct)
                 {
                     var structInstance = new StructInstance(cppClass);
-                    structInstance.Generate(codeGenContext);
+                    structInstance.Generate(context);
                     Console.WriteLine($"Generating Struct: \"{cppClass.Name}\"");
                 }
                 else
                 {
+                    var classInstance = new ClassInstance(cppClass);
+                    classInstance.Generate(context);
                     Console.WriteLine($"Generating Class: \"{cppClass.Name}\"");
                 }
             }
