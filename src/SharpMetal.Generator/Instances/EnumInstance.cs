@@ -1,4 +1,5 @@
 using CppAst;
+using SharpMetal.Generator.Utilities;
 
 namespace SharpMetal.Generator.Instances
 {
@@ -57,8 +58,8 @@ namespace SharpMetal.Generator.Instances
                 context.WriteLine("[Flags]");
             }
 
-            // TODO: The type here is not a valid C# type, it will need to be mapped properly
-            context.WriteLine($"public enum {Name} : {Type}");
+            var type = StringUtils.TypeToString(Type);
+            context.WriteLine($"public enum {Name} : {type}");
             context.EnterScope();
 
             foreach (var value in Values)

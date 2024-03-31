@@ -22,7 +22,8 @@ namespace SharpMetal.Generator.Instances
 
             foreach (var field in _cppClass.Fields)
             {
-                context.WriteLine($"{VisibilityStringise.VisibilityAsString(field.Visibility)} {field.Type} {field.Name};");
+                var type = StringUtils.TypeToString(field.Type);
+                context.WriteLine($"{StringUtils.VisibilityToString(field.Visibility)} {type} {field.Name};");
             }
 
             context.LeaveScope();
