@@ -1,5 +1,4 @@
 using CppAst;
-using SharpMetal.Generator.Utilities;
 
 namespace SharpMetal.Generator.Instances
 {
@@ -28,14 +27,8 @@ namespace SharpMetal.Generator.Instances
 
             foreach (var field in _cppClass.Fields)
             {
-                var type = StringUtils.TypeToString(field.Type);
-
-                foreach (var attribute in type.Attributes)
-                {
-                    context.WriteLine(attribute);
-                }
-
-                context.WriteLine($"{StringUtils.VisibilityToString(field.Visibility)} {type.Type} {field.Name};");
+                var fieldInstance = new FieldInstance(field);
+                fieldInstance.Generate(context);
             }
 
             context.LeaveScope();

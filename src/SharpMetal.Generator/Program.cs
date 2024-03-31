@@ -8,6 +8,7 @@ namespace SharpMetal.Generator
     public class Program
     {
         public static string GetSourceFilePathName([CallerFilePath] string? callerFilePath = null) => callerFilePath ?? "";
+        public const bool LogClang = false;
 
         public static void Main(string[] args)
         {
@@ -52,26 +53,29 @@ namespace SharpMetal.Generator
 
             var compilation = CppParser.ParseFiles(headers.ToList(), parserOptions);
 
-            // var loggerFactory = LoggerFactory.Create(builder => builder
-            //     .AddConsole()
-            //     .SetMinimumLevel(LogLevel.Information));
-            // var logger = loggerFactory.CreateLogger<Program>();
-            //
-            // foreach (var message in compilation.Diagnostics.Messages)
-            // {
-            //     switch(message.Type)
-            //     {
-            //         case CppLogMessageType.Info:
-            //             logger.LogInformation(message.Text);
-            //             break;
-            //         case CppLogMessageType.Warning:
-            //             logger.LogWarning(message.Text);
-            //             break;
-            //         case CppLogMessageType.Error:
-            //             logger.LogError(message.Text);
-            //             break;
-            //     };
-            // }
+            if (LogClang)
+            {
+                var loggerFactory = LoggerFactory.Create(builder => builder
+                    .AddConsole()
+                    .SetMinimumLevel(LogLevel.Information));
+                var logger = loggerFactory.CreateLogger<Program>();
+
+                foreach (var message in compilation.Diagnostics.Messages)
+                {
+                    switch(message.Type)
+                    {
+                        case CppLogMessageType.Info:
+                            logger.LogInformation(message.Text);
+                            break;
+                        case CppLogMessageType.Warning:
+                            logger.LogWarning(message.Text);
+                            break;
+                        case CppLogMessageType.Error:
+                            logger.LogError(message.Text);
+                            break;
+                    }
+                }
+            }
 
             foreach (var cppNamespace in compilation.Namespaces)
             {
@@ -81,10 +85,8 @@ namespace SharpMetal.Generator
 
         public static void Generate(CppNamespace cppNamespace)
         {
-            var fullNamespace = Namespaces.GetPrettyNamespace(cppNamespace.Name);
-
-            Console.WriteLine($"Generating Namespace: \"{fullNamespace}\"");
-            Directory.CreateDirectory(fullNamespace);
+            Console.WriteLine($"Generating Namespace: \"{cppNamespace.Name}\"");
+            Directory.CreateDirectory(cppNamespace.Name);
 
             Dictionary<string, CodeGenContext> sourceFileMap = new();
 
@@ -122,21 +124,20 @@ namespace SharpMetal.Generator
             }
         }
 
-        public static CodeGenContext GetOrCreateContext(string sourceFile,
+        public static CodeGenContext GetOrCreateContext(
+            string sourceFile,
             CppNamespace cppNamespace,
             ref Dictionary<string, CodeGenContext> sourceFileMap)
         {
-            var fullNamespace = Namespaces.GetPrettyNamespace(cppNamespace.Name);
-
             if (!sourceFileMap.TryGetValue(sourceFile, out var codeGenContext))
             {
                 var fileInfo = new FileInfo(sourceFile);
                 var fileName = fileInfo.Name.Replace(fileInfo.Extension, "");
 
-                codeGenContext = new CodeGenContext(File.CreateText($"{fullNamespace}/{fileName}.cs"));
+                codeGenContext = new CodeGenContext(File.CreateText($"{cppNamespace.Name}/{fileName}.cs"));
 
                 GenerateUsings(cppNamespace, codeGenContext);
-                codeGenContext.WriteLine($"namespace SharpMetal.{fullNamespace}");
+                codeGenContext.WriteLine($"namespace SharpMetal.{cppNamespace.Name}");
                 codeGenContext.EnterScope();
 
                 sourceFileMap.Add(sourceFile, codeGenContext);
@@ -158,10 +159,11 @@ namespace SharpMetal.Generator
             }
 
             // TODO: See if we can minify these
+            // TODO: Don't hardcode this
             context.WriteLine("using SharpMetal.ObjectiveCCore;");
-            context.WriteLine("using SharpMetal.Foundation;");
-            context.WriteLine("using SharpMetal.Metal;");
-            context.WriteLine("using SharpMetal.QuartzCore;");
+            context.WriteLine("using SharpMetal.NS;");
+            context.WriteLine("using SharpMetal.MTL;");
+            context.WriteLine("using SharpMetal.CA;");
             context.WriteLine();
         }
 
