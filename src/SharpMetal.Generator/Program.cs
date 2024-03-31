@@ -1,4 +1,6 @@
 using System.Runtime.CompilerServices;
+using CppAst;
+using Microsoft.Extensions.Logging;
 using SharpMetal.Generator.Instances;
 
 namespace SharpMetal.Generator
@@ -30,33 +32,74 @@ namespace SharpMetal.Generator
             var headers = Directory.GetFiles(generatorProjectPath.FullName, "*.hpp", SearchOption.AllDirectories)
                 .Where(header => !header.Contains("Defines") && !header.Contains("Private")).ToArray();
 
-            var headerInfos = new List<HeaderInfo>();
-
-            var enumCache = new List<EnumInstance>();
-            var structCache = new List<StructInstance>();
-            var classCache = new List<ClassInstance>();
-
-            foreach (var header in headers)
+            var parserOptions = new CppParserOptions
             {
-                var info = GenerateHeaderInfo(header);
-
-                if (info != null)
+                SystemIncludeFolders =
                 {
-                    headerInfos.Add(info);
-                    enumCache.AddRange(info.EnumInstances);
-                    structCache.AddRange(info.StructInstances);
-                    classCache.AddRange(info.ClassInstances);
-                }
-            }
+                    "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1",
+                    "/Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include"
+                },
+                AdditionalArguments =
+                {
+                    "-isysroot",
+                    "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+                },
+                TargetCpu = CppTargetCpu.ARM64,
+                TargetSystem = "darwin",
+                TargetVendor = "apple",
+                ParseSystemIncludes = true,
+            };
 
-            var objectiveCInstances = new HashSet<ObjectiveCInstance>();
+            var compilation = CppParser.ParseFiles(headers.ToList(), parserOptions);
 
-            foreach (var header in headerInfos)
+            var loggerFactory = LoggerFactory.Create(builder => builder
+                .AddConsole()
+                .SetMinimumLevel(LogLevel.Information));
+            var logger = loggerFactory.CreateLogger<Program>();
+
+            foreach (var message in compilation.Diagnostics.Messages)
             {
-                Generate(header, classCache, enumCache, structCache, ref objectiveCInstances);
+                switch(message.Type)
+                {
+                    case CppLogMessageType.Info:
+                        logger.LogInformation(message.Text);
+                        break;
+                    case CppLogMessageType.Warning:
+                        logger.LogWarning(message.Text);
+                        break;
+                    case CppLogMessageType.Error:
+                        logger.LogError(message.Text);
+                        break;
+                };
             }
 
-            GenerateObjectiveC(objectiveCInstances);
+            // var headerInfos = new List<HeaderInfo>();
+            //
+            // var enumCache = new List<EnumInstance>();
+            // var structCache = new List<StructInstance>();
+            // var classCache = new List<ClassInstance>();
+            //
+            // foreach (var header in headers)
+            // {
+            //     var info = GenerateHeaderInfo(header);
+            //
+            //     if (info != null)
+            //     {
+            //         headerInfos.Add(info);
+            //         enumCache.AddRange(info.EnumInstances);
+            //         structCache.AddRange(info.StructInstances);
+            //         classCache.AddRange(info.ClassInstances);
+            //     }
+            // }
+            //
+            // var objectiveCInstances = new HashSet<ObjectiveCInstance>();
+            //
+            // foreach (var header in headerInfos)
+            // {
+            //     Generate(header, classCache, enumCache, structCache, ref objectiveCInstances);
+            // }
+            //
+            // GenerateObjectiveC(objectiveCInstances);
         }
 
         public static HeaderInfo? GenerateHeaderInfo(string filePath)
