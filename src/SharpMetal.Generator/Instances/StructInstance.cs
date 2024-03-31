@@ -14,6 +14,12 @@ namespace SharpMetal.Generator.Instances
 
         public void Generate(CodeGenContext context)
         {
+            // We don't want to generate code for templates
+            if (_cppClass.TemplateKind != CppTemplateKind.NormalClass)
+            {
+                return;
+            }
+
             context.WriteLine("[SupportedOSPlatform(\"macos\")]");
             context.WriteLine("[StructLayout(LayoutKind.Sequential)]");
 

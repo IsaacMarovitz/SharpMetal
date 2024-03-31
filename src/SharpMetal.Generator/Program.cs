@@ -29,8 +29,7 @@ namespace SharpMetal.Generator
             }
 
             // Get the paths to all the header files
-            var headers = Directory.GetFiles(generatorProjectPath.FullName, "*.hpp", SearchOption.AllDirectories)
-                .Where(header => !header.Contains("Defines") && !header.Contains("Private")).ToArray();
+            var headers = Directory.GetFiles(generatorProjectPath.FullName, "*.hpp", SearchOption.AllDirectories);
 
             var parserOptions = new CppParserOptions
             {

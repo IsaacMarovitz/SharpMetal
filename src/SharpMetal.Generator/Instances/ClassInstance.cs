@@ -11,7 +11,7 @@ namespace SharpMetal.Generator.Instances
             _cppClass = cppClass;
         }
 
-        public List<ObjectiveCInstance> Generate(CodeGenContext context)
+        public void Generate(CodeGenContext context)
         {
             // if (_parent != string.Empty)
             // {
@@ -30,6 +30,12 @@ namespace SharpMetal.Generator.Instances
             //     _methodInstances.AddRange(parent.MethodInstances);
             //     _selectorInstances.AddRange(parent.SelectorInstances);
             // }
+
+            // We don't want to generate code for templates
+            if (_cppClass.TemplateKind != CppTemplateKind.NormalClass)
+            {
+                return;
+            }
 
             var objectiveCInstances = new List<ObjectiveCInstance>();
             var name = _cppClass.Name;
@@ -105,7 +111,7 @@ namespace SharpMetal.Generator.Instances
             // }
 
             context.LeaveScope();
-            return objectiveCInstances;
+            // return objectiveCInstances;
         }
     }
 }
