@@ -3,6 +3,7 @@ using SharpMetal.Metal;
 using SharpMetal.Foundation;
 using SharpMetal.Examples.Common;
 using SharpMetal.ObjectiveCCore;
+using SharpMetal.QuartzCore;
 
 namespace SharpMetal.Examples.Primitive
 {

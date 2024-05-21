@@ -27,6 +27,12 @@ namespace SharpMetal.Examples.Common
             set => ObjectiveC.objc_msgSend(NativePtr, "setColorPixelFormat:atIndex:", (ulong)value, 0);
         }
 
+        public IntPtr Colorspace
+        {
+            get => ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, new Selector("colorspace"));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, new Selector("setColorspace:"), value);
+        }
+
         public MTLClearColor ClearColor
         {
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, new Selector("setClearColor:"), value);
