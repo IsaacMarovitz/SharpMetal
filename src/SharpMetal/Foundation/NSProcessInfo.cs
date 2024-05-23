@@ -27,11 +27,16 @@ namespace SharpMetal.Foundation
     }
 
     [SupportedOSPlatform("macos")]
-    public struct NSProcessInfo
+    public struct NSProcessInfo: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSProcessInfo obj) => obj.NativePtr;
         public NSProcessInfo(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public NSArray Arguments => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_arguments));
 
@@ -148,5 +153,6 @@ namespace SharpMetal.Foundation
         private static readonly Selector sel_isLowPowerModeEnabled = "isLowPowerModeEnabled";
         private static readonly Selector sel_isiOSAppOnMac = "isiOSAppOnMac";
         private static readonly Selector sel_isMacCatalystApp = "isMacCatalystApp";
+        private static readonly Selector sel_release = "release";
     }
 }

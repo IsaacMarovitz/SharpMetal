@@ -28,7 +28,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLIndirectCommandBufferDescriptor
+    public struct MTLIndirectCommandBufferDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIndirectCommandBufferDescriptor obj) => obj.NativePtr;
@@ -38,6 +38,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLIndirectCommandBufferDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLIndirectCommandType CommandTypes
@@ -136,15 +141,21 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setSupportRayTracing = "setSupportRayTracing:";
         private static readonly Selector sel_supportDynamicAttributeStride = "supportDynamicAttributeStride";
         private static readonly Selector sel_setSupportDynamicAttributeStride = "setSupportDynamicAttributeStride:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLIndirectCommandBuffer
+    public struct MTLIndirectCommandBuffer: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIndirectCommandBuffer obj) => obj.NativePtr;
         public static implicit operator MTLResource(MTLIndirectCommandBuffer obj) => new(obj.NativePtr);
         public MTLIndirectCommandBuffer(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public ulong Size => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_size);
 
@@ -217,5 +228,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_allocatedSize = "allocatedSize";
         private static readonly Selector sel_makeAliasable = "makeAliasable";
         private static readonly Selector sel_isAliasable = "isAliasable";
+        private static readonly Selector sel_release = "release";
     }
 }

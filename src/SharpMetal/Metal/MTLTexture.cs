@@ -61,7 +61,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLSharedTextureHandle
+    public struct MTLSharedTextureHandle: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLSharedTextureHandle obj) => obj.NativePtr;
@@ -73,16 +73,22 @@ namespace SharpMetal.Metal
             NativePtr = cls.AllocInit();
         }
 
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
+
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
 
         public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
 
         private static readonly Selector sel_device = "device";
         private static readonly Selector sel_label = "label";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLTextureDescriptor
+    public struct MTLTextureDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLTextureDescriptor obj) => obj.NativePtr;
@@ -92,6 +98,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLTextureDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLTextureType TextureType
@@ -240,15 +251,21 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setCompressionType = "setCompressionType:";
         private static readonly Selector sel_swizzle = "swizzle";
         private static readonly Selector sel_setSwizzle = "setSwizzle:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLTexture
+    public struct MTLTexture: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLTexture obj) => obj.NativePtr;
         public static implicit operator MTLResource(MTLTexture obj) => new(obj.NativePtr);
         public MTLTexture(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public MTLResource RootResource => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_rootResource));
 
@@ -432,5 +449,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_allocatedSize = "allocatedSize";
         private static readonly Selector sel_makeAliasable = "makeAliasable";
         private static readonly Selector sel_isAliasable = "isAliasable";
+        private static readonly Selector sel_release = "release";
     }
 }

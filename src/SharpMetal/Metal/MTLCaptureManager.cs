@@ -20,7 +20,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLCaptureDescriptor
+    public struct MTLCaptureDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCaptureDescriptor obj) => obj.NativePtr;
@@ -30,6 +30,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLCaptureDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public IntPtr CaptureObject
@@ -56,10 +61,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setDestination = "setDestination:";
         private static readonly Selector sel_outputURL = "outputURL";
         private static readonly Selector sel_setOutputURL = "setOutputURL:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLCaptureManager
+    public struct MTLCaptureManager: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCaptureManager obj) => obj.NativePtr;
@@ -69,6 +75,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLCaptureManager");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLCaptureScope DefaultCaptureScope
@@ -136,5 +147,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_defaultCaptureScope = "defaultCaptureScope";
         private static readonly Selector sel_setDefaultCaptureScope = "setDefaultCaptureScope:";
         private static readonly Selector sel_isCapturing = "isCapturing";
+        private static readonly Selector sel_release = "release";
     }
 }

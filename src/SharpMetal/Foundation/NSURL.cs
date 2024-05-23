@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveCCore;
 namespace SharpMetal.Foundation
 {
     [SupportedOSPlatform("macos")]
-    public struct NSURL
+    public struct NSURL: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSURL obj) => obj.NativePtr;
@@ -14,6 +14,11 @@ namespace SharpMetal.Foundation
         {
             var cls = new ObjectiveCClass("NSURL");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public ushort FileSystemRepresentation => ObjectiveCRuntime.ushort_objc_msgSend(NativePtr, sel_fileSystemRepresentation);
@@ -37,5 +42,6 @@ namespace SharpMetal.Foundation
         private static readonly Selector sel_initWithString = "initWithString:";
         private static readonly Selector sel_initFileURLWithPath = "initFileURLWithPath:";
         private static readonly Selector sel_fileSystemRepresentation = "fileSystemRepresentation";
+        private static readonly Selector sel_release = "release";
     }
 }

@@ -137,7 +137,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLAccelerationStructureDescriptor
+    public struct MTLAccelerationStructureDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureDescriptor obj) => obj.NativePtr;
@@ -149,6 +149,11 @@ namespace SharpMetal.Metal
             NativePtr = cls.AllocInit();
         }
 
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
+
         public MTLAccelerationStructureUsage Usage
         {
             get => (MTLAccelerationStructureUsage)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_usage);
@@ -157,10 +162,11 @@ namespace SharpMetal.Metal
 
         private static readonly Selector sel_usage = "usage";
         private static readonly Selector sel_setUsage = "setUsage:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLAccelerationStructureGeometryDescriptor
+    public struct MTLAccelerationStructureGeometryDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureGeometryDescriptor obj) => obj.NativePtr;
@@ -170,6 +176,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLAccelerationStructureGeometryDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public ulong IntersectionFunctionTableOffset
@@ -236,10 +247,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setPrimitiveDataStride = "setPrimitiveDataStride:";
         private static readonly Selector sel_primitiveDataElementSize = "primitiveDataElementSize";
         private static readonly Selector sel_setPrimitiveDataElementSize = "setPrimitiveDataElementSize:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLPrimitiveAccelerationStructureDescriptor
+    public struct MTLPrimitiveAccelerationStructureDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLPrimitiveAccelerationStructureDescriptor obj) => obj.NativePtr;
@@ -250,6 +262,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLPrimitiveAccelerationStructureDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public NSArray GeometryDescriptors
@@ -309,10 +326,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_descriptor = "descriptor";
         private static readonly Selector sel_usage = "usage";
         private static readonly Selector sel_setUsage = "setUsage:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLAccelerationStructureTriangleGeometryDescriptor
+    public struct MTLAccelerationStructureTriangleGeometryDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureTriangleGeometryDescriptor obj) => obj.NativePtr;
@@ -323,6 +341,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLAccelerationStructureTriangleGeometryDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLBuffer VertexBuffer
@@ -470,10 +493,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setPrimitiveDataStride = "setPrimitiveDataStride:";
         private static readonly Selector sel_primitiveDataElementSize = "primitiveDataElementSize";
         private static readonly Selector sel_setPrimitiveDataElementSize = "setPrimitiveDataElementSize:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLAccelerationStructureBoundingBoxGeometryDescriptor
+    public struct MTLAccelerationStructureBoundingBoxGeometryDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureBoundingBoxGeometryDescriptor obj) => obj.NativePtr;
@@ -484,6 +508,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLAccelerationStructureBoundingBoxGeometryDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLBuffer BoundingBoxBuffer
@@ -583,10 +612,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setPrimitiveDataStride = "setPrimitiveDataStride:";
         private static readonly Selector sel_primitiveDataElementSize = "primitiveDataElementSize";
         private static readonly Selector sel_setPrimitiveDataElementSize = "setPrimitiveDataElementSize:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLMotionKeyframeData
+    public struct MTLMotionKeyframeData: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLMotionKeyframeData obj) => obj.NativePtr;
@@ -596,6 +626,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLMotionKeyframeData");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLBuffer Buffer
@@ -615,10 +650,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_offset = "offset";
         private static readonly Selector sel_setOffset = "setOffset:";
         private static readonly Selector sel_data = "data";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLAccelerationStructureMotionTriangleGeometryDescriptor
+    public struct MTLAccelerationStructureMotionTriangleGeometryDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureMotionTriangleGeometryDescriptor obj) => obj.NativePtr;
@@ -629,6 +665,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLAccelerationStructureMotionTriangleGeometryDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public NSArray VertexBuffers
@@ -768,10 +809,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setPrimitiveDataStride = "setPrimitiveDataStride:";
         private static readonly Selector sel_primitiveDataElementSize = "primitiveDataElementSize";
         private static readonly Selector sel_setPrimitiveDataElementSize = "setPrimitiveDataElementSize:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor
+    public struct MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor obj) => obj.NativePtr;
@@ -782,6 +824,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public NSArray BoundingBoxBuffers
@@ -873,10 +920,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setPrimitiveDataStride = "setPrimitiveDataStride:";
         private static readonly Selector sel_primitiveDataElementSize = "primitiveDataElementSize";
         private static readonly Selector sel_setPrimitiveDataElementSize = "setPrimitiveDataElementSize:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLAccelerationStructureCurveGeometryDescriptor
+    public struct MTLAccelerationStructureCurveGeometryDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureCurveGeometryDescriptor obj) => obj.NativePtr;
@@ -887,6 +935,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLAccelerationStructureCurveGeometryDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLBuffer ControlPointBuffer
@@ -1090,10 +1143,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setPrimitiveDataStride = "setPrimitiveDataStride:";
         private static readonly Selector sel_primitiveDataElementSize = "primitiveDataElementSize";
         private static readonly Selector sel_setPrimitiveDataElementSize = "setPrimitiveDataElementSize:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLAccelerationStructureMotionCurveGeometryDescriptor
+    public struct MTLAccelerationStructureMotionCurveGeometryDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureMotionCurveGeometryDescriptor obj) => obj.NativePtr;
@@ -1104,6 +1158,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLAccelerationStructureMotionCurveGeometryDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public NSArray ControlPointBuffers
@@ -1291,10 +1350,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setPrimitiveDataStride = "setPrimitiveDataStride:";
         private static readonly Selector sel_primitiveDataElementSize = "primitiveDataElementSize";
         private static readonly Selector sel_setPrimitiveDataElementSize = "setPrimitiveDataElementSize:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLInstanceAccelerationStructureDescriptor
+    public struct MTLInstanceAccelerationStructureDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLInstanceAccelerationStructureDescriptor obj) => obj.NativePtr;
@@ -1305,6 +1365,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLInstanceAccelerationStructureDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLBuffer InstanceDescriptorBuffer
@@ -1388,10 +1453,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_descriptor = "descriptor";
         private static readonly Selector sel_usage = "usage";
         private static readonly Selector sel_setUsage = "setUsage:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLIndirectInstanceAccelerationStructureDescriptor
+    public struct MTLIndirectInstanceAccelerationStructureDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIndirectInstanceAccelerationStructureDescriptor obj) => obj.NativePtr;
@@ -1402,6 +1468,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLIndirectInstanceAccelerationStructureDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLBuffer InstanceDescriptorBuffer
@@ -1509,15 +1580,21 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_descriptor = "descriptor";
         private static readonly Selector sel_usage = "usage";
         private static readonly Selector sel_setUsage = "setUsage:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLAccelerationStructure
+    public struct MTLAccelerationStructure: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructure obj) => obj.NativePtr;
         public static implicit operator MTLResource(MTLAccelerationStructure obj) => new(obj.NativePtr);
         public MTLAccelerationStructure(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public ulong Size => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_size);
 
@@ -1572,5 +1649,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_allocatedSize = "allocatedSize";
         private static readonly Selector sel_makeAliasable = "makeAliasable";
         private static readonly Selector sel_isAliasable = "isAliasable";
+        private static readonly Selector sel_release = "release";
     }
 }

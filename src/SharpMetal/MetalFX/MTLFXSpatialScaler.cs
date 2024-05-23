@@ -13,7 +13,7 @@ namespace SharpMetal.MetalFX
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFXSpatialScalerDescriptor
+    public struct MTLFXSpatialScalerDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFXSpatialScalerDescriptor obj) => obj.NativePtr;
@@ -23,6 +23,11 @@ namespace SharpMetal.MetalFX
         {
             var cls = new ObjectiveCClass("MTLFXSpatialScalerDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLPixelFormat ColorTextureFormat => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_colorTextureFormat);
@@ -53,14 +58,20 @@ namespace SharpMetal.MetalFX
         private static readonly Selector sel_colorProcessingMode = "colorProcessingMode";
         private static readonly Selector sel_newSpatialScalerWithDevice = "newSpatialScalerWithDevice:";
         private static readonly Selector sel_supportsDevice = "supportsDevice:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFXSpatialScaler
+    public struct MTLFXSpatialScaler: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFXSpatialScaler obj) => obj.NativePtr;
         public MTLFXSpatialScaler(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public MTLTextureUsage ColorTextureUsage => (MTLTextureUsage)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_colorTextureUsage);
 
@@ -104,5 +115,6 @@ namespace SharpMetal.MetalFX
         private static readonly Selector sel_outputHeight = "outputHeight";
         private static readonly Selector sel_colorProcessingMode = "colorProcessingMode";
         private static readonly Selector sel_fence = "fence";
+        private static readonly Selector sel_release = "release";
     }
 }

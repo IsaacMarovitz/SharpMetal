@@ -21,12 +21,17 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLComputeCommandEncoder
+    public struct MTLComputeCommandEncoder: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLComputeCommandEncoder obj) => obj.NativePtr;
         public static implicit operator MTLCommandEncoder(MTLComputeCommandEncoder obj) => new(obj.NativePtr);
         public MTLComputeCommandEncoder(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public MTLDispatchType DispatchType => (MTLDispatchType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_dispatchType);
 
@@ -294,5 +299,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_insertDebugSignpost = "insertDebugSignpost:";
         private static readonly Selector sel_pushDebugGroup = "pushDebugGroup:";
         private static readonly Selector sel_popDebugGroup = "popDebugGroup";
+        private static readonly Selector sel_release = "release";
     }
 }

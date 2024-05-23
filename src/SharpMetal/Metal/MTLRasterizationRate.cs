@@ -5,7 +5,7 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public struct MTLRasterizationRateSampleArray
+    public struct MTLRasterizationRateSampleArray: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRasterizationRateSampleArray obj) => obj.NativePtr;
@@ -15,6 +15,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLRasterizationRateSampleArray");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public NSNumber Object(ulong index)
@@ -29,10 +34,11 @@ namespace SharpMetal.Metal
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
         private static readonly Selector sel_setObjectatIndexedSubscript = "setObject:atIndexedSubscript:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRasterizationRateLayerDescriptor
+    public struct MTLRasterizationRateLayerDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRasterizationRateLayerDescriptor obj) => obj.NativePtr;
@@ -42,6 +48,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLRasterizationRateLayerDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLSize SampleCount
@@ -79,10 +90,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_horizontal = "horizontal";
         private static readonly Selector sel_vertical = "vertical";
         private static readonly Selector sel_setSampleCount = "setSampleCount:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRasterizationRateLayerArray
+    public struct MTLRasterizationRateLayerArray: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRasterizationRateLayerArray obj) => obj.NativePtr;
@@ -92,6 +104,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLRasterizationRateLayerArray");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLRasterizationRateLayerDescriptor Object(ulong layerIndex)
@@ -106,10 +123,11 @@ namespace SharpMetal.Metal
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
         private static readonly Selector sel_setObjectatIndexedSubscript = "setObject:atIndexedSubscript:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRasterizationRateMapDescriptor
+    public struct MTLRasterizationRateMapDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRasterizationRateMapDescriptor obj) => obj.NativePtr;
@@ -119,6 +137,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLRasterizationRateMapDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLRasterizationRateLayerArray Layers => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_layers));
@@ -173,14 +196,20 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_setLabel = "setLabel:";
         private static readonly Selector sel_layerCount = "layerCount";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRasterizationRateMap
+    public struct MTLRasterizationRateMap: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRasterizationRateMap obj) => obj.NativePtr;
         public MTLRasterizationRateMap(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
 
@@ -224,5 +253,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_physicalSizeForLayer = "physicalSizeForLayer:";
         private static readonly Selector sel_mapScreenToPhysicalCoordinatesforLayer = "mapScreenToPhysicalCoordinates:forLayer:";
         private static readonly Selector sel_mapPhysicalToScreenCoordinatesforLayer = "mapPhysicalToScreenCoordinates:forLayer:";
+        private static readonly Selector sel_release = "release";
     }
 }

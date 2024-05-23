@@ -5,7 +5,7 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public struct MTLFunctionConstantValues
+    public struct MTLFunctionConstantValues: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionConstantValues obj) => obj.NativePtr;
@@ -15,6 +15,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLFunctionConstantValues");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public void SetConstantValue(IntPtr value, MTLDataType type, ulong index)
@@ -41,5 +46,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setConstantValuestypewithRange = "setConstantValues:type:withRange:";
         private static readonly Selector sel_setConstantValuetypewithName = "setConstantValue:type:withName:";
         private static readonly Selector sel_reset = "reset";
+        private static readonly Selector sel_release = "release";
     }
 }

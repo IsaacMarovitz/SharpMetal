@@ -13,7 +13,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLPipelineBufferDescriptor
+    public struct MTLPipelineBufferDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLPipelineBufferDescriptor obj) => obj.NativePtr;
@@ -25,6 +25,11 @@ namespace SharpMetal.Metal
             NativePtr = cls.AllocInit();
         }
 
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
+
         public MTLMutability Mutability
         {
             get => (MTLMutability)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_mutability);
@@ -33,10 +38,11 @@ namespace SharpMetal.Metal
 
         private static readonly Selector sel_mutability = "mutability";
         private static readonly Selector sel_setMutability = "setMutability:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLPipelineBufferDescriptorArray
+    public struct MTLPipelineBufferDescriptorArray: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLPipelineBufferDescriptorArray obj) => obj.NativePtr;
@@ -46,6 +52,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLPipelineBufferDescriptorArray");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLPipelineBufferDescriptor Object(ulong bufferIndex)
@@ -60,5 +71,6 @@ namespace SharpMetal.Metal
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
         private static readonly Selector sel_setObjectatIndexedSubscript = "setObject:atIndexedSubscript:";
+        private static readonly Selector sel_release = "release";
     }
 }

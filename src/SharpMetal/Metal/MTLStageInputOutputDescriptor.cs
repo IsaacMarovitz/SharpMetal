@@ -85,7 +85,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLBufferLayoutDescriptor
+    public struct MTLBufferLayoutDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLBufferLayoutDescriptor obj) => obj.NativePtr;
@@ -95,6 +95,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLBufferLayoutDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public ulong Stride
@@ -121,10 +126,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setStepFunction = "setStepFunction:";
         private static readonly Selector sel_stepRate = "stepRate";
         private static readonly Selector sel_setStepRate = "setStepRate:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLBufferLayoutDescriptorArray
+    public struct MTLBufferLayoutDescriptorArray: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLBufferLayoutDescriptorArray obj) => obj.NativePtr;
@@ -134,6 +140,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLBufferLayoutDescriptorArray");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLBufferLayoutDescriptor Object(ulong index)
@@ -148,10 +159,11 @@ namespace SharpMetal.Metal
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
         private static readonly Selector sel_setObjectatIndexedSubscript = "setObject:atIndexedSubscript:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLAttributeDescriptor
+    public struct MTLAttributeDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAttributeDescriptor obj) => obj.NativePtr;
@@ -161,6 +173,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLAttributeDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLAttributeFormat Format
@@ -187,10 +204,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setOffset = "setOffset:";
         private static readonly Selector sel_bufferIndex = "bufferIndex";
         private static readonly Selector sel_setBufferIndex = "setBufferIndex:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLAttributeDescriptorArray
+    public struct MTLAttributeDescriptorArray: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAttributeDescriptorArray obj) => obj.NativePtr;
@@ -200,6 +218,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLAttributeDescriptorArray");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLAttributeDescriptor Object(ulong index)
@@ -214,10 +237,11 @@ namespace SharpMetal.Metal
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
         private static readonly Selector sel_setObjectatIndexedSubscript = "setObject:atIndexedSubscript:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLStageInputOutputDescriptor
+    public struct MTLStageInputOutputDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLStageInputOutputDescriptor obj) => obj.NativePtr;
@@ -227,6 +251,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLStageInputOutputDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLBufferLayoutDescriptorArray Layouts => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_layouts));
@@ -258,5 +287,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_indexBufferIndex = "indexBufferIndex";
         private static readonly Selector sel_setIndexBufferIndex = "setIndexBufferIndex:";
         private static readonly Selector sel_reset = "reset";
+        private static readonly Selector sel_release = "release";
     }
 }

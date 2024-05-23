@@ -72,7 +72,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLVertexAttribute
+    public struct MTLVertexAttribute: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLVertexAttribute obj) => obj.NativePtr;
@@ -84,37 +84,9 @@ namespace SharpMetal.Metal
             NativePtr = cls.AllocInit();
         }
 
-        public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
-
-        public ulong AttributeIndex => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_attributeIndex);
-
-        public MTLDataType AttributeType => (MTLDataType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_attributeType);
-
-        public bool Active => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isActive);
-
-        public bool PatchData => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isPatchData);
-
-        public bool PatchControlPointData => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isPatchControlPointData);
-
-        private static readonly Selector sel_name = "name";
-        private static readonly Selector sel_attributeIndex = "attributeIndex";
-        private static readonly Selector sel_attributeType = "attributeType";
-        private static readonly Selector sel_isActive = "isActive";
-        private static readonly Selector sel_isPatchData = "isPatchData";
-        private static readonly Selector sel_isPatchControlPointData = "isPatchControlPointData";
-    }
-
-    [SupportedOSPlatform("macos")]
-    public struct MTLAttribute
-    {
-        public IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLAttribute obj) => obj.NativePtr;
-        public MTLAttribute(IntPtr ptr) => NativePtr = ptr;
-
-        public MTLAttribute()
+        public void Dispose()
         {
-            var cls = new ObjectiveCClass("MTLAttribute");
-            NativePtr = cls.AllocInit();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
@@ -135,10 +107,50 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_isActive = "isActive";
         private static readonly Selector sel_isPatchData = "isPatchData";
         private static readonly Selector sel_isPatchControlPointData = "isPatchControlPointData";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFunctionConstant
+    public struct MTLAttribute: IDisposable
+    {
+        public IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLAttribute obj) => obj.NativePtr;
+        public MTLAttribute(IntPtr ptr) => NativePtr = ptr;
+
+        public MTLAttribute()
+        {
+            var cls = new ObjectiveCClass("MTLAttribute");
+            NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
+
+        public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
+
+        public ulong AttributeIndex => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_attributeIndex);
+
+        public MTLDataType AttributeType => (MTLDataType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_attributeType);
+
+        public bool Active => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isActive);
+
+        public bool PatchData => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isPatchData);
+
+        public bool PatchControlPointData => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isPatchControlPointData);
+
+        private static readonly Selector sel_name = "name";
+        private static readonly Selector sel_attributeIndex = "attributeIndex";
+        private static readonly Selector sel_attributeType = "attributeType";
+        private static readonly Selector sel_isActive = "isActive";
+        private static readonly Selector sel_isPatchData = "isPatchData";
+        private static readonly Selector sel_isPatchControlPointData = "isPatchControlPointData";
+        private static readonly Selector sel_release = "release";
+    }
+
+    [SupportedOSPlatform("macos")]
+    public struct MTLFunctionConstant: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionConstant obj) => obj.NativePtr;
@@ -148,6 +160,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLFunctionConstant");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
@@ -162,14 +179,20 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_type = "type";
         private static readonly Selector sel_index = "index";
         private static readonly Selector sel_required = "required";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFunction
+    public struct MTLFunction: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunction obj) => obj.NativePtr;
         public MTLFunction(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public NSString Label
         {
@@ -218,10 +241,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_newArgumentEncoderWithBufferIndex = "newArgumentEncoderWithBufferIndex:";
         private static readonly Selector sel_newArgumentEncoderWithBufferIndexreflection = "newArgumentEncoderWithBufferIndex:reflection:";
         private static readonly Selector sel_options = "options";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLCompileOptions
+    public struct MTLCompileOptions: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCompileOptions obj) => obj.NativePtr;
@@ -231,6 +255,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLCompileOptions");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public NSDictionary PreprocessorMacros
@@ -321,14 +350,20 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setAllowReferencingUndefinedSymbols = "setAllowReferencingUndefinedSymbols:";
         private static readonly Selector sel_maxTotalThreadsPerThreadgroup = "maxTotalThreadsPerThreadgroup";
         private static readonly Selector sel_setMaxTotalThreadsPerThreadgroup = "setMaxTotalThreadsPerThreadgroup:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLLibrary
+    public struct MTLLibrary: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLLibrary obj) => obj.NativePtr;
         public MTLLibrary(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public NSString Label
         {
@@ -374,5 +409,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_functionNames = "functionNames";
         private static readonly Selector sel_type = "type";
         private static readonly Selector sel_installName = "installName";
+        private static readonly Selector sel_release = "release";
     }
 }

@@ -5,7 +5,7 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public struct MTLComputePassSampleBufferAttachmentDescriptor
+    public struct MTLComputePassSampleBufferAttachmentDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLComputePassSampleBufferAttachmentDescriptor obj) => obj.NativePtr;
@@ -15,6 +15,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLComputePassSampleBufferAttachmentDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLCounterSampleBuffer SampleBuffer
@@ -41,10 +46,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setStartOfEncoderSampleIndex = "setStartOfEncoderSampleIndex:";
         private static readonly Selector sel_endOfEncoderSampleIndex = "endOfEncoderSampleIndex";
         private static readonly Selector sel_setEndOfEncoderSampleIndex = "setEndOfEncoderSampleIndex:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLComputePassSampleBufferAttachmentDescriptorArray
+    public struct MTLComputePassSampleBufferAttachmentDescriptorArray: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLComputePassSampleBufferAttachmentDescriptorArray obj) => obj.NativePtr;
@@ -54,6 +60,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLComputePassSampleBufferAttachmentDescriptorArray");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLComputePassSampleBufferAttachmentDescriptor Object(ulong attachmentIndex)
@@ -68,10 +79,11 @@ namespace SharpMetal.Metal
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
         private static readonly Selector sel_setObjectatIndexedSubscript = "setObject:atIndexedSubscript:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLComputePassDescriptor
+    public struct MTLComputePassDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLComputePassDescriptor obj) => obj.NativePtr;
@@ -81,6 +93,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLComputePassDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLDispatchType DispatchType
@@ -95,5 +112,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_dispatchType = "dispatchType";
         private static readonly Selector sel_setDispatchType = "setDispatchType:";
         private static readonly Selector sel_sampleBufferAttachments = "sampleBufferAttachments";
+        private static readonly Selector sel_release = "release";
     }
 }

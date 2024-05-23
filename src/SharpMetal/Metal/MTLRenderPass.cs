@@ -59,7 +59,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRenderPassAttachmentDescriptor
+    public struct MTLRenderPassAttachmentDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPassAttachmentDescriptor obj) => obj.NativePtr;
@@ -69,6 +69,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLRenderPassAttachmentDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLTexture Texture
@@ -159,10 +164,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setStoreAction = "setStoreAction:";
         private static readonly Selector sel_storeActionOptions = "storeActionOptions";
         private static readonly Selector sel_setStoreActionOptions = "setStoreActionOptions:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRenderPassColorAttachmentDescriptor
+    public struct MTLRenderPassColorAttachmentDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPassColorAttachmentDescriptor obj) => obj.NativePtr;
@@ -173,6 +179,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLRenderPassColorAttachmentDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLClearColor ClearColor
@@ -271,10 +282,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setStoreAction = "setStoreAction:";
         private static readonly Selector sel_storeActionOptions = "storeActionOptions";
         private static readonly Selector sel_setStoreActionOptions = "setStoreActionOptions:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRenderPassDepthAttachmentDescriptor
+    public struct MTLRenderPassDepthAttachmentDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPassDepthAttachmentDescriptor obj) => obj.NativePtr;
@@ -285,6 +297,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLRenderPassDepthAttachmentDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public double ClearDepth
@@ -391,10 +408,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setStoreAction = "setStoreAction:";
         private static readonly Selector sel_storeActionOptions = "storeActionOptions";
         private static readonly Selector sel_setStoreActionOptions = "setStoreActionOptions:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRenderPassStencilAttachmentDescriptor
+    public struct MTLRenderPassStencilAttachmentDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPassStencilAttachmentDescriptor obj) => obj.NativePtr;
@@ -405,6 +423,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLRenderPassStencilAttachmentDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public uint ClearStencil
@@ -511,10 +534,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setStoreAction = "setStoreAction:";
         private static readonly Selector sel_storeActionOptions = "storeActionOptions";
         private static readonly Selector sel_setStoreActionOptions = "setStoreActionOptions:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRenderPassColorAttachmentDescriptorArray
+    public struct MTLRenderPassColorAttachmentDescriptorArray: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPassColorAttachmentDescriptorArray obj) => obj.NativePtr;
@@ -524,6 +548,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLRenderPassColorAttachmentDescriptorArray");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLRenderPassColorAttachmentDescriptor Object(ulong attachmentIndex)
@@ -538,10 +567,11 @@ namespace SharpMetal.Metal
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
         private static readonly Selector sel_setObjectatIndexedSubscript = "setObject:atIndexedSubscript:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRenderPassSampleBufferAttachmentDescriptor
+    public struct MTLRenderPassSampleBufferAttachmentDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPassSampleBufferAttachmentDescriptor obj) => obj.NativePtr;
@@ -551,6 +581,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLRenderPassSampleBufferAttachmentDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLCounterSampleBuffer SampleBuffer
@@ -593,10 +628,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setStartOfFragmentSampleIndex = "setStartOfFragmentSampleIndex:";
         private static readonly Selector sel_endOfFragmentSampleIndex = "endOfFragmentSampleIndex";
         private static readonly Selector sel_setEndOfFragmentSampleIndex = "setEndOfFragmentSampleIndex:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRenderPassSampleBufferAttachmentDescriptorArray
+    public struct MTLRenderPassSampleBufferAttachmentDescriptorArray: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPassSampleBufferAttachmentDescriptorArray obj) => obj.NativePtr;
@@ -606,6 +642,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLRenderPassSampleBufferAttachmentDescriptorArray");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLRenderPassSampleBufferAttachmentDescriptor Object(ulong attachmentIndex)
@@ -620,10 +661,11 @@ namespace SharpMetal.Metal
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
         private static readonly Selector sel_setObjectatIndexedSubscript = "setObject:atIndexedSubscript:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRenderPassDescriptor
+    public struct MTLRenderPassDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPassDescriptor obj) => obj.NativePtr;
@@ -633,6 +675,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLRenderPassDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLRenderPassColorAttachmentDescriptorArray ColorAttachments => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_colorAttachments));
@@ -750,5 +797,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_rasterizationRateMap = "rasterizationRateMap";
         private static readonly Selector sel_setRasterizationRateMap = "setRasterizationRateMap:";
         private static readonly Selector sel_sampleBufferAttachments = "sampleBufferAttachments";
+        private static readonly Selector sel_release = "release";
     }
 }

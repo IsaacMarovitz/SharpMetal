@@ -5,11 +5,16 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public struct MTLEvent
+    public struct MTLEvent: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLEvent obj) => obj.NativePtr;
         public MTLEvent(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
 
@@ -22,10 +27,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_device = "device";
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_setLabel = "setLabel:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLSharedEventListener
+    public struct MTLSharedEventListener: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLSharedEventListener obj) => obj.NativePtr;
@@ -37,6 +43,11 @@ namespace SharpMetal.Metal
             NativePtr = cls.AllocInit();
         }
 
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
+
         public IntPtr DispatchQueue => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_dispatchQueue));
 
         public MTLSharedEventListener Init(IntPtr dispatchQueue)
@@ -46,15 +57,21 @@ namespace SharpMetal.Metal
 
         private static readonly Selector sel_initWithDispatchQueue = "initWithDispatchQueue:";
         private static readonly Selector sel_dispatchQueue = "dispatchQueue";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLSharedEvent
+    public struct MTLSharedEvent: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLSharedEvent obj) => obj.NativePtr;
         public static implicit operator MTLEvent(MTLSharedEvent obj) => new(obj.NativePtr);
         public MTLSharedEvent(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public MTLSharedEventHandle NewSharedEventHandle => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newSharedEventHandle));
 
@@ -84,10 +101,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_device = "device";
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_setLabel = "setLabel:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLSharedEventHandle
+    public struct MTLSharedEventHandle: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLSharedEventHandle obj) => obj.NativePtr;
@@ -99,8 +117,14 @@ namespace SharpMetal.Metal
             NativePtr = cls.AllocInit();
         }
 
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
+
         public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
 
         private static readonly Selector sel_label = "label";
+        private static readonly Selector sel_release = "release";
     }
 }

@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveCCore;
 namespace SharpMetal.Foundation
 {
     [SupportedOSPlatform("macos")]
-    public struct NSArray
+    public struct NSArray: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSArray obj) => obj.NativePtr;
@@ -14,6 +14,11 @@ namespace SharpMetal.Foundation
         {
             var cls = new ObjectiveCClass("NSArray");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public ulong Count => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_count);
@@ -50,5 +55,6 @@ namespace SharpMetal.Foundation
         private static readonly Selector sel_initWithCoder = "initWithCoder:";
         private static readonly Selector sel_count = "count";
         private static readonly Selector sel_objectAtIndex = "objectAtIndex:";
+        private static readonly Selector sel_release = "release";
     }
 }

@@ -5,7 +5,7 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public struct MTLLinkedFunctions
+    public struct MTLLinkedFunctions: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLLinkedFunctions obj) => obj.NativePtr;
@@ -15,6 +15,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLLinkedFunctions");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public NSArray Functions
@@ -50,5 +55,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setGroups = "setGroups:";
         private static readonly Selector sel_privateFunctions = "privateFunctions";
         private static readonly Selector sel_setPrivateFunctions = "setPrivateFunctions:";
+        private static readonly Selector sel_release = "release";
     }
 }

@@ -5,11 +5,16 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public struct MTLIndirectRenderCommand
+    public struct MTLIndirectRenderCommand: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIndirectRenderCommand obj) => obj.NativePtr;
         public MTLIndirectRenderCommand(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public void SetRenderPipelineState(MTLRenderPipelineState pipelineState)
         {
@@ -107,14 +112,20 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setBarrier = "setBarrier";
         private static readonly Selector sel_clearBarrier = "clearBarrier";
         private static readonly Selector sel_reset = "reset";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLIndirectComputeCommand
+    public struct MTLIndirectComputeCommand: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIndirectComputeCommand obj) => obj.NativePtr;
         public MTLIndirectComputeCommand(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public void SetComputePipelineState(MTLComputePipelineState pipelineState)
         {
@@ -182,5 +193,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_reset = "reset";
         private static readonly Selector sel_setThreadgroupMemoryLengthatIndex = "setThreadgroupMemoryLength:atIndex:";
         private static readonly Selector sel_setStageInRegion = "setStageInRegion:";
+        private static readonly Selector sel_release = "release";
     }
 }

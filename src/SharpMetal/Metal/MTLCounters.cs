@@ -47,23 +47,34 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLCounter
+    public struct MTLCounter: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCounter obj) => obj.NativePtr;
         public MTLCounter(IntPtr ptr) => NativePtr = ptr;
 
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
+
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
 
         private static readonly Selector sel_name = "name";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLCounterSet
+    public struct MTLCounterSet: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCounterSet obj) => obj.NativePtr;
         public MTLCounterSet(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
 
@@ -71,10 +82,11 @@ namespace SharpMetal.Metal
 
         private static readonly Selector sel_name = "name";
         private static readonly Selector sel_counters = "counters";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLCounterSampleBufferDescriptor
+    public struct MTLCounterSampleBufferDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCounterSampleBufferDescriptor obj) => obj.NativePtr;
@@ -84,6 +96,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLCounterSampleBufferDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLCounterSet CounterSet
@@ -118,14 +135,20 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setStorageMode = "setStorageMode:";
         private static readonly Selector sel_sampleCount = "sampleCount";
         private static readonly Selector sel_setSampleCount = "setSampleCount:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLCounterSampleBuffer
+    public struct MTLCounterSampleBuffer: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCounterSampleBuffer obj) => obj.NativePtr;
         public MTLCounterSampleBuffer(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
 
@@ -142,5 +165,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_sampleCount = "sampleCount";
         private static readonly Selector sel_resolveCounterRange = "resolveCounterRange:";
+        private static readonly Selector sel_release = "release";
     }
 }

@@ -82,7 +82,7 @@ namespace SharpMetal.Generator.Instances
             context.WriteLine("[SupportedOSPlatform(\"macos\")]");
 
             // TODO: Handle LibraryImport usage on MTLDevice (requires partial)
-            var classDecl = $"public struct {Name}";
+            var classDecl = $"public struct {Name}: IDisposable";
 
             context.WriteLine(classDecl);
 
@@ -116,6 +116,14 @@ namespace SharpMetal.Generator.Instances
                 context.LeaveScope();
             }
 
+            context.WriteLine();
+            context.WriteLine("public void Dispose()");
+            context.EnterScope();
+
+            context.WriteLine("ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);");
+
+            context.LeaveScope();
+
             if (_propertyInstances.Any())
             {
                 context.WriteLine();
@@ -148,6 +156,8 @@ namespace SharpMetal.Generator.Instances
                 context.WriteLine($"private static readonly Selector {selector.Name} = \"{selector.Selector}\";");
             }
 
+            context.WriteLine($"private static readonly Selector sel_release = \"release\";");
+
             context.LeaveScope();
             return objectiveCInstances;
         }
@@ -155,6 +165,13 @@ namespace SharpMetal.Generator.Instances
         public static ClassInstance Build(string line, string namespacePrefix, StreamReader sr, List<MethodInstance> inFlightUnscopedMethods)
         {
             var classInfo = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+
+            if (classInfo.Length < 3)
+            {
+                Console.WriteLine($"BAD CLASS! {line}");
+                return new ClassInstance("");
+            }
+
             var className = namespacePrefix + classInfo[1];
             var instance = new ClassInstance(className);
 

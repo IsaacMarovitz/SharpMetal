@@ -55,11 +55,16 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLResource
+    public struct MTLResource: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLResource obj) => obj.NativePtr;
         public MTLResource(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public NSString Label
         {
@@ -108,5 +113,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_allocatedSize = "allocatedSize";
         private static readonly Selector sel_makeAliasable = "makeAliasable";
         private static readonly Selector sel_isAliasable = "isAliasable";
+        private static readonly Selector sel_release = "release";
     }
 }

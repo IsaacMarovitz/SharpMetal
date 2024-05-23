@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveCCore;
 namespace SharpMetal.Foundation
 {
     [SupportedOSPlatform("macos")]
-    public struct NSBundle
+    public struct NSBundle: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSBundle obj) => obj.NativePtr;
@@ -14,6 +14,11 @@ namespace SharpMetal.Foundation
         {
             var cls = new ObjectiveCClass("NSBundle");
             NativePtr = cls.Alloc();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public NSArray AllBundles => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_allBundles));
@@ -147,5 +152,6 @@ namespace SharpMetal.Foundation
         private static readonly Selector sel_localizedInfoDictionary = "localizedInfoDictionary";
         private static readonly Selector sel_objectForInfoDictionaryKey = "objectForInfoDictionaryKey:";
         private static readonly Selector sel_localizedStringForKeyvaluetable = "localizedStringForKey:value:table:";
+        private static readonly Selector sel_release = "release";
     }
 }

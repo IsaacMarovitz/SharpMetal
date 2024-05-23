@@ -14,11 +14,16 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLIOCommandBuffer
+    public struct MTLIOCommandBuffer: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIOCommandBuffer obj) => obj.NativePtr;
         public MTLIOCommandBuffer(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public NSString Label
         {
@@ -112,5 +117,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setLabel = "setLabel:";
         private static readonly Selector sel_status = "status";
         private static readonly Selector sel_error = "error";
+        private static readonly Selector sel_release = "release";
     }
 }

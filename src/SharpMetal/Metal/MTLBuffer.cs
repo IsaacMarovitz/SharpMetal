@@ -5,12 +5,17 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public struct MTLBuffer
+    public struct MTLBuffer: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLBuffer obj) => obj.NativePtr;
         public static implicit operator MTLResource(MTLBuffer obj) => new(obj.NativePtr);
         public MTLBuffer(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public ulong Length => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_length);
 
@@ -101,5 +106,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_allocatedSize = "allocatedSize";
         private static readonly Selector sel_makeAliasable = "makeAliasable";
         private static readonly Selector sel_isAliasable = "isAliasable";
+        private static readonly Selector sel_release = "release";
     }
 }

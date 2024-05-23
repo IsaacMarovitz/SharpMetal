@@ -58,7 +58,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLCommandBufferDescriptor
+    public struct MTLCommandBufferDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCommandBufferDescriptor obj) => obj.NativePtr;
@@ -68,6 +68,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLCommandBufferDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public bool RetainedReferences
@@ -86,14 +91,20 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setRetainedReferences = "setRetainedReferences:";
         private static readonly Selector sel_errorOptions = "errorOptions";
         private static readonly Selector sel_setErrorOptions = "setErrorOptions:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLCommandBufferEncoderInfo
+    public struct MTLCommandBufferEncoderInfo: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCommandBufferEncoderInfo obj) => obj.NativePtr;
         public MTLCommandBufferEncoderInfo(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
 
@@ -104,14 +115,20 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_debugSignposts = "debugSignposts";
         private static readonly Selector sel_errorState = "errorState";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLCommandBuffer
+    public struct MTLCommandBuffer: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCommandBuffer obj) => obj.NativePtr;
         public MTLCommandBuffer(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
 
@@ -286,5 +303,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_accelerationStructureCommandEncoderWithDescriptor = "accelerationStructureCommandEncoderWithDescriptor:";
         private static readonly Selector sel_pushDebugGroup = "pushDebugGroup:";
         private static readonly Selector sel_popDebugGroup = "popDebugGroup";
+        private static readonly Selector sel_release = "release";
     }
 }

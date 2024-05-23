@@ -4,28 +4,47 @@ using SharpMetal.ObjectiveCCore;
 namespace SharpMetal.Foundation
 {
     [SupportedOSPlatform("macos")]
-    public struct NSCopying
+
+    [SupportedOSPlatform("macos")]
+    public struct NSCopying: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSCopying obj) => obj.NativePtr;
         public NSCopying(IntPtr ptr) => NativePtr = ptr;
 
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
+
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct NSSecureCoding
+    public struct NSSecureCoding: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSSecureCoding obj) => obj.NativePtr;
         public NSSecureCoding(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct NSObject
+    public struct NSObject: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSObject obj) => obj.NativePtr;
         public NSObject(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public ulong Hash => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_hash);
 
@@ -46,5 +65,6 @@ namespace SharpMetal.Foundation
         private static readonly Selector sel_isEqual = "isEqual:";
         private static readonly Selector sel_description = "description";
         private static readonly Selector sel_debugDescription = "debugDescription";
+        private static readonly Selector sel_release = "release";
     }
 }

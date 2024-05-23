@@ -47,7 +47,7 @@ namespace SharpMetal.Foundation
     }
 
     [SupportedOSPlatform("macos")]
-    public struct NSString
+    public struct NSString: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSString obj) => obj.NativePtr;
@@ -57,6 +57,11 @@ namespace SharpMetal.Foundation
         {
             var cls = new ObjectiveCClass("NSString");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public ulong Length => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_length);
@@ -147,5 +152,6 @@ namespace SharpMetal.Foundation
         private static readonly Selector sel_fileSystemRepresentation = "fileSystemRepresentation";
         private static readonly Selector sel_stringByAppendingString = "stringByAppendingString:";
         private static readonly Selector sel_caseInsensitiveCompare = "caseInsensitiveCompare:";
+        private static readonly Selector sel_release = "release";
     }
 }

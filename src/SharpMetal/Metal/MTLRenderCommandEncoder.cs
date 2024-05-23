@@ -141,12 +141,17 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRenderCommandEncoder
+    public struct MTLRenderCommandEncoder: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderCommandEncoder obj) => obj.NativePtr;
         public static implicit operator MTLCommandEncoder(MTLRenderCommandEncoder obj) => new(obj.NativePtr);
         public MTLRenderCommandEncoder(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public ulong TileWidth => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_tileWidth);
 
@@ -951,5 +956,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_insertDebugSignpost = "insertDebugSignpost:";
         private static readonly Selector sel_pushDebugGroup = "pushDebugGroup:";
         private static readonly Selector sel_popDebugGroup = "popDebugGroup";
+        private static readonly Selector sel_release = "release";
     }
 }

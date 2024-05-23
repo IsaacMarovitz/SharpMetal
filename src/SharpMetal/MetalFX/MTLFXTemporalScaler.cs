@@ -5,7 +5,7 @@ using SharpMetal.Metal;
 namespace SharpMetal.MetalFX
 {
     [SupportedOSPlatform("macos")]
-    public struct MTLFXTemporalScalerDescriptor
+    public struct MTLFXTemporalScalerDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFXTemporalScalerDescriptor obj) => obj.NativePtr;
@@ -15,6 +15,11 @@ namespace SharpMetal.MetalFX
         {
             var cls = new ObjectiveCClass("MTLFXTemporalScalerDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLPixelFormat ColorTextureFormat => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_colorTextureFormat);
@@ -65,14 +70,20 @@ namespace SharpMetal.MetalFX
         private static readonly Selector sel_inputContentMaxScale = "inputContentMaxScale";
         private static readonly Selector sel_newTemporalScalerWithDevice = "newTemporalScalerWithDevice:";
         private static readonly Selector sel_supportsDevice = "supportsDevice:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFXTemporalScaler
+    public struct MTLFXTemporalScaler: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFXTemporalScaler obj) => obj.NativePtr;
         public MTLFXTemporalScaler(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public MTLTextureUsage ColorTextureUsage => (MTLTextureUsage)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_colorTextureUsage);
 
@@ -161,5 +172,6 @@ namespace SharpMetal.MetalFX
         private static readonly Selector sel_inputContentMinScale = "inputContentMinScale";
         private static readonly Selector sel_inputContentMaxScale = "inputContentMaxScale";
         private static readonly Selector sel_fence = "fence";
+        private static readonly Selector sel_release = "release";
     }
 }

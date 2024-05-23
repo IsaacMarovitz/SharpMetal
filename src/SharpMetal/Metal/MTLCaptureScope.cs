@@ -5,11 +5,16 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public struct MTLCaptureScope
+    public struct MTLCaptureScope: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCaptureScope obj) => obj.NativePtr;
         public MTLCaptureScope(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
 
@@ -37,5 +42,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_commandQueue = "commandQueue";
         private static readonly Selector sel_beginScope = "beginScope";
         private static readonly Selector sel_endScope = "endScope";
+        private static readonly Selector sel_release = "release";
     }
 }

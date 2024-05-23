@@ -5,11 +5,16 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public struct MTLDrawable
+    public struct MTLDrawable: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLDrawable obj) => obj.NativePtr;
         public MTLDrawable(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public IntPtr PresentedTime => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_presentedTime));
 
@@ -35,5 +40,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_presentAfterMinimumDuration = "presentAfterMinimumDuration:";
         private static readonly Selector sel_presentedTime = "presentedTime";
         private static readonly Selector sel_drawableID = "drawableID";
+        private static readonly Selector sel_release = "release";
     }
 }

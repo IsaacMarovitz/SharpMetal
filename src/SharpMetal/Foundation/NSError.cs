@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveCCore;
 namespace SharpMetal.Foundation
 {
     [SupportedOSPlatform("macos")]
-    public struct NSError
+    public struct NSError: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSError obj) => obj.NativePtr;
@@ -14,6 +14,11 @@ namespace SharpMetal.Foundation
         {
             var cls = new ObjectiveCClass("NSError");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public long Code => ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_code);
@@ -49,5 +54,6 @@ namespace SharpMetal.Foundation
         private static readonly Selector sel_localizedRecoveryOptions = "localizedRecoveryOptions";
         private static readonly Selector sel_localizedRecoverySuggestion = "localizedRecoverySuggestion";
         private static readonly Selector sel_localizedFailureReason = "localizedFailureReason";
+        private static readonly Selector sel_release = "release";
     }
 }

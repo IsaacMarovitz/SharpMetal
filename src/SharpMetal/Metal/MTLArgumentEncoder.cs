@@ -5,11 +5,16 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public struct MTLArgumentEncoder
+    public struct MTLArgumentEncoder: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLArgumentEncoder obj) => obj.NativePtr;
         public MTLArgumentEncoder(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
 
@@ -154,5 +159,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setVisibleFunctionTableswithRange = "setVisibleFunctionTables:withRange:";
         private static readonly Selector sel_setIntersectionFunctionTableatIndex = "setIntersectionFunctionTable:atIndex:";
         private static readonly Selector sel_setIntersectionFunctionTableswithRange = "setIntersectionFunctionTables:withRange:";
+        private static readonly Selector sel_release = "release";
     }
 }

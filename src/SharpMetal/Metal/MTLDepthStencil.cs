@@ -31,7 +31,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLStencilDescriptor
+    public struct MTLStencilDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLStencilDescriptor obj) => obj.NativePtr;
@@ -41,6 +41,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLStencilDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLCompareFunction StencilCompareFunction
@@ -91,10 +96,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setReadMask = "setReadMask:";
         private static readonly Selector sel_writeMask = "writeMask";
         private static readonly Selector sel_setWriteMask = "setWriteMask:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLDepthStencilDescriptor
+    public struct MTLDepthStencilDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLDepthStencilDescriptor obj) => obj.NativePtr;
@@ -104,6 +110,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLDepthStencilDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLCompareFunction DepthCompareFunction
@@ -151,14 +162,20 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setBackFaceStencil = "setBackFaceStencil:";
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_setLabel = "setLabel:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLDepthStencilState
+    public struct MTLDepthStencilState: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLDepthStencilState obj) => obj.NativePtr;
         public MTLDepthStencilState(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
 
@@ -166,5 +183,6 @@ namespace SharpMetal.Metal
 
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_device = "device";
+        private static readonly Selector sel_release = "release";
     }
 }

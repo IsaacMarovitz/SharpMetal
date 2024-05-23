@@ -4,11 +4,16 @@ using SharpMetal.ObjectiveCCore;
 namespace SharpMetal.Foundation
 {
     [SupportedOSPlatform("macos")]
-    public struct NSDate
+    public struct NSDate: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSDate obj) => obj.NativePtr;
         public NSDate(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public static NSDate DateWithTimeIntervalSinceNow(IntPtr secs)
         {
@@ -16,5 +21,6 @@ namespace SharpMetal.Foundation
         }
 
         private static readonly Selector sel_dateWithTimeIntervalSinceNow = "dateWithTimeIntervalSinceNow:";
+        private static readonly Selector sel_release = "release";
     }
 }

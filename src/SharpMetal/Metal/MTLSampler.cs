@@ -39,7 +39,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLSamplerDescriptor
+    public struct MTLSamplerDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLSamplerDescriptor obj) => obj.NativePtr;
@@ -49,6 +49,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLSamplerDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLSamplerMinMagFilter MinFilter
@@ -171,14 +176,20 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setSupportArgumentBuffers = "setSupportArgumentBuffers:";
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_setLabel = "setLabel:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLSamplerState
+    public struct MTLSamplerState: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLSamplerState obj) => obj.NativePtr;
         public MTLSamplerState(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
 
@@ -189,5 +200,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_device = "device";
         private static readonly Selector sel_gpuResourceID = "gpuResourceID";
+        private static readonly Selector sel_release = "release";
     }
 }

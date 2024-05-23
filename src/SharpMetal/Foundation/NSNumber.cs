@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveCCore;
 namespace SharpMetal.Foundation
 {
     [SupportedOSPlatform("macos")]
-    public struct NSValue
+    public struct NSValue: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSValue obj) => obj.NativePtr;
@@ -14,6 +14,11 @@ namespace SharpMetal.Foundation
         {
             var cls = new ObjectiveCClass("NSValue");
             NativePtr = cls.Alloc();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public ushort ObjCType => ObjectiveCRuntime.ushort_objc_msgSend(NativePtr, sel_objCType);
@@ -58,10 +63,11 @@ namespace SharpMetal.Foundation
         private static readonly Selector sel_objCType = "objCType";
         private static readonly Selector sel_isEqualToValue = "isEqualToValue:";
         private static readonly Selector sel_pointerValue = "pointerValue";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct NSNumber
+    public struct NSNumber: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSNumber obj) => obj.NativePtr;
@@ -71,6 +77,11 @@ namespace SharpMetal.Foundation
         {
             var cls = new ObjectiveCClass("NSNumber");
             NativePtr = cls.Alloc();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public ushort CharValue => ObjectiveCRuntime.ushort_objc_msgSend(NativePtr, sel_charValue);
@@ -271,5 +282,6 @@ namespace SharpMetal.Foundation
         private static readonly Selector sel_compare = "compare:";
         private static readonly Selector sel_isEqualToNumber = "isEqualToNumber:";
         private static readonly Selector sel_descriptionWithLocale = "descriptionWithLocale:";
+        private static readonly Selector sel_release = "release";
     }
 }

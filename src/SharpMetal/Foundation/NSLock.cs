@@ -4,15 +4,21 @@ using SharpMetal.ObjectiveCCore;
 namespace SharpMetal.Foundation
 {
     [SupportedOSPlatform("macos")]
-    public struct NSLocking
+    public struct NSLocking: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSLocking obj) => obj.NativePtr;
         public NSLocking(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct NSCondition
+    public struct NSCondition: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSCondition obj) => obj.NativePtr;
@@ -22,6 +28,11 @@ namespace SharpMetal.Foundation
         {
             var cls = new ObjectiveCClass("NSCondition");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public void Wait()
@@ -48,5 +59,6 @@ namespace SharpMetal.Foundation
         private static readonly Selector sel_waitUntilDate = "waitUntilDate:";
         private static readonly Selector sel_signal = "signal";
         private static readonly Selector sel_broadcast = "broadcast";
+        private static readonly Selector sel_release = "release";
     }
 }

@@ -13,7 +13,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLHeapDescriptor
+    public struct MTLHeapDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLHeapDescriptor obj) => obj.NativePtr;
@@ -23,6 +23,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLHeapDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public ulong Size
@@ -81,14 +86,20 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setResourceOptions = "setResourceOptions:";
         private static readonly Selector sel_type = "type";
         private static readonly Selector sel_setType = "setType:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLHeap
+    public struct MTLHeap: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLHeap obj) => obj.NativePtr;
         public MTLHeap(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public NSString Label
         {
@@ -185,5 +196,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_newAccelerationStructureWithDescriptor = "newAccelerationStructureWithDescriptor:";
         private static readonly Selector sel_newAccelerationStructureWithSizeoffset = "newAccelerationStructureWithSize:offset:";
         private static readonly Selector sel_newAccelerationStructureWithDescriptoroffset = "newAccelerationStructureWithDescriptor:offset:";
+        private static readonly Selector sel_release = "release";
     }
 }

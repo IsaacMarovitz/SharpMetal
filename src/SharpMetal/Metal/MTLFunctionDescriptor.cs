@@ -14,7 +14,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFunctionDescriptor
+    public struct MTLFunctionDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionDescriptor obj) => obj.NativePtr;
@@ -24,6 +24,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLFunctionDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public NSString Name
@@ -67,10 +72,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setOptions = "setOptions:";
         private static readonly Selector sel_binaryArchives = "binaryArchives";
         private static readonly Selector sel_setBinaryArchives = "setBinaryArchives:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLIntersectionFunctionDescriptor
+    public struct MTLIntersectionFunctionDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIntersectionFunctionDescriptor obj) => obj.NativePtr;
@@ -83,6 +89,11 @@ namespace SharpMetal.Metal
             NativePtr = cls.AllocInit();
         }
 
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
+
         public NSString Name
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
@@ -124,5 +135,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setOptions = "setOptions:";
         private static readonly Selector sel_binaryArchives = "binaryArchives";
         private static readonly Selector sel_setBinaryArchives = "setBinaryArchives:";
+        private static readonly Selector sel_release = "release";
     }
 }

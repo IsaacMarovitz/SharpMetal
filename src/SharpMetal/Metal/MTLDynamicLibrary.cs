@@ -16,11 +16,16 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLDynamicLibrary
+    public struct MTLDynamicLibrary: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLDynamicLibrary obj) => obj.NativePtr;
         public MTLDynamicLibrary(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public NSString Label
         {
@@ -42,5 +47,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_device = "device";
         private static readonly Selector sel_installName = "installName";
         private static readonly Selector sel_serializeToURLerror = "serializeToURL:error:";
+        private static readonly Selector sel_release = "release";
     }
 }

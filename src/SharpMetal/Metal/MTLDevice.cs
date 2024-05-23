@@ -156,7 +156,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLArgumentDescriptor
+    public struct MTLArgumentDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLArgumentDescriptor obj) => obj.NativePtr;
@@ -166,6 +166,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLArgumentDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public MTLDataType DataType
@@ -217,10 +222,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setTextureType = "setTextureType:";
         private static readonly Selector sel_constantBlockAlignment = "constantBlockAlignment";
         private static readonly Selector sel_setConstantBlockAlignment = "setConstantBlockAlignment:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLArchitecture
+    public struct MTLArchitecture: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLArchitecture obj) => obj.NativePtr;
@@ -232,17 +238,28 @@ namespace SharpMetal.Metal
             NativePtr = cls.AllocInit();
         }
 
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
+
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
 
         private static readonly Selector sel_name = "name";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public partial struct MTLDevice
+    public partial struct MTLDevice: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLDevice obj) => obj.NativePtr;
         public MTLDevice(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public bool IsHeadless => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isHeadless);
 
@@ -774,5 +791,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_shouldMaximizeConcurrentCompilation = "shouldMaximizeConcurrentCompilation";
         private static readonly Selector sel_setShouldMaximizeConcurrentCompilation = "setShouldMaximizeConcurrentCompilation:";
         private static readonly Selector sel_maximumConcurrentCompilationTaskCount = "maximumConcurrentCompilationTaskCount";
+        private static readonly Selector sel_release = "release";
     }
 }

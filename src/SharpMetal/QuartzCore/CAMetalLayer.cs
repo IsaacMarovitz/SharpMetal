@@ -5,11 +5,16 @@ using SharpMetal.Metal;
 namespace SharpMetal.QuartzCore
 {
     [SupportedOSPlatform("macos")]
-    public struct CAMetalLayer
+    public struct CAMetalLayer: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(CAMetalLayer obj) => obj.NativePtr;
         public CAMetalLayer(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public MTLDevice Device
         {
@@ -53,5 +58,6 @@ namespace SharpMetal.QuartzCore
         private static readonly Selector sel_setFramebufferOnly = "setFramebufferOnly:";
         private static readonly Selector sel_drawableSize = "drawableSize";
         private static readonly Selector sel_setDrawableSize = "setDrawableSize:";
+        private static readonly Selector sel_release = "release";
     }
 }

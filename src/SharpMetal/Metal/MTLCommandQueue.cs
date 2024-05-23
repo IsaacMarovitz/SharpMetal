@@ -5,11 +5,16 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public struct MTLCommandQueue
+    public struct MTLCommandQueue: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCommandQueue obj) => obj.NativePtr;
         public MTLCommandQueue(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public NSString Label
         {
@@ -43,5 +48,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_commandBufferWithDescriptor = "commandBufferWithDescriptor:";
         private static readonly Selector sel_commandBufferWithUnretainedReferences = "commandBufferWithUnretainedReferences";
         private static readonly Selector sel_insertDebugCaptureBoundary = "insertDebugCaptureBoundary";
+        private static readonly Selector sel_release = "release";
     }
 }

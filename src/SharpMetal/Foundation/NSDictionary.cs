@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveCCore;
 namespace SharpMetal.Foundation
 {
     [SupportedOSPlatform("macos")]
-    public struct NSDictionary
+    public struct NSDictionary: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSDictionary obj) => obj.NativePtr;
@@ -14,6 +14,11 @@ namespace SharpMetal.Foundation
         {
             var cls = new ObjectiveCClass("NSDictionary");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public NSEnumerator KeyEnumerator => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_keyEnumerator));
@@ -53,5 +58,6 @@ namespace SharpMetal.Foundation
         private static readonly Selector sel_keyEnumerator = "keyEnumerator";
         private static readonly Selector sel_objectForKey = "objectForKey:";
         private static readonly Selector sel_count = "count";
+        private static readonly Selector sel_release = "release";
     }
 }

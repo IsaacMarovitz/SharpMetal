@@ -15,7 +15,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLBinaryArchiveDescriptor
+    public struct MTLBinaryArchiveDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLBinaryArchiveDescriptor obj) => obj.NativePtr;
@@ -27,6 +27,11 @@ namespace SharpMetal.Metal
             NativePtr = cls.AllocInit();
         }
 
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
+
         public NSURL Url
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_url));
@@ -35,14 +40,20 @@ namespace SharpMetal.Metal
 
         private static readonly Selector sel_url = "url";
         private static readonly Selector sel_setUrl = "setUrl:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLBinaryArchive
+    public struct MTLBinaryArchive: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLBinaryArchive obj) => obj.NativePtr;
         public MTLBinaryArchive(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public NSString Label
         {
@@ -85,5 +96,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_addTileRenderPipelineFunctionsWithDescriptorerror = "addTileRenderPipelineFunctionsWithDescriptor:error:";
         private static readonly Selector sel_serializeToURLerror = "serializeToURL:error:";
         private static readonly Selector sel_addFunctionWithDescriptorlibraryerror = "addFunctionWithDescriptor:library:error:";
+        private static readonly Selector sel_release = "release";
     }
 }

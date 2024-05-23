@@ -27,11 +27,16 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLIOCommandQueue
+    public struct MTLIOCommandQueue: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIOCommandQueue obj) => obj.NativePtr;
         public MTLIOCommandQueue(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public MTLIOCommandBuffer CommandBuffer => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_commandBuffer));
 
@@ -53,26 +58,38 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_commandBufferWithUnretainedReferences = "commandBufferWithUnretainedReferences";
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_setLabel = "setLabel:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLIOScratchBuffer
+    public struct MTLIOScratchBuffer: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIOScratchBuffer obj) => obj.NativePtr;
         public MTLIOScratchBuffer(IntPtr ptr) => NativePtr = ptr;
 
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
+
         public MTLBuffer Buffer => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_buffer));
 
         private static readonly Selector sel_buffer = "buffer";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLIOScratchBufferAllocator
+    public struct MTLIOScratchBufferAllocator: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIOScratchBufferAllocator obj) => obj.NativePtr;
         public MTLIOScratchBufferAllocator(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public IntPtr NewScratchBuffer(ulong minimumSize)
         {
@@ -80,10 +97,11 @@ namespace SharpMetal.Metal
         }
 
         private static readonly Selector sel_newScratchBufferWithMinimumSize = "newScratchBufferWithMinimumSize:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLIOCommandQueueDescriptor
+    public struct MTLIOCommandQueueDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIOCommandQueueDescriptor obj) => obj.NativePtr;
@@ -93,6 +111,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLIOCommandQueueDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public ulong MaxCommandBufferCount
@@ -135,14 +158,20 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setMaxCommandsInFlight = "setMaxCommandsInFlight:";
         private static readonly Selector sel_scratchBufferAllocator = "scratchBufferAllocator";
         private static readonly Selector sel_setScratchBufferAllocator = "setScratchBufferAllocator:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLIOFileHandle
+    public struct MTLIOFileHandle: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIOFileHandle obj) => obj.NativePtr;
         public MTLIOFileHandle(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public NSString Label
         {
@@ -152,5 +181,6 @@ namespace SharpMetal.Metal
 
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_setLabel = "setLabel:";
+        private static readonly Selector sel_release = "release";
     }
 }

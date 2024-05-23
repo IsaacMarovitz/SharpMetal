@@ -5,15 +5,21 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public struct MTLFunctionStitchingAttribute
+    public struct MTLFunctionStitchingAttribute: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingAttribute obj) => obj.NativePtr;
         public MTLFunctionStitchingAttribute(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFunctionStitchingAttributeAlwaysInline
+    public struct MTLFunctionStitchingAttributeAlwaysInline: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingAttributeAlwaysInline obj) => obj.NativePtr;
@@ -25,18 +31,30 @@ namespace SharpMetal.Metal
             var cls = new ObjectiveCClass("MTLFunctionStitchingAttributeAlwaysInline");
             NativePtr = cls.AllocInit();
         }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFunctionStitchingNode
+    public struct MTLFunctionStitchingNode: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingNode obj) => obj.NativePtr;
         public MTLFunctionStitchingNode(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFunctionStitchingInputNode
+    public struct MTLFunctionStitchingInputNode: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingInputNode obj) => obj.NativePtr;
@@ -47,6 +65,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLFunctionStitchingInputNode");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public ulong ArgumentIndex
@@ -63,10 +86,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_argumentIndex = "argumentIndex";
         private static readonly Selector sel_setArgumentIndex = "setArgumentIndex:";
         private static readonly Selector sel_initWithArgumentIndex = "initWithArgumentIndex:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFunctionStitchingFunctionNode
+    public struct MTLFunctionStitchingFunctionNode: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingFunctionNode obj) => obj.NativePtr;
@@ -77,6 +101,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLFunctionStitchingFunctionNode");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public NSString Name
@@ -109,10 +138,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_controlDependencies = "controlDependencies";
         private static readonly Selector sel_setControlDependencies = "setControlDependencies:";
         private static readonly Selector sel_initWithNameargumentscontrolDependencies = "initWithName:arguments:controlDependencies:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFunctionStitchingGraph
+    public struct MTLFunctionStitchingGraph: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingGraph obj) => obj.NativePtr;
@@ -122,6 +152,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLFunctionStitchingGraph");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public NSString FunctionName
@@ -162,10 +197,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_attributes = "attributes";
         private static readonly Selector sel_setAttributes = "setAttributes:";
         private static readonly Selector sel_initWithFunctionNamenodesoutputNodeattributes = "initWithFunctionName:nodes:outputNode:attributes:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLStitchedLibraryDescriptor
+    public struct MTLStitchedLibraryDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLStitchedLibraryDescriptor obj) => obj.NativePtr;
@@ -175,6 +211,11 @@ namespace SharpMetal.Metal
         {
             var cls = new ObjectiveCClass("MTLStitchedLibraryDescriptor");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public NSArray FunctionGraphs
@@ -193,5 +234,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setFunctionGraphs = "setFunctionGraphs:";
         private static readonly Selector sel_functions = "functions";
         private static readonly Selector sel_setFunctions = "setFunctions:";
+        private static readonly Selector sel_release = "release";
     }
 }

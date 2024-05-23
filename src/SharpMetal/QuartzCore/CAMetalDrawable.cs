@@ -5,12 +5,17 @@ using SharpMetal.Metal;
 namespace SharpMetal.QuartzCore
 {
     [SupportedOSPlatform("macos")]
-    public struct CAMetalDrawable
+    public struct CAMetalDrawable: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(CAMetalDrawable obj) => obj.NativePtr;
         public static implicit operator MTLDrawable(CAMetalDrawable obj) => new(obj.NativePtr);
         public CAMetalDrawable(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public CAMetalLayer Layer => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_layer));
 
@@ -42,5 +47,6 @@ namespace SharpMetal.QuartzCore
         private static readonly Selector sel_presentAfterMinimumDuration = "presentAfterMinimumDuration:";
         private static readonly Selector sel_presentedTime = "presentedTime";
         private static readonly Selector sel_drawableID = "drawableID";
+        private static readonly Selector sel_release = "release";
     }
 }

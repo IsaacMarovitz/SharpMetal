@@ -4,7 +4,7 @@ using SharpMetal.ObjectiveCCore;
 namespace SharpMetal.Foundation
 {
     [SupportedOSPlatform("macos")]
-    public struct NSAutoreleasePool
+    public struct NSAutoreleasePool: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSAutoreleasePool obj) => obj.NativePtr;
@@ -14,6 +14,11 @@ namespace SharpMetal.Foundation
         {
             var cls = new ObjectiveCClass("NSAutoreleasePool");
             NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
         public void Drain()
@@ -34,5 +39,6 @@ namespace SharpMetal.Foundation
         private static readonly Selector sel_drain = "drain";
         private static readonly Selector sel_addObject = "addObject:";
         private static readonly Selector sel_showPools = "showPools";
+        private static readonly Selector sel_release = "release";
     }
 }

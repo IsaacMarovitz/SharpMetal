@@ -20,7 +20,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLIntersectionFunctionTableDescriptor
+    public struct MTLIntersectionFunctionTableDescriptor: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIntersectionFunctionTableDescriptor obj) => obj.NativePtr;
@@ -32,6 +32,11 @@ namespace SharpMetal.Metal
             NativePtr = cls.AllocInit();
         }
 
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
+
         public ulong FunctionCount
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_functionCount);
@@ -41,15 +46,21 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_intersectionFunctionTableDescriptor = "intersectionFunctionTableDescriptor";
         private static readonly Selector sel_functionCount = "functionCount";
         private static readonly Selector sel_setFunctionCount = "setFunctionCount:";
+        private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLIntersectionFunctionTable
+    public struct MTLIntersectionFunctionTable: IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIntersectionFunctionTable obj) => obj.NativePtr;
         public static implicit operator MTLResource(MTLIntersectionFunctionTable obj) => new(obj.NativePtr);
         public MTLIntersectionFunctionTable(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
 
         public MTLResourceID GpuResourceID => ObjectiveCRuntime.MTLResourceID_objc_msgSend(NativePtr, sel_gpuResourceID);
 
@@ -161,5 +172,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_allocatedSize = "allocatedSize";
         private static readonly Selector sel_makeAliasable = "makeAliasable";
         private static readonly Selector sel_isAliasable = "isAliasable";
+        private static readonly Selector sel_release = "release";
     }
 }
