@@ -91,6 +91,32 @@ namespace SharpMetal.Metal
         UInt32 = 2,
     }
 
+    /// <summary>
+    /// This is a private Metal API.
+    /// It is not recommended for use in any production applications,
+    /// and may break at any time without warning. Hic sunt dracones.
+    /// </summary>
+    [SupportedOSPlatform("macos")]
+    public enum MTLLogicOperation : ulong
+    {
+        Clear,
+        Set,
+        Copy,
+        CopyInverted,
+        Noop,
+        Invert,
+        And,
+        Nand,
+        Or,
+        Nor,
+        Xor,
+        Equivalence,
+        AndReverse,
+        AndInverted,
+        OrReverse,
+        OrInverted
+    }
+
     [SupportedOSPlatform("macos")]
     public struct MTLRenderPipelineColorAttachmentDescriptor: IDisposable
     {
@@ -164,10 +190,42 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBlendingEnabled, blendingEnabled);
         }
 
+        /// <summary>
+        /// This is a private Metal API.
+        /// It is not recommended for use in any production applications,
+        /// and may break at any time without warning. Hic sunt dracones.
+        /// </summary>
+        public bool LogicOpEnabled => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isLogicOpEnabled);
+
+        /// <summary>
+        /// This is a private Metal API.
+        /// It is not recommended for use in any production applications,
+        /// and may break at any time without warning. Hic sunt dracones.
+        /// </summary>
+        public void SetLogicOpEnabled(bool logicOpEnabled)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLogicOpEnabled, logicOpEnabled);
+        }
+
+        /// <summary>
+        /// This is a private Metal API.
+        /// It is not recommended for use in any production applications,
+        /// and may break at any time without warning. Hic sunt dracones.
+        /// </summary>
+        public MTLLogicOperation LogicOp
+        {
+            get => (MTLLogicOperation)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_logicOp);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLogicOp, (ulong)value);
+        }
+
         private static readonly Selector sel_pixelFormat = "pixelFormat";
         private static readonly Selector sel_setPixelFormat = "setPixelFormat:";
         private static readonly Selector sel_isBlendingEnabled = "isBlendingEnabled";
         private static readonly Selector sel_setBlendingEnabled = "setBlendingEnabled:";
+        private static readonly Selector sel_isLogicOpEnabled = "isLogicOpEnabled";
+        private static readonly Selector sel_setLogicOpEnabled = "setLogicOpEnabled:";
+        private static readonly Selector sel_logicOp = "logicOp";
+        private static readonly Selector sel_setLogicOp = "setLogicOp:";
         private static readonly Selector sel_sourceRGBBlendFactor = "sourceRGBBlendFactor";
         private static readonly Selector sel_setSourceRGBBlendFactor = "setSourceRGBBlendFactor:";
         private static readonly Selector sel_destinationRGBBlendFactor = "destinationRGBBlendFactor";
