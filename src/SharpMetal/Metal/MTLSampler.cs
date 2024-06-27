@@ -128,6 +128,17 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLodAverage, value);
         }
 
+        /// <summary>
+        /// This is a private Metal API.
+        /// It is not recommended for use in any production applications,
+        /// and may break at any time without warning. Hic sunt dracones.
+        /// </summary>
+        public float LodBias
+        {
+            get => ObjectiveCRuntime.float_objc_msgSend(NativePtr, sel_lodBias);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLodBias, value);
+        }
+
         public MTLCompareFunction CompareFunction
         {
             get => (MTLCompareFunction)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_compareFunction);
@@ -170,6 +181,8 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setLodMaxClamp = "setLodMaxClamp:";
         private static readonly Selector sel_lodAverage = "lodAverage";
         private static readonly Selector sel_setLodAverage = "setLodAverage:";
+        private static readonly Selector sel_lodBias = "lodBias";
+        private static readonly Selector sel_setLodBias = "setLodBias:";
         private static readonly Selector sel_compareFunction = "compareFunction";
         private static readonly Selector sel_setCompareFunction = "setCompareFunction:";
         private static readonly Selector sel_supportArgumentBuffers = "supportArgumentBuffers";
