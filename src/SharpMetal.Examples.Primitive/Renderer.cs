@@ -17,13 +17,13 @@ namespace SharpMetal.Examples.Primitive
         private MTLRenderPipelineState _pipelineState;
         private MTLBuffer _vertexPositionsBuffer;
         private MTLBuffer _vertexColorsBuffer;
+        private bool _ready;
 
         public Renderer(MTLDevice device)
         {
             _device = device;
             _queue = device.NewCommandQueue();
             BuildShaders();
-            BuildBuffers();
         }
 
         public static IRenderer Init(MTLDevice device)
@@ -35,31 +35,38 @@ namespace SharpMetal.Examples.Primitive
         {
             // Build shader
             var shaderSource = EmbeddedResources.ReadAllText("Primitive/Shaders/Shader.metal");
-            var libraryError = new NSError(IntPtr.Zero);
-            var library = _device.NewLibrary(StringHelper.NSString(shaderSource), new(IntPtr.Zero), ref libraryError);
-            if (libraryError != IntPtr.Zero)
+
+            _device.NewLibrary(StringHelper.NSString(shaderSource), new(IntPtr.Zero), (library, error) =>
             {
-                throw new Exception($"Failed to create library! {StringHelper.String(libraryError.LocalizedDescription)}");
-            }
+                if (error != IntPtr.Zero)
+                {
+                    throw new Exception($"Failed to create library! {StringHelper.String(error.LocalizedDescription)}");
+                }
 
-            var vertexFunction = library.NewFunction(StringHelper.NSString("vertexMain"));
-            var fragmentFunction = library.NewFunction(StringHelper.NSString("fragmentMain"));
+                var vertexFunction = library.NewFunction(StringHelper.NSString("vertexMain"));
+                var fragmentFunction = library.NewFunction(StringHelper.NSString("fragmentMain"));
 
-            // Build pipeline
-            var pipeline = new MTLRenderPipelineDescriptor();
-            pipeline.VertexFunction = vertexFunction;
-            pipeline.FragmentFunction = fragmentFunction;
+                // Build pipeline
+                var pipeline = new MTLRenderPipelineDescriptor();
+                pipeline.VertexFunction = vertexFunction;
+                pipeline.FragmentFunction = fragmentFunction;
 
-            var colorAttachment = pipeline.ColorAttachments.Object(0);
-            colorAttachment.PixelFormat = MTLPixelFormat.BGRA8UnormsRGB;
-            pipeline.ColorAttachments.SetObject(colorAttachment, 0);
+                var colorAttachment = pipeline.ColorAttachments.Object(0);
+                colorAttachment.PixelFormat = MTLPixelFormat.BGRA8UnormsRGB;
+                pipeline.ColorAttachments.SetObject(colorAttachment, 0);
 
-            var pipelineStateError = new NSError(IntPtr.Zero);
-            _pipelineState = _device.NewRenderPipelineState(pipeline, ref pipelineStateError);
-            if (pipelineStateError != IntPtr.Zero)
-            {
-                throw new Exception($"Failed to create render pipeline state! {StringHelper.String(pipelineStateError.LocalizedDescription)}");
-            }
+                var pipelineStateError = new NSError(IntPtr.Zero);
+                _pipelineState = _device.NewRenderPipelineState(pipeline, ref pipelineStateError);
+                if (pipelineStateError != IntPtr.Zero)
+                {
+                    throw new Exception(
+                        $"Failed to create render pipeline state! {StringHelper.String(pipelineStateError.LocalizedDescription)}");
+                }
+
+                BuildBuffers();
+
+                _ready = true;
+            });
         }
 
         private void BuildBuffers()
@@ -102,6 +109,11 @@ namespace SharpMetal.Examples.Primitive
 
         public void Draw(MTKView mtkView)
         {
+            if (!_ready)
+            {
+                return;
+            }
+
             var buffer = _queue.CommandBuffer();
             var renderPassDescriptor = mtkView.CurrentRenderPassDescriptor;
             var encoder = buffer.RenderCommandEncoder(renderPassDescriptor);

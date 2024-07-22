@@ -7,7 +7,7 @@
         <AssemblyName>SharpMetal</AssemblyName>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Version>1.0.0-preview15</Version>
+        <Version>1.0.0-preview16</Version>
         <Description>Handcrafted Metal bindings for C#</Description>
         <RepositoryUrl>https://github.com/IsaacMarovitz/SharpMetal</RepositoryUrl>
         <RepositoryType>git</RepositoryType>

@@ -7,13 +7,22 @@ namespace SharpMetal.ObjectiveCCore
     public static partial class ObjectiveC
     {
         public const string ObjCRuntime = "/usr/lib/libobjc.A.dylib";
+        public const string Libdl = "libdl.dylib";
+        public const string LibSystem = "/usr/lib/libSystem.dylib";
+
+        public const string CoreGraphicsFramework = "/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics";
+        public const string AppKitFramework = "/System/Library/Frameworks/AppKit.framework/AppKit";
         public const string MetalFramework = "/System/Library/Frameworks/Metal.framework/Metal";
+        public const string MetalKitFramework = "/System/Library/Frameworks/MetalKit.framework/MetalKit";
 
         [LibraryImport(ObjCRuntime, StringMarshalling = StringMarshalling.Utf8)]
         public static partial IntPtr objc_getClass(string name);
 
-        [LibraryImport("libdl.dylib", StringMarshalling = StringMarshalling.Utf8)]
-        private static partial void dlopen(string path, int mode);
+        [LibraryImport(Libdl, StringMarshalling = StringMarshalling.Utf8)]
+        private static partial IntPtr dlopen(string path, int mode);
+
+        [LibraryImport(LibSystem, StringMarshalling = StringMarshalling.Utf8)]
+        public static partial IntPtr dlsym(IntPtr handle, string symbol);
 
         [LibraryImport(ObjCRuntime)]
         public static unsafe partial IntPtr objc_allocateClassPair(IntPtr superclass, char* name, int extraBytes);
@@ -79,24 +88,29 @@ namespace SharpMetal.ObjectiveCCore
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial ulong ulong_objc_msgSend(IntPtr receiver, Selector selector);
 
-        public static void LinkMetal()
+        public static IntPtr LinkMetal()
         {
-            dlopen("/System/Library/Frameworks/Metal.framework/Metal", 0);
+            return dlopen(MetalFramework, 0);
         }
 
-        public static void LinkCoreGraphics()
+        public static IntPtr LinkCoreGraphics()
         {
-            dlopen("/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics", 0);
+            return dlopen(CoreGraphicsFramework, 0);
         }
 
-        public static void LinkAppKit()
+        public static IntPtr LinkAppKit()
         {
-            dlopen("/System/Library/Frameworks/AppKit.framework/AppKit", 0);
+            return dlopen(AppKitFramework, 0);
         }
 
-        public static void LinkMetalKit()
+        public static IntPtr LinkMetalKit()
         {
-            dlopen("/System/Library/Frameworks/MetalKit.framework/MetalKit", 0);
+            return dlopen(MetalKitFramework, 0);
+        }
+
+        public static IntPtr LinkLibSystem()
+        {
+            return dlopen(LibSystem, 0);
         }
     }
 

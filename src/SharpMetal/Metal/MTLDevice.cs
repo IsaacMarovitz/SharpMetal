@@ -252,6 +252,9 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial struct MTLDevice: IDisposable
     {
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        private delegate void NewLibraryCompletionHandler(IntPtr block, IntPtr library, IntPtr error);
+
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLDevice obj) => obj.NativePtr;
         public MTLDevice(IntPtr ptr) => NativePtr = ptr;
@@ -461,6 +464,14 @@ namespace SharpMetal.Metal
         public MTLLibrary NewLibrary(NSString source, MTLCompileOptions options, ref NSError error)
         {
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newLibraryWithSourceoptionserror, source, options, ref error.NativePtr));
+        }
+
+        public void NewLibrary(NSString source, MTLCompileOptions options, Action<MTLLibrary, NSError> callback)
+        {
+            NewLibraryCompletionHandler handler = (_, library, error) => callback(new MTLLibrary(library), new NSError(error));
+            var block = Block.GetBlockForDelegate(handler);
+
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_newLibraryWithSourceoptionscompletionHandler, source, options, block);
         }
 
         public MTLLibrary NewLibrary(MTLStitchedLibraryDescriptor descriptor, ref NSError error)
@@ -727,6 +738,7 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_newLibraryWithURLerror = "newLibraryWithURL:error:";
         private static readonly Selector sel_newLibraryWithDataerror = "newLibraryWithData:error:";
         private static readonly Selector sel_newLibraryWithSourceoptionserror = "newLibraryWithSource:options:error:";
+        private static readonly Selector sel_newLibraryWithSourceoptionscompletionHandler = "newLibraryWithSource:options:completionHandler:";
         private static readonly Selector sel_newLibraryWithStitchedDescriptorerror = "newLibraryWithStitchedDescriptor:error:";
         private static readonly Selector sel_newRenderPipelineStateWithDescriptorerror = "newRenderPipelineStateWithDescriptor:error:";
         private static readonly Selector sel_newRenderPipelineStateWithDescriptoroptionsreflectionerror = "newRenderPipelineStateWithDescriptor:options:reflection:error:";
