@@ -254,6 +254,7 @@ namespace SharpMetal.Metal
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate void NewLibraryCompletionHandler(IntPtr block, IntPtr library, IntPtr error);
+        private NewLibraryCompletionHandler _handler;
 
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLDevice obj) => obj.NativePtr;
@@ -468,8 +469,8 @@ namespace SharpMetal.Metal
 
         public void NewLibrary(NSString source, MTLCompileOptions options, Action<MTLLibrary, NSError> callback)
         {
-            NewLibraryCompletionHandler handler = (_, library, error) => callback(new MTLLibrary(library), new NSError(error));
-            var block = Block.GetBlockForDelegate(handler);
+            _handler = (_, library, error) => callback(new MTLLibrary(library), new NSError(error));
+            var block = Block.GetBlockForDelegate(_handler);
 
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_newLibraryWithSourceoptionscompletionHandler, source, options, block);
         }
