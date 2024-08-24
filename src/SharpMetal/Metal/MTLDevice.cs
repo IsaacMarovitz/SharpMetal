@@ -156,7 +156,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLArgumentDescriptor: IDisposable
+    public struct MTLArgumentDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLArgumentDescriptor obj) => obj.NativePtr;
@@ -226,7 +226,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLArchitecture: IDisposable
+    public struct MTLArchitecture : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLArchitecture obj) => obj.NativePtr;
@@ -250,7 +250,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial struct MTLDevice: IDisposable
+    public partial struct MTLDevice : IDisposable
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate void NewLibraryCompletionHandler(IntPtr block, IntPtr library, IntPtr error);

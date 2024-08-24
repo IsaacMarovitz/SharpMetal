@@ -92,7 +92,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRenderPipelineColorAttachmentDescriptor: IDisposable
+    public struct MTLRenderPipelineColorAttachmentDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPipelineColorAttachmentDescriptor obj) => obj.NativePtr;
@@ -186,7 +186,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRenderPipelineReflection: IDisposable
+    public struct MTLRenderPipelineReflection : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPipelineReflection obj) => obj.NativePtr;
@@ -257,7 +257,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRenderPipelineDescriptor: IDisposable
+    public struct MTLRenderPipelineDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPipelineDescriptor obj) => obj.NativePtr;
@@ -559,7 +559,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRenderPipelineFunctionsDescriptor: IDisposable
+    public struct MTLRenderPipelineFunctionsDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPipelineFunctionsDescriptor obj) => obj.NativePtr;
@@ -604,7 +604,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRenderPipelineState: IDisposable
+    public struct MTLRenderPipelineState : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPipelineState obj) => obj.NativePtr;
@@ -685,7 +685,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRenderPipelineColorAttachmentDescriptorArray: IDisposable
+    public struct MTLRenderPipelineColorAttachmentDescriptorArray : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPipelineColorAttachmentDescriptorArray obj) => obj.NativePtr;
@@ -718,7 +718,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLTileRenderPipelineColorAttachmentDescriptor: IDisposable
+    public struct MTLTileRenderPipelineColorAttachmentDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLTileRenderPipelineColorAttachmentDescriptor obj) => obj.NativePtr;
@@ -747,7 +747,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLTileRenderPipelineColorAttachmentDescriptorArray: IDisposable
+    public struct MTLTileRenderPipelineColorAttachmentDescriptorArray : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLTileRenderPipelineColorAttachmentDescriptorArray obj) => obj.NativePtr;
@@ -780,7 +780,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLTileRenderPipelineDescriptor: IDisposable
+    public struct MTLTileRenderPipelineDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLTileRenderPipelineDescriptor obj) => obj.NativePtr;
@@ -893,7 +893,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLMeshRenderPipelineDescriptor: IDisposable
+    public struct MTLMeshRenderPipelineDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLMeshRenderPipelineDescriptor obj) => obj.NativePtr;

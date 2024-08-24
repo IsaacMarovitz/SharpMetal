@@ -13,7 +13,7 @@ namespace SharpMetal.MetalFX
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFXSpatialScalerDescriptor: IDisposable
+    public struct MTLFXSpatialScalerDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFXSpatialScalerDescriptor obj) => obj.NativePtr;
@@ -62,7 +62,7 @@ namespace SharpMetal.MetalFX
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFXSpatialScaler: IDisposable
+    public struct MTLFXSpatialScaler : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFXSpatialScaler obj) => obj.NativePtr;

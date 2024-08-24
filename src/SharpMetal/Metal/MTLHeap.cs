@@ -13,7 +13,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLHeapDescriptor: IDisposable
+    public struct MTLHeapDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLHeapDescriptor obj) => obj.NativePtr;
@@ -90,7 +90,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLHeap: IDisposable
+    public struct MTLHeap : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLHeap obj) => obj.NativePtr;

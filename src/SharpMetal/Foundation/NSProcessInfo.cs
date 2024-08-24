@@ -27,7 +27,7 @@ namespace SharpMetal.Foundation
     }
 
     [SupportedOSPlatform("macos")]
-    public struct NSProcessInfo: IDisposable
+    public struct NSProcessInfo : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSProcessInfo obj) => obj.NativePtr;

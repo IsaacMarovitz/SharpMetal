@@ -15,7 +15,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLBinaryArchiveDescriptor: IDisposable
+    public struct MTLBinaryArchiveDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLBinaryArchiveDescriptor obj) => obj.NativePtr;
@@ -44,7 +44,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLBinaryArchive: IDisposable
+    public struct MTLBinaryArchive : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLBinaryArchive obj) => obj.NativePtr;

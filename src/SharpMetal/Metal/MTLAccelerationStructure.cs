@@ -137,7 +137,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLAccelerationStructureDescriptor: IDisposable
+    public struct MTLAccelerationStructureDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureDescriptor obj) => obj.NativePtr;
@@ -166,7 +166,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLAccelerationStructureGeometryDescriptor: IDisposable
+    public struct MTLAccelerationStructureGeometryDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureGeometryDescriptor obj) => obj.NativePtr;
@@ -251,7 +251,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLPrimitiveAccelerationStructureDescriptor: IDisposable
+    public struct MTLPrimitiveAccelerationStructureDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLPrimitiveAccelerationStructureDescriptor obj) => obj.NativePtr;
@@ -330,7 +330,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLAccelerationStructureTriangleGeometryDescriptor: IDisposable
+    public struct MTLAccelerationStructureTriangleGeometryDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureTriangleGeometryDescriptor obj) => obj.NativePtr;
@@ -497,7 +497,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLAccelerationStructureBoundingBoxGeometryDescriptor: IDisposable
+    public struct MTLAccelerationStructureBoundingBoxGeometryDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureBoundingBoxGeometryDescriptor obj) => obj.NativePtr;
@@ -616,7 +616,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLMotionKeyframeData: IDisposable
+    public struct MTLMotionKeyframeData : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLMotionKeyframeData obj) => obj.NativePtr;
@@ -654,7 +654,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLAccelerationStructureMotionTriangleGeometryDescriptor: IDisposable
+    public struct MTLAccelerationStructureMotionTriangleGeometryDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureMotionTriangleGeometryDescriptor obj) => obj.NativePtr;
@@ -813,7 +813,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor: IDisposable
+    public struct MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor obj) => obj.NativePtr;
@@ -924,7 +924,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLAccelerationStructureCurveGeometryDescriptor: IDisposable
+    public struct MTLAccelerationStructureCurveGeometryDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureCurveGeometryDescriptor obj) => obj.NativePtr;
@@ -1147,7 +1147,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLAccelerationStructureMotionCurveGeometryDescriptor: IDisposable
+    public struct MTLAccelerationStructureMotionCurveGeometryDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructureMotionCurveGeometryDescriptor obj) => obj.NativePtr;
@@ -1354,7 +1354,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLInstanceAccelerationStructureDescriptor: IDisposable
+    public struct MTLInstanceAccelerationStructureDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLInstanceAccelerationStructureDescriptor obj) => obj.NativePtr;
@@ -1457,7 +1457,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLIndirectInstanceAccelerationStructureDescriptor: IDisposable
+    public struct MTLIndirectInstanceAccelerationStructureDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIndirectInstanceAccelerationStructureDescriptor obj) => obj.NativePtr;
@@ -1584,7 +1584,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLAccelerationStructure: IDisposable
+    public struct MTLAccelerationStructure : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAccelerationStructure obj) => obj.NativePtr;

@@ -5,7 +5,7 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public struct MTLFunctionStitchingAttribute: IDisposable
+    public struct MTLFunctionStitchingAttribute : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingAttribute obj) => obj.NativePtr;
@@ -19,7 +19,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFunctionStitchingAttributeAlwaysInline: IDisposable
+    public struct MTLFunctionStitchingAttributeAlwaysInline : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingAttributeAlwaysInline obj) => obj.NativePtr;
@@ -40,7 +40,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFunctionStitchingNode: IDisposable
+    public struct MTLFunctionStitchingNode : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingNode obj) => obj.NativePtr;
@@ -54,7 +54,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFunctionStitchingInputNode: IDisposable
+    public struct MTLFunctionStitchingInputNode : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingInputNode obj) => obj.NativePtr;
@@ -90,7 +90,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFunctionStitchingFunctionNode: IDisposable
+    public struct MTLFunctionStitchingFunctionNode : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingFunctionNode obj) => obj.NativePtr;
@@ -142,7 +142,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFunctionStitchingGraph: IDisposable
+    public struct MTLFunctionStitchingGraph : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionStitchingGraph obj) => obj.NativePtr;
@@ -201,7 +201,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLStitchedLibraryDescriptor: IDisposable
+    public struct MTLStitchedLibraryDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLStitchedLibraryDescriptor obj) => obj.NativePtr;

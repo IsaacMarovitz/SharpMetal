@@ -20,7 +20,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLCaptureDescriptor: IDisposable
+    public struct MTLCaptureDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCaptureDescriptor obj) => obj.NativePtr;
@@ -65,7 +65,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLCaptureManager: IDisposable
+    public struct MTLCaptureManager : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCaptureManager obj) => obj.NativePtr;

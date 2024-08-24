@@ -82,7 +82,7 @@ namespace SharpMetal.Generator.Instances
             context.WriteLine("[SupportedOSPlatform(\"macos\")]");
 
             // TODO: Handle LibraryImport usage on MTLDevice (requires partial)
-            var classDecl = $"public struct {Name}: IDisposable";
+            var classDecl = $"public struct {Name} : IDisposable";
 
             context.WriteLine(classDecl);
 

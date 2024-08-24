@@ -5,7 +5,7 @@ using SharpMetal.Metal;
 namespace SharpMetal.MetalFX
 {
     [SupportedOSPlatform("macos")]
-    public struct MTLFXTemporalScalerDescriptor: IDisposable
+    public struct MTLFXTemporalScalerDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFXTemporalScalerDescriptor obj) => obj.NativePtr;
@@ -74,7 +74,7 @@ namespace SharpMetal.MetalFX
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFXTemporalScaler: IDisposable
+    public struct MTLFXTemporalScaler : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFXTemporalScaler obj) => obj.NativePtr;

@@ -5,7 +5,7 @@ using SharpMetal.Metal;
 namespace SharpMetal.QuartzCore
 {
     [SupportedOSPlatform("macos")]
-    public struct CAMetalLayer: IDisposable
+    public struct CAMetalLayer : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(CAMetalLayer obj) => obj.NativePtr;

@@ -20,7 +20,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLIntersectionFunctionTableDescriptor: IDisposable
+    public struct MTLIntersectionFunctionTableDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIntersectionFunctionTableDescriptor obj) => obj.NativePtr;
@@ -50,7 +50,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLIntersectionFunctionTable: IDisposable
+    public struct MTLIntersectionFunctionTable : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIntersectionFunctionTable obj) => obj.NativePtr;

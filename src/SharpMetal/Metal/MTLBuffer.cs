@@ -5,7 +5,7 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public struct MTLBuffer: IDisposable
+    public struct MTLBuffer : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLBuffer obj) => obj.NativePtr;

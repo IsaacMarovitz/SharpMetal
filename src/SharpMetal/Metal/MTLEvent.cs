@@ -5,7 +5,7 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public struct MTLEvent: IDisposable
+    public struct MTLEvent : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLEvent obj) => obj.NativePtr;
@@ -31,7 +31,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLSharedEventListener: IDisposable
+    public struct MTLSharedEventListener : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLSharedEventListener obj) => obj.NativePtr;
@@ -61,7 +61,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLSharedEvent: IDisposable
+    public struct MTLSharedEvent : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLSharedEvent obj) => obj.NativePtr;
@@ -105,7 +105,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLSharedEventHandle: IDisposable
+    public struct MTLSharedEventHandle : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLSharedEventHandle obj) => obj.NativePtr;

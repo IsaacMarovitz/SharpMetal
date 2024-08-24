@@ -72,7 +72,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLVertexAttribute: IDisposable
+    public struct MTLVertexAttribute : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLVertexAttribute obj) => obj.NativePtr;
@@ -111,7 +111,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLAttribute: IDisposable
+    public struct MTLAttribute : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLAttribute obj) => obj.NativePtr;
@@ -150,7 +150,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFunctionConstant: IDisposable
+    public struct MTLFunctionConstant : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunctionConstant obj) => obj.NativePtr;
@@ -183,7 +183,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLFunction: IDisposable
+    public struct MTLFunction : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLFunction obj) => obj.NativePtr;
@@ -245,7 +245,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLCompileOptions: IDisposable
+    public struct MTLCompileOptions : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLCompileOptions obj) => obj.NativePtr;
@@ -354,7 +354,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLLibrary: IDisposable
+    public struct MTLLibrary : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLLibrary obj) => obj.NativePtr;

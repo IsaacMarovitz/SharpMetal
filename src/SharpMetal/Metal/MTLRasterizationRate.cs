@@ -5,7 +5,7 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public struct MTLRasterizationRateSampleArray: IDisposable
+    public struct MTLRasterizationRateSampleArray : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRasterizationRateSampleArray obj) => obj.NativePtr;
@@ -38,7 +38,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRasterizationRateLayerDescriptor: IDisposable
+    public struct MTLRasterizationRateLayerDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRasterizationRateLayerDescriptor obj) => obj.NativePtr;
@@ -94,7 +94,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRasterizationRateLayerArray: IDisposable
+    public struct MTLRasterizationRateLayerArray : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRasterizationRateLayerArray obj) => obj.NativePtr;
@@ -127,7 +127,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRasterizationRateMapDescriptor: IDisposable
+    public struct MTLRasterizationRateMapDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRasterizationRateMapDescriptor obj) => obj.NativePtr;
@@ -200,7 +200,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRasterizationRateMap: IDisposable
+    public struct MTLRasterizationRateMap : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRasterizationRateMap obj) => obj.NativePtr;

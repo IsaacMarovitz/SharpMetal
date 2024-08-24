@@ -12,7 +12,7 @@ namespace SharpMetal.Foundation
     }
 
     [SupportedOSPlatform("macos")]
-    public struct NSFastEnumeration: IDisposable
+    public struct NSFastEnumeration : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSFastEnumeration obj) => obj.NativePtr;
@@ -33,7 +33,7 @@ namespace SharpMetal.Foundation
     }
 
     [SupportedOSPlatform("macos")]
-    public struct NSEnumerator: IDisposable
+    public struct NSEnumerator : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSEnumerator obj) => obj.NativePtr;

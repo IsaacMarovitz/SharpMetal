@@ -5,7 +5,7 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public struct MTLComputePassSampleBufferAttachmentDescriptor: IDisposable
+    public struct MTLComputePassSampleBufferAttachmentDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLComputePassSampleBufferAttachmentDescriptor obj) => obj.NativePtr;
@@ -50,7 +50,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLComputePassSampleBufferAttachmentDescriptorArray: IDisposable
+    public struct MTLComputePassSampleBufferAttachmentDescriptorArray : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLComputePassSampleBufferAttachmentDescriptorArray obj) => obj.NativePtr;
@@ -83,7 +83,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLComputePassDescriptor: IDisposable
+    public struct MTLComputePassDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLComputePassDescriptor obj) => obj.NativePtr;

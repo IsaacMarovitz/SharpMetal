@@ -5,7 +5,7 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    public struct MTLVisibleFunctionTableDescriptor: IDisposable
+    public struct MTLVisibleFunctionTableDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLVisibleFunctionTableDescriptor obj) => obj.NativePtr;
@@ -35,7 +35,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLVisibleFunctionTable: IDisposable
+    public struct MTLVisibleFunctionTable : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLVisibleFunctionTable obj) => obj.NativePtr;

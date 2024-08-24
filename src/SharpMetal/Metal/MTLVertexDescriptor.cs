@@ -74,7 +74,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLVertexBufferLayoutDescriptor: IDisposable
+    public struct MTLVertexBufferLayoutDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLVertexBufferLayoutDescriptor obj) => obj.NativePtr;
@@ -119,7 +119,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLVertexBufferLayoutDescriptorArray: IDisposable
+    public struct MTLVertexBufferLayoutDescriptorArray : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLVertexBufferLayoutDescriptorArray obj) => obj.NativePtr;
@@ -152,7 +152,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLVertexAttributeDescriptor: IDisposable
+    public struct MTLVertexAttributeDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLVertexAttributeDescriptor obj) => obj.NativePtr;
@@ -197,7 +197,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLVertexAttributeDescriptorArray: IDisposable
+    public struct MTLVertexAttributeDescriptorArray : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLVertexAttributeDescriptorArray obj) => obj.NativePtr;
@@ -230,7 +230,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLVertexDescriptor: IDisposable
+    public struct MTLVertexDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLVertexDescriptor obj) => obj.NativePtr;

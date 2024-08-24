@@ -15,7 +15,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLBlitCommandEncoder: IDisposable
+    public struct MTLBlitCommandEncoder : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLBlitCommandEncoder obj) => obj.NativePtr;

@@ -6,7 +6,7 @@ namespace SharpMetal.Foundation
     [SupportedOSPlatform("macos")]
 
     [SupportedOSPlatform("macos")]
-    public struct NSCopying: IDisposable
+    public struct NSCopying : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSCopying obj) => obj.NativePtr;
@@ -21,7 +21,7 @@ namespace SharpMetal.Foundation
     }
 
     [SupportedOSPlatform("macos")]
-    public struct NSSecureCoding: IDisposable
+    public struct NSSecureCoding : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSSecureCoding obj) => obj.NativePtr;
@@ -35,7 +35,7 @@ namespace SharpMetal.Foundation
     }
 
     [SupportedOSPlatform("macos")]
-    public struct NSObject: IDisposable
+    public struct NSObject : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSObject obj) => obj.NativePtr;

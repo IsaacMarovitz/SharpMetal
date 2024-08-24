@@ -28,7 +28,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLIndirectCommandBufferDescriptor: IDisposable
+    public struct MTLIndirectCommandBufferDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIndirectCommandBufferDescriptor obj) => obj.NativePtr;
@@ -145,7 +145,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLIndirectCommandBuffer: IDisposable
+    public struct MTLIndirectCommandBuffer : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLIndirectCommandBuffer obj) => obj.NativePtr;

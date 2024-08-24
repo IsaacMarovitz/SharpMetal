@@ -47,7 +47,7 @@ namespace SharpMetal.Foundation
     }
 
     [SupportedOSPlatform("macos")]
-    public struct NSString: IDisposable
+    public struct NSString : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSString obj) => obj.NativePtr;

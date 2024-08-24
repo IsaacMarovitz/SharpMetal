@@ -55,7 +55,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLResource: IDisposable
+    public struct MTLResource : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLResource obj) => obj.NativePtr;

@@ -144,7 +144,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLType: IDisposable
+    public struct MTLType : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLType obj) => obj.NativePtr;
@@ -168,7 +168,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLStructMember: IDisposable
+    public struct MTLStructMember : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLStructMember obj) => obj.NativePtr;
@@ -213,7 +213,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLStructType: IDisposable
+    public struct MTLStructType : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLStructType obj) => obj.NativePtr;
@@ -243,7 +243,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLArrayType: IDisposable
+    public struct MTLArrayType : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLArrayType obj) => obj.NativePtr;
@@ -288,7 +288,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLPointerType: IDisposable
+    public struct MTLPointerType : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLPointerType obj) => obj.NativePtr;
@@ -330,7 +330,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLTextureReferenceType: IDisposable
+    public struct MTLTextureReferenceType : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLTextureReferenceType obj) => obj.NativePtr;
@@ -363,7 +363,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLArgument: IDisposable
+    public struct MTLArgument : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLArgument obj) => obj.NativePtr;
@@ -432,7 +432,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLBinding: IDisposable
+    public struct MTLBinding : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLBinding obj) => obj.NativePtr;
@@ -465,7 +465,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLBufferBinding: IDisposable
+    public struct MTLBufferBinding : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLBufferBinding obj) => obj.NativePtr;
@@ -514,7 +514,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLThreadgroupBinding: IDisposable
+    public struct MTLThreadgroupBinding : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLThreadgroupBinding obj) => obj.NativePtr;
@@ -554,7 +554,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLTextureBinding: IDisposable
+    public struct MTLTextureBinding : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLTextureBinding obj) => obj.NativePtr;
@@ -600,7 +600,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLObjectPayloadBinding: IDisposable
+    public struct MTLObjectPayloadBinding : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLObjectPayloadBinding obj) => obj.NativePtr;
