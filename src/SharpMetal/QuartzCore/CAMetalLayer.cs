@@ -46,6 +46,11 @@ namespace SharpMetal.QuartzCore
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDrawableSize, value);
         }
 
+        public bool DisplaySyncEnabled
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_displaySyncEnabled);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDisplaySyncEnabled, value);
+        }
 
         private static readonly Selector sel_layer = "layer";
         private static readonly Selector sel_device = "device";
@@ -58,6 +63,8 @@ namespace SharpMetal.QuartzCore
         private static readonly Selector sel_setFramebufferOnly = "setFramebufferOnly:";
         private static readonly Selector sel_drawableSize = "drawableSize";
         private static readonly Selector sel_setDrawableSize = "setDrawableSize:";
+        private static readonly Selector sel_displaySyncEnabled = "displaySyncEnabled";
+        private static readonly Selector sel_setDisplaySyncEnabled = "setDisplaySyncEnabled:";
         private static readonly Selector sel_release = "release";
     }
 }
