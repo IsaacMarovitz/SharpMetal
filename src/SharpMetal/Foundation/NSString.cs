@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Runtime.Versioning;
 using SharpMetal.ObjectiveCCore;
 
@@ -51,6 +52,8 @@ namespace SharpMetal.Foundation
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSString obj) => obj.NativePtr;
+        public static implicit operator NSString(string? value) => String(value);
+
         public NSString(IntPtr ptr) => NativePtr = ptr;
 
         public NSString()
@@ -78,6 +81,15 @@ namespace SharpMetal.Foundation
         public static NSString String(ushort pString, NSStringEncoding encoding)
         {
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSString"), sel_stringWithCStringencoding, pString, (ulong)encoding));
+        }
+
+        public static NSString String(string? value)
+        {
+            if (value == null)
+            {
+                return new NSString(IntPtr.Zero);
+            }
+            return new(ObjectiveC.IntPtr_objc_msgSend(new ObjectiveCClass("NSString"), sel_cStringWithUTF8String, value));
         }
 
         public NSString Init(NSString pString)
@@ -135,6 +147,22 @@ namespace SharpMetal.Foundation
             return (NSComparisonResult)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_caseInsensitiveCompare, pString);
         }
 
+        public override unsafe string? ToString()
+        {
+            if (NativePtr == IntPtr.Zero)
+            {
+                return null;
+            }
+
+            char[] sourceBuffer = new char[Length];
+            fixed (char* pSourceBuffer = sourceBuffer)
+            {
+                ObjectiveC.bool_objc_msgSend(NativePtr, "getCString:maxLength:encoding:", pSourceBuffer, MaximumLengthOfBytes(NSStringEncoding.UTF16) + 1, (ulong)NSStringEncoding.UTF16);
+
+                return new string(pSourceBuffer);
+            }
+        }
+
         private static readonly Selector sel_string = "string";
         private static readonly Selector sel_stringWithString = "stringWithString:";
         private static readonly Selector sel_stringWithCStringencoding = "stringWithCString:encoding:";
@@ -144,6 +172,7 @@ namespace SharpMetal.Foundation
         private static readonly Selector sel_characterAtIndex = "characterAtIndex:";
         private static readonly Selector sel_length = "length";
         private static readonly Selector sel_cStringUsingEncoding = "cStringUsingEncoding:";
+        private static readonly Selector sel_cStringWithUTF8String = "stringWithUTF8String:";
         private static readonly Selector sel_UTF8String = "UTF8String";
         private static readonly Selector sel_maximumLengthOfBytesUsingEncoding = "maximumLengthOfBytesUsingEncoding:";
         private static readonly Selector sel_lengthOfBytesUsingEncoding = "lengthOfBytesUsingEncoding:";
