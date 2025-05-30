@@ -44,14 +44,14 @@ namespace SharpMetal.Examples.Animation
             // Build shader
             var shaderSource = EmbeddedResources.ReadAllText("Animation/Shaders/Shader.metal");
             var libraryError = new NSError(IntPtr.Zero);
-            _shaderLibrary = _device.NewLibrary(StringHelper.NSString(shaderSource), new(IntPtr.Zero), ref libraryError);
+            _shaderLibrary = _device.NewLibrary(shaderSource, new(IntPtr.Zero), ref libraryError);
             if (libraryError != IntPtr.Zero)
             {
-                throw new Exception($"Failed to create library! {StringHelper.String(libraryError.LocalizedDescription)}");
+                throw new Exception($"Failed to create library! {libraryError.LocalizedDescription}");
             }
 
-            var vertexFunction = _shaderLibrary.NewFunction(StringHelper.NSString("vertexMain"));
-            var fragmentFunction = _shaderLibrary.NewFunction(StringHelper.NSString("fragmentMain"));
+            var vertexFunction = _shaderLibrary.NewFunction("vertexMain");
+            var fragmentFunction = _shaderLibrary.NewFunction("fragmentMain");
 
             // Build pipeline
             var pipeline = new MTLRenderPipelineDescriptor();
@@ -65,7 +65,7 @@ namespace SharpMetal.Examples.Animation
             _pipelineState = _device.NewRenderPipelineState(pipeline, ref pipelineStateError);
             if (pipelineStateError != IntPtr.Zero)
             {
-                throw new Exception($"Failed to create render pipeline state! {StringHelper.String(pipelineStateError.LocalizedDescription)}");
+                throw new Exception($"Failed to create render pipeline state! {pipelineStateError.LocalizedDescription}");
             }
         }
 
@@ -106,7 +106,7 @@ namespace SharpMetal.Examples.Animation
                 length = _vertexColorsBuffer.Length
             });
 
-            var vertexFunction = _shaderLibrary.NewFunction(StringHelper.NSString("vertexMain"));
+            var vertexFunction = _shaderLibrary.NewFunction("vertexMain");
             var argumentEncoder = vertexFunction.NewArgumentEncoder(0);
             _argumentBuffer = _device.NewBuffer(argumentEncoder.EncodedLength, MTLResourceOptions.ResourceStorageModeManaged);
             argumentEncoder.SetArgumentBuffer(_argumentBuffer, 0);

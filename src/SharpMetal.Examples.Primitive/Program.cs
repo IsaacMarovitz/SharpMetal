@@ -53,7 +53,7 @@ namespace SharpMetal.Examples.Primitive
             mtkView.Delegate = MTKViewDelegate.Init<Renderer>(device);
 
             window.SetContentView(mtkView);
-            window.Title = StringHelper.NSString(WindowTitle);
+            window.Title = WindowTitle;
             window.MakeKeyAndOrderFront();
 
             var app = new NSApplication(notification.Object);

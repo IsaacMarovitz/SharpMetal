@@ -58,14 +58,14 @@ namespace SharpMetal.Examples.ComputeToRender
             // Build shader
             var shaderSource = EmbeddedResources.ReadAllText("ComputeToRender/Shaders/Shader.metal");
             var libraryError = new NSError(IntPtr.Zero);
-            _shaderLibrary = _device.NewLibrary(StringHelper.NSString(shaderSource), new(IntPtr.Zero), ref libraryError);
+            _shaderLibrary = _device.NewLibrary(shaderSource, new(IntPtr.Zero), ref libraryError);
             if (libraryError != IntPtr.Zero)
             {
-                throw new Exception($"Failed to create library! {StringHelper.String(libraryError.LocalizedDescription)}");
+                throw new Exception($"Failed to create library! {libraryError.LocalizedDescription}");
             }
 
-            var vertexFunction = _shaderLibrary.NewFunction(StringHelper.NSString("vertexMain"));
-            var fragmentFunction = _shaderLibrary.NewFunction(StringHelper.NSString("fragmentMain"));
+            var vertexFunction = _shaderLibrary.NewFunction("vertexMain");
+            var fragmentFunction = _shaderLibrary.NewFunction("fragmentMain");
 
             // Build pipeline
             var pipeline = new MTLRenderPipelineDescriptor();
@@ -80,7 +80,7 @@ namespace SharpMetal.Examples.ComputeToRender
             _renderPipelineState = _device.NewRenderPipelineState(pipeline, ref pipelineStateError);
             if (pipelineStateError != IntPtr.Zero)
             {
-                throw new Exception($"Failed to create render pipeline state! {StringHelper.String(pipelineStateError.LocalizedDescription)}");
+                throw new Exception($"Failed to create render pipeline state! {pipelineStateError.LocalizedDescription}");
             }
         }
 
@@ -88,17 +88,17 @@ namespace SharpMetal.Examples.ComputeToRender
         {
             var kernelSource = EmbeddedResources.ReadAllText("ComputeToRender/Shaders/Compute.metal");
             var error = new NSError(IntPtr.Zero);
-            var library = _device.NewLibrary(StringHelper.NSString(kernelSource), new(IntPtr.Zero), ref error);
+            var library = _device.NewLibrary(kernelSource, new(IntPtr.Zero), ref error);
             if (error != IntPtr.Zero)
             {
-                throw new Exception($"Failed to create library! {StringHelper.String(error.LocalizedDescription)}");
+                throw new Exception($"Failed to create library! {error.LocalizedDescription}");
             }
 
-            var mandelbrotFunction = library.NewFunction(StringHelper.NSString("mandelbrot_set"));
+            var mandelbrotFunction = library.NewFunction("mandelbrot_set");
             _computePipelineState = _device.NewComputePipelineState(mandelbrotFunction, ref error);
             if (error != IntPtr.Zero)
             {
-                throw new Exception($"Failed to create compute pipline state! {StringHelper.String(error.LocalizedDescription)}");
+                throw new Exception($"Failed to create compute pipline state! {error.LocalizedDescription}");
             }
         }
 

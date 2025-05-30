@@ -36,15 +36,15 @@ namespace SharpMetal.Examples.Primitive
             // Build shader
             var shaderSource = EmbeddedResources.ReadAllText("Primitive/Shaders/Shader.metal");
 
-            _device.NewLibrary(StringHelper.NSString(shaderSource), new(IntPtr.Zero), (library, error) =>
+            _device.NewLibrary(shaderSource, new(IntPtr.Zero), (library, error) =>
             {
                 if (error != IntPtr.Zero)
                 {
-                    throw new Exception($"Failed to create library! {StringHelper.String(error.LocalizedDescription)}");
+                    throw new Exception($"Failed to create library! {error.LocalizedDescription}");
                 }
 
-                var vertexFunction = library.NewFunction(StringHelper.NSString("vertexMain"));
-                var fragmentFunction = library.NewFunction(StringHelper.NSString("fragmentMain"));
+                var vertexFunction = library.NewFunction("vertexMain");
+                var fragmentFunction = library.NewFunction("fragmentMain");
 
                 // Build pipeline
                 var pipeline = new MTLRenderPipelineDescriptor();
@@ -60,7 +60,7 @@ namespace SharpMetal.Examples.Primitive
                 if (pipelineStateError != IntPtr.Zero)
                 {
                     throw new Exception(
-                        $"Failed to create render pipeline state! {StringHelper.String(pipelineStateError.LocalizedDescription)}");
+                        $"Failed to create render pipeline state! {pipelineStateError.LocalizedDescription}");
                 }
 
                 BuildBuffers();
