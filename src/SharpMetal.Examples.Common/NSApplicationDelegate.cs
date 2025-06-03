@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.Marshalling;
 using System.Runtime.Versioning;
 using SharpMetal.Foundation;
 using SharpMetal.ObjectiveCCore;
@@ -24,29 +25,23 @@ namespace SharpMetal.Examples.Common
 
         public unsafe NSApplicationDelegate(NSApplication application)
         {
-            char[] name = "AppDelegate".ToCharArray();
-            char[] types = "v@:#".ToCharArray();
+            byte* name = Utf8StringMarshaller.ConvertToUnmanaged("AppDelegate");
+            byte* types = Utf8StringMarshaller.ConvertToUnmanaged("v@:#");
 
-            fixed (char* pName = name)
-            {
-                fixed (char* pTypes = types)
-                {
-                    _onApplicationWillFinishLaunching = (_, _, notif) => OnApplicationWillFinishLaunching?.Invoke(new NSNotification(notif));
-                    var onApplicationWillFinishLaunchingPtr = Marshal.GetFunctionPointerForDelegate(_onApplicationWillFinishLaunching);
+            _onApplicationWillFinishLaunching = (_, _, notif) => OnApplicationWillFinishLaunching?.Invoke(new NSNotification(notif));
+            var onApplicationWillFinishLaunchingPtr = Marshal.GetFunctionPointerForDelegate(_onApplicationWillFinishLaunching);
 
-                    _onApplicationDidFinishLaunching = (_, _, notif) => OnApplicationDidFinishLaunching?.Invoke(new NSNotification(notif));
-                    var onDidFinishLaunchingPtr = Marshal.GetFunctionPointerForDelegate(_onApplicationDidFinishLaunching);
+            _onApplicationDidFinishLaunching = (_, _, notif) => OnApplicationDidFinishLaunching?.Invoke(new NSNotification(notif));
+            var onDidFinishLaunchingPtr = Marshal.GetFunctionPointerForDelegate(_onApplicationDidFinishLaunching);
 
-                    var appDelegateClass = ObjectiveC.objc_allocateClassPair(new ObjectiveCClass("NSObject"), pName, 0);
+            var appDelegateClass = ObjectiveC.objc_allocateClassPair(new ObjectiveCClass("NSObject"), (char*)name, 0);
 
-                    ObjectiveC.class_addMethod(appDelegateClass, "applicationWillFinishLaunching:", onApplicationWillFinishLaunchingPtr, pTypes);
-                    ObjectiveC.class_addMethod(appDelegateClass, "applicationDidFinishLaunching:", onDidFinishLaunchingPtr, pTypes);
+            ObjectiveC.class_addMethod(appDelegateClass, "applicationWillFinishLaunching:", onApplicationWillFinishLaunchingPtr, (char*)types);
+            ObjectiveC.class_addMethod(appDelegateClass, "applicationDidFinishLaunching:", onDidFinishLaunchingPtr, (char*)types);
 
-                    ObjectiveC.objc_registerClassPair(appDelegateClass);
+            ObjectiveC.objc_registerClassPair(appDelegateClass);
 
-                    NativePtr = new ObjectiveCClass(appDelegateClass).AllocInit();
-                }
-            }
+            NativePtr = new ObjectiveCClass(appDelegateClass).AllocInit();
         }
     }
 }

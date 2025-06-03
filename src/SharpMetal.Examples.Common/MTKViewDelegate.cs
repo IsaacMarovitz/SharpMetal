@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.Marshalling;
 using System.Runtime.Versioning;
 using SharpMetal.Metal;
 using SharpMetal.ObjectiveCCore;
@@ -28,33 +29,24 @@ namespace SharpMetal.Examples.Common
             OnDrawInMTKView += renderer.Draw;
             OnMTKViewDrawableSizeWillChange += (view, rect) => { Console.WriteLine("MTKView Changed Size!"); };
 
-            char[] name = "MTKViewDelegate".ToCharArray();
-            char[] types1 = "v@:#".ToCharArray();
-            char[] types2 = "v@:#{CGRect={CGPoint=dd}{CGPoint=dd}}".ToCharArray();
+            byte* name = Utf8StringMarshaller.ConvertToUnmanaged("MTKViewDelegate");
+            byte* types1 = Utf8StringMarshaller.ConvertToUnmanaged("v@:#");
+            byte* types2 = Utf8StringMarshaller.ConvertToUnmanaged("v@:#{CGRect={CGPoint=dd}{CGPoint=dd}}");
 
-            fixed (char* pName = name)
-            {
-                fixed (char* pTypes1 = types1)
-                {
-                    fixed (char* pTypes2 = types2)
-                    {
-                        _onDrawInMTKView = (_, _, view) => OnDrawInMTKView(new MTKView(view));
-                        _onMtkViewDrawableSizeWillChange = (_, _, view, rect) => OnMTKViewDrawableSizeWillChange(new MTKView(view), rect);
+            _onDrawInMTKView = (_, _, view) => OnDrawInMTKView(new MTKView(view));
+            _onMtkViewDrawableSizeWillChange = (_, _, view, rect) => OnMTKViewDrawableSizeWillChange(new MTKView(view), rect);
 
-                        var onDrawInMTKViewPtr = Marshal.GetFunctionPointerForDelegate(_onDrawInMTKView);
-                        var onMTKViewDrawableWillChange = Marshal.GetFunctionPointerForDelegate(_onMtkViewDrawableSizeWillChange);
+            var onDrawInMTKViewPtr = Marshal.GetFunctionPointerForDelegate(_onDrawInMTKView);
+            var onMTKViewDrawableWillChange = Marshal.GetFunctionPointerForDelegate(_onMtkViewDrawableSizeWillChange);
 
-                        var mtkDelegateClass = ObjectiveC.objc_allocateClassPair(new ObjectiveCClass("NSObject"), pName, 0);
+            var mtkDelegateClass = ObjectiveC.objc_allocateClassPair(new ObjectiveCClass("NSObject"), (char*)name, 0);
 
-                        ObjectiveC.class_addMethod(mtkDelegateClass, "drawInMTKView:", onDrawInMTKViewPtr, pTypes1);
-                        ObjectiveC.class_addMethod(mtkDelegateClass, "mtkView:drawableSizeWillChange:", onMTKViewDrawableWillChange, pTypes2);
+            ObjectiveC.class_addMethod(mtkDelegateClass, "drawInMTKView:", onDrawInMTKViewPtr, (char*)types1);
+            ObjectiveC.class_addMethod(mtkDelegateClass, "mtkView:drawableSizeWillChange:", onMTKViewDrawableWillChange, (char*)types2);
 
-                        ObjectiveC.objc_registerClassPair(mtkDelegateClass);
+            ObjectiveC.objc_registerClassPair(mtkDelegateClass);
 
-                        NativePtr = new ObjectiveCClass(mtkDelegateClass).AllocInit();
-                    }
-                }
-            }
+            NativePtr = new ObjectiveCClass(mtkDelegateClass).AllocInit();
         }
 
         public static MTKViewDelegate Init<T>(MTLDevice device) where T : IRenderer
