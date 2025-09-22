@@ -22,16 +22,16 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
-        public NSArray Functions
-        {
-            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_functions));
-            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctions, value);
-        }
-
         public NSArray BinaryFunctions
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_binaryFunctions));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBinaryFunctions, value);
+        }
+
+        public NSArray Functions
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_functions));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctions, value);
         }
 
         public NSDictionary Groups
@@ -46,14 +46,14 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPrivateFunctions, value);
         }
 
-        private static readonly Selector sel_linkedFunctions = "linkedFunctions";
-        private static readonly Selector sel_functions = "functions";
-        private static readonly Selector sel_setFunctions = "setFunctions:";
         private static readonly Selector sel_binaryFunctions = "binaryFunctions";
-        private static readonly Selector sel_setBinaryFunctions = "setBinaryFunctions:";
+        private static readonly Selector sel_functions = "functions";
         private static readonly Selector sel_groups = "groups";
-        private static readonly Selector sel_setGroups = "setGroups:";
+        private static readonly Selector sel_linkedFunctions = "linkedFunctions";
         private static readonly Selector sel_privateFunctions = "privateFunctions";
+        private static readonly Selector sel_setBinaryFunctions = "setBinaryFunctions:";
+        private static readonly Selector sel_setFunctions = "setFunctions:";
+        private static readonly Selector sel_setGroups = "setGroups:";
         private static readonly Selector sel_setPrivateFunctions = "setPrivateFunctions:";
         private static readonly Selector sel_release = "release";
     }

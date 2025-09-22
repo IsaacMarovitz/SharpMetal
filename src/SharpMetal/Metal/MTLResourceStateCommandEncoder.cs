@@ -47,9 +47,34 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
         }
 
-        public void UpdateTextureMappings(MTLTexture texture, MTLSparseTextureMappingMode mode, MTLRegion regions, ulong mipLevels, ulong slices, ulong numRegions)
+        public void EndEncoding()
         {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_updateTextureMappingsmoderegionsmipLevelsslicesnumRegions, texture, (ulong)mode, regions, mipLevels, slices, numRegions);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_endEncoding);
+        }
+
+        public void InsertDebugSignpost(NSString nsString)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_insertDebugSignpost, nsString);
+        }
+
+        public void MoveTextureMappingsFromTexture(MTLTexture sourceTexture, ulong sourceSlice, ulong sourceLevel, MTLOrigin sourceOrigin, MTLSize sourceSize, MTLTexture destinationTexture, ulong destinationSlice, ulong destinationLevel, MTLOrigin destinationOrigin)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_moveTextureMappingsFromTexturesourceSlicesourceLevelsourceOriginsourceSizetoTexturedestinationSlicedestinationLeveldestinationOrigin, sourceTexture, sourceSlice, sourceLevel, sourceOrigin, sourceSize, destinationTexture, destinationSlice, destinationLevel, destinationOrigin);
+        }
+
+        public void PopDebugGroup()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_popDebugGroup);
+        }
+
+        public void PushDebugGroup(NSString nsString)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_pushDebugGroup, nsString);
+        }
+
+        public void UpdateFence(MTLFence fence)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_updateFence, fence);
         }
 
         public void UpdateTextureMapping(MTLTexture texture, MTLSparseTextureMappingMode mode, MTLRegion region, ulong mipLevel, ulong slice)
@@ -62,9 +87,9 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_updateTextureMappingmodeindirectBufferindirectBufferOffset, texture, (ulong)mode, indirectBuffer, indirectBufferOffset);
         }
 
-        public void UpdateFence(MTLFence fence)
+        public void UpdateTextureMappings(MTLTexture texture, MTLSparseTextureMappingMode mode, MTLRegion regions, ulong mipLevels, ulong slices, ulong numRegions)
         {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_updateFence, fence);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_updateTextureMappingsmoderegionsmipLevelsslicesnumRegions, texture, (ulong)mode, regions, mipLevels, slices, numRegions);
         }
 
         public void WaitForFence(MTLFence fence)
@@ -72,44 +97,19 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_waitForFence, fence);
         }
 
-        public void MoveTextureMappingsFromTexture(MTLTexture sourceTexture, ulong sourceSlice, ulong sourceLevel, MTLOrigin sourceOrigin, MTLSize sourceSize, MTLTexture destinationTexture, ulong destinationSlice, ulong destinationLevel, MTLOrigin destinationOrigin)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_moveTextureMappingsFromTexturesourceSlicesourceLevelsourceOriginsourceSizetoTexturedestinationSlicedestinationLeveldestinationOrigin, sourceTexture, sourceSlice, sourceLevel, sourceOrigin, sourceSize, destinationTexture, destinationSlice, destinationLevel, destinationOrigin);
-        }
-
-        public void EndEncoding()
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_endEncoding);
-        }
-
-        public void InsertDebugSignpost(NSString nsString)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_insertDebugSignpost, nsString);
-        }
-
-        public void PushDebugGroup(NSString nsString)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_pushDebugGroup, nsString);
-        }
-
-        public void PopDebugGroup()
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_popDebugGroup);
-        }
-
-        private static readonly Selector sel_updateTextureMappingsmoderegionsmipLevelsslicesnumRegions = "updateTextureMappings:mode:regions:mipLevels:slices:numRegions:";
-        private static readonly Selector sel_updateTextureMappingmoderegionmipLevelslice = "updateTextureMapping:mode:region:mipLevel:slice:";
-        private static readonly Selector sel_updateTextureMappingmodeindirectBufferindirectBufferOffset = "updateTextureMapping:mode:indirectBuffer:indirectBufferOffset:";
-        private static readonly Selector sel_updateFence = "updateFence:";
-        private static readonly Selector sel_waitForFence = "waitForFence:";
-        private static readonly Selector sel_moveTextureMappingsFromTexturesourceSlicesourceLevelsourceOriginsourceSizetoTexturedestinationSlicedestinationLeveldestinationOrigin = "moveTextureMappingsFromTexture:sourceSlice:sourceLevel:sourceOrigin:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:";
         private static readonly Selector sel_device = "device";
-        private static readonly Selector sel_label = "label";
-        private static readonly Selector sel_setLabel = "setLabel:";
         private static readonly Selector sel_endEncoding = "endEncoding";
         private static readonly Selector sel_insertDebugSignpost = "insertDebugSignpost:";
-        private static readonly Selector sel_pushDebugGroup = "pushDebugGroup:";
+        private static readonly Selector sel_label = "label";
+        private static readonly Selector sel_moveTextureMappingsFromTexturesourceSlicesourceLevelsourceOriginsourceSizetoTexturedestinationSlicedestinationLeveldestinationOrigin = "moveTextureMappingsFromTexture:sourceSlice:sourceLevel:sourceOrigin:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:";
         private static readonly Selector sel_popDebugGroup = "popDebugGroup";
+        private static readonly Selector sel_pushDebugGroup = "pushDebugGroup:";
+        private static readonly Selector sel_setLabel = "setLabel:";
+        private static readonly Selector sel_updateFence = "updateFence:";
+        private static readonly Selector sel_updateTextureMappingmodeindirectBufferindirectBufferOffset = "updateTextureMapping:mode:indirectBuffer:indirectBufferOffset:";
+        private static readonly Selector sel_updateTextureMappingmoderegionmipLevelslice = "updateTextureMapping:mode:region:mipLevel:slice:";
+        private static readonly Selector sel_updateTextureMappingsmoderegionsmipLevelsslicesnumRegions = "updateTextureMappings:mode:regions:mipLevels:slices:numRegions:";
+        private static readonly Selector sel_waitForFence = "waitForFence:";
         private static readonly Selector sel_release = "release";
     }
 }

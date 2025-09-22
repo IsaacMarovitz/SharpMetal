@@ -25,15 +25,15 @@ namespace SharpMetal.Foundation
 
         public IntPtr Domain => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_domain));
 
-        public NSDictionary UserInfo => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_userInfo));
-
         public NSString LocalizedDescription => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_localizedDescription));
+
+        public NSString LocalizedFailureReason => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_localizedFailureReason));
 
         public NSArray LocalizedRecoveryOptions => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_localizedRecoveryOptions));
 
         public NSString LocalizedRecoverySuggestion => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_localizedRecoverySuggestion));
 
-        public NSString LocalizedFailureReason => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_localizedFailureReason));
+        public NSDictionary UserInfo => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_userInfo));
 
         public static NSError Error(IntPtr domain, long code, NSDictionary pDictionary)
         {
@@ -45,15 +45,15 @@ namespace SharpMetal.Foundation
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithDomaincodeuserInfo, domain, code, pDictionary));
         }
 
-        private static readonly Selector sel_errorWithDomaincodeuserInfo = "errorWithDomain:code:userInfo:";
-        private static readonly Selector sel_initWithDomaincodeuserInfo = "initWithDomain:code:userInfo:";
         private static readonly Selector sel_code = "code";
         private static readonly Selector sel_domain = "domain";
-        private static readonly Selector sel_userInfo = "userInfo";
+        private static readonly Selector sel_errorWithDomaincodeuserInfo = "errorWithDomain:code:userInfo:";
+        private static readonly Selector sel_initWithDomaincodeuserInfo = "initWithDomain:code:userInfo:";
         private static readonly Selector sel_localizedDescription = "localizedDescription";
+        private static readonly Selector sel_localizedFailureReason = "localizedFailureReason";
         private static readonly Selector sel_localizedRecoveryOptions = "localizedRecoveryOptions";
         private static readonly Selector sel_localizedRecoverySuggestion = "localizedRecoverySuggestion";
-        private static readonly Selector sel_localizedFailureReason = "localizedFailureReason";
+        private static readonly Selector sel_userInfo = "userInfo";
         private static readonly Selector sel_release = "release";
     }
 }

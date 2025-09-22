@@ -16,18 +16,13 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
-        public IntPtr PresentedTime => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_presentedTime));
-
         public ulong DrawableID => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_drawableID);
+
+        public IntPtr PresentedTime => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_presentedTime));
 
         public void Present()
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_present);
-        }
-
-        public void PresentAtTime(IntPtr presentationTime)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_presentAtTime, presentationTime);
         }
 
         public void PresentAfterMinimumDuration(IntPtr duration)
@@ -35,11 +30,16 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_presentAfterMinimumDuration, duration);
         }
 
-        private static readonly Selector sel_present = "present";
-        private static readonly Selector sel_presentAtTime = "presentAtTime:";
-        private static readonly Selector sel_presentAfterMinimumDuration = "presentAfterMinimumDuration:";
-        private static readonly Selector sel_presentedTime = "presentedTime";
+        public void PresentAtTime(IntPtr presentationTime)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_presentAtTime, presentationTime);
+        }
+
         private static readonly Selector sel_drawableID = "drawableID";
+        private static readonly Selector sel_present = "present";
+        private static readonly Selector sel_presentAfterMinimumDuration = "presentAfterMinimumDuration:";
+        private static readonly Selector sel_presentAtTime = "presentAtTime:";
+        private static readonly Selector sel_presentedTime = "presentedTime";
         private static readonly Selector sel_release = "release";
     }
 }

@@ -13,6 +13,63 @@ namespace SharpMetal.MetalFX
     }
 
     [SupportedOSPlatform("macos")]
+    public struct MTLFXSpatialScaler : IDisposable
+    {
+        public IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLFXSpatialScaler obj) => obj.NativePtr;
+        public MTLFXSpatialScaler(IntPtr ptr) => NativePtr = ptr;
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
+
+        public MTLFXSpatialScalerColorProcessingMode ColorProcessingMode => (MTLFXSpatialScalerColorProcessingMode)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_colorProcessingMode);
+
+        public MTLTexture ColorTexture => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_colorTexture));
+
+        public MTLPixelFormat ColorTextureFormat => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_colorTextureFormat);
+
+        public MTLTextureUsage ColorTextureUsage => (MTLTextureUsage)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_colorTextureUsage);
+
+        public MTLFence Fence => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_fence));
+
+        public ulong InputContentHeight => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_inputContentHeight);
+
+        public ulong InputContentWidth => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_inputContentWidth);
+
+        public ulong InputHeight => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_inputHeight);
+
+        public ulong InputWidth => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_inputWidth);
+
+        public ulong OutputHeight => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_outputHeight);
+
+        public MTLTexture OutputTexture => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_outputTexture));
+
+        public MTLPixelFormat OutputTextureFormat => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_outputTextureFormat);
+
+        public MTLTextureUsage OutputTextureUsage => (MTLTextureUsage)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_outputTextureUsage);
+
+        public ulong OutputWidth => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_outputWidth);
+
+        private static readonly Selector sel_colorProcessingMode = "colorProcessingMode";
+        private static readonly Selector sel_colorTexture = "colorTexture";
+        private static readonly Selector sel_colorTextureFormat = "colorTextureFormat";
+        private static readonly Selector sel_colorTextureUsage = "colorTextureUsage";
+        private static readonly Selector sel_fence = "fence";
+        private static readonly Selector sel_inputContentHeight = "inputContentHeight";
+        private static readonly Selector sel_inputContentWidth = "inputContentWidth";
+        private static readonly Selector sel_inputHeight = "inputHeight";
+        private static readonly Selector sel_inputWidth = "inputWidth";
+        private static readonly Selector sel_outputHeight = "outputHeight";
+        private static readonly Selector sel_outputTexture = "outputTexture";
+        private static readonly Selector sel_outputTextureFormat = "outputTextureFormat";
+        private static readonly Selector sel_outputTextureUsage = "outputTextureUsage";
+        private static readonly Selector sel_outputWidth = "outputWidth";
+        private static readonly Selector sel_release = "release";
+    }
+
+    [SupportedOSPlatform("macos")]
     public struct MTLFXSpatialScalerDescriptor : IDisposable
     {
         public IntPtr NativePtr;
@@ -30,91 +87,34 @@ namespace SharpMetal.MetalFX
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        public MTLFXSpatialScalerColorProcessingMode ColorProcessingMode => (MTLFXSpatialScalerColorProcessingMode)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_colorProcessingMode);
+
         public MTLPixelFormat ColorTextureFormat => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_colorTextureFormat);
-
-        public MTLPixelFormat OutputTextureFormat => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_outputTextureFormat);
-
-        public ulong InputWidth => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_inputWidth);
 
         public ulong InputHeight => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_inputHeight);
 
-        public ulong OutputWidth => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_outputWidth);
+        public ulong InputWidth => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_inputWidth);
 
         public ulong OutputHeight => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_outputHeight);
 
-        public MTLFXSpatialScalerColorProcessingMode ColorProcessingMode => (MTLFXSpatialScalerColorProcessingMode)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_colorProcessingMode);
+        public MTLPixelFormat OutputTextureFormat => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_outputTextureFormat);
+
+        public ulong OutputWidth => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_outputWidth);
 
         public MTLFXSpatialScaler NewSpatialScaler(MTLDevice pDevice)
         {
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newSpatialScalerWithDevice, pDevice));
         }
 
-        private static readonly Selector sel_colorTextureFormat = "colorTextureFormat";
-        private static readonly Selector sel_outputTextureFormat = "outputTextureFormat";
-        private static readonly Selector sel_inputWidth = "inputWidth";
-        private static readonly Selector sel_inputHeight = "inputHeight";
-        private static readonly Selector sel_outputWidth = "outputWidth";
-        private static readonly Selector sel_outputHeight = "outputHeight";
         private static readonly Selector sel_colorProcessingMode = "colorProcessingMode";
+        private static readonly Selector sel_colorTextureFormat = "colorTextureFormat";
+        private static readonly Selector sel_inputHeight = "inputHeight";
+        private static readonly Selector sel_inputWidth = "inputWidth";
         private static readonly Selector sel_newSpatialScalerWithDevice = "newSpatialScalerWithDevice:";
-        private static readonly Selector sel_supportsDevice = "supportsDevice:";
-        private static readonly Selector sel_release = "release";
-    }
-
-    [SupportedOSPlatform("macos")]
-    public struct MTLFXSpatialScaler : IDisposable
-    {
-        public IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLFXSpatialScaler obj) => obj.NativePtr;
-        public MTLFXSpatialScaler(IntPtr ptr) => NativePtr = ptr;
-
-        public void Dispose()
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
-        }
-
-        public MTLTextureUsage ColorTextureUsage => (MTLTextureUsage)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_colorTextureUsage);
-
-        public MTLTextureUsage OutputTextureUsage => (MTLTextureUsage)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_outputTextureUsage);
-
-        public ulong InputContentWidth => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_inputContentWidth);
-
-        public ulong InputContentHeight => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_inputContentHeight);
-
-        public MTLTexture ColorTexture => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_colorTexture));
-
-        public MTLTexture OutputTexture => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_outputTexture));
-
-        public MTLPixelFormat ColorTextureFormat => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_colorTextureFormat);
-
-        public MTLPixelFormat OutputTextureFormat => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_outputTextureFormat);
-
-        public ulong InputWidth => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_inputWidth);
-
-        public ulong InputHeight => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_inputHeight);
-
-        public ulong OutputWidth => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_outputWidth);
-
-        public ulong OutputHeight => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_outputHeight);
-
-        public MTLFXSpatialScalerColorProcessingMode ColorProcessingMode => (MTLFXSpatialScalerColorProcessingMode)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_colorProcessingMode);
-
-        public MTLFence Fence => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_fence));
-
-        private static readonly Selector sel_colorTextureUsage = "colorTextureUsage";
-        private static readonly Selector sel_outputTextureUsage = "outputTextureUsage";
-        private static readonly Selector sel_inputContentWidth = "inputContentWidth";
-        private static readonly Selector sel_inputContentHeight = "inputContentHeight";
-        private static readonly Selector sel_colorTexture = "colorTexture";
-        private static readonly Selector sel_outputTexture = "outputTexture";
-        private static readonly Selector sel_colorTextureFormat = "colorTextureFormat";
-        private static readonly Selector sel_outputTextureFormat = "outputTextureFormat";
-        private static readonly Selector sel_inputWidth = "inputWidth";
-        private static readonly Selector sel_inputHeight = "inputHeight";
-        private static readonly Selector sel_outputWidth = "outputWidth";
         private static readonly Selector sel_outputHeight = "outputHeight";
-        private static readonly Selector sel_colorProcessingMode = "colorProcessingMode";
-        private static readonly Selector sel_fence = "fence";
+        private static readonly Selector sel_outputTextureFormat = "outputTextureFormat";
+        private static readonly Selector sel_outputWidth = "outputWidth";
+        private static readonly Selector sel_supportsDevice = "supportsDevice:";
         private static readonly Selector sel_release = "release";
     }
 }

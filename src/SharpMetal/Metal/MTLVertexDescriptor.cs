@@ -74,84 +74,6 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLVertexBufferLayoutDescriptor : IDisposable
-    {
-        public IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLVertexBufferLayoutDescriptor obj) => obj.NativePtr;
-        public MTLVertexBufferLayoutDescriptor(IntPtr ptr) => NativePtr = ptr;
-
-        public MTLVertexBufferLayoutDescriptor()
-        {
-            var cls = new ObjectiveCClass("MTLVertexBufferLayoutDescriptor");
-            NativePtr = cls.AllocInit();
-        }
-
-        public void Dispose()
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
-        }
-
-        public ulong Stride
-        {
-            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stride);
-            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStride, value);
-        }
-
-        public MTLVertexStepFunction StepFunction
-        {
-            get => (MTLVertexStepFunction)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stepFunction);
-            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStepFunction, (ulong)value);
-        }
-
-        public ulong StepRate
-        {
-            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stepRate);
-            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStepRate, value);
-        }
-
-        private static readonly Selector sel_stride = "stride";
-        private static readonly Selector sel_setStride = "setStride:";
-        private static readonly Selector sel_stepFunction = "stepFunction";
-        private static readonly Selector sel_setStepFunction = "setStepFunction:";
-        private static readonly Selector sel_stepRate = "stepRate";
-        private static readonly Selector sel_setStepRate = "setStepRate:";
-        private static readonly Selector sel_release = "release";
-    }
-
-    [SupportedOSPlatform("macos")]
-    public struct MTLVertexBufferLayoutDescriptorArray : IDisposable
-    {
-        public IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLVertexBufferLayoutDescriptorArray obj) => obj.NativePtr;
-        public MTLVertexBufferLayoutDescriptorArray(IntPtr ptr) => NativePtr = ptr;
-
-        public MTLVertexBufferLayoutDescriptorArray()
-        {
-            var cls = new ObjectiveCClass("MTLVertexBufferLayoutDescriptorArray");
-            NativePtr = cls.AllocInit();
-        }
-
-        public void Dispose()
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
-        }
-
-        public MTLVertexBufferLayoutDescriptor Object(ulong index)
-        {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_objectAtIndexedSubscript, index));
-        }
-
-        public void SetObject(MTLVertexBufferLayoutDescriptor bufferDesc, ulong index)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setObjectatIndexedSubscript, bufferDesc, index);
-        }
-
-        private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
-        private static readonly Selector sel_setObjectatIndexedSubscript = "setObject:atIndexedSubscript:";
-        private static readonly Selector sel_release = "release";
-    }
-
-    [SupportedOSPlatform("macos")]
     public struct MTLVertexAttributeDescriptor : IDisposable
     {
         public IntPtr NativePtr;
@@ -169,6 +91,12 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        public ulong BufferIndex
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_bufferIndex);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBufferIndex, value);
+        }
+
         public MTLVertexFormat Format
         {
             get => (MTLVertexFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_format);
@@ -181,18 +109,12 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOffset, value);
         }
 
-        public ulong BufferIndex
-        {
-            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_bufferIndex);
-            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBufferIndex, value);
-        }
-
-        private static readonly Selector sel_format = "format";
-        private static readonly Selector sel_setFormat = "setFormat:";
-        private static readonly Selector sel_offset = "offset";
-        private static readonly Selector sel_setOffset = "setOffset:";
         private static readonly Selector sel_bufferIndex = "bufferIndex";
+        private static readonly Selector sel_format = "format";
+        private static readonly Selector sel_offset = "offset";
         private static readonly Selector sel_setBufferIndex = "setBufferIndex:";
+        private static readonly Selector sel_setFormat = "setFormat:";
+        private static readonly Selector sel_setOffset = "setOffset:";
         private static readonly Selector sel_release = "release";
     }
 
@@ -230,6 +152,84 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
+    public struct MTLVertexBufferLayoutDescriptor : IDisposable
+    {
+        public IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLVertexBufferLayoutDescriptor obj) => obj.NativePtr;
+        public MTLVertexBufferLayoutDescriptor(IntPtr ptr) => NativePtr = ptr;
+
+        public MTLVertexBufferLayoutDescriptor()
+        {
+            var cls = new ObjectiveCClass("MTLVertexBufferLayoutDescriptor");
+            NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
+
+        public MTLVertexStepFunction StepFunction
+        {
+            get => (MTLVertexStepFunction)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stepFunction);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStepFunction, (ulong)value);
+        }
+
+        public ulong StepRate
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stepRate);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStepRate, value);
+        }
+
+        public ulong Stride
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stride);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStride, value);
+        }
+
+        private static readonly Selector sel_setStepFunction = "setStepFunction:";
+        private static readonly Selector sel_setStepRate = "setStepRate:";
+        private static readonly Selector sel_setStride = "setStride:";
+        private static readonly Selector sel_stepFunction = "stepFunction";
+        private static readonly Selector sel_stepRate = "stepRate";
+        private static readonly Selector sel_stride = "stride";
+        private static readonly Selector sel_release = "release";
+    }
+
+    [SupportedOSPlatform("macos")]
+    public struct MTLVertexBufferLayoutDescriptorArray : IDisposable
+    {
+        public IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLVertexBufferLayoutDescriptorArray obj) => obj.NativePtr;
+        public MTLVertexBufferLayoutDescriptorArray(IntPtr ptr) => NativePtr = ptr;
+
+        public MTLVertexBufferLayoutDescriptorArray()
+        {
+            var cls = new ObjectiveCClass("MTLVertexBufferLayoutDescriptorArray");
+            NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
+
+        public MTLVertexBufferLayoutDescriptor Object(ulong index)
+        {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_objectAtIndexedSubscript, index));
+        }
+
+        public void SetObject(MTLVertexBufferLayoutDescriptor bufferDesc, ulong index)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setObjectatIndexedSubscript, bufferDesc, index);
+        }
+
+        private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
+        private static readonly Selector sel_setObjectatIndexedSubscript = "setObject:atIndexedSubscript:";
+        private static readonly Selector sel_release = "release";
+    }
+
+    [SupportedOSPlatform("macos")]
     public struct MTLVertexDescriptor : IDisposable
     {
         public IntPtr NativePtr;
@@ -247,19 +247,19 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
-        public MTLVertexBufferLayoutDescriptorArray Layouts => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_layouts));
-
         public MTLVertexAttributeDescriptorArray Attributes => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_attributes));
+
+        public MTLVertexBufferLayoutDescriptorArray Layouts => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_layouts));
 
         public void Reset()
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_reset);
         }
 
-        private static readonly Selector sel_vertexDescriptor = "vertexDescriptor";
-        private static readonly Selector sel_layouts = "layouts";
         private static readonly Selector sel_attributes = "attributes";
+        private static readonly Selector sel_layouts = "layouts";
         private static readonly Selector sel_reset = "reset";
+        private static readonly Selector sel_vertexDescriptor = "vertexDescriptor";
         private static readonly Selector sel_release = "release";
     }
 }

@@ -15,12 +15,12 @@ namespace SharpMetal.Foundation
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
-        public IntPtr MutableBytes => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_mutableBytes));
-
         public ulong Length => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_length);
 
-        private static readonly Selector sel_mutableBytes = "mutableBytes";
+        public IntPtr MutableBytes => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_mutableBytes));
+
         private static readonly Selector sel_length = "length";
+        private static readonly Selector sel_mutableBytes = "mutableBytes";
         private static readonly Selector sel_release = "release";
     }
 }

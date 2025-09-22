@@ -5,18 +5,18 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
+    public enum MTLCaptureDestination : long
+    {
+        DeveloperTools = 1,
+        GPUTraceDocument = 2,
+    }
+
+    [SupportedOSPlatform("macos")]
     public enum MTLCaptureError : long
     {
         NotSupported = 1,
         AlreadyCapturing = 2,
         InvalidDescriptor = 3,
-    }
-
-    [SupportedOSPlatform("macos")]
-    public enum MTLCaptureDestination : long
-    {
-        DeveloperTools = 1,
-        GPUTraceDocument = 2,
     }
 
     [SupportedOSPlatform("macos")]
@@ -56,10 +56,10 @@ namespace SharpMetal.Metal
         }
 
         private static readonly Selector sel_captureObject = "captureObject";
-        private static readonly Selector sel_setCaptureObject = "setCaptureObject:";
         private static readonly Selector sel_destination = "destination";
-        private static readonly Selector sel_setDestination = "setDestination:";
         private static readonly Selector sel_outputURL = "outputURL";
+        private static readonly Selector sel_setCaptureObject = "setCaptureObject:";
+        private static readonly Selector sel_setDestination = "setDestination:";
         private static readonly Selector sel_setOutputURL = "setOutputURL:";
         private static readonly Selector sel_release = "release";
     }
@@ -90,11 +90,6 @@ namespace SharpMetal.Metal
 
         public bool IsCapturing => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isCapturing);
 
-        public static MTLCaptureManager SharedCaptureManager()
-        {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("MTLCaptureManager"), sel_sharedCaptureManager));
-        }
-
         public MTLCaptureScope NewCaptureScope(MTLDevice device)
         {
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newCaptureScopeWithDevice, device));
@@ -105,9 +100,9 @@ namespace SharpMetal.Metal
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newCaptureScopeWithCommandQueue, commandQueue));
         }
 
-        public bool SupportsDestination(MTLCaptureDestination destination)
+        public static MTLCaptureManager SharedCaptureManager()
         {
-            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsDestination, (long)destination);
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("MTLCaptureManager"), sel_sharedCaptureManager));
         }
 
         public bool StartCapture(MTLCaptureDescriptor descriptor, ref NSError error)
@@ -135,18 +130,23 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_stopCapture);
         }
 
-        private static readonly Selector sel_sharedCaptureManager = "sharedCaptureManager";
-        private static readonly Selector sel_newCaptureScopeWithDevice = "newCaptureScopeWithDevice:";
+        public bool SupportsDestination(MTLCaptureDestination destination)
+        {
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportsDestination, (long)destination);
+        }
+
+        private static readonly Selector sel_defaultCaptureScope = "defaultCaptureScope";
+        private static readonly Selector sel_isCapturing = "isCapturing";
         private static readonly Selector sel_newCaptureScopeWithCommandQueue = "newCaptureScopeWithCommandQueue:";
-        private static readonly Selector sel_supportsDestination = "supportsDestination:";
+        private static readonly Selector sel_newCaptureScopeWithDevice = "newCaptureScopeWithDevice:";
+        private static readonly Selector sel_setDefaultCaptureScope = "setDefaultCaptureScope:";
+        private static readonly Selector sel_sharedCaptureManager = "sharedCaptureManager";
+        private static readonly Selector sel_startCaptureWithCommandQueue = "startCaptureWithCommandQueue:";
         private static readonly Selector sel_startCaptureWithDescriptorerror = "startCaptureWithDescriptor:error:";
         private static readonly Selector sel_startCaptureWithDevice = "startCaptureWithDevice:";
-        private static readonly Selector sel_startCaptureWithCommandQueue = "startCaptureWithCommandQueue:";
         private static readonly Selector sel_startCaptureWithScope = "startCaptureWithScope:";
         private static readonly Selector sel_stopCapture = "stopCapture";
-        private static readonly Selector sel_defaultCaptureScope = "defaultCaptureScope";
-        private static readonly Selector sel_setDefaultCaptureScope = "setDefaultCaptureScope:";
-        private static readonly Selector sel_isCapturing = "isCapturing";
+        private static readonly Selector sel_supportsDestination = "supportsDestination:";
         private static readonly Selector sel_release = "release";
     }
 }

@@ -21,14 +21,14 @@ namespace SharpMetal.Foundation
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
-        public void Drain()
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_drain);
-        }
-
         public void AddObject(NSObject pObject)
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_addObject, pObject);
+        }
+
+        public void Drain()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_drain);
         }
 
         public static void ShowPools()
@@ -36,8 +36,8 @@ namespace SharpMetal.Foundation
             throw new NotSupportedException();
         }
 
-        private static readonly Selector sel_drain = "drain";
         private static readonly Selector sel_addObject = "addObject:";
+        private static readonly Selector sel_drain = "drain";
         private static readonly Selector sel_showPools = "showPools";
         private static readonly Selector sel_release = "release";
     }
