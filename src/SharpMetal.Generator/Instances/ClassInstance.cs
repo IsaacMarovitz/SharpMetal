@@ -77,6 +77,9 @@ namespace SharpMetal.Generator.Instances
                 _selectorInstances.AddRange(parent.SelectorInstances);
             }
 
+            _propertyInstances.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.InvariantCultureIgnoreCase));
+            _methodInstances.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.InvariantCultureIgnoreCase));
+
             var objectiveCInstances = new List<ObjectiveCInstance>();
 
             context.WriteLine("[SupportedOSPlatform(\"macos\")]");
@@ -130,6 +133,8 @@ namespace SharpMetal.Generator.Instances
             }
 
             var selectorInstances = new List<SelectorInstance>(_selectorInstances);
+            // These have to be sorted after making the copy, otherwise it might resolve to wrong selector due to the Find-based mechanism when generating the calls
+            _selectorInstances.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.InvariantCultureIgnoreCase));
 
             for (var j = 0; j < _propertyInstances.Count; j++)
             {
