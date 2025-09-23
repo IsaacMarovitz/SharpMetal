@@ -31,75 +31,6 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLStencilDescriptor : IDisposable
-    {
-        public IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLStencilDescriptor obj) => obj.NativePtr;
-        public MTLStencilDescriptor(IntPtr ptr) => NativePtr = ptr;
-
-        public MTLStencilDescriptor()
-        {
-            var cls = new ObjectiveCClass("MTLStencilDescriptor");
-            NativePtr = cls.AllocInit();
-        }
-
-        public void Dispose()
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
-        }
-
-        public MTLCompareFunction StencilCompareFunction
-        {
-            get => (MTLCompareFunction)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stencilCompareFunction);
-            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStencilCompareFunction, (ulong)value);
-        }
-
-        public MTLStencilOperation StencilFailureOperation
-        {
-            get => (MTLStencilOperation)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stencilFailureOperation);
-            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStencilFailureOperation, (ulong)value);
-        }
-
-        public MTLStencilOperation DepthFailureOperation
-        {
-            get => (MTLStencilOperation)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_depthFailureOperation);
-            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthFailureOperation, (ulong)value);
-        }
-
-        public MTLStencilOperation DepthStencilPassOperation
-        {
-            get => (MTLStencilOperation)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_depthStencilPassOperation);
-            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthStencilPassOperation, (ulong)value);
-        }
-
-        public uint ReadMask
-        {
-            get => ObjectiveCRuntime.uint_objc_msgSend(NativePtr, sel_readMask);
-            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setReadMask, value);
-        }
-
-        public uint WriteMask
-        {
-            get => ObjectiveCRuntime.uint_objc_msgSend(NativePtr, sel_writeMask);
-            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setWriteMask, value);
-        }
-
-        private static readonly Selector sel_stencilCompareFunction = "stencilCompareFunction";
-        private static readonly Selector sel_setStencilCompareFunction = "setStencilCompareFunction:";
-        private static readonly Selector sel_stencilFailureOperation = "stencilFailureOperation";
-        private static readonly Selector sel_setStencilFailureOperation = "setStencilFailureOperation:";
-        private static readonly Selector sel_depthFailureOperation = "depthFailureOperation";
-        private static readonly Selector sel_setDepthFailureOperation = "setDepthFailureOperation:";
-        private static readonly Selector sel_depthStencilPassOperation = "depthStencilPassOperation";
-        private static readonly Selector sel_setDepthStencilPassOperation = "setDepthStencilPassOperation:";
-        private static readonly Selector sel_readMask = "readMask";
-        private static readonly Selector sel_setReadMask = "setReadMask:";
-        private static readonly Selector sel_writeMask = "writeMask";
-        private static readonly Selector sel_setWriteMask = "setWriteMask:";
-        private static readonly Selector sel_release = "release";
-    }
-
-    [SupportedOSPlatform("macos")]
     public struct MTLDepthStencilDescriptor : IDisposable
     {
         public IntPtr NativePtr;
@@ -115,6 +46,12 @@ namespace SharpMetal.Metal
         public void Dispose()
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
+
+        public MTLStencilDescriptor BackFaceStencil
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_backFaceStencil));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBackFaceStencil, value);
         }
 
         public MTLCompareFunction DepthCompareFunction
@@ -135,12 +72,6 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFrontFaceStencil, value);
         }
 
-        public MTLStencilDescriptor BackFaceStencil
-        {
-            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_backFaceStencil));
-            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBackFaceStencil, value);
-        }
-
         public NSString Label
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
@@ -152,15 +83,15 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthWriteEnabled, depthWriteEnabled);
         }
 
-        private static readonly Selector sel_depthCompareFunction = "depthCompareFunction";
-        private static readonly Selector sel_setDepthCompareFunction = "setDepthCompareFunction:";
-        private static readonly Selector sel_isDepthWriteEnabled = "isDepthWriteEnabled";
-        private static readonly Selector sel_setDepthWriteEnabled = "setDepthWriteEnabled:";
-        private static readonly Selector sel_frontFaceStencil = "frontFaceStencil";
-        private static readonly Selector sel_setFrontFaceStencil = "setFrontFaceStencil:";
         private static readonly Selector sel_backFaceStencil = "backFaceStencil";
-        private static readonly Selector sel_setBackFaceStencil = "setBackFaceStencil:";
+        private static readonly Selector sel_depthCompareFunction = "depthCompareFunction";
+        private static readonly Selector sel_frontFaceStencil = "frontFaceStencil";
+        private static readonly Selector sel_isDepthWriteEnabled = "isDepthWriteEnabled";
         private static readonly Selector sel_label = "label";
+        private static readonly Selector sel_setBackFaceStencil = "setBackFaceStencil:";
+        private static readonly Selector sel_setDepthCompareFunction = "setDepthCompareFunction:";
+        private static readonly Selector sel_setDepthWriteEnabled = "setDepthWriteEnabled:";
+        private static readonly Selector sel_setFrontFaceStencil = "setFrontFaceStencil:";
         private static readonly Selector sel_setLabel = "setLabel:";
         private static readonly Selector sel_release = "release";
     }
@@ -177,12 +108,81 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
-        public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
-
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
 
-        private static readonly Selector sel_label = "label";
+        public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+
         private static readonly Selector sel_device = "device";
+        private static readonly Selector sel_label = "label";
+        private static readonly Selector sel_release = "release";
+    }
+
+    [SupportedOSPlatform("macos")]
+    public struct MTLStencilDescriptor : IDisposable
+    {
+        public IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLStencilDescriptor obj) => obj.NativePtr;
+        public MTLStencilDescriptor(IntPtr ptr) => NativePtr = ptr;
+
+        public MTLStencilDescriptor()
+        {
+            var cls = new ObjectiveCClass("MTLStencilDescriptor");
+            NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
+
+        public MTLStencilOperation DepthFailureOperation
+        {
+            get => (MTLStencilOperation)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_depthFailureOperation);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthFailureOperation, (ulong)value);
+        }
+
+        public MTLStencilOperation DepthStencilPassOperation
+        {
+            get => (MTLStencilOperation)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_depthStencilPassOperation);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthStencilPassOperation, (ulong)value);
+        }
+
+        public uint ReadMask
+        {
+            get => ObjectiveCRuntime.uint_objc_msgSend(NativePtr, sel_readMask);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setReadMask, value);
+        }
+
+        public MTLCompareFunction StencilCompareFunction
+        {
+            get => (MTLCompareFunction)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stencilCompareFunction);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStencilCompareFunction, (ulong)value);
+        }
+
+        public MTLStencilOperation StencilFailureOperation
+        {
+            get => (MTLStencilOperation)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stencilFailureOperation);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStencilFailureOperation, (ulong)value);
+        }
+
+        public uint WriteMask
+        {
+            get => ObjectiveCRuntime.uint_objc_msgSend(NativePtr, sel_writeMask);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setWriteMask, value);
+        }
+
+        private static readonly Selector sel_depthFailureOperation = "depthFailureOperation";
+        private static readonly Selector sel_depthStencilPassOperation = "depthStencilPassOperation";
+        private static readonly Selector sel_readMask = "readMask";
+        private static readonly Selector sel_setDepthFailureOperation = "setDepthFailureOperation:";
+        private static readonly Selector sel_setDepthStencilPassOperation = "setDepthStencilPassOperation:";
+        private static readonly Selector sel_setReadMask = "setReadMask:";
+        private static readonly Selector sel_setStencilCompareFunction = "setStencilCompareFunction:";
+        private static readonly Selector sel_setStencilFailureOperation = "setStencilFailureOperation:";
+        private static readonly Selector sel_setWriteMask = "setWriteMask:";
+        private static readonly Selector sel_stencilCompareFunction = "stencilCompareFunction";
+        private static readonly Selector sel_stencilFailureOperation = "stencilFailureOperation";
+        private static readonly Selector sel_writeMask = "writeMask";
         private static readonly Selector sel_release = "release";
     }
 }

@@ -85,7 +85,11 @@ namespace SharpMetal.Generator
             context.WriteLine($"namespace SharpMetal.{fullNamespace}");
             context.EnterScope();
 
-            foreach (var instance in headerInfo.EnumInstances)
+            headerInfo.EnumInstances.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.InvariantCultureIgnoreCase));
+            headerInfo.StructInstances.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.InvariantCultureIgnoreCase));
+            headerInfo.ClassInstances.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.InvariantCultureIgnoreCase));
+
+            foreach (var instance in headerInfo.EnumInstances.OrderBy(x => x.Name))
             {
                 instance.Generate(context);
             }
@@ -205,7 +209,7 @@ namespace SharpMetal.Generator
             context.EnterScope();
 
             var list = objectiveCInstances.ToList();
-            list.Sort();
+            list.Sort(ObjectiveCEmitOrderComparer);
 
             for (var i = 0; i < list.Count; i++)
             {
@@ -218,6 +222,25 @@ namespace SharpMetal.Generator
 
             context.LeaveScope();
             context.LeaveScope();
+
+            static int ObjectiveCEmitOrderComparer(ObjectiveCInstance x, ObjectiveCInstance y)
+            {
+                int typeComparison = string.Compare(x.Type, y.Type, StringComparison.InvariantCultureIgnoreCase);
+                if (typeComparison != 0)
+                {
+                    return typeComparison;
+                }
+
+                int lengthComparison = x.Inputs.Count.CompareTo(y.Inputs.Count);
+                if (lengthComparison != 0)
+                {
+                    return lengthComparison;
+                }
+
+                string xInputs = string.Join(" ", x.Inputs);
+                string yInputs = string.Join(" ", y.Inputs);
+                return string.Compare(xInputs, yInputs, StringComparison.InvariantCultureIgnoreCase);
+            }
         }
     }
 }

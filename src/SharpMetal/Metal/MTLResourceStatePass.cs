@@ -5,6 +5,31 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
+    public struct MTLResourceStatePassDescriptor : IDisposable
+    {
+        public IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLResourceStatePassDescriptor obj) => obj.NativePtr;
+        public MTLResourceStatePassDescriptor(IntPtr ptr) => NativePtr = ptr;
+
+        public MTLResourceStatePassDescriptor()
+        {
+            var cls = new ObjectiveCClass("MTLResourceStatePassDescriptor");
+            NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
+
+        public MTLResourceStatePassSampleBufferAttachmentDescriptorArray SampleBufferAttachments => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_sampleBufferAttachments));
+
+        private static readonly Selector sel_resourceStatePassDescriptor = "resourceStatePassDescriptor";
+        private static readonly Selector sel_sampleBufferAttachments = "sampleBufferAttachments";
+        private static readonly Selector sel_release = "release";
+    }
+
+    [SupportedOSPlatform("macos")]
     public struct MTLResourceStatePassSampleBufferAttachmentDescriptor : IDisposable
     {
         public IntPtr NativePtr;
@@ -22,6 +47,12 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        public ulong EndOfEncoderSampleIndex
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_endOfEncoderSampleIndex);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setEndOfEncoderSampleIndex, value);
+        }
+
         public MTLCounterSampleBuffer SampleBuffer
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_sampleBuffer));
@@ -34,18 +65,12 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStartOfEncoderSampleIndex, value);
         }
 
-        public ulong EndOfEncoderSampleIndex
-        {
-            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_endOfEncoderSampleIndex);
-            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setEndOfEncoderSampleIndex, value);
-        }
-
-        private static readonly Selector sel_sampleBuffer = "sampleBuffer";
-        private static readonly Selector sel_setSampleBuffer = "setSampleBuffer:";
-        private static readonly Selector sel_startOfEncoderSampleIndex = "startOfEncoderSampleIndex";
-        private static readonly Selector sel_setStartOfEncoderSampleIndex = "setStartOfEncoderSampleIndex:";
         private static readonly Selector sel_endOfEncoderSampleIndex = "endOfEncoderSampleIndex";
+        private static readonly Selector sel_sampleBuffer = "sampleBuffer";
         private static readonly Selector sel_setEndOfEncoderSampleIndex = "setEndOfEncoderSampleIndex:";
+        private static readonly Selector sel_setSampleBuffer = "setSampleBuffer:";
+        private static readonly Selector sel_setStartOfEncoderSampleIndex = "setStartOfEncoderSampleIndex:";
+        private static readonly Selector sel_startOfEncoderSampleIndex = "startOfEncoderSampleIndex";
         private static readonly Selector sel_release = "release";
     }
 
@@ -79,31 +104,6 @@ namespace SharpMetal.Metal
 
         private static readonly Selector sel_objectAtIndexedSubscript = "objectAtIndexedSubscript:";
         private static readonly Selector sel_setObjectatIndexedSubscript = "setObject:atIndexedSubscript:";
-        private static readonly Selector sel_release = "release";
-    }
-
-    [SupportedOSPlatform("macos")]
-    public struct MTLResourceStatePassDescriptor : IDisposable
-    {
-        public IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLResourceStatePassDescriptor obj) => obj.NativePtr;
-        public MTLResourceStatePassDescriptor(IntPtr ptr) => NativePtr = ptr;
-
-        public MTLResourceStatePassDescriptor()
-        {
-            var cls = new ObjectiveCClass("MTLResourceStatePassDescriptor");
-            NativePtr = cls.AllocInit();
-        }
-
-        public void Dispose()
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
-        }
-
-        public MTLResourceStatePassSampleBufferAttachmentDescriptorArray SampleBufferAttachments => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_sampleBufferAttachments));
-
-        private static readonly Selector sel_resourceStatePassDescriptor = "resourceStatePassDescriptor";
-        private static readonly Selector sel_sampleBufferAttachments = "sampleBufferAttachments";
         private static readonly Selector sel_release = "release";
     }
 }

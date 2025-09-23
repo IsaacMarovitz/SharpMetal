@@ -38,10 +38,10 @@ namespace SharpMetal.Foundation
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initFileURLWithPath, pPath));
         }
 
-        private static readonly Selector sel_fileURLWithPath = "fileURLWithPath:";
-        private static readonly Selector sel_initWithString = "initWithString:";
-        private static readonly Selector sel_initFileURLWithPath = "initFileURLWithPath:";
         private static readonly Selector sel_fileSystemRepresentation = "fileSystemRepresentation";
+        private static readonly Selector sel_fileURLWithPath = "fileURLWithPath:";
+        private static readonly Selector sel_initFileURLWithPath = "initFileURLWithPath:";
+        private static readonly Selector sel_initWithString = "initWithString:";
         private static readonly Selector sel_release = "release";
     }
 }

@@ -15,19 +15,17 @@ namespace SharpMetal.Metal
 
     [SupportedOSPlatform("macos")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct MTLSize
-    {
-        public ulong width;
-        public ulong height;
-        public ulong depth;
-    }
-
-    [SupportedOSPlatform("macos")]
-    [StructLayout(LayoutKind.Sequential)]
     public struct MTLRegion
     {
         public MTLOrigin origin;
         public MTLSize size;
+    }
+
+    [SupportedOSPlatform("macos")]
+    [StructLayout(LayoutKind.Sequential)]
+    public struct MTLResourceID
+    {
+        public ulong _impl;
     }
 
     [SupportedOSPlatform("macos")]
@@ -40,8 +38,10 @@ namespace SharpMetal.Metal
 
     [SupportedOSPlatform("macos")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct MTLResourceID
+    public struct MTLSize
     {
-        public ulong _impl;
+        public ulong width;
+        public ulong height;
+        public ulong depth;
     }
 }

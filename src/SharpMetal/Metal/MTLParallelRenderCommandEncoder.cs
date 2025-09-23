@@ -17,8 +17,6 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
-        public MTLRenderCommandEncoder RenderCommandEncoder => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_renderCommandEncoder));
-
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
 
         public NSString Label
@@ -27,35 +25,7 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
         }
 
-        public void SetColorStoreAction(MTLStoreAction storeAction, ulong colorAttachmentIndex)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setColorStoreActionatIndex, (ulong)storeAction, colorAttachmentIndex);
-        }
-
-        public void SetDepthStoreAction(MTLStoreAction storeAction)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthStoreAction, (ulong)storeAction);
-        }
-
-        public void SetStencilStoreAction(MTLStoreAction storeAction)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStencilStoreAction, (ulong)storeAction);
-        }
-
-        public void SetColorStoreActionOptions(MTLStoreActionOptions storeActionOptions, ulong colorAttachmentIndex)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setColorStoreActionOptionsatIndex, (ulong)storeActionOptions, colorAttachmentIndex);
-        }
-
-        public void SetDepthStoreActionOptions(MTLStoreActionOptions storeActionOptions)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthStoreActionOptions, (ulong)storeActionOptions);
-        }
-
-        public void SetStencilStoreActionOptions(MTLStoreActionOptions storeActionOptions)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStencilStoreActionOptions, (ulong)storeActionOptions);
-        }
+        public MTLRenderCommandEncoder RenderCommandEncoder => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_renderCommandEncoder));
 
         public void EndEncoding()
         {
@@ -67,30 +37,60 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_insertDebugSignpost, nsString);
         }
 
-        public void PushDebugGroup(NSString nsString)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_pushDebugGroup, nsString);
-        }
-
         public void PopDebugGroup()
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_popDebugGroup);
         }
 
-        private static readonly Selector sel_renderCommandEncoder = "renderCommandEncoder";
-        private static readonly Selector sel_setColorStoreActionatIndex = "setColorStoreAction:atIndex:";
-        private static readonly Selector sel_setDepthStoreAction = "setDepthStoreAction:";
-        private static readonly Selector sel_setStencilStoreAction = "setStencilStoreAction:";
-        private static readonly Selector sel_setColorStoreActionOptionsatIndex = "setColorStoreActionOptions:atIndex:";
-        private static readonly Selector sel_setDepthStoreActionOptions = "setDepthStoreActionOptions:";
-        private static readonly Selector sel_setStencilStoreActionOptions = "setStencilStoreActionOptions:";
+        public void PushDebugGroup(NSString nsString)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_pushDebugGroup, nsString);
+        }
+
+        public void SetColorStoreAction(MTLStoreAction storeAction, ulong colorAttachmentIndex)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setColorStoreActionatIndex, (ulong)storeAction, colorAttachmentIndex);
+        }
+
+        public void SetColorStoreActionOptions(MTLStoreActionOptions storeActionOptions, ulong colorAttachmentIndex)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setColorStoreActionOptionsatIndex, (ulong)storeActionOptions, colorAttachmentIndex);
+        }
+
+        public void SetDepthStoreAction(MTLStoreAction storeAction)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthStoreAction, (ulong)storeAction);
+        }
+
+        public void SetDepthStoreActionOptions(MTLStoreActionOptions storeActionOptions)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthStoreActionOptions, (ulong)storeActionOptions);
+        }
+
+        public void SetStencilStoreAction(MTLStoreAction storeAction)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStencilStoreAction, (ulong)storeAction);
+        }
+
+        public void SetStencilStoreActionOptions(MTLStoreActionOptions storeActionOptions)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStencilStoreActionOptions, (ulong)storeActionOptions);
+        }
+
         private static readonly Selector sel_device = "device";
-        private static readonly Selector sel_label = "label";
-        private static readonly Selector sel_setLabel = "setLabel:";
         private static readonly Selector sel_endEncoding = "endEncoding";
         private static readonly Selector sel_insertDebugSignpost = "insertDebugSignpost:";
-        private static readonly Selector sel_pushDebugGroup = "pushDebugGroup:";
+        private static readonly Selector sel_label = "label";
         private static readonly Selector sel_popDebugGroup = "popDebugGroup";
+        private static readonly Selector sel_pushDebugGroup = "pushDebugGroup:";
+        private static readonly Selector sel_renderCommandEncoder = "renderCommandEncoder";
+        private static readonly Selector sel_setColorStoreActionatIndex = "setColorStoreAction:atIndex:";
+        private static readonly Selector sel_setColorStoreActionOptionsatIndex = "setColorStoreActionOptions:atIndex:";
+        private static readonly Selector sel_setDepthStoreAction = "setDepthStoreAction:";
+        private static readonly Selector sel_setDepthStoreActionOptions = "setDepthStoreActionOptions:";
+        private static readonly Selector sel_setLabel = "setLabel:";
+        private static readonly Selector sel_setStencilStoreAction = "setStencilStoreAction:";
+        private static readonly Selector sel_setStencilStoreActionOptions = "setStencilStoreActionOptions:";
         private static readonly Selector sel_release = "release";
     }
 }

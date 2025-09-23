@@ -22,14 +22,14 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        public void Reset()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_reset);
+        }
+
         public void SetConstantValue(IntPtr value, MTLDataType type, ulong index)
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setConstantValuetypeatIndex, value, (ulong)type, index);
-        }
-
-        public void SetConstantValues(IntPtr values, MTLDataType type, NSRange range)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setConstantValuestypewithRange, values, (ulong)type, range);
         }
 
         public void SetConstantValue(IntPtr value, MTLDataType type, NSString name)
@@ -37,15 +37,15 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setConstantValuetypewithName, value, (ulong)type, name);
         }
 
-        public void Reset()
+        public void SetConstantValues(IntPtr values, MTLDataType type, NSRange range)
         {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_reset);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setConstantValuestypewithRange, values, (ulong)type, range);
         }
 
-        private static readonly Selector sel_setConstantValuetypeatIndex = "setConstantValue:type:atIndex:";
-        private static readonly Selector sel_setConstantValuestypewithRange = "setConstantValues:type:withRange:";
-        private static readonly Selector sel_setConstantValuetypewithName = "setConstantValue:type:withName:";
         private static readonly Selector sel_reset = "reset";
+        private static readonly Selector sel_setConstantValuestypewithRange = "setConstantValues:type:withRange:";
+        private static readonly Selector sel_setConstantValuetypeatIndex = "setConstantValue:type:atIndex:";
+        private static readonly Selector sel_setConstantValuetypewithName = "setConstantValue:type:withName:";
         private static readonly Selector sel_release = "release";
     }
 }

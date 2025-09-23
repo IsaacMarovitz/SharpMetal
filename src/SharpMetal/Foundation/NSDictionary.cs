@@ -21,9 +21,9 @@ namespace SharpMetal.Foundation
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
-        public NSEnumerator KeyEnumerator => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_keyEnumerator));
-
         public ulong Count => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_count);
+
+        public NSEnumerator KeyEnumerator => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_keyEnumerator));
 
         public static NSDictionary Dictionary(NSObject pObject, NSObject pKey)
         {
@@ -50,14 +50,14 @@ namespace SharpMetal.Foundation
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_objectForKey, pKey));
         }
 
+        private static readonly Selector sel_count = "count";
         private static readonly Selector sel_dictionary = "dictionary";
         private static readonly Selector sel_dictionaryWithObjectforKey = "dictionaryWithObject:forKey:";
         private static readonly Selector sel_dictionaryWithObjectsforKeyscount = "dictionaryWithObjects:forKeys:count:";
-        private static readonly Selector sel_initWithObjectsforKeyscount = "initWithObjects:forKeys:count:";
         private static readonly Selector sel_initWithCoder = "initWithCoder:";
+        private static readonly Selector sel_initWithObjectsforKeyscount = "initWithObjects:forKeys:count:";
         private static readonly Selector sel_keyEnumerator = "keyEnumerator";
         private static readonly Selector sel_objectForKey = "objectForKey:";
-        private static readonly Selector sel_count = "count";
         private static readonly Selector sel_release = "release";
     }
 }

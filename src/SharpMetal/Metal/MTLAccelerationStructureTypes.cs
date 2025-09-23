@@ -6,6 +6,14 @@ namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
     [StructLayout(LayoutKind.Sequential)]
+    public struct MTLAxisAlignedBoundingBox
+    {
+        public MTLPackedFloat3 min;
+        public MTLPackedFloat3 max;
+    }
+
+    [SupportedOSPlatform("macos")]
+    [StructLayout(LayoutKind.Sequential)]
     public struct MTLPackedFloat3
     {
         public float x;
@@ -18,13 +26,5 @@ namespace SharpMetal.Metal
     public struct MTLPackedFloat4x3
     {
         public MTLPackedFloat3 columns;
-    }
-
-    [SupportedOSPlatform("macos")]
-    [StructLayout(LayoutKind.Sequential)]
-    public struct MTLAxisAlignedBoundingBox
-    {
-        public MTLPackedFloat3 min;
-        public MTLPackedFloat3 max;
     }
 }

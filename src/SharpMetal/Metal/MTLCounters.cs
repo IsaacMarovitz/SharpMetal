@@ -15,13 +15,6 @@ namespace SharpMetal.Metal
 
     [SupportedOSPlatform("macos")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct MTLCounterResultTimestamp
-    {
-        public ulong timestamp;
-    }
-
-    [SupportedOSPlatform("macos")]
-    [StructLayout(LayoutKind.Sequential)]
     public struct MTLCounterResultStageUtilization
     {
         public ulong totalCycles;
@@ -47,6 +40,13 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
+    [StructLayout(LayoutKind.Sequential)]
+    public struct MTLCounterResultTimestamp
+    {
+        public ulong timestamp;
+    }
+
+    [SupportedOSPlatform("macos")]
     public struct MTLCounter : IDisposable
     {
         public IntPtr NativePtr;
@@ -65,23 +65,32 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLCounterSet : IDisposable
+    public struct MTLCounterSampleBuffer : IDisposable
     {
         public IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLCounterSet obj) => obj.NativePtr;
-        public MTLCounterSet(IntPtr ptr) => NativePtr = ptr;
+        public static implicit operator IntPtr(MTLCounterSampleBuffer obj) => obj.NativePtr;
+        public MTLCounterSampleBuffer(IntPtr ptr) => NativePtr = ptr;
 
         public void Dispose()
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
-        public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
+        public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
 
-        public NSArray Counters => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_counters));
+        public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
 
-        private static readonly Selector sel_name = "name";
-        private static readonly Selector sel_counters = "counters";
+        public ulong SampleCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_sampleCount);
+
+        public NSData ResolveCounterRange(NSRange range)
+        {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_resolveCounterRange, range));
+        }
+
+        private static readonly Selector sel_device = "device";
+        private static readonly Selector sel_label = "label";
+        private static readonly Selector sel_resolveCounterRange = "resolveCounterRange:";
+        private static readonly Selector sel_sampleCount = "sampleCount";
         private static readonly Selector sel_release = "release";
     }
 
@@ -115,56 +124,47 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
         }
 
-        public MTLStorageMode StorageMode
-        {
-            get => (MTLStorageMode)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_storageMode);
-            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStorageMode, (ulong)value);
-        }
-
         public ulong SampleCount
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_sampleCount);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSampleCount, value);
         }
 
+        public MTLStorageMode StorageMode
+        {
+            get => (MTLStorageMode)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_storageMode);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStorageMode, (ulong)value);
+        }
+
         private static readonly Selector sel_counterSet = "counterSet";
-        private static readonly Selector sel_setCounterSet = "setCounterSet:";
         private static readonly Selector sel_label = "label";
-        private static readonly Selector sel_setLabel = "setLabel:";
-        private static readonly Selector sel_storageMode = "storageMode";
-        private static readonly Selector sel_setStorageMode = "setStorageMode:";
         private static readonly Selector sel_sampleCount = "sampleCount";
+        private static readonly Selector sel_setCounterSet = "setCounterSet:";
+        private static readonly Selector sel_setLabel = "setLabel:";
         private static readonly Selector sel_setSampleCount = "setSampleCount:";
+        private static readonly Selector sel_setStorageMode = "setStorageMode:";
+        private static readonly Selector sel_storageMode = "storageMode";
         private static readonly Selector sel_release = "release";
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLCounterSampleBuffer : IDisposable
+    public struct MTLCounterSet : IDisposable
     {
         public IntPtr NativePtr;
-        public static implicit operator IntPtr(MTLCounterSampleBuffer obj) => obj.NativePtr;
-        public MTLCounterSampleBuffer(IntPtr ptr) => NativePtr = ptr;
+        public static implicit operator IntPtr(MTLCounterSet obj) => obj.NativePtr;
+        public MTLCounterSet(IntPtr ptr) => NativePtr = ptr;
 
         public void Dispose()
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
-        public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
+        public NSArray Counters => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_counters));
 
-        public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
+        public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
 
-        public ulong SampleCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_sampleCount);
-
-        public NSData ResolveCounterRange(NSRange range)
-        {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_resolveCounterRange, range));
-        }
-
-        private static readonly Selector sel_device = "device";
-        private static readonly Selector sel_label = "label";
-        private static readonly Selector sel_sampleCount = "sampleCount";
-        private static readonly Selector sel_resolveCounterRange = "resolveCounterRange:";
+        private static readonly Selector sel_counters = "counters";
+        private static readonly Selector sel_name = "name";
         private static readonly Selector sel_release = "release";
     }
 }

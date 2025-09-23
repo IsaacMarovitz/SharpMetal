@@ -51,9 +51,9 @@ namespace SharpMetal.Foundation
         private static readonly Selector sel_array = "array";
         private static readonly Selector sel_arrayWithObject = "arrayWithObject:";
         private static readonly Selector sel_arrayWithObjectscount = "arrayWithObjects:count:";
-        private static readonly Selector sel_initWithObjectscount = "initWithObjects:count:";
-        private static readonly Selector sel_initWithCoder = "initWithCoder:";
         private static readonly Selector sel_count = "count";
+        private static readonly Selector sel_initWithCoder = "initWithCoder:";
+        private static readonly Selector sel_initWithObjectscount = "initWithObjects:count:";
         private static readonly Selector sel_objectAtIndex = "objectAtIndex:";
         private static readonly Selector sel_release = "release";
     }
