@@ -18,7 +18,7 @@ Progress is underway to build a full set of working reimplementations of the met
 
 ## I want to contribute!
 
-Wonderful! SharpMetal is built with .NET 8.0, and follows a couple of specific guidelines:
+Wonderful! SharpMetal is built with .NET 8.0/9.0, and follows a couple of specific guidelines:
 - Block Namespaces
 - Source Generated P/Invokes
   - `LibraryImport` not `DllImport`

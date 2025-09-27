@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
         <AssemblyName>Animation</AssemblyName>
         <OutputType>Exe</OutputType>
         <RuntimeIdentifiers>osx-x64</RuntimeIdentifiers>
@@ -14,7 +14,7 @@
     <ItemGroup>
         <ProjectReference Include="..\SharpMetal.Examples.Common\SharpMetal.Examples.Common.csproj" />
     </ItemGroup>
-    
+
     <ItemGroup>
         <EmbeddedResource Include="Shaders\Shader.metal" />
     </ItemGroup>
