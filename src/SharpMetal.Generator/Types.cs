@@ -2,8 +2,12 @@ namespace SharpMetal.Generator
 {
     public static class Types
     {
-        public static string[] CSharpNativeTypes = { "bool", "ulong", "uint", "int", "float", "double", "long", "byte", "short", "ushort" };
-        public static Dictionary<string, string> TypeMap = new()
+        public static string[] CSharpNativeTypes { get; } =
+        [
+            "bool", "ulong", "uint", "int", "float", "double", "long", "byte", "short", "ushort"
+        ];
+
+        public static Dictionary<string, string> TypeMap { get; } = new()
         {
             { "uint64_t", "ulong" },
             { "MTLTimestamp", "ulong" },
@@ -51,10 +55,10 @@ namespace SharpMetal.Generator
             { "IOScratchBuffer", "IntPtr" },
             { "IOCommandQueue", "IntPtr" },
             { "IOCommandQueueDescriptor", "IntPtr" },
-            { "_Class", "IntPtr"},
+            { "_Class", "IntPtr" },
             { "_ObjectType", "IntPtr" },
             { "_Object", "IntPtr" },
-            { "MTLSharedEventNotificationBlock", "IntPtr"},
+            { "MTLSharedEventNotificationBlock", "IntPtr" },
             { "MTLCoordinate2D", "IntPtr" },
             { "MTLAutoreleasedComputePipelineReflection", "IntPtr" },
             { "MTLAutoreleasedRenderPipelineReflection", "IntPtr" },

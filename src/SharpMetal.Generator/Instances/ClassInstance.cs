@@ -4,27 +4,21 @@ namespace SharpMetal.Generator.Instances
 {
     public class ClassInstance
     {
-        public string Name { get; set; }
-        public string NamespacePrefix = "";
-        public bool HasAlloc;
-        public bool HasInit;
-        private List<PropertyInstance> _propertyInstances;
-        private List<MethodInstance> _methodInstances;
-        private List<SelectorInstance> _selectorInstances;
-        private string _parent = string.Empty;
+        public readonly string Name;
 
-        public List<PropertyInstance> PropertyInstances => _propertyInstances;
-        public List<MethodInstance> MethodInstances => _methodInstances;
-        public List<SelectorInstance> SelectorInstances => _selectorInstances;
+        private string _namespacePrefix = "";
+        private bool _hasAlloc;
+        private bool _hasInit;
+        private string _parent = string.Empty;
+        private readonly List<PropertyInstance> _propertyInstances = [];
+        private readonly List<MethodInstance> _methodInstances = [];
+        private readonly List<SelectorInstance> _selectorInstances = [];
 
         public bool IsValid => !string.IsNullOrWhiteSpace(Name);
 
         private ClassInstance(string name)
         {
             Name = name;
-            _selectorInstances = new();
-            _methodInstances = new();
-            _propertyInstances = new();
         }
 
         public void AddSelector(SelectorInstance selectorInstance)
@@ -74,9 +68,9 @@ namespace SharpMetal.Generator.Instances
                 // and memory drawbacks, that structs are able to avoid.
 
                 var parent = classCache.FirstOrDefault(x => x.Name == _parent);
-                _propertyInstances.AddRange(parent.PropertyInstances);
-                _methodInstances.AddRange(parent.MethodInstances);
-                _selectorInstances.AddRange(parent.SelectorInstances);
+                _propertyInstances.AddRange(parent._propertyInstances);
+                _methodInstances.AddRange(parent._methodInstances);
+                _selectorInstances.AddRange(parent._selectorInstances);
             }
 
             _propertyInstances.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.InvariantCultureIgnoreCase));
@@ -101,7 +95,7 @@ namespace SharpMetal.Generator.Instances
             }
             context.WriteLine($"public {Name}(IntPtr ptr) => NativePtr = ptr;");
 
-            if (HasAlloc)
+            if (_hasAlloc)
             {
                 context.WriteLine();
                 context.WriteLine($"public {Name}()");
@@ -109,14 +103,7 @@ namespace SharpMetal.Generator.Instances
 
                 context.WriteLine($"var cls = new ObjectiveCClass(\"{Name}\");");
 
-                if (HasInit)
-                {
-                    context.WriteLine("NativePtr = cls.AllocInit();");
-                }
-                else
-                {
-                    context.WriteLine("NativePtr = cls.Alloc();");
-                }
+                context.WriteLine(_hasInit ? "NativePtr = cls.AllocInit();" : "NativePtr = cls.Alloc();");
 
                 context.LeaveScope();
             }
@@ -129,7 +116,7 @@ namespace SharpMetal.Generator.Instances
 
             context.LeaveScope();
 
-            if (_propertyInstances.Any())
+            if (_propertyInstances.Count != 0)
             {
                 context.WriteLine();
             }
@@ -150,10 +137,10 @@ namespace SharpMetal.Generator.Instances
 
             foreach (var method in _methodInstances)
             {
-                objectiveCInstances.Add(method.Generate(selectorInstances, enumCache, structCache, context, NamespacePrefix));
+                objectiveCInstances.Add(method.Generate(selectorInstances, enumCache, structCache, context, _namespacePrefix));
             }
 
-            if (_selectorInstances.Any())
+            if (_selectorInstances.Count != 0)
             {
                 context.WriteLine();
             }
@@ -185,10 +172,10 @@ namespace SharpMetal.Generator.Instances
             if (classInfo[2] == ":")
             {
                 var ancestorInfo = string.Join(" ", classInfo[3..]);
-                int index = ancestorInfo.IndexOf("<");
+                var index = ancestorInfo.IndexOf('<');
                 if (index >= 0)
                 {
-                    var info = ancestorInfo.Substring(index);
+                    var info = ancestorInfo[index..];
                     info = info.Replace(">", "").Replace("<", "");
                     var ancestors = info.Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
                     for (var i = 0; i < ancestors.Length; i++)
@@ -206,14 +193,19 @@ namespace SharpMetal.Generator.Instances
             }
 
             instance._methodInstances.AddRange(inFlightUnscopedMethods);
-            instance.NamespacePrefix = namespacePrefix;
+            instance._namespacePrefix = namespacePrefix;
 
-            bool classEnded = false;
-            bool enteredComment = false;
+            var classEnded = false;
+            var enteredComment = false;
 
             while (!classEnded)
             {
                 var nextLine = sr.ReadLine();
+
+                if (nextLine == null)
+                {
+                    continue;
+                }
 
                 if (nextLine.Contains("/**"))
                 {
@@ -237,7 +229,7 @@ namespace SharpMetal.Generator.Instances
                 }
 
                 // Ignore empty lines etc...
-                if (nextLine == String.Empty || nextLine == "{" || nextLine == "public:")
+                if (nextLine is "" or "{" or "public:")
                 {
                     continue;
                 }
@@ -250,7 +242,7 @@ namespace SharpMetal.Generator.Instances
                 var rawName = nextLine;
                 nextLine = StringUtils.FunctionSignatureCleanup(nextLine);
 
-                bool isStatic = false;
+                var isStatic = false;
 
                 if (nextLine.Contains("static "))
                 {
@@ -263,19 +255,19 @@ namespace SharpMetal.Generator.Instances
                 var name = "";
                 var nameIndex = 0;
 
-                for (int i = 0; i < info.Length; i++)
+                for (var i = 0; i < info.Length; i++)
                 {
-                    if (info[i].Contains("("))
+                    if (info[i].Contains('('))
                     {
                         // This element is the function name
                         // everything before it is the returnType
                         nameIndex = i;
                         returnType = Types.ConvertType(string.Join(" ", info, 0, i), namespacePrefix);
 
-                        int index = info[i].IndexOf("(");
+                        var index = info[i].IndexOf('(');
                         if (index >= 0)
                         {
-                            name = info[i].Substring(0, index);
+                            name = info[i][..index];
                         }
                     }
                 }
@@ -287,13 +279,13 @@ namespace SharpMetal.Generator.Instances
                 {
                     if (name == "Alloc")
                     {
-                        instance.HasAlloc = true;
+                        instance._hasAlloc = true;
                         continue;
                     }
 
                     if (name == "Init")
                     {
-                        instance.HasInit = true;
+                        instance._hasInit = true;
                         continue;
                     }
 
@@ -316,21 +308,21 @@ namespace SharpMetal.Generator.Instances
                     var inputString = String.Join(" ", inputs);
 
                     // Remove everything before and including (
-                    int startIndex = inputString.IndexOf("(");
+                    var startIndex = inputString.IndexOf('(');
                     if (startIndex >= 0)
                     {
-                        inputString = inputString.Substring(startIndex + 1);
+                        inputString = inputString[(startIndex + 1)..];
                     }
 
                     // Remove everything after and include )
-                    int endIndex = inputString.IndexOf(")");
+                    var endIndex = inputString.IndexOf(')');
                     if (endIndex >= 0)
                     {
-                        inputString = inputString.Substring(0, endIndex);
+                        inputString = inputString[..endIndex];
                     }
 
                     var inputArguments = inputString.Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-                    List<PropertyInstance> arguments = new();
+                    List<PropertyInstance> arguments = [];
 
                     foreach (var argument in inputArguments)
                     {
@@ -373,7 +365,7 @@ namespace SharpMetal.Generator.Instances
                     }
                 }
 
-                for (int i = instance._propertyInstances.Count - 1; i >= 0; i--)
+                for (var i = instance._propertyInstances.Count - 1; i >= 0; i--)
                 {
                     var property = instance._propertyInstances[i];
                     if (instance._methodInstances.Exists(x => x.Name == property.Name))
@@ -381,7 +373,7 @@ namespace SharpMetal.Generator.Instances
                         // We can't have a property AND methods with the same name
                         // in this case, the solution is to turn the property into a method
                         instance._propertyInstances.RemoveAt(i);
-                        instance.AddMethod(new MethodInstance(property.Type, property.Name, rawName, isStatic, false, new List<PropertyInstance>()));
+                        instance.AddMethod(new MethodInstance(property.Type, property.Name, rawName, isStatic, false, []));
                     }
                 }
             }

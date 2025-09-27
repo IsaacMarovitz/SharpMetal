@@ -2,9 +2,9 @@ namespace SharpMetal.Generator.Instances
 {
     public class PropertyInstance : IEquatable<PropertyInstance>
     {
-        public string Type;
-        public string Name;
-        public bool Reference;
+        public readonly string Type;
+        public readonly string Name;
+        public readonly bool Reference;
 
         public PropertyInstance(string type, string name, bool reference = false)
         {
@@ -15,13 +15,13 @@ namespace SharpMetal.Generator.Instances
 
         public ObjectiveCInstance Generate(List<SelectorInstance> selectorInstances, List<EnumInstance> enumCache, List<StructInstance> structCache, CodeGenContext context)
         {
-            var selector = selectorInstances.Find(x => x.Selector.ToLower() == Name.ToLower());
-            var objcInstance = new ObjectiveCInstance("", new List<string>());
+            var selector = selectorInstances.Find(x => string.Equals(x.Selector, Name, StringComparison.InvariantCultureIgnoreCase));
+            var type = "";
 
             if (selector == null)
             {
                 // This can sometimes select the wrong selector, so we only want to use it as a backup
-                selector = selectorInstances.Find(x => x.Selector.ToLower().Contains(Name.ToLower()));
+                selector = selectorInstances.Find(x => x.Selector.Contains(Name, StringComparison.InvariantCultureIgnoreCase));
             }
 
             if (selector != null)
@@ -29,7 +29,7 @@ namespace SharpMetal.Generator.Instances
                 selectorInstances.Remove(selector);
                 // We assume a type of IntPtr, which encapsulates any possible type
                 var runtimeFuncReturn = "IntPtr";
-                var setterSelector = selectorInstances.Find(x => x.Selector.ToLower().Contains("set" + selector.Selector.ToLower()));
+                var setterSelector = selectorInstances.Find(x => x.Selector.Contains("set" + selector.Selector.ToLower(), StringComparison.InvariantCultureIgnoreCase));
 
                 // If the property is a type that exists in C# then we can safely set the
                 // return type to be that type, otherwise further conversion will be needed later
@@ -49,21 +49,21 @@ namespace SharpMetal.Generator.Instances
 
                     if (enumInstance != null)
                     {
-                        objcInstance.Type = enumInstance.Type;
+                        type = enumInstance.Type;
 
                         context.WriteLine($"get => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend(NativePtr, {selector.Name});");
                         context.WriteLine($"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, ({enumInstance.Type})value);");
                     }
                     else if (structInstance != null)
                     {
-                        objcInstance.Type = structInstance.Name;
+                        type = structInstance.Name;
 
                         context.WriteLine($"get => ObjectiveCRuntime.{structInstance.Name}_objc_msgSend(NativePtr, {selector.Name});");
                         context.WriteLine($"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, value);");
                     }
                     else
                     {
-                        objcInstance.Type = runtimeFuncReturn;
+                        type = runtimeFuncReturn;
 
                         if (runtimeFuncReturn == "IntPtr")
                         {
@@ -83,19 +83,19 @@ namespace SharpMetal.Generator.Instances
                 {
                     if (enumInstance != null)
                     {
-                        objcInstance.Type = enumInstance.Type;
+                        type = enumInstance.Type;
 
                         context.WriteLine($"public {Type} {Name} => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend(NativePtr, {selector.Name});");
                     }
                     else if (structInstance != null)
                     {
-                        objcInstance.Type = structInstance.Name;
+                        type = structInstance.Name;
 
                         context.WriteLine($"public {Type} {Name} => ObjectiveCRuntime.{structInstance.Name}_objc_msgSend(NativePtr, {selector.Name});");
                     }
                     else
                     {
-                        objcInstance.Type = runtimeFuncReturn;
+                        type = runtimeFuncReturn;
 
                         if (runtimeFuncReturn == "IntPtr")
                         {
@@ -109,7 +109,7 @@ namespace SharpMetal.Generator.Instances
                 }
             }
 
-            return objcInstance;
+            return new ObjectiveCInstance(type, []);
         }
 
         public void Generate(CodeGenContext context)
@@ -144,7 +144,7 @@ namespace SharpMetal.Generator.Instances
                 return true;
             }
 
-            if (obj.GetType() != this.GetType())
+            if (obj.GetType() != GetType())
             {
                 return false;
             }

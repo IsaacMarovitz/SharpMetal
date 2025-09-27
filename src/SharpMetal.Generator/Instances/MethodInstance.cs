@@ -2,68 +2,71 @@ namespace SharpMetal.Generator.Instances
 {
     public class MethodInstance
     {
-        public string ReturnType;
-        public string Name;
-        public string RawName;
-        public bool IsStatic;
-        public bool Unscoped;
-        public List<PropertyInstance> InputInstances;
+        public readonly string Name;
+        public readonly List<PropertyInstance> InputInstances;
+
+        private readonly string _returnType;
+        private readonly bool _isStatic;
+        private readonly bool _unscoped;
+        private readonly string _rawName;
 
         public MethodInstance(string returnType, string name, string rawName, bool isStatic, bool unscoped, List<PropertyInstance> inputInstances)
         {
-            ReturnType = returnType;
             Name = name;
-            RawName = rawName;
-            IsStatic = isStatic;
-            Unscoped = unscoped;
             InputInstances = inputInstances;
-        }
 
-        public ObjectiveCInstance Generate(List<SelectorInstance> selectorInstances, List<EnumInstance> enumCache, List<StructInstance> structCache, CodeGenContext context, string namespacePrefix, bool prependSpace = true)
-        {
-            var rawNameComponents = RawName.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+            _returnType = returnType;
+            _isStatic = isStatic;
+            _unscoped = unscoped;
+
+            var rawNameComponents = rawName.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
             for (var index = 0; index < rawNameComponents.Length; index++)
             {
                 var component = rawNameComponents[index];
-                if (component.Contains("("))
+                if (component.Contains('('))
                 {
-                    var splitIndex = RawName.IndexOf(component);
+                    var splitIndex = rawName.IndexOf(component);
                     if (splitIndex >= 0)
                     {
-                        RawName = RawName.Substring(splitIndex, RawName.Length - splitIndex);
+                        rawName = rawName.Substring(splitIndex, rawName.Length - splitIndex);
                     }
                 }
             }
 
             // TODO: Clean this up
-            RawName = RawName.Replace(";", "");
-            RawName = RawName.Replace(" class ", " ");
-            RawName = RawName.Replace("(class ", "(");
-            RawName = RawName.Replace("MTL::", "");
-            RawName = RawName.Replace("NS::", "");
+            rawName = rawName.Replace(";", "");
+            rawName = rawName.Replace(" class ", " ");
+            rawName = rawName.Replace("(class ", "(");
+            rawName = rawName.Replace("MTL::", "");
+            rawName = rawName.Replace("NS::", "");
 
-            var selector = selectorInstances.Find(x => x.RawName.ToLower().Replace(" class ", " ").Replace("mtl::", "").Replace("ns::", "").Contains(RawName.ToLower()));
+            _rawName = rawName;
+        }
+
+        public ObjectiveCInstance Generate(List<SelectorInstance> selectorInstances, List<EnumInstance> enumCache, List<StructInstance> structCache, CodeGenContext context, string namespacePrefix, bool prependSpace = true)
+        {
+            var selector = selectorInstances.Find(x => x.RawName.ToLower().Replace(" class ", " ").Replace("mtl::", "").Replace("ns::", "").Contains(_rawName.ToLower()));
 
             if (selector == null)
             {
-                if (RawName != "lock()" && RawName != "unlock()" && RawName != "release()" && Unscoped)
+                if (_rawName != "lock()" && _rawName != "unlock()" && _rawName != "release()" && _unscoped)
                 {
                     if (prependSpace)
                     {
                         context.WriteLine();
                     }
                     context.WriteLine("[LibraryImport(ObjectiveC.MetalFramework)]");
-                    context.WriteLine($"private static partial IntPtr {namespacePrefix}{RawName};");
+                    context.WriteLine($"private static partial IntPtr {namespacePrefix}{_rawName};");
                     context.WriteLine();
-                    context.WriteLine($"public static {ReturnType} {RawName}");
+                    context.WriteLine($"public static {_returnType} {_rawName}");
                     context.EnterScope();
-                    context.WriteLine($"return new({namespacePrefix}{RawName});");
+                    context.WriteLine($"return new({namespacePrefix}{_rawName});");
                     context.LeaveScope();
                 }
             }
             else
             {
-                var staticString = IsStatic ? "static " : "";
+                var staticString = _isStatic ? "static " : "";
                 // TODO: Handle array inputs
                 var hasArrayInput = false;
 
@@ -71,7 +74,7 @@ namespace SharpMetal.Generator.Instances
                 {
                     context.WriteLine();
                 }
-                context.Write(context.Indentation + $"public {staticString}{ReturnType} {Name}(");
+                context.Write(context.Indentation + $"public {staticString}{_returnType} {Name}(");
 
                 for (var i = 0; i < InputInstances.Count; i++)
                 {
@@ -92,9 +95,9 @@ namespace SharpMetal.Generator.Instances
 
                 context.Write(")\n");
                 context.EnterScope();
-                if (ReturnType == "void" && !hasArrayInput)
+                if (_returnType == "void" && !hasArrayInput)
                 {
-                    if (IsStatic)
+                    if (_isStatic)
                     {
                         context.WriteLine("throw new NotSupportedException();");
                     }
@@ -120,19 +123,19 @@ namespace SharpMetal.Generator.Instances
                 else if (!hasArrayInput)
                 {
                     context.Write($"{context.Indentation}return ");
-                    var returnEnum = enumCache.Find(x => x.Name == ReturnType);
-                    var returnStruct = structCache.Find(x => x.Name == ReturnType);
+                    var returnEnum = enumCache.Find(x => x.Name == _returnType);
+                    var returnStruct = structCache.Find(x => x.Name == _returnType);
                     var needsOuterBracket = false;
 
                     if (returnEnum != null)
                     {
-                        context.Write($"({ReturnType})ObjectiveCRuntime.{returnEnum.Type}_");
+                        context.Write($"({_returnType})ObjectiveCRuntime.{returnEnum.Type}_");
                     }
                     else
                     {
-                        if (Types.CSharpNativeTypes.Contains(ReturnType) || returnStruct != null)
+                        if (Types.CSharpNativeTypes.Contains(_returnType) || returnStruct != null)
                         {
-                            context.Write($"ObjectiveCRuntime.{ReturnType}_");
+                            context.Write($"ObjectiveCRuntime.{_returnType}_");
                         }
                         else
                         {
@@ -143,9 +146,9 @@ namespace SharpMetal.Generator.Instances
 
                     context.Write($"objc_msgSend(");
 
-                    if (IsStatic)
+                    if (_isStatic)
                     {
-                        context.Write($"new ObjectiveCClass(\"{ReturnType}\")");
+                        context.Write($"new ObjectiveCClass(\"{_returnType}\")");
                     }
                     else
                     {
@@ -187,12 +190,14 @@ namespace SharpMetal.Generator.Instances
                 context.LeaveScope();
             }
 
-            ObjectiveCInstance objcInstance = new ObjectiveCInstance("", new List<string>());
+            var type = "";
+            List<string> inputs = [];
+
             for (var i = 0; i < InputInstances.Count; i++)
             {
                 if (Types.CSharpNativeTypes.Contains(InputInstances[i].Type))
                 {
-                    objcInstance.Inputs.Add(InputInstances[i].Type);
+                    inputs.Add(InputInstances[i].Type);
                 }
                 else
                 {
@@ -201,49 +206,49 @@ namespace SharpMetal.Generator.Instances
 
                     if (enumInstance != null)
                     {
-                        objcInstance.Inputs.Add(enumInstance.Type);
+                        inputs.Add(enumInstance.Type);
                     }
                     else if (structInstance != null)
                     {
-                        objcInstance.Inputs.Add(structInstance.Name);
+                        inputs.Add(structInstance.Name);
                     }
                     else if (InputInstances[i].Type == "NSError")
                     {
-                        objcInstance.Inputs.Add("ref IntPtr");
+                        inputs.Add("ref IntPtr");
                     }
                     else
                     {
-                        objcInstance.Inputs.Add("IntPtr");
+                        inputs.Add("IntPtr");
                     }
                 }
             }
 
-            if (ReturnType == "void")
+            if (_returnType == "void")
             {
-                objcInstance.Type = ReturnType;
+                type = _returnType;
             }
             else
             {
-                var returnStruct = structCache.Find(x => x.Name == ReturnType);
-                if (Types.CSharpNativeTypes.Contains(ReturnType) || returnStruct != null)
+                var returnStruct = structCache.Find(x => x.Name == _returnType);
+                if (Types.CSharpNativeTypes.Contains(_returnType) || returnStruct != null)
                 {
-                    objcInstance.Type = ReturnType;
+                    type = _returnType;
                 }
                 else
                 {
-                    var returnEnum = enumCache.Find(x => x.Name == ReturnType);
+                    var returnEnum = enumCache.Find(x => x.Name == _returnType);
                     if (returnEnum != null)
                     {
-                        objcInstance.Type = returnEnum.Type;
+                        type = returnEnum.Type;
                     }
                     else
                     {
-                        objcInstance.Type = "IntPtr";
+                        type = "IntPtr";
                     }
                 }
             }
 
-            return objcInstance;
+            return new ObjectiveCInstance(type, inputs);
         }
     }
 }

@@ -232,7 +232,7 @@ namespace SharpMetal.Generator
                     return typeComparison;
                 }
 
-                int lengthComparison = x.Inputs.Count.CompareTo(y.Inputs.Count);
+                int lengthComparison = x.Inputs.Length.CompareTo(y.Inputs.Length);
                 if (lengthComparison != 0)
                 {
                     return lengthComparison;

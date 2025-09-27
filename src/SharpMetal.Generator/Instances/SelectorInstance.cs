@@ -2,9 +2,9 @@ namespace SharpMetal.Generator.Instances
 {
     public class SelectorInstance
     {
-        public string Name;
-        public string RawName;
-        public string Selector;
+        public readonly string Name;
+        public readonly string RawName;
+        public readonly string Selector;
 
         private SelectorInstance(string selector, string rawName)
         {

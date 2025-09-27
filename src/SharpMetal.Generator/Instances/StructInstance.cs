@@ -2,21 +2,21 @@ using System.Text.RegularExpressions;
 
 namespace SharpMetal.Generator.Instances
 {
-    public class StructInstance
+    public partial class StructInstance
     {
-        public string Name { get; set; }
-        private List<PropertyInstance> _propertyInstances;
+        public readonly string Name;
+        private readonly List<PropertyInstance> _propertyInstances;
 
         private StructInstance(string name)
         {
             Name = name;
-            _propertyInstances = new();
+            _propertyInstances = [];
         }
 
         public void AddProperty(PropertyInstance propertyInstance)
         {
             // We don't want to include functions in this pass
-            if (propertyInstance.Name.Contains("("))
+            if (propertyInstance.Name.Contains('('))
             {
                 return;
             }
@@ -50,7 +50,7 @@ namespace SharpMetal.Generator.Instances
 
             var instance = new StructInstance(structName);
 
-            bool structEnded = false;
+            var structEnded = false;
             sr.ReadLine();
 
             while (!structEnded)
@@ -79,8 +79,7 @@ namespace SharpMetal.Generator.Instances
                     var type = Types.ConvertType(propertyInfo[0], namespacePrefix);
                     var propertyName = propertyInfo[1];
 
-                    string pattern = @"\[.*?\]";
-                    propertyName = Regex.Replace(propertyName, pattern, "");
+                    propertyName = NameRegex().Replace(propertyName, "");
 
                     instance.AddProperty(new PropertyInstance(type, propertyName));
                 }
@@ -88,5 +87,8 @@ namespace SharpMetal.Generator.Instances
 
             return instance;
         }
+
+        [GeneratedRegex(@"\[.*?\]")]
+        private static partial Regex NameRegex();
     }
 }

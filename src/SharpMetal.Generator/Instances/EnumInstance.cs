@@ -4,30 +4,31 @@ namespace SharpMetal.Generator.Instances
 {
     public partial class EnumInstance
     {
-        public string Type;
-        public string Name;
-        public bool IsFlag;
-        public Dictionary<string, string> Values;
+        public readonly string Type;
+        public readonly string Name;
+
+        private readonly bool _isFlag;
+        private readonly Dictionary<string, string> _values;
 
         private EnumInstance(string type, string name, bool isFlag, Dictionary<string, string> values)
         {
             Type = type;
             Name = name;
-            IsFlag = isFlag;
-            Values = values;
+            _isFlag = isFlag;
+            _values = values;
         }
 
         public void Generate(CodeGenContext context)
         {
             context.WriteLine("[SupportedOSPlatform(\"macos\")]");
-            if (IsFlag)
+            if (_isFlag)
             {
                 context.WriteLine("[Flags]");
             }
             context.WriteLine($"public enum {Name} : {Type}");
             context.EnterScope();
 
-            foreach (var value in Values)
+            foreach (var value in _values)
             {
                 if (value.Value != string.Empty)
                 {
@@ -45,12 +46,12 @@ namespace SharpMetal.Generator.Instances
 
         public static EnumInstance Build(string line, string namespacePrefix, StreamReader sr, bool skipValues = false)
         {
-            bool isFlag = line.Contains($"_{namespacePrefix}_OPTIONS(");
+            var isFlag = line.Contains($"_{namespacePrefix}_OPTIONS(");
 
             line = line.Replace($"_{namespacePrefix}_ENUM(", "");
             line = line.Replace($"_{namespacePrefix}_OPTIONS(", "");
 
-            if (line.Contains("{"))
+            if (line.Contains('{'))
             {
                 line = line.Replace(") {", "");
             }
@@ -91,7 +92,7 @@ namespace SharpMetal.Generator.Instances
                     var cleanedValueName = string.Empty;
                     var cleanedValueValue = string.Empty;
 
-                    if (nextLine.Contains("="))
+                    if (nextLine.Contains('='))
                     {
                         var valueInfo = nextLine.Split("=", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
                         cleanedValueName = valueInfo[0];

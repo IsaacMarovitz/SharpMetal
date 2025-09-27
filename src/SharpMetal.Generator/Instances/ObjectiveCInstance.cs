@@ -2,14 +2,18 @@ namespace SharpMetal.Generator.Instances
 {
     public class ObjectiveCInstance : IEquatable<ObjectiveCInstance>, IComparable<ObjectiveCInstance>
     {
-        public string Type;
-        public List<string> Inputs;
-        public static string[] VarNames = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
+        public readonly string Type;
+        public readonly string[] Inputs;
+
+        private static string[] VarNames { get; } =
+        [
+            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
+        ];
 
         public ObjectiveCInstance(string type, List<string> inputs)
         {
             Type = type;
-            Inputs = inputs;
+            Inputs = inputs.ToArray();
         }
 
         public void Generate(CodeGenContext context)
@@ -28,7 +32,7 @@ namespace SharpMetal.Generator.Instances
 
             context.Write("objc_msgSend(IntPtr receiver, IntPtr selector");
 
-            for (var i = 0; i < Inputs.Count; i++)
+            for (var i = 0; i < Inputs.Length; i++)
             {
                 context.Write(", ");
 
@@ -70,7 +74,7 @@ namespace SharpMetal.Generator.Instances
                 return true;
             }
 
-            if (obj.GetType() != this.GetType())
+            if (obj.GetType() != GetType())
             {
                 return false;
             }
