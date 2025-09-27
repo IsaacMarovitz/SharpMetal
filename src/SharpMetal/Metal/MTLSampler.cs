@@ -39,7 +39,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLSamplerDescriptor : IDisposable
+    public partial struct MTLSamplerDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLSamplerDescriptor obj) => obj.NativePtr;
@@ -78,17 +78,6 @@ namespace SharpMetal.Metal
         {
             get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_lodAverage);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLodAverage, value);
-        }
-
-        /// <summary>
-        /// This is a private Metal API.
-        /// It is not recommended for use in any production applications,
-        /// and may break at any time without warning. Hic sunt dracones.
-        /// </summary>
-        public float LodBias
-        {
-            get => ObjectiveCRuntime.float_objc_msgSend(NativePtr, sel_lodBias);
-            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLodBias, value);
         }
 
         public float LodMaxClamp
@@ -161,7 +150,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_compareFunction = "compareFunction";
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_lodAverage = "lodAverage";
-        private static readonly Selector sel_lodBias = "lodBias";
         private static readonly Selector sel_lodMaxClamp = "lodMaxClamp";
         private static readonly Selector sel_lodMinClamp = "lodMinClamp";
         private static readonly Selector sel_magFilter = "magFilter";
@@ -175,7 +163,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setCompareFunction = "setCompareFunction:";
         private static readonly Selector sel_setLabel = "setLabel:";
         private static readonly Selector sel_setLodAverage = "setLodAverage:";
-        private static readonly Selector sel_setLodBias = "setLodBias:";
         private static readonly Selector sel_setLodMaxClamp = "setLodMaxClamp:";
         private static readonly Selector sel_setLodMinClamp = "setLodMinClamp:";
         private static readonly Selector sel_setMagFilter = "setMagFilter:";

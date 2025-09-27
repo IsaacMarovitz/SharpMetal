@@ -50,32 +50,6 @@ namespace SharpMetal.Metal
         All = 15,
     }
 
-    /// <summary>
-    /// This is a private Metal API.
-    /// It is not recommended for use in any production applications,
-    /// and may break at any time without warning. Hic sunt dracones.
-    /// </summary>
-    [SupportedOSPlatform("macos")]
-    public enum MTLLogicOperation : ulong
-    {
-        Clear,
-        Set,
-        Copy,
-        CopyInverted,
-        Noop,
-        Invert,
-        And,
-        Nand,
-        Or,
-        Nor,
-        Xor,
-        Equivalence,
-        AndReverse,
-        AndInverted,
-        OrReverse,
-        OrInverted
-    }
-
     [SupportedOSPlatform("macos")]
     public enum MTLPrimitiveTopologyClass : ulong
     {
@@ -455,7 +429,7 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public struct MTLRenderPipelineDescriptor : IDisposable
+    public partial struct MTLRenderPipelineDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPipelineDescriptor obj) => obj.NativePtr;
@@ -528,28 +502,6 @@ namespace SharpMetal.Metal
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
-        }
-
-        /// <summary>
-        /// This is a private Metal API.
-        /// It is not recommended for use in any production applications,
-        /// and may break at any time without warning. Hic sunt dracones.
-        /// </summary>
-        public MTLLogicOperation LogicOperation
-        {
-            get => (MTLLogicOperation)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_logicOperation);
-            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLogicOperation, (ulong)value);
-        }
-
-        /// <summary>
-        /// This is a private Metal API.
-        /// It is not recommended for use in any production applications,
-        /// and may break at any time without warning. Hic sunt dracones.
-        /// </summary>
-        public bool LogicOperationEnabled
-        {
-            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isLogicOperationEnabled);
-            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLogicOperationEnabled, value);
         }
 
         public ulong MaxFragmentCallStackDepth
@@ -695,11 +647,9 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_inputPrimitiveTopology = "inputPrimitiveTopology";
         private static readonly Selector sel_isAlphaToCoverageEnabled = "isAlphaToCoverageEnabled";
         private static readonly Selector sel_isAlphaToOneEnabled = "isAlphaToOneEnabled";
-        private static readonly Selector sel_isLogicOperationEnabled = "isLogicOperationEnabled";
         private static readonly Selector sel_isRasterizationEnabled = "isRasterizationEnabled";
         private static readonly Selector sel_isTessellationFactorScaleEnabled = "isTessellationFactorScaleEnabled";
         private static readonly Selector sel_label = "label";
-        private static readonly Selector sel_logicOperation = "logicOperation";
         private static readonly Selector sel_maxFragmentCallStackDepth = "maxFragmentCallStackDepth";
         private static readonly Selector sel_maxTessellationFactor = "maxTessellationFactor";
         private static readonly Selector sel_maxVertexAmplificationCount = "maxVertexAmplificationCount";
@@ -716,8 +666,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setFragmentPreloadedLibraries = "setFragmentPreloadedLibraries:";
         private static readonly Selector sel_setInputPrimitiveTopology = "setInputPrimitiveTopology:";
         private static readonly Selector sel_setLabel = "setLabel:";
-        private static readonly Selector sel_setLogicOperation = "setLogicOperation:";
-        private static readonly Selector sel_setLogicOperationEnabled = "setLogicOperationEnabled:";
         private static readonly Selector sel_setMaxFragmentCallStackDepth = "setMaxFragmentCallStackDepth:";
         private static readonly Selector sel_setMaxTessellationFactor = "setMaxTessellationFactor:";
         private static readonly Selector sel_setMaxVertexAmplificationCount = "setMaxVertexAmplificationCount:";

@@ -252,9 +252,6 @@ namespace SharpMetal.Metal
     [SupportedOSPlatform("macos")]
     public partial struct MTLDevice : IDisposable
     {
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        private delegate void NewLibraryCompletionHandler(IntPtr block, IntPtr library, IntPtr error);
-
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLDevice obj) => obj.NativePtr;
         public MTLDevice(IntPtr ptr) => NativePtr = ptr;
@@ -551,15 +548,6 @@ namespace SharpMetal.Metal
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newLibraryWithSourceoptionserror, source, options, ref error.NativePtr));
         }
 
-        public GCHandle NewLibrary(NSString source, MTLCompileOptions options, Action<MTLLibrary, NSError> callback)
-        {
-            NewLibraryCompletionHandler handler = (_, library, error) => callback(new MTLLibrary(library), new NSError(error));
-            var gcHandle = GCHandle.Alloc(handler);
-            var block = Block.GetBlockForDelegate(handler);
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_newLibraryWithSourceoptionscompletionHandler, source, options, block);
-            return gcHandle;
-        }
-
         public MTLLibrary NewLibrary(IntPtr data, ref NSError error)
         {
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newLibraryWithDataerror, data, ref error.NativePtr));
@@ -756,7 +744,6 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_newIOHandleWithURLerror = "newIOHandleWithURL:error:";
         private static readonly Selector sel_newLibraryWithDataerror = "newLibraryWithData:error:";
         private static readonly Selector sel_newLibraryWithFileerror = "newLibraryWithFile:error:";
-        private static readonly Selector sel_newLibraryWithSourceoptionscompletionHandler = "newLibraryWithSource:options:completionHandler:";
         private static readonly Selector sel_newLibraryWithSourceoptionserror = "newLibraryWithSource:options:error:";
         private static readonly Selector sel_newLibraryWithStitchedDescriptorerror = "newLibraryWithStitchedDescriptor:error:";
         private static readonly Selector sel_newLibraryWithURLerror = "newLibraryWithURL:error:";
