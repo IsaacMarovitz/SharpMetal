@@ -4,11 +4,11 @@ namespace SharpMetal.Examples.Common
 {
     public static class EmbeddedResources
     {
-        private static readonly Assembly _resourceAssembly;
+        private static readonly Assembly ResourceAssembly;
 
         static EmbeddedResources()
         {
-            _resourceAssembly = Assembly.GetAssembly(typeof(EmbeddedResources));
+            ResourceAssembly = Assembly.GetAssembly(typeof(EmbeddedResources))!;
         }
 
         public static string ReadAllText(string filename)
@@ -38,7 +38,7 @@ namespace SharpMetal.Examples.Common
 
             var stream = assembly.GetManifestResourceStream(manifestUri);
 
-            return stream;
+            return stream!;
         }
 
         private static (Assembly, string) ResolveManifestPath(string filename)
@@ -56,7 +56,7 @@ namespace SharpMetal.Examples.Common
                 }
             }
 
-            return (_resourceAssembly, filename);
+            return (ResourceAssembly, filename);
         }
     }
 }

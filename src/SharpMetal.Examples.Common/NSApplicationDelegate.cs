@@ -18,8 +18,8 @@ namespace SharpMetal.Examples.Common
         private OnApplicationWillFinishLaunchingDelegate _onApplicationWillFinishLaunching;
         private OnApplicationDidFinishLaunchingDelegate _onApplicationDidFinishLaunching;
 
-        public Action<NSNotification> OnApplicationWillFinishLaunching;
-        public Action<NSNotification> OnApplicationDidFinishLaunching;
+        public Action<NSNotification> OnApplicationWillFinishLaunching = null!;
+        public Action<NSNotification> OnApplicationDidFinishLaunching = null!;
 
         public IntPtr NativePtr;
 
