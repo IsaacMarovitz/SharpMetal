@@ -104,6 +104,7 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_removeAllDebugMarkers = "removeAllDebugMarkers";
         private static readonly Selector sel_resourceOptions = "resourceOptions";
         private static readonly Selector sel_setLabel = "setLabel:";
+        private static readonly Selector sel_setOwnerWithIdentity = "setOwnerWithIdentity:";
         private static readonly Selector sel_setPurgeableState = "setPurgeableState:";
         private static readonly Selector sel_storageMode = "storageMode";
         private static readonly Selector sel_release = "release";

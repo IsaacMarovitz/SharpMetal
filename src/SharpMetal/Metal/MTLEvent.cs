@@ -64,6 +64,11 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_notifyListeneratValueblock, listener, value, block);
         }
 
+        public bool WaitUntilSignaledValue(ulong value, ulong milliseconds)
+        {
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_waitUntilSignaledValuetimeoutMS, value, milliseconds);
+        }
+
         private static readonly Selector sel_device = "device";
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_newSharedEventHandle = "newSharedEventHandle";
@@ -71,6 +76,7 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setLabel = "setLabel:";
         private static readonly Selector sel_setSignaledValue = "setSignaledValue:";
         private static readonly Selector sel_signaledValue = "signaledValue";
+        private static readonly Selector sel_waitUntilSignaledValuetimeoutMS = "waitUntilSignaledValue:timeoutMS:";
         private static readonly Selector sel_release = "release";
     }
 

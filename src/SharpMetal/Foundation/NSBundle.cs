@@ -21,10 +21,6 @@ namespace SharpMetal.Foundation
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
-        public NSArray AllBundles => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_allBundles));
-
-        public NSArray AllFrameworks => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_allFrameworks));
-
         public NSURL AppStoreReceiptURL => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_appStoreReceiptURL));
 
         public NSString BuiltInPlugInsPath => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_builtInPlugInsPath));
@@ -66,6 +62,16 @@ namespace SharpMetal.Foundation
         public NSURL SharedSupportURL => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_sharedSupportURL));
 
         public bool Unload => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_unload);
+
+        public static NSArray AllBundles()
+        {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSArray"), sel_allBundles));
+        }
+
+        public static NSArray AllFrameworks()
+        {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSArray"), sel_allFrameworks));
+        }
 
         public static NSBundle Bundle(NSString pPath)
         {

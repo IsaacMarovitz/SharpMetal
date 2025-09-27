@@ -14,6 +14,17 @@ namespace SharpMetal.Metal
 
     [SupportedOSPlatform("macos")]
     [StructLayout(LayoutKind.Sequential)]
+    public struct MTLComponentTransform
+    {
+        public MTLPackedFloat3 scale;
+        public MTLPackedFloat3 shear;
+        public MTLPackedFloat3 pivot;
+        public MTLPackedFloatQuaternion rotation;
+        public MTLPackedFloat3 translation;
+    }
+
+    [SupportedOSPlatform("macos")]
+    [StructLayout(LayoutKind.Sequential)]
     public struct MTLPackedFloat3
     {
         public float x;
@@ -26,5 +37,15 @@ namespace SharpMetal.Metal
     public struct MTLPackedFloat4x3
     {
         public MTLPackedFloat3 columns;
+    }
+
+    [SupportedOSPlatform("macos")]
+    [StructLayout(LayoutKind.Sequential)]
+    public struct MTLPackedFloatQuaternion
+    {
+        public float x;
+        public float y;
+        public float z;
+        public float w;
     }
 }

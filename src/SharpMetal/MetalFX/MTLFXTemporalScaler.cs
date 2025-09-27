@@ -72,6 +72,8 @@ namespace SharpMetal.MetalFX
 
         public float PreExposure => ObjectiveCRuntime.float_objc_msgSend(NativePtr, sel_preExposure);
 
+
+
         public bool Reset => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_reset);
 
         private static readonly Selector sel_colorTexture = "colorTexture";
@@ -140,6 +142,7 @@ namespace SharpMetal.MetalFX
 
         public bool IsInputContentPropertiesEnabled => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isInputContentPropertiesEnabled);
 
+
         public MTLPixelFormat MotionTextureFormat => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_motionTextureFormat);
 
         public ulong OutputHeight => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_outputHeight);
@@ -147,6 +150,8 @@ namespace SharpMetal.MetalFX
         public MTLPixelFormat OutputTextureFormat => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_outputTextureFormat);
 
         public ulong OutputWidth => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_outputWidth);
+
+
 
         public MTLFXTemporalScaler NewTemporalScaler(MTLDevice pDevice)
         {

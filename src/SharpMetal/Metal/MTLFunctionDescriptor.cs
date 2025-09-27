@@ -11,6 +11,8 @@ namespace SharpMetal.Metal
         None = 0,
         CompileToBinary = 1,
         StoreFunctionInMetalScript = 2,
+        StoreFunctionInMetalPipelinesScript = 2,
+        FailOnBinaryArchiveMiss = 4,
     }
 
     [SupportedOSPlatform("macos")]

@@ -36,6 +36,7 @@ namespace SharpMetal.Metal
         Version24 = 131076,
         Version30 = 196608,
         Version31 = 196609,
+        Version32 = 196610,
     }
 
     [SupportedOSPlatform("macos")]
@@ -61,6 +62,21 @@ namespace SharpMetal.Metal
     {
         Executable = 0,
         Dynamic = 1,
+    }
+
+    [SupportedOSPlatform("macos")]
+    public enum MTLMathFloatingPointFunctions : long
+    {
+        Fast = 0,
+        Precise = 1,
+    }
+
+    [SupportedOSPlatform("macos")]
+    public enum MTLMathMode : long
+    {
+        Safe = 0,
+        Relaxed = 1,
+        Fast = 2,
     }
 
     [SupportedOSPlatform("macos")]
@@ -140,6 +156,12 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setCompileSymbolVisibility, (long)value);
         }
 
+        public bool EnableLogging
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_enableLogging);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setEnableLogging, value);
+        }
+
         public bool FastMathEnabled
         {
             get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_fastMathEnabled);
@@ -170,6 +192,18 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLibraryType, (long)value);
         }
 
+        public MTLMathFloatingPointFunctions MathFloatingPointFunctions
+        {
+            get => (MTLMathFloatingPointFunctions)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_mathFloatingPointFunctions);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMathFloatingPointFunctions, (long)value);
+        }
+
+        public MTLMathMode MathMode
+        {
+            get => (MTLMathMode)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_mathMode);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMathMode, (long)value);
+        }
+
         public ulong MaxTotalThreadsPerThreadgroup
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxTotalThreadsPerThreadgroup);
@@ -196,22 +230,28 @@ namespace SharpMetal.Metal
 
         private static readonly Selector sel_allowReferencingUndefinedSymbols = "allowReferencingUndefinedSymbols";
         private static readonly Selector sel_compileSymbolVisibility = "compileSymbolVisibility";
+        private static readonly Selector sel_enableLogging = "enableLogging";
         private static readonly Selector sel_fastMathEnabled = "fastMathEnabled";
         private static readonly Selector sel_installName = "installName";
         private static readonly Selector sel_languageVersion = "languageVersion";
         private static readonly Selector sel_libraries = "libraries";
         private static readonly Selector sel_libraryType = "libraryType";
+        private static readonly Selector sel_mathFloatingPointFunctions = "mathFloatingPointFunctions";
+        private static readonly Selector sel_mathMode = "mathMode";
         private static readonly Selector sel_maxTotalThreadsPerThreadgroup = "maxTotalThreadsPerThreadgroup";
         private static readonly Selector sel_optimizationLevel = "optimizationLevel";
         private static readonly Selector sel_preprocessorMacros = "preprocessorMacros";
         private static readonly Selector sel_preserveInvariance = "preserveInvariance";
         private static readonly Selector sel_setAllowReferencingUndefinedSymbols = "setAllowReferencingUndefinedSymbols:";
         private static readonly Selector sel_setCompileSymbolVisibility = "setCompileSymbolVisibility:";
+        private static readonly Selector sel_setEnableLogging = "setEnableLogging:";
         private static readonly Selector sel_setFastMathEnabled = "setFastMathEnabled:";
         private static readonly Selector sel_setInstallName = "setInstallName:";
         private static readonly Selector sel_setLanguageVersion = "setLanguageVersion:";
         private static readonly Selector sel_setLibraries = "setLibraries:";
         private static readonly Selector sel_setLibraryType = "setLibraryType:";
+        private static readonly Selector sel_setMathFloatingPointFunctions = "setMathFloatingPointFunctions:";
+        private static readonly Selector sel_setMathMode = "setMathMode:";
         private static readonly Selector sel_setMaxTotalThreadsPerThreadgroup = "setMaxTotalThreadsPerThreadgroup:";
         private static readonly Selector sel_setOptimizationLevel = "setOptimizationLevel:";
         private static readonly Selector sel_setPreprocessorMacros = "setPreprocessorMacros:";

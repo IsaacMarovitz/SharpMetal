@@ -97,14 +97,14 @@ namespace SharpMetal.Metal
 
         public MTLCommandBufferStatus Status => (MTLCommandBufferStatus)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_status);
 
-        public MTLAccelerationStructureCommandEncoder AccelerationStructureCommandEncoder()
-        {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_accelerationStructureCommandEncoderWithDescriptor));
-        }
-
         public MTLAccelerationStructureCommandEncoder AccelerationStructureCommandEncoder(MTLAccelerationStructurePassDescriptor descriptor)
         {
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_accelerationStructureCommandEncoderWithDescriptor, descriptor));
+        }
+
+        public MTLAccelerationStructureCommandEncoder AccelerationStructureCommandEncoder()
+        {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_accelerationStructureCommandEncoderWithDescriptor));
         }
 
         public MTLBlitCommandEncoder BlitCommandEncoder()
@@ -187,14 +187,24 @@ namespace SharpMetal.Metal
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_renderCommandEncoderWithDescriptor, renderPassDescriptor));
         }
 
+        public MTLResourceStateCommandEncoder ResourceStateCommandEncoder()
+        {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_resourceStateCommandEncoderWithDescriptor));
+        }
+
         public MTLResourceStateCommandEncoder ResourceStateCommandEncoder(MTLResourceStatePassDescriptor resourceStatePassDescriptor)
         {
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_resourceStateCommandEncoderWithDescriptor, resourceStatePassDescriptor));
         }
 
-        public MTLResourceStateCommandEncoder ResourceStateCommandEncoder()
+        public void UseResidencySet(MTLResidencySet residencySet)
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_resourceStateCommandEncoderWithDescriptor));
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_useResidencySet, residencySet);
+        }
+
+        public void UseResidencySets(MTLResidencySet[] residencySets, ulong count)
+        {
+            throw new NotImplementedException();
         }
 
         public void WaitUntilCompleted()
@@ -240,6 +250,8 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_retainedReferences = "retainedReferences";
         private static readonly Selector sel_setLabel = "setLabel:";
         private static readonly Selector sel_status = "status";
+        private static readonly Selector sel_useResidencySet = "useResidencySet:";
+        private static readonly Selector sel_useResidencySetscount = "useResidencySets:count:";
         private static readonly Selector sel_waitUntilCompleted = "waitUntilCompleted";
         private static readonly Selector sel_waitUntilScheduled = "waitUntilScheduled";
         private static readonly Selector sel_release = "release";
@@ -269,6 +281,12 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setErrorOptions, (ulong)value);
         }
 
+        public MTLLogState LogState
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_logState));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLogState, value);
+        }
+
         public bool RetainedReferences
         {
             get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_retainedReferences);
@@ -276,8 +294,10 @@ namespace SharpMetal.Metal
         }
 
         private static readonly Selector sel_errorOptions = "errorOptions";
+        private static readonly Selector sel_logState = "logState";
         private static readonly Selector sel_retainedReferences = "retainedReferences";
         private static readonly Selector sel_setErrorOptions = "setErrorOptions:";
+        private static readonly Selector sel_setLogState = "setLogState:";
         private static readonly Selector sel_setRetainedReferences = "setRetainedReferences:";
         private static readonly Selector sel_release = "release";
     }

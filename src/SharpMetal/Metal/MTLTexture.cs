@@ -275,6 +275,7 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_rootResource = "rootResource";
         private static readonly Selector sel_sampleCount = "sampleCount";
         private static readonly Selector sel_setLabel = "setLabel:";
+        private static readonly Selector sel_setOwnerWithIdentity = "setOwnerWithIdentity:";
         private static readonly Selector sel_setPurgeableState = "setPurgeableState:";
         private static readonly Selector sel_storageMode = "storageMode";
         private static readonly Selector sel_swizzle = "swizzle";

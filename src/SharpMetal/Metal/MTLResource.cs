@@ -59,6 +59,7 @@ namespace SharpMetal.Metal
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLResource obj) => obj.NativePtr;
+        public static implicit operator MTLAllocation(MTLResource obj) => new(obj.NativePtr);
         public MTLResource(IntPtr ptr) => NativePtr = ptr;
 
         public void Dispose()
@@ -111,6 +112,7 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_makeAliasable = "makeAliasable";
         private static readonly Selector sel_resourceOptions = "resourceOptions";
         private static readonly Selector sel_setLabel = "setLabel:";
+        private static readonly Selector sel_setOwnerWithIdentity = "setOwnerWithIdentity:";
         private static readonly Selector sel_setPurgeableState = "setPurgeableState:";
         private static readonly Selector sel_storageMode = "storageMode";
         private static readonly Selector sel_release = "release";

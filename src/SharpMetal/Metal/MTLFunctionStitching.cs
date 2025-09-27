@@ -5,6 +5,16 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
+    [Flags]
+    public enum MTLStitchedLibraryOptions : ulong
+    {
+        None = 0,
+        FailOnBinaryArchiveMiss = 1,
+        StoreLibraryInMetalScript = 2,
+        StoreLibraryInMetalPipelinesScript = 2,
+    }
+
+    [SupportedOSPlatform("macos")]
     public struct MTLFunctionStitchingAttribute : IDisposable
     {
         public IntPtr NativePtr;
@@ -218,6 +228,12 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        public NSArray BinaryArchives
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_binaryArchives));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBinaryArchives, value);
+        }
+
         public NSArray FunctionGraphs
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_functionGraphs));
@@ -230,10 +246,20 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctions, value);
         }
 
+        public MTLStitchedLibraryOptions Options
+        {
+            get => (MTLStitchedLibraryOptions)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_options);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOptions, (ulong)value);
+        }
+
+        private static readonly Selector sel_binaryArchives = "binaryArchives";
         private static readonly Selector sel_functionGraphs = "functionGraphs";
         private static readonly Selector sel_functions = "functions";
+        private static readonly Selector sel_options = "options";
+        private static readonly Selector sel_setBinaryArchives = "setBinaryArchives:";
         private static readonly Selector sel_setFunctionGraphs = "setFunctionGraphs:";
         private static readonly Selector sel_setFunctions = "setFunctions:";
+        private static readonly Selector sel_setOptions = "setOptions:";
         private static readonly Selector sel_release = "release";
     }
 }

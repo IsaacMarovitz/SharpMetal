@@ -17,12 +17,15 @@ namespace SharpMetal.Metal
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLHeap obj) => obj.NativePtr;
+        public static implicit operator MTLAllocation(MTLHeap obj) => new(obj.NativePtr);
         public MTLHeap(IntPtr ptr) => NativePtr = ptr;
 
         public void Dispose()
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
+
+        public ulong AllocatedSize => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_allocatedSize);
 
         public MTLCPUCacheMode CpuCacheMode => (MTLCPUCacheMode)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_cpuCacheMode);
 
@@ -98,6 +101,7 @@ namespace SharpMetal.Metal
             return (MTLPurgeableState)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_setPurgeableState, (ulong)state);
         }
 
+        private static readonly Selector sel_allocatedSize = "allocatedSize";
         private static readonly Selector sel_cpuCacheMode = "cpuCacheMode";
         private static readonly Selector sel_currentAllocatedSize = "currentAllocatedSize";
         private static readonly Selector sel_device = "device";

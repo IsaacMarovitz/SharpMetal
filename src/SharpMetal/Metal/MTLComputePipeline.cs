@@ -72,6 +72,12 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPreloadedLibraries, value);
         }
 
+        public MTLShaderValidation ShaderValidation
+        {
+            get => (MTLShaderValidation)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_shaderValidation);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setShaderValidation, (long)value);
+        }
+
         public MTLStageInputOutputDescriptor StageInputDescriptor
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_stageInputDescriptor));
@@ -119,10 +125,12 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setMaxCallStackDepth = "setMaxCallStackDepth:";
         private static readonly Selector sel_setMaxTotalThreadsPerThreadgroup = "setMaxTotalThreadsPerThreadgroup:";
         private static readonly Selector sel_setPreloadedLibraries = "setPreloadedLibraries:";
+        private static readonly Selector sel_setShaderValidation = "setShaderValidation:";
         private static readonly Selector sel_setStageInputDescriptor = "setStageInputDescriptor:";
         private static readonly Selector sel_setSupportAddingBinaryFunctions = "setSupportAddingBinaryFunctions:";
         private static readonly Selector sel_setSupportIndirectCommandBuffers = "setSupportIndirectCommandBuffers:";
         private static readonly Selector sel_setThreadGroupSizeIsMultipleOfThreadExecutionWidth = "setThreadGroupSizeIsMultipleOfThreadExecutionWidth:";
+        private static readonly Selector sel_shaderValidation = "shaderValidation";
         private static readonly Selector sel_stageInputDescriptor = "stageInputDescriptor";
         private static readonly Selector sel_supportAddingBinaryFunctions = "supportAddingBinaryFunctions";
         private static readonly Selector sel_supportIndirectCommandBuffers = "supportIndirectCommandBuffers";
@@ -177,6 +185,8 @@ namespace SharpMetal.Metal
 
         public ulong MaxTotalThreadsPerThreadgroup => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxTotalThreadsPerThreadgroup);
 
+        public MTLShaderValidation ShaderValidation => (MTLShaderValidation)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_shaderValidation);
+
         public ulong StaticThreadgroupMemoryLength => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_staticThreadgroupMemoryLength);
 
         public bool SupportIndirectCommandBuffers => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportIndirectCommandBuffers);
@@ -217,6 +227,7 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_newComputePipelineStateWithAdditionalBinaryFunctionserror = "newComputePipelineStateWithAdditionalBinaryFunctions:error:";
         private static readonly Selector sel_newIntersectionFunctionTableWithDescriptor = "newIntersectionFunctionTableWithDescriptor:";
         private static readonly Selector sel_newVisibleFunctionTableWithDescriptor = "newVisibleFunctionTableWithDescriptor:";
+        private static readonly Selector sel_shaderValidation = "shaderValidation";
         private static readonly Selector sel_staticThreadgroupMemoryLength = "staticThreadgroupMemoryLength";
         private static readonly Selector sel_supportIndirectCommandBuffers = "supportIndirectCommandBuffers";
         private static readonly Selector sel_threadExecutionWidth = "threadExecutionWidth";

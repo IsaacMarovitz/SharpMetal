@@ -113,6 +113,12 @@ namespace SharpMetal.Metal
 
         public bool AlphaToOneEnabled => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isAlphaToOneEnabled);
 
+        public NSArray BinaryArchives
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_binaryArchives));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBinaryArchives, value);
+        }
+
         public MTLRenderPipelineColorAttachmentDescriptorArray ColorAttachments => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_colorAttachments));
 
         public MTLPixelFormat DepthAttachmentPixelFormat
@@ -219,6 +225,12 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRasterSampleCount, value);
         }
 
+        public MTLShaderValidation ShaderValidation
+        {
+            get => (MTLShaderValidation)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_shaderValidation);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setShaderValidation, (long)value);
+        }
+
         public MTLPixelFormat StencilAttachmentPixelFormat
         {
             get => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stencilAttachmentPixelFormat);
@@ -251,6 +263,7 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRasterizationEnabled, rasterizationEnabled);
         }
 
+        private static readonly Selector sel_binaryArchives = "binaryArchives";
         private static readonly Selector sel_colorAttachments = "colorAttachments";
         private static readonly Selector sel_depthAttachmentPixelFormat = "depthAttachmentPixelFormat";
         private static readonly Selector sel_fragmentBuffers = "fragmentBuffers";
@@ -277,6 +290,7 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_reset = "reset";
         private static readonly Selector sel_setAlphaToCoverageEnabled = "setAlphaToCoverageEnabled:";
         private static readonly Selector sel_setAlphaToOneEnabled = "setAlphaToOneEnabled:";
+        private static readonly Selector sel_setBinaryArchives = "setBinaryArchives:";
         private static readonly Selector sel_setDepthAttachmentPixelFormat = "setDepthAttachmentPixelFormat:";
         private static readonly Selector sel_setFragmentFunction = "setFragmentFunction:";
         private static readonly Selector sel_setFragmentLinkedFunctions = "setFragmentLinkedFunctions:";
@@ -294,8 +308,10 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setPayloadMemoryLength = "setPayloadMemoryLength:";
         private static readonly Selector sel_setRasterizationEnabled = "setRasterizationEnabled:";
         private static readonly Selector sel_setRasterSampleCount = "setRasterSampleCount:";
+        private static readonly Selector sel_setShaderValidation = "setShaderValidation:";
         private static readonly Selector sel_setStencilAttachmentPixelFormat = "setStencilAttachmentPixelFormat:";
         private static readonly Selector sel_setSupportIndirectCommandBuffers = "setSupportIndirectCommandBuffers:";
+        private static readonly Selector sel_shaderValidation = "shaderValidation";
         private static readonly Selector sel_stencilAttachmentPixelFormat = "stencilAttachmentPixelFormat";
         private static readonly Selector sel_supportIndirectCommandBuffers = "supportIndirectCommandBuffers";
         private static readonly Selector sel_release = "release";
@@ -546,6 +562,12 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSampleCount, value);
         }
 
+        public MTLShaderValidation ShaderValidation
+        {
+            get => (MTLShaderValidation)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_shaderValidation);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setShaderValidation, (long)value);
+        }
+
         public MTLPixelFormat StencilAttachmentPixelFormat
         {
             get => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_stencilAttachmentPixelFormat);
@@ -673,6 +695,7 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setRasterizationEnabled = "setRasterizationEnabled:";
         private static readonly Selector sel_setRasterSampleCount = "setRasterSampleCount:";
         private static readonly Selector sel_setSampleCount = "setSampleCount:";
+        private static readonly Selector sel_setShaderValidation = "setShaderValidation:";
         private static readonly Selector sel_setStencilAttachmentPixelFormat = "setStencilAttachmentPixelFormat:";
         private static readonly Selector sel_setSupportAddingFragmentBinaryFunctions = "setSupportAddingFragmentBinaryFunctions:";
         private static readonly Selector sel_setSupportAddingVertexBinaryFunctions = "setSupportAddingVertexBinaryFunctions:";
@@ -687,6 +710,7 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setVertexFunction = "setVertexFunction:";
         private static readonly Selector sel_setVertexLinkedFunctions = "setVertexLinkedFunctions:";
         private static readonly Selector sel_setVertexPreloadedLibraries = "setVertexPreloadedLibraries:";
+        private static readonly Selector sel_shaderValidation = "shaderValidation";
         private static readonly Selector sel_stencilAttachmentPixelFormat = "stencilAttachmentPixelFormat";
         private static readonly Selector sel_supportAddingFragmentBinaryFunctions = "supportAddingFragmentBinaryFunctions";
         private static readonly Selector sel_supportAddingVertexBinaryFunctions = "supportAddingVertexBinaryFunctions";
@@ -826,6 +850,8 @@ namespace SharpMetal.Metal
 
         public ulong ObjectThreadExecutionWidth => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_objectThreadExecutionWidth);
 
+        public MTLShaderValidation ShaderValidation => (MTLShaderValidation)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_shaderValidation);
+
         public bool SupportIndirectCommandBuffers => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportIndirectCommandBuffers);
 
         public bool ThreadgroupSizeMatchesTileSize => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_threadgroupSizeMatchesTileSize);
@@ -870,6 +896,7 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_newRenderPipelineStateWithAdditionalBinaryFunctionserror = "newRenderPipelineStateWithAdditionalBinaryFunctions:error:";
         private static readonly Selector sel_newVisibleFunctionTableWithDescriptorstage = "newVisibleFunctionTableWithDescriptor:stage:";
         private static readonly Selector sel_objectThreadExecutionWidth = "objectThreadExecutionWidth";
+        private static readonly Selector sel_shaderValidation = "shaderValidation";
         private static readonly Selector sel_supportIndirectCommandBuffers = "supportIndirectCommandBuffers";
         private static readonly Selector sel_threadgroupSizeMatchesTileSize = "threadgroupSizeMatchesTileSize";
         private static readonly Selector sel_release = "release";
@@ -999,6 +1026,12 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRasterSampleCount, value);
         }
 
+        public MTLShaderValidation ShaderValidation
+        {
+            get => (MTLShaderValidation)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_shaderValidation);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setShaderValidation, (long)value);
+        }
+
         public bool SupportAddingBinaryFunctions
         {
             get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportAddingBinaryFunctions);
@@ -1040,9 +1073,11 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setMaxTotalThreadsPerThreadgroup = "setMaxTotalThreadsPerThreadgroup:";
         private static readonly Selector sel_setPreloadedLibraries = "setPreloadedLibraries:";
         private static readonly Selector sel_setRasterSampleCount = "setRasterSampleCount:";
+        private static readonly Selector sel_setShaderValidation = "setShaderValidation:";
         private static readonly Selector sel_setSupportAddingBinaryFunctions = "setSupportAddingBinaryFunctions:";
         private static readonly Selector sel_setThreadgroupSizeMatchesTileSize = "setThreadgroupSizeMatchesTileSize:";
         private static readonly Selector sel_setTileFunction = "setTileFunction:";
+        private static readonly Selector sel_shaderValidation = "shaderValidation";
         private static readonly Selector sel_supportAddingBinaryFunctions = "supportAddingBinaryFunctions";
         private static readonly Selector sel_threadgroupSizeMatchesTileSize = "threadgroupSizeMatchesTileSize";
         private static readonly Selector sel_tileBuffers = "tileBuffers";

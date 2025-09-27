@@ -116,6 +116,16 @@ namespace SharpMetal.Foundation
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_endActivity, pActivity);
         }
 
+        public bool HasPerformanceProfile(IntPtr performanceProfile)
+        {
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_hasPerformanceProfile, performanceProfile);
+        }
+
+        public bool IsDeviceCertified(IntPtr performanceTier)
+        {
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isDeviceCertified, performanceTier);
+        }
+
         public bool IsOperatingSystemAtLeastVersion(NSOperatingSystemVersion version)
         {
             return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isOperatingSystemAtLeastVersion, version);
@@ -133,7 +143,9 @@ namespace SharpMetal.Foundation
         private static readonly Selector sel_environment = "environment";
         private static readonly Selector sel_fullUserName = "fullUserName";
         private static readonly Selector sel_globallyUniqueString = "globallyUniqueString";
+        private static readonly Selector sel_hasPerformanceProfile = "hasPerformanceProfile:";
         private static readonly Selector sel_hostName = "hostName";
+        private static readonly Selector sel_isDeviceCertified = "isDeviceCertified:";
         private static readonly Selector sel_isiOSAppOnMac = "isiOSAppOnMac";
         private static readonly Selector sel_isLowPowerModeEnabled = "isLowPowerModeEnabled";
         private static readonly Selector sel_isMacCatalystApp = "isMacCatalystApp";
