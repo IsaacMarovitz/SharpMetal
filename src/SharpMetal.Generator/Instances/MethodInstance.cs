@@ -190,7 +190,7 @@ namespace SharpMetal.Generator.Instances
                 context.LeaveScope();
             }
 
-            var type = "";
+            string type;
             List<string> inputs = [];
 
             for (var i = 0; i < InputInstances.Count; i++)

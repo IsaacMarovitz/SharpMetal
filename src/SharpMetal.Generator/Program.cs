@@ -9,7 +9,7 @@ namespace SharpMetal.Generator
 
         public static void Main(string[] args)
         {
-            var projectPaths = new DirectoryInfo(GetSourceFilePathName()).Parent.Parent.GetDirectories();
+            var projectPaths = new DirectoryInfo(GetSourceFilePathName()).Parent?.Parent?.GetDirectories() ?? [];
 
             var generatorProjectPath = projectPaths.First(x => x.Name == "SharpMetal.Generator");
             var mainProjectPath = projectPaths.First(x => x.Name == "SharpMetal");
@@ -74,7 +74,7 @@ namespace SharpMetal.Generator
 
         public static void Generate(HeaderInfo headerInfo, List<ClassInstance> classCache, List<EnumInstance> enumCache, List<StructInstance> structCache, ref HashSet<ObjectiveCInstance> objectiveCInstances)
         {
-            string fileName = Path.GetFileNameWithoutExtension(headerInfo.FilePath);
+            var fileName = Path.GetFileNameWithoutExtension(headerInfo.FilePath);
             var fullNamespace = Namespaces.GetFullNamespace(headerInfo.FilePath);
 
             Directory.CreateDirectory(fullNamespace);
@@ -99,7 +99,7 @@ namespace SharpMetal.Generator
             {
                 headerInfo.StructInstances[i].Generate(context);
 
-                if (headerInfo.ClassInstances.Any())
+                if (headerInfo.ClassInstances.Count != 0)
                 {
                     context.WriteLine();
                 }
@@ -134,19 +134,19 @@ namespace SharpMetal.Generator
 
             foreach (var instance in headerInfo.ClassInstances)
             {
-                if (instance.GetSelectors().Any())
+                if (instance.GetSelectors().Count != 0)
                 {
                     hasSelectors = true;
                 }
             }
 
-            if (headerInfo.StructInstances.Any())
+            if (headerInfo.StructInstances.Count != 0)
             {
                 context.WriteLine("using System.Runtime.InteropServices;");
                 hasAnyUsings = true;
             }
 
-            if (headerInfo.StructInstances.Any() || headerInfo.ClassInstances.Any() || headerInfo.EnumInstances.Any())
+            if (headerInfo.StructInstances.Count != 0 || headerInfo.ClassInstances.Count != 0 || headerInfo.EnumInstances.Count != 0)
             {
                 context.WriteLine("using System.Runtime.Versioning;");
                 hasAnyUsings = true;
@@ -223,23 +223,24 @@ namespace SharpMetal.Generator
 
             context.LeaveScope();
             context.LeaveScope();
+            return;
 
             static int ObjectiveCEmitOrderComparer(ObjectiveCInstance x, ObjectiveCInstance y)
             {
-                int typeComparison = string.Compare(x.Type, y.Type, StringComparison.InvariantCultureIgnoreCase);
+                var typeComparison = string.Compare(x.Type, y.Type, StringComparison.InvariantCultureIgnoreCase);
                 if (typeComparison != 0)
                 {
                     return typeComparison;
                 }
 
-                int lengthComparison = x.Inputs.Length.CompareTo(y.Inputs.Length);
+                var lengthComparison = x.Inputs.Length.CompareTo(y.Inputs.Length);
                 if (lengthComparison != 0)
                 {
                     return lengthComparison;
                 }
 
-                string xInputs = string.Join(" ", x.Inputs);
-                string yInputs = string.Join(" ", y.Inputs);
+                var xInputs = string.Join(" ", x.Inputs);
+                var yInputs = string.Join(" ", y.Inputs);
                 return string.Compare(xInputs, yInputs, StringComparison.InvariantCultureIgnoreCase);
             }
         }

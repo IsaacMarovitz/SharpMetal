@@ -5,23 +5,23 @@ namespace SharpMetal.Generator
 {
     public class HeaderInfo
     {
-        public String FilePath { get; }
+        public string FilePath { get; }
         public IncludeFlags IncludeFlags = IncludeFlags.None;
-        public List<EnumInstance> EnumInstances = new();
-        public List<ClassInstance> ClassInstances = new();
-        public List<StructInstance> StructInstances = new();
-        public List<MethodInstance> InFlightUnscopedMethods = new();
+        public List<EnumInstance> EnumInstances = [];
+        public List<ClassInstance> ClassInstances = [];
+        public List<StructInstance> StructInstances = [];
+        public List<MethodInstance> InFlightUnscopedMethods = [];
 
         public HeaderInfo(string filePath)
         {
             FilePath = filePath;
             using var sr = new StreamReader(File.OpenRead(filePath));
             var namespacePrefix = Namespaces.GetNamespace(filePath);
-            var inMTLPrivateDefSel = false;
+            var inMtlPrivateDefSel = false;
 
             while (!sr.EndOfStream)
             {
-                var line = sr.ReadLine().Trim();
+                var line = (sr.ReadLine() ?? "").Trim();
 
                 // Ignore garbage
                 if (line == string.Empty ||
@@ -71,13 +71,13 @@ namespace SharpMetal.Generator
                 // These take two lines, no idea why
                 if (line.StartsWith("_MTL_PRIVATE_DEF_SEL"))
                 {
-                    inMTLPrivateDefSel = true;
+                    inMtlPrivateDefSel = true;
                     continue;
                 }
 
-                if (inMTLPrivateDefSel)
+                if (inMtlPrivateDefSel)
                 {
-                    inMTLPrivateDefSel = false;
+                    inMtlPrivateDefSel = false;
                     continue;
                 }
 
@@ -127,7 +127,8 @@ namespace SharpMetal.Generator
                 else
                 {
                     line = line.Replace("_NS_EXPORT ", "");
-                    if (StringUtils.IsValidFunctionSignature(line) && line.Contains("(") && line.Contains(";") && !line.Contains("extern \"C\"") && !line.Contains("::Private"))
+
+                    if (StringUtils.IsValidFunctionSignature(line) && line.Contains('(') && line.Contains(';') && !line.Contains("extern \"C\"") && !line.Contains("::Private"))
                     {
                         var rawName = line;
                         // These are static methods that aren't in a class
@@ -140,19 +141,19 @@ namespace SharpMetal.Generator
                         var nameIndex = 0;
                         MethodInstance? method = null;
 
-                        for (int i = 0; i < info.Length; i++)
+                        for (var i = 0; i < info.Length; i++)
                         {
-                            if (info[i].Contains("("))
+                            if (info[i].Contains('('))
                             {
                                 // This element is the function name
                                 // everything before it is the returnType
                                 nameIndex = i;
                                 returnType = Types.ConvertType(string.Join(" ", info, 0, i), namespacePrefix);
 
-                                int index = info[i].IndexOf("(");
+                                var index = info[i].IndexOf('(');
                                 if (index >= 0)
                                 {
-                                    name = info[i].Substring(0, index);
+                                    name = info[i][..index];
                                 }
                             }
                         }
@@ -160,29 +161,29 @@ namespace SharpMetal.Generator
                         if (line.Contains("()"))
                         {
                             // Function has no arguments
-                            method = new MethodInstance(returnType, name, rawName, true, true, new List<PropertyInstance>());
+                            method = new MethodInstance(returnType, name, rawName, true, true, []);
                         }
                         else
                         {
                             var inputs = info[Range.StartAt(nameIndex)];
-                            var inputString = String.Join(" ", inputs);
+                            var inputString = string.Join(" ", inputs);
 
                             // Remove everything before and including (
-                            int startIndex = inputString.IndexOf("(");
+                            var startIndex = inputString.IndexOf('(');
                             if (startIndex >= 0)
                             {
-                                inputString = inputString.Substring(startIndex + 1);
+                                inputString = inputString[(startIndex + 1)..];
                             }
 
                             // Remove everything after and include )
-                            int endIndex = inputString.IndexOf(")");
+                            var endIndex = inputString.IndexOf(')');
                             if (endIndex >= 0)
                             {
-                                inputString = inputString.Substring(0, endIndex);
+                                inputString = inputString[..endIndex];
                             }
 
                             var inputArguments = inputString.Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-                            List<PropertyInstance> arguments = new();
+                            List<PropertyInstance> arguments = [];
 
                             foreach (var argument in inputArguments)
                             {

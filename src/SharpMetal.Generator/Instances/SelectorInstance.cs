@@ -22,12 +22,12 @@ namespace SharpMetal.Generator.Instances
             for (var i = 0; i < inlineInfo.Length; i++)
             {
                 var section = inlineInfo[i];
-                if (section.Contains("::") && section.Contains("("))
+                if (section.Contains("::") && section.Contains('('))
                 {
                     var parentStructInfo = section.Split("::");
                     parentStructName = namespacePrefix + parentStructInfo[1];
 
-                    var rawNameStartIndex = line.IndexOf(section);
+                    var rawNameStartIndex = line.IndexOf(section, StringComparison.Ordinal);
                     if (rawNameStartIndex >= 0)
                     {
                         rawName = line.Substring(rawNameStartIndex, line.Length - rawNameStartIndex);
@@ -36,17 +36,17 @@ namespace SharpMetal.Generator.Instances
             }
 
             sr.ReadLine();
-            var selector = sr.ReadLine();
+            var selector = sr.ReadLine() ?? "";
             sr.ReadLine();
 
-            string lookingFor = $"_{namespacePrefix}_PRIVATE_SEL(";
-            int index = selector.IndexOf(lookingFor);
+            var lookingFor = $"_{namespacePrefix}_PRIVATE_SEL(";
+            var index = selector.IndexOf(lookingFor, StringComparison.Ordinal);
 
             if (index != -1)
             {
                 // Only get stuff in the brackets of the _MTL_PRIVATE_SEL
-                selector = selector.Substring(index + lookingFor.Length);
-                selector = selector.Substring(0, selector.IndexOf(")"));
+                selector = selector[(index + lookingFor.Length)..];
+                selector = selector[..selector.IndexOf(')')];
                 selector = selector.Replace("_", ":");
 
                 // We don't want to deal with these functions

@@ -2,7 +2,7 @@ namespace SharpMetal.Generator.Utilities
 {
     public static class GeneratorUtils
     {
-        private static readonly string[] partialTypes =
+        private static readonly string[] PartialTypes =
         [
             "CAMetalLayer",
             "MTLDevice",
@@ -11,13 +11,13 @@ namespace SharpMetal.Generator.Utilities
             "NSString",
         ];
 
-        private static readonly string[] bannedTypes =
+        private static readonly string[] BannedTypes =
         [
             "NS_NS_EXPORT",
         ];
 
-        public static bool IsPartialType(string name) => partialTypes.Contains(name);
+        public static bool IsPartialType(string name) => PartialTypes.Contains(name);
 
-        public static bool IsBannedType(string name) => bannedTypes.Contains(name);
+        public static bool IsBannedType(string name) => BannedTypes.Contains(name);
     }
 }

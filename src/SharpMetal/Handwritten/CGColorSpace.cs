@@ -65,6 +65,7 @@ namespace SharpMetal.QuartzCore
                 ColorSpace.ROMMRGB => "kCGColorSpaceROMMRGB",
                 ColorSpace.ITUR2020 => "kCGColorSpaceITUR_2020",
                 ColorSpace.ExtendedLinearITUR2020 => "kCGColorSpaceExtendedLinearITUR_2020",
+                _ => throw new ArgumentOutOfRangeException(nameof(colorSpace), colorSpace, "Invalid color space.")
             };
 
             return new(ObjectiveC.IntPtr_objc_msgSend(new ObjectiveCClass("NSString"), "stringWithUTF8String:", colorSpaceName));

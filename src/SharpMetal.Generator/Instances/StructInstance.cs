@@ -55,7 +55,8 @@ namespace SharpMetal.Generator.Instances
 
             while (!structEnded)
             {
-                var propertyLine = sr.ReadLine();
+                var propertyLine = sr.ReadLine() ?? "";
+
                 if (propertyLine.Contains('}'))
                 {
                     structEnded = true;

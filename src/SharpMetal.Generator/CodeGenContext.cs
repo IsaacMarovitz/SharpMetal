@@ -6,17 +6,12 @@ namespace SharpMetal.Generator
         private readonly StreamWriter _sw;
         private int _depth;
 
-        public string Indentation
-        {
-            get => _indentation;
-        }
-
-        private string _indentation;
+        public string Indentation { get; private set; }
 
         public CodeGenContext(StreamWriter sw)
         {
             _sw = sw;
-            _indentation = "";
+            Indentation = "";
         }
 
         public void WriteLine()
@@ -31,7 +26,7 @@ namespace SharpMetal.Generator
 
         public void WriteLine(string str)
         {
-            _sw.WriteLine(_indentation + str);
+            _sw.WriteLine(Indentation + str);
         }
 
         public void EnterScope()
@@ -59,14 +54,14 @@ namespace SharpMetal.Generator
 
         private void UpdateIndentation()
         {
-            _indentation = GetIndentation(_depth);
+            Indentation = GetIndentation(_depth);
         }
 
         private static string GetIndentation(int level)
         {
-            string indentation = string.Empty;
+            var indentation = string.Empty;
 
-            for (int index = 0; index < level; index++)
+            for (var index = 0; index < level; index++)
             {
                 indentation += Tab;
             }
@@ -77,6 +72,7 @@ namespace SharpMetal.Generator
         public void Dispose()
         {
             _sw.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

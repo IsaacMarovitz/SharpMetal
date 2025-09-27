@@ -68,9 +68,13 @@ namespace SharpMetal.Generator.Instances
                 // and memory drawbacks, that structs are able to avoid.
 
                 var parent = classCache.FirstOrDefault(x => x.Name == _parent);
-                _propertyInstances.AddRange(parent._propertyInstances);
-                _methodInstances.AddRange(parent._methodInstances);
-                _selectorInstances.AddRange(parent._selectorInstances);
+
+                if (parent != null)
+                {
+                    _propertyInstances.AddRange(parent._propertyInstances);
+                    _methodInstances.AddRange(parent._methodInstances);
+                    _selectorInstances.AddRange(parent._selectorInstances);
+                }
             }
 
             _propertyInstances.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.InvariantCultureIgnoreCase));
@@ -305,7 +309,7 @@ namespace SharpMetal.Generator.Instances
                 else
                 {
                     var inputs = info[Range.StartAt(nameIndex)];
-                    var inputString = String.Join(" ", inputs);
+                    var inputString = string.Join(" ", inputs);
 
                     // Remove everything before and including (
                     var startIndex = inputString.IndexOf('(');

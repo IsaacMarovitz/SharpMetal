@@ -33,7 +33,7 @@ namespace SharpMetal.Generator.Utilities
 
         public static bool IsValidFunctionSignature(string value)
         {
-            return !(value.Contains("template") || value.Contains("^") || value.Contains("=") || value.Contains("typename") || value.Contains("operator") || value.Contains("std::function") || value.Contains("Handler") || value.Contains("Observer"));
+            return !(value.Contains("template") || value.Contains('^') || value.Contains('=') || value.Contains("typename") || value.Contains("operator") || value.Contains("std::function") || value.Contains("Handler") || value.Contains("Observer"));
         }
     }
 }
