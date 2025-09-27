@@ -20,7 +20,8 @@ namespace SharpMetal.Generator
             foreach (var subDirectory in mainProjectPath.GetDirectories())
             {
                 // Get rid of this condition when this folder is also generated
-                if (subDirectory.Name != "ObjectiveCCore" && subDirectory.Name != "bin" && subDirectory.Name != "obj")
+                // Exclude the Handwritten directory from the purge
+                if (subDirectory.Name != "ObjectiveCCore" && subDirectory.Name != "bin" && subDirectory.Name != "obj" && subDirectory.Name != "Handwritten")
                 {
                     subDirectory.Delete(true);
                 }

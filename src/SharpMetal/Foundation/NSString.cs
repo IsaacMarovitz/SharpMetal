@@ -47,11 +47,10 @@ namespace SharpMetal.Foundation
     }
 
     [SupportedOSPlatform("macos")]
-    public struct NSString : IDisposable
+    public partial struct NSString : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(NSString obj) => obj.NativePtr;
-        public static implicit operator NSString(string? value) => String(value);
         public NSString(IntPtr ptr) => NativePtr = ptr;
 
         public NSString()
@@ -131,40 +130,14 @@ namespace SharpMetal.Foundation
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSString"), sel_stringWithCStringencoding, pString, (ulong)encoding));
         }
 
-        public static NSString String(string? value)
-        {
-            if (value == null)
-            {
-                return new NSString(IntPtr.Zero);
-            }
-            return new(ObjectiveC.IntPtr_objc_msgSend(new ObjectiveCClass("NSString"), sel_cStringWithUTF8String, value));
-        }
-
         public NSString StringByAppendingString(NSString pString)
         {
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_stringByAppendingString, pString));
         }
 
-        public override unsafe string? ToString()
-        {
-            if (NativePtr == IntPtr.Zero)
-            {
-                return null;
-            }
-
-            char[] sourceBuffer = new char[Length];
-            fixed (char* pSourceBuffer = sourceBuffer)
-            {
-                ObjectiveC.bool_objc_msgSend(NativePtr, "getCString:maxLength:encoding:", pSourceBuffer, MaximumLengthOfBytes(NSStringEncoding.UTF16) + 1, (ulong)NSStringEncoding.UTF16);
-
-                return new string(pSourceBuffer);
-            }
-        }
-
         private static readonly Selector sel_caseInsensitiveCompare = "caseInsensitiveCompare:";
         private static readonly Selector sel_characterAtIndex = "characterAtIndex:";
         private static readonly Selector sel_cStringUsingEncoding = "cStringUsingEncoding:";
-        private static readonly Selector sel_cStringWithUTF8String = "stringWithUTF8String:";
         private static readonly Selector sel_fileSystemRepresentation = "fileSystemRepresentation";
         private static readonly Selector sel_initWithBytesNoCopylengthencodingfreeWhenDone = "initWithBytesNoCopy:length:encoding:freeWhenDone:";
         private static readonly Selector sel_initWithCStringencoding = "initWithCString:encoding:";
