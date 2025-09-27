@@ -17,6 +17,8 @@ namespace SharpMetal.Generator.Instances
         public List<MethodInstance> MethodInstances => _methodInstances;
         public List<SelectorInstance> SelectorInstances => _selectorInstances;
 
+        public bool IsValid => !string.IsNullOrWhiteSpace(Name);
+
         private ClassInstance(string name)
         {
             Name = name;
@@ -84,8 +86,8 @@ namespace SharpMetal.Generator.Instances
 
             context.WriteLine("[SupportedOSPlatform(\"macos\")]");
 
-            // TODO: Handle LibraryImport usage on MTLDevice (requires partial)
-            var classDecl = $"public struct {Name} : IDisposable";
+            var modifier = GeneratorUtils.IsPartialType(Name) ? "partial " : "";
+            var classDecl = $"public {modifier}struct {Name} : IDisposable";
 
             context.WriteLine(classDecl);
 

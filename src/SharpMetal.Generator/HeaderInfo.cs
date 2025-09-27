@@ -100,7 +100,11 @@ namespace SharpMetal.Generator
                 {
                     if (!line.Contains(';'))
                     {
-                        ClassInstances.Add(ClassInstance.Build(line, namespacePrefix, sr, InFlightUnscopedMethods));
+                        var classInstance = ClassInstance.Build(line, namespacePrefix, sr, InFlightUnscopedMethods);
+                        if (classInstance.IsValid && !GeneratorUtils.IsBannedType(classInstance.Name))
+                        {
+                            ClassInstances.Add(classInstance);
+                        }
                         InFlightUnscopedMethods.Clear();
                     }
                 }
