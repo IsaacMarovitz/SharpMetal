@@ -71,9 +71,22 @@ namespace SharpMetal.Generator.Instances
 
                 if (parent != null)
                 {
-                    _propertyInstances.AddRange(parent._propertyInstances);
+                    // just add unique instances, since the MTLAllocation inheritance would cause doubled-up properties
+                    foreach (var property in parent._propertyInstances)
+                    {
+                        if (!_propertyInstances.Any(x => x.Name == property.Name && x.Type == property.Type))
+                        {
+                            _propertyInstances.Add(property);
+                        }
+                    }
                     _methodInstances.AddRange(parent._methodInstances);
-                    _selectorInstances.AddRange(parent._selectorInstances);
+                    foreach (var selector in parent._selectorInstances)
+                    {
+                        if (_selectorInstances.All(x => x.Name != selector.Name))
+                        {
+                            _selectorInstances.Add(selector);
+                        }
+                    }
                 }
             }
 
@@ -182,15 +195,12 @@ namespace SharpMetal.Generator.Instances
                     var info = ancestorInfo[index..];
                     info = info.Replace(">", "").Replace("<", "");
                     var ancestors = info.Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-                    for (var i = 0; i < ancestors.Length; i++)
+                    for (var i = 1; i < ancestors.Length; i++)
                     {
-                        if (i > 0)
-                        {
-                            if (ancestors[i] != "_Base" && ancestors[i] != "Type" && ancestors[i] != "objc_object" &&
+                        if (ancestors[i] != "_Base" && ancestors[i] != "Type" && ancestors[i] != "objc_object" &&
                                 ancestors[i] != "Value")
-                            {
-                                instance._parent = Types.ConvertType(ancestors[i], namespacePrefix);
-                            }
+                        {
+                            instance._parent = Types.ConvertType(ancestors[i], namespacePrefix);
                         }
                     }
                 }
@@ -363,7 +373,7 @@ namespace SharpMetal.Generator.Instances
                         arguments.Add(new PropertyInstance(argumentType, argumentName, reference));
                     }
 
-                    if (returnType != string.Empty)
+                    if (returnType != string.Empty && !GeneratorUtils.IsBannedReturnOrArgumentType(returnType))
                     {
                         instance.AddMethod(new MethodInstance(returnType, name, rawName, isStatic, false, arguments));
                     }

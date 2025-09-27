@@ -63,6 +63,8 @@ namespace SharpMetal.Generator
             { "MTLAutoreleasedComputePipelineReflection", "IntPtr" },
             { "MTLAutoreleasedRenderPipelineReflection", "IntPtr" },
             { "MTLAutoreleasedArgument", "IntPtr" },
+            { "NSProcessPerformanceProfile", "IntPtr" },
+            { "NSDeviceProfile", "IntPtr" },
             { "Enumerator<Object>", "IntPtr" },
             { "size_t", "IntPtr" },
 

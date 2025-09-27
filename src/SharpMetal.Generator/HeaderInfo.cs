@@ -214,7 +214,7 @@ namespace SharpMetal.Generator
                                 arguments.Add(new PropertyInstance(argumentType, argumentName));
                             }
 
-                            if (returnType != string.Empty)
+                            if (returnType != string.Empty && !GeneratorUtils.IsBannedReturnOrArgumentType(returnType))
                             {
                                 method = new MethodInstance(returnType, name, rawName, true, true, arguments);
                             }
