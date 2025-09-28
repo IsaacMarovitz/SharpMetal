@@ -108,6 +108,10 @@ namespace SharpMetal.Generator.Instances
                     }
                 }
             }
+            else
+            {
+                context.WriteLine($"// missing {Type} {Name}");
+            }
 
             return new ObjectiveCInstance(type, []);
         }
