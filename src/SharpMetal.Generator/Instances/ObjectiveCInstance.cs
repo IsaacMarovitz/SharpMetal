@@ -23,7 +23,7 @@ namespace SharpMetal.Generator.Instances
             {
                 context.WriteLine("[return: MarshalAs(UnmanagedType.Bool)]");
             }
-            context.Write($"{context.Indentation}public static partial {Type} ");
+            context.Write($"{context.Indentation}internal static partial {Type} ");
 
             if (Type != "void")
             {

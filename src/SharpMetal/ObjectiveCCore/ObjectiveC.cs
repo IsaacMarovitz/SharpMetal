@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
+using SharpMetal.Metal;
 
 namespace SharpMetal.ObjectiveCCore
 {
@@ -39,6 +40,17 @@ namespace SharpMetal.ObjectiveCCore
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial void objc_msgSend(IntPtr receiver, Selector selector, NSRect rect);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLClearColor a);
+
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLPixelFormat a);
+
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLPixelFormat a, int b);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial void objc_msgSend(IntPtr receiver, Selector selector, byte value);

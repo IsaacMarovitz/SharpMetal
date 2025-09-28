@@ -206,7 +206,7 @@ namespace SharpMetal.Generator
             context.EnterScope();
 
             context.WriteLine("[SupportedOSPlatform(\"macos\")]");
-            context.WriteLine("public static partial class ObjectiveCRuntime");
+            context.WriteLine("internal static partial class ObjectiveCRuntime");
             context.EnterScope();
 
             var list = objectiveCInstances.ToList();

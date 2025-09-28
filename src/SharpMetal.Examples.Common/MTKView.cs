@@ -24,23 +24,23 @@ namespace SharpMetal.Examples.Common
 
         public MTLPixelFormat ColorPixelFormat
         {
-            set => ObjectiveC.objc_msgSend(NativePtr, "setColorPixelFormat:atIndex:", (ulong)value, 0);
+            set => ObjectiveC.objc_msgSend(NativePtr, new Selector("setColorPixelFormat:atIndex:"), value, 0);
         }
 
         public IntPtr Colorspace
         {
-            get => ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, new Selector("colorspace"));
-            set => ObjectiveCRuntime.objc_msgSend(NativePtr, new Selector("setColorspace:"), value);
+            get => ObjectiveC.IntPtr_objc_msgSend(NativePtr, new Selector("colorspace"));
+            set => ObjectiveC.objc_msgSend(NativePtr, new Selector("setColorspace:"), value);
         }
 
         public MTLClearColor ClearColor
         {
-            set => ObjectiveCRuntime.objc_msgSend(NativePtr, new Selector("setClearColor:"), value);
+            set => ObjectiveC.objc_msgSend(NativePtr, new Selector("setClearColor:"), value);
         }
 
         public MTLPixelFormat DepthStencilPixelFormat
         {
-            set => ObjectiveCRuntime.objc_msgSend(NativePtr, new Selector("setDepthStencilPixelFormat:"), (ulong)value);
+            set => ObjectiveC.objc_msgSend(NativePtr, new Selector("setDepthStencilPixelFormat:"), value);
         }
 
         public MTKViewDelegate Delegate
