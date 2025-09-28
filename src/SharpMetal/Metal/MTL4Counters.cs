@@ -24,8 +24,11 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing ulong Count
 
+        // missing NSString Label
 
+        // missing MTL4CounterHeapType Type
         private static readonly Selector sel_release = "release";
     }
 
@@ -47,7 +50,9 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing ulong Count
 
+        // missing MTL4CounterHeapType Type
         private static readonly Selector sel_release = "release";
     }
 }

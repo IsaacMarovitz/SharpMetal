@@ -23,15 +23,25 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing MTLTileRenderPipelineColorAttachmentDescriptorArray ColorAttachments
 
+        // missing NSString Label
 
+        // missing ulong MaxTotalThreadsPerThreadgroup
 
+        // missing MTL4PipelineOptions Options
 
+        // missing ulong RasterSampleCount
 
+        // missing MTLSize RequiredThreadsPerThreadgroup
 
+        // missing MTL4StaticLinkingDescriptor StaticLinkingDescriptor
 
+        // missing bool SupportBinaryLinking
 
+        // missing bool ThreadgroupSizeMatchesTileSize
 
+        // missing MTL4FunctionDescriptor TileFunctionDescriptor
         private static readonly Selector sel_release = "release";
     }
 }

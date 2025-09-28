@@ -22,8 +22,11 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing NSArray BinaryLinkedFunctions
 
+        // missing ulong MaxCallStackDepth
 
+        // missing NSArray PreloadedLibraries
         private static readonly Selector sel_release = "release";
     }
 
@@ -45,10 +48,15 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing MTL4PipelineStageDynamicLinkingDescriptor FragmentLinkingDescriptor
 
+        // missing MTL4PipelineStageDynamicLinkingDescriptor MeshLinkingDescriptor
 
+        // missing MTL4PipelineStageDynamicLinkingDescriptor ObjectLinkingDescriptor
 
+        // missing MTL4PipelineStageDynamicLinkingDescriptor TileLinkingDescriptor
 
+        // missing MTL4PipelineStageDynamicLinkingDescriptor VertexLinkingDescriptor
         private static readonly Selector sel_release = "release";
     }
 
@@ -70,8 +78,11 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing NSArray FunctionDescriptors
 
+        // missing NSDictionary Groups
 
+        // missing NSArray PrivateFunctionDescriptors
         private static readonly Selector sel_release = "release";
     }
 }

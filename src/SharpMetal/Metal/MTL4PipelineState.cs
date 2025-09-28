@@ -22,7 +22,9 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing NSString Label
 
+        // missing MTL4PipelineOptions Options
         private static readonly Selector sel_release = "release";
     }
 
@@ -44,7 +46,9 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing MTL4ShaderReflection ShaderReflection
 
+        // missing MTLShaderValidation ShaderValidation
         private static readonly Selector sel_release = "release";
     }
 }

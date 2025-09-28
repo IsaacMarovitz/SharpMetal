@@ -23,8 +23,11 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing MTLFunctionConstantValues ConstantValues
 
+        // missing MTL4FunctionDescriptor FunctionDescriptor
 
+        // missing NSString SpecializedName
         private static readonly Selector sel_release = "release";
     }
 }

@@ -265,6 +265,7 @@ namespace SharpMetal.Metal
 
         public MTLArgumentBuffersTier ArgumentBuffersSupport => (MTLArgumentBuffersTier)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_argumentBuffersSupport);
 
+        // missing bool BarycentricCoordsSupported
 
         public NSArray CounterSets => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_counterSets));
 
@@ -276,7 +277,9 @@ namespace SharpMetal.Metal
 
         public bool Headless => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isHeadless);
 
+        // missing bool IsDepth24Stencil8PixelFormatSupported
 
+        // missing bool IsHeadless
 
         public bool IsLowPower => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isLowPower);
 
@@ -286,6 +289,7 @@ namespace SharpMetal.Metal
 
         public ulong LocationNumber => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_locationNumber);
 
+        // missing bool LowPower
 
         public ulong MaxArgumentBufferSamplerCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxArgumentBufferSamplerCount);
 
@@ -313,9 +317,11 @@ namespace SharpMetal.Metal
 
         public uint PeerIndex => ObjectiveCRuntime.uint_objc_msgSend(NativePtr, sel_peerIndex);
 
+        // missing bool ProgrammableSamplePositionsSupported
 
         public ulong QueryTimestampFrequency => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_queryTimestampFrequency);
 
+        // missing bool RasterOrderGroupsSupported
 
         public MTLReadWriteTextureTier ReadWriteTextureSupport => (MTLReadWriteTextureTier)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_readWriteTextureSupport);
 
@@ -323,6 +329,7 @@ namespace SharpMetal.Metal
 
         public ulong RegistryID => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_registryID);
 
+        // missing bool Removable
 
         public bool ShouldMaximizeConcurrentCompilation
         {
@@ -704,6 +711,11 @@ namespace SharpMetal.Metal
         public void SampleTimestamps(ulong cpuTimestamp, ulong gpuTimestamp)
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_sampleTimestampsgpuTimestamp, cpuTimestamp, gpuTimestamp);
+        }
+
+        public ulong SizeOfCounterHeapEntry(MTL4CounterHeapType type)
+        {
+            return ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_sizeOfCounterHeapEntry, type);
         }
 
         public MTLSize SparseTileSize(MTLTextureType textureType, MTLPixelFormat pixelFormat, ulong sampleCount, MTLSparsePageSize sparsePageSize)

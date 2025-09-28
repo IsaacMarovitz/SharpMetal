@@ -24,7 +24,9 @@ namespace SharpMetal.Foundation
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing NSArray AllObjects
 
+        // missing IntPtr NextObject
 
         public ulong CountByEnumerating(NSFastEnumerationState pState, NSObject pBuffer, ulong len)
         {

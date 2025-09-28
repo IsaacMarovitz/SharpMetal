@@ -112,6 +112,7 @@ namespace SharpMetal.Metal
 
         public MTLDataType AttributeType => (MTLDataType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_attributeType);
 
+        // missing bool IsActive
 
         public bool IsPatchControlPointData => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isPatchControlPointData);
 
@@ -119,7 +120,9 @@ namespace SharpMetal.Metal
 
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
 
+        // missing bool PatchControlPointData
 
+        // missing bool PatchData
 
         private static readonly Selector sel_attributeIndex = "attributeIndex";
         private static readonly Selector sel_attributeType = "attributeType";
@@ -479,6 +482,7 @@ namespace SharpMetal.Metal
 
         public MTLDataType AttributeType => (MTLDataType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_attributeType);
 
+        // missing bool IsActive
 
         public bool IsPatchControlPointData => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isPatchControlPointData);
 
@@ -486,7 +490,9 @@ namespace SharpMetal.Metal
 
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
 
+        // missing bool PatchControlPointData
 
+        // missing bool PatchData
 
         private static readonly Selector sel_attributeIndex = "attributeIndex";
         private static readonly Selector sel_attributeType = "attributeType";

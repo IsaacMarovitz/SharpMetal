@@ -72,6 +72,7 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFrontFaceStencil, value);
         }
 
+        // missing bool IsDepthWriteEnabled
 
         public NSString Label
         {

@@ -36,6 +36,7 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing MTL4PipelineDataSetSerializerConfiguration Configuration
         private static readonly Selector sel_release = "release";
     }
 }

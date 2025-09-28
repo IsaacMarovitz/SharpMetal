@@ -22,10 +22,15 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing NSArray FragmentAdditionalBinaryFunctions
 
+        // missing NSArray MeshAdditionalBinaryFunctions
 
+        // missing NSArray ObjectAdditionalBinaryFunctions
 
+        // missing NSArray TileAdditionalBinaryFunctions
 
+        // missing NSArray VertexAdditionalBinaryFunctions
         private static readonly Selector sel_release = "release";
     }
 
@@ -47,14 +52,23 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing MTLBlendOperation AlphaBlendOperation
 
+        // missing MTL4BlendState BlendingState
 
+        // missing MTLBlendFactor DestinationAlphaBlendFactor
 
+        // missing MTLBlendFactor DestinationRGBBlendFactor
 
+        // missing MTLPixelFormat PixelFormat
 
+        // missing MTLBlendOperation RgbBlendOperation
 
+        // missing MTLBlendFactor SourceAlphaBlendFactor
 
+        // missing MTLBlendFactor SourceRGBBlendFactor
 
+        // missing MTLColorWriteMask WriteMask
         private static readonly Selector sel_release = "release";
     }
 
@@ -97,24 +111,43 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing MTL4AlphaToCoverageState AlphaToCoverageState
 
+        // missing MTL4AlphaToOneState AlphaToOneState
 
+        // missing MTL4LogicalToPhysicalColorAttachmentMappingState ColorAttachmentMappingState
 
+        // missing MTL4RenderPipelineColorAttachmentDescriptorArray ColorAttachments
 
+        // missing MTL4FunctionDescriptor FragmentFunctionDescriptor
 
+        // missing MTL4StaticLinkingDescriptor FragmentStaticLinkingDescriptor
 
+        // missing MTLPrimitiveTopologyClass InputPrimitiveTopology
 
+        // missing bool IsRasterizationEnabled
 
+        // missing NSString Label
 
+        // missing ulong MaxVertexAmplificationCount
 
+        // missing MTL4PipelineOptions Options
 
+        // missing bool RasterizationEnabled
 
+        // missing ulong RasterSampleCount
 
+        // missing bool SupportFragmentBinaryLinking
 
+        // missing MTL4IndirectCommandBufferSupportState SupportIndirectCommandBuffers
 
+        // missing bool SupportVertexBinaryLinking
 
+        // missing MTLVertexDescriptor VertexDescriptor
 
+        // missing MTL4FunctionDescriptor VertexFunctionDescriptor
 
+        // missing MTL4StaticLinkingDescriptor VertexStaticLinkingDescriptor
         private static readonly Selector sel_release = "release";
     }
 }

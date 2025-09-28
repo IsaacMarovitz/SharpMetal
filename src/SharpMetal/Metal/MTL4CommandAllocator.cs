@@ -16,8 +16,11 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing ulong AllocatedSize
 
+        // missing MTLDevice Device
 
+        // missing NSString Label
         private static readonly Selector sel_release = "release";
     }
 
@@ -39,6 +42,7 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing NSString Label
         private static readonly Selector sel_release = "release";
     }
 }

@@ -16,8 +16,11 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing MTLDevice Device
 
+        // missing NSString Label
 
+        // missing MTL4PipelineDataSetSerializer PipelineDataSetSerializer
         private static readonly Selector sel_release = "release";
     }
 
@@ -39,7 +42,9 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing NSString Label
 
+        // missing MTL4PipelineDataSetSerializer PipelineDataSetSerializer
         private static readonly Selector sel_release = "release";
     }
 
@@ -61,6 +66,7 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing NSArray LookupArchives
         private static readonly Selector sel_release = "release";
     }
 }

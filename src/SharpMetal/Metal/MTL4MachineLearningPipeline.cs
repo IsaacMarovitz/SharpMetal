@@ -23,8 +23,11 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing NSString Label
 
+        // missing MTL4FunctionDescriptor MachineLearningFunctionDescriptor
 
+        // missing MTL4PipelineOptions Options
         private static readonly Selector sel_release = "release";
     }
 
@@ -46,6 +49,7 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing NSArray Bindings
         private static readonly Selector sel_release = "release";
     }
 
@@ -64,9 +68,13 @@ namespace SharpMetal.Metal
 
         public ulong AllocatedSize => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_allocatedSize);
 
+        // missing MTLDevice Device
 
+        // missing ulong IntermediatesHeapSize
 
+        // missing NSString Label
 
+        // missing MTL4MachineLearningPipelineReflection Reflection
 
         private static readonly Selector sel_allocatedSize = "allocatedSize";
         private static readonly Selector sel_release = "release";

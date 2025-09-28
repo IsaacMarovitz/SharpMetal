@@ -23,15 +23,25 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing bool AllowDuplicateIntersectionFunctionInvocation
 
+        // missing MTL4BufferRange BoundingBoxBuffer
 
+        // missing ulong BoundingBoxCount
 
+        // missing ulong BoundingBoxStride
 
+        // missing ulong IntersectionFunctionTableOffset
 
+        // missing NSString Label
 
+        // missing bool Opaque
 
+        // missing MTL4BufferRange PrimitiveDataBuffer
 
+        // missing ulong PrimitiveDataElementSize
 
+        // missing ulong PrimitiveDataStride
         private static readonly Selector sel_release = "release";
     }
 
@@ -54,26 +64,47 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing bool AllowDuplicateIntersectionFunctionInvocation
 
+        // missing MTL4BufferRange ControlPointBuffer
 
+        // missing ulong ControlPointCount
 
+        // missing MTLAttributeFormat ControlPointFormat
 
+        // missing ulong ControlPointStride
 
+        // missing MTLCurveBasis CurveBasis
 
+        // missing MTLCurveEndCaps CurveEndCaps
 
+        // missing MTLCurveType CurveType
 
+        // missing MTL4BufferRange IndexBuffer
 
+        // missing MTLIndexType IndexType
 
+        // missing ulong IntersectionFunctionTableOffset
 
+        // missing NSString Label
 
+        // missing bool Opaque
 
+        // missing MTL4BufferRange PrimitiveDataBuffer
 
+        // missing ulong PrimitiveDataElementSize
 
+        // missing ulong PrimitiveDataStride
 
+        // missing MTL4BufferRange RadiusBuffer
 
+        // missing MTLAttributeFormat RadiusFormat
 
+        // missing ulong RadiusStride
 
+        // missing ulong SegmentControlPointCount
 
+        // missing ulong SegmentCount
         private static readonly Selector sel_release = "release";
     }
 
@@ -125,12 +156,19 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing bool AllowDuplicateIntersectionFunctionInvocation
 
+        // missing ulong IntersectionFunctionTableOffset
 
+        // missing NSString Label
 
+        // missing bool Opaque
 
+        // missing MTL4BufferRange PrimitiveDataBuffer
 
+        // missing ulong PrimitiveDataElementSize
 
+        // missing ulong PrimitiveDataStride
         private static readonly Selector sel_release = "release";
     }
 
@@ -153,15 +191,25 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing bool AllowDuplicateIntersectionFunctionInvocation
 
+        // missing MTL4BufferRange BoundingBoxBuffers
 
+        // missing ulong BoundingBoxCount
 
+        // missing ulong BoundingBoxStride
 
+        // missing ulong IntersectionFunctionTableOffset
 
+        // missing NSString Label
 
+        // missing bool Opaque
 
+        // missing MTL4BufferRange PrimitiveDataBuffer
 
+        // missing ulong PrimitiveDataElementSize
 
+        // missing ulong PrimitiveDataStride
         private static readonly Selector sel_release = "release";
     }
 
@@ -184,26 +232,47 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing bool AllowDuplicateIntersectionFunctionInvocation
 
+        // missing MTL4BufferRange ControlPointBuffers
 
+        // missing ulong ControlPointCount
 
+        // missing MTLAttributeFormat ControlPointFormat
 
+        // missing ulong ControlPointStride
 
+        // missing MTLCurveBasis CurveBasis
 
+        // missing MTLCurveEndCaps CurveEndCaps
 
+        // missing MTLCurveType CurveType
 
+        // missing MTL4BufferRange IndexBuffer
 
+        // missing MTLIndexType IndexType
 
+        // missing ulong IntersectionFunctionTableOffset
 
+        // missing NSString Label
 
+        // missing bool Opaque
 
+        // missing MTL4BufferRange PrimitiveDataBuffer
 
+        // missing ulong PrimitiveDataElementSize
 
+        // missing ulong PrimitiveDataStride
 
+        // missing MTL4BufferRange RadiusBuffers
 
+        // missing MTLAttributeFormat RadiusFormat
 
+        // missing ulong RadiusStride
 
+        // missing ulong SegmentControlPointCount
 
+        // missing ulong SegmentCount
         private static readonly Selector sel_release = "release";
     }
 
@@ -226,20 +295,35 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing bool AllowDuplicateIntersectionFunctionInvocation
 
+        // missing MTL4BufferRange IndexBuffer
 
+        // missing MTLIndexType IndexType
 
+        // missing ulong IntersectionFunctionTableOffset
 
+        // missing NSString Label
 
+        // missing bool Opaque
 
+        // missing MTL4BufferRange PrimitiveDataBuffer
 
+        // missing ulong PrimitiveDataElementSize
 
+        // missing ulong PrimitiveDataStride
 
+        // missing MTL4BufferRange TransformationMatrixBuffer
 
+        // missing MTLMatrixLayout TransformationMatrixLayout
 
+        // missing ulong TriangleCount
 
+        // missing MTL4BufferRange VertexBuffers
 
+        // missing MTLAttributeFormat VertexFormat
 
+        // missing ulong VertexStride
         private static readonly Selector sel_release = "release";
     }
 
@@ -262,20 +346,35 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing bool AllowDuplicateIntersectionFunctionInvocation
 
+        // missing MTL4BufferRange IndexBuffer
 
+        // missing MTLIndexType IndexType
 
+        // missing ulong IntersectionFunctionTableOffset
 
+        // missing NSString Label
 
+        // missing bool Opaque
 
+        // missing MTL4BufferRange PrimitiveDataBuffer
 
+        // missing ulong PrimitiveDataElementSize
 
+        // missing ulong PrimitiveDataStride
 
+        // missing MTL4BufferRange TransformationMatrixBuffer
 
+        // missing MTLMatrixLayout TransformationMatrixLayout
 
+        // missing ulong TriangleCount
 
+        // missing MTL4BufferRange VertexBuffer
 
+        // missing MTLAttributeFormat VertexFormat
 
+        // missing ulong VertexStride
         private static readonly Selector sel_release = "release";
     }
 
@@ -298,16 +397,27 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing MTL4BufferRange InstanceCountBuffer
 
+        // missing MTL4BufferRange InstanceDescriptorBuffer
 
+        // missing ulong InstanceDescriptorStride
 
+        // missing MTLAccelerationStructureInstanceDescriptorType InstanceDescriptorType
 
+        // missing MTLMatrixLayout InstanceTransformationMatrixLayout
 
+        // missing ulong MaxInstanceCount
 
+        // missing ulong MaxMotionTransformCount
 
+        // missing MTL4BufferRange MotionTransformBuffer
 
+        // missing MTL4BufferRange MotionTransformCountBuffer
 
+        // missing ulong MotionTransformStride
 
+        // missing MTLTransformType MotionTransformType
 
         public MTLAccelerationStructureUsage Usage
         {
@@ -339,14 +449,23 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing ulong InstanceCount
 
+        // missing MTL4BufferRange InstanceDescriptorBuffer
 
+        // missing ulong InstanceDescriptorStride
 
+        // missing MTLAccelerationStructureInstanceDescriptorType InstanceDescriptorType
 
+        // missing MTLMatrixLayout InstanceTransformationMatrixLayout
 
+        // missing MTL4BufferRange MotionTransformBuffer
 
+        // missing ulong MotionTransformCount
 
+        // missing ulong MotionTransformStride
 
+        // missing MTLTransformType MotionTransformType
 
         public MTLAccelerationStructureUsage Usage
         {
@@ -378,11 +497,17 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing NSArray GeometryDescriptors
 
+        // missing MTLMotionBorderMode MotionEndBorderMode
 
+        // missing float MotionEndTime
 
+        // missing ulong MotionKeyframeCount
 
+        // missing MTLMotionBorderMode MotionStartBorderMode
 
+        // missing float MotionStartTime
 
         public MTLAccelerationStructureUsage Usage
         {

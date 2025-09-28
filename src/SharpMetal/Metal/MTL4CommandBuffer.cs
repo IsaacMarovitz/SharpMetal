@@ -16,9 +16,13 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing MTL4ComputeCommandEncoder ComputeCommandEncoder
 
+        // missing MTLDevice Device
 
+        // missing NSString Label
 
+        // missing MTL4MachineLearningCommandEncoder MachineLearningCommandEncoder
         private static readonly Selector sel_release = "release";
     }
 
@@ -40,6 +44,7 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing MTLLogState LogState
         private static readonly Selector sel_release = "release";
     }
 }

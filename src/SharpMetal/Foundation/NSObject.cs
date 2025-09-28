@@ -15,6 +15,7 @@ namespace SharpMetal.Foundation
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing IntPtr Copy
         private static readonly Selector sel_release = "release";
     }
 

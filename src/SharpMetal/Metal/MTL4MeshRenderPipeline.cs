@@ -23,33 +23,61 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing MTL4AlphaToCoverageState AlphaToCoverageState
 
+        // missing MTL4AlphaToOneState AlphaToOneState
 
+        // missing MTL4LogicalToPhysicalColorAttachmentMappingState ColorAttachmentMappingState
 
+        // missing MTL4RenderPipelineColorAttachmentDescriptorArray ColorAttachments
 
+        // missing MTL4FunctionDescriptor FragmentFunctionDescriptor
 
+        // missing MTL4StaticLinkingDescriptor FragmentStaticLinkingDescriptor
 
+        // missing bool IsRasterizationEnabled
 
+        // missing NSString Label
 
+        // missing ulong MaxTotalThreadgroupsPerMeshGrid
 
+        // missing ulong MaxTotalThreadsPerMeshThreadgroup
 
+        // missing ulong MaxTotalThreadsPerObjectThreadgroup
 
+        // missing ulong MaxVertexAmplificationCount
 
+        // missing MTL4FunctionDescriptor MeshFunctionDescriptor
 
+        // missing MTL4StaticLinkingDescriptor MeshStaticLinkingDescriptor
 
+        // missing bool MeshThreadgroupSizeIsMultipleOfThreadExecutionWidth
 
+        // missing MTL4FunctionDescriptor ObjectFunctionDescriptor
 
+        // missing MTL4StaticLinkingDescriptor ObjectStaticLinkingDescriptor
 
+        // missing bool ObjectThreadgroupSizeIsMultipleOfThreadExecutionWidth
 
+        // missing MTL4PipelineOptions Options
 
+        // missing ulong PayloadMemoryLength
 
+        // missing bool RasterizationEnabled
 
+        // missing ulong RasterSampleCount
 
+        // missing MTLSize RequiredThreadsPerMeshThreadgroup
 
+        // missing MTLSize RequiredThreadsPerObjectThreadgroup
 
+        // missing bool SupportFragmentBinaryLinking
 
+        // missing MTL4IndirectCommandBufferSupportState SupportIndirectCommandBuffers
 
+        // missing bool SupportMeshBinaryLinking
 
+        // missing bool SupportObjectBinaryLinking
         private static readonly Selector sel_release = "release";
     }
 }

@@ -22,20 +22,35 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing MTLRenderPassColorAttachmentDescriptorArray ColorAttachments
 
+        // missing ulong DefaultRasterSampleCount
 
+        // missing MTLRenderPassDepthAttachmentDescriptor DepthAttachment
 
+        // missing ulong ImageblockSampleLength
 
+        // missing MTLRasterizationRateMap RasterizationRateMap
 
+        // missing ulong RenderTargetArrayLength
 
+        // missing ulong RenderTargetHeight
 
+        // missing ulong RenderTargetWidth
 
+        // missing MTLRenderPassStencilAttachmentDescriptor StencilAttachment
 
+        // missing bool SupportColorAttachmentMapping
 
+        // missing ulong ThreadgroupMemoryLength
 
+        // missing ulong TileHeight
 
+        // missing ulong TileWidth
 
+        // missing MTLBuffer VisibilityResultBuffer
 
+        // missing MTLVisibilityResultType VisibilityResultType
         private static readonly Selector sel_release = "release";
     }
 }

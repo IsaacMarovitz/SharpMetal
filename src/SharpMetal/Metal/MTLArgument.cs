@@ -90,6 +90,7 @@ namespace SharpMetal.Metal
 
         public ulong Index => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_index);
 
+        // missing bool IsActive
 
         public bool IsDepthTexture => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isDepthTexture);
 
@@ -190,6 +191,7 @@ namespace SharpMetal.Metal
 
         public ulong Index => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_index);
 
+        // missing bool IsArgument
 
         public bool IsUsed => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isUsed);
 
@@ -197,6 +199,7 @@ namespace SharpMetal.Metal
 
         public MTLBindingType Type => (MTLBindingType)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_type);
 
+        // missing bool Used
 
         private static readonly Selector sel_access = "access";
         private static readonly Selector sel_index = "index";
@@ -236,6 +239,7 @@ namespace SharpMetal.Metal
 
         public ulong Index => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_index);
 
+        // missing bool IsArgument
 
         public bool IsUsed => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isUsed);
 
@@ -243,6 +247,7 @@ namespace SharpMetal.Metal
 
         public MTLBindingType Type => (MTLBindingType)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_type);
 
+        // missing bool Used
 
         private static readonly Selector sel_access = "access";
         private static readonly Selector sel_bufferAlignment = "bufferAlignment";
@@ -277,6 +282,7 @@ namespace SharpMetal.Metal
 
         public ulong Index => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_index);
 
+        // missing bool IsArgument
 
         public bool IsUsed => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isUsed);
 
@@ -288,6 +294,7 @@ namespace SharpMetal.Metal
 
         public MTLBindingType Type => (MTLBindingType)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_type);
 
+        // missing bool Used
 
         private static readonly Selector sel_access = "access";
         private static readonly Selector sel_index = "index";
@@ -443,6 +450,7 @@ namespace SharpMetal.Metal
 
         public MTLDataType IndexType => (MTLDataType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_indexType);
 
+        // missing bool IsArgument
 
         public bool IsUsed => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isUsed);
 
@@ -452,6 +460,7 @@ namespace SharpMetal.Metal
 
         public MTLBindingType Type => (MTLBindingType)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_type);
 
+        // missing bool Used
 
         private static readonly Selector sel_access = "access";
         private static readonly Selector sel_dimensions = "dimensions";
@@ -521,7 +530,9 @@ namespace SharpMetal.Metal
 
         public ulong Index => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_index);
 
+        // missing bool IsArgument
 
+        // missing bool IsDepthTexture
 
         public bool IsUsed => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isUsed);
 
@@ -533,6 +544,7 @@ namespace SharpMetal.Metal
 
         public MTLBindingType Type => (MTLBindingType)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_type);
 
+        // missing bool Used
 
         private static readonly Selector sel_access = "access";
         private static readonly Selector sel_arrayLength = "arrayLength";
@@ -599,6 +611,7 @@ namespace SharpMetal.Metal
 
         public ulong Index => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_index);
 
+        // missing bool IsArgument
 
         public bool IsUsed => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isUsed);
 
@@ -610,6 +623,7 @@ namespace SharpMetal.Metal
 
         public MTLBindingType Type => (MTLBindingType)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_type);
 
+        // missing bool Used
 
         private static readonly Selector sel_access = "access";
         private static readonly Selector sel_index = "index";

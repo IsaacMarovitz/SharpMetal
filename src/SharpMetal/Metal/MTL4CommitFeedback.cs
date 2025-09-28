@@ -16,8 +16,11 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing NSError Error
 
+        // missing IntPtr GPUEndTime
 
+        // missing IntPtr GPUStartTime
         private static readonly Selector sel_release = "release";
     }
 }

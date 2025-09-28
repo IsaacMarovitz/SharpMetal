@@ -23,14 +23,23 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing MTL4FunctionDescriptor ComputeFunctionDescriptor
 
+        // missing NSString Label
 
+        // missing ulong MaxTotalThreadsPerThreadgroup
 
+        // missing MTL4PipelineOptions Options
 
+        // missing MTLSize RequiredThreadsPerThreadgroup
 
+        // missing MTL4StaticLinkingDescriptor StaticLinkingDescriptor
 
+        // missing bool SupportBinaryLinking
 
+        // missing MTL4IndirectCommandBufferSupportState SupportIndirectCommandBuffers
 
+        // missing bool ThreadGroupSizeIsMultipleOfThreadExecutionWidth
         private static readonly Selector sel_release = "release";
     }
 }

@@ -131,6 +131,7 @@ namespace SharpMetal.MetalFX
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setReactiveMaskTexture, value);
         }
 
+        // missing MTLPixelFormat ReactiveTextureFormat
 
         public MTLTextureUsage ReactiveTextureUsage => (MTLTextureUsage)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_reactiveTextureUsage);
 

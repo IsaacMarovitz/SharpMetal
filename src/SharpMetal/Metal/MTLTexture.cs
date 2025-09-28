@@ -140,6 +140,7 @@ namespace SharpMetal.Metal
 
         public bool IsAliasable => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isAliasable);
 
+        // missing bool IsFramebufferOnly
 
         public bool IsShareable => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isShareable);
 
@@ -171,6 +172,7 @@ namespace SharpMetal.Metal
 
         public ulong SampleCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_sampleCount);
 
+        // missing bool Shareable
 
         public MTLTextureSparseTier SparseTextureTier => (MTLTextureSparseTier)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_sparseTextureTier);
 

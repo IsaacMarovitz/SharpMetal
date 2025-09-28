@@ -183,6 +183,10 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFragmentLinkedFunctions, value);
         }
 
+        // missing bool IsAlphaToCoverageEnabled
+
+        // missing bool IsAlphaToOneEnabled
+
         public NSString Label
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
@@ -408,6 +412,8 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDestinationRGBBlendFactor, (ulong)value);
         }
 
+        // missing bool IsBlendingEnabled
+
         public MTLPixelFormat PixelFormat
         {
             get => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_pixelFormat);
@@ -566,6 +572,10 @@ namespace SharpMetal.Metal
             get => (MTLPrimitiveTopologyClass)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_inputPrimitiveTopology);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInputPrimitiveTopology, (ulong)value);
         }
+
+        // missing bool IsAlphaToCoverageEnabled
+
+        // missing bool IsAlphaToOneEnabled
 
         public NSString Label
         {

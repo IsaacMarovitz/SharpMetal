@@ -16,7 +16,9 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        // missing MTL4Compiler Compiler
 
+        // missing MTL4CompilerTaskStatus Status
         private static readonly Selector sel_release = "release";
     }
 }
