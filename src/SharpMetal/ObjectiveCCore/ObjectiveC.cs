@@ -44,10 +44,8 @@ namespace SharpMetal.ObjectiveCCore
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLClearColor a);
 
-
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLPixelFormat a);
-
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLPixelFormat a, int b);
