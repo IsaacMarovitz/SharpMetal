@@ -21,9 +21,17 @@ namespace SharpMetal.Metal
     {
         None = 0,
         DisableTriangleCulling = 1,
-        TriangleFrontFacingWindingCounterClockwise = 2,
-        Opaque = 4,
-        NonOpaque = 8,
+        TriangleFrontFacingWindingCounterClockwise = 1 << 1,
+        Opaque = 1 << 2,
+        NonOpaque = 1 << 3,
+    }
+
+    [SupportedOSPlatform("macos")]
+    [Flags]
+    public enum MTLAccelerationStructureRefitOptions : ulong
+    {
+        VertexData = 1,
+        PerPrimitiveData = 1 << 1,
     }
 
     [SupportedOSPlatform("macos")]
@@ -32,8 +40,10 @@ namespace SharpMetal.Metal
     {
         None = 0,
         Refit = 1,
-        PreferFastBuild = 2,
-        ExtendedLimits = 4,
+        PreferFastBuild = 1 << 1,
+        ExtendedLimits = 1 << 2,
+        PreferFastIntersection = 1 << 4,
+        MinimizeMemory = 1 << 5,
     }
 
     [SupportedOSPlatform("macos")]
@@ -194,6 +204,11 @@ namespace SharpMetal.Metal
         public void MakeAliasable()
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_makeAliasable);
+        }
+
+        public int SetOwner(IntPtr task_id_token)
+        {
+            return ObjectiveCRuntime.int_objc_msgSend(NativePtr, sel_setOwnerWithIdentity, task_id_token);
         }
 
         public MTLPurgeableState SetPurgeableState(MTLPurgeableState state)

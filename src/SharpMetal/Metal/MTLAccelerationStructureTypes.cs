@@ -6,6 +6,14 @@ namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
     [StructLayout(LayoutKind.Sequential)]
+    public struct MTL4BufferRange
+    {
+        public ulong bufferAddress;
+        public ulong length;
+    }
+
+    [SupportedOSPlatform("macos")]
+    [StructLayout(LayoutKind.Sequential)]
     public struct MTLAxisAlignedBoundingBox
     {
         public MTLPackedFloat3 min;

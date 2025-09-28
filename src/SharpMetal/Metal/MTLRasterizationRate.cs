@@ -122,14 +122,14 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_copyParameterDataToBufferoffset, buffer, offset);
         }
 
-        public IntPtr MapPhysicalToScreenCoordinates(IntPtr physicalCoordinates, ulong layerIndex)
+        public MTLSamplePosition MapPhysicalToScreenCoordinates(MTLSamplePosition physicalCoordinates, ulong layerIndex)
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_mapPhysicalToScreenCoordinatesforLayer, physicalCoordinates, layerIndex));
+            return ObjectiveCRuntime.MTLSamplePosition_objc_msgSend(NativePtr, sel_mapPhysicalToScreenCoordinatesforLayer, physicalCoordinates, layerIndex);
         }
 
-        public IntPtr MapScreenToPhysicalCoordinates(IntPtr screenCoordinates, ulong layerIndex)
+        public MTLSamplePosition MapScreenToPhysicalCoordinates(MTLSamplePosition screenCoordinates, ulong layerIndex)
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_mapScreenToPhysicalCoordinatesforLayer, screenCoordinates, layerIndex));
+            return ObjectiveCRuntime.MTLSamplePosition_objc_msgSend(NativePtr, sel_mapScreenToPhysicalCoordinatesforLayer, screenCoordinates, layerIndex);
         }
 
         public MTLSize PhysicalSize(ulong layerIndex)

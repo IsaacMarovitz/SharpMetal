@@ -39,10 +39,7 @@ namespace SharpMetal.Foundation
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
-        public static NSNotificationCenter DefaultCenter()
-        {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSNotificationCenter"), sel_defaultCenter));
-        }
+        public static NSNotificationCenter DefaultCenter => new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSNotificationCenter"), sel_defaultCenter));
 
         private static readonly Selector sel_defaultCenter = "defaultCenter";
         private static readonly Selector sel_release = "release";

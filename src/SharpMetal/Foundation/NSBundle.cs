@@ -21,6 +21,10 @@ namespace SharpMetal.Foundation
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        public static NSArray AllBundles => new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSBundle"), sel_allBundles));
+
+        public static NSArray AllFrameworks => new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSBundle"), sel_allFrameworks));
+
         public NSURL AppStoreReceiptURL => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_appStoreReceiptURL));
 
         public NSString BuiltInPlugInsPath => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_builtInPlugInsPath));
@@ -45,6 +49,8 @@ namespace SharpMetal.Foundation
 
         public NSDictionary LocalizedInfoDictionary => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_localizedInfoDictionary));
 
+        public static NSBundle MainBundle => new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSBundle"), sel_mainBundle));
+
         public NSString PrivateFrameworksPath => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_privateFrameworksPath));
 
         public NSURL PrivateFrameworksURL => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_privateFrameworksURL));
@@ -62,16 +68,6 @@ namespace SharpMetal.Foundation
         public NSURL SharedSupportURL => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_sharedSupportURL));
 
         public bool Unload => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_unload);
-
-        public static NSArray AllBundles()
-        {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSArray"), sel_allBundles));
-        }
-
-        public static NSArray AllFrameworks()
-        {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSArray"), sel_allFrameworks));
-        }
 
         public static NSBundle Bundle(NSString pPath)
         {
@@ -96,11 +92,6 @@ namespace SharpMetal.Foundation
         public bool LoadAndReturnError(ref NSError pError)
         {
             return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_loadAndReturnError, ref pError.NativePtr);
-        }
-
-        public static NSBundle MainBundle()
-        {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSBundle"), sel_mainBundle));
         }
 
         public NSObject ObjectForInfoDictionaryKey(NSString pKey)

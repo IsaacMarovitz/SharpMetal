@@ -37,7 +37,7 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
-        public IntPtr CaptureObject
+        public NSObject CaptureObject
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_captureObject));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setCaptureObject, value);
@@ -90,6 +90,8 @@ namespace SharpMetal.Metal
 
         public bool IsCapturing => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isCapturing);
 
+        public static MTLCaptureManager SharedCaptureManager => new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("MTLCaptureManager"), sel_sharedCaptureManager));
+
         public MTLCaptureScope NewCaptureScope(MTLDevice device)
         {
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newCaptureScopeWithDevice, device));
@@ -100,9 +102,9 @@ namespace SharpMetal.Metal
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newCaptureScopeWithCommandQueue, commandQueue));
         }
 
-        public static MTLCaptureManager SharedCaptureManager()
+        public MTLCaptureScope NewCaptureScope(MTL4CommandQueue commandQueue)
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("MTLCaptureManager"), sel_sharedCaptureManager));
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newCaptureScopeWithMTL4CommandQueue, commandQueue));
         }
 
         public bool StartCapture(MTLCaptureDescriptor descriptor, ref NSError error)
@@ -139,6 +141,7 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_isCapturing = "isCapturing";
         private static readonly Selector sel_newCaptureScopeWithCommandQueue = "newCaptureScopeWithCommandQueue:";
         private static readonly Selector sel_newCaptureScopeWithDevice = "newCaptureScopeWithDevice:";
+        private static readonly Selector sel_newCaptureScopeWithMTL4CommandQueue = "newCaptureScopeWithMTL4CommandQueue:";
         private static readonly Selector sel_setDefaultCaptureScope = "setDefaultCaptureScope:";
         private static readonly Selector sel_sharedCaptureManager = "sharedCaptureManager";
         private static readonly Selector sel_startCaptureWithCommandQueue = "startCaptureWithCommandQueue:";

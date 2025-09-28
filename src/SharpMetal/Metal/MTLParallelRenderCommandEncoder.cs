@@ -27,6 +27,11 @@ namespace SharpMetal.Metal
 
         public MTLRenderCommandEncoder RenderCommandEncoder => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_renderCommandEncoder));
 
+        public void BarrierAfterQueueStages(MTLStages afterQueueStages, MTLStages beforeStages)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_barrierAfterQueueStagesbeforeStages, (ulong)afterQueueStages, (ulong)beforeStages);
+        }
+
         public void EndEncoding()
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_endEncoding);
@@ -77,6 +82,7 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStencilStoreActionOptions, (ulong)storeActionOptions);
         }
 
+        private static readonly Selector sel_barrierAfterQueueStagesbeforeStages = "barrierAfterQueueStages:beforeStages:";
         private static readonly Selector sel_device = "device";
         private static readonly Selector sel_endEncoding = "endEncoding";
         private static readonly Selector sel_insertDebugSignpost = "insertDebugSignpost:";

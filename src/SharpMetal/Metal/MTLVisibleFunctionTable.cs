@@ -58,6 +58,11 @@ namespace SharpMetal.Metal
             throw new NotImplementedException();
         }
 
+        public int SetOwner(IntPtr task_id_token)
+        {
+            return ObjectiveCRuntime.int_objc_msgSend(NativePtr, sel_setOwnerWithIdentity, task_id_token);
+        }
+
         public MTLPurgeableState SetPurgeableState(MTLPurgeableState state)
         {
             return (MTLPurgeableState)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_setPurgeableState, (ulong)state);

@@ -60,6 +60,7 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthCompareFunction, (ulong)value);
         }
 
+        [System.Obsolete]
         public bool DepthWriteEnabled
         {
             get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isDepthWriteEnabled);
@@ -72,15 +73,16 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFrontFaceStencil, value);
         }
 
+        public bool IsDepthWriteEnabled
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isDepthWriteEnabled);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthWriteEnabled, value);
+        }
+
         public NSString Label
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
-        }
-
-        public void SetDepthWriteEnabled(bool depthWriteEnabled)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthWriteEnabled, depthWriteEnabled);
         }
 
         private static readonly Selector sel_backFaceStencil = "backFaceStencil";

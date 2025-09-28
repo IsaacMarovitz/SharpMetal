@@ -5,14 +5,6 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
-    [Flags]
-    public enum MTLAccelerationStructureRefitOptions : ulong
-    {
-        VertexData = 1,
-        PerPrimitiveData = 2,
-    }
-
-    [SupportedOSPlatform("macos")]
     public struct MTLAccelerationStructureCommandEncoder : IDisposable
     {
         public IntPtr NativePtr;
@@ -31,6 +23,11 @@ namespace SharpMetal.Metal
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
+        }
+
+        public void BarrierAfterQueueStages(MTLStages afterQueueStages, MTLStages beforeStages)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_barrierAfterQueueStagesbeforeStages, (ulong)afterQueueStages, (ulong)beforeStages);
         }
 
         public void BuildAccelerationStructure(MTLAccelerationStructure accelerationStructure, MTLAccelerationStructureDescriptor descriptor, MTLBuffer scratchBuffer, ulong scratchBufferOffset)
@@ -113,16 +110,17 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_waitForFence, fence);
         }
 
-        public void WriteCompactedAccelerationStructureSize(MTLAccelerationStructure accelerationStructure, MTLBuffer buffer, ulong offset, MTLDataType sizeDataType)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_writeCompactedAccelerationStructureSizetoBufferoffsetsizeDataType, accelerationStructure, buffer, offset, (ulong)sizeDataType);
-        }
-
         public void WriteCompactedAccelerationStructureSize(MTLAccelerationStructure accelerationStructure, MTLBuffer buffer, ulong offset)
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_writeCompactedAccelerationStructureSizetoBufferoffset, accelerationStructure, buffer, offset);
         }
 
+        public void WriteCompactedAccelerationStructureSize(MTLAccelerationStructure accelerationStructure, MTLBuffer buffer, ulong offset, MTLDataType sizeDataType)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_writeCompactedAccelerationStructureSizetoBufferoffsetsizeDataType, accelerationStructure, buffer, offset, (ulong)sizeDataType);
+        }
+
+        private static readonly Selector sel_barrierAfterQueueStagesbeforeStages = "barrierAfterQueueStages:beforeStages:";
         private static readonly Selector sel_buildAccelerationStructuredescriptorscratchBufferscratchBufferOffset = "buildAccelerationStructure:descriptor:scratchBuffer:scratchBufferOffset:";
         private static readonly Selector sel_copyAccelerationStructuretoAccelerationStructure = "copyAccelerationStructure:toAccelerationStructure:";
         private static readonly Selector sel_copyAndCompactAccelerationStructuretoAccelerationStructure = "copyAndCompactAccelerationStructure:toAccelerationStructure:";

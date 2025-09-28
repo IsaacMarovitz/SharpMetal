@@ -26,6 +26,7 @@ namespace SharpMetal.Metal
         OneMinusSource1Color = 16,
         Source1Alpha = 17,
         OneMinusSource1Alpha = 18,
+        Unspecialized = 19,
     }
 
     [SupportedOSPlatform("macos")]
@@ -36,6 +37,7 @@ namespace SharpMetal.Metal
         ReverseSubtract = 2,
         Min = 3,
         Max = 4,
+        Unspecialized = 5,
     }
 
     [SupportedOSPlatform("macos")]
@@ -43,11 +45,12 @@ namespace SharpMetal.Metal
     public enum MTLColorWriteMask : ulong
     {
         None = 0,
-        Red = 8,
-        Green = 4,
-        Blue = 2,
+        Red = 1 << 3,
+        Green = 1 << 2,
+        Blue = 1 << 1,
         Alpha = 1,
         All = 15,
+        Unspecialized = 1 << 4,
     }
 
     [SupportedOSPlatform("macos")]
@@ -92,6 +95,45 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
+    public struct MTLLogicalToPhysicalColorAttachmentMap : IDisposable
+    {
+        public IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLLogicalToPhysicalColorAttachmentMap obj) => obj.NativePtr;
+        public MTLLogicalToPhysicalColorAttachmentMap(IntPtr ptr) => NativePtr = ptr;
+
+        public MTLLogicalToPhysicalColorAttachmentMap()
+        {
+            var cls = new ObjectiveCClass("MTLLogicalToPhysicalColorAttachmentMap");
+            NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
+
+        public ulong GetPhysicalIndex(ulong logicalIndex)
+        {
+            return ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_getPhysicalIndexForLogicalIndex, logicalIndex);
+        }
+
+        public void Reset()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_reset);
+        }
+
+        public void SetPhysicalIndex(ulong physicalIndex, ulong logicalIndex)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPhysicalIndexforLogicalIndex, physicalIndex, logicalIndex);
+        }
+
+        private static readonly Selector sel_getPhysicalIndexForLogicalIndex = "getPhysicalIndexForLogicalIndex:";
+        private static readonly Selector sel_reset = "reset";
+        private static readonly Selector sel_setPhysicalIndexforLogicalIndex = "setPhysicalIndex:forLogicalIndex:";
+        private static readonly Selector sel_release = "release";
+    }
+
+    [SupportedOSPlatform("macos")]
     public struct MTLMeshRenderPipelineDescriptor : IDisposable
     {
         public IntPtr NativePtr;
@@ -109,9 +151,19 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
-        public bool AlphaToCoverageEnabled => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isAlphaToCoverageEnabled);
+        [System.Obsolete]
+        public bool AlphaToCoverageEnabled
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isAlphaToCoverageEnabled);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAlphaToCoverageEnabled, value);
+        }
 
-        public bool AlphaToOneEnabled => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isAlphaToOneEnabled);
+        [System.Obsolete]
+        public bool AlphaToOneEnabled
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isAlphaToOneEnabled);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAlphaToOneEnabled, value);
+        }
 
         public NSArray BinaryArchives
         {
@@ -139,6 +191,24 @@ namespace SharpMetal.Metal
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_fragmentLinkedFunctions));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFragmentLinkedFunctions, value);
+        }
+
+        public bool IsAlphaToCoverageEnabled
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isAlphaToCoverageEnabled);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAlphaToCoverageEnabled, value);
+        }
+
+        public bool IsAlphaToOneEnabled
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isAlphaToOneEnabled);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAlphaToOneEnabled, value);
+        }
+
+        public bool IsRasterizationEnabled
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isRasterizationEnabled);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRasterizationEnabled, value);
         }
 
         public NSString Label
@@ -217,12 +287,29 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPayloadMemoryLength, value);
         }
 
-        public bool RasterizationEnabled => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isRasterizationEnabled);
+        [System.Obsolete]
+        public bool RasterizationEnabled
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isRasterizationEnabled);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRasterizationEnabled, value);
+        }
 
         public ulong RasterSampleCount
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_rasterSampleCount);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRasterSampleCount, value);
+        }
+
+        public MTLSize RequiredThreadsPerMeshThreadgroup
+        {
+            get => ObjectiveCRuntime.MTLSize_objc_msgSend(NativePtr, sel_requiredThreadsPerMeshThreadgroup);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRequiredThreadsPerMeshThreadgroup, value);
+        }
+
+        public MTLSize RequiredThreadsPerObjectThreadgroup
+        {
+            get => ObjectiveCRuntime.MTLSize_objc_msgSend(NativePtr, sel_requiredThreadsPerObjectThreadgroup);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRequiredThreadsPerObjectThreadgroup, value);
         }
 
         public MTLShaderValidation ShaderValidation
@@ -246,21 +333,6 @@ namespace SharpMetal.Metal
         public void Reset()
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_reset);
-        }
-
-        public void SetAlphaToCoverageEnabled(bool alphaToCoverageEnabled)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAlphaToCoverageEnabled, alphaToCoverageEnabled);
-        }
-
-        public void SetAlphaToOneEnabled(bool alphaToOneEnabled)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAlphaToOneEnabled, alphaToOneEnabled);
-        }
-
-        public void SetRasterizationEnabled(bool rasterizationEnabled)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRasterizationEnabled, rasterizationEnabled);
         }
 
         private static readonly Selector sel_binaryArchives = "binaryArchives";
@@ -287,6 +359,8 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_objectThreadgroupSizeIsMultipleOfThreadExecutionWidth = "objectThreadgroupSizeIsMultipleOfThreadExecutionWidth";
         private static readonly Selector sel_payloadMemoryLength = "payloadMemoryLength";
         private static readonly Selector sel_rasterSampleCount = "rasterSampleCount";
+        private static readonly Selector sel_requiredThreadsPerMeshThreadgroup = "requiredThreadsPerMeshThreadgroup";
+        private static readonly Selector sel_requiredThreadsPerObjectThreadgroup = "requiredThreadsPerObjectThreadgroup";
         private static readonly Selector sel_reset = "reset";
         private static readonly Selector sel_setAlphaToCoverageEnabled = "setAlphaToCoverageEnabled:";
         private static readonly Selector sel_setAlphaToOneEnabled = "setAlphaToOneEnabled:";
@@ -308,6 +382,8 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setPayloadMemoryLength = "setPayloadMemoryLength:";
         private static readonly Selector sel_setRasterizationEnabled = "setRasterizationEnabled:";
         private static readonly Selector sel_setRasterSampleCount = "setRasterSampleCount:";
+        private static readonly Selector sel_setRequiredThreadsPerMeshThreadgroup = "setRequiredThreadsPerMeshThreadgroup:";
+        private static readonly Selector sel_setRequiredThreadsPerObjectThreadgroup = "setRequiredThreadsPerObjectThreadgroup:";
         private static readonly Selector sel_setShaderValidation = "setShaderValidation:";
         private static readonly Selector sel_setStencilAttachmentPixelFormat = "setStencilAttachmentPixelFormat:";
         private static readonly Selector sel_setSupportIndirectCommandBuffers = "setSupportIndirectCommandBuffers:";
@@ -341,7 +417,12 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAlphaBlendOperation, (ulong)value);
         }
 
-        public bool BlendingEnabled => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isBlendingEnabled);
+        [System.Obsolete]
+        public bool BlendingEnabled
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isBlendingEnabled);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBlendingEnabled, value);
+        }
 
         public MTLBlendFactor DestinationAlphaBlendFactor
         {
@@ -353,6 +434,12 @@ namespace SharpMetal.Metal
         {
             get => (MTLBlendFactor)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_destinationRGBBlendFactor);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDestinationRGBBlendFactor, (ulong)value);
+        }
+
+        public bool IsBlendingEnabled
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isBlendingEnabled);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBlendingEnabled, value);
         }
 
         public MTLPixelFormat PixelFormat
@@ -383,11 +470,6 @@ namespace SharpMetal.Metal
         {
             get => (MTLColorWriteMask)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_writeMask);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setWriteMask, (ulong)value);
-        }
-
-        public void SetBlendingEnabled(bool blendingEnabled)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBlendingEnabled, blendingEnabled);
         }
 
         private static readonly Selector sel_alphaBlendOperation = "alphaBlendOperation";
@@ -462,12 +544,14 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        [System.Obsolete]
         public bool AlphaToCoverageEnabled
         {
             get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isAlphaToCoverageEnabled);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAlphaToCoverageEnabled, value);
         }
 
+        [System.Obsolete]
         public bool AlphaToOneEnabled
         {
             get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isAlphaToOneEnabled);
@@ -514,6 +598,30 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInputPrimitiveTopology, (ulong)value);
         }
 
+        public bool IsAlphaToCoverageEnabled
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isAlphaToCoverageEnabled);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAlphaToCoverageEnabled, value);
+        }
+
+        public bool IsAlphaToOneEnabled
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isAlphaToOneEnabled);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAlphaToOneEnabled, value);
+        }
+
+        public bool IsRasterizationEnabled
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isRasterizationEnabled);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRasterizationEnabled, value);
+        }
+
+        public bool IsTessellationFactorScaleEnabled
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isTessellationFactorScaleEnabled);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTessellationFactorScaleEnabled, value);
+        }
+
         public NSString Label
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
@@ -544,6 +652,7 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxVertexCallStackDepth, value);
         }
 
+        [System.Obsolete]
         public bool RasterizationEnabled
         {
             get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isRasterizationEnabled);
@@ -604,6 +713,7 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTessellationFactorFormat, (ulong)value);
         }
 
+        [System.Obsolete]
         public bool TessellationFactorScaleEnabled
         {
             get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isTessellationFactorScaleEnabled);
@@ -823,12 +933,15 @@ namespace SharpMetal.Metal
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLRenderPipelineState obj) => obj.NativePtr;
+        public static implicit operator MTLAllocation(MTLRenderPipelineState obj) => new(obj.NativePtr);
         public MTLRenderPipelineState(IntPtr ptr) => NativePtr = ptr;
 
         public void Dispose()
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
+
+        public ulong AllocatedSize => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_allocatedSize);
 
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
 
@@ -848,13 +961,33 @@ namespace SharpMetal.Metal
 
         public ulong MeshThreadExecutionWidth => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_meshThreadExecutionWidth);
 
+        public MTL4PipelineDescriptor NewRenderPipelineDescriptor => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newRenderPipelineDescriptorForSpecialization));
+
         public ulong ObjectThreadExecutionWidth => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_objectThreadExecutionWidth);
+
+        public MTLRenderPipelineReflection Reflection => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_reflection));
+
+        public MTLSize RequiredThreadsPerMeshThreadgroup => ObjectiveCRuntime.MTLSize_objc_msgSend(NativePtr, sel_requiredThreadsPerMeshThreadgroup);
+
+        public MTLSize RequiredThreadsPerObjectThreadgroup => ObjectiveCRuntime.MTLSize_objc_msgSend(NativePtr, sel_requiredThreadsPerObjectThreadgroup);
+
+        public MTLSize RequiredThreadsPerTileThreadgroup => ObjectiveCRuntime.MTLSize_objc_msgSend(NativePtr, sel_requiredThreadsPerTileThreadgroup);
 
         public MTLShaderValidation ShaderValidation => (MTLShaderValidation)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_shaderValidation);
 
         public bool SupportIndirectCommandBuffers => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportIndirectCommandBuffers);
 
         public bool ThreadgroupSizeMatchesTileSize => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_threadgroupSizeMatchesTileSize);
+
+        public MTLFunctionHandle FunctionHandle(NSString name, MTLRenderStages stage)
+        {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_functionHandleWithNamestage, name, (ulong)stage));
+        }
+
+        public MTLFunctionHandle FunctionHandle(MTL4BinaryFunction function, MTLRenderStages stage)
+        {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_functionHandleWithBinaryFunctionstage, function, (ulong)stage));
+        }
 
         public MTLFunctionHandle FunctionHandle(MTLFunction function, MTLRenderStages stage)
         {
@@ -871,6 +1004,11 @@ namespace SharpMetal.Metal
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newIntersectionFunctionTableWithDescriptorstage, descriptor, (ulong)stage));
         }
 
+        public MTLRenderPipelineState NewRenderPipelineState(MTL4RenderPipelineBinaryFunctionsDescriptor binaryFunctionsDescriptor, ref NSError error)
+        {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newRenderPipelineStateWithBinaryFunctionserror, binaryFunctionsDescriptor, ref error.NativePtr));
+        }
+
         public MTLRenderPipelineState NewRenderPipelineState(MTLRenderPipelineFunctionsDescriptor additionalBinaryFunctions, ref NSError error)
         {
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newRenderPipelineStateWithAdditionalBinaryFunctionserror, additionalBinaryFunctions, ref error.NativePtr));
@@ -881,8 +1019,11 @@ namespace SharpMetal.Metal
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newVisibleFunctionTableWithDescriptorstage, descriptor, (ulong)stage));
         }
 
+        private static readonly Selector sel_allocatedSize = "allocatedSize";
         private static readonly Selector sel_device = "device";
+        private static readonly Selector sel_functionHandleWithBinaryFunctionstage = "functionHandleWithBinaryFunction:stage:";
         private static readonly Selector sel_functionHandleWithFunctionstage = "functionHandleWithFunction:stage:";
+        private static readonly Selector sel_functionHandleWithNamestage = "functionHandleWithName:stage:";
         private static readonly Selector sel_gpuResourceID = "gpuResourceID";
         private static readonly Selector sel_imageblockMemoryLengthForDimensions = "imageblockMemoryLengthForDimensions:";
         private static readonly Selector sel_imageblockSampleLength = "imageblockSampleLength";
@@ -893,9 +1034,15 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_maxTotalThreadsPerThreadgroup = "maxTotalThreadsPerThreadgroup";
         private static readonly Selector sel_meshThreadExecutionWidth = "meshThreadExecutionWidth";
         private static readonly Selector sel_newIntersectionFunctionTableWithDescriptorstage = "newIntersectionFunctionTableWithDescriptor:stage:";
+        private static readonly Selector sel_newRenderPipelineDescriptorForSpecialization = "newRenderPipelineDescriptorForSpecialization";
         private static readonly Selector sel_newRenderPipelineStateWithAdditionalBinaryFunctionserror = "newRenderPipelineStateWithAdditionalBinaryFunctions:error:";
+        private static readonly Selector sel_newRenderPipelineStateWithBinaryFunctionserror = "newRenderPipelineStateWithBinaryFunctions:error:";
         private static readonly Selector sel_newVisibleFunctionTableWithDescriptorstage = "newVisibleFunctionTableWithDescriptor:stage:";
         private static readonly Selector sel_objectThreadExecutionWidth = "objectThreadExecutionWidth";
+        private static readonly Selector sel_reflection = "reflection";
+        private static readonly Selector sel_requiredThreadsPerMeshThreadgroup = "requiredThreadsPerMeshThreadgroup";
+        private static readonly Selector sel_requiredThreadsPerObjectThreadgroup = "requiredThreadsPerObjectThreadgroup";
+        private static readonly Selector sel_requiredThreadsPerTileThreadgroup = "requiredThreadsPerTileThreadgroup";
         private static readonly Selector sel_shaderValidation = "shaderValidation";
         private static readonly Selector sel_supportIndirectCommandBuffers = "supportIndirectCommandBuffers";
         private static readonly Selector sel_threadgroupSizeMatchesTileSize = "threadgroupSizeMatchesTileSize";
@@ -1026,6 +1173,12 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRasterSampleCount, value);
         }
 
+        public MTLSize RequiredThreadsPerThreadgroup
+        {
+            get => ObjectiveCRuntime.MTLSize_objc_msgSend(NativePtr, sel_requiredThreadsPerThreadgroup);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRequiredThreadsPerThreadgroup, value);
+        }
+
         public MTLShaderValidation ShaderValidation
         {
             get => (MTLShaderValidation)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_shaderValidation);
@@ -1065,6 +1218,7 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_maxTotalThreadsPerThreadgroup = "maxTotalThreadsPerThreadgroup";
         private static readonly Selector sel_preloadedLibraries = "preloadedLibraries";
         private static readonly Selector sel_rasterSampleCount = "rasterSampleCount";
+        private static readonly Selector sel_requiredThreadsPerThreadgroup = "requiredThreadsPerThreadgroup";
         private static readonly Selector sel_reset = "reset";
         private static readonly Selector sel_setBinaryArchives = "setBinaryArchives:";
         private static readonly Selector sel_setLabel = "setLabel:";
@@ -1073,6 +1227,7 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setMaxTotalThreadsPerThreadgroup = "setMaxTotalThreadsPerThreadgroup:";
         private static readonly Selector sel_setPreloadedLibraries = "setPreloadedLibraries:";
         private static readonly Selector sel_setRasterSampleCount = "setRasterSampleCount:";
+        private static readonly Selector sel_setRequiredThreadsPerThreadgroup = "setRequiredThreadsPerThreadgroup:";
         private static readonly Selector sel_setShaderValidation = "setShaderValidation:";
         private static readonly Selector sel_setSupportAddingBinaryFunctions = "setSupportAddingBinaryFunctions:";
         private static readonly Selector sel_setThreadgroupSizeMatchesTileSize = "setThreadgroupSizeMatchesTileSize:";
