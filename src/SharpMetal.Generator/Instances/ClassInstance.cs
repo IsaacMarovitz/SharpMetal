@@ -314,7 +314,7 @@ namespace SharpMetal.Generator.Instances
                         // This is probably a constructor, in which case we have our own implementation
                         if (!returnType.Contains(name))
                         {
-                            instance.AddMethod(new MethodInstance(returnType, name, rawName, isStatic, false, new List<PropertyInstance>()));
+                            instance.AddMethod(new MethodInstance(returnType, name, rawName, isStatic, new List<PropertyInstance>()));
                         }
                     }
                     else
@@ -381,7 +381,7 @@ namespace SharpMetal.Generator.Instances
 
                     if (returnType != string.Empty && !GeneratorUtils.IsBannedReturnOrArgumentType(returnType))
                     {
-                        instance.AddMethod(new MethodInstance(returnType, name, rawName, isStatic, false, arguments));
+                        instance.AddMethod(new MethodInstance(returnType, name, rawName, isStatic, arguments));
                     }
                 }
 
@@ -393,7 +393,7 @@ namespace SharpMetal.Generator.Instances
                         // We can't have a property AND methods with the same name
                         // in this case, the solution is to turn the property into a method
                         instance._propertyInstances.RemoveAt(i);
-                        instance.AddMethod(new MethodInstance(property.Type, property.Name, rawName, isStatic, false, []));
+                        instance.AddMethod(new MethodInstance(property.Type, property.Name, rawName, isStatic, []));
                     }
                 }
             }

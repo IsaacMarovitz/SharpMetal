@@ -5,6 +5,7 @@ namespace SharpMetal.Generator.Instances
         public readonly string Name;
         public readonly string RawName;
         public readonly string Selector;
+        public bool UsedInProperty { get; set; }
 
         private SelectorInstance(string selector, string rawName)
         {

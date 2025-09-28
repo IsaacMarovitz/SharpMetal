@@ -170,7 +170,7 @@ namespace SharpMetal.Generator
                         if (line.Contains("()"))
                         {
                             // Function has no arguments
-                            method = new MethodInstance(returnType, name, rawName, true, true, []);
+                            method = new MethodInstance(returnType, name, rawName, true, []);
                         }
                         else
                         {
@@ -225,7 +225,7 @@ namespace SharpMetal.Generator
 
                             if (returnType != string.Empty && !GeneratorUtils.IsBannedReturnOrArgumentType(returnType))
                             {
-                                method = new MethodInstance(returnType, name, rawName, true, true, arguments);
+                                method = new MethodInstance(returnType, name, rawName, true, arguments);
                             }
                         }
 

@@ -28,7 +28,7 @@ namespace SharpMetal.Generator.Instances
 
             if (selector != null)
             {
-                selectorInstances.Remove(selector);
+                selector.UsedInProperty = true;
                 // We assume a type of IntPtr, which encapsulates any possible type
                 var runtimeFuncReturn = "IntPtr";
                 // Check for existing get/set pair
@@ -46,7 +46,7 @@ namespace SharpMetal.Generator.Instances
 
                 if (setterSelector != null)
                 {
-                    selectorInstances.Remove(setterSelector);
+                    setterSelector.UsedInProperty = true;
                     context.WriteLine($"public {Type} {Name}");
                     context.EnterScope();
 
