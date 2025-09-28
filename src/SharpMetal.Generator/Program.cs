@@ -130,15 +130,8 @@ namespace SharpMetal.Generator
         public static void GenerateUsings(HeaderInfo headerInfo, CodeGenContext context, string fullNamespace)
         {
             var hasAnyUsings = false;
-            var hasSelectors = false;
-
-            foreach (var instance in headerInfo.ClassInstances)
-            {
-                if (instance.GetSelectors().Count != 0)
-                {
-                    hasSelectors = true;
-                }
-            }
+            // if have any class in the file, we need selectors due to ctors/disposes
+            var hasSelectors = headerInfo.ClassInstances.Count > 0;
 
             if (headerInfo.StructInstances.Count != 0)
             {
