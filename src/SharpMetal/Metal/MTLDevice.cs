@@ -713,11 +713,6 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_sampleTimestampsgpuTimestamp, cpuTimestamp, gpuTimestamp);
         }
 
-        public ulong SizeOfCounterHeapEntry(MTL4CounterHeapType type)
-        {
-            return ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_sizeOfCounterHeapEntry, type);
-        }
-
         public MTLSize SparseTileSize(MTLTextureType textureType, MTLPixelFormat pixelFormat, ulong sampleCount, MTLSparsePageSize sparsePageSize)
         {
             return ObjectiveCRuntime.MTLSize_objc_msgSend(NativePtr, sel_sparseTileSizeWithTextureTypepixelFormatsampleCountsparsePageSize, (ulong)textureType, (ulong)pixelFormat, sampleCount, (long)sparsePageSize);
