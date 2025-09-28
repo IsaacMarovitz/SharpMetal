@@ -130,8 +130,6 @@ namespace SharpMetal.Generator
         public static void GenerateUsings(HeaderInfo headerInfo, CodeGenContext context, string fullNamespace)
         {
             var hasAnyUsings = false;
-            // if have any class in the file, we need selectors due to ctors/disposes
-            var hasSelectors = headerInfo.ClassInstances.Count > 0;
 
             if (headerInfo.StructInstances.Count != 0)
             {
@@ -145,9 +143,11 @@ namespace SharpMetal.Generator
                 hasAnyUsings = true;
             }
 
-            if (hasSelectors)
+            // if have any class in the file, we need selectors due to ctors/disposes
+            if (headerInfo.ClassInstances.Count != 0)
             {
                 context.WriteLine("using SharpMetal.ObjectiveCCore;");
+                hasAnyUsings = true;
             }
 
             if (headerInfo.IncludeFlags != IncludeFlags.None)
