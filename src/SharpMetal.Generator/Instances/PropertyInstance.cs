@@ -31,14 +31,8 @@ namespace SharpMetal.Generator.Instances
                 selectorInstances.Remove(selector);
                 // We assume a type of IntPtr, which encapsulates any possible type
                 var runtimeFuncReturn = "IntPtr";
-                // try to match the "isFoo" + "setFoo" as a get/set property
-                 var setterSelectorNameCandidate = selector.Selector;
-                if (setterSelectorNameCandidate.StartsWith("is"))
-                {
-                    setterSelectorNameCandidate = setterSelectorNameCandidate.Substring(2);
-                }
-                setterSelectorNameCandidate = "set" + setterSelectorNameCandidate;
-                var setterSelector = selectorInstances.Find(x => x.Selector.Contains(setterSelectorNameCandidate, StringComparison.InvariantCultureIgnoreCase));
+                // Check for existing get/set pair
+                var setterSelector = ResolveSetterSelector(selectorInstances, selector);
 
                 // If the property is a type that exists in C# then we can safely set the
                 // return type to be that type, otherwise further conversion will be needed later
@@ -123,6 +117,27 @@ namespace SharpMetal.Generator.Instances
             }
 
             return new ObjectiveCInstance(type, []);
+        }
+
+        private static SelectorInstance? ResolveSetterSelector(List<SelectorInstance> selectorInstances, SelectorInstance selector)
+        {
+            // try to match the "isFoo" + "setFoo" as a get/set property
+            var setterSelectorNameCandidate = selector.Selector;
+            if (setterSelectorNameCandidate.StartsWith("is"))
+            {
+                setterSelectorNameCandidate = setterSelectorNameCandidate.Substring(2);
+            }
+            setterSelectorNameCandidate = "set" + setterSelectorNameCandidate;
+            var setterSelector = selectorInstances.Find(x => x.Selector.Contains(setterSelectorNameCandidate, StringComparison.InvariantCultureIgnoreCase));
+
+            if (setterSelector == null)
+            {
+                // fallback to setIsFoo, which apparently has some occurrences in the metal-cpp bindings
+                setterSelectorNameCandidate = "set" + selector.Selector;
+                setterSelector = selectorInstances.Find(x => x.Selector.Contains(setterSelectorNameCandidate, StringComparison.InvariantCultureIgnoreCase));
+            }
+
+            return setterSelector;
         }
 
         public void Generate(CodeGenContext context)
