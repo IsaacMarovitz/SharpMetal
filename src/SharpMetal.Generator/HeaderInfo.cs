@@ -220,11 +220,12 @@ namespace SharpMetal.Generator
                                     argumentName = "mtlEvent";
                                 }
 
-                                arguments.Add(new PropertyInstance(argumentType, argumentName));
+                                arguments.Add(new PropertyInstance(null, argumentType, argumentName));
                             }
 
-                            if (returnType != string.Empty && !GeneratorUtils.IsBannedReturnOrArgumentType(returnType))
+                            if (returnType != string.Empty)
                             {
+                                // this is just for recording the unscoped method, no actual real method goes through this codepath
                                 method = new MethodInstance(returnType, name, rawName, true, arguments);
                             }
                         }

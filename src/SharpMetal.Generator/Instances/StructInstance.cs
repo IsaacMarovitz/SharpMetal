@@ -82,7 +82,7 @@ namespace SharpMetal.Generator.Instances
 
                     propertyName = NameRegex().Replace(propertyName, "");
 
-                    instance.AddProperty(new PropertyInstance(type, propertyName));
+                    instance.AddProperty(new PropertyInstance(null, type, propertyName));
                 }
             }
 

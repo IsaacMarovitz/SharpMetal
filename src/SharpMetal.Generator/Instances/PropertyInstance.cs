@@ -2,13 +2,15 @@ namespace SharpMetal.Generator.Instances
 {
     public class PropertyInstance : IEquatable<PropertyInstance>
     {
+        public readonly ClassInstance ContainingClass;
         public readonly string Type;
         public readonly string Name;
         public readonly bool Reference;
         public readonly bool IsStatic;
 
-        public PropertyInstance(string type, string name, bool reference = false, bool isStatic = false)
+        public PropertyInstance(ClassInstance containingClass, string type, string name, bool reference = false, bool isStatic = false)
         {
+            ContainingClass = containingClass;
             Type = type;
             Name = name;
             Reference = reference;
@@ -44,25 +46,28 @@ namespace SharpMetal.Generator.Instances
                 var enumInstance = enumCache.Find(x => x.Name == Type);
                 var structInstance = structCache.Find(x => x.Name == Type);
 
+                var target = IsStatic ? $"new ObjectiveCClass(\"{ContainingClass.Name}\")" : "NativePtr";
+                var modifier = IsStatic ? "static " : "";
+
                 if (setterSelector != null)
                 {
                     setterSelector.UsedInProperty = true;
-                    context.WriteLine($"public {Type} {Name}");
+                    context.WriteLine($"public {modifier}{Type} {Name}");
                     context.EnterScope();
 
                     if (enumInstance != null)
                     {
                         type = enumInstance.Type;
 
-                        context.WriteLine($"get => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend(NativePtr, {selector.Name});");
+                        context.WriteLine($"get => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend({target}, {selector.Name});");
                         context.WriteLine($"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, ({enumInstance.Type})value);");
                     }
                     else if (structInstance != null)
                     {
                         type = structInstance.Name;
 
-                        context.WriteLine($"get => ObjectiveCRuntime.{structInstance.Name}_objc_msgSend(NativePtr, {selector.Name});");
-                        context.WriteLine($"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, value);");
+                        context.WriteLine($"get => ObjectiveCRuntime.{structInstance.Name}_objc_msgSend({target}, {selector.Name});");
+                        context.WriteLine($"set => ObjectiveCRuntime.objc_msgSend({target}, {setterSelector.Name}, value);");
                     }
                     else
                     {
@@ -70,13 +75,13 @@ namespace SharpMetal.Generator.Instances
 
                         if (runtimeFuncReturn == "IntPtr")
                         {
-                            context.WriteLine($"get => new(ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name}));");
-                            context.WriteLine($"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, value);");
+                            context.WriteLine($"get => new(ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend({target}, {selector.Name}));");
+                            context.WriteLine($"set => ObjectiveCRuntime.objc_msgSend({target}, {setterSelector.Name}, value);");
                         }
                         else
                         {
-                            context.WriteLine($"get => ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name});");
-                            context.WriteLine($"set => ObjectiveCRuntime.objc_msgSend(NativePtr, {setterSelector.Name}, value);");
+                            context.WriteLine($"get => ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend({target}, {selector.Name});");
+                            context.WriteLine($"set => ObjectiveCRuntime.objc_msgSend({target}, {setterSelector.Name}, value);");
                         }
                     }
 
@@ -88,13 +93,13 @@ namespace SharpMetal.Generator.Instances
                     {
                         type = enumInstance.Type;
 
-                        context.WriteLine($"public {Type} {Name} => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend(NativePtr, {selector.Name});");
+                        context.WriteLine($"public {modifier}{Type} {Name} => ({enumInstance.Name})ObjectiveCRuntime.{enumInstance.Type}_objc_msgSend({target}, {selector.Name});");
                     }
                     else if (structInstance != null)
                     {
                         type = structInstance.Name;
 
-                        context.WriteLine($"public {Type} {Name} => ObjectiveCRuntime.{structInstance.Name}_objc_msgSend(NativePtr, {selector.Name});");
+                        context.WriteLine($"public {modifier}{Type} {Name} => ObjectiveCRuntime.{structInstance.Name}_objc_msgSend({target}, {selector.Name});");
                     }
                     else
                     {
@@ -102,11 +107,11 @@ namespace SharpMetal.Generator.Instances
 
                         if (runtimeFuncReturn == "IntPtr")
                         {
-                            context.WriteLine($"public {Type} {Name} => new(ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name}));");
+                            context.WriteLine($"public {modifier}{Type} {Name} => new(ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend({target}, {selector.Name}));");
                         }
                         else
                         {
-                            context.WriteLine($"public {Type} {Name} => ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend(NativePtr, {selector.Name});");
+                            context.WriteLine($"public {modifier}{Type} {Name} => ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend({target}, {selector.Name});");
                         }
                     }
                 }
