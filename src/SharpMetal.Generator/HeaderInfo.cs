@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using SharpMetal.Generator.Instances;
 using SharpMetal.Generator.Utilities;
 
@@ -17,6 +18,7 @@ namespace SharpMetal.Generator
             FilePath = filePath;
             using var sr = new StreamReader(File.OpenRead(filePath));
             var namespacePrefix = Namespaces.GetNamespace(filePath);
+            var macroNamespacePrefix = Namespaces.GetMacroNamespace(namespacePrefix);
             var inMtlPrivateDefSel = false;
 
             while (!sr.EndOfStream)
@@ -100,12 +102,20 @@ namespace SharpMetal.Generator
                 {
                     if (!line.Contains(';'))
                     {
-                        var classInstance = ClassInstance.Build(line, namespacePrefix, sr, InFlightUnscopedMethods);
+                        if (InFlightUnscopedMethods.Count > 0)
+                        {
+                            Console.WriteLine($"Unscoped methods found in header {filePath}:");
+                            foreach (var unscopedMethod in InFlightUnscopedMethods)
+                            {
+                                Console.WriteLine($"- {unscopedMethod.Name}");
+                            }
+                            InFlightUnscopedMethods.Clear();
+                        }
+                        var classInstance = ClassInstance.Build(line, namespacePrefix, sr);
                         if (classInstance.IsValid && !GeneratorUtils.IsBannedType(classInstance.Name))
                         {
                             ClassInstances.Add(classInstance);
                         }
-                        InFlightUnscopedMethods.Clear();
                     }
                 }
                 else if (line.StartsWith("struct"))
@@ -115,12 +125,12 @@ namespace SharpMetal.Generator
                         StructInstances.Add(StructInstance.Build(line, namespacePrefix, sr));
                     }
                 }
-                else if (line.StartsWith($"_{namespacePrefix}_ENUM") || line.StartsWith($"_{namespacePrefix}_OPTIONS"))
+                else if (line.StartsWith($"_{macroNamespacePrefix}_ENUM") || line.StartsWith($"_{macroNamespacePrefix}_OPTIONS"))
                 {
                     EnumInstances.Add(EnumInstance.Build(line, namespacePrefix, sr));
                 }
                 // These contain all the selectors we need
-                else if (line.StartsWith($"_{namespacePrefix}_INLINE"))
+                else if (line.StartsWith($"_{macroNamespacePrefix}_INLINE"))
                 {
                     SelectorInstance.Build(line, namespacePrefix, sr, ClassInstances);
                 }
@@ -161,7 +171,7 @@ namespace SharpMetal.Generator
                         if (line.Contains("()"))
                         {
                             // Function has no arguments
-                            method = new MethodInstance(returnType, name, rawName, true, true, []);
+                            method = new MethodInstance(returnType, name, rawName, true, false, []);
                         }
                         else
                         {
@@ -211,12 +221,13 @@ namespace SharpMetal.Generator
                                     argumentName = "mtlEvent";
                                 }
 
-                                arguments.Add(new PropertyInstance(argumentType, argumentName));
+                                arguments.Add(new PropertyInstance(null, argumentType, argumentName));
                             }
 
-                            if (returnType != string.Empty && !GeneratorUtils.IsBannedReturnOrArgumentType(returnType))
+                            if (returnType != string.Empty)
                             {
-                                method = new MethodInstance(returnType, name, rawName, true, true, arguments);
+                                // this is just for recording the unscoped method, no actual real method goes through this codepath
+                                method = new MethodInstance(returnType, name, rawName, true, false, arguments);
                             }
                         }
 

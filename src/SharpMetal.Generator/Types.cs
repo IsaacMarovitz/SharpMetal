@@ -4,13 +4,15 @@ namespace SharpMetal.Generator
     {
         public static string[] CSharpNativeTypes { get; } =
         [
-            "bool", "ulong", "uint", "int", "float", "double", "long", "byte", "short", "ushort"
+            "bool", "ulong", "uint", "int", "float", "double", "long", "byte", "short", "ushort", "SimdMatrix4x4",
         ];
 
         public static Dictionary<string, string> TypeMap { get; } = new()
         {
             { "uint64_t", "ulong" },
             { "MTLTimestamp", "ulong" },
+            { "GPUAddress", "ulong" },
+            { "MTLGPUAddress", "ulong" },
             { "stduint64_t", "ulong" },
             { "NSUInteger", "ulong" },
             { "UInteger", "ulong" },
@@ -30,6 +32,7 @@ namespace SharpMetal.Generator
             { "unsigned int", "uint" },
 
             { "int32_t", "int" },
+            { "kern_return_t", "int" },
 
             { "uint8_t", "byte" },
             { "unsigned char", "byte" },
@@ -39,6 +42,9 @@ namespace SharpMetal.Generator
             { "IOCommandBuffer", "MTLIOCommandBuffer" },
             { "IOCompressionMethod", "MTLIOCompressionMethod" },
             { "IOCompressionStatus", "MTLIOCompressionStatus" },
+            { "IOPriority", "MTLIOPriority" },
+            { "IOStatus", "MTLIOStatus" },
+            { "IOCommandQueueType", "MTLIOCommandQueueType" },
 
             { "stdfunction<void>&", "IntPtr" },
             { "Object**", "IntPtr" },
@@ -58,15 +64,22 @@ namespace SharpMetal.Generator
             { "_Class", "IntPtr" },
             { "_ObjectType", "IntPtr" },
             { "_Object", "IntPtr" },
+            { "CGColorSpaceRef", "IntPtr" },
             { "MTLSharedEventNotificationBlock", "IntPtr" },
-            { "MTLCoordinate2D", "IntPtr" },
+            { "MTLCoordinate2D", "MTLSamplePosition" },
+            { "Coordinate2D", "MTLSamplePosition" },
             { "MTLAutoreleasedComputePipelineReflection", "IntPtr" },
             { "MTLAutoreleasedRenderPipelineReflection", "IntPtr" },
             { "MTLAutoreleasedArgument", "IntPtr" },
-            { "NSProcessPerformanceProfile", "IntPtr" },
+            { "ProcessPerformanceProfile", "IntPtr" },
+            { "DeviceCertification", "IntPtr" },
+            { "MTLIOFileHandle", "IntPtr" },
             { "NSDeviceProfile", "IntPtr" },
             { "Enumerator<Object>", "IntPtr" },
             { "size_t", "IntPtr" },
+            { "task_id_token_t", "IntPtr" },
+
+            { "simdfloat4x4", "SimdMatrix4x4" },
 
             { "IntPtr", "IntPtr" },
             { "void", "void" },

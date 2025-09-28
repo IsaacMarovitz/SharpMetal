@@ -7,17 +7,17 @@ namespace SharpMetal.Generator.Instances
 
         private readonly string _returnType;
         private readonly bool _isStatic;
-        private readonly bool _unscoped;
         private readonly string _rawName;
+        private readonly bool _isDeprecated;
 
-        public MethodInstance(string returnType, string name, string rawName, bool isStatic, bool unscoped, List<PropertyInstance> inputInstances)
+        public MethodInstance(string returnType, string name, string rawName, bool isStatic, bool isDeprecated, List<PropertyInstance> inputInstances)
         {
             Name = name;
             InputInstances = inputInstances;
 
             _returnType = returnType;
             _isStatic = isStatic;
-            _unscoped = unscoped;
+            _isDeprecated = isDeprecated;
 
             var rawNameComponents = rawName.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
             for (var index = 0; index < rawNameComponents.Length; index++)
@@ -45,26 +45,10 @@ namespace SharpMetal.Generator.Instances
 
         public ObjectiveCInstance Generate(List<SelectorInstance> selectorInstances, List<EnumInstance> enumCache, List<StructInstance> structCache, CodeGenContext context, string namespacePrefix, bool prependSpace = true)
         {
-            var selector = selectorInstances.Find(x => x.RawName.ToLower().Replace(" class ", " ").Replace("mtl::", "").Replace("ns::", "").Contains(_rawName.ToLower()));
+            // disallow the selectors used in properties to prevent doubling of properties and methods that do the same
+            var selector = selectorInstances.Find(x => !x.UsedInProperty && x.RawName.ToLower().Replace(" class ", " ").Replace("mtl::", "").Replace("ns::", "").Contains(_rawName.ToLower()));
 
-            if (selector == null)
-            {
-                if (_rawName != "lock()" && _rawName != "unlock()" && _rawName != "release()" && _unscoped)
-                {
-                    if (prependSpace)
-                    {
-                        context.WriteLine();
-                    }
-                    context.WriteLine("[LibraryImport(ObjectiveC.MetalFramework)]");
-                    context.WriteLine($"private static partial IntPtr {namespacePrefix}{_rawName};");
-                    context.WriteLine();
-                    context.WriteLine($"public static {_returnType} {_rawName}");
-                    context.EnterScope();
-                    context.WriteLine($"return new({namespacePrefix}{_rawName});");
-                    context.LeaveScope();
-                }
-            }
-            else
+            if (selector != null)
             {
                 var staticString = _isStatic ? "static " : "";
                 // TODO: Handle array inputs

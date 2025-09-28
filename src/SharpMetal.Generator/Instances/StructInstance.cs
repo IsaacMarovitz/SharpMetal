@@ -46,7 +46,7 @@ namespace SharpMetal.Generator.Instances
         public static StructInstance Build(string line, string namespacePrefix, StreamReader sr, bool skipValues = false)
         {
             var structInfo = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-            var structName = namespacePrefix + structInfo[1];
+            var structName = Namespaces.GetOverrideForSpecificTypes(namespacePrefix + structInfo[1]);
 
             var instance = new StructInstance(structName);
 
@@ -82,7 +82,7 @@ namespace SharpMetal.Generator.Instances
 
                     propertyName = NameRegex().Replace(propertyName, "");
 
-                    instance.AddProperty(new PropertyInstance(type, propertyName));
+                    instance.AddProperty(new PropertyInstance(null, type, propertyName));
                 }
             }
 

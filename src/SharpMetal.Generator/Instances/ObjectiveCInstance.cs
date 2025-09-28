@@ -1,3 +1,5 @@
+using SharpMetal.Generator.Utilities;
+
 namespace SharpMetal.Generator.Instances
 {
     public class ObjectiveCInstance : IEquatable<ObjectiveCInstance>, IComparable<ObjectiveCInstance>
