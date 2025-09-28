@@ -55,7 +55,11 @@ namespace SharpMetal.QuartzCore
 
         public ulong MaximumDrawableCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_setMaximumDrawableCount);
 
-        // missing CAMetalDrawable NextDrawable
+        public CAMetalDrawable NextDrawable
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_allowsNextDrawableTimeout));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAllowsNextDrawableTimeout, value);
+        }
 
         public MTLPixelFormat PixelFormat => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_setPixelFormat);
 

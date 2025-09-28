@@ -265,7 +265,7 @@ namespace SharpMetal.Metal
 
         public MTLArgumentBuffersTier ArgumentBuffersSupport => (MTLArgumentBuffersTier)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_argumentBuffersSupport);
 
-        // missing bool BarycentricCoordsSupported
+        public bool BarycentricCoordsSupported => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_areBarycentricCoordsSupported);
 
         public NSArray CounterSets => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_counterSets));
 
@@ -277,9 +277,9 @@ namespace SharpMetal.Metal
 
         public bool Headless => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isHeadless);
 
-        // missing bool IsDepth24Stencil8PixelFormatSupported
+        public bool IsDepth24Stencil8PixelFormatSupported => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isDepth24Stencil8PixelFormatSupported);
 
-        // missing bool IsHeadless
+        public bool IsHeadless => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isHeadless);
 
         public bool IsLowPower => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isLowPower);
 
@@ -289,7 +289,7 @@ namespace SharpMetal.Metal
 
         public ulong LocationNumber => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_locationNumber);
 
-        // missing bool LowPower
+        public bool LowPower => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isLowPower);
 
         public ulong MaxArgumentBufferSamplerCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxArgumentBufferSamplerCount);
 
@@ -317,11 +317,11 @@ namespace SharpMetal.Metal
 
         public uint PeerIndex => ObjectiveCRuntime.uint_objc_msgSend(NativePtr, sel_peerIndex);
 
-        // missing bool ProgrammableSamplePositionsSupported
+        public bool ProgrammableSamplePositionsSupported => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_areProgrammableSamplePositionsSupported);
 
         public ulong QueryTimestampFrequency => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_queryTimestampFrequency);
 
-        // missing bool RasterOrderGroupsSupported
+        public bool RasterOrderGroupsSupported => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_areRasterOrderGroupsSupported);
 
         public MTLReadWriteTextureTier ReadWriteTextureSupport => (MTLReadWriteTextureTier)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_readWriteTextureSupport);
 
@@ -329,7 +329,7 @@ namespace SharpMetal.Metal
 
         public ulong RegistryID => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_registryID);
 
-        // missing bool Removable
+        public bool Removable => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isRemovable);
 
         public bool ShouldMaximizeConcurrentCompilation
         {

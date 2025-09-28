@@ -112,7 +112,7 @@ namespace SharpMetal.Metal
 
         public MTLDataType AttributeType => (MTLDataType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_attributeType);
 
-        // missing bool IsActive
+        public bool IsActive => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isActive);
 
         public bool IsPatchControlPointData => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isPatchControlPointData);
 
@@ -120,9 +120,9 @@ namespace SharpMetal.Metal
 
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
 
-        // missing bool PatchControlPointData
+        public bool PatchControlPointData => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isPatchControlPointData);
 
-        // missing bool PatchData
+        public bool PatchData => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isPatchData);
 
         private static readonly Selector sel_attributeIndex = "attributeIndex";
         private static readonly Selector sel_attributeType = "attributeType";
@@ -482,7 +482,7 @@ namespace SharpMetal.Metal
 
         public MTLDataType AttributeType => (MTLDataType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_attributeType);
 
-        // missing bool IsActive
+        public bool IsActive => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isActive);
 
         public bool IsPatchControlPointData => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isPatchControlPointData);
 
@@ -490,9 +490,9 @@ namespace SharpMetal.Metal
 
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
 
-        // missing bool PatchControlPointData
+        public bool PatchControlPointData => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isPatchControlPointData);
 
-        // missing bool PatchData
+        public bool PatchData => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isPatchData);
 
         private static readonly Selector sel_attributeIndex = "attributeIndex";
         private static readonly Selector sel_attributeType = "attributeType";
