@@ -5,12 +5,14 @@ namespace SharpMetal.Generator.Instances
         public readonly string Type;
         public readonly string Name;
         public readonly bool Reference;
+        public readonly bool IsStatic;
 
-        public PropertyInstance(string type, string name, bool reference = false)
+        public PropertyInstance(string type, string name, bool reference = false, bool isStatic = false)
         {
             Type = type;
             Name = name;
             Reference = reference;
+            IsStatic = isStatic;
         }
 
         public ObjectiveCInstance Generate(List<SelectorInstance> selectorInstances, List<EnumInstance> enumCache, List<StructInstance> structCache, CodeGenContext context)

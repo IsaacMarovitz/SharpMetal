@@ -319,7 +319,7 @@ namespace SharpMetal.Generator.Instances
                     }
                     else
                     {
-                        instance.AddProperty(new PropertyInstance(returnType, name));
+                        instance.AddProperty(new PropertyInstance(returnType, name, isStatic: isStatic));
                     }
                 }
                 else
