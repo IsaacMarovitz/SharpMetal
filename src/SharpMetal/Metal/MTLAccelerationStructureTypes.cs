@@ -14,6 +14,14 @@ namespace SharpMetal.Metal
 
     [SupportedOSPlatform("macos")]
     [StructLayout(LayoutKind.Sequential)]
+    public struct MTLBufferRange
+    {
+        public ulong bufferAddress;
+        public ulong length;
+    }
+
+    [SupportedOSPlatform("macos")]
+    [StructLayout(LayoutKind.Sequential)]
     public struct MTLComponentTransform
     {
         public MTLPackedFloat3 scale;

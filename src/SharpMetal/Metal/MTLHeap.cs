@@ -156,6 +156,12 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setHazardTrackingMode, (ulong)value);
         }
 
+        public MTLSparsePageSize MaxCompatiblePlacementSparsePageSize
+        {
+            get => (MTLSparsePageSize)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_maxCompatiblePlacementSparsePageSize);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxCompatiblePlacementSparsePageSize, (long)value);
+        }
+
         public MTLResourceOptions ResourceOptions
         {
             get => (MTLResourceOptions)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_resourceOptions);
@@ -188,9 +194,11 @@ namespace SharpMetal.Metal
 
         private static readonly Selector sel_cpuCacheMode = "cpuCacheMode";
         private static readonly Selector sel_hazardTrackingMode = "hazardTrackingMode";
+        private static readonly Selector sel_maxCompatiblePlacementSparsePageSize = "maxCompatiblePlacementSparsePageSize";
         private static readonly Selector sel_resourceOptions = "resourceOptions";
         private static readonly Selector sel_setCpuCacheMode = "setCpuCacheMode:";
         private static readonly Selector sel_setHazardTrackingMode = "setHazardTrackingMode:";
+        private static readonly Selector sel_setMaxCompatiblePlacementSparsePageSize = "setMaxCompatiblePlacementSparsePageSize:";
         private static readonly Selector sel_setResourceOptions = "setResourceOptions:";
         private static readonly Selector sel_setSize = "setSize:";
         private static readonly Selector sel_setSparsePageSize = "setSparsePageSize:";

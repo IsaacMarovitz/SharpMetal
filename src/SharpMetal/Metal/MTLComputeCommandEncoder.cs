@@ -14,6 +14,14 @@ namespace SharpMetal.Metal
 
     [SupportedOSPlatform("macos")]
     [StructLayout(LayoutKind.Sequential)]
+    public struct MTLDispatchThreadsIndirectArguments
+    {
+        public uint threadsPerGrid;
+        public uint threadsPerThreadgroup;
+    }
+
+    [SupportedOSPlatform("macos")]
+    [StructLayout(LayoutKind.Sequential)]
     public struct MTLStageInRegionIndirectArguments
     {
         public uint stageInOrigin;
@@ -43,14 +51,19 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
         }
 
-        public void DispatchThreadgroups(MTLBuffer indirectBuffer, ulong indirectBufferOffset, MTLSize threadsPerThreadgroup)
+        public void BarrierAfterQueueStages(MTLStages afterQueueStages, MTLStages beforeStages)
         {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_dispatchThreadgroupsWithIndirectBufferindirectBufferOffsetthreadsPerThreadgroup, indirectBuffer, indirectBufferOffset, threadsPerThreadgroup);
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_barrierAfterQueueStagesbeforeStages, (ulong)afterQueueStages, (ulong)beforeStages);
         }
 
         public void DispatchThreadgroups(MTLSize threadgroupsPerGrid, MTLSize threadsPerThreadgroup)
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_dispatchThreadgroupsthreadsPerThreadgroup, threadgroupsPerGrid, threadsPerThreadgroup);
+        }
+
+        public void DispatchThreadgroups(MTLBuffer indirectBuffer, ulong indirectBufferOffset, MTLSize threadsPerThreadgroup)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_dispatchThreadgroupsWithIndirectBufferindirectBufferOffsetthreadsPerThreadgroup, indirectBuffer, indirectBufferOffset, threadsPerThreadgroup);
         }
 
         public void DispatchThreads(MTLSize threadsPerGrid, MTLSize threadsPerThreadgroup)
@@ -108,14 +121,14 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAccelerationStructureatBufferIndex, accelerationStructure, bufferIndex);
         }
 
-        public void SetBuffer(MTLBuffer buffer, ulong offset, ulong stride, ulong index)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBufferoffsetattributeStrideatIndex, buffer, offset, stride, index);
-        }
-
         public void SetBuffer(MTLBuffer buffer, ulong offset, ulong index)
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBufferoffsetatIndex, buffer, offset, index);
+        }
+
+        public void SetBuffer(MTLBuffer buffer, ulong offset, ulong stride, ulong index)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBufferoffsetattributeStrideatIndex, buffer, offset, stride, index);
         }
 
         public void SetBufferOffset(ulong offset, ulong stride, ulong index)
@@ -168,22 +181,22 @@ namespace SharpMetal.Metal
             throw new NotImplementedException();
         }
 
-        public void SetSamplerState(MTLSamplerState sampler, float lodMinClamp, float lodMaxClamp, ulong index)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSamplerStatelodMinClamplodMaxClampatIndex, sampler, lodMinClamp, lodMaxClamp, index);
-        }
-
         public void SetSamplerState(MTLSamplerState sampler, ulong index)
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSamplerStateatIndex, sampler, index);
         }
 
-        public void SetSamplerStates(MTLSamplerState[] samplers, float[] lodMinClamps, float[] lodMaxClamps, NSRange range)
+        public void SetSamplerState(MTLSamplerState sampler, float lodMinClamp, float lodMaxClamp, ulong index)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSamplerStatelodMinClamplodMaxClampatIndex, sampler, lodMinClamp, lodMaxClamp, index);
+        }
+
+        public void SetSamplerStates(MTLSamplerState[] samplers, NSRange range)
         {
             throw new NotImplementedException();
         }
 
-        public void SetSamplerStates(MTLSamplerState[] samplers, NSRange range)
+        public void SetSamplerStates(MTLSamplerState[] samplers, float[] lodMinClamps, float[] lodMaxClamps, NSRange range)
         {
             throw new NotImplementedException();
         }
@@ -253,6 +266,7 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_waitForFence, fence);
         }
 
+        private static readonly Selector sel_barrierAfterQueueStagesbeforeStages = "barrierAfterQueueStages:beforeStages:";
         private static readonly Selector sel_device = "device";
         private static readonly Selector sel_dispatchThreadgroupsthreadsPerThreadgroup = "dispatchThreadgroups:threadsPerThreadgroup:";
         private static readonly Selector sel_dispatchThreadgroupsWithIndirectBufferindirectBufferOffsetthreadsPerThreadgroup = "dispatchThreadgroupsWithIndirectBuffer:indirectBufferOffset:threadsPerThreadgroup:";

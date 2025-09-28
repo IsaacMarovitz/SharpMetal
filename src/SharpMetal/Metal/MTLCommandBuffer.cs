@@ -107,24 +107,19 @@ namespace SharpMetal.Metal
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_accelerationStructureCommandEncoderWithDescriptor));
         }
 
-        public MTLBlitCommandEncoder BlitCommandEncoder()
-        {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_blitCommandEncoderWithDescriptor));
-        }
-
         public MTLBlitCommandEncoder BlitCommandEncoder(MTLBlitPassDescriptor blitPassDescriptor)
         {
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_blitCommandEncoderWithDescriptor, blitPassDescriptor));
         }
 
+        public MTLBlitCommandEncoder BlitCommandEncoder()
+        {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_blitCommandEncoderWithDescriptor));
+        }
+
         public void Commit()
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_commit);
-        }
-
-        public MTLComputeCommandEncoder ComputeCommandEncoder(MTLDispatchType dispatchType)
-        {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_computeCommandEncoderWithDispatchType, (ulong)dispatchType));
         }
 
         public MTLComputeCommandEncoder ComputeCommandEncoder(MTLComputePassDescriptor computePassDescriptor)
@@ -135,6 +130,11 @@ namespace SharpMetal.Metal
         public MTLComputeCommandEncoder ComputeCommandEncoder()
         {
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_computeCommandEncoder));
+        }
+
+        public MTLComputeCommandEncoder ComputeCommandEncoder(MTLDispatchType dispatchType)
+        {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_computeCommandEncoderWithDispatchType, (ulong)dispatchType));
         }
 
         public void EncodeSignalEvent(MTLEvent mtlEvent, ulong value)
@@ -187,14 +187,14 @@ namespace SharpMetal.Metal
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_renderCommandEncoderWithDescriptor, renderPassDescriptor));
         }
 
-        public MTLResourceStateCommandEncoder ResourceStateCommandEncoder()
-        {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_resourceStateCommandEncoderWithDescriptor));
-        }
-
         public MTLResourceStateCommandEncoder ResourceStateCommandEncoder(MTLResourceStatePassDescriptor resourceStatePassDescriptor)
         {
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_resourceStateCommandEncoderWithDescriptor, resourceStatePassDescriptor));
+        }
+
+        public MTLResourceStateCommandEncoder ResourceStateCommandEncoder()
+        {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_resourceStateCommandEncoderWithDescriptor));
         }
 
         public void UseResidencySet(MTLResidencySet residencySet)

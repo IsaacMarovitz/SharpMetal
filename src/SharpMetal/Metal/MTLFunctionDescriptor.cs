@@ -10,9 +10,10 @@ namespace SharpMetal.Metal
     {
         None = 0,
         CompileToBinary = 1,
-        StoreFunctionInMetalScript = 2,
-        StoreFunctionInMetalPipelinesScript = 2,
-        FailOnBinaryArchiveMiss = 4,
+        StoreFunctionInMetalPipelinesScript = 1 << 1,
+        StoreFunctionInMetalScript = 1 << 1,
+        FailOnBinaryArchiveMiss = 1 << 2,
+        PipelineIndependent = 1 << 3,
     }
 
     [SupportedOSPlatform("macos")]

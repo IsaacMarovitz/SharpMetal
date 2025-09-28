@@ -9,8 +9,8 @@ namespace SharpMetal.Metal
     public enum MTLBarrierScope : ulong
     {
         Buffers = 1,
-        Textures = 2,
-        RenderTargets = 4,
+        Textures = 1 << 1,
+        RenderTargets = 1 << 2,
     }
 
     [SupportedOSPlatform("macos")]
@@ -18,8 +18,25 @@ namespace SharpMetal.Metal
     public enum MTLResourceUsage : ulong
     {
         Read = 1,
-        Write = 2,
-        Sample = 4,
+        Write = 1 << 1,
+        Sample = 1 << 2,
+    }
+
+    [SupportedOSPlatform("macos")]
+    [Flags]
+    public enum MTLStages : ulong
+    {
+        StageVertex = 1,
+        StageFragment = 1 << 1,
+        StageTile = 1 << 2,
+        StageObject = 1 << 3,
+        StageMesh = 1 << 4,
+        StageResourceState = 1 << 26,
+        StageDispatch = 1 << 27,
+        StageBlit = 1 << 28,
+        StageAccelerationStructure = 1 << 29,
+        StageMachineLearning = 1 << 30,
+        StageAll = 9223372036854775807,
     }
 
     [SupportedOSPlatform("macos")]
@@ -42,6 +59,11 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLabel, value);
         }
 
+        public void BarrierAfterQueueStages(MTLStages afterQueueStages, MTLStages beforeStages)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_barrierAfterQueueStagesbeforeStages, (ulong)afterQueueStages, (ulong)beforeStages);
+        }
+
         public void EndEncoding()
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_endEncoding);
@@ -62,6 +84,7 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_pushDebugGroup, nsString);
         }
 
+        private static readonly Selector sel_barrierAfterQueueStagesbeforeStages = "barrierAfterQueueStages:beforeStages:";
         private static readonly Selector sel_device = "device";
         private static readonly Selector sel_endEncoding = "endEncoding";
         private static readonly Selector sel_insertDebugSignpost = "insertDebugSignpost:";
