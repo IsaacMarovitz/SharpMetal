@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using SharpMetal.Generator.Instances;
 using SharpMetal.Generator.Utilities;
 
@@ -100,12 +101,20 @@ namespace SharpMetal.Generator
                 {
                     if (!line.Contains(';'))
                     {
-                        var classInstance = ClassInstance.Build(line, namespacePrefix, sr, InFlightUnscopedMethods);
+                        if (InFlightUnscopedMethods.Count > 0)
+                        {
+                            Console.WriteLine($"Unscoped methods found in header {filePath}:");
+                            foreach (var unscopedMethod in InFlightUnscopedMethods)
+                            {
+                                Console.WriteLine($"- {unscopedMethod.Name}");
+                            }
+                            InFlightUnscopedMethods.Clear();
+                        }
+                        var classInstance = ClassInstance.Build(line, namespacePrefix, sr);
                         if (classInstance.IsValid && !GeneratorUtils.IsBannedType(classInstance.Name))
                         {
                             ClassInstances.Add(classInstance);
                         }
-                        InFlightUnscopedMethods.Clear();
                     }
                 }
                 else if (line.StartsWith("struct"))
@@ -161,7 +170,7 @@ namespace SharpMetal.Generator
                         if (line.Contains("()"))
                         {
                             // Function has no arguments
-                            method = new MethodInstance(returnType, name, rawName, true, true, []);
+                            method = new MethodInstance(returnType, name, rawName, true, []);
                         }
                         else
                         {
@@ -211,12 +220,13 @@ namespace SharpMetal.Generator
                                     argumentName = "mtlEvent";
                                 }
 
-                                arguments.Add(new PropertyInstance(argumentType, argumentName));
+                                arguments.Add(new PropertyInstance(null, argumentType, argumentName));
                             }
 
                             if (returnType != string.Empty)
                             {
-                                method = new MethodInstance(returnType, name, rawName, true, true, arguments);
+                                // this is just for recording the unscoped method, no actual real method goes through this codepath
+                                method = new MethodInstance(returnType, name, rawName, true, arguments);
                             }
                         }
 

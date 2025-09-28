@@ -145,6 +145,7 @@ namespace SharpMetal.Metal
         Depth32FloatStencil8 = 260,
         X32Stencil8 = 261,
         X24Stencil8 = 262,
+        Unspecialized = 263,
     }
 
 }

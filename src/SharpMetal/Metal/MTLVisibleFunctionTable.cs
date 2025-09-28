@@ -77,6 +77,7 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setFunctionatIndex = "setFunction:atIndex:";
         private static readonly Selector sel_setFunctionswithRange = "setFunctions:withRange:";
         private static readonly Selector sel_setLabel = "setLabel:";
+        private static readonly Selector sel_setOwnerWithIdentity = "setOwnerWithIdentity:";
         private static readonly Selector sel_setPurgeableState = "setPurgeableState:";
         private static readonly Selector sel_storageMode = "storageMode";
         private static readonly Selector sel_release = "release";

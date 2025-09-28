@@ -18,6 +18,22 @@ namespace SharpMetal.Metal
             return gcHandle;
         }
 
+        [LibraryImport(ObjectiveC.MetalFramework)]
+        private static partial IntPtr MTLCopyAllDevices();
+
+        public static NSArray CopyAllDevices()
+        {
+            return new(MTLCopyAllDevices());
+        }
+
+        [LibraryImport(ObjectiveC.MetalFramework)]
+        private static partial IntPtr MTLCreateSystemDefaultDevice();
+
+        public static MTLDevice CreateSystemDefaultDevice()
+        {
+            return new(MTLCreateSystemDefaultDevice());
+        }
+
         private static readonly Selector sel_newLibraryWithSourceoptionscompletionHandler = "newLibraryWithSource:options:completionHandler:";
     }
 }

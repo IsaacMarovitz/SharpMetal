@@ -64,6 +64,11 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_notifyListeneratValueblock, listener, value, block);
         }
 
+        public bool WaitUntilSignaledValue(ulong value, ulong milliseconds)
+        {
+            return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_waitUntilSignaledValuetimeoutMS, value, milliseconds);
+        }
+
         private static readonly Selector sel_device = "device";
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_newSharedEventHandle = "newSharedEventHandle";
@@ -71,6 +76,7 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setLabel = "setLabel:";
         private static readonly Selector sel_setSignaledValue = "setSignaledValue:";
         private static readonly Selector sel_signaledValue = "signaledValue";
+        private static readonly Selector sel_waitUntilSignaledValuetimeoutMS = "waitUntilSignaledValue:timeoutMS:";
         private static readonly Selector sel_release = "release";
     }
 
@@ -123,8 +129,14 @@ namespace SharpMetal.Metal
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_initWithDispatchQueue, dispatchQueue));
         }
 
+        public static MTLSharedEventListener SharedListener()
+        {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("MTLSharedEventListener"), sel_sharedListener));
+        }
+
         private static readonly Selector sel_dispatchQueue = "dispatchQueue";
         private static readonly Selector sel_initWithDispatchQueue = "initWithDispatchQueue:";
+        private static readonly Selector sel_sharedListener = "sharedListener";
         private static readonly Selector sel_release = "release";
     }
 }

@@ -23,6 +23,8 @@ namespace SharpMetal.Foundation
 
         public ulong Count => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_count);
 
+        public IntPtr ObjectEnumerator => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_objectEnumerator));
+
         public static NSArray Array(NSObject pObject)
         {
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSArray"), sel_arrayWithObject, pObject));
@@ -55,6 +57,7 @@ namespace SharpMetal.Foundation
         private static readonly Selector sel_initWithCoder = "initWithCoder:";
         private static readonly Selector sel_initWithObjectscount = "initWithObjects:count:";
         private static readonly Selector sel_objectAtIndex = "objectAtIndex:";
+        private static readonly Selector sel_objectEnumerator = "objectEnumerator";
         private static readonly Selector sel_release = "release";
     }
 }

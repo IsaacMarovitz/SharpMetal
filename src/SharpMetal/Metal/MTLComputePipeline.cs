@@ -72,6 +72,18 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPreloadedLibraries, value);
         }
 
+        public MTLSize RequiredThreadsPerThreadgroup
+        {
+            get => ObjectiveCRuntime.MTLSize_objc_msgSend(NativePtr, sel_requiredThreadsPerThreadgroup);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRequiredThreadsPerThreadgroup, value);
+        }
+
+        public MTLShaderValidation ShaderValidation
+        {
+            get => (MTLShaderValidation)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_shaderValidation);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setShaderValidation, (long)value);
+        }
+
         public MTLStageInputOutputDescriptor StageInputDescriptor
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_stageInputDescriptor));
@@ -110,6 +122,7 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_maxCallStackDepth = "maxCallStackDepth";
         private static readonly Selector sel_maxTotalThreadsPerThreadgroup = "maxTotalThreadsPerThreadgroup";
         private static readonly Selector sel_preloadedLibraries = "preloadedLibraries";
+        private static readonly Selector sel_requiredThreadsPerThreadgroup = "requiredThreadsPerThreadgroup";
         private static readonly Selector sel_reset = "reset";
         private static readonly Selector sel_setBinaryArchives = "setBinaryArchives:";
         private static readonly Selector sel_setComputeFunction = "setComputeFunction:";
@@ -119,10 +132,13 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setMaxCallStackDepth = "setMaxCallStackDepth:";
         private static readonly Selector sel_setMaxTotalThreadsPerThreadgroup = "setMaxTotalThreadsPerThreadgroup:";
         private static readonly Selector sel_setPreloadedLibraries = "setPreloadedLibraries:";
+        private static readonly Selector sel_setRequiredThreadsPerThreadgroup = "setRequiredThreadsPerThreadgroup:";
+        private static readonly Selector sel_setShaderValidation = "setShaderValidation:";
         private static readonly Selector sel_setStageInputDescriptor = "setStageInputDescriptor:";
         private static readonly Selector sel_setSupportAddingBinaryFunctions = "setSupportAddingBinaryFunctions:";
         private static readonly Selector sel_setSupportIndirectCommandBuffers = "setSupportIndirectCommandBuffers:";
         private static readonly Selector sel_setThreadGroupSizeIsMultipleOfThreadExecutionWidth = "setThreadGroupSizeIsMultipleOfThreadExecutionWidth:";
+        private static readonly Selector sel_shaderValidation = "shaderValidation";
         private static readonly Selector sel_stageInputDescriptor = "stageInputDescriptor";
         private static readonly Selector sel_supportAddingBinaryFunctions = "supportAddingBinaryFunctions";
         private static readonly Selector sel_supportIndirectCommandBuffers = "supportIndirectCommandBuffers";
@@ -162,12 +178,15 @@ namespace SharpMetal.Metal
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLComputePipelineState obj) => obj.NativePtr;
+        public static implicit operator MTLAllocation(MTLComputePipelineState obj) => new(obj.NativePtr);
         public MTLComputePipelineState(IntPtr ptr) => NativePtr = ptr;
 
         public void Dispose()
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
+
+        public ulong AllocatedSize => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_allocatedSize);
 
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
 
@@ -177,11 +196,27 @@ namespace SharpMetal.Metal
 
         public ulong MaxTotalThreadsPerThreadgroup => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxTotalThreadsPerThreadgroup);
 
+        public MTLComputePipelineReflection Reflection => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_reflection));
+
+        public MTLSize RequiredThreadsPerThreadgroup => ObjectiveCRuntime.MTLSize_objc_msgSend(NativePtr, sel_requiredThreadsPerThreadgroup);
+
+        public MTLShaderValidation ShaderValidation => (MTLShaderValidation)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_shaderValidation);
+
         public ulong StaticThreadgroupMemoryLength => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_staticThreadgroupMemoryLength);
 
         public bool SupportIndirectCommandBuffers => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportIndirectCommandBuffers);
 
         public ulong ThreadExecutionWidth => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_threadExecutionWidth);
+
+        public MTLFunctionHandle FunctionHandle(NSString name)
+        {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_functionHandleWithName, name));
+        }
+
+        public MTLFunctionHandle FunctionHandle(MTL4BinaryFunction function)
+        {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_functionHandleWithBinaryFunction, function));
+        }
 
         public MTLFunctionHandle FunctionHandle(MTLFunction function)
         {
@@ -198,6 +233,11 @@ namespace SharpMetal.Metal
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newComputePipelineStateWithAdditionalBinaryFunctionserror, functions, ref error.NativePtr));
         }
 
+        public MTLComputePipelineState NewComputePipelineStateWithBinaryFunctions(NSArray additionalBinaryFunctions, ref NSError error)
+        {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newComputePipelineStateWithBinaryFunctionserror, additionalBinaryFunctions, ref error.NativePtr));
+        }
+
         public MTLIntersectionFunctionTable NewIntersectionFunctionTable(MTLIntersectionFunctionTableDescriptor descriptor)
         {
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newIntersectionFunctionTableWithDescriptor, descriptor));
@@ -208,15 +248,22 @@ namespace SharpMetal.Metal
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newVisibleFunctionTableWithDescriptor, descriptor));
         }
 
+        private static readonly Selector sel_allocatedSize = "allocatedSize";
         private static readonly Selector sel_device = "device";
+        private static readonly Selector sel_functionHandleWithBinaryFunction = "functionHandleWithBinaryFunction:";
         private static readonly Selector sel_functionHandleWithFunction = "functionHandleWithFunction:";
+        private static readonly Selector sel_functionHandleWithName = "functionHandleWithName:";
         private static readonly Selector sel_gpuResourceID = "gpuResourceID";
         private static readonly Selector sel_imageblockMemoryLengthForDimensions = "imageblockMemoryLengthForDimensions:";
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_maxTotalThreadsPerThreadgroup = "maxTotalThreadsPerThreadgroup";
         private static readonly Selector sel_newComputePipelineStateWithAdditionalBinaryFunctionserror = "newComputePipelineStateWithAdditionalBinaryFunctions:error:";
+        private static readonly Selector sel_newComputePipelineStateWithBinaryFunctionserror = "newComputePipelineStateWithBinaryFunctions:error:";
         private static readonly Selector sel_newIntersectionFunctionTableWithDescriptor = "newIntersectionFunctionTableWithDescriptor:";
         private static readonly Selector sel_newVisibleFunctionTableWithDescriptor = "newVisibleFunctionTableWithDescriptor:";
+        private static readonly Selector sel_reflection = "reflection";
+        private static readonly Selector sel_requiredThreadsPerThreadgroup = "requiredThreadsPerThreadgroup";
+        private static readonly Selector sel_shaderValidation = "shaderValidation";
         private static readonly Selector sel_staticThreadgroupMemoryLength = "staticThreadgroupMemoryLength";
         private static readonly Selector sel_supportIndirectCommandBuffers = "supportIndirectCommandBuffers";
         private static readonly Selector sel_threadExecutionWidth = "threadExecutionWidth";
