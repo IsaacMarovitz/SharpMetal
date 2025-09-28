@@ -69,7 +69,11 @@ namespace SharpMetal.MetalFX
 
         public ulong InputWidth => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_inputWidth);
 
-        public bool IsDepthReversed => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isDepthReversed);
+        public bool IsDepthReversed
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isDepthReversed);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthReversed, value);
+        }
 
         public float JitterOffsetX
         {
@@ -139,11 +143,6 @@ namespace SharpMetal.MetalFX
         {
             get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_reset);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setReset, value);
-        }
-
-        public void SetDepthReversed(bool depthReversed)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthReversed, depthReversed);
         }
 
         private static readonly Selector sel_colorTexture = "colorTexture";

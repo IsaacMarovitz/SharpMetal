@@ -77,7 +77,11 @@ namespace SharpMetal.MetalFX
 
         public ulong InputWidth => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_inputWidth);
 
-        public bool IsDepthReversed => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isDepthReversed);
+        public bool IsDepthReversed
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isDepthReversed);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthReversed, value);
+        }
 
         public float JitterOffsetX
         {
@@ -199,11 +203,6 @@ namespace SharpMetal.MetalFX
 
         public MTLTextureUsage TransparencyOverlayTextureUsage => (MTLTextureUsage)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_transparencyOverlayTextureUsage);
 
-        public void SetDepthReversed(bool depthReversed)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthReversed, depthReversed);
-        }
-
         private static readonly Selector sel_colorTexture = "colorTexture";
         private static readonly Selector sel_colorTextureFormat = "colorTextureFormat";
         private static readonly Selector sel_colorTextureUsage = "colorTextureUsage";
@@ -216,7 +215,6 @@ namespace SharpMetal.MetalFX
         private static readonly Selector sel_diffuseAlbedoTexture = "diffuseAlbedoTexture";
         private static readonly Selector sel_diffuseAlbedoTextureFormat = "diffuseAlbedoTextureFormat";
         private static readonly Selector sel_diffuseAlbedoTextureUsage = "diffuseAlbedoTextureUsage";
-        private static readonly Selector sel_encodeToCommandBuffer = "encodeToCommandBuffer:";
         private static readonly Selector sel_exposureTexture = "exposureTexture";
         private static readonly Selector sel_fence = "fence";
         private static readonly Selector sel_inputContentMaxScale = "inputContentMaxScale";

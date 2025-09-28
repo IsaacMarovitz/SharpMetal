@@ -71,7 +71,11 @@ namespace SharpMetal.MetalFX
 
         public ulong InputWidth => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_inputWidth);
 
-        public bool IsDepthReversed => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isDepthReversed);
+        public bool IsDepthReversed
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isDepthReversed);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthReversed, value);
+        }
 
         public bool IsUITextureComposited
         {

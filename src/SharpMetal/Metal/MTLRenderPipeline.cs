@@ -151,9 +151,17 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
-        public bool AlphaToCoverageEnabled => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isAlphaToCoverageEnabled);
+        public bool AlphaToCoverageEnabled
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isAlphaToCoverageEnabled);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAlphaToCoverageEnabled, value);
+        }
 
-        public bool AlphaToOneEnabled => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isAlphaToOneEnabled);
+        public bool AlphaToOneEnabled
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isAlphaToOneEnabled);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAlphaToOneEnabled, value);
+        }
 
         public NSArray BinaryArchives
         {
@@ -186,6 +194,12 @@ namespace SharpMetal.Metal
         // missing bool IsAlphaToCoverageEnabled
 
         // missing bool IsAlphaToOneEnabled
+
+        public bool IsRasterizationEnabled
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isRasterizationEnabled);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRasterizationEnabled, value);
+        }
 
         public NSString Label
         {
@@ -263,7 +277,7 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPayloadMemoryLength, value);
         }
 
-        public bool RasterizationEnabled => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_setRasterizationEnabled);
+        // missing bool RasterizationEnabled
 
         public ulong RasterSampleCount
         {
@@ -304,16 +318,6 @@ namespace SharpMetal.Metal
         public void Reset()
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_reset);
-        }
-
-        public void SetAlphaToCoverageEnabled(bool alphaToCoverageEnabled)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAlphaToCoverageEnabled, alphaToCoverageEnabled);
-        }
-
-        public void SetAlphaToOneEnabled(bool alphaToOneEnabled)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAlphaToOneEnabled, alphaToOneEnabled);
         }
 
         private static readonly Selector sel_binaryArchives = "binaryArchives";
@@ -398,7 +402,11 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAlphaBlendOperation, (ulong)value);
         }
 
-        public bool BlendingEnabled => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isBlendingEnabled);
+        public bool BlendingEnabled
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isBlendingEnabled);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBlendingEnabled, value);
+        }
 
         public MTLBlendFactor DestinationAlphaBlendFactor
         {
@@ -442,11 +450,6 @@ namespace SharpMetal.Metal
         {
             get => (MTLColorWriteMask)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_writeMask);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setWriteMask, (ulong)value);
-        }
-
-        public void SetBlendingEnabled(bool blendingEnabled)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBlendingEnabled, blendingEnabled);
         }
 
         private static readonly Selector sel_alphaBlendOperation = "alphaBlendOperation";
@@ -577,6 +580,18 @@ namespace SharpMetal.Metal
 
         // missing bool IsAlphaToOneEnabled
 
+        public bool IsRasterizationEnabled
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isRasterizationEnabled);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRasterizationEnabled, value);
+        }
+
+        public bool IsTessellationFactorScaleEnabled
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isTessellationFactorScaleEnabled);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTessellationFactorScaleEnabled, value);
+        }
+
         public NSString Label
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
@@ -607,11 +622,7 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxVertexCallStackDepth, value);
         }
 
-        public bool RasterizationEnabled
-        {
-            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isRasterizationEnabled);
-            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRasterizationEnabled, value);
-        }
+        // missing bool RasterizationEnabled
 
         public ulong RasterSampleCount
         {
@@ -667,11 +678,7 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTessellationFactorFormat, (ulong)value);
         }
 
-        public bool TessellationFactorScaleEnabled
-        {
-            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isTessellationFactorScaleEnabled);
-            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTessellationFactorScaleEnabled, value);
-        }
+        // missing bool TessellationFactorScaleEnabled
 
         public MTLTessellationFactorStepFunction TessellationFactorStepFunction
         {

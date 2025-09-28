@@ -83,7 +83,11 @@ namespace SharpMetal.MetalFX
 
         public ulong InputWidth => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_inputWidth);
 
-        public bool IsDepthReversed => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isDepthReversed);
+        public bool IsDepthReversed
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isDepthReversed);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthReversed, value);
+        }
 
         public float JitterOffsetX
         {
@@ -158,11 +162,6 @@ namespace SharpMetal.MetalFX
         public void EncodeToCommandBuffer(MTLCommandBuffer pCommandBuffer)
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_encodeToCommandBuffer, pCommandBuffer);
-        }
-
-        public void SetDepthReversed(bool depthReversed)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthReversed, depthReversed);
         }
 
         private static readonly Selector sel_colorTexture = "colorTexture";
@@ -281,7 +280,11 @@ namespace SharpMetal.MetalFX
 
         public ulong InputWidth => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_inputWidth);
 
-        public bool IsDepthReversed => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isDepthReversed);
+        public bool IsDepthReversed
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isDepthReversed);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthReversed, value);
+        }
 
         public float JitterOffsetX
         {
@@ -351,11 +354,6 @@ namespace SharpMetal.MetalFX
         {
             get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_reset);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setReset, value);
-        }
-
-        public void SetDepthReversed(bool depthReversed)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthReversed, depthReversed);
         }
 
         private static readonly Selector sel_colorTexture = "colorTexture";
@@ -462,11 +460,23 @@ namespace SharpMetal.MetalFX
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInputWidth, value);
         }
 
-        public bool IsAutoExposureEnabled => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isAutoExposureEnabled);
+        public bool IsAutoExposureEnabled
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isAutoExposureEnabled);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAutoExposureEnabled, value);
+        }
 
-        public bool IsInputContentPropertiesEnabled => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isInputContentPropertiesEnabled);
+        public bool IsInputContentPropertiesEnabled
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isInputContentPropertiesEnabled);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInputContentPropertiesEnabled, value);
+        }
 
-        public bool IsReactiveMaskTextureEnabled => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isReactiveMaskTextureEnabled);
+        public bool IsReactiveMaskTextureEnabled
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isReactiveMaskTextureEnabled);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setReactiveMaskTextureEnabled, value);
+        }
 
         public MTLPixelFormat MotionTextureFormat
         {
@@ -507,21 +517,6 @@ namespace SharpMetal.MetalFX
         public MTLFXTemporalScaler NewTemporalScaler(MTLDevice pDevice)
         {
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newTemporalScalerWithDevice, pDevice));
-        }
-
-        public void SetAutoExposureEnabled(bool enabled)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAutoExposureEnabled, enabled);
-        }
-
-        public void SetInputContentPropertiesEnabled(bool enabled)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInputContentPropertiesEnabled, enabled);
-        }
-
-        public void SetReactiveMaskTextureEnabled(bool enabled)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setReactiveMaskTextureEnabled, enabled);
         }
 
         public static bool SupportsDevice(MTLDevice pDevice)
