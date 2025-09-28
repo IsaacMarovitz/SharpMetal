@@ -31,7 +31,14 @@ namespace SharpMetal.Generator.Instances
                 selectorInstances.Remove(selector);
                 // We assume a type of IntPtr, which encapsulates any possible type
                 var runtimeFuncReturn = "IntPtr";
-                var setterSelector = selectorInstances.Find(x => x.Selector.Contains("set" + selector.Selector.ToLower(), StringComparison.InvariantCultureIgnoreCase));
+                // try to match the "isFoo" + "setFoo" as a get/set property
+                 var setterSelectorNameCandidate = selector.Selector;
+                if (setterSelectorNameCandidate.StartsWith("is"))
+                {
+                    setterSelectorNameCandidate = setterSelectorNameCandidate.Substring(2);
+                }
+                setterSelectorNameCandidate = "set" + setterSelectorNameCandidate;
+                var setterSelector = selectorInstances.Find(x => x.Selector.Contains(setterSelectorNameCandidate, StringComparison.InvariantCultureIgnoreCase));
 
                 // If the property is a type that exists in C# then we can safely set the
                 // return type to be that type, otherwise further conversion will be needed later
