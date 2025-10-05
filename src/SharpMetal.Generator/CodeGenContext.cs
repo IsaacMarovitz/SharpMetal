@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace SharpMetal.Generator
 {
     public class CodeGenContext : IDisposable
@@ -5,6 +7,7 @@ namespace SharpMetal.Generator
         private const string Tab = "    ";
         private readonly StreamWriter _sw;
         private int _depth;
+        private readonly Stack<StringBuilder> _stringBuilderPool = [];
 
         public string Indentation { get; private set; }
 
@@ -12,6 +15,25 @@ namespace SharpMetal.Generator
         {
             _sw = sw;
             Indentation = "";
+            for (int i = 0; i < 2; i++)
+            {
+                _stringBuilderPool.Push(new StringBuilder());
+            }
+        }
+
+        public StringBuilder AcquireTempStringBuilder()
+        {
+            if (_stringBuilderPool.Count == 0)
+            {
+                _stringBuilderPool.Push(new StringBuilder());
+            }
+            return _stringBuilderPool.Pop();
+        }
+
+        public void ReleaseTempStringBuilder(StringBuilder sb)
+        {
+            sb.Clear();
+            _stringBuilderPool.Push(sb);
         }
 
         public void WriteLine()
@@ -72,6 +94,7 @@ namespace SharpMetal.Generator
         public void Dispose()
         {
             _sw.Dispose();
+            _stringBuilderPool.Clear();
             GC.SuppressFinalize(this);
         }
     }

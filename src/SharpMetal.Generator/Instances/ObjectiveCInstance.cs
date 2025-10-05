@@ -5,46 +5,10 @@ namespace SharpMetal.Generator.Instances
         public readonly string Type;
         public readonly string[] Inputs;
 
-        private static string[] VarNames { get; } =
-        [
-            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
-        ];
-
         public ObjectiveCInstance(string type, List<string> inputs)
         {
             Type = type;
             Inputs = inputs.ToArray();
-        }
-
-        public void Generate(CodeGenContext context)
-        {
-            context.WriteLine("[LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = \"objc_msgSend\")]");
-            if (Type == "bool")
-            {
-                context.WriteLine("[return: MarshalAs(UnmanagedType.Bool)]");
-            }
-            context.Write($"{context.Indentation}internal static partial {Type} ");
-
-            if (Type != "void")
-            {
-                context.Write($"{Type}_");
-            }
-
-            context.Write("objc_msgSend(IntPtr receiver, IntPtr selector");
-
-            for (var i = 0; i < Inputs.Length; i++)
-            {
-                context.Write(", ");
-
-                if (Inputs[i] == "bool")
-                {
-                    context.Write("[MarshalAs(UnmanagedType.Bool)] ");
-                }
-
-                context.Write($"{Inputs[i]} {VarNames[i]}");
-            }
-
-            context.Write(");\n");
         }
 
         public bool Equals(ObjectiveCInstance? other)

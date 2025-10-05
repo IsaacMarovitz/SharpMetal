@@ -64,6 +64,7 @@ namespace SharpMetal.Generator
             {
                 return "MTLFX";
             }
+
             return namespacePrefix;
         }
 

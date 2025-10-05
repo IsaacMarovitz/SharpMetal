@@ -5,14 +5,14 @@ namespace SharpMetal.Generator.Instances
     public class ClassInstance
     {
         public readonly string Name;
-
         private string _namespacePrefix = "";
-        private bool _hasAlloc;
-        private bool _hasInit;
-        private string _parent = string.Empty;
-        private readonly List<PropertyInstance> _propertyInstances = [];
-        private readonly List<MethodInstance> _methodInstances = [];
-        private readonly List<SelectorInstance> _selectorInstances = [];
+
+        public bool HasAlloc { get; private set; }
+        public bool HasInit { get; private set; }
+        public string Parent { get; private set; } = string.Empty;
+        public List<PropertyInstance> PropertyInstances { get; } = [];
+        public List<MethodInstance> MethodInstances { get; } = [];
+        public List<SelectorInstance> SelectorInstances { get; } = [];
 
         public bool IsValid => !string.IsNullOrWhiteSpace(Name);
 
@@ -23,15 +23,15 @@ namespace SharpMetal.Generator.Instances
 
         public void AddSelector(SelectorInstance selectorInstance)
         {
-            if (!_selectorInstances.Exists(x => x.Selector == selectorInstance.Selector))
+            if (!SelectorInstances.Exists(x => x.Selector == selectorInstance.Selector))
             {
-                _selectorInstances.Add(selectorInstance);
+                SelectorInstances.Add(selectorInstance);
             }
         }
 
         public void AddMethod(MethodInstance methodInstance)
         {
-            foreach (var method in _methodInstances)
+            foreach (var method in MethodInstances)
             {
                 if (method.Name == methodInstance.Name)
                 {
@@ -42,151 +42,24 @@ namespace SharpMetal.Generator.Instances
                 }
             }
 
-            _methodInstances.Add(methodInstance);
+            MethodInstances.Add(methodInstance);
         }
 
         public void AddProperty(PropertyInstance propertyInstance)
         {
-            if (!_propertyInstances.Exists(x => x.Name == propertyInstance.Name))
+            if (!PropertyInstances.Exists(x => x.Name == propertyInstance.Name))
             {
-                _propertyInstances.Add(propertyInstance);
+                PropertyInstances.Add(propertyInstance);
             }
         }
 
-        public List<ObjectiveCInstance> Generate(List<ClassInstance> classCache, List<EnumInstance> enumCache, List<StructInstance> structCache, CodeGenContext context)
+        public static ClassInstance Build(string classDeclarationLine, string namespacePrefix, StreamReader sr)
         {
-            // Make copies since we will modify these by adding the hiearchy
-            // This is not ideal, but is the simplest way to make it independent on the processing order
-            var propertyInstances = new List<PropertyInstance>(_propertyInstances);
-            var methodInstances = new List<MethodInstance>(_methodInstances);
-            var selectorInstances = new List<SelectorInstance>(_selectorInstances);
-
-            var parentName = _parent;
-            while (parentName != string.Empty)
-            {
-                // To properly fit within expected C# patterns, we
-                // should generate an interface to hold the associated
-                // properties and methods to allow for proper casting
-                // between types. Right now, due to the limitations of
-                // struct inheritance, we will just duplicate all
-                // properties and methods from the parent to the child.
-                // This limitation is not present with the old method
-                // using classes, however that comes with performance
-                // and memory drawbacks, that structs are able to avoid.
-
-                var parent = classCache.FirstOrDefault(x => x.Name == parentName);
-                parentName = parent?._parent ?? string.Empty;
-                if (parent != null)
-                {
-                    // Just add unique instances, since the MTLAllocation inheritance would cause doubled-up properties
-                    foreach (var property in parent._propertyInstances)
-                    {
-                        if (!propertyInstances.Any(x => x.Name == property.Name && x.Type == property.Type))
-                        {
-                            propertyInstances.Add(property);
-                        }
-                    }
-                    methodInstances.AddRange(parent._methodInstances);
-                    foreach (var selector in parent._selectorInstances)
-                    {
-                        if (selectorInstances.All(x => x.Name != selector.Name))
-                        {
-                            selectorInstances.Add(selector);
-                        }
-                    }
-                }
-            }
-
-            propertyInstances.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.InvariantCultureIgnoreCase));
-            methodInstances.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.InvariantCultureIgnoreCase));
-
-            var objectiveCInstances = new List<ObjectiveCInstance>();
-
-            context.WriteLine("[SupportedOSPlatform(\"macos\")]");
-
-            var modifier = GeneratorUtils.IsPartialType(Name) ? "partial " : "";
-            var classDecl = $"public {modifier}struct {Name} : IDisposable";
-
-            context.WriteLine(classDecl);
-
-            context.EnterScope();
-
-            context.WriteLine("public IntPtr NativePtr;");
-            context.WriteLine($"public static implicit operator IntPtr({Name} obj) => obj.NativePtr;");
-            if (_parent != string.Empty)
-            {
-                context.WriteLine($"public static implicit operator {_parent}({Name} obj) => new(obj.NativePtr);");
-            }
-            context.WriteLine($"public {Name}(IntPtr ptr) => NativePtr = ptr;");
-
-            if (_hasAlloc)
-            {
-                context.WriteLine();
-                context.WriteLine($"public {Name}()");
-                context.EnterScope();
-
-                context.WriteLine($"var cls = new ObjectiveCClass(\"{Name}\");");
-
-                context.WriteLine(_hasInit ? "NativePtr = cls.AllocInit();" : "NativePtr = cls.Alloc();");
-
-                context.LeaveScope();
-            }
-
-            context.WriteLine();
-            context.WriteLine("public void Dispose()");
-            context.EnterScope();
-
-            context.WriteLine("ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);");
-
-            context.LeaveScope();
-
-            if (propertyInstances.Count != 0)
-            {
-                context.WriteLine();
-            }
-
-            var unsortedSelectorInstances = new List<SelectorInstance>(selectorInstances);
-            // These have to be sorted after making the copy, otherwise it might resolve to wrong selector due to the Find-based mechanism when generating the calls
-            selectorInstances.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.InvariantCultureIgnoreCase));
-
-            for (var j = 0; j < propertyInstances.Count; j++)
-            {
-                objectiveCInstances.Add(propertyInstances[j].Generate(unsortedSelectorInstances, enumCache, structCache, context));
-
-                if (j != propertyInstances.Count - 1)
-                {
-                    context.WriteLine();
-                }
-            }
-
-            foreach (var method in methodInstances)
-            {
-                objectiveCInstances.Add(method.Generate(unsortedSelectorInstances, enumCache, structCache, context, _namespacePrefix));
-            }
-
-            if (selectorInstances.Count != 0)
-            {
-                context.WriteLine();
-            }
-
-            foreach (var selector in selectorInstances)
-            {
-                context.WriteLine($"private static readonly Selector {selector.Name} = \"{selector.Selector}\";");
-            }
-
-            context.WriteLine($"private static readonly Selector sel_release = \"release\";");
-
-            context.LeaveScope();
-            return objectiveCInstances;
-        }
-
-        public static ClassInstance Build(string line, string namespacePrefix, StreamReader sr)
-        {
-            var classInfo = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+            var classInfo = classDeclarationLine.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
 
             if (classInfo.Length < 3)
             {
-                Console.WriteLine($"BAD CLASS! {line}");
+                Console.WriteLine($"BAD CLASS! {classDeclarationLine}");
                 return new ClassInstance("");
             }
 
@@ -204,10 +77,9 @@ namespace SharpMetal.Generator.Instances
                     var ancestors = info.Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
                     for (var i = 1; i < ancestors.Length; i++)
                     {
-                        if (ancestors[i] != "_Base" && ancestors[i] != "Type" && ancestors[i] != "objc_object" &&
-                                ancestors[i] != "Value")
+                        if (ancestors[i] != "_Base" && ancestors[i] != "Type" && ancestors[i] != "objc_object" && ancestors[i] != "Value")
                         {
-                            instance._parent = Types.ConvertType(ancestors[i], namespacePrefix);
+                            instance.Parent = Types.ConvertType(ancestors[i], namespacePrefix);
                         }
                     }
                 }
@@ -216,31 +88,15 @@ namespace SharpMetal.Generator.Instances
             instance._namespacePrefix = namespacePrefix;
 
             var classEnded = false;
-            var enteredComment = false;
             var isDeprecated = false;
 
             while (!classEnded)
             {
-                var nextLine = sr.ReadLine();
+                var nextLine = GeneratorUtils.ReadNextCodeLine(sr);
 
                 if (nextLine == null)
                 {
-                    continue;
-                }
-
-                if (nextLine.Contains("/**"))
-                {
-                    enteredComment = true;
-                    continue;
-                }
-
-                if (enteredComment)
-                {
-                    if (nextLine.Contains("*/"))
-                    {
-                        enteredComment = false;
-                    }
-                    continue;
+                    break;
                 }
 
                 if (nextLine.Contains('}') || nextLine.Contains("private:") || nextLine.Contains("protected:"))
@@ -255,8 +111,8 @@ namespace SharpMetal.Generator.Instances
                     continue;
                 }
 
-                // Ignore empty lines etc...
-                if (nextLine is "" or "{" or "public:")
+                // Ignore opening literals for scopes we are interested in
+                if (nextLine is "{" or "public:")
                 {
                     continue;
                 }
@@ -310,13 +166,13 @@ namespace SharpMetal.Generator.Instances
                 {
                     if (name == "Alloc")
                     {
-                        instance._hasAlloc = true;
+                        instance.HasAlloc = true;
                         continue;
                     }
 
                     if (name == "Init")
                     {
-                        instance._hasInit = true;
+                        instance.HasInit = true;
                         continue;
                     }
 
@@ -330,7 +186,7 @@ namespace SharpMetal.Generator.Instances
                     }
                     else if (!(isStatic && returnType.Contains(name)))
                     {
-                        instance.AddProperty(new PropertyInstance(instance, returnType, name, isStatic: isStatic, isDeprecated: tempDeprecated));
+                        instance.AddProperty(new PropertyInstance(instance, returnType, name, rawName, isStatic: isStatic, isDeprecated: tempDeprecated));
                     }
                 }
                 else
@@ -396,15 +252,15 @@ namespace SharpMetal.Generator.Instances
                     }
                 }
 
-                for (var i = instance._propertyInstances.Count - 1; i >= 0; i--)
+                for (var i = instance.PropertyInstances.Count - 1; i >= 0; i--)
                 {
-                    var property = instance._propertyInstances[i];
-                    if (instance._methodInstances.Exists(x => x.Name == property.Name))
+                    var property = instance.PropertyInstances[i];
+                    if (instance.MethodInstances.Exists(x => x.Name == property.Name))
                     {
                         // We can't have a property AND methods with the same name
                         // in this case, the solution is to turn the property into a method
-                        instance._propertyInstances.RemoveAt(i);
-                        instance.AddMethod(new MethodInstance(property.Type, property.Name, rawName, isStatic, tempDeprecated, []));
+                        instance.PropertyInstances.RemoveAt(i);
+                        instance.AddMethod(new MethodInstance(property.Type, property.Name, property.RawName, property.IsStatic, property.IsDeprecated, []));
                     }
                 }
             }
