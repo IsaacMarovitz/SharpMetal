@@ -55,7 +55,14 @@ namespace SharpMetal.Generator.Instances
 
         public List<ObjectiveCInstance> Generate(List<ClassInstance> classCache, List<EnumInstance> enumCache, List<StructInstance> structCache, CodeGenContext context)
         {
-            if (_parent != string.Empty)
+            // Make copies since we will modify these by adding the hiearchy
+            // This is not ideal, but is the simplest way to make it independent on the processing order
+            var propertyInstances = new List<PropertyInstance>(_propertyInstances);
+            var methodInstances = new List<MethodInstance>(_methodInstances);
+            var selectorInstances = new List<SelectorInstance>(_selectorInstances);
+
+            var parentName = _parent;
+            while (parentName != string.Empty)
             {
                 // To properly fit within expected C# patterns, we
                 // should generate an interface to hold the associated
@@ -67,18 +74,31 @@ namespace SharpMetal.Generator.Instances
                 // using classes, however that comes with performance
                 // and memory drawbacks, that structs are able to avoid.
 
-                var parent = classCache.FirstOrDefault(x => x.Name == _parent);
-
+                var parent = classCache.FirstOrDefault(x => x.Name == parentName);
+                parentName = parent?._parent ?? string.Empty;
                 if (parent != null)
                 {
-                    _propertyInstances.AddRange(parent._propertyInstances);
-                    _methodInstances.AddRange(parent._methodInstances);
-                    _selectorInstances.AddRange(parent._selectorInstances);
+                    // Just add unique instances, since the MTLAllocation inheritance would cause doubled-up properties
+                    foreach (var property in parent._propertyInstances)
+                    {
+                        if (!propertyInstances.Any(x => x.Name == property.Name && x.Type == property.Type))
+                        {
+                            propertyInstances.Add(property);
+                        }
+                    }
+                    methodInstances.AddRange(parent._methodInstances);
+                    foreach (var selector in parent._selectorInstances)
+                    {
+                        if (selectorInstances.All(x => x.Name != selector.Name))
+                        {
+                            selectorInstances.Add(selector);
+                        }
+                    }
                 }
             }
 
-            _propertyInstances.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.InvariantCultureIgnoreCase));
-            _methodInstances.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.InvariantCultureIgnoreCase));
+            propertyInstances.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.InvariantCultureIgnoreCase));
+            methodInstances.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.InvariantCultureIgnoreCase));
 
             var objectiveCInstances = new List<ObjectiveCInstance>();
 
@@ -120,36 +140,36 @@ namespace SharpMetal.Generator.Instances
 
             context.LeaveScope();
 
-            if (_propertyInstances.Count != 0)
+            if (propertyInstances.Count != 0)
             {
                 context.WriteLine();
             }
 
-            var selectorInstances = new List<SelectorInstance>(_selectorInstances);
+            var unsortedSelectorInstances = new List<SelectorInstance>(selectorInstances);
             // These have to be sorted after making the copy, otherwise it might resolve to wrong selector due to the Find-based mechanism when generating the calls
-            _selectorInstances.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.InvariantCultureIgnoreCase));
+            selectorInstances.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.InvariantCultureIgnoreCase));
 
-            for (var j = 0; j < _propertyInstances.Count; j++)
+            for (var j = 0; j < propertyInstances.Count; j++)
             {
-                objectiveCInstances.Add(_propertyInstances[j].Generate(selectorInstances, enumCache, structCache, context));
+                objectiveCInstances.Add(propertyInstances[j].Generate(unsortedSelectorInstances, enumCache, structCache, context));
 
-                if (j != _propertyInstances.Count - 1)
+                if (j != propertyInstances.Count - 1)
                 {
                     context.WriteLine();
                 }
             }
 
-            foreach (var method in _methodInstances)
+            foreach (var method in methodInstances)
             {
-                objectiveCInstances.Add(method.Generate(selectorInstances, enumCache, structCache, context, _namespacePrefix));
+                objectiveCInstances.Add(method.Generate(unsortedSelectorInstances, enumCache, structCache, context, _namespacePrefix));
             }
 
-            if (_selectorInstances.Count != 0)
+            if (selectorInstances.Count != 0)
             {
                 context.WriteLine();
             }
 
-            foreach (var selector in _selectorInstances)
+            foreach (var selector in selectorInstances)
             {
                 context.WriteLine($"private static readonly Selector {selector.Name} = \"{selector.Selector}\";");
             }
@@ -160,7 +180,7 @@ namespace SharpMetal.Generator.Instances
             return objectiveCInstances;
         }
 
-        public static ClassInstance Build(string line, string namespacePrefix, StreamReader sr, List<MethodInstance> inFlightUnscopedMethods)
+        public static ClassInstance Build(string line, string namespacePrefix, StreamReader sr)
         {
             var classInfo = line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
 
@@ -182,25 +202,22 @@ namespace SharpMetal.Generator.Instances
                     var info = ancestorInfo[index..];
                     info = info.Replace(">", "").Replace("<", "");
                     var ancestors = info.Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-                    for (var i = 0; i < ancestors.Length; i++)
+                    for (var i = 1; i < ancestors.Length; i++)
                     {
-                        if (i > 0)
-                        {
-                            if (ancestors[i] != "_Base" && ancestors[i] != "Type" && ancestors[i] != "objc_object" &&
+                        if (ancestors[i] != "_Base" && ancestors[i] != "Type" && ancestors[i] != "objc_object" &&
                                 ancestors[i] != "Value")
-                            {
-                                instance._parent = Types.ConvertType(ancestors[i], namespacePrefix);
-                            }
+                        {
+                            instance._parent = Types.ConvertType(ancestors[i], namespacePrefix);
                         }
                     }
                 }
             }
 
-            instance._methodInstances.AddRange(inFlightUnscopedMethods);
             instance._namespacePrefix = namespacePrefix;
 
             var classEnded = false;
             var enteredComment = false;
+            var isDeprecated = false;
 
             while (!classEnded)
             {
@@ -232,6 +249,12 @@ namespace SharpMetal.Generator.Instances
                     continue;
                 }
 
+                if (nextLine.Contains("[[deprecated"))
+                {
+                    isDeprecated = true;
+                    continue;
+                }
+
                 // Ignore empty lines etc...
                 if (nextLine is "" or "{" or "public:")
                 {
@@ -242,6 +265,10 @@ namespace SharpMetal.Generator.Instances
                 {
                     continue;
                 }
+
+                // Temp to not having to track all early returns
+                var tempDeprecated = isDeprecated;
+                isDeprecated = false;
 
                 var rawName = nextLine;
                 nextLine = StringUtils.FunctionSignatureCleanup(nextLine);
@@ -293,17 +320,17 @@ namespace SharpMetal.Generator.Instances
                         continue;
                     }
 
-                    if (returnType == "void" || returnType == string.Empty || isStatic)
+                    if (returnType == "void" || returnType == string.Empty)
                     {
                         // This is probably a constructor, in which case we have our own implementation
                         if (!returnType.Contains(name))
                         {
-                            instance.AddMethod(new MethodInstance(returnType, name, rawName, isStatic, false, new List<PropertyInstance>()));
+                            instance.AddMethod(new MethodInstance(returnType, name, rawName, isStatic, tempDeprecated, []));
                         }
                     }
-                    else
+                    else if (!(isStatic && returnType.Contains(name)))
                     {
-                        instance.AddProperty(new PropertyInstance(returnType, name));
+                        instance.AddProperty(new PropertyInstance(instance, returnType, name, isStatic: isStatic, isDeprecated: tempDeprecated));
                     }
                 }
                 else
@@ -326,7 +353,7 @@ namespace SharpMetal.Generator.Instances
                     }
 
                     var inputArguments = inputString.Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-                    List<PropertyInstance> arguments = [];
+                    List<FunctionParameterInstance> arguments = [];
 
                     foreach (var argument in inputArguments)
                     {
@@ -360,12 +387,12 @@ namespace SharpMetal.Generator.Instances
                             reference = true;
                         }
 
-                        arguments.Add(new PropertyInstance(argumentType, argumentName, reference));
+                        arguments.Add(new FunctionParameterInstance(argumentType, argumentName, reference));
                     }
 
                     if (returnType != string.Empty)
                     {
-                        instance.AddMethod(new MethodInstance(returnType, name, rawName, isStatic, false, arguments));
+                        instance.AddMethod(new MethodInstance(returnType, name, rawName, isStatic, tempDeprecated, arguments));
                     }
                 }
 
@@ -377,17 +404,12 @@ namespace SharpMetal.Generator.Instances
                         // We can't have a property AND methods with the same name
                         // in this case, the solution is to turn the property into a method
                         instance._propertyInstances.RemoveAt(i);
-                        instance.AddMethod(new MethodInstance(property.Type, property.Name, rawName, isStatic, false, []));
+                        instance.AddMethod(new MethodInstance(property.Type, property.Name, rawName, isStatic, tempDeprecated, []));
                     }
                 }
             }
 
             return instance;
-        }
-
-        public List<SelectorInstance> GetSelectors()
-        {
-            return _selectorInstances;
         }
     }
 }

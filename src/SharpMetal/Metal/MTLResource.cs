@@ -5,6 +5,13 @@ using SharpMetal.Foundation;
 namespace SharpMetal.Metal
 {
     [SupportedOSPlatform("macos")]
+    public enum MTLBufferSparseTier : long
+    {
+        None = 0,
+        Tier1 = 1,
+    }
+
+    [SupportedOSPlatform("macos")]
     public enum MTLCPUCacheMode : ulong
     {
         DefaultCache = 0,
@@ -35,14 +42,22 @@ namespace SharpMetal.Metal
         ResourceCPUCacheModeDefaultCache = 0,
         ResourceCPUCacheModeWriteCombined = 1,
         ResourceStorageModeShared = 0,
-        ResourceStorageModeManaged = 16,
-        ResourceStorageModePrivate = 32,
-        ResourceStorageModeMemoryless = 48,
+        ResourceStorageModeManaged = 1 << 4,
+        ResourceStorageModePrivate = 1 << 5,
+        ResourceStorageModeMemoryless = 1 << 5,
         ResourceHazardTrackingModeDefault = 0,
-        ResourceHazardTrackingModeUntracked = 256,
-        ResourceHazardTrackingModeTracked = 512,
+        ResourceHazardTrackingModeUntracked = 1 << 8,
+        ResourceHazardTrackingModeTracked = 1 << 9,
         CPUCacheModeDefault = 0,
         CPUCacheModeWriteCombined = 1,
+    }
+
+    [SupportedOSPlatform("macos")]
+    public enum MTLSparsePageSize : long
+    {
+        Size16 = 101,
+        Size64 = 102,
+        Size256 = 103,
     }
 
     [SupportedOSPlatform("macos")]
@@ -55,10 +70,19 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
+    public enum MTLTextureSparseTier : long
+    {
+        None = 0,
+        Tier1 = 1,
+        Tier2 = 2,
+    }
+
+    [SupportedOSPlatform("macos")]
     public struct MTLResource : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLResource obj) => obj.NativePtr;
+        public static implicit operator MTLAllocation(MTLResource obj) => new(obj.NativePtr);
         public MTLResource(IntPtr ptr) => NativePtr = ptr;
 
         public void Dispose()
@@ -95,6 +119,11 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_makeAliasable);
         }
 
+        public int SetOwner(IntPtr task_id_token)
+        {
+            return ObjectiveCRuntime.int_objc_msgSend(NativePtr, sel_setOwnerWithIdentity, task_id_token);
+        }
+
         public MTLPurgeableState SetPurgeableState(MTLPurgeableState state)
         {
             return (MTLPurgeableState)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_setPurgeableState, (ulong)state);
@@ -111,6 +140,7 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_makeAliasable = "makeAliasable";
         private static readonly Selector sel_resourceOptions = "resourceOptions";
         private static readonly Selector sel_setLabel = "setLabel:";
+        private static readonly Selector sel_setOwnerWithIdentity = "setOwnerWithIdentity:";
         private static readonly Selector sel_setPurgeableState = "setPurgeableState:";
         private static readonly Selector sel_storageMode = "storageMode";
         private static readonly Selector sel_release = "release";

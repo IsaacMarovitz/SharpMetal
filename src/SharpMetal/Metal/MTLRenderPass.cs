@@ -49,6 +49,13 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
+    public enum MTLVisibilityResultType : long
+    {
+        Reset = 0,
+        Accumulate = 1,
+    }
+
+    [SupportedOSPlatform("macos")]
     [StructLayout(LayoutKind.Sequential)]
     public struct MTLClearColor
     {
@@ -514,6 +521,12 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setStencilAttachment, value);
         }
 
+        public bool SupportColorAttachmentMapping
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportColorAttachmentMapping);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSupportColorAttachmentMapping, value);
+        }
+
         public ulong ThreadgroupMemoryLength
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_threadgroupMemoryLength);
@@ -536,6 +549,12 @@ namespace SharpMetal.Metal
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_visibilityResultBuffer));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVisibilityResultBuffer, value);
+        }
+
+        public MTLVisibilityResultType VisibilityResultType
+        {
+            get => (MTLVisibilityResultType)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_visibilityResultType);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVisibilityResultType, (long)value);
         }
 
         public ulong GetSamplePositions(MTLSamplePosition positions, ulong count)
@@ -568,15 +587,19 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setRenderTargetWidth = "setRenderTargetWidth:";
         private static readonly Selector sel_setSamplePositionscount = "setSamplePositions:count:";
         private static readonly Selector sel_setStencilAttachment = "setStencilAttachment:";
+        private static readonly Selector sel_setSupportColorAttachmentMapping = "setSupportColorAttachmentMapping:";
         private static readonly Selector sel_setThreadgroupMemoryLength = "setThreadgroupMemoryLength:";
         private static readonly Selector sel_setTileHeight = "setTileHeight:";
         private static readonly Selector sel_setTileWidth = "setTileWidth:";
         private static readonly Selector sel_setVisibilityResultBuffer = "setVisibilityResultBuffer:";
+        private static readonly Selector sel_setVisibilityResultType = "setVisibilityResultType:";
         private static readonly Selector sel_stencilAttachment = "stencilAttachment";
+        private static readonly Selector sel_supportColorAttachmentMapping = "supportColorAttachmentMapping";
         private static readonly Selector sel_threadgroupMemoryLength = "threadgroupMemoryLength";
         private static readonly Selector sel_tileHeight = "tileHeight";
         private static readonly Selector sel_tileWidth = "tileWidth";
         private static readonly Selector sel_visibilityResultBuffer = "visibilityResultBuffer";
+        private static readonly Selector sel_visibilityResultType = "visibilityResultType";
         private static readonly Selector sel_release = "release";
     }
 

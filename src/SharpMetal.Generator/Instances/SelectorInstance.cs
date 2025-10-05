@@ -5,6 +5,7 @@ namespace SharpMetal.Generator.Instances
         public readonly string Name;
         public readonly string RawName;
         public readonly string Selector;
+        public bool UsedInProperty { get; set; }
 
         private SelectorInstance(string selector, string rawName)
         {
@@ -37,9 +38,17 @@ namespace SharpMetal.Generator.Instances
 
             sr.ReadLine();
             var selector = sr.ReadLine() ?? "";
-            sr.ReadLine();
+            var closingBracketLine = sr.ReadLine() ?? "";
+            // Some selectors are split on two lines -- in that case append the line
+            if (closingBracketLine.Trim() != "}")
+            {
+                selector += closingBracketLine;
+                sr.ReadLine();
+            }
 
-            var lookingFor = $"_{namespacePrefix}_PRIVATE_SEL(";
+            var macroNamespaces = Namespaces.GetMacroNamespace(namespacePrefix);
+
+            var lookingFor = $"_{macroNamespaces}_PRIVATE_SEL(";
             var index = selector.IndexOf(lookingFor, StringComparison.Ordinal);
 
             if (index != -1)

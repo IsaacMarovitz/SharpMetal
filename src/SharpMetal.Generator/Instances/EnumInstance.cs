@@ -48,8 +48,10 @@ namespace SharpMetal.Generator.Instances
         {
             var isFlag = line.Contains($"_{namespacePrefix}_OPTIONS(");
 
-            line = line.Replace($"_{namespacePrefix}_ENUM(", "");
-            line = line.Replace($"_{namespacePrefix}_OPTIONS(", "");
+            var macroNamespaces = Namespaces.GetMacroNamespace(namespacePrefix);
+
+            line = line.Replace($"_{macroNamespaces}_ENUM(", "");
+            line = line.Replace($"_{macroNamespaces}_OPTIONS(", "");
 
             if (line.Contains('{'))
             {

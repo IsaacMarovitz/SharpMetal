@@ -1,5 +1,6 @@
 using System.Runtime.Versioning;
 using SharpMetal.ObjectiveCCore;
+using SharpMetal.Foundation;
 using SharpMetal.Metal;
 
 namespace SharpMetal.QuartzCore
@@ -16,10 +17,28 @@ namespace SharpMetal.QuartzCore
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        public bool AllowsNextDrawableTimeout
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_allowsNextDrawableTimeout);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setAllowsNextDrawableTimeout, value);
+        }
+
+        public IntPtr Colorspace
+        {
+            get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_colorspace));
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setColorspace, value);
+        }
+
         public MTLDevice Device
         {
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDevice, value);
+        }
+
+        public bool DisplaySyncEnabled
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_displaySyncEnabled);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDisplaySyncEnabled, value);
         }
 
         public IntPtr DrawableSize
@@ -34,19 +53,40 @@ namespace SharpMetal.QuartzCore
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFramebufferOnly, value);
         }
 
+        public ulong MaximumDrawableCount
+        {
+            get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maximumDrawableCount);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaximumDrawableCount, value);
+        }
+
+        public CAMetalDrawable NextDrawable => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_nextDrawable));
+
         public MTLPixelFormat PixelFormat
         {
             get => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_pixelFormat);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPixelFormat, (ulong)value);
         }
 
+        public MTLResidencySet ResidencySet => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_residencySet));
+
+        private static readonly Selector sel_allowsNextDrawableTimeout = "allowsNextDrawableTimeout";
+        private static readonly Selector sel_colorspace = "colorspace";
         private static readonly Selector sel_device = "device";
+        private static readonly Selector sel_displaySyncEnabled = "displaySyncEnabled";
         private static readonly Selector sel_drawableSize = "drawableSize";
         private static readonly Selector sel_framebufferOnly = "framebufferOnly";
         private static readonly Selector sel_layer = "layer";
+        private static readonly Selector sel_maximumDrawableCount = "maximumDrawableCount";
+        private static readonly Selector sel_nextDrawable = "nextDrawable";
+        private static readonly Selector sel_pixelFormat = "pixelFormat";
+        private static readonly Selector sel_residencySet = "residencySet";
+        private static readonly Selector sel_setAllowsNextDrawableTimeout = "setAllowsNextDrawableTimeout:";
+        private static readonly Selector sel_setColorspace = "setColorspace:";
         private static readonly Selector sel_setDevice = "setDevice:";
+        private static readonly Selector sel_setDisplaySyncEnabled = "setDisplaySyncEnabled:";
         private static readonly Selector sel_setDrawableSize = "setDrawableSize:";
         private static readonly Selector sel_setFramebufferOnly = "setFramebufferOnly:";
+        private static readonly Selector sel_setMaximumDrawableCount = "setMaximumDrawableCount:";
         private static readonly Selector sel_setPixelFormat = "setPixelFormat:";
         private static readonly Selector sel_release = "release";
     }

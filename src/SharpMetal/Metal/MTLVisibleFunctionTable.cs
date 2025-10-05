@@ -58,6 +58,11 @@ namespace SharpMetal.Metal
             throw new NotImplementedException();
         }
 
+        public int SetOwner(IntPtr task_id_token)
+        {
+            return ObjectiveCRuntime.int_objc_msgSend(NativePtr, sel_setOwnerWithIdentity, task_id_token);
+        }
+
         public MTLPurgeableState SetPurgeableState(MTLPurgeableState state)
         {
             return (MTLPurgeableState)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_setPurgeableState, (ulong)state);
@@ -77,6 +82,7 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setFunctionatIndex = "setFunction:atIndex:";
         private static readonly Selector sel_setFunctionswithRange = "setFunctions:withRange:";
         private static readonly Selector sel_setLabel = "setLabel:";
+        private static readonly Selector sel_setOwnerWithIdentity = "setOwnerWithIdentity:";
         private static readonly Selector sel_setPurgeableState = "setPurgeableState:";
         private static readonly Selector sel_storageMode = "storageMode";
         private static readonly Selector sel_release = "release";

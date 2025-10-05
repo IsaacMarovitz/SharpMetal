@@ -21,9 +21,9 @@ namespace SharpMetal.Foundation
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
-        public NSArray AllBundles => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_allBundles));
+        public static NSArray AllBundles => new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSBundle"), sel_allBundles));
 
-        public NSArray AllFrameworks => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_allFrameworks));
+        public static NSArray AllFrameworks => new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSBundle"), sel_allFrameworks));
 
         public NSURL AppStoreReceiptURL => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_appStoreReceiptURL));
 
@@ -48,6 +48,8 @@ namespace SharpMetal.Foundation
         public bool Load => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_load);
 
         public NSDictionary LocalizedInfoDictionary => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_localizedInfoDictionary));
+
+        public static NSBundle MainBundle => new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSBundle"), sel_mainBundle));
 
         public NSString PrivateFrameworksPath => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_privateFrameworksPath));
 
@@ -90,11 +92,6 @@ namespace SharpMetal.Foundation
         public bool LoadAndReturnError(ref NSError pError)
         {
             return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_loadAndReturnError, ref pError.NativePtr);
-        }
-
-        public static NSBundle MainBundle()
-        {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(new ObjectiveCClass("NSBundle"), sel_mainBundle));
         }
 
         public NSObject ObjectForInfoDictionaryKey(NSString pKey)

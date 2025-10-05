@@ -47,6 +47,8 @@ namespace SharpMetal.Metal
 
         public MTLResourceOptions ResourceOptions => (MTLResourceOptions)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_resourceOptions);
 
+        public MTLBufferSparseTier SparseBufferTier => (MTLBufferSparseTier)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_sparseBufferTier);
+
         public MTLStorageMode StorageMode => (MTLStorageMode)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_storageMode);
 
         public void AddDebugMarker(NSString marker, NSRange range)
@@ -69,6 +71,11 @@ namespace SharpMetal.Metal
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newRemoteBufferViewForDevice, device));
         }
 
+        public MTLTensor NewTensor(MTLTensorDescriptor descriptor, ulong offset, ref NSError error)
+        {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newTensorWithDescriptoroffseterror, descriptor, offset, ref error.NativePtr));
+        }
+
         public MTLTexture NewTexture(MTLTextureDescriptor descriptor, ulong offset, ulong bytesPerRow)
         {
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newTextureWithDescriptoroffsetbytesPerRow, descriptor, offset, bytesPerRow));
@@ -77,6 +84,11 @@ namespace SharpMetal.Metal
         public void RemoveAllDebugMarkers()
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_removeAllDebugMarkers);
+        }
+
+        public int SetOwner(IntPtr task_id_token)
+        {
+            return ObjectiveCRuntime.int_objc_msgSend(NativePtr, sel_setOwnerWithIdentity, task_id_token);
         }
 
         public MTLPurgeableState SetPurgeableState(MTLPurgeableState state)
@@ -99,12 +111,15 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_length = "length";
         private static readonly Selector sel_makeAliasable = "makeAliasable";
         private static readonly Selector sel_newRemoteBufferViewForDevice = "newRemoteBufferViewForDevice:";
+        private static readonly Selector sel_newTensorWithDescriptoroffseterror = "newTensorWithDescriptor:offset:error:";
         private static readonly Selector sel_newTextureWithDescriptoroffsetbytesPerRow = "newTextureWithDescriptor:offset:bytesPerRow:";
         private static readonly Selector sel_remoteStorageBuffer = "remoteStorageBuffer";
         private static readonly Selector sel_removeAllDebugMarkers = "removeAllDebugMarkers";
         private static readonly Selector sel_resourceOptions = "resourceOptions";
         private static readonly Selector sel_setLabel = "setLabel:";
+        private static readonly Selector sel_setOwnerWithIdentity = "setOwnerWithIdentity:";
         private static readonly Selector sel_setPurgeableState = "setPurgeableState:";
+        private static readonly Selector sel_sparseBufferTier = "sparseBufferTier";
         private static readonly Selector sel_storageMode = "storageMode";
         private static readonly Selector sel_release = "release";
     }

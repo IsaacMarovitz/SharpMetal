@@ -10,13 +10,13 @@ namespace SharpMetal.Metal
     public enum MTLIndirectCommandType : ulong
     {
         Draw = 1,
-        DrawIndexed = 2,
-        DrawPatches = 4,
-        DrawIndexedPatches = 8,
-        ConcurrentDispatch = 32,
-        ConcurrentDispatchThreads = 64,
-        DrawMeshThreadgroups = 128,
-        DrawMeshThreads = 256,
+        DrawIndexed = 1 << 1,
+        DrawPatches = 1 << 2,
+        DrawIndexedPatches = 1 << 3,
+        ConcurrentDispatch = 1 << 5,
+        ConcurrentDispatchThreads = 1 << 6,
+        DrawMeshThreadgroups = 1 << 7,
+        DrawMeshThreads = 1 << 8,
     }
 
     [SupportedOSPlatform("macos")]
@@ -88,6 +88,11 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_resetWithRange, range);
         }
 
+        public int SetOwner(IntPtr task_id_token)
+        {
+            return ObjectiveCRuntime.int_objc_msgSend(NativePtr, sel_setOwnerWithIdentity, task_id_token);
+        }
+
         public MTLPurgeableState SetPurgeableState(MTLPurgeableState state)
         {
             return (MTLPurgeableState)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_setPurgeableState, (ulong)state);
@@ -108,6 +113,7 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_resetWithRange = "resetWithRange:";
         private static readonly Selector sel_resourceOptions = "resourceOptions";
         private static readonly Selector sel_setLabel = "setLabel:";
+        private static readonly Selector sel_setOwnerWithIdentity = "setOwnerWithIdentity:";
         private static readonly Selector sel_setPurgeableState = "setPurgeableState:";
         private static readonly Selector sel_size = "size";
         private static readonly Selector sel_storageMode = "storageMode";
@@ -192,6 +198,12 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMaxVertexBufferBindCount, value);
         }
 
+        public bool SupportColorAttachmentMapping
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportColorAttachmentMapping);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSupportColorAttachmentMapping, value);
+        }
+
         public bool SupportDynamicAttributeStride
         {
             get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_supportDynamicAttributeStride);
@@ -224,8 +236,10 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setMaxObjectBufferBindCount = "setMaxObjectBufferBindCount:";
         private static readonly Selector sel_setMaxObjectThreadgroupMemoryBindCount = "setMaxObjectThreadgroupMemoryBindCount:";
         private static readonly Selector sel_setMaxVertexBufferBindCount = "setMaxVertexBufferBindCount:";
+        private static readonly Selector sel_setSupportColorAttachmentMapping = "setSupportColorAttachmentMapping:";
         private static readonly Selector sel_setSupportDynamicAttributeStride = "setSupportDynamicAttributeStride:";
         private static readonly Selector sel_setSupportRayTracing = "setSupportRayTracing:";
+        private static readonly Selector sel_supportColorAttachmentMapping = "supportColorAttachmentMapping";
         private static readonly Selector sel_supportDynamicAttributeStride = "supportDynamicAttributeStride";
         private static readonly Selector sel_supportRayTracing = "supportRayTracing";
         private static readonly Selector sel_release = "release";

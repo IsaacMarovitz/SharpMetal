@@ -13,6 +13,14 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
+    public enum MTLShaderValidation : long
+    {
+        Default = 0,
+        Enabled = 1,
+        Disabled = 2,
+    }
+
+    [SupportedOSPlatform("macos")]
     public struct MTLPipelineBufferDescriptor : IDisposable
     {
         public IntPtr NativePtr;

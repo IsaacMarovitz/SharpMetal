@@ -44,10 +44,10 @@ namespace SharpMetal.Metal
     {
         Unknown = 0,
         ShaderRead = 1,
-        ShaderWrite = 2,
-        RenderTarget = 4,
-        PixelFormatView = 16,
-        ShaderAtomic = 32,
+        ShaderWrite = 1 << 1,
+        RenderTarget = 1 << 2,
+        PixelFormatView = 1 << 4,
+        ShaderAtomic = 1 << 5,
     }
 
     [SupportedOSPlatform("macos")]
@@ -122,6 +122,7 @@ namespace SharpMetal.Metal
 
         public ulong FirstMipmapInTail => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_firstMipmapInTail);
 
+        [System.Obsolete]
         public bool FramebufferOnly => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isFramebufferOnly);
 
         public MTLResourceID GpuResourceID => ObjectiveCRuntime.MTLResourceID_objc_msgSend(NativePtr, sel_gpuResourceID);
@@ -139,6 +140,10 @@ namespace SharpMetal.Metal
         public ulong IosurfacePlane => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_iosurfacePlane);
 
         public bool IsAliasable => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isAliasable);
+
+        public bool IsFramebufferOnly => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isFramebufferOnly);
+
+        public bool IsShareable => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isShareable);
 
         public bool IsSparse => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isSparse);
 
@@ -168,7 +173,10 @@ namespace SharpMetal.Metal
 
         public ulong SampleCount => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_sampleCount);
 
+        [System.Obsolete]
         public bool Shareable => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isShareable);
+
+        public MTLTextureSparseTier SparseTextureTier => (MTLTextureSparseTier)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_sparseTextureTier);
 
         public MTLStorageMode StorageMode => (MTLStorageMode)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_storageMode);
 
@@ -212,6 +220,11 @@ namespace SharpMetal.Metal
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newTextureViewWithPixelFormattextureTypelevelsslices, (ulong)pixelFormat, (ulong)textureType, levelRange, sliceRange));
         }
 
+        public MTLTexture NewTextureView(MTLTextureViewDescriptor descriptor)
+        {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newTextureViewWithDescriptor, descriptor));
+        }
+
         public MTLTexture NewTextureView(MTLPixelFormat pixelFormat, MTLTextureType textureType, NSRange levelRange, NSRange sliceRange, MTLTextureSwizzleChannels swizzle)
         {
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newTextureViewWithPixelFormattextureTypelevelsslicesswizzle, (ulong)pixelFormat, (ulong)textureType, levelRange, sliceRange, swizzle));
@@ -225,6 +238,11 @@ namespace SharpMetal.Metal
         public void ReplaceRegion(MTLRegion region, ulong level, IntPtr pixelBytes, ulong bytesPerRow)
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_replaceRegionmipmapLevelwithBytesbytesPerRow, region, level, pixelBytes, bytesPerRow);
+        }
+
+        public int SetOwner(IntPtr task_id_token)
+        {
+            return ObjectiveCRuntime.int_objc_msgSend(NativePtr, sel_setOwnerWithIdentity, task_id_token);
         }
 
         public MTLPurgeableState SetPurgeableState(MTLPurgeableState state)
@@ -261,6 +279,7 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_mipmapLevelCount = "mipmapLevelCount";
         private static readonly Selector sel_newRemoteTextureViewForDevice = "newRemoteTextureViewForDevice:";
         private static readonly Selector sel_newSharedTextureHandle = "newSharedTextureHandle";
+        private static readonly Selector sel_newTextureViewWithDescriptor = "newTextureViewWithDescriptor:";
         private static readonly Selector sel_newTextureViewWithPixelFormat = "newTextureViewWithPixelFormat:";
         private static readonly Selector sel_newTextureViewWithPixelFormattextureTypelevelsslices = "newTextureViewWithPixelFormat:textureType:levels:slices:";
         private static readonly Selector sel_newTextureViewWithPixelFormattextureTypelevelsslicesswizzle = "newTextureViewWithPixelFormat:textureType:levels:slices:swizzle:";
@@ -275,7 +294,9 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_rootResource = "rootResource";
         private static readonly Selector sel_sampleCount = "sampleCount";
         private static readonly Selector sel_setLabel = "setLabel:";
+        private static readonly Selector sel_setOwnerWithIdentity = "setOwnerWithIdentity:";
         private static readonly Selector sel_setPurgeableState = "setPurgeableState:";
+        private static readonly Selector sel_sparseTextureTier = "sparseTextureTier";
         private static readonly Selector sel_storageMode = "storageMode";
         private static readonly Selector sel_swizzle = "swizzle";
         private static readonly Selector sel_tailSizeInBytes = "tailSizeInBytes";
@@ -357,6 +378,12 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPixelFormat, (ulong)value);
         }
 
+        public MTLSparsePageSize PlacementSparsePageSize
+        {
+            get => (MTLSparsePageSize)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_placementSparsePageSize);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPlacementSparsePageSize, (long)value);
+        }
+
         public MTLResourceOptions ResourceOptions
         {
             get => (MTLResourceOptions)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_resourceOptions);
@@ -423,6 +450,7 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_height = "height";
         private static readonly Selector sel_mipmapLevelCount = "mipmapLevelCount";
         private static readonly Selector sel_pixelFormat = "pixelFormat";
+        private static readonly Selector sel_placementSparsePageSize = "placementSparsePageSize";
         private static readonly Selector sel_resourceOptions = "resourceOptions";
         private static readonly Selector sel_sampleCount = "sampleCount";
         private static readonly Selector sel_setAllowGPUOptimizedContents = "setAllowGPUOptimizedContents:";
@@ -434,6 +462,7 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setHeight = "setHeight:";
         private static readonly Selector sel_setMipmapLevelCount = "setMipmapLevelCount:";
         private static readonly Selector sel_setPixelFormat = "setPixelFormat:";
+        private static readonly Selector sel_setPlacementSparsePageSize = "setPlacementSparsePageSize:";
         private static readonly Selector sel_setResourceOptions = "setResourceOptions:";
         private static readonly Selector sel_setSampleCount = "setSampleCount:";
         private static readonly Selector sel_setStorageMode = "setStorageMode:";
@@ -449,6 +478,67 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_textureType = "textureType";
         private static readonly Selector sel_usage = "usage";
         private static readonly Selector sel_width = "width";
+        private static readonly Selector sel_release = "release";
+    }
+
+    [SupportedOSPlatform("macos")]
+    public struct MTLTextureViewDescriptor : IDisposable
+    {
+        public IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLTextureViewDescriptor obj) => obj.NativePtr;
+        public MTLTextureViewDescriptor(IntPtr ptr) => NativePtr = ptr;
+
+        public MTLTextureViewDescriptor()
+        {
+            var cls = new ObjectiveCClass("MTLTextureViewDescriptor");
+            NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
+
+        public NSRange LevelRange
+        {
+            get => ObjectiveCRuntime.NSRange_objc_msgSend(NativePtr, sel_levelRange);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLevelRange, value);
+        }
+
+        public MTLPixelFormat PixelFormat
+        {
+            get => (MTLPixelFormat)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_pixelFormat);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPixelFormat, (ulong)value);
+        }
+
+        public NSRange SliceRange
+        {
+            get => ObjectiveCRuntime.NSRange_objc_msgSend(NativePtr, sel_sliceRange);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSliceRange, value);
+        }
+
+        public MTLTextureSwizzleChannels Swizzle
+        {
+            get => ObjectiveCRuntime.MTLTextureSwizzleChannels_objc_msgSend(NativePtr, sel_swizzle);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSwizzle, value);
+        }
+
+        public MTLTextureType TextureType
+        {
+            get => (MTLTextureType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_textureType);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTextureType, (ulong)value);
+        }
+
+        private static readonly Selector sel_levelRange = "levelRange";
+        private static readonly Selector sel_pixelFormat = "pixelFormat";
+        private static readonly Selector sel_setLevelRange = "setLevelRange:";
+        private static readonly Selector sel_setPixelFormat = "setPixelFormat:";
+        private static readonly Selector sel_setSliceRange = "setSliceRange:";
+        private static readonly Selector sel_setSwizzle = "setSwizzle:";
+        private static readonly Selector sel_setTextureType = "setTextureType:";
+        private static readonly Selector sel_sliceRange = "sliceRange";
+        private static readonly Selector sel_swizzle = "swizzle";
+        private static readonly Selector sel_textureType = "textureType";
         private static readonly Selector sel_release = "release";
     }
 }

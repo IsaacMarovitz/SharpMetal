@@ -20,10 +20,13 @@ namespace SharpMetal.Metal
 
         public MTLFunctionType FunctionType => (MTLFunctionType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_functionType);
 
+        public MTLResourceID GpuResourceID => ObjectiveCRuntime.MTLResourceID_objc_msgSend(NativePtr, sel_gpuResourceID);
+
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
 
         private static readonly Selector sel_device = "device";
         private static readonly Selector sel_functionType = "functionType";
+        private static readonly Selector sel_gpuResourceID = "gpuResourceID";
         private static readonly Selector sel_name = "name";
         private static readonly Selector sel_release = "release";
     }

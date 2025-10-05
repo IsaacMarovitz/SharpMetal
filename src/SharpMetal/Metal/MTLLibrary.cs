@@ -36,6 +36,8 @@ namespace SharpMetal.Metal
         Version24 = 131076,
         Version30 = 196608,
         Version31 = 196609,
+        Version32 = 196610,
+        Version40 = 262144,
     }
 
     [SupportedOSPlatform("macos")]
@@ -64,6 +66,21 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
+    public enum MTLMathFloatingPointFunctions : long
+    {
+        Fast = 0,
+        Precise = 1,
+    }
+
+    [SupportedOSPlatform("macos")]
+    public enum MTLMathMode : long
+    {
+        Safe = 0,
+        Relaxed = 1,
+        Fast = 2,
+    }
+
+    [SupportedOSPlatform("macos")]
     public enum MTLPatchType : ulong
     {
         None = 0,
@@ -89,16 +106,25 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        [System.Obsolete]
         public bool Active => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isActive);
 
         public ulong AttributeIndex => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_attributeIndex);
 
         public MTLDataType AttributeType => (MTLDataType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_attributeType);
 
+        public bool IsActive => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isActive);
+
+        public bool IsPatchControlPointData => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isPatchControlPointData);
+
+        public bool IsPatchData => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isPatchData);
+
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
 
+        [System.Obsolete]
         public bool PatchControlPointData => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isPatchControlPointData);
 
+        [System.Obsolete]
         public bool PatchData => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isPatchData);
 
         private static readonly Selector sel_attributeIndex = "attributeIndex";
@@ -140,6 +166,12 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setCompileSymbolVisibility, (long)value);
         }
 
+        public bool EnableLogging
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_enableLogging);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setEnableLogging, value);
+        }
+
         public bool FastMathEnabled
         {
             get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_fastMathEnabled);
@@ -170,6 +202,18 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLibraryType, (long)value);
         }
 
+        public MTLMathFloatingPointFunctions MathFloatingPointFunctions
+        {
+            get => (MTLMathFloatingPointFunctions)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_mathFloatingPointFunctions);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMathFloatingPointFunctions, (long)value);
+        }
+
+        public MTLMathMode MathMode
+        {
+            get => (MTLMathMode)ObjectiveCRuntime.long_objc_msgSend(NativePtr, sel_mathMode);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMathMode, (long)value);
+        }
+
         public ulong MaxTotalThreadsPerThreadgroup
         {
             get => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_maxTotalThreadsPerThreadgroup);
@@ -194,28 +238,42 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setPreserveInvariance, value);
         }
 
+        public MTLSize RequiredThreadsPerThreadgroup
+        {
+            get => ObjectiveCRuntime.MTLSize_objc_msgSend(NativePtr, sel_requiredThreadsPerThreadgroup);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRequiredThreadsPerThreadgroup, value);
+        }
+
         private static readonly Selector sel_allowReferencingUndefinedSymbols = "allowReferencingUndefinedSymbols";
         private static readonly Selector sel_compileSymbolVisibility = "compileSymbolVisibility";
+        private static readonly Selector sel_enableLogging = "enableLogging";
         private static readonly Selector sel_fastMathEnabled = "fastMathEnabled";
         private static readonly Selector sel_installName = "installName";
         private static readonly Selector sel_languageVersion = "languageVersion";
         private static readonly Selector sel_libraries = "libraries";
         private static readonly Selector sel_libraryType = "libraryType";
+        private static readonly Selector sel_mathFloatingPointFunctions = "mathFloatingPointFunctions";
+        private static readonly Selector sel_mathMode = "mathMode";
         private static readonly Selector sel_maxTotalThreadsPerThreadgroup = "maxTotalThreadsPerThreadgroup";
         private static readonly Selector sel_optimizationLevel = "optimizationLevel";
         private static readonly Selector sel_preprocessorMacros = "preprocessorMacros";
         private static readonly Selector sel_preserveInvariance = "preserveInvariance";
+        private static readonly Selector sel_requiredThreadsPerThreadgroup = "requiredThreadsPerThreadgroup";
         private static readonly Selector sel_setAllowReferencingUndefinedSymbols = "setAllowReferencingUndefinedSymbols:";
         private static readonly Selector sel_setCompileSymbolVisibility = "setCompileSymbolVisibility:";
+        private static readonly Selector sel_setEnableLogging = "setEnableLogging:";
         private static readonly Selector sel_setFastMathEnabled = "setFastMathEnabled:";
         private static readonly Selector sel_setInstallName = "setInstallName:";
         private static readonly Selector sel_setLanguageVersion = "setLanguageVersion:";
         private static readonly Selector sel_setLibraries = "setLibraries:";
         private static readonly Selector sel_setLibraryType = "setLibraryType:";
+        private static readonly Selector sel_setMathFloatingPointFunctions = "setMathFloatingPointFunctions:";
+        private static readonly Selector sel_setMathMode = "setMathMode:";
         private static readonly Selector sel_setMaxTotalThreadsPerThreadgroup = "setMaxTotalThreadsPerThreadgroup:";
         private static readonly Selector sel_setOptimizationLevel = "setOptimizationLevel:";
         private static readonly Selector sel_setPreprocessorMacros = "setPreprocessorMacros:";
         private static readonly Selector sel_setPreserveInvariance = "setPreserveInvariance:";
+        private static readonly Selector sel_setRequiredThreadsPerThreadgroup = "setRequiredThreadsPerThreadgroup:";
         private static readonly Selector sel_release = "release";
     }
 
@@ -315,6 +373,30 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
+    public struct MTLFunctionReflection : IDisposable
+    {
+        public IntPtr NativePtr;
+        public static implicit operator IntPtr(MTLFunctionReflection obj) => obj.NativePtr;
+        public MTLFunctionReflection(IntPtr ptr) => NativePtr = ptr;
+
+        public MTLFunctionReflection()
+        {
+            var cls = new ObjectiveCClass("MTLFunctionReflection");
+            NativePtr = cls.AllocInit();
+        }
+
+        public void Dispose()
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
+        }
+
+        public NSArray Bindings => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_bindings));
+
+        private static readonly Selector sel_bindings = "bindings";
+        private static readonly Selector sel_release = "release";
+    }
+
+    [SupportedOSPlatform("macos")]
     public struct MTLLibrary : IDisposable
     {
         public IntPtr NativePtr;
@@ -360,6 +442,11 @@ namespace SharpMetal.Metal
             return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newIntersectionFunctionWithDescriptorerror, descriptor, ref error.NativePtr));
         }
 
+        public MTLFunctionReflection ReflectionForFunction(NSString functionName)
+        {
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_reflectionForFunctionWithName, functionName));
+        }
+
         private static readonly Selector sel_device = "device";
         private static readonly Selector sel_functionNames = "functionNames";
         private static readonly Selector sel_installName = "installName";
@@ -368,6 +455,7 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_newFunctionWithName = "newFunctionWithName:";
         private static readonly Selector sel_newFunctionWithNameconstantValueserror = "newFunctionWithName:constantValues:error:";
         private static readonly Selector sel_newIntersectionFunctionWithDescriptorerror = "newIntersectionFunctionWithDescriptor:error:";
+        private static readonly Selector sel_reflectionForFunctionWithName = "reflectionForFunctionWithName:";
         private static readonly Selector sel_setLabel = "setLabel:";
         private static readonly Selector sel_type = "type";
         private static readonly Selector sel_release = "release";
@@ -391,16 +479,25 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
+        [System.Obsolete]
         public bool Active => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isActive);
 
         public ulong AttributeIndex => ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_attributeIndex);
 
         public MTLDataType AttributeType => (MTLDataType)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_attributeType);
 
+        public bool IsActive => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isActive);
+
+        public bool IsPatchControlPointData => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isPatchControlPointData);
+
+        public bool IsPatchData => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isPatchData);
+
         public NSString Name => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_name));
 
+        [System.Obsolete]
         public bool PatchControlPointData => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isPatchControlPointData);
 
+        [System.Obsolete]
         public bool PatchData => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_isPatchData);
 
         private static readonly Selector sel_attributeIndex = "attributeIndex";

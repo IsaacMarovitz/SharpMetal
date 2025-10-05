@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using SharpMetal.ObjectiveCCore;
 using SharpMetal.Foundation;
@@ -10,13 +11,24 @@ namespace SharpMetal.Metal
     {
         None = 0,
         Instancing = 1,
-        TriangleData = 2,
-        WorldSpaceData = 4,
-        InstanceMotion = 8,
-        PrimitiveMotion = 16,
-        ExtendedLimits = 32,
-        MaxLevels = 64,
-        CurveData = 128,
+        TriangleData = 1 << 1,
+        WorldSpaceData = 1 << 2,
+        InstanceMotion = 1 << 3,
+        PrimitiveMotion = 1 << 4,
+        ExtendedLimits = 1 << 5,
+        MaxLevels = 1 << 6,
+        CurveData = 1 << 7,
+        IntersectionFunctionBuffer = 1 << 8,
+        UserData = 1 << 9,
+    }
+
+    [SupportedOSPlatform("macos")]
+    [StructLayout(LayoutKind.Sequential)]
+    public struct MTLIntersectionFunctionBufferArguments
+    {
+        public ulong intersectionFunctionBuffer;
+        public ulong intersectionFunctionBufferSize;
+        public ulong intersectionFunctionStride;
     }
 
     [SupportedOSPlatform("macos")]
@@ -103,6 +115,11 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setOpaqueTriangleIntersectionFunctionWithSignaturewithRange, (ulong)signature, range);
         }
 
+        public int SetOwner(IntPtr task_id_token)
+        {
+            return ObjectiveCRuntime.int_objc_msgSend(NativePtr, sel_setOwnerWithIdentity, task_id_token);
+        }
+
         public MTLPurgeableState SetPurgeableState(MTLPurgeableState state)
         {
             return (MTLPurgeableState)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_setPurgeableState, (ulong)state);
@@ -138,6 +155,7 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setOpaqueCurveIntersectionFunctionWithSignaturewithRange = "setOpaqueCurveIntersectionFunctionWithSignature:withRange:";
         private static readonly Selector sel_setOpaqueTriangleIntersectionFunctionWithSignatureatIndex = "setOpaqueTriangleIntersectionFunctionWithSignature:atIndex:";
         private static readonly Selector sel_setOpaqueTriangleIntersectionFunctionWithSignaturewithRange = "setOpaqueTriangleIntersectionFunctionWithSignature:withRange:";
+        private static readonly Selector sel_setOwnerWithIdentity = "setOwnerWithIdentity:";
         private static readonly Selector sel_setPurgeableState = "setPurgeableState:";
         private static readonly Selector sel_setVisibleFunctionTableatBufferIndex = "setVisibleFunctionTable:atBufferIndex:";
         private static readonly Selector sel_setVisibleFunctionTableswithBufferRange = "setVisibleFunctionTables:withBufferRange:";
