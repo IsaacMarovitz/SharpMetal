@@ -29,9 +29,9 @@ namespace SharpMetal.Examples.Common
             OnDrawInMTKView += renderer.Draw;
             OnMTKViewDrawableSizeWillChange += (view, rect) => { Console.WriteLine("MTKView Changed Size!"); };
 
-            byte* name = Utf8StringMarshaller.ConvertToUnmanaged("MTKViewDelegate");
-            byte* types1 = Utf8StringMarshaller.ConvertToUnmanaged("v@:#");
-            byte* types2 = Utf8StringMarshaller.ConvertToUnmanaged("v@:#{CGRect={CGPoint=dd}{CGPoint=dd}}");
+            var name = Utf8StringMarshaller.ConvertToUnmanaged("MTKViewDelegate");
+            var types1 = Utf8StringMarshaller.ConvertToUnmanaged("v@:#");
+            var types2 = Utf8StringMarshaller.ConvertToUnmanaged("v@:#{CGRect={CGPoint=dd}{CGPoint=dd}}");
 
             _onDrawInMTKView = (_, _, view) => OnDrawInMTKView(new MTKView(view));
             _onMtkViewDrawableSizeWillChange = (_, _, view, rect) => OnMTKViewDrawableSizeWillChange(new MTKView(view), rect);

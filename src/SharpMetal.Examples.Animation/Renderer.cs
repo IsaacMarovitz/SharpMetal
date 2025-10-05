@@ -20,7 +20,7 @@ namespace SharpMetal.Examples.Animation
         private MTLBuffer _vertexColorsBuffer;
         private MTLBuffer _argumentBuffer;
         private MTLLibrary _shaderLibrary;
-        private MTLBuffer[] _frameData = new MTLBuffer[MaxFramesInFlight];
+        private readonly MTLBuffer[] _frameData = new MTLBuffer[MaxFramesInFlight];
 
         private int _frame;
         private float _angle;
@@ -44,7 +44,7 @@ namespace SharpMetal.Examples.Animation
             // Build shader
             var shaderSource = EmbeddedResources.ReadAllText("Animation/Shaders/Shader.metal");
             var libraryError = new NSError(IntPtr.Zero);
-            _shaderLibrary = _device.NewLibrary(shaderSource, new(IntPtr.Zero), ref libraryError);
+            _shaderLibrary = _device.NewLibrary(shaderSource, new MTLCompileOptions(IntPtr.Zero), ref libraryError);
             if (libraryError != IntPtr.Zero)
             {
                 throw new Exception($"Failed to create library! {libraryError.LocalizedDescription}");
@@ -73,18 +73,18 @@ namespace SharpMetal.Examples.Animation
         {
             // Build buffers
             Vector4[] positions =
-            {
+            [
                 new(-0.8f, 0.8f, 0.0f, 0.0f),
                 new(0.0f, -0.8f, 0.0f, 0.0f),
                 new(0.8f, 0.8f, 0.0f, 0.0f)
-            };
+            ];
 
             Vector4[] colors =
-            {
+            [
                 new(1.0f, 0.3f, 0.2f, 0.0f),
                 new(0.8f, 1.0f, 0.0f, 0.0f),
                 new(0.8f, 0.0f, 1.0f, 0.0f)
-            };
+            ];
 
             var positionsDataSize = (ulong)(NumVertices * Marshal.SizeOf<Vector4>());
             var colorsDataSize = (ulong)(NumVertices * Marshal.SizeOf<Vector4>());
@@ -122,7 +122,7 @@ namespace SharpMetal.Examples.Animation
 
         private void BuildFrameData()
         {
-            for (int i = 0; i < _frameData.Length; i++)
+            for (var i = 0; i < _frameData.Length; i++)
             {
                 _frameData[i] = _device.NewBuffer((ulong)Marshal.SizeOf<FrameData>(), MTLResourceOptions.ResourceStorageModeManaged);
             }
@@ -135,7 +135,7 @@ namespace SharpMetal.Examples.Animation
 
             unsafe
             {
-                FrameData* pFrameData = (FrameData*)frameDataBuffer.Contents.ToPointer();
+                var pFrameData = (FrameData*)frameDataBuffer.Contents.ToPointer();
                 pFrameData->Angle = _angle += 0.01f;
                 frameDataBuffer.DidModifyRange(new NSRange
                 {

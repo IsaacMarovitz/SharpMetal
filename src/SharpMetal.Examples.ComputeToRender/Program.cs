@@ -46,11 +46,13 @@ namespace SharpMetal.Examples.ComputeToRender
             var window = new NSWindow(rect, (ulong)(NSStyleMask.Titled | NSStyleMask.Resizable | NSStyleMask.Closable | NSStyleMask.Miniaturizable));
 
             var device = MTLDevice.CreateSystemDefaultDevice();
-            var mtkView = new MTKView(rect, device);
-            mtkView.ColorPixelFormat = MTLPixelFormat.BGRA8UnormsRGB;
-            mtkView.DepthStencilPixelFormat = MTLPixelFormat.Depth16Unorm;
-            mtkView.ClearColor = new MTLClearColor { red = 0.1, green = 0.1, blue = 0.1, alpha = 1.0 };
-            mtkView.Delegate = MTKViewDelegate.Init<Renderer>(device);
+            var mtkView = new MTKView(rect, device)
+            {
+                ColorPixelFormat = MTLPixelFormat.BGRA8UnormsRGB,
+                DepthStencilPixelFormat = MTLPixelFormat.Depth16Unorm,
+                ClearColor = new MTLClearColor { red = 0.1, green = 0.1, blue = 0.1, alpha = 1.0 },
+                Delegate = MTKViewDelegate.Init<Renderer>(device)
+            };
 
             window.SetContentView(mtkView);
             window.Title = WindowTitle;

@@ -50,10 +50,12 @@ namespace SharpMetal.Examples.Animation
             var window = new NSWindow(rect, (ulong)(NSStyleMask.Titled | NSStyleMask.Resizable | NSStyleMask.Closable | NSStyleMask.Miniaturizable));
 
             var device = MTLDevice.CreateSystemDefaultDevice();
-            var mtkView = new MTKView(rect, device);
-            mtkView.ColorPixelFormat = MTLPixelFormat.BGRA8UnormsRGB;
-            mtkView.ClearColor = new MTLClearColor { red = 1.0, green = 0.0, blue = 0.0, alpha = 1.0 };
-            mtkView.Delegate = MTKViewDelegate.Init<Renderer>(device);
+            var mtkView = new MTKView(rect, device)
+            {
+                ColorPixelFormat = MTLPixelFormat.BGRA8UnormsRGB,
+                ClearColor = new MTLClearColor { red = 1.0, green = 0.0, blue = 0.0, alpha = 1.0 },
+                Delegate = MTKViewDelegate.Init<Renderer>(device)
+            };
 
             window.SetContentView(mtkView);
             window.Title = WindowTitle;

@@ -25,8 +25,8 @@ namespace SharpMetal.Examples.Common
 
         public unsafe NSApplicationDelegate(NSApplication application)
         {
-            byte* name = Utf8StringMarshaller.ConvertToUnmanaged("AppDelegate");
-            byte* types = Utf8StringMarshaller.ConvertToUnmanaged("v@:#");
+            var name = Utf8StringMarshaller.ConvertToUnmanaged("AppDelegate");
+            var types = Utf8StringMarshaller.ConvertToUnmanaged("v@:#");
 
             _onApplicationWillFinishLaunching = (_, _, notif) => OnApplicationWillFinishLaunching?.Invoke(new NSNotification(notif));
             var onApplicationWillFinishLaunchingPtr = Marshal.GetFunctionPointerForDelegate(_onApplicationWillFinishLaunching);

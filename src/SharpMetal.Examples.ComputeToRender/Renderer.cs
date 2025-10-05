@@ -29,8 +29,8 @@ namespace SharpMetal.Examples.ComputeToRender
         private MTLBuffer _vertexBuffer;
         private MTLBuffer _indexBuffer;
         private MTLBuffer _textureAnimationBuffer;
-        private MTLBuffer[] _instanceDataBuffer = new MTLBuffer[MaxFramesInFlight];
-        private MTLBuffer[] _cameraDataBuffer = new MTLBuffer[MaxFramesInFlight];
+        private readonly MTLBuffer[] _instanceDataBuffer = new MTLBuffer[MaxFramesInFlight];
+        private readonly MTLBuffer[] _cameraDataBuffer = new MTLBuffer[MaxFramesInFlight];
 
         private int _frame;
         private float _angle;
@@ -106,7 +106,7 @@ namespace SharpMetal.Examples.ComputeToRender
         {
             var descriptor = new MTLDepthStencilDescriptor();
             descriptor.DepthCompareFunction = MTLCompareFunction.Less;
-            descriptor.DepthWriteEnabled = true;
+            descriptor.IsDepthWriteEnabled = true;
 
             _depthStencilState = _device.NewDepthStencilState(descriptor);
         }
@@ -129,7 +129,7 @@ namespace SharpMetal.Examples.ComputeToRender
             const float s = 0.5f;
 
             VertexData[] verts =
-            {
+            [
                 new(new Vector4(-s, -s, +s, 0.0f), new Vector4(0.0f, 0.0f, 1.0f, 0.0f), new Vector2(0.0f, 1.0f)),
                 new(new Vector4(+s, -s, +s, 0.0f), new Vector4(0.0f, 0.0f, 1.0f, 0.0f), new Vector2(1.0f, 1.0f)),
                 new(new Vector4(+s, +s, +s, 0.0f), new Vector4(0.0f, 0.0f, 1.0f, 0.0f), new Vector2(1.0f, 0.0f)),
@@ -159,17 +159,17 @@ namespace SharpMetal.Examples.ComputeToRender
                 new(new Vector4(+s, -s, -s, 0.0f), new Vector4(0.0f, -1.0f, 0.0f, 0.0f), new Vector2(1.0f, 1.0f)),
                 new(new Vector4(+s, -s, +s, 0.0f), new Vector4(0.0f, -1.0f, 0.0f, 0.0f), new Vector2(1.0f, 0.0f)),
                 new(new Vector4(-s, -s, +s, 0.0f), new Vector4(0.0f, -1.0f, 0.0f, 0.0f), new Vector2(0.0f, 0.0f)),
-            };
+            ];
 
             ushort[] indices =
-            {
+            [
                 0, 1, 2, 2, 3, 0, // Front
                 4, 5, 6, 6, 7, 4, // Right
                 8, 9, 10, 10, 11, 8, // Back
                 12, 13, 14, 14, 15, 12, // Left
                 16, 17, 18, 18, 19, 16, // Top
                 20, 21, 22, 22, 23, 20 // Bottom
-            };
+            ];
 
             var vertexDataSize = (ulong)(Unsafe.SizeOf<VertexData>() * verts.Length);
             var indexDataSize = (ulong)(sizeof(ushort) * indices.Length);
@@ -192,13 +192,13 @@ namespace SharpMetal.Examples.ComputeToRender
             });
 
             var instanceDataSize = (ulong)(MaxFramesInFlight * TotalInstances * Marshal.SizeOf<InstanceData>());
-            for (int i = 0; i < MaxFramesInFlight; i++)
+            for (var i = 0; i < MaxFramesInFlight; i++)
             {
                 _instanceDataBuffer[i] = _device.NewBuffer(instanceDataSize, MTLResourceOptions.ResourceStorageModeManaged);
             }
 
             var cameraDataSize = (ulong)(MaxFramesInFlight * TotalInstances * Marshal.SizeOf<CameraData>());
-            for (int i = 0; i < MaxFramesInFlight; i++)
+            for (var i = 0; i < MaxFramesInFlight; i++)
             {
                 _cameraDataBuffer[i] = _device.NewBuffer(cameraDataSize, MTLResourceOptions.ResourceStorageModeManaged);
             }
@@ -208,7 +208,7 @@ namespace SharpMetal.Examples.ComputeToRender
 
         public unsafe void GenerateMandelbrotTexture(MTLCommandBuffer commandBuffer)
         {
-            uint* animationIndex = (uint*)_textureAnimationBuffer.Contents.ToPointer();
+            var animationIndex = (uint*)_textureAnimationBuffer.Contents.ToPointer();
             animationIndex[0] = _animationIndex++ % 500;
             _textureAnimationBuffer.DidModifyRange(new NSRange
             {
@@ -237,7 +237,7 @@ namespace SharpMetal.Examples.ComputeToRender
             _frame = (_frame + 1) % MaxFramesInFlight;
             var instanceDataBuffer = _instanceDataBuffer[_frame];
 
-            InstanceData* pInstanceData = (InstanceData*)instanceDataBuffer.Contents.ToPointer();
+            var pInstanceData = (InstanceData*)instanceDataBuffer.Contents.ToPointer();
 
             _angle += 0.002f;
 
@@ -253,7 +253,8 @@ namespace SharpMetal.Examples.ComputeToRender
             var indexX = 0;
             var indexY = 0;
             var indexZ = 0;
-            for (int i = 0; i < TotalInstances; i++)
+
+            for (var i = 0; i < TotalInstances; i++)
             {
                 if (indexX == InstanceRows)
                 {
@@ -301,7 +302,7 @@ namespace SharpMetal.Examples.ComputeToRender
 
             var cameraDataBuffer = _cameraDataBuffer[_frame];
             var cameraTransform = Matrix4x4.Identity;
-            CameraData* pCameraData = (CameraData*)cameraDataBuffer.Contents.ToPointer();
+            var pCameraData = (CameraData*)cameraDataBuffer.Contents.ToPointer();
             pCameraData->perspectiveTransform = Matrix4x4.CreatePerspectiveFieldOfView(45.0f * float.Pi / 180.0f, 1.0f, 0.03f, 500.0f);
             pCameraData->worldTransform = cameraTransform;
             pCameraData->worldNormalTransform = new Matrix3x3

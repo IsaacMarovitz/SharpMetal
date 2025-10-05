@@ -10,7 +10,7 @@ namespace SharpMetal.Examples.Primitive
     [SupportedOSPlatform("macos")]
     public class Renderer : IRenderer
     {
-        const int NumVertices = 3;
+        private const int NumVertices = 3;
 
         private MTLDevice _device;
         private MTLCommandQueue _queue;
@@ -36,7 +36,7 @@ namespace SharpMetal.Examples.Primitive
             // Build shader
             var shaderSource = EmbeddedResources.ReadAllText("Primitive/Shaders/Shader.metal");
 
-            _device.NewLibrary(shaderSource, new(IntPtr.Zero), (library, error) =>
+            _device.NewLibrary(shaderSource, new MTLCompileOptions(IntPtr.Zero), (library, error) =>
             {
                 if (error != IntPtr.Zero)
                 {
@@ -73,18 +73,18 @@ namespace SharpMetal.Examples.Primitive
         {
             // Build buffers
             Vector4[] positions =
-            {
+            [
                 new(-0.8f, 0.8f, 0.0f, 0.0f),
                 new(0.0f, -0.8f, 0.0f, 0.0f),
                 new(0.8f, 0.8f, 0.0f, 0.0f)
-            };
+            ];
 
             Vector4[] colors =
-            {
+            [
                 new(1.0f, 0.3f, 0.2f, 0.0f),
                 new(0.8f, 1.0f, 0.0f, 0.0f),
                 new(0.8f, 0.0f, 1.0f, 0.0f)
-            };
+            ];
 
             var positionsDataSize = (ulong)(NumVertices * Marshal.SizeOf<Vector4>());
             var colorsDataSize = (ulong)(NumVertices * Marshal.SizeOf<Vector4>());
