@@ -39,7 +39,7 @@ namespace SharpMetal.Generator.Instances
             sr.ReadLine();
             var selector = sr.ReadLine() ?? "";
             var closingBracketLine = sr.ReadLine() ?? "";
-            // some selectors are split on two lines -- in that case append the line
+            // Some selectors are split on two lines -- in that case append the line
             if (closingBracketLine.Trim() != "}")
             {
                 selector += closingBracketLine;

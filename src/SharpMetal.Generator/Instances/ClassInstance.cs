@@ -55,8 +55,8 @@ namespace SharpMetal.Generator.Instances
 
         public List<ObjectiveCInstance> Generate(List<ClassInstance> classCache, List<EnumInstance> enumCache, List<StructInstance> structCache, CodeGenContext context)
         {
-            // make copies since we will modify these by adding the hiearchy
-            // this is not ideal, but is the simplest way to make it independent on the processing order
+            // Make copies since we will modify these by adding the hiearchy
+            // This is not ideal, but is the simplest way to make it independent on the processing order
             var propertyInstances = new List<PropertyInstance>(_propertyInstances);
             var methodInstances = new List<MethodInstance>(_methodInstances);
             var selectorInstances = new List<SelectorInstance>(_selectorInstances);
@@ -78,7 +78,7 @@ namespace SharpMetal.Generator.Instances
                 parentName = parent?._parent ?? string.Empty;
                 if (parent != null)
                 {
-                    // just add unique instances, since the MTLAllocation inheritance would cause doubled-up properties
+                    // Just add unique instances, since the MTLAllocation inheritance would cause doubled-up properties
                     foreach (var property in parent._propertyInstances)
                     {
                         if (!propertyInstances.Any(x => x.Name == property.Name && x.Type == property.Type))
@@ -266,7 +266,7 @@ namespace SharpMetal.Generator.Instances
                     continue;
                 }
 
-                // temp to not having to track all early returns
+                // Temp to not having to track all early returns
                 var tempDeprecated = isDeprecated;
                 isDeprecated = false;
 

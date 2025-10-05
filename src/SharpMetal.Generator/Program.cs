@@ -143,7 +143,7 @@ namespace SharpMetal.Generator
                 hasAnyUsings = true;
             }
 
-            // if have any class in the file, we need selectors due to ctors/disposes
+            // If have any class in the file, we need selectors due to ctors/disposes
             if (headerInfo.ClassInstances.Count != 0)
             {
                 context.WriteLine("using SharpMetal.ObjectiveCCore;");

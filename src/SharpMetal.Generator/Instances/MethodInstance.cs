@@ -45,7 +45,7 @@ namespace SharpMetal.Generator.Instances
 
         public ObjectiveCInstance Generate(List<SelectorInstance> selectorInstances, List<EnumInstance> enumCache, List<StructInstance> structCache, CodeGenContext context, string namespacePrefix, bool prependSpace = true)
         {
-            // disallow the selectors used in properties to prevent doubling of properties and methods that do the same
+            // Disallow the selectors used in properties to prevent doubling of properties and methods that do the same
             var selector = selectorInstances.Find(x => !x.UsedInProperty && x.RawName.ToLower().Replace(" class ", " ").Replace("mtl::", "").Replace("ns::", "").Contains(_rawName.ToLower()));
 
             if (selector != null)

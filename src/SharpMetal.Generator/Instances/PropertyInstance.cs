@@ -131,7 +131,7 @@ namespace SharpMetal.Generator.Instances
 
         private static SelectorInstance? ResolveSetterSelector(List<SelectorInstance> selectorInstances, SelectorInstance selector)
         {
-            // try to match the "isFoo" + "setFoo" as a get/set property
+            // Try to match the "isFoo" + "setFoo" as a get/set property
             var setterSelectorNameCandidate = selector.Selector;
             if (setterSelectorNameCandidate.StartsWith("is"))
             {
@@ -142,7 +142,7 @@ namespace SharpMetal.Generator.Instances
 
             if (setterSelector == null)
             {
-                // fallback to setIsFoo, which apparently has some occurrences in the metal-cpp bindings
+                // Fallback to setIsFoo, which apparently has some occurrences in the metal-cpp bindings
                 setterSelectorNameCandidate = "set" + selector.Selector;
                 setterSelector = selectorInstances.Find(x => x.Selector.Contains(setterSelectorNameCandidate, StringComparison.InvariantCultureIgnoreCase));
             }

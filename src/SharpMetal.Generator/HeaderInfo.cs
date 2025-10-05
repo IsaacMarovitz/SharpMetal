@@ -226,7 +226,7 @@ namespace SharpMetal.Generator
 
                             if (returnType != string.Empty)
                             {
-                                // this is just for recording the unscoped method, no actual real method goes through this codepath
+                                // This is just for recording the unscoped method, no actual real method goes through this codepath
                                 method = new MethodInstance(returnType, name, rawName, true, false, arguments);
                             }
                         }
