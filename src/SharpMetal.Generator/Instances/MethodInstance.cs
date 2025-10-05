@@ -3,14 +3,14 @@ namespace SharpMetal.Generator.Instances
     public class MethodInstance
     {
         public readonly string Name;
-        public readonly List<PropertyInstance> InputInstances;
+        public readonly List<FunctionParameterInstance> InputInstances;
 
         private readonly string _returnType;
         private readonly bool _isStatic;
         private readonly string _rawName;
         private readonly bool _isDeprecated;
 
-        public MethodInstance(string returnType, string name, string rawName, bool isStatic, bool isDeprecated, List<PropertyInstance> inputInstances)
+        public MethodInstance(string returnType, string name, string rawName, bool isStatic, bool isDeprecated, List<FunctionParameterInstance> inputInstances)
         {
             Name = name;
             InputInstances = inputInstances;

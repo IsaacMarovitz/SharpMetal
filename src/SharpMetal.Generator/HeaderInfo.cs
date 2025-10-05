@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using SharpMetal.Generator.Instances;
 using SharpMetal.Generator.Utilities;
 
@@ -193,7 +192,7 @@ namespace SharpMetal.Generator
                             }
 
                             var inputArguments = inputString.Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-                            List<PropertyInstance> arguments = [];
+                            List<FunctionParameterInstance> arguments = [];
 
                             foreach (var argument in inputArguments)
                             {
@@ -221,7 +220,7 @@ namespace SharpMetal.Generator
                                     argumentName = "mtlEvent";
                                 }
 
-                                arguments.Add(new PropertyInstance(null, argumentType, argumentName));
+                                arguments.Add(new FunctionParameterInstance(argumentType, argumentName));
                             }
 
                             if (returnType != string.Empty)

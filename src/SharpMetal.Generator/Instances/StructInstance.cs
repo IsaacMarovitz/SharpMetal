@@ -5,25 +5,25 @@ namespace SharpMetal.Generator.Instances
     public partial class StructInstance
     {
         public readonly string Name;
-        private readonly List<PropertyInstance> _propertyInstances;
+        private readonly List<MemberVariableInstance> _memberVariableInstances;
 
         private StructInstance(string name)
         {
             Name = name;
-            _propertyInstances = [];
+            _memberVariableInstances = [];
         }
 
-        public void AddProperty(PropertyInstance propertyInstance)
+        public void AddMemberVariable(MemberVariableInstance memberVariableInstance)
         {
             // We don't want to include functions in this pass
-            if (propertyInstance.Name.Contains('('))
+            if (memberVariableInstance.Name.Contains('('))
             {
                 return;
             }
 
-            if (!_propertyInstances.Exists(x => x.Name == propertyInstance.Name))
+            if (!_memberVariableInstances.Exists(x => x.Name == memberVariableInstance.Name))
             {
-                _propertyInstances.Add(propertyInstance);
+                _memberVariableInstances.Add(memberVariableInstance);
             }
         }
 
@@ -35,9 +35,9 @@ namespace SharpMetal.Generator.Instances
             context.WriteLine($"public struct {Name}");
             context.EnterScope();
 
-            for (var j = 0; j < _propertyInstances.Count; j++)
+            for (var j = 0; j < _memberVariableInstances.Count; j++)
             {
-                _propertyInstances[j].Generate(context);
+                _memberVariableInstances[j].Generate(context);
             }
 
             context.LeaveScope();
@@ -82,7 +82,7 @@ namespace SharpMetal.Generator.Instances
 
                     propertyName = NameRegex().Replace(propertyName, "");
 
-                    instance.AddProperty(new PropertyInstance(null, type, propertyName));
+                    instance.AddMemberVariable(new MemberVariableInstance(type, propertyName));
                 }
             }
 

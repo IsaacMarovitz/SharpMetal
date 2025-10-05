@@ -325,7 +325,7 @@ namespace SharpMetal.Generator.Instances
                         // This is probably a constructor, in which case we have our own implementation
                         if (!returnType.Contains(name))
                         {
-                            instance.AddMethod(new MethodInstance(returnType, name, rawName, isStatic, tempDeprecated, new List<PropertyInstance>()));
+                            instance.AddMethod(new MethodInstance(returnType, name, rawName, isStatic, tempDeprecated, []));
                         }
                     }
                     else if (!(isStatic && returnType.Contains(name)))
@@ -353,7 +353,7 @@ namespace SharpMetal.Generator.Instances
                     }
 
                     var inputArguments = inputString.Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-                    List<PropertyInstance> arguments = [];
+                    List<FunctionParameterInstance> arguments = [];
 
                     foreach (var argument in inputArguments)
                     {
@@ -387,7 +387,7 @@ namespace SharpMetal.Generator.Instances
                             reference = true;
                         }
 
-                        arguments.Add(new PropertyInstance(null, argumentType, argumentName, reference));
+                        arguments.Add(new FunctionParameterInstance(argumentType, argumentName, reference));
                     }
 
                     if (returnType != string.Empty)

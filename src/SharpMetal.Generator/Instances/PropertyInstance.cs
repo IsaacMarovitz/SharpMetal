@@ -1,5 +1,3 @@
-using SharpMetal.Generator.Utilities;
-
 namespace SharpMetal.Generator.Instances
 {
     public class PropertyInstance : IEquatable<PropertyInstance>
@@ -148,11 +146,6 @@ namespace SharpMetal.Generator.Instances
             }
 
             return setterSelector;
-        }
-
-        public void Generate(CodeGenContext context)
-        {
-            context.WriteLine($"public {Type} {Name};");
         }
 
         public bool Equals(PropertyInstance? other)
