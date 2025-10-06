@@ -216,31 +216,15 @@ namespace SharpMetal.Generator.Instances
             instance._namespacePrefix = namespacePrefix;
 
             var classEnded = false;
-            var enteredComment = false;
             var isDeprecated = false;
 
             while (!classEnded)
             {
-                var nextLine = sr.ReadLine();
+                var nextLine = GeneratorUtils.ReadNextCodeLine(sr);
 
                 if (nextLine == null)
                 {
-                    continue;
-                }
-
-                if (nextLine.Contains("/**"))
-                {
-                    enteredComment = true;
-                    continue;
-                }
-
-                if (enteredComment)
-                {
-                    if (nextLine.Contains("*/"))
-                    {
-                        enteredComment = false;
-                    }
-                    continue;
+                    break;
                 }
 
                 if (nextLine.Contains('}') || nextLine.Contains("private:") || nextLine.Contains("protected:"))
@@ -256,7 +240,7 @@ namespace SharpMetal.Generator.Instances
                 }
 
                 // Ignore empty lines etc...
-                if (nextLine is "" or "{" or "public:")
+                if (nextLine is "{" or "public:")
                 {
                     continue;
                 }

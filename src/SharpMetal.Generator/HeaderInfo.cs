@@ -6,28 +6,34 @@ namespace SharpMetal.Generator
     public class HeaderInfo
     {
         public string FilePath { get; }
+        public string FileName { get; }
+        public string FullNamespace { get; }
         public IncludeFlags IncludeFlags = IncludeFlags.None;
         public List<EnumInstance> EnumInstances = [];
         public List<ClassInstance> ClassInstances = [];
         public List<StructInstance> StructInstances = [];
         public List<MethodInstance> InFlightUnscopedMethods = [];
+        public List<SelectorDefinition> SelectorDefinitions = [];
 
         public HeaderInfo(string filePath)
         {
             FilePath = filePath;
+            FileName = Path.GetFileNameWithoutExtension(filePath);
+            FullNamespace = Namespaces.GetFullNamespace(filePath);
             using var sr = new StreamReader(File.OpenRead(filePath));
             var namespacePrefix = Namespaces.GetNamespace(filePath);
             var macroNamespacePrefix = Namespaces.GetMacroNamespace(namespacePrefix);
-            var inMtlPrivateDefSel = false;
 
             while (!sr.EndOfStream)
             {
-                var line = (sr.ReadLine() ?? "").Trim();
+                var line = GeneratorUtils.ReadNextCodeLine(sr);
+                if (line == null)
+                {
+                    break;
+                }
 
                 // Ignore garbage
-                if (line == string.Empty ||
-                    line.StartsWith("//") ||
-                    line.StartsWith("::") ||
+                if (line.StartsWith("::") ||
                     line.StartsWith("[[") ||
                     line.StartsWith("/**") ||
                     line.StartsWith("#error") ||
@@ -72,13 +78,8 @@ namespace SharpMetal.Generator
                 // These take two lines, no idea why
                 if (line.StartsWith("_MTL_PRIVATE_DEF_SEL"))
                 {
-                    inMtlPrivateDefSel = true;
-                    continue;
-                }
-
-                if (inMtlPrivateDefSel)
-                {
-                    inMtlPrivateDefSel = false;
+                    // Let's just consume the second line straight away
+                    sr.ReadLine();
                     continue;
                 }
 

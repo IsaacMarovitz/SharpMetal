@@ -1,16 +1,17 @@
 using System.Text.RegularExpressions;
+using SharpMetal.Generator.Utilities;
 
 namespace SharpMetal.Generator.Instances
 {
     public partial class StructInstance
     {
         public readonly string Name;
-        private readonly List<MemberVariableInstance> _memberVariableInstances;
+        public List<MemberVariableInstance> MemberVariableInstances { get; }
 
         private StructInstance(string name)
         {
             Name = name;
-            _memberVariableInstances = [];
+            MemberVariableInstances = [];
         }
 
         public void AddMemberVariable(MemberVariableInstance memberVariableInstance)
@@ -21,9 +22,9 @@ namespace SharpMetal.Generator.Instances
                 return;
             }
 
-            if (!_memberVariableInstances.Exists(x => x.Name == memberVariableInstance.Name))
+            if (!MemberVariableInstances.Exists(x => x.Name == memberVariableInstance.Name))
             {
-                _memberVariableInstances.Add(memberVariableInstance);
+                MemberVariableInstances.Add(memberVariableInstance);
             }
         }
 
@@ -35,9 +36,9 @@ namespace SharpMetal.Generator.Instances
             context.WriteLine($"public struct {Name}");
             context.EnterScope();
 
-            for (var j = 0; j < _memberVariableInstances.Count; j++)
+            for (var j = 0; j < MemberVariableInstances.Count; j++)
             {
-                _memberVariableInstances[j].Generate(context);
+                MemberVariableInstances[j].Generate(context);
             }
 
             context.LeaveScope();
@@ -55,7 +56,11 @@ namespace SharpMetal.Generator.Instances
 
             while (!structEnded)
             {
-                var propertyLine = sr.ReadLine() ?? "";
+                var propertyLine = GeneratorUtils.ReadNextCodeLine(sr);
+                if (propertyLine == null)
+                {
+                    break;
+                }
 
                 if (propertyLine.Contains('}'))
                 {

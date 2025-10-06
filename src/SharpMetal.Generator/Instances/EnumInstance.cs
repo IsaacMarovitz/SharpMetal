@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using SharpMetal.Generator.Utilities;
 
 namespace SharpMetal.Generator.Instances
 {
@@ -7,41 +8,15 @@ namespace SharpMetal.Generator.Instances
         public readonly string Type;
         public readonly string Name;
 
-        private readonly bool _isFlag;
-        private readonly Dictionary<string, string> _values;
+        public readonly bool IsFlag;
+        public readonly Dictionary<string, string> Values;
 
         private EnumInstance(string type, string name, bool isFlag, Dictionary<string, string> values)
         {
             Type = type;
             Name = name;
-            _isFlag = isFlag;
-            _values = values;
-        }
-
-        public void Generate(CodeGenContext context)
-        {
-            context.WriteLine("[SupportedOSPlatform(\"macos\")]");
-            if (_isFlag)
-            {
-                context.WriteLine("[Flags]");
-            }
-            context.WriteLine($"public enum {Name} : {Type}");
-            context.EnterScope();
-
-            foreach (var value in _values)
-            {
-                if (value.Value != string.Empty)
-                {
-                    context.WriteLine($"{value.Key} = {value.Value},");
-                }
-                else
-                {
-                    context.WriteLine($"{value.Key},");
-                }
-            }
-
-            context.LeaveScope();
-            context.WriteLine();
+            IsFlag = isFlag;
+            Values = values;
         }
 
         public static EnumInstance Build(string line, string namespacePrefix, StreamReader sr, bool skipValues = false)
@@ -75,11 +50,11 @@ namespace SharpMetal.Generator.Instances
 
             while (!finishedEnumerating)
             {
-                var nextLine = sr.ReadLine();
+                var nextLine = GeneratorUtils.ReadNextCodeLine(sr);
 
-                if (string.IsNullOrEmpty(nextLine))
+                if (nextLine == null)
                 {
-                    continue;
+                    break;
                 }
 
                 if (nextLine.Contains("};"))
