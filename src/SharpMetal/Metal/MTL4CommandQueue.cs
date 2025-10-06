@@ -80,17 +80,17 @@ namespace SharpMetal.Metal
 
         public void AddResidencySets(MTLResidencySet[] residencySets, ulong count)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_addResidencySetscount, Marshal.UnsafeAddrOfPinnedArrayElement(residencySets, 0), count);
         }
 
         public void Commit(MTL4CommandBuffer[] commandBuffers, ulong count)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_commitcount, Marshal.UnsafeAddrOfPinnedArrayElement(commandBuffers, 0), count);
         }
 
         public void Commit(MTL4CommandBuffer[] commandBuffers, ulong count, MTL4CommitOptions options)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_commitcountoptions, Marshal.UnsafeAddrOfPinnedArrayElement(commandBuffers, 0), count, options);
         }
 
         public void CopyBufferMappingsFromBuffer(MTLBuffer sourceBuffer, MTLBuffer destinationBuffer, MTL4CopySparseBufferMappingOperation operations, ulong count)
@@ -110,7 +110,7 @@ namespace SharpMetal.Metal
 
         public void RemoveResidencySets(MTLResidencySet[] residencySets, ulong count)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_removeResidencySetscount, Marshal.UnsafeAddrOfPinnedArrayElement(residencySets, 0), count);
         }
 
         public void SignalDrawable(MTLDrawable drawable)

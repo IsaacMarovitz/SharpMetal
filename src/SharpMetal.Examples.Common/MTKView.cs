@@ -57,5 +57,10 @@ namespace SharpMetal.Examples.Common
         {
             get => new(ObjectiveC.IntPtr_objc_msgSend(NativePtr, "currentRenderPassDescriptor"));
         }
+
+        public MTL4RenderPassDescriptor CurrentMTL4RenderPassDescriptor
+        {
+            get => new(ObjectiveC.IntPtr_objc_msgSend(NativePtr, "currentMTL4RenderPassDescriptor"));
+        }
     }
 }

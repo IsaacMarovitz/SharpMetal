@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+        <AssemblyName>ComputeToRenderMTL4</AssemblyName>
+        <OutputType>Exe</OutputType>
+        <RuntimeIdentifiers>osx-x64</RuntimeIdentifiers>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <IsPackable>false</IsPackable>
+        <RootNamespace>SharpMetal.Examples.ComputeToRenderMTL4</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\SharpMetal.Examples.Common\SharpMetal.Examples.Common.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <EmbeddedResource Include="Shaders\Compute.metal" />
+        <EmbeddedResource Include="Shaders\Shader.metal" />
+    </ItemGroup>
+
+</Project>

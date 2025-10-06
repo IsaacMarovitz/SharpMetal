@@ -487,7 +487,7 @@ namespace SharpMetal.Metal
 
         public MTL4CommandAllocator NewCommandAllocator()
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newCommandAllocatorWithDescriptorerror));
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newCommandAllocator));
         }
 
         public MTLCommandQueue NewCommandQueue(ulong maxCommandBufferCount)
@@ -627,7 +627,7 @@ namespace SharpMetal.Metal
 
         public MTL4CommandQueue NewMTL4CommandQueue()
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newMTL4CommandQueueWithDescriptorerror));
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newMTL4CommandQueue));
         }
 
         public MTL4CommandQueue NewMTL4CommandQueue(MTL4CommandQueueDescriptor descriptor, ref NSError error)
