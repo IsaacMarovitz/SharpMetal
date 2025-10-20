@@ -104,7 +104,7 @@ namespace SharpMetal.Metal
 
         public MTLAccelerationStructureCommandEncoder AccelerationStructureCommandEncoder()
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_accelerationStructureCommandEncoderWithDescriptor));
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_accelerationStructureCommandEncoder));
         }
 
         public MTLBlitCommandEncoder BlitCommandEncoder(MTLBlitPassDescriptor blitPassDescriptor)
@@ -114,7 +114,7 @@ namespace SharpMetal.Metal
 
         public MTLBlitCommandEncoder BlitCommandEncoder()
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_blitCommandEncoderWithDescriptor));
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_blitCommandEncoder));
         }
 
         public void Commit()
@@ -194,7 +194,7 @@ namespace SharpMetal.Metal
 
         public MTLResourceStateCommandEncoder ResourceStateCommandEncoder()
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_resourceStateCommandEncoderWithDescriptor));
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_resourceStateCommandEncoder));
         }
 
         public void UseResidencySet(MTLResidencySet residencySet)

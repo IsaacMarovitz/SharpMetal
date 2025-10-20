@@ -15,6 +15,7 @@ namespace SharpMetal.MetalFX
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
+
         private static readonly Selector sel_release = "release";
     }
 
@@ -148,7 +149,6 @@ namespace SharpMetal.MetalFX
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_reactiveMaskTexture));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setReactiveMaskTexture, value);
         }
-
 
         public MTLTextureUsage ReactiveTextureUsage => (MTLTextureUsage)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_reactiveTextureUsage);
 
@@ -344,7 +344,6 @@ namespace SharpMetal.MetalFX
             get => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_reactiveMaskTexture));
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setReactiveMaskTexture, value);
         }
-
 
         public MTLTextureUsage ReactiveTextureUsage => (MTLTextureUsage)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_reactiveTextureUsage);
 

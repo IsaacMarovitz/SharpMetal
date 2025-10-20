@@ -487,7 +487,7 @@ namespace SharpMetal.Metal
 
         public MTL4CommandAllocator NewCommandAllocator()
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newCommandAllocatorWithDescriptorerror));
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newCommandAllocator));
         }
 
         public MTLCommandQueue NewCommandQueue(ulong maxCommandBufferCount)
@@ -497,7 +497,7 @@ namespace SharpMetal.Metal
 
         public MTLCommandQueue NewCommandQueue()
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newCommandQueueWithMaxCommandBufferCount));
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newCommandQueue));
         }
 
         public MTLCommandQueue NewCommandQueue(MTLCommandQueueDescriptor descriptor)
@@ -542,7 +542,7 @@ namespace SharpMetal.Metal
 
         public MTLLibrary NewDefaultLibrary()
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newDefaultLibraryWithBundleerror));
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newDefaultLibrary));
         }
 
         public MTLDepthStencilState NewDepthStencilState(MTLDepthStencilDescriptor descriptor)
@@ -627,7 +627,7 @@ namespace SharpMetal.Metal
 
         public MTL4CommandQueue NewMTL4CommandQueue()
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newMTL4CommandQueueWithDescriptorerror));
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newMTL4CommandQueue));
         }
 
         public MTL4CommandQueue NewMTL4CommandQueue(MTL4CommandQueueDescriptor descriptor, ref NSError error)
@@ -677,7 +677,7 @@ namespace SharpMetal.Metal
 
         public MTLSharedEvent NewSharedEvent()
         {
-            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newSharedEventWithHandle));
+            return new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_newSharedEvent));
         }
 
         public MTLSharedEvent NewSharedEvent(MTLSharedEventHandle sharedEventHandle)
@@ -742,7 +742,7 @@ namespace SharpMetal.Metal
 
         public ulong SparseTileSizeInBytes()
         {
-            return ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_sparseTileSizeInBytesForSparsePageSize);
+            return ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_sparseTileSizeInBytes);
         }
 
         public bool SupportsCounterSampling(MTLCounterSamplingPoint samplingPoint)

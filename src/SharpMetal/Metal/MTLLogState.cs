@@ -33,6 +33,7 @@ namespace SharpMetal.Metal
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
+
         private static readonly Selector sel_release = "release";
     }
 
