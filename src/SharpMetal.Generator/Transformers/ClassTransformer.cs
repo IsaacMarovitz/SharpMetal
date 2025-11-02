@@ -125,20 +125,20 @@ namespace SharpMetal.Generator.Transformers
 
                         if (arrayParameters.Length != 0)
                         {
-                            csMethod.AddBodyLineNoSemicolon("unsafe");
-                            csMethod.AddBodyScope();
+                            csMethod.AddRawLine("unsafe");
+                            csMethod.OpenScope();
                         }
 
                         // Each of these need to create their own fixed scope.
                         foreach (var array in arrayParameters)
                         {
                             var ptrType = array.Type.Replace("[]", String.Empty);
-                            csMethod.AddBodyLineNoSemicolon($"fixed ({ptrType}* {array.Name}Ptr = {array.Name})");
+                            csMethod.AddRawLine($"fixed ({ptrType}* {array.Name}Ptr = {array.Name})");
                         }
 
                         if (arrayParameters.Length != 0)
                         {
-                            csMethod.AddBodyScope();
+                            csMethod.OpenScope();
                         }
 
                         var call = $"ObjectiveCRuntime.objc_msgSend(NativePtr, {selector.Name}";
@@ -168,8 +168,8 @@ namespace SharpMetal.Generator.Transformers
 
                         if (arrayParameters.Length != 0)
                         {
-                            csMethod.AddBodyLineLeaveScope();
-                            csMethod.AddBodyLineLeaveScope();
+                            csMethod.CloseScope();
+                            csMethod.CloseScope();
                         }
                     }
                 }

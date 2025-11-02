@@ -7,7 +7,6 @@ namespace SharpMetal.Generator.Utilities
             "CAMetalLayer",
             "MTLDevice",
             "MTLRenderPipelineDescriptor",
-            "MTLSamplerDescriptor",
             "NSString",
         ];
 

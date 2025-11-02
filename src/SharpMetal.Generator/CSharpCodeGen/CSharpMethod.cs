@@ -1,8 +1,16 @@
 namespace SharpMetal.Generator.CSharpCodeGen
 {
+    public enum BodyLineKind
+    {
+        BodyLine,
+        RawLine,
+        ScopeOpen,
+        ScopeClose
+    }
+
     public class CSharpMethod : CSharpTypeMember
     {
-        private readonly List<(int Indent, string Line)> _bodyContents = [];
+        private readonly List<(BodyLineKind Kind, string Content)> _bodyContents = [];
         private readonly List<(string Type, string Name, string Attribute)> _parameterList;
 
         public bool HasExpressionBody => PreferExpressionBody && _bodyContents.Count == 1;
@@ -30,25 +38,17 @@ namespace SharpMetal.Generator.CSharpCodeGen
             _parameterList = parameterList;
         }
 
-        public void AddBodyLineNoSemicolon(string line)
-        {
-            _bodyContents.Add((2, line));
-        }
+        public void AddBodyLine(string statement) =>
+            _bodyContents.Add((BodyLineKind.BodyLine, statement));
 
-        public void AddBodyLine(string line)
-        {
-            _bodyContents.Add((0, line));
-        }
+        public void AddRawLine(string line) =>
+            _bodyContents.Add((BodyLineKind.RawLine, line));
 
-        public void AddBodyScope()
-        {
-            _bodyContents.Add((1, string.Empty));
-        }
+        public void OpenScope() =>
+            _bodyContents.Add((BodyLineKind.ScopeOpen, string.Empty));
 
-        public void AddBodyLineLeaveScope()
-        {
-            _bodyContents.Add((-1, string.Empty));
-        }
+        public void CloseScope() =>
+            _bodyContents.Add((BodyLineKind.ScopeClose, string.Empty));
 
         public override void Generate(CodeGenContext context)
         {
@@ -90,7 +90,7 @@ namespace SharpMetal.Generator.CSharpCodeGen
             {
                 if (HasExpressionBody)
                 {
-                    sb.Append($" => {_bodyContents[0].Line};");
+                    sb.Append($" => {_bodyContents[0].Content};");
                     context.WriteLine(sb.ToString());
                 }
                 else
@@ -99,21 +99,21 @@ namespace SharpMetal.Generator.CSharpCodeGen
 
                     context.EnterScope();
 
-                    foreach (var line in _bodyContents)
+                    foreach (var (kind, content) in _bodyContents)
                     {
-                        switch (line.Indent)
+                        switch (kind)
                         {
-                            case 2:
-                                context.WriteLine($"{line.Line}");
+                            case BodyLineKind.BodyLine:
+                                context.WriteLine($"{content};");
                                 break;
-                            case 1:
+                            case BodyLineKind.RawLine:
+                                context.WriteLine(content);
+                                break;
+                            case BodyLineKind.ScopeOpen:
                                 context.EnterScope();
                                 break;
-                            case -1:
+                            case BodyLineKind.ScopeClose:
                                 context.LeaveScope();
-                                break;
-                            default:
-                                context.WriteLine($"{line.Line};");
                                 break;
                         }
                     }
