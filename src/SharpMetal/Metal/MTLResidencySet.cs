@@ -34,7 +34,10 @@ namespace SharpMetal.Metal
 
         public void AddAllocations(MTLAllocation[] allocations, ulong count)
         {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_addAllocationscount, Marshal.UnsafeAddrOfPinnedArrayElement(allocations, 0), count);
+            fixed (MTLAllocation* allocationsPtr = allocations)
+            {
+                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_addAllocationscount, allocationsPtr, count);
+            }
         }
 
         public void Commit()
@@ -64,7 +67,10 @@ namespace SharpMetal.Metal
 
         public void RemoveAllocations(MTLAllocation[] allocations, ulong count)
         {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_removeAllocationscount, Marshal.UnsafeAddrOfPinnedArrayElement(allocations, 0), count);
+            fixed (MTLAllocation* allocationsPtr = allocations)
+            {
+                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_removeAllocationscount, allocationsPtr, count);
+            }
         }
 
         public void RequestResidency()

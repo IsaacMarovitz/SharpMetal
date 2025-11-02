@@ -80,17 +80,26 @@ namespace SharpMetal.Metal
 
         public void AddResidencySets(MTLResidencySet[] residencySets, ulong count)
         {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_addResidencySetscount, Marshal.UnsafeAddrOfPinnedArrayElement(residencySets, 0), count);
+            fixed (MTLResidencySet* residencySetsPtr = residencySets)
+            {
+                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_addResidencySetscount, residencySetsPtr, count);
+            }
         }
 
         public void Commit(MTL4CommandBuffer[] commandBuffers, ulong count)
         {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_commitcount, Marshal.UnsafeAddrOfPinnedArrayElement(commandBuffers, 0), count);
+            fixed (MTL4CommandBuffer* commandBuffersPtr = commandBuffers)
+            {
+                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_commitcount, commandBuffersPtr, count);
+            }
         }
 
         public void Commit(MTL4CommandBuffer[] commandBuffers, ulong count, MTL4CommitOptions options)
         {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_commitcountoptions, Marshal.UnsafeAddrOfPinnedArrayElement(commandBuffers, 0), count, options);
+            fixed (MTL4CommandBuffer* commandBuffersPtr = commandBuffers)
+            {
+                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_commitcountoptions, commandBuffersPtr, count, options);
+            }
         }
 
         public void CopyBufferMappingsFromBuffer(MTLBuffer sourceBuffer, MTLBuffer destinationBuffer, MTL4CopySparseBufferMappingOperation operations, ulong count)
@@ -110,7 +119,10 @@ namespace SharpMetal.Metal
 
         public void RemoveResidencySets(MTLResidencySet[] residencySets, ulong count)
         {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_removeResidencySetscount, Marshal.UnsafeAddrOfPinnedArrayElement(residencySets, 0), count);
+            fixed (MTLResidencySet* residencySetsPtr = residencySets)
+            {
+                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_removeResidencySetscount, residencySetsPtr, count);
+            }
         }
 
         public void SignalDrawable(MTLDrawable drawable)

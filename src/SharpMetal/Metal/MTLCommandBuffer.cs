@@ -205,7 +205,10 @@ namespace SharpMetal.Metal
 
         public void UseResidencySets(MTLResidencySet[] residencySets, ulong count)
         {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_useResidencySetscount, Marshal.UnsafeAddrOfPinnedArrayElement(residencySets, 0), count);
+            fixed (MTLResidencySet* residencySetsPtr = residencySets)
+            {
+                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_useResidencySetscount, residencySetsPtr, count);
+            }
         }
 
         public void WaitUntilCompleted()

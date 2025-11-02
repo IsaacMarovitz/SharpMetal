@@ -2,7 +2,7 @@ namespace SharpMetal.Generator.CSharpCodeGen
 {
     public class CSharpMethod : CSharpTypeMember
     {
-        private readonly List<string> _bodyContents = [];
+        private readonly List<(int Indent, string Line)> _bodyContents = [];
         private readonly List<(string Type, string Name, string Attribute)> _parameterList;
 
         public bool HasExpressionBody => PreferExpressionBody && _bodyContents.Count == 1;
@@ -31,7 +31,17 @@ namespace SharpMetal.Generator.CSharpCodeGen
 
         public void AddBodyLine(string line)
         {
-            _bodyContents.Add(line);
+            _bodyContents.Add((0, line));
+        }
+
+        public void AddBodyScope(string line)
+        {
+            _bodyContents.Add((1, line));
+        }
+
+        public void AddBodyLineLeaveScope()
+        {
+            _bodyContents.Add((-1, string.Empty));
         }
 
         public override void Generate(CodeGenContext context)
@@ -70,17 +80,32 @@ namespace SharpMetal.Generator.CSharpCodeGen
             {
                 if (HasExpressionBody)
                 {
-                    sb.Append($" => {_bodyContents[0]};");
+                    sb.Append($" => {_bodyContents[0].Line};");
                     context.WriteLine(sb.ToString());
                 }
                 else
                 {
                     context.WriteLine(sb.ToString());
+
                     context.EnterScope();
+
                     foreach (var line in _bodyContents)
                     {
-                        context.WriteLine($"{line};");
+                        switch (line.Indent)
+                        {
+                            case 1:
+                                context.WriteLine($"{line.Line}");
+                                context.EnterScope();
+                                break;
+                            case -1:
+                                context.LeaveScope();
+                                break;
+                            default:
+                                context.WriteLine($"{line.Line};");
+                                break;
+                        }
                     }
+
                     context.LeaveScope();
                 }
             }

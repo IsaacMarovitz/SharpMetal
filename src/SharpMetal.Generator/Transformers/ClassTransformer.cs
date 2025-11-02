@@ -121,13 +121,22 @@ namespace SharpMetal.Generator.Transformers
                     }
                     else
                     {
+                        var arrayParameters = method.InputInstances.Where(x => x.Array).ToArray();
+
+                        // Each of these need to create their own fixed scope.
+                        foreach (var array in arrayParameters)
+                        {
+                            var ptrType = array.Type.Replace("[]", String.Empty);
+                            csMethod.AddBodyScope($"fixed ({ptrType}* {array.Name}Ptr = {array.Name})");
+                        }
+
                         var call = $"ObjectiveCRuntime.objc_msgSend(NativePtr, {selector.Name}";
 
                         foreach (var parameter in method.InputInstances)
                         {
                             if (parameter.Array)
                             {
-                                call += $", Marshal.UnsafeAddrOfPinnedArrayElement({parameter.Name}, 0)";
+                                call += $", {parameter.Name}Ptr";
                             }
                             else
                             {
@@ -145,6 +154,11 @@ namespace SharpMetal.Generator.Transformers
 
                         call += ")";
                         csMethod.AddBodyLine(call);
+
+                        foreach (var _ in arrayParameters)
+                        {
+                            csMethod.AddBodyLineLeaveScope();
+                        }
                     }
                 }
                 else
