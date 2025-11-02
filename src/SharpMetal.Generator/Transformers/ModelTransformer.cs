@@ -131,16 +131,6 @@ namespace SharpMetal.Generator.Transformers
 
         private static void AddUsings(CSharpFile outputFile, HeaderInfo headerInfo)
         {
-            // This is probably quite slow, but it works.
-            // These need Marshal.UnsafeAddrOfPinnedArrayElement
-            if (headerInfo.ClassInstances
-                .SelectMany(c => c.MethodInstances)
-                .SelectMany(m => m.InputInstances)
-                .Any(i => i.Array))
-            {
-                outputFile.AddUsing("System.Runtime.InteropServices");
-            }
-
             if (headerInfo.StructInstances.Count != 0)
             {
                 outputFile.AddUsing("System.Runtime.InteropServices");
