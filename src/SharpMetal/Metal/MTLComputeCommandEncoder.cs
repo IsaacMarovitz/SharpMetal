@@ -163,11 +163,9 @@ namespace SharpMetal.Metal
             unsafe
             {
                 fixed (MTLBuffer* buffersPtr = buffers)
+                fixed (ulong* offsetsPtr = offsets)
                 {
-                    fixed (ulong* offsetsPtr = offsets)
-                    {
-                        ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBuffersoffsetswithRange, buffersPtr, offsetsPtr, range);
-                    }
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBuffersoffsetswithRange, buffersPtr, offsetsPtr, range);
                 }
             }
         }
@@ -234,14 +232,10 @@ namespace SharpMetal.Metal
             unsafe
             {
                 fixed (MTLSamplerState* samplersPtr = samplers)
+                fixed (float* lodMinClampsPtr = lodMinClamps)
+                fixed (float* lodMaxClampsPtr = lodMaxClamps)
                 {
-                    fixed (float* lodMinClampsPtr = lodMinClamps)
-                    {
-                        fixed (float* lodMaxClampsPtr = lodMaxClamps)
-                        {
-                            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSamplerStateslodMinClampslodMaxClampswithRange, samplersPtr, lodMinClampsPtr, lodMaxClampsPtr, range);
-                        }
-                    }
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSamplerStateslodMinClampslodMaxClampswithRange, samplersPtr, lodMinClampsPtr, lodMaxClampsPtr, range);
                 }
             }
         }

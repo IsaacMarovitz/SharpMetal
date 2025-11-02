@@ -30,14 +30,19 @@ namespace SharpMetal.Generator.CSharpCodeGen
             _parameterList = parameterList;
         }
 
+        public void AddBodyLineNoSemicolon(string line)
+        {
+            _bodyContents.Add((2, line));
+        }
+
         public void AddBodyLine(string line)
         {
             _bodyContents.Add((0, line));
         }
 
-        public void AddBodyScope(string line)
+        public void AddBodyScope()
         {
-            _bodyContents.Add((1, line));
+            _bodyContents.Add((1, string.Empty));
         }
 
         public void AddBodyLineLeaveScope()
@@ -98,8 +103,10 @@ namespace SharpMetal.Generator.CSharpCodeGen
                     {
                         switch (line.Indent)
                         {
-                            case 1:
+                            case 2:
                                 context.WriteLine($"{line.Line}");
+                                break;
+                            case 1:
                                 context.EnterScope();
                                 break;
                             case -1:

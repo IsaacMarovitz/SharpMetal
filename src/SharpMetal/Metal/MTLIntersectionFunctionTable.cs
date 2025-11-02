@@ -85,11 +85,9 @@ namespace SharpMetal.Metal
             unsafe
             {
                 fixed (MTLBuffer* buffersPtr = buffers)
+                fixed (ulong* offsetsPtr = offsets)
                 {
-                    fixed (ulong* offsetsPtr = offsets)
-                    {
-                        ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBuffersoffsetswithRange, buffersPtr, offsetsPtr, range);
-                    }
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBuffersoffsetswithRange, buffersPtr, offsetsPtr, range);
                 }
             }
         }
