@@ -277,9 +277,12 @@ namespace SharpMetal.Metal
 
         public void MemoryBarrier(MTLResource[] resources, ulong count, MTLRenderStages after, MTLRenderStages before)
         {
-            fixed (MTLResource* resourcesPtr = resources)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_memoryBarrierWithResourcescountafterStagesbeforeStages, resourcesPtr, count, (ulong)after, (ulong)before);
+                fixed (MTLResource* resourcesPtr = resources)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_memoryBarrierWithResourcescountafterStagesbeforeStages, resourcesPtr, count, (ulong)after, (ulong)before);
+                }
             }
         }
 
@@ -365,11 +368,14 @@ namespace SharpMetal.Metal
 
         public void SetFragmentBuffers(MTLBuffer[] buffers, ulong[] offsets, NSRange range)
         {
-            fixed (MTLBuffer* buffersPtr = buffers)
+            unsafe
             {
-                fixed (ulong* offsetsPtr = offsets)
+                fixed (MTLBuffer* buffersPtr = buffers)
                 {
-                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFragmentBuffersoffsetswithRange, buffersPtr, offsetsPtr, range);
+                    fixed (ulong* offsetsPtr = offsets)
+                    {
+                        ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFragmentBuffersoffsetswithRange, buffersPtr, offsetsPtr, range);
+                    }
                 }
             }
         }
@@ -386,9 +392,12 @@ namespace SharpMetal.Metal
 
         public void SetFragmentIntersectionFunctionTables(MTLIntersectionFunctionTable[] intersectionFunctionTables, NSRange range)
         {
-            fixed (MTLIntersectionFunctionTable* intersectionFunctionTablesPtr = intersectionFunctionTables)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFragmentIntersectionFunctionTableswithBufferRange, intersectionFunctionTablesPtr, range);
+                fixed (MTLIntersectionFunctionTable* intersectionFunctionTablesPtr = intersectionFunctionTables)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFragmentIntersectionFunctionTableswithBufferRange, intersectionFunctionTablesPtr, range);
+                }
             }
         }
 
@@ -404,21 +413,27 @@ namespace SharpMetal.Metal
 
         public void SetFragmentSamplerStates(MTLSamplerState[] samplers, NSRange range)
         {
-            fixed (MTLSamplerState* samplersPtr = samplers)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFragmentSamplerStateswithRange, samplersPtr, range);
+                fixed (MTLSamplerState* samplersPtr = samplers)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFragmentSamplerStateswithRange, samplersPtr, range);
+                }
             }
         }
 
         public void SetFragmentSamplerStates(MTLSamplerState[] samplers, float[] lodMinClamps, float[] lodMaxClamps, NSRange range)
         {
-            fixed (MTLSamplerState* samplersPtr = samplers)
+            unsafe
             {
-                fixed (float* lodMinClampsPtr = lodMinClamps)
+                fixed (MTLSamplerState* samplersPtr = samplers)
                 {
-                    fixed (float* lodMaxClampsPtr = lodMaxClamps)
+                    fixed (float* lodMinClampsPtr = lodMinClamps)
                     {
-                        ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFragmentSamplerStateslodMinClampslodMaxClampswithRange, samplersPtr, lodMinClampsPtr, lodMaxClampsPtr, range);
+                        fixed (float* lodMaxClampsPtr = lodMaxClamps)
+                        {
+                            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFragmentSamplerStateslodMinClampslodMaxClampswithRange, samplersPtr, lodMinClampsPtr, lodMaxClampsPtr, range);
+                        }
                     }
                 }
             }
@@ -431,9 +446,12 @@ namespace SharpMetal.Metal
 
         public void SetFragmentTextures(MTLTexture[] textures, NSRange range)
         {
-            fixed (MTLTexture* texturesPtr = textures)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFragmentTextureswithRange, texturesPtr, range);
+                fixed (MTLTexture* texturesPtr = textures)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFragmentTextureswithRange, texturesPtr, range);
+                }
             }
         }
 
@@ -444,9 +462,12 @@ namespace SharpMetal.Metal
 
         public void SetFragmentVisibleFunctionTables(MTLVisibleFunctionTable[] functionTables, NSRange range)
         {
-            fixed (MTLVisibleFunctionTable* functionTablesPtr = functionTables)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFragmentVisibleFunctionTableswithBufferRange, functionTablesPtr, range);
+                fixed (MTLVisibleFunctionTable* functionTablesPtr = functionTables)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFragmentVisibleFunctionTableswithBufferRange, functionTablesPtr, range);
+                }
             }
         }
 
@@ -467,9 +488,12 @@ namespace SharpMetal.Metal
 
         public void SetMeshBuffers(MTLBuffer[] buffers, ulong offsets, NSRange range)
         {
-            fixed (MTLBuffer* buffersPtr = buffers)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMeshBuffersoffsetswithRange, buffersPtr, offsets, range);
+                fixed (MTLBuffer* buffersPtr = buffers)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMeshBuffersoffsetswithRange, buffersPtr, offsets, range);
+                }
             }
         }
 
@@ -490,17 +514,23 @@ namespace SharpMetal.Metal
 
         public void SetMeshSamplerStates(MTLSamplerState[] samplers, NSRange range)
         {
-            fixed (MTLSamplerState* samplersPtr = samplers)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMeshSamplerStateswithRange, samplersPtr, range);
+                fixed (MTLSamplerState* samplersPtr = samplers)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMeshSamplerStateswithRange, samplersPtr, range);
+                }
             }
         }
 
         public void SetMeshSamplerStates(MTLSamplerState[] samplers, float lodMinClamps, float lodMaxClamps, NSRange range)
         {
-            fixed (MTLSamplerState* samplersPtr = samplers)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMeshSamplerStateslodMinClampslodMaxClampswithRange, samplersPtr, lodMinClamps, lodMaxClamps, range);
+                fixed (MTLSamplerState* samplersPtr = samplers)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMeshSamplerStateslodMinClampslodMaxClampswithRange, samplersPtr, lodMinClamps, lodMaxClamps, range);
+                }
             }
         }
 
@@ -511,9 +541,12 @@ namespace SharpMetal.Metal
 
         public void SetMeshTextures(MTLTexture[] textures, NSRange range)
         {
-            fixed (MTLTexture* texturesPtr = textures)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMeshTextureswithRange, texturesPtr, range);
+                fixed (MTLTexture* texturesPtr = textures)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setMeshTextureswithRange, texturesPtr, range);
+                }
             }
         }
 
@@ -529,9 +562,12 @@ namespace SharpMetal.Metal
 
         public void SetObjectBuffers(MTLBuffer[] buffers, ulong offsets, NSRange range)
         {
-            fixed (MTLBuffer* buffersPtr = buffers)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setObjectBuffersoffsetswithRange, buffersPtr, offsets, range);
+                fixed (MTLBuffer* buffersPtr = buffers)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setObjectBuffersoffsetswithRange, buffersPtr, offsets, range);
+                }
             }
         }
 
@@ -552,17 +588,23 @@ namespace SharpMetal.Metal
 
         public void SetObjectSamplerStates(MTLSamplerState[] samplers, NSRange range)
         {
-            fixed (MTLSamplerState* samplersPtr = samplers)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setObjectSamplerStateswithRange, samplersPtr, range);
+                fixed (MTLSamplerState* samplersPtr = samplers)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setObjectSamplerStateswithRange, samplersPtr, range);
+                }
             }
         }
 
         public void SetObjectSamplerStates(MTLSamplerState[] samplers, float lodMinClamps, float lodMaxClamps, NSRange range)
         {
-            fixed (MTLSamplerState* samplersPtr = samplers)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setObjectSamplerStateslodMinClampslodMaxClampswithRange, samplersPtr, lodMinClamps, lodMaxClamps, range);
+                fixed (MTLSamplerState* samplersPtr = samplers)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setObjectSamplerStateslodMinClampslodMaxClampswithRange, samplersPtr, lodMinClamps, lodMaxClamps, range);
+                }
             }
         }
 
@@ -573,9 +615,12 @@ namespace SharpMetal.Metal
 
         public void SetObjectTextures(MTLTexture[] textures, NSRange range)
         {
-            fixed (MTLTexture* texturesPtr = textures)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setObjectTextureswithRange, texturesPtr, range);
+                fixed (MTLTexture* texturesPtr = textures)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setObjectTextureswithRange, texturesPtr, range);
+                }
             }
         }
 
@@ -651,9 +696,12 @@ namespace SharpMetal.Metal
 
         public void SetTileBuffers(MTLBuffer[] buffers, ulong offsets, NSRange range)
         {
-            fixed (MTLBuffer* buffersPtr = buffers)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTileBuffersoffsetswithRange, buffersPtr, offsets, range);
+                fixed (MTLBuffer* buffersPtr = buffers)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTileBuffersoffsetswithRange, buffersPtr, offsets, range);
+                }
             }
         }
 
@@ -669,9 +717,12 @@ namespace SharpMetal.Metal
 
         public void SetTileIntersectionFunctionTables(MTLIntersectionFunctionTable[] intersectionFunctionTables, NSRange range)
         {
-            fixed (MTLIntersectionFunctionTable* intersectionFunctionTablesPtr = intersectionFunctionTables)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTileIntersectionFunctionTableswithBufferRange, intersectionFunctionTablesPtr, range);
+                fixed (MTLIntersectionFunctionTable* intersectionFunctionTablesPtr = intersectionFunctionTables)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTileIntersectionFunctionTableswithBufferRange, intersectionFunctionTablesPtr, range);
+                }
             }
         }
 
@@ -687,13 +738,16 @@ namespace SharpMetal.Metal
 
         public void SetTileSamplerStates(MTLSamplerState[] samplers, float[] lodMinClamps, float[] lodMaxClamps, NSRange range)
         {
-            fixed (MTLSamplerState* samplersPtr = samplers)
+            unsafe
             {
-                fixed (float* lodMinClampsPtr = lodMinClamps)
+                fixed (MTLSamplerState* samplersPtr = samplers)
                 {
-                    fixed (float* lodMaxClampsPtr = lodMaxClamps)
+                    fixed (float* lodMinClampsPtr = lodMinClamps)
                     {
-                        ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTileSamplerStateslodMinClampslodMaxClampswithRange, samplersPtr, lodMinClampsPtr, lodMaxClampsPtr, range);
+                        fixed (float* lodMaxClampsPtr = lodMaxClamps)
+                        {
+                            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTileSamplerStateslodMinClampslodMaxClampswithRange, samplersPtr, lodMinClampsPtr, lodMaxClampsPtr, range);
+                        }
                     }
                 }
             }
@@ -701,9 +755,12 @@ namespace SharpMetal.Metal
 
         public void SetTileSamplerStates(MTLSamplerState[] samplers, NSRange range)
         {
-            fixed (MTLSamplerState* samplersPtr = samplers)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTileSamplerStateswithRange, samplersPtr, range);
+                fixed (MTLSamplerState* samplersPtr = samplers)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTileSamplerStateswithRange, samplersPtr, range);
+                }
             }
         }
 
@@ -714,9 +771,12 @@ namespace SharpMetal.Metal
 
         public void SetTileTextures(MTLTexture[] textures, NSRange range)
         {
-            fixed (MTLTexture* texturesPtr = textures)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTileTextureswithRange, texturesPtr, range);
+                fixed (MTLTexture* texturesPtr = textures)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTileTextureswithRange, texturesPtr, range);
+                }
             }
         }
 
@@ -727,9 +787,12 @@ namespace SharpMetal.Metal
 
         public void SetTileVisibleFunctionTables(MTLVisibleFunctionTable[] functionTables, NSRange range)
         {
-            fixed (MTLVisibleFunctionTable* functionTablesPtr = functionTables)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTileVisibleFunctionTableswithBufferRange, functionTablesPtr, range);
+                fixed (MTLVisibleFunctionTable* functionTablesPtr = functionTables)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTileVisibleFunctionTableswithBufferRange, functionTablesPtr, range);
+                }
             }
         }
 
@@ -770,20 +833,26 @@ namespace SharpMetal.Metal
 
         public void SetVertexBuffers(MTLBuffer[] buffers, ulong[] offsets, NSRange range)
         {
-            fixed (MTLBuffer* buffersPtr = buffers)
+            unsafe
             {
-                fixed (ulong* offsetsPtr = offsets)
+                fixed (MTLBuffer* buffersPtr = buffers)
                 {
-                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexBuffersoffsetswithRange, buffersPtr, offsetsPtr, range);
+                    fixed (ulong* offsetsPtr = offsets)
+                    {
+                        ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexBuffersoffsetswithRange, buffersPtr, offsetsPtr, range);
+                    }
                 }
             }
         }
 
         public void SetVertexBuffers(MTLBuffer[] buffers, ulong offsets, ulong strides, NSRange range)
         {
-            fixed (MTLBuffer* buffersPtr = buffers)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexBuffersoffsetsattributeStrideswithRange, buffersPtr, offsets, strides, range);
+                fixed (MTLBuffer* buffersPtr = buffers)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexBuffersoffsetsattributeStrideswithRange, buffersPtr, offsets, strides, range);
+                }
             }
         }
 
@@ -804,9 +873,12 @@ namespace SharpMetal.Metal
 
         public void SetVertexIntersectionFunctionTables(MTLIntersectionFunctionTable[] intersectionFunctionTables, NSRange range)
         {
-            fixed (MTLIntersectionFunctionTable* intersectionFunctionTablesPtr = intersectionFunctionTables)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexIntersectionFunctionTableswithBufferRange, intersectionFunctionTablesPtr, range);
+                fixed (MTLIntersectionFunctionTable* intersectionFunctionTablesPtr = intersectionFunctionTables)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexIntersectionFunctionTableswithBufferRange, intersectionFunctionTablesPtr, range);
+                }
             }
         }
 
@@ -822,13 +894,16 @@ namespace SharpMetal.Metal
 
         public void SetVertexSamplerStates(MTLSamplerState[] samplers, float[] lodMinClamps, float[] lodMaxClamps, NSRange range)
         {
-            fixed (MTLSamplerState* samplersPtr = samplers)
+            unsafe
             {
-                fixed (float* lodMinClampsPtr = lodMinClamps)
+                fixed (MTLSamplerState* samplersPtr = samplers)
                 {
-                    fixed (float* lodMaxClampsPtr = lodMaxClamps)
+                    fixed (float* lodMinClampsPtr = lodMinClamps)
                     {
-                        ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexSamplerStateslodMinClampslodMaxClampswithRange, samplersPtr, lodMinClampsPtr, lodMaxClampsPtr, range);
+                        fixed (float* lodMaxClampsPtr = lodMaxClamps)
+                        {
+                            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexSamplerStateslodMinClampslodMaxClampswithRange, samplersPtr, lodMinClampsPtr, lodMaxClampsPtr, range);
+                        }
                     }
                 }
             }
@@ -836,9 +911,12 @@ namespace SharpMetal.Metal
 
         public void SetVertexSamplerStates(MTLSamplerState[] samplers, NSRange range)
         {
-            fixed (MTLSamplerState* samplersPtr = samplers)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexSamplerStateswithRange, samplersPtr, range);
+                fixed (MTLSamplerState* samplersPtr = samplers)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexSamplerStateswithRange, samplersPtr, range);
+                }
             }
         }
 
@@ -849,9 +927,12 @@ namespace SharpMetal.Metal
 
         public void SetVertexTextures(MTLTexture[] textures, NSRange range)
         {
-            fixed (MTLTexture* texturesPtr = textures)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexTextureswithRange, texturesPtr, range);
+                fixed (MTLTexture* texturesPtr = textures)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexTextureswithRange, texturesPtr, range);
+                }
             }
         }
 
@@ -862,9 +943,12 @@ namespace SharpMetal.Metal
 
         public void SetVertexVisibleFunctionTables(MTLVisibleFunctionTable[] functionTables, NSRange range)
         {
-            fixed (MTLVisibleFunctionTable* functionTablesPtr = functionTables)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexVisibleFunctionTableswithBufferRange, functionTablesPtr, range);
+                fixed (MTLVisibleFunctionTable* functionTablesPtr = functionTables)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexVisibleFunctionTableswithBufferRange, functionTablesPtr, range);
+                }
             }
         }
 
@@ -905,17 +989,23 @@ namespace SharpMetal.Metal
 
         public void UseHeaps(MTLHeap[] heaps, ulong count, MTLRenderStages stages)
         {
-            fixed (MTLHeap* heapsPtr = heaps)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_useHeapscountstages, heapsPtr, count, (ulong)stages);
+                fixed (MTLHeap* heapsPtr = heaps)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_useHeapscountstages, heapsPtr, count, (ulong)stages);
+                }
             }
         }
 
         public void UseHeaps(MTLHeap[] heaps, ulong count)
         {
-            fixed (MTLHeap* heapsPtr = heaps)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_useHeapscount, heapsPtr, count);
+                fixed (MTLHeap* heapsPtr = heaps)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_useHeapscount, heapsPtr, count);
+                }
             }
         }
 
@@ -931,17 +1021,23 @@ namespace SharpMetal.Metal
 
         public void UseResources(MTLResource[] resources, ulong count, MTLResourceUsage usage)
         {
-            fixed (MTLResource* resourcesPtr = resources)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_useResourcescountusage, resourcesPtr, count, (ulong)usage);
+                fixed (MTLResource* resourcesPtr = resources)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_useResourcescountusage, resourcesPtr, count, (ulong)usage);
+                }
             }
         }
 
         public void UseResources(MTLResource[] resources, ulong count, MTLResourceUsage usage, MTLRenderStages stages)
         {
-            fixed (MTLResource* resourcesPtr = resources)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_useResourcescountusagestages, resourcesPtr, count, (ulong)usage, (ulong)stages);
+                fixed (MTLResource* resourcesPtr = resources)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_useResourcescountusagestages, resourcesPtr, count, (ulong)usage, (ulong)stages);
+                }
             }
         }
 

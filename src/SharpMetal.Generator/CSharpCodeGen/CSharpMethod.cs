@@ -9,6 +9,7 @@ namespace SharpMetal.Generator.CSharpCodeGen
         public bool PreferExpressionBody { get; set; }
         public string ReturnType { get; }
         public bool IsStatic { get; set; }
+        public bool IsUnsafe { get; set; }
         public bool IsPartial { get; set; }
 
         public CSharpMethod(string name, string returnType) : base(name, MemberKind.Method)
@@ -57,6 +58,10 @@ namespace SharpMetal.Generator.CSharpCodeGen
             if (IsStatic)
             {
                 sb.Append(" static");
+            }
+            if (IsUnsafe)
+            {
+                sb.Append(" unsafe");
             }
             if (IsPartial)
             {

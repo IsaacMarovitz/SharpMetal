@@ -367,10 +367,43 @@ namespace SharpMetal
         internal static partial void objc_msgSend(IntPtr receiver, IntPtr selector, IntPtr a, ulong b);
 
         [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
+        internal static unsafe partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTL4CommandBuffer* a, ulong b);
+
+        [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
+        internal static unsafe partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLAllocation* a, ulong b);
+
+        [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
+        internal static unsafe partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLComputePipelineState* a, NSRange b);
+
+        [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
+        internal static unsafe partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLFunctionHandle* a, NSRange b);
+
+        [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
+        internal static unsafe partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLHeap* a, ulong b);
+
+        [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
+        internal static unsafe partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLIndirectCommandBuffer* a, NSRange b);
+
+        [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
+        internal static unsafe partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLIntersectionFunctionTable* a, NSRange b);
+
+        [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
+        internal static unsafe partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLRenderPipelineState* a, NSRange b);
+
+        [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
+        internal static unsafe partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLResidencySet* a, ulong b);
+
+        [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
+        internal static unsafe partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLResource* a, ulong b);
+
+        [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
         internal static partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLResourceID a, ulong b);
 
         [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
         internal static partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLSamplePosition a, ulong b);
+
+        [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
+        internal static unsafe partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLSamplerState* a, NSRange b);
 
         [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
         internal static partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLScissorRect a, ulong b);
@@ -379,7 +412,13 @@ namespace SharpMetal
         internal static partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLSize a, MTLSize b);
 
         [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
+        internal static unsafe partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLTexture* a, NSRange b);
+
+        [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
         internal static partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLViewport a, ulong b);
+
+        [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
+        internal static unsafe partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLVisibleFunctionTable* a, NSRange b);
 
         [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
         internal static partial void objc_msgSend(IntPtr receiver, IntPtr selector, uint a, uint b);
@@ -401,9 +440,6 @@ namespace SharpMetal
 
         [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
         internal static partial void objc_msgSend(IntPtr receiver, IntPtr selector, IntPtr a, IntPtr b, MTL4BufferRange c);
-
-        [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
-        internal static partial void objc_msgSend(IntPtr receiver, IntPtr selector, IntPtr a, IntPtr b, NSRange c);
 
         [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
         internal static partial void objc_msgSend(IntPtr receiver, IntPtr selector, IntPtr a, IntPtr b, ulong c);
@@ -430,6 +466,21 @@ namespace SharpMetal
         internal static partial void objc_msgSend(IntPtr receiver, IntPtr selector, long a, IntPtr b, ulong c);
 
         [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
+        internal static unsafe partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTL4CommandBuffer* a, ulong b, IntPtr c);
+
+        [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
+        internal static unsafe partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLBuffer* a, ulong b, NSRange c);
+
+        [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
+        internal static unsafe partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLBuffer* a, ulong* b, NSRange c);
+
+        [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
+        internal static unsafe partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLHeap* a, ulong b, ulong c);
+
+        [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
+        internal static unsafe partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLResource* a, ulong b, ulong c);
+
+        [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
         internal static partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLSize a, MTLSize b, MTLSize c);
 
         [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
@@ -445,9 +496,6 @@ namespace SharpMetal
         internal static partial void objc_msgSend(IntPtr receiver, IntPtr selector, float a, float b, float c, float d);
 
         [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
-        internal static partial void objc_msgSend(IntPtr receiver, IntPtr selector, IntPtr a, float b, float c, NSRange d);
-
-        [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
         internal static partial void objc_msgSend(IntPtr receiver, IntPtr selector, IntPtr a, float b, float c, ulong d);
 
         [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
@@ -455,9 +503,6 @@ namespace SharpMetal
 
         [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
         internal static partial void objc_msgSend(IntPtr receiver, IntPtr selector, IntPtr a, IntPtr b, IntPtr c, MTL4BufferRange d);
-
-        [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
-        internal static partial void objc_msgSend(IntPtr receiver, IntPtr selector, IntPtr a, IntPtr b, IntPtr c, NSRange d);
 
         [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
         internal static partial void objc_msgSend(IntPtr receiver, IntPtr selector, IntPtr a, IntPtr b, IntPtr c, ulong d);
@@ -493,19 +538,28 @@ namespace SharpMetal
         internal static partial void objc_msgSend(IntPtr receiver, IntPtr selector, IntPtr a, ulong b, MTLSize c, MTLSize d);
 
         [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
-        internal static partial void objc_msgSend(IntPtr receiver, IntPtr selector, IntPtr a, ulong b, ulong c, NSRange d);
-
-        [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
         internal static partial void objc_msgSend(IntPtr receiver, IntPtr selector, IntPtr a, ulong b, ulong c, ulong d);
 
         [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
         internal static partial void objc_msgSend(IntPtr receiver, IntPtr selector, long a, ulong b, IntPtr c, ulong d);
 
         [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
+        internal static unsafe partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLBuffer* a, ulong b, ulong c, NSRange d);
+
+        [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
         internal static partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLRegion a, MTLRegion b, MTLSize c, ulong d);
 
         [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
         internal static partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLRegion a, ulong b, IntPtr c, ulong d);
+
+        [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
+        internal static unsafe partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLResource* a, ulong b, ulong c, ulong d);
+
+        [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
+        internal static unsafe partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLSamplerState* a, float b, float c, NSRange d);
+
+        [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
+        internal static unsafe partial void objc_msgSend(IntPtr receiver, IntPtr selector, MTLSamplerState* a, float* b, float* c, NSRange d);
 
         [LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = "objc_msgSend")]
         internal static partial void objc_msgSend(IntPtr receiver, IntPtr selector, ulong a, ulong b, ulong c, ulong d);

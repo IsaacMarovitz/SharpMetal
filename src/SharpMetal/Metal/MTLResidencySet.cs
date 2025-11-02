@@ -34,9 +34,12 @@ namespace SharpMetal.Metal
 
         public void AddAllocations(MTLAllocation[] allocations, ulong count)
         {
-            fixed (MTLAllocation* allocationsPtr = allocations)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_addAllocationscount, allocationsPtr, count);
+                fixed (MTLAllocation* allocationsPtr = allocations)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_addAllocationscount, allocationsPtr, count);
+                }
             }
         }
 
@@ -67,9 +70,12 @@ namespace SharpMetal.Metal
 
         public void RemoveAllocations(MTLAllocation[] allocations, ulong count)
         {
-            fixed (MTLAllocation* allocationsPtr = allocations)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_removeAllocationscount, allocationsPtr, count);
+                fixed (MTLAllocation* allocationsPtr = allocations)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_removeAllocationscount, allocationsPtr, count);
+                }
             }
         }
 

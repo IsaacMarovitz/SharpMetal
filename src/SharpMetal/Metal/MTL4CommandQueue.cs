@@ -80,25 +80,34 @@ namespace SharpMetal.Metal
 
         public void AddResidencySets(MTLResidencySet[] residencySets, ulong count)
         {
-            fixed (MTLResidencySet* residencySetsPtr = residencySets)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_addResidencySetscount, residencySetsPtr, count);
+                fixed (MTLResidencySet* residencySetsPtr = residencySets)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_addResidencySetscount, residencySetsPtr, count);
+                }
             }
         }
 
         public void Commit(MTL4CommandBuffer[] commandBuffers, ulong count)
         {
-            fixed (MTL4CommandBuffer* commandBuffersPtr = commandBuffers)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_commitcount, commandBuffersPtr, count);
+                fixed (MTL4CommandBuffer* commandBuffersPtr = commandBuffers)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_commitcount, commandBuffersPtr, count);
+                }
             }
         }
 
         public void Commit(MTL4CommandBuffer[] commandBuffers, ulong count, MTL4CommitOptions options)
         {
-            fixed (MTL4CommandBuffer* commandBuffersPtr = commandBuffers)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_commitcountoptions, commandBuffersPtr, count, options);
+                fixed (MTL4CommandBuffer* commandBuffersPtr = commandBuffers)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_commitcountoptions, commandBuffersPtr, count, options);
+                }
             }
         }
 
@@ -119,9 +128,12 @@ namespace SharpMetal.Metal
 
         public void RemoveResidencySets(MTLResidencySet[] residencySets, ulong count)
         {
-            fixed (MTLResidencySet* residencySetsPtr = residencySets)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_removeResidencySetscount, residencySetsPtr, count);
+                fixed (MTLResidencySet* residencySetsPtr = residencySets)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_removeResidencySetscount, residencySetsPtr, count);
+                }
             }
         }
 

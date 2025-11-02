@@ -34,9 +34,12 @@ namespace SharpMetal.Metal
 
         public void AddResidencySets(MTLResidencySet[] residencySets, ulong count)
         {
-            fixed (MTLResidencySet* residencySetsPtr = residencySets)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_addResidencySetscount, residencySetsPtr, count);
+                fixed (MTLResidencySet* residencySetsPtr = residencySets)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_addResidencySetscount, residencySetsPtr, count);
+                }
             }
         }
 
@@ -62,9 +65,12 @@ namespace SharpMetal.Metal
 
         public void RemoveResidencySets(MTLResidencySet[] residencySets, ulong count)
         {
-            fixed (MTLResidencySet* residencySetsPtr = residencySets)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_removeResidencySetscount, residencySetsPtr, count);
+                fixed (MTLResidencySet* residencySetsPtr = residencySets)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_removeResidencySetscount, residencySetsPtr, count);
+                }
             }
         }
 

@@ -82,11 +82,14 @@ namespace SharpMetal.Metal
 
         public void SetBuffers(MTLBuffer[] buffers, ulong[] offsets, NSRange range)
         {
-            fixed (MTLBuffer* buffersPtr = buffers)
+            unsafe
             {
-                fixed (ulong* offsetsPtr = offsets)
+                fixed (MTLBuffer* buffersPtr = buffers)
                 {
-                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBuffersoffsetswithRange, buffersPtr, offsetsPtr, range);
+                    fixed (ulong* offsetsPtr = offsets)
+                    {
+                        ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBuffersoffsetswithRange, buffersPtr, offsetsPtr, range);
+                    }
                 }
             }
         }
@@ -98,9 +101,12 @@ namespace SharpMetal.Metal
 
         public void SetFunctions(MTLFunctionHandle[] functions, NSRange range)
         {
-            fixed (MTLFunctionHandle* functionsPtr = functions)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctionswithRange, functionsPtr, range);
+                fixed (MTLFunctionHandle* functionsPtr = functions)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctionswithRange, functionsPtr, range);
+                }
             }
         }
 
@@ -141,9 +147,12 @@ namespace SharpMetal.Metal
 
         public void SetVisibleFunctionTables(MTLVisibleFunctionTable[] functionTables, NSRange bufferRange)
         {
-            fixed (MTLVisibleFunctionTable* functionTablesPtr = functionTables)
+            unsafe
             {
-                ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVisibleFunctionTableswithBufferRange, functionTablesPtr, bufferRange);
+                fixed (MTLVisibleFunctionTable* functionTablesPtr = functionTables)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVisibleFunctionTableswithBufferRange, functionTablesPtr, bufferRange);
+                }
             }
         }
 

@@ -123,6 +123,11 @@ namespace SharpMetal.Generator.Transformers
                     {
                         var arrayParameters = method.InputInstances.Where(x => x.Array).ToArray();
 
+                        if (arrayParameters.Length != 0)
+                        {
+                            csMethod.AddBodyScope("unsafe");
+                        }
+
                         // Each of these need to create their own fixed scope.
                         foreach (var array in arrayParameters)
                         {
@@ -156,6 +161,11 @@ namespace SharpMetal.Generator.Transformers
                         csMethod.AddBodyLine(call);
 
                         foreach (var _ in arrayParameters)
+                        {
+                            csMethod.AddBodyLineLeaveScope();
+                        }
+
+                        if (arrayParameters.Length != 0)
                         {
                             csMethod.AddBodyLineLeaveScope();
                         }
@@ -231,16 +241,16 @@ namespace SharpMetal.Generator.Transformers
             string type;
             List<string> inputs = [];
 
-            for (var i = 0; i < method.InputInstances.Count; i++)
+            foreach (var inputInstance in method.InputInstances)
             {
-                if (Types.CSharpNativeTypes.Contains(method.InputInstances[i].Type))
+                if (Types.CSharpNativeTypes.Contains(inputInstance.Type))
                 {
-                    inputs.Add(method.InputInstances[i].Type);
+                    inputs.Add(inputInstance.Type);
                 }
                 else
                 {
-                    var enumInstance = parsedModel.FindEnum(method.InputInstances[i].Type);
-                    var structInstance = parsedModel.FindStruct(method.InputInstances[i].Type);
+                    var enumInstance = parsedModel.FindEnum(inputInstance.Type);
+                    var structInstance = parsedModel.FindStruct(inputInstance.Type);
 
                     if (enumInstance != null)
                     {
@@ -250,13 +260,20 @@ namespace SharpMetal.Generator.Transformers
                     {
                         inputs.Add(structInstance.Name);
                     }
-                    else if (method.InputInstances[i].Type == "NSError")
+                    else if (inputInstance.Type == "NSError")
                     {
                         inputs.Add("ref IntPtr");
                     }
                     else
                     {
-                        inputs.Add("IntPtr");
+                        if (inputInstance.Array)
+                        {
+                            inputs.Add($"{inputInstance.Type.Replace("[]", string.Empty)}*");
+                        }
+                        else
+                        {
+                            inputs.Add("IntPtr");
+                        }
                     }
                 }
             }
