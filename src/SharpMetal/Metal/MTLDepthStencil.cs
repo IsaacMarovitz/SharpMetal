@@ -112,9 +112,12 @@ namespace SharpMetal.Metal
 
         public MTLDevice Device => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_device));
 
+        public MTLResourceID GpuResourceID => ObjectiveCRuntime.MTLResourceID_objc_msgSend(NativePtr, sel_gpuResourceID);
+
         public NSString Label => new(ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_label));
 
         private static readonly Selector sel_device = "device";
+        private static readonly Selector sel_gpuResourceID = "gpuResourceID";
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_release = "release";
     }
