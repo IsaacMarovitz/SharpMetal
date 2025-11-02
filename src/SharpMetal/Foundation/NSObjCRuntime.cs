@@ -9,5 +9,4 @@ namespace SharpMetal.Foundation
         OrderedSame,
         OrderedDescending,
     }
-
 }

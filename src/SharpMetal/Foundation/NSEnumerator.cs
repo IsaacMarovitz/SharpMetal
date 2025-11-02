@@ -24,8 +24,6 @@ namespace SharpMetal.Foundation
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_release);
         }
 
-
-
         public ulong CountByEnumerating(NSFastEnumerationState pState, NSObject pBuffer, ulong len)
         {
             return ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_countByEnumeratingWithStateobjectscount, pState, pBuffer, len);

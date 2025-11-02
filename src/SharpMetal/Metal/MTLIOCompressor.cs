@@ -9,5 +9,4 @@ namespace SharpMetal.Metal
         Complete = 0,
         Error = 1,
     }
-
 }

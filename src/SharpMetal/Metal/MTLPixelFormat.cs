@@ -147,5 +147,4 @@ namespace SharpMetal.Metal
         X24Stencil8 = 262,
         Unspecialized = 263,
     }
-
 }

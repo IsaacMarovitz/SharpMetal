@@ -19,5 +19,39 @@ namespace SharpMetal.Generator.Utilities
         public static bool IsPartialType(string name) => PartialTypes.Contains(name);
 
         public static bool IsBannedType(string name) => BannedTypes.Contains(name);
+
+        /// <summary>
+        /// Consumes given stream lines until it hits a non-empty line that is not part of a comment
+        /// </summary>
+        /// <returns>The code line or null if stream ended</returns>
+        public static string? ReadNextCodeLine(StreamReader sr)
+        {
+            bool insideComment = false;
+            while (!sr.EndOfStream)
+            {
+                var line = (sr.ReadLine() ?? "").Trim();
+                if (line == string.Empty || line.StartsWith("//"))
+                {
+                    continue;
+                }
+
+                if (line.Contains("/**"))
+                {
+                    insideComment = true;
+                }
+
+                if (line.Contains("*/"))
+                {
+                    insideComment = false;
+                }
+
+                if (!insideComment)
+                {
+                    return line;
+                }
+            }
+
+            return null;
+        }
     }
 }

@@ -5,31 +5,36 @@ namespace SharpMetal.Generator
 {
     public class HeaderInfo
     {
+        private readonly List<MethodInstance> _inFlightUnscopedMethods = [];
+
         public string FilePath { get; }
-        public IncludeFlags IncludeFlags = IncludeFlags.None;
-        public List<EnumInstance> EnumInstances = [];
-        public List<ClassInstance> ClassInstances = [];
-        public List<StructInstance> StructInstances = [];
-        public List<MethodInstance> InFlightUnscopedMethods = [];
+        public string FileName { get; }
+        public string FullNamespace { get; }
+        public IncludeFlags Flags { get; } = IncludeFlags.None;
+        public List<EnumInstance> EnumInstances { get; } = [];
+        public List<ClassInstance> ClassInstances { get; } = [];
+        public List<StructInstance> StructInstances { get; } = [];
 
         public HeaderInfo(string filePath)
         {
             FilePath = filePath;
+            FileName = Path.GetFileNameWithoutExtension(filePath);
+            FullNamespace = Namespaces.GetFullNamespace(filePath);
             using var sr = new StreamReader(File.OpenRead(filePath));
             var namespacePrefix = Namespaces.GetNamespace(filePath);
             var macroNamespacePrefix = Namespaces.GetMacroNamespace(namespacePrefix);
-            var inMtlPrivateDefSel = false;
 
             while (!sr.EndOfStream)
             {
-                var line = (sr.ReadLine() ?? "").Trim();
+                var line = GeneratorUtils.ReadNextCodeLine(sr);
+                if (line == null)
+                {
+                    break;
+                }
 
                 // Ignore garbage
-                if (line == string.Empty ||
-                    line.StartsWith("//") ||
-                    line.StartsWith("::") ||
+                if (line.StartsWith("::") ||
                     line.StartsWith("[[") ||
-                    line.StartsWith("/**") ||
                     line.StartsWith("#error") ||
                     line.StartsWith("#pragma") ||
                     line.StartsWith("#define") ||
@@ -72,13 +77,8 @@ namespace SharpMetal.Generator
                 // These take two lines, no idea why
                 if (line.StartsWith("_MTL_PRIVATE_DEF_SEL"))
                 {
-                    inMtlPrivateDefSel = true;
-                    continue;
-                }
-
-                if (inMtlPrivateDefSel)
-                {
-                    inMtlPrivateDefSel = false;
+                    // Let's just consume the second line straight away
+                    sr.ReadLine();
                     continue;
                 }
 
@@ -86,29 +86,29 @@ namespace SharpMetal.Generator
                 {
                     if (line.Contains("Foundation"))
                     {
-                        IncludeFlags |= IncludeFlags.Foundation;
+                        Flags |= IncludeFlags.Foundation;
                     }
                     else if (line.Contains("Metal"))
                     {
-                        IncludeFlags |= IncludeFlags.Metal;
+                        Flags |= IncludeFlags.Metal;
                     }
                     else if (line.Contains("QuartzCore"))
                     {
-                        IncludeFlags |= IncludeFlags.QuartzCore;
+                        Flags |= IncludeFlags.QuartzCore;
                     }
                 }
                 else if (line.StartsWith("class"))
                 {
                     if (!line.Contains(';'))
                     {
-                        if (InFlightUnscopedMethods.Count > 0)
+                        if (_inFlightUnscopedMethods.Count > 0)
                         {
                             Console.WriteLine($"Unscoped methods found in header {filePath}:");
-                            foreach (var unscopedMethod in InFlightUnscopedMethods)
+                            foreach (var unscopedMethod in _inFlightUnscopedMethods)
                             {
                                 Console.WriteLine($"- {unscopedMethod.Name}");
                             }
-                            InFlightUnscopedMethods.Clear();
+                            _inFlightUnscopedMethods.Clear();
                         }
                         var classInstance = ClassInstance.Build(line, namespacePrefix, sr);
                         if (classInstance.IsValid && !GeneratorUtils.IsBannedType(classInstance.Name))
@@ -232,7 +232,7 @@ namespace SharpMetal.Generator
 
                         if (method != null)
                         {
-                            InFlightUnscopedMethods.Add(method);
+                            _inFlightUnscopedMethods.Add(method);
                         }
                     }
                 }

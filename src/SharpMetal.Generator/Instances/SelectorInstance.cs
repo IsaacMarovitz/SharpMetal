@@ -6,9 +6,11 @@ namespace SharpMetal.Generator.Instances
         public readonly string RawName;
         public readonly string Selector;
         public bool UsedInProperty { get; set; }
+        public string MethodSignatureString { get; }
 
-        private SelectorInstance(string selector, string rawName)
+        private SelectorInstance(string selector, string rawName, string methodSignatureString)
         {
+            MethodSignatureString = methodSignatureString;
             Name = "sel_" + selector.Replace(":", "");
             RawName = rawName;
             Selector = selector;
@@ -20,6 +22,8 @@ namespace SharpMetal.Generator.Instances
             var parentStructName = string.Empty;
             var rawName = "";
 
+            var methodSignatureString = "";
+
             for (var i = 0; i < inlineInfo.Length; i++)
             {
                 var section = inlineInfo[i];
@@ -27,6 +31,15 @@ namespace SharpMetal.Generator.Instances
                 {
                     var parentStructInfo = section.Split("::");
                     parentStructName = namespacePrefix + parentStructInfo[1];
+
+                    // Get the rest of the string as the method signature for future pairing lookups
+                    var methodSignatureInfo = section.Split("(");
+                    var methodSignatureBetweenColonsAndParentheses = methodSignatureInfo[0].Split("::");
+                    var indexOfMethodSignature = line.IndexOf(methodSignatureBetweenColonsAndParentheses[^1] + "(", StringComparison.InvariantCultureIgnoreCase);
+                    if (indexOfMethodSignature > 0)
+                    {
+                        methodSignatureString = line.Substring(indexOfMethodSignature);
+                    }
 
                     var rawNameStartIndex = line.IndexOf(section, StringComparison.Ordinal);
                     if (rawNameStartIndex >= 0)
@@ -68,7 +81,7 @@ namespace SharpMetal.Generator.Instances
 
                 if (parentIndex != -1)
                 {
-                    propertyOwners[parentIndex].AddSelector(new SelectorInstance(selector.Trim(), rawName));
+                    propertyOwners[parentIndex].AddSelector(new SelectorInstance(selector.Trim(), rawName, methodSignatureString));
                 }
                 else
                 {

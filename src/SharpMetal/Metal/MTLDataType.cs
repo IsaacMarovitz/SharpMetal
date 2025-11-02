@@ -102,5 +102,4 @@ namespace SharpMetal.Metal
         BFloat4 = 124,
         Tensor = 140,
     }
-
 }
