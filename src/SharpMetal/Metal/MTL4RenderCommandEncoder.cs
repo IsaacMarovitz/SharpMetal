@@ -67,14 +67,14 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_drawIndexedPrimitivesindexCountindexTypeindexBufferindexBufferLengthinstanceCountbaseVertexbaseInstance, (ulong)primitiveType, indexCount, (ulong)indexType, indexBuffer, indexBufferLength, instanceCount, baseVertex, baseInstance);
         }
 
-        public void DrawIndexedPrimitives(MTLPrimitiveType primitiveType, ulong indexCount, MTLIndexType indexType, ulong indexBuffer, ulong indexBufferLength, ulong instanceCount)
-        {
-            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_drawIndexedPrimitivesindexCountindexTypeindexBufferindexBufferLengthinstanceCount, (ulong)primitiveType, indexCount, (ulong)indexType, indexBuffer, indexBufferLength, instanceCount);
-        }
-
         public void DrawIndexedPrimitives(MTLPrimitiveType primitiveType, ulong indexCount, MTLIndexType indexType, ulong indexBuffer, ulong indexBufferLength)
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_drawIndexedPrimitivesindexCountindexTypeindexBufferindexBufferLength, (ulong)primitiveType, indexCount, (ulong)indexType, indexBuffer, indexBufferLength);
+        }
+
+        public void DrawIndexedPrimitives(MTLPrimitiveType primitiveType, ulong indexCount, MTLIndexType indexType, ulong indexBuffer, ulong indexBufferLength, ulong instanceCount)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_drawIndexedPrimitivesindexCountindexTypeindexBufferindexBufferLengthinstanceCount, (ulong)primitiveType, indexCount, (ulong)indexType, indexBuffer, indexBufferLength, instanceCount);
         }
 
         public void DrawMeshThreadgroups(MTLSize threadgroupsPerGrid, MTLSize threadsPerObjectThreadgroup, MTLSize threadsPerMeshThreadgroup)
@@ -185,6 +185,11 @@ namespace SharpMetal.Metal
         public void SetDepthStoreAction(MTLStoreAction storeAction)
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthStoreAction, (ulong)storeAction);
+        }
+
+        public void SetDepthTestBounds(float minBound, float maxBound)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthTestMinBoundmaxBound, minBound, maxBound);
         }
 
         public void SetFrontFacingWinding(MTLWinding frontFacingWinding)
@@ -304,6 +309,7 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setDepthClipMode = "setDepthClipMode:";
         private static readonly Selector sel_setDepthStencilState = "setDepthStencilState:";
         private static readonly Selector sel_setDepthStoreAction = "setDepthStoreAction:";
+        private static readonly Selector sel_setDepthTestMinBoundmaxBound = "setDepthTestMinBound:maxBound:";
         private static readonly Selector sel_setFrontFacingWinding = "setFrontFacingWinding:";
         private static readonly Selector sel_setLabel = "setLabel:";
         private static readonly Selector sel_setObjectThreadgroupMemoryLengthatIndex = "setObjectThreadgroupMemoryLength:atIndex:";

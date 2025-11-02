@@ -48,12 +48,7 @@ namespace SharpMetal.Generator.Instances
                 return true;
             }
 
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
-
-            return Equals((PropertyInstance)obj);
+            return obj.GetType() == GetType() && Equals((PropertyInstance)obj);
         }
 
         public override int GetHashCode()

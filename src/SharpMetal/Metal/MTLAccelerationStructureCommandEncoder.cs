@@ -92,7 +92,13 @@ namespace SharpMetal.Metal
 
         public void UseHeaps(MTLHeap[] heaps, ulong count)
         {
-            throw new NotImplementedException();
+            unsafe
+            {
+                fixed (MTLHeap* heapsPtr = heaps)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_useHeapscount, heapsPtr, count);
+                }
+            }
         }
 
         public void UseResource(MTLResource resource, MTLResourceUsage usage)
@@ -102,7 +108,13 @@ namespace SharpMetal.Metal
 
         public void UseResources(MTLResource[] resources, ulong count, MTLResourceUsage usage)
         {
-            throw new NotImplementedException();
+            unsafe
+            {
+                fixed (MTLResource* resourcesPtr = resources)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_useResourcescountusage, resourcesPtr, count, (ulong)usage);
+                }
+            }
         }
 
         public void WaitForFence(MTLFence fence)

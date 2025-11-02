@@ -55,7 +55,13 @@ namespace SharpMetal.Metal
 
         public void SetFunctions(MTLFunctionHandle[] functions, NSRange range)
         {
-            throw new NotImplementedException();
+            unsafe
+            {
+                fixed (MTLFunctionHandle* functionsPtr = functions)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctionswithRange, functionsPtr, range);
+                }
+            }
         }
 
         public int SetOwner(IntPtr task_id_token)

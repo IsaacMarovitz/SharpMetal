@@ -20,12 +20,12 @@ namespace SharpMetal.Generator.Instances
             IsDeprecated = isDeprecated;
 
             var rawNameComponents = rawName.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-            for (var index = 0; index < rawNameComponents.Length; index++)
+
+            foreach (var component in rawNameComponents)
             {
-                var component = rawNameComponents[index];
                 if (component.Contains('('))
                 {
-                    var splitIndex = rawName.IndexOf(component);
+                    var splitIndex = rawName.IndexOf(component, StringComparison.Ordinal);
                     if (splitIndex >= 0)
                     {
                         rawName = rawName.Substring(splitIndex, rawName.Length - splitIndex);
@@ -33,9 +33,7 @@ namespace SharpMetal.Generator.Instances
                 }
             }
 
-            rawName = rawName.TrimEnd(';');
-
-            RawName = rawName;
+            RawName = rawName.TrimEnd(';');
         }
     }
 }

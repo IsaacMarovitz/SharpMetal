@@ -85,6 +85,7 @@ namespace SharpMetal.Metal
         Apple7 = 1007,
         Apple8 = 1008,
         Apple9 = 1009,
+        Apple10 = 1010,
         Mac1 = 2001,
         Mac2 = 2002,
         Common1 = 3001,

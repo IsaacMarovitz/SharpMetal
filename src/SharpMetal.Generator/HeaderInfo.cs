@@ -199,13 +199,13 @@ namespace SharpMetal.Generator
                                 var array = argument.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
                                 var argumentType = Types.ConvertType(string.Join(" ", array[..^1]), namespacePrefix);
                                 var argumentName = array.Last();
+                                var arrayType = false;
 
-                                // Fix array inputs
-                                // Might need to be NSArray
                                 if (argumentName.Contains("[]"))
                                 {
                                     argumentType += "[]";
                                     argumentName = argumentName.Replace("[]", "");
+                                    arrayType = true;
                                 }
 
                                 // String is a keyword in C#
@@ -220,7 +220,7 @@ namespace SharpMetal.Generator
                                     argumentName = "mtlEvent";
                                 }
 
-                                arguments.Add(new FunctionParameterInstance(argumentType, argumentName));
+                                arguments.Add(new FunctionParameterInstance(argumentType, argumentName, false, arrayType));
                             }
 
                             if (returnType != string.Empty)

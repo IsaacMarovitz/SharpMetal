@@ -50,27 +50,29 @@ namespace SharpMetal.Generator.Instances
                     continue;
                 }
 
-                if (!skipValues)
+                if (skipValues)
                 {
-                    if (propertyLine.Contains('(') && propertyLine.Contains(')'))
-                    {
-                        continue;
-                    }
-
-                    var propertyInfo = propertyLine.Replace(";", "").Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-
-                    if (propertyInfo.Length != 2)
-                    {
-                        continue;
-                    }
-
-                    var type = Types.ConvertType(propertyInfo[0], namespacePrefix);
-                    var propertyName = propertyInfo[1];
-
-                    propertyName = NameRegex().Replace(propertyName, "");
-
-                    instance.AddMemberVariable(new MemberVariableInstance(type, propertyName));
+                    continue;
                 }
+
+                if (propertyLine.Contains('(') && propertyLine.Contains(')'))
+                {
+                    continue;
+                }
+
+                var propertyInfo = propertyLine.Replace(";", "").Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+
+                if (propertyInfo.Length != 2)
+                {
+                    continue;
+                }
+
+                var type = Types.ConvertType(propertyInfo[0], namespacePrefix);
+                var propertyName = propertyInfo[1];
+
+                propertyName = NameRegex().Replace(propertyName, "");
+
+                instance.AddMemberVariable(new MemberVariableInstance(type, propertyName));
             }
 
             return instance;

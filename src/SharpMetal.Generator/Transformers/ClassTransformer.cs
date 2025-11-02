@@ -19,28 +19,28 @@ namespace SharpMetal.Generator.Transformers
             propertyInstances.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.InvariantCultureIgnoreCase));
             methodInstances.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.InvariantCultureIgnoreCase));
 
-            var csClass = new CSharpStructType(classInstance.Name);
-            csClass.IsPartial = GeneratorUtils.IsPartialType(classInstance.Name);
+            var csClass = new CSharpStructType(classInstance.Name) { IsPartial = GeneratorUtils.IsPartialType(classInstance.Name) };
             csClass.BaseTypes.Add("IDisposable");
             csClass.AddMember(new CSharpField("IntPtr", "NativePtr"));
 
-            var implicitToIntPtr = new CSharpMethod("IntPtr", "implicit operator", (classInstance.Name, "obj", ""));
-            implicitToIntPtr.IsStatic = true;
-            implicitToIntPtr.PreferExpressionBody = true;
+            var implicitToIntPtr = new CSharpMethod("IntPtr", "implicit operator", (classInstance.Name, "obj", ""))
+            {
+                IsStatic = true, PreferExpressionBody = true
+            };
             implicitToIntPtr.AddBodyLine("obj.NativePtr");
             csClass.AddMember(implicitToIntPtr);
 
             if (classInstance.Parent != string.Empty)
             {
-                var implicitToParent = new CSharpMethod(classInstance.Parent, "implicit operator", (classInstance.Name, "obj", ""));
-                implicitToParent.IsStatic = true;
-                implicitToParent.PreferExpressionBody = true;
+                var implicitToParent = new CSharpMethod(classInstance.Parent, "implicit operator", (classInstance.Name, "obj", ""))
+                {
+                    IsStatic = true, PreferExpressionBody = true
+                };
                 implicitToParent.AddBodyLine("new(obj.NativePtr)");
                 csClass.AddMember(implicitToParent);
             }
 
-            var ctor = new CSharpMethod(classInstance.Name, "", ("IntPtr", "ptr", ""));
-            ctor.PreferExpressionBody = true;
+            var ctor = new CSharpMethod(classInstance.Name, "", ("IntPtr", "ptr", "")) { PreferExpressionBody = true };
             ctor.AddBodyLine("NativePtr = ptr");
             csClass.AddMember(ctor);
 
@@ -71,19 +71,17 @@ namespace SharpMetal.Generator.Transformers
 
             foreach (var selector in selectorInstances)
             {
-                var selectorField = new CSharpField("Selector", selector.Name);
-                selectorField.IsStatic = true;
-                selectorField.IsReadonly = true;
-                selectorField.VisibilityModifier = "private";
-                selectorField.DefaultValue = $"\"{selector.Selector}\"";
+                var selectorField = new CSharpField("Selector", selector.Name)
+                {
+                    IsStatic = true, IsReadonly = true, VisibilityModifier = "private", DefaultValue = $"\"{selector.Selector}\""
+                };
                 csClass.AddMember(selectorField);
             }
 
-            var selectorReleaseField = new CSharpField("Selector", "sel_release");
-            selectorReleaseField.IsStatic = true;
-            selectorReleaseField.IsReadonly = true;
-            selectorReleaseField.VisibilityModifier = "private";
-            selectorReleaseField.DefaultValue = "\"release\"";
+            var selectorReleaseField = new CSharpField("Selector", "sel_release")
+            {
+                IsStatic = true, IsReadonly = true, VisibilityModifier = "private", DefaultValue = "\"release\""
+            };
             csClass.AddMember(selectorReleaseField);
 
             return csClass;
@@ -107,26 +105,15 @@ namespace SharpMetal.Generator.Transformers
             {
                 var parameters = new List<(string, string, string)>();
 
-                // TODO: Handle array inputs
-                var hasArrayInput = false;
-
-                for (var i = 0; i < method.InputInstances.Count; i++)
+                foreach (var input in method.InputInstances)
                 {
-                    var input = method.InputInstances[i];
-
-                    if (input.Type.Contains("[]"))
-                    {
-                        hasArrayInput = true;
-                    }
-
                     parameters.Add(($"{(input.Reference ? "ref " : "")}{input.Type}", input.Name, ""));
                 }
 
-                var csMethod = new CSharpMethod(method.Name, method.ReturnType, parameters);
-                csMethod.IsStatic = method.IsStatic;
+                var csMethod = new CSharpMethod(method.Name, method.ReturnType, parameters) { IsStatic = method.IsStatic };
                 csClass.AddMember(csMethod);
 
-                if (method.ReturnType == "void" && !hasArrayInput)
+                if (method.ReturnType == "void")
                 {
                     if (method.IsStatic)
                     {
@@ -134,26 +121,59 @@ namespace SharpMetal.Generator.Transformers
                     }
                     else
                     {
+                        var arrayParameters = method.InputInstances.Where(x => x.Array).ToArray();
+
+                        if (arrayParameters.Length != 0)
+                        {
+                            csMethod.AddRawLine("unsafe");
+                            csMethod.OpenScope();
+                        }
+
+                        // Each of these need to create their own fixed scope.
+                        foreach (var array in arrayParameters)
+                        {
+                            var ptrType = array.Type.Replace("[]", String.Empty);
+                            csMethod.AddRawLine($"fixed ({ptrType}* {array.Name}Ptr = {array.Name})");
+                        }
+
+                        if (arrayParameters.Length != 0)
+                        {
+                            csMethod.OpenScope();
+                        }
+
                         var call = $"ObjectiveCRuntime.objc_msgSend(NativePtr, {selector.Name}";
 
-                        for (var index = 0; index < method.InputInstances.Count; index++)
+                        foreach (var parameter in method.InputInstances)
                         {
-                            var cast = "";
-                            var enumInstance = parsedModel.FindEnum(method.InputInstances[index].Type);
-
-                            if (enumInstance != null)
+                            if (parameter.Array)
                             {
-                                cast = $"({enumInstance.BackingType})";
+                                call += $", {parameter.Name}Ptr";
                             }
+                            else
+                            {
+                                var cast = "";
+                                var enumInstance = parsedModel.FindEnum(parameter.Type);
 
-                            call += $", {cast}{method.InputInstances[index].Name}";
+                                if (enumInstance != null)
+                                {
+                                    cast = $"({enumInstance.BackingType})";
+                                }
+
+                                call += $", {cast}{parameter.Name}";
+                            }
                         }
 
                         call += ")";
                         csMethod.AddBodyLine(call);
+
+                        if (arrayParameters.Length != 0)
+                        {
+                            csMethod.CloseScope();
+                            csMethod.CloseScope();
+                        }
                     }
                 }
-                else if (!hasArrayInput)
+                else
                 {
                     var line = "return ";
                     var returnEnum = parsedModel.FindEnum(method.ReturnType);
@@ -190,10 +210,10 @@ namespace SharpMetal.Generator.Transformers
 
                     line += $", {selector.Name}";
 
-                    for (var index = 0; index < method.InputInstances.Count; index++)
+                    foreach (var inputInstance in method.InputInstances)
                     {
-                        var enumInstance = parsedModel.FindEnum(method.InputInstances[index].Type);
-                        var input = method.InputInstances[index];
+                        var enumInstance = parsedModel.FindEnum(inputInstance.Type);
+                        var input = inputInstance;
 
                         if (enumInstance != null)
                         {
@@ -218,25 +238,21 @@ namespace SharpMetal.Generator.Transformers
 
                     csMethod.AddBodyLine(line);
                 }
-                else
-                {
-                    csMethod.AddBodyLine("throw new NotImplementedException()");
-                }
             }
 
             string type;
             List<string> inputs = [];
 
-            for (var i = 0; i < method.InputInstances.Count; i++)
+            foreach (var inputInstance in method.InputInstances)
             {
-                if (Types.CSharpNativeTypes.Contains(method.InputInstances[i].Type))
+                if (Types.CSharpNativeTypes.Contains(inputInstance.Type))
                 {
-                    inputs.Add(method.InputInstances[i].Type);
+                    inputs.Add(inputInstance.Type);
                 }
                 else
                 {
-                    var enumInstance = parsedModel.FindEnum(method.InputInstances[i].Type);
-                    var structInstance = parsedModel.FindStruct(method.InputInstances[i].Type);
+                    var enumInstance = parsedModel.FindEnum(inputInstance.Type);
+                    var structInstance = parsedModel.FindStruct(inputInstance.Type);
 
                     if (enumInstance != null)
                     {
@@ -246,13 +262,20 @@ namespace SharpMetal.Generator.Transformers
                     {
                         inputs.Add(structInstance.Name);
                     }
-                    else if (method.InputInstances[i].Type == "NSError")
+                    else if (inputInstance.Type == "NSError")
                     {
                         inputs.Add("ref IntPtr");
                     }
                     else
                     {
-                        inputs.Add("IntPtr");
+                        if (inputInstance.Array)
+                        {
+                            inputs.Add($"{inputInstance.Type.Replace("[]", string.Empty)}*");
+                        }
+                        else
+                        {
+                            inputs.Add("IntPtr");
+                        }
                     }
                 }
             }
@@ -290,11 +313,8 @@ namespace SharpMetal.Generator.Transformers
             var selector = selectorInstances.Find(x => string.Equals(x.Selector, property.Name, StringComparison.InvariantCultureIgnoreCase));
             var type = "";
 
-            if (selector == null)
-            {
-                // This can sometimes select the wrong selector, so we only want to use it as a backup
-                selector = selectorInstances.Find(x => x.Selector.Contains(property.Name, StringComparison.InvariantCultureIgnoreCase));
-            }
+            // This can sometimes select the wrong selector, so we only want to use it as a backup
+            selector ??= selectorInstances.Find(x => x.Selector.Contains(property.Name, StringComparison.InvariantCultureIgnoreCase));
 
             if (selector != null)
             {
@@ -328,43 +348,46 @@ namespace SharpMetal.Generator.Transformers
                     csProperty.AddAttribute("[System.Obsolete]");
                 }
 
-                if (enumOrStructInstance is EnumInstance enumInstance)
+                switch (enumOrStructInstance)
                 {
-                    type = enumInstance.BackingType;
+                    case EnumInstance enumInstance:
+                        type = enumInstance.BackingType;
 
-                    csProperty.Getter = $"({enumInstance.Name})ObjectiveCRuntime.{enumInstance.BackingType}_objc_msgSend({target}, {selector.Name})";
-                    if (setterSelector != null)
-                    {
-                        csProperty.Setter = $"ObjectiveCRuntime.objc_msgSend({target}, {setterSelector.Name}, ({enumInstance.BackingType})value)";
-                    }
-                }
-                else if (enumOrStructInstance is StructInstance structInstance)
-                {
-                    type = structInstance.Name;
+                        csProperty.Getter = $"({enumInstance.Name})ObjectiveCRuntime.{enumInstance.BackingType}_objc_msgSend({target}, {selector.Name})";
+                        if (setterSelector != null)
+                        {
+                            csProperty.Setter = $"ObjectiveCRuntime.objc_msgSend({target}, {setterSelector.Name}, ({enumInstance.BackingType})value)";
+                        }
 
-                    csProperty.Getter = $"ObjectiveCRuntime.{structInstance.Name}_objc_msgSend({target}, {selector.Name})";
-                    if (setterSelector != null)
-                    {
-                        csProperty.Setter = $"ObjectiveCRuntime.objc_msgSend({target}, {setterSelector.Name}, value)";
-                    }
-                }
-                else
-                {
-                    type = runtimeFuncReturn;
+                        break;
+                    case StructInstance structInstance:
+                        type = structInstance.Name;
 
-                    if (runtimeFuncReturn == "IntPtr")
-                    {
-                        csProperty.Getter = $"new(ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend({target}, {selector.Name}))";
-                    }
-                    else
-                    {
-                        csProperty.Getter = $"ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend({target}, {selector.Name})";
-                    }
+                        csProperty.Getter = $"ObjectiveCRuntime.{structInstance.Name}_objc_msgSend({target}, {selector.Name})";
+                        if (setterSelector != null)
+                        {
+                            csProperty.Setter = $"ObjectiveCRuntime.objc_msgSend({target}, {setterSelector.Name}, value)";
+                        }
 
-                    if (setterSelector != null)
-                    {
-                        csProperty.Setter = $"ObjectiveCRuntime.objc_msgSend({target}, {setterSelector.Name}, value)";
-                    }
+                        break;
+                    default:
+                        type = runtimeFuncReturn;
+
+                        if (runtimeFuncReturn == "IntPtr")
+                        {
+                            csProperty.Getter = $"new(ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend({target}, {selector.Name}))";
+                        }
+                        else
+                        {
+                            csProperty.Getter = $"ObjectiveCRuntime.{runtimeFuncReturn}_objc_msgSend({target}, {selector.Name})";
+                        }
+
+                        if (setterSelector != null)
+                        {
+                            csProperty.Setter = $"ObjectiveCRuntime.objc_msgSend({target}, {setterSelector.Name}, value)";
+                        }
+
+                        break;
                 }
             }
 
@@ -388,24 +411,27 @@ namespace SharpMetal.Generator.Transformers
 
                 var parent = parsedModel.FindClass(parentName);
                 parentName = parent?.Parent ?? string.Empty;
-                if (parent != null)
-                {
-                    // Just add unique instances, since the MTLAllocation inheritance would cause doubled-up properties
-                    foreach (var property in parent.PropertyInstances)
-                    {
-                        if (!propertyInstances.Any(x => x.Name == property.Name && x.Type == property.Type))
-                        {
-                            propertyInstances.Add(property);
-                        }
-                    }
 
-                    methodInstances.AddRange(parent.MethodInstances);
-                    foreach (var selector in parent.SelectorInstances)
+                if (parent == null)
+                {
+                    continue;
+                }
+
+                // Just add unique instances, since the MTLAllocation inheritance would cause doubled-up properties
+                foreach (var property in parent.PropertyInstances)
+                {
+                    if (!propertyInstances.Any(x => x.Name == property.Name && x.Type == property.Type))
                     {
-                        if (selectorInstances.All(x => x.Name != selector.Name))
-                        {
-                            selectorInstances.Add(selector);
-                        }
+                        propertyInstances.Add(property);
+                    }
+                }
+
+                methodInstances.AddRange(parent.MethodInstances);
+                foreach (var selector in parent.SelectorInstances)
+                {
+                    if (selectorInstances.All(x => x.Name != selector.Name))
+                    {
+                        selectorInstances.Add(selector);
                     }
                 }
             }
@@ -437,12 +463,14 @@ namespace SharpMetal.Generator.Transformers
             setterSelectorNameCandidate = "set" + setterSelectorNameCandidate;
             var setterSelector = selectorInstances.Find(x => x.Selector.Contains(setterSelectorNameCandidate, StringComparison.InvariantCultureIgnoreCase));
 
-            if (setterSelector == null)
+            if (setterSelector != null)
             {
-                // Fallback to setIsFoo, which apparently has some occurrences in the metal-cpp bindings
-                setterSelectorNameCandidate = "set" + selector.Selector;
-                setterSelector = selectorInstances.Find(x => x.Selector.Contains(setterSelectorNameCandidate, StringComparison.InvariantCultureIgnoreCase));
+                return setterSelector;
             }
+
+            // Fallback to setIsFoo, which apparently has some occurrences in the metal-cpp bindings
+            setterSelectorNameCandidate = "set" + selector.Selector;
+            setterSelector = selectorInstances.Find(x => x.Selector.Contains(setterSelectorNameCandidate, StringComparison.InvariantCultureIgnoreCase));
 
             return setterSelector;
         }

@@ -150,10 +150,46 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInheritBuffers, value);
         }
 
+        public bool InheritCullMode
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_inheritCullMode);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInheritCullMode, value);
+        }
+
+        public bool InheritDepthBias
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_inheritDepthBias);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInheritDepthBias, value);
+        }
+
+        public bool InheritDepthClipMode
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_inheritDepthClipMode);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInheritDepthClipMode, value);
+        }
+
+        public bool InheritDepthStencilState
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_inheritDepthStencilState);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInheritDepthStencilState, value);
+        }
+
+        public bool InheritFrontFacingWinding
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_inheritFrontFacingWinding);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInheritFrontFacingWinding, value);
+        }
+
         public bool InheritPipelineState
         {
             get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_inheritPipelineState);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInheritPipelineState, value);
+        }
+
+        public bool InheritTriangleFillMode
+        {
+            get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_inheritTriangleFillMode);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setInheritTriangleFillMode, value);
         }
 
         public ulong MaxFragmentBufferBindCount
@@ -218,7 +254,13 @@ namespace SharpMetal.Metal
 
         private static readonly Selector sel_commandTypes = "commandTypes";
         private static readonly Selector sel_inheritBuffers = "inheritBuffers";
+        private static readonly Selector sel_inheritCullMode = "inheritCullMode";
+        private static readonly Selector sel_inheritDepthBias = "inheritDepthBias";
+        private static readonly Selector sel_inheritDepthClipMode = "inheritDepthClipMode";
+        private static readonly Selector sel_inheritDepthStencilState = "inheritDepthStencilState";
+        private static readonly Selector sel_inheritFrontFacingWinding = "inheritFrontFacingWinding";
         private static readonly Selector sel_inheritPipelineState = "inheritPipelineState";
+        private static readonly Selector sel_inheritTriangleFillMode = "inheritTriangleFillMode";
         private static readonly Selector sel_maxFragmentBufferBindCount = "maxFragmentBufferBindCount";
         private static readonly Selector sel_maxKernelBufferBindCount = "maxKernelBufferBindCount";
         private static readonly Selector sel_maxKernelThreadgroupMemoryBindCount = "maxKernelThreadgroupMemoryBindCount";
@@ -228,7 +270,13 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_maxVertexBufferBindCount = "maxVertexBufferBindCount";
         private static readonly Selector sel_setCommandTypes = "setCommandTypes:";
         private static readonly Selector sel_setInheritBuffers = "setInheritBuffers:";
+        private static readonly Selector sel_setInheritCullMode = "setInheritCullMode:";
+        private static readonly Selector sel_setInheritDepthBias = "setInheritDepthBias:";
+        private static readonly Selector sel_setInheritDepthClipMode = "setInheritDepthClipMode:";
+        private static readonly Selector sel_setInheritDepthStencilState = "setInheritDepthStencilState:";
+        private static readonly Selector sel_setInheritFrontFacingWinding = "setInheritFrontFacingWinding:";
         private static readonly Selector sel_setInheritPipelineState = "setInheritPipelineState:";
+        private static readonly Selector sel_setInheritTriangleFillMode = "setInheritTriangleFillMode:";
         private static readonly Selector sel_setMaxFragmentBufferBindCount = "setMaxFragmentBufferBindCount:";
         private static readonly Selector sel_setMaxKernelBufferBindCount = "setMaxKernelBufferBindCount:";
         private static readonly Selector sel_setMaxKernelThreadgroupMemoryBindCount = "setMaxKernelThreadgroupMemoryBindCount:";

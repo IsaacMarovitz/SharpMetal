@@ -204,7 +204,13 @@ namespace SharpMetal.Metal
 
         public void UseResidencySets(MTLResidencySet[] residencySets, ulong count)
         {
-            throw new NotImplementedException();
+            unsafe
+            {
+                fixed (MTLResidencySet* residencySetsPtr = residencySets)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_useResidencySetscount, residencySetsPtr, count);
+                }
+            }
         }
 
         public void WaitUntilCompleted()

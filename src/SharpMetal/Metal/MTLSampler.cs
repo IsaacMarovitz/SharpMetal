@@ -39,7 +39,15 @@ namespace SharpMetal.Metal
     }
 
     [SupportedOSPlatform("macos")]
-    public partial struct MTLSamplerDescriptor : IDisposable
+    public enum MTLSamplerReductionMode : ulong
+    {
+        WeightedAverage = 0,
+        Minimum = 1,
+        Maximum = 2,
+    }
+
+    [SupportedOSPlatform("macos")]
+    public struct MTLSamplerDescriptor : IDisposable
     {
         public IntPtr NativePtr;
         public static implicit operator IntPtr(MTLSamplerDescriptor obj) => obj.NativePtr;
@@ -78,6 +86,12 @@ namespace SharpMetal.Metal
         {
             get => ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_lodAverage);
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLodAverage, value);
+        }
+
+        public float LodBias
+        {
+            get => ObjectiveCRuntime.float_objc_msgSend(NativePtr, sel_lodBias);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setLodBias, value);
         }
 
         public float LodMaxClamp
@@ -128,6 +142,12 @@ namespace SharpMetal.Metal
             set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRAddressMode, (ulong)value);
         }
 
+        public MTLSamplerReductionMode ReductionMode
+        {
+            get => (MTLSamplerReductionMode)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_reductionMode);
+            set => ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setReductionMode, (ulong)value);
+        }
+
         public MTLSamplerAddressMode SAddressMode
         {
             get => (MTLSamplerAddressMode)ObjectiveCRuntime.ulong_objc_msgSend(NativePtr, sel_sAddressMode);
@@ -150,6 +170,7 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_compareFunction = "compareFunction";
         private static readonly Selector sel_label = "label";
         private static readonly Selector sel_lodAverage = "lodAverage";
+        private static readonly Selector sel_lodBias = "lodBias";
         private static readonly Selector sel_lodMaxClamp = "lodMaxClamp";
         private static readonly Selector sel_lodMinClamp = "lodMinClamp";
         private static readonly Selector sel_magFilter = "magFilter";
@@ -158,11 +179,13 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_mipFilter = "mipFilter";
         private static readonly Selector sel_normalizedCoordinates = "normalizedCoordinates";
         private static readonly Selector sel_rAddressMode = "rAddressMode";
+        private static readonly Selector sel_reductionMode = "reductionMode";
         private static readonly Selector sel_sAddressMode = "sAddressMode";
         private static readonly Selector sel_setBorderColor = "setBorderColor:";
         private static readonly Selector sel_setCompareFunction = "setCompareFunction:";
         private static readonly Selector sel_setLabel = "setLabel:";
         private static readonly Selector sel_setLodAverage = "setLodAverage:";
+        private static readonly Selector sel_setLodBias = "setLodBias:";
         private static readonly Selector sel_setLodMaxClamp = "setLodMaxClamp:";
         private static readonly Selector sel_setLodMinClamp = "setLodMinClamp:";
         private static readonly Selector sel_setMagFilter = "setMagFilter:";
@@ -171,6 +194,7 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_setMipFilter = "setMipFilter:";
         private static readonly Selector sel_setNormalizedCoordinates = "setNormalizedCoordinates:";
         private static readonly Selector sel_setRAddressMode = "setRAddressMode:";
+        private static readonly Selector sel_setReductionMode = "setReductionMode:";
         private static readonly Selector sel_setSAddressMode = "setSAddressMode:";
         private static readonly Selector sel_setSupportArgumentBuffers = "setSupportArgumentBuffers:";
         private static readonly Selector sel_setTAddressMode = "setTAddressMode:";

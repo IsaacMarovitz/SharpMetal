@@ -1,6 +1,6 @@
 using System.Runtime.CompilerServices;
-using SharpMetal.Generator.Instances;
 using SharpMetal.Generator.CSharpCodeGen;
+using SharpMetal.Generator.Transformers;
 
 namespace SharpMetal.Generator
 {
@@ -51,7 +51,7 @@ namespace SharpMetal.Generator
             }
 
             // Transform
-            ModelTransformer transformer = new ModelTransformer();
+            var transformer = new ModelTransformer();
             var csharpFiles = transformer.Link(parsedModel);
 
             // Emit

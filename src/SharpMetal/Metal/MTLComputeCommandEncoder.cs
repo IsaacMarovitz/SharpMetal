@@ -98,7 +98,13 @@ namespace SharpMetal.Metal
 
         public void MemoryBarrier(MTLResource[] resources, ulong count)
         {
-            throw new NotImplementedException();
+            unsafe
+            {
+                fixed (MTLResource* resourcesPtr = resources)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_memoryBarrierWithResourcescount, resourcesPtr, count);
+                }
+            }
         }
 
         public void PopDebugGroup()
@@ -143,12 +149,25 @@ namespace SharpMetal.Metal
 
         public void SetBuffers(MTLBuffer[] buffers, ulong offsets, ulong strides, NSRange range)
         {
-            throw new NotImplementedException();
+            unsafe
+            {
+                fixed (MTLBuffer* buffersPtr = buffers)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBuffersoffsetsattributeStrideswithRange, buffersPtr, offsets, strides, range);
+                }
+            }
         }
 
         public void SetBuffers(MTLBuffer[] buffers, ulong[] offsets, NSRange range)
         {
-            throw new NotImplementedException();
+            unsafe
+            {
+                fixed (MTLBuffer* buffersPtr = buffers)
+                fixed (ulong* offsetsPtr = offsets)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBuffersoffsetswithRange, buffersPtr, offsetsPtr, range);
+                }
+            }
         }
 
         public void SetBytes(IntPtr bytes, ulong length, ulong index)
@@ -178,7 +197,13 @@ namespace SharpMetal.Metal
 
         public void SetIntersectionFunctionTables(MTLIntersectionFunctionTable[] intersectionFunctionTables, NSRange range)
         {
-            throw new NotImplementedException();
+            unsafe
+            {
+                fixed (MTLIntersectionFunctionTable* intersectionFunctionTablesPtr = intersectionFunctionTables)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIntersectionFunctionTableswithBufferRange, intersectionFunctionTablesPtr, range);
+                }
+            }
         }
 
         public void SetSamplerState(MTLSamplerState sampler, ulong index)
@@ -193,12 +218,26 @@ namespace SharpMetal.Metal
 
         public void SetSamplerStates(MTLSamplerState[] samplers, NSRange range)
         {
-            throw new NotImplementedException();
+            unsafe
+            {
+                fixed (MTLSamplerState* samplersPtr = samplers)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSamplerStateswithRange, samplersPtr, range);
+                }
+            }
         }
 
         public void SetSamplerStates(MTLSamplerState[] samplers, float[] lodMinClamps, float[] lodMaxClamps, NSRange range)
         {
-            throw new NotImplementedException();
+            unsafe
+            {
+                fixed (MTLSamplerState* samplersPtr = samplers)
+                fixed (float* lodMinClampsPtr = lodMinClamps)
+                fixed (float* lodMaxClampsPtr = lodMaxClamps)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSamplerStateslodMinClampslodMaxClampswithRange, samplersPtr, lodMinClampsPtr, lodMaxClampsPtr, range);
+                }
+            }
         }
 
         public void SetStageInRegion(MTLRegion region)
@@ -218,7 +257,13 @@ namespace SharpMetal.Metal
 
         public void SetTextures(MTLTexture[] textures, NSRange range)
         {
-            throw new NotImplementedException();
+            unsafe
+            {
+                fixed (MTLTexture* texturesPtr = textures)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTextureswithRange, texturesPtr, range);
+                }
+            }
         }
 
         public void SetThreadgroupMemoryLength(ulong length, ulong index)
@@ -233,7 +278,13 @@ namespace SharpMetal.Metal
 
         public void SetVisibleFunctionTables(MTLVisibleFunctionTable[] visibleFunctionTables, NSRange range)
         {
-            throw new NotImplementedException();
+            unsafe
+            {
+                fixed (MTLVisibleFunctionTable* visibleFunctionTablesPtr = visibleFunctionTables)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVisibleFunctionTableswithBufferRange, visibleFunctionTablesPtr, range);
+                }
+            }
         }
 
         public void UpdateFence(MTLFence fence)
@@ -248,7 +299,13 @@ namespace SharpMetal.Metal
 
         public void UseHeaps(MTLHeap[] heaps, ulong count)
         {
-            throw new NotImplementedException();
+            unsafe
+            {
+                fixed (MTLHeap* heapsPtr = heaps)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_useHeapscount, heapsPtr, count);
+                }
+            }
         }
 
         public void UseResource(MTLResource resource, MTLResourceUsage usage)
@@ -258,7 +315,13 @@ namespace SharpMetal.Metal
 
         public void UseResources(MTLResource[] resources, ulong count, MTLResourceUsage usage)
         {
-            throw new NotImplementedException();
+            unsafe
+            {
+                fixed (MTLResource* resourcesPtr = resources)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_useResourcescountusage, resourcesPtr, count, (ulong)usage);
+                }
+            }
         }
 
         public void WaitForFence(MTLFence fence)

@@ -142,9 +142,34 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBarrier);
         }
 
+        public void SetCullMode(MTLCullMode cullMode)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setCullMode, (ulong)cullMode);
+        }
+
+        public void SetDepthBias(float depthBias, float slopeScale, float clamp)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthBiasslopeScaleclamp, depthBias, slopeScale, clamp);
+        }
+
+        public void SetDepthClipMode(MTLDepthClipMode depthClipMode)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthClipMode, (ulong)depthClipMode);
+        }
+
+        public void SetDepthStencilState(MTLDepthStencilState depthStencilState)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setDepthStencilState, depthStencilState);
+        }
+
         public void SetFragmentBuffer(MTLBuffer buffer, ulong offset, ulong index)
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFragmentBufferoffsetatIndex, buffer, offset, index);
+        }
+
+        public void SetFrontFacingWinding(MTLWinding frontFacingWindning)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFrontFacingWinding, (ulong)frontFacingWindning);
         }
 
         public void SetMeshBuffer(MTLBuffer buffer, ulong offset, ulong index)
@@ -167,6 +192,11 @@ namespace SharpMetal.Metal
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRenderPipelineState, pipelineState);
         }
 
+        public void SetTriangleFillMode(MTLTriangleFillMode fillMode)
+        {
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTriangleFillMode, (ulong)fillMode);
+        }
+
         public void SetVertexBuffer(MTLBuffer buffer, ulong offset, ulong index)
         {
             ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVertexBufferoffsetatIndex, buffer, offset, index);
@@ -186,11 +216,17 @@ namespace SharpMetal.Metal
         private static readonly Selector sel_drawPrimitivesvertexStartvertexCountinstanceCountbaseInstance = "drawPrimitives:vertexStart:vertexCount:instanceCount:baseInstance:";
         private static readonly Selector sel_reset = "reset";
         private static readonly Selector sel_setBarrier = "setBarrier";
+        private static readonly Selector sel_setCullMode = "setCullMode:";
+        private static readonly Selector sel_setDepthBiasslopeScaleclamp = "setDepthBias:slopeScale:clamp:";
+        private static readonly Selector sel_setDepthClipMode = "setDepthClipMode:";
+        private static readonly Selector sel_setDepthStencilState = "setDepthStencilState:";
         private static readonly Selector sel_setFragmentBufferoffsetatIndex = "setFragmentBuffer:offset:atIndex:";
+        private static readonly Selector sel_setFrontFacingWinding = "setFrontFacingWinding:";
         private static readonly Selector sel_setMeshBufferoffsetatIndex = "setMeshBuffer:offset:atIndex:";
         private static readonly Selector sel_setObjectBufferoffsetatIndex = "setObjectBuffer:offset:atIndex:";
         private static readonly Selector sel_setObjectThreadgroupMemoryLengthatIndex = "setObjectThreadgroupMemoryLength:atIndex:";
         private static readonly Selector sel_setRenderPipelineState = "setRenderPipelineState:";
+        private static readonly Selector sel_setTriangleFillMode = "setTriangleFillMode:";
         private static readonly Selector sel_setVertexBufferoffsetatIndex = "setVertexBuffer:offset:atIndex:";
         private static readonly Selector sel_setVertexBufferoffsetattributeStrideatIndex = "setVertexBuffer:offset:attributeStride:atIndex:";
         private static readonly Selector sel_release = "release";

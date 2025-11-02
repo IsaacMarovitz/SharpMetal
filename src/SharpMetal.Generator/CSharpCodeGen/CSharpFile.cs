@@ -2,7 +2,7 @@ namespace SharpMetal.Generator.CSharpCodeGen
 {
     public class CSharpFile : ICodeFragmentProvider
     {
-        private readonly List<string> _usings = [];
+        private readonly HashSet<string> _usings = [];
         private readonly List<CSharpNamespace> _namespaces = [];
 
         public string Name { get; }

@@ -82,7 +82,14 @@ namespace SharpMetal.Metal
 
         public void SetBuffers(MTLBuffer[] buffers, ulong[] offsets, NSRange range)
         {
-            throw new NotImplementedException();
+            unsafe
+            {
+                fixed (MTLBuffer* buffersPtr = buffers)
+                fixed (ulong* offsetsPtr = offsets)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBuffersoffsetswithRange, buffersPtr, offsetsPtr, range);
+                }
+            }
         }
 
         public void SetFunction(MTLFunctionHandle function, ulong index)
@@ -92,7 +99,13 @@ namespace SharpMetal.Metal
 
         public void SetFunctions(MTLFunctionHandle[] functions, NSRange range)
         {
-            throw new NotImplementedException();
+            unsafe
+            {
+                fixed (MTLFunctionHandle* functionsPtr = functions)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctionswithRange, functionsPtr, range);
+                }
+            }
         }
 
         public void SetOpaqueCurveIntersectionFunction(MTLIntersectionFunctionSignature signature, ulong index)
@@ -132,7 +145,13 @@ namespace SharpMetal.Metal
 
         public void SetVisibleFunctionTables(MTLVisibleFunctionTable[] functionTables, NSRange bufferRange)
         {
-            throw new NotImplementedException();
+            unsafe
+            {
+                fixed (MTLVisibleFunctionTable* functionTablesPtr = functionTables)
+                {
+                    ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVisibleFunctionTableswithBufferRange, functionTablesPtr, bufferRange);
+                }
+            }
         }
 
         private static readonly Selector sel_allocatedSize = "allocatedSize";

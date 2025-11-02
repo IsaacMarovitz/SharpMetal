@@ -217,13 +217,13 @@ namespace SharpMetal.Generator.Instances
                         var argumentType = Types.ConvertType(string.Join(" ", array[..^1]), namespacePrefix);
                         var argumentName = array.Last();
                         var reference = false;
+                        var arrayType = false;
 
-                        // TODO: Fix array inputs
-                        // Might need to be NSArray
                         if (argumentName.Contains("[]"))
                         {
                             argumentType += "[]";
                             argumentName = argumentName.Replace("[]", "");
+                            arrayType = true;
                         }
 
                         // String is a keyword in C#
@@ -243,7 +243,7 @@ namespace SharpMetal.Generator.Instances
                             reference = true;
                         }
 
-                        arguments.Add(new FunctionParameterInstance(argumentType, argumentName, reference));
+                        arguments.Add(new FunctionParameterInstance(argumentType, argumentName, reference, arrayType));
                     }
 
                     if (returnType != string.Empty)

@@ -1,9 +1,7 @@
-using SharpMetal.Generator.Instances;
 using SharpMetal.Generator.CSharpCodeGen;
-using SharpMetal.Generator.Transformers;
-using SharpMetal.Generator.Utilities;
+using SharpMetal.Generator.Instances;
 
-namespace SharpMetal.Generator
+namespace SharpMetal.Generator.Transformers
 {
     public class ModelTransformer
     {
@@ -79,6 +77,7 @@ namespace SharpMetal.Generator
             {
                 string name = item.Type != "void" ? $"{item.Type}_objc_msgSend" : "objc_msgSend";
                 var parameters = new List<(string, string, string)>();
+                var unsafeParam = false;
                 parameters.Add(("IntPtr", "receiver", ""));
                 parameters.Add(("IntPtr", "selector", ""));
                 for (var i = 0; i < item.Inputs.Length; i++)
@@ -88,11 +87,16 @@ namespace SharpMetal.Generator
                     {
                         attr = "[MarshalAs(UnmanagedType.Bool)]";
                     }
+                    if (item.Inputs[i].EndsWith('*'))
+                    {
+                        unsafeParam = true;
+                    }
                     parameters.Add((item.Inputs[i], VarNames[i], attr));
                 }
                 var method = new CSharpMethod(name, item.Type, parameters);
                 method.IsStatic = true;
                 method.IsPartial = true;
+                method.IsUnsafe = unsafeParam;
                 method.VisibilityModifier = "internal";
                 method.AddAttribute("[LibraryImport(ObjectiveC.ObjCRuntime, EntryPoint = \"objc_msgSend\")]");
                 if (item.Type == "bool")
@@ -101,7 +105,6 @@ namespace SharpMetal.Generator
                 }
 
                 csClass.AddMember(method);
-
             }
 
             return outputFile;

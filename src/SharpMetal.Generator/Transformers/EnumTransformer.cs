@@ -10,6 +10,7 @@ namespace SharpMetal.Generator.Transformers
             var csEnum = new CSharpEnumType(enumInstance.Name);
             csEnum.SetPrimitiveType(enumInstance.BackingType);
             csEnum.AddValues(enumInstance.Values);
+
             if (enumInstance.IsFlag)
             {
                 csEnum.MarkAsFlags();

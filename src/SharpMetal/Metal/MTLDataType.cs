@@ -100,6 +100,7 @@ namespace SharpMetal.Metal
         BFloat2 = 122,
         BFloat3 = 123,
         BFloat4 = 124,
+        DepthStencilState = 139,
         Tensor = 140,
     }
 }
