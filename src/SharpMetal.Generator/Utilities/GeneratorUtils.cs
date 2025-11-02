@@ -26,7 +26,7 @@ namespace SharpMetal.Generator.Utilities
         /// <returns>The code line or null if stream ended</returns>
         public static string? ReadNextCodeLine(StreamReader sr)
         {
-            bool insideComment = false;
+            var insideComment = false;
             while (!sr.EndOfStream)
             {
                 var line = (sr.ReadLine() ?? "").Trim();

@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using SharpMetal.ObjectiveCCore;
 using SharpMetal.Foundation;
@@ -92,7 +93,7 @@ namespace SharpMetal.Metal
 
         public void UseHeaps(MTLHeap[] heaps, ulong count)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_useHeapscount, Marshal.UnsafeAddrOfPinnedArrayElement(heaps, 0), count);
         }
 
         public void UseResource(MTLResource resource, MTLResourceUsage usage)
@@ -102,7 +103,7 @@ namespace SharpMetal.Metal
 
         public void UseResources(MTLResource[] resources, ulong count, MTLResourceUsage usage)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_useResourcescountusage, Marshal.UnsafeAddrOfPinnedArrayElement(resources, 0), count, (ulong)usage);
         }
 
         public void WaitForFence(MTLFence fence)

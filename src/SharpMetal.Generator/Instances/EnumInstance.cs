@@ -60,58 +60,60 @@ namespace SharpMetal.Generator.Instances
                     continue;
                 }
 
-                if (!skipValues)
+                if (skipValues)
                 {
-                    nextLine = nextLine.Trim().Replace(",", "");
-                    var cleanedValueName = string.Empty;
-                    var cleanedValueValue = string.Empty;
+                    continue;
+                }
 
-                    if (nextLine.Contains('='))
-                    {
-                        var valueInfo = nextLine.Split("=", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-                        cleanedValueName = valueInfo[0];
-                        cleanedValueValue = valueInfo[1];
-                    }
-                    else
-                    {
-                        cleanedValueName = nextLine;
-                    }
+                nextLine = nextLine.Trim().Replace(",", "");
+                var cleanedValueName = string.Empty;
+                var cleanedValueValue = string.Empty;
 
-                    var nameTrim = ogName;
+                if (nextLine.Contains('='))
+                {
+                    var valueInfo = nextLine.Split("=", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+                    cleanedValueName = valueInfo[0];
+                    cleanedValueValue = valueInfo[1];
+                }
+                else
+                {
+                    cleanedValueName = nextLine;
+                }
 
-                    // MTLAccelerationStructureInstanceOptions vs AccelerationStructureInstanceOption for it's values
-                    nameTrim = nameTrim.Replace("Options", "Option");
+                var nameTrim = ogName;
 
-                    // Remove original name from each enum's name and value IOCompressionMethodZlib -> Zlib
-                    cleanedValueName = cleanedValueName.Replace(nameTrim, "");
-                    cleanedValueValue = cleanedValueValue.Replace(nameTrim, "");
+                // MTLAccelerationStructureInstanceOptions vs AccelerationStructureInstanceOption for it's values
+                nameTrim = nameTrim.Replace("Options", "Option");
 
-                    // Sometimes the first character of en enum value's name will be a number after we
-                    // remove the full name. In that case, add back the last part of the enum's name
-                    if (char.IsDigit(cleanedValueName[0]))
-                    {
-                        cleanedValueName = NameRegex().Replace(name, " ").Split(" ").Last() + cleanedValueName;
-                    }
+                // Remove original name from each enum's name and value IOCompressionMethodZlib -> Zlib
+                cleanedValueName = cleanedValueName.Replace(nameTrim, "");
+                cleanedValueValue = cleanedValueValue.Replace(nameTrim, "");
 
-                    cleanedValueName = cleanedValueName.Replace("_", "");
+                // Sometimes the first character of en enum value's name will be a number after we
+                // remove the full name. In that case, add back the last part of the enum's name
+                if (char.IsDigit(cleanedValueName[0]))
+                {
+                    cleanedValueName = NameRegex().Replace(name, " ").Split(" ").Last() + cleanedValueName;
+                }
 
-                    // Happens in one place in MTLDevice
-                    if (cleanedValueValue == "NS::UIntegerMax")
-                    {
-                        cleanedValueValue = "UInt64.MaxValue";
-                    }
+                cleanedValueName = cleanedValueName.Replace("_", "");
 
-                    // Happens in NSProcessInfo
-                    cleanedValueValue = cleanedValueValue.Replace("ULL", "UL");
+                // Happens in one place in MTLDevice
+                if (cleanedValueValue == "NS::UIntegerMax")
+                {
+                    cleanedValueValue = "UInt64.MaxValue";
+                }
 
-                    try
-                    {
-                        values.Add(cleanedValueName, cleanedValueValue);
-                    }
-                    catch
-                    {
-                        Console.WriteLine($"Attempted to write repeat value! {line}");
-                    }
+                // Happens in NSProcessInfo
+                cleanedValueValue = cleanedValueValue.Replace("ULL", "UL");
+
+                try
+                {
+                    values.Add(cleanedValueName, cleanedValueValue);
+                }
+                catch
+                {
+                    Console.WriteLine($"Attempted to write repeat value! {line}");
                 }
             }
 

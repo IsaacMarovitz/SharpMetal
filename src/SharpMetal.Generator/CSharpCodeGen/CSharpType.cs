@@ -18,7 +18,7 @@ namespace SharpMetal.Generator.CSharpCodeGen
         public bool IsStatic { get; set; }
         public string VisibilityModifier { get; set; }
 
-        public CSharpType(TypeKind kind, string name)
+        protected CSharpType(TypeKind kind, string name)
         {
             Kind = kind;
             Name = name;
@@ -67,21 +67,17 @@ namespace SharpMetal.Generator.CSharpCodeGen
             }
 
             context.LeaveScope();
+        }
 
-            static string KindToType(TypeKind kind)
+        private static string KindToType(TypeKind kind)
+        {
+            return kind switch
             {
-                switch (kind)
-                {
-                    case TypeKind.Struct:
-                        return "struct";
-                    case TypeKind.Enum:
-                        return "enum";
-                    case TypeKind.Class:
-                        return "class";
-                }
-
-                throw new ArgumentOutOfRangeException(nameof(kind), $"'{kind}' not supported.");
-            }
+                TypeKind.Struct => "struct",
+                TypeKind.Enum => "enum",
+                TypeKind.Class => "class",
+                _ => throw new ArgumentOutOfRangeException(nameof(kind), $"'{kind}' not supported.")
+            };
         }
     }
 }

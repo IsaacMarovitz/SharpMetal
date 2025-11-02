@@ -98,7 +98,7 @@ namespace SharpMetal.Metal
 
         public void MemoryBarrier(MTLResource[] resources, ulong count)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_memoryBarrierWithResourcescount, Marshal.UnsafeAddrOfPinnedArrayElement(resources, 0), count);
         }
 
         public void PopDebugGroup()
@@ -143,12 +143,12 @@ namespace SharpMetal.Metal
 
         public void SetBuffers(MTLBuffer[] buffers, ulong offsets, ulong strides, NSRange range)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBuffersoffsetsattributeStrideswithRange, Marshal.UnsafeAddrOfPinnedArrayElement(buffers, 0), offsets, strides, range);
         }
 
         public void SetBuffers(MTLBuffer[] buffers, ulong[] offsets, NSRange range)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBuffersoffsetswithRange, Marshal.UnsafeAddrOfPinnedArrayElement(buffers, 0), Marshal.UnsafeAddrOfPinnedArrayElement(offsets, 0), range);
         }
 
         public void SetBytes(IntPtr bytes, ulong length, ulong index)
@@ -178,7 +178,7 @@ namespace SharpMetal.Metal
 
         public void SetIntersectionFunctionTables(MTLIntersectionFunctionTable[] intersectionFunctionTables, NSRange range)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIntersectionFunctionTableswithBufferRange, Marshal.UnsafeAddrOfPinnedArrayElement(intersectionFunctionTables, 0), range);
         }
 
         public void SetSamplerState(MTLSamplerState sampler, ulong index)
@@ -193,12 +193,12 @@ namespace SharpMetal.Metal
 
         public void SetSamplerStates(MTLSamplerState[] samplers, NSRange range)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSamplerStateswithRange, Marshal.UnsafeAddrOfPinnedArrayElement(samplers, 0), range);
         }
 
         public void SetSamplerStates(MTLSamplerState[] samplers, float[] lodMinClamps, float[] lodMaxClamps, NSRange range)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSamplerStateslodMinClampslodMaxClampswithRange, Marshal.UnsafeAddrOfPinnedArrayElement(samplers, 0), Marshal.UnsafeAddrOfPinnedArrayElement(lodMinClamps, 0), Marshal.UnsafeAddrOfPinnedArrayElement(lodMaxClamps, 0), range);
         }
 
         public void SetStageInRegion(MTLRegion region)
@@ -218,7 +218,7 @@ namespace SharpMetal.Metal
 
         public void SetTextures(MTLTexture[] textures, NSRange range)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTextureswithRange, Marshal.UnsafeAddrOfPinnedArrayElement(textures, 0), range);
         }
 
         public void SetThreadgroupMemoryLength(ulong length, ulong index)
@@ -233,7 +233,7 @@ namespace SharpMetal.Metal
 
         public void SetVisibleFunctionTables(MTLVisibleFunctionTable[] visibleFunctionTables, NSRange range)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVisibleFunctionTableswithBufferRange, Marshal.UnsafeAddrOfPinnedArrayElement(visibleFunctionTables, 0), range);
         }
 
         public void UpdateFence(MTLFence fence)
@@ -248,7 +248,7 @@ namespace SharpMetal.Metal
 
         public void UseHeaps(MTLHeap[] heaps, ulong count)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_useHeapscount, Marshal.UnsafeAddrOfPinnedArrayElement(heaps, 0), count);
         }
 
         public void UseResource(MTLResource resource, MTLResourceUsage usage)
@@ -258,7 +258,7 @@ namespace SharpMetal.Metal
 
         public void UseResources(MTLResource[] resources, ulong count, MTLResourceUsage usage)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_useResourcescountusage, Marshal.UnsafeAddrOfPinnedArrayElement(resources, 0), count, (ulong)usage);
         }
 
         public void WaitForFence(MTLFence fence)

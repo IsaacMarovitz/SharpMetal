@@ -1,9 +1,7 @@
-using SharpMetal.Generator.Instances;
 using SharpMetal.Generator.CSharpCodeGen;
-using SharpMetal.Generator.Transformers;
-using SharpMetal.Generator.Utilities;
+using SharpMetal.Generator.Instances;
 
-namespace SharpMetal.Generator
+namespace SharpMetal.Generator.Transformers
 {
     public class ModelTransformer
     {
@@ -128,6 +126,16 @@ namespace SharpMetal.Generator
 
         private static void AddUsings(CSharpFile outputFile, HeaderInfo headerInfo)
         {
+            // This is probably quite slow, but it works.
+            // These need Marshal.UnsafeAddrOfPinnedArrayElement
+            if (headerInfo.ClassInstances
+                .SelectMany(c => c.MethodInstances)
+                .SelectMany(m => m.InputInstances)
+                .Any(i => i.Array))
+            {
+                outputFile.AddUsing("System.Runtime.InteropServices");
+            }
+
             if (headerInfo.StructInstances.Count != 0)
             {
                 outputFile.AddUsing("System.Runtime.InteropServices");

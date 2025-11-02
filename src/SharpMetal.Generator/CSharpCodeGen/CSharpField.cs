@@ -1,16 +1,11 @@
 namespace SharpMetal.Generator.CSharpCodeGen
 {
-    public class CSharpField : CSharpTypeMember
+    public class CSharpField(string variableType, string name) : CSharpTypeMember(name, MemberKind.Field)
     {
-        public string VariableType { get; private set; }
+        public string VariableType { get; } = variableType;
         public string? DefaultValue { get; set; }
         public bool IsStatic { get; set; }
         public bool IsReadonly { get; set; }
-
-        public CSharpField(string variableType, string name) : base(name, MemberKind.Field)
-        {
-            VariableType = variableType;
-        }
 
         public override void Generate(CodeGenContext context)
         {

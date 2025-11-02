@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using SharpMetal.ObjectiveCCore;
 using SharpMetal.Foundation;
@@ -60,7 +61,7 @@ namespace SharpMetal.Metal
 
         public void SetBuffers(MTLBuffer[] buffers, ulong[] offsets, NSRange range)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setBuffersoffsetswithRange, Marshal.UnsafeAddrOfPinnedArrayElement(buffers, 0), Marshal.UnsafeAddrOfPinnedArrayElement(offsets, 0), range);
         }
 
         public void SetComputePipelineState(MTLComputePipelineState pipeline, ulong index)
@@ -70,7 +71,7 @@ namespace SharpMetal.Metal
 
         public void SetComputePipelineStates(MTLComputePipelineState[] pipelines, NSRange range)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setComputePipelineStateswithRange, Marshal.UnsafeAddrOfPinnedArrayElement(pipelines, 0), range);
         }
 
         public void SetIndirectCommandBuffer(MTLIndirectCommandBuffer indirectCommandBuffer, ulong index)
@@ -80,7 +81,7 @@ namespace SharpMetal.Metal
 
         public void SetIndirectCommandBuffers(MTLIndirectCommandBuffer[] buffers, NSRange range)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIndirectCommandBufferswithRange, Marshal.UnsafeAddrOfPinnedArrayElement(buffers, 0), range);
         }
 
         public void SetIntersectionFunctionTable(MTLIntersectionFunctionTable intersectionFunctionTable, ulong index)
@@ -90,7 +91,7 @@ namespace SharpMetal.Metal
 
         public void SetIntersectionFunctionTables(MTLIntersectionFunctionTable[] intersectionFunctionTables, NSRange range)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setIntersectionFunctionTableswithRange, Marshal.UnsafeAddrOfPinnedArrayElement(intersectionFunctionTables, 0), range);
         }
 
         public void SetRenderPipelineState(MTLRenderPipelineState pipeline, ulong index)
@@ -100,7 +101,7 @@ namespace SharpMetal.Metal
 
         public void SetRenderPipelineStates(MTLRenderPipelineState[] pipelines, NSRange range)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setRenderPipelineStateswithRange, Marshal.UnsafeAddrOfPinnedArrayElement(pipelines, 0), range);
         }
 
         public void SetSamplerState(MTLSamplerState sampler, ulong index)
@@ -110,7 +111,7 @@ namespace SharpMetal.Metal
 
         public void SetSamplerStates(MTLSamplerState[] samplers, NSRange range)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setSamplerStateswithRange, Marshal.UnsafeAddrOfPinnedArrayElement(samplers, 0), range);
         }
 
         public void SetTexture(MTLTexture texture, ulong index)
@@ -120,7 +121,7 @@ namespace SharpMetal.Metal
 
         public void SetTextures(MTLTexture[] textures, NSRange range)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setTextureswithRange, Marshal.UnsafeAddrOfPinnedArrayElement(textures, 0), range);
         }
 
         public void SetVisibleFunctionTable(MTLVisibleFunctionTable visibleFunctionTable, ulong index)
@@ -130,7 +131,7 @@ namespace SharpMetal.Metal
 
         public void SetVisibleFunctionTables(MTLVisibleFunctionTable[] visibleFunctionTables, NSRange range)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setVisibleFunctionTableswithRange, Marshal.UnsafeAddrOfPinnedArrayElement(visibleFunctionTables, 0), range);
         }
 
         private static readonly Selector sel_alignment = "alignment";

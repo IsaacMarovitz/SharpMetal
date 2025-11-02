@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using SharpMetal.ObjectiveCCore;
 using SharpMetal.Foundation;
@@ -204,7 +205,7 @@ namespace SharpMetal.Metal
 
         public void UseResidencySets(MTLResidencySet[] residencySets, ulong count)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_useResidencySetscount, Marshal.UnsafeAddrOfPinnedArrayElement(residencySets, 0), count);
         }
 
         public void WaitUntilCompleted()

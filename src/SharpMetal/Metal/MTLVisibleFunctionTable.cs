@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using SharpMetal.ObjectiveCCore;
 using SharpMetal.Foundation;
@@ -55,7 +56,7 @@ namespace SharpMetal.Metal
 
         public void SetFunctions(MTLFunctionHandle[] functions, NSRange range)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_setFunctionswithRange, Marshal.UnsafeAddrOfPinnedArrayElement(functions, 0), range);
         }
 
         public int SetOwner(IntPtr task_id_token)

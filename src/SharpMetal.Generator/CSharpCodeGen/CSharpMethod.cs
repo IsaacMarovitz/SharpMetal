@@ -7,7 +7,7 @@ namespace SharpMetal.Generator.CSharpCodeGen
 
         public bool HasExpressionBody => PreferExpressionBody && _bodyContents.Count == 1;
         public bool PreferExpressionBody { get; set; }
-        public string ReturnType { get; private set; }
+        public string ReturnType { get; }
         public bool IsStatic { get; set; }
         public bool IsPartial { get; set; }
 
@@ -36,13 +36,14 @@ namespace SharpMetal.Generator.CSharpCodeGen
 
         public override void Generate(CodeGenContext context)
         {
-            foreach (var attribute in _attributes)
+            foreach (var attribute in Attributes)
             {
                 context.WriteLine(attribute);
             }
 
             var sb = context.AcquireTempStringBuilder();
             sb.Append(VisibilityModifier);
+
             if (IsStatic)
             {
                 sb.Append(" static");
@@ -51,17 +52,20 @@ namespace SharpMetal.Generator.CSharpCodeGen
             {
                 sb.Append(" partial");
             }
+
             // Special formatting case for ctors that have empty return type
             if (!string.IsNullOrEmpty(ReturnType))
             {
                 sb.Append(' ');
                 sb.Append(ReturnType);
             }
+
             sb.Append(' ');
             sb.Append(Name);
             sb.Append('(');
             sb.Append(string.Join(", ", _parameterList.Select(x => $"{x.Attribute} {x.Type} {x.Name}".Trim())));
             sb.Append(')');
+
             if (!IsPartial)
             {
                 if (HasExpressionBody)
@@ -85,6 +89,7 @@ namespace SharpMetal.Generator.CSharpCodeGen
                 sb.Append(';');
                 context.WriteLine(sb.ToString());
             }
+
             context.ReleaseTempStringBuilder(sb);
         }
     }

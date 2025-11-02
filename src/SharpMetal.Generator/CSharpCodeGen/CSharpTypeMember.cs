@@ -7,23 +7,17 @@ namespace SharpMetal.Generator.CSharpCodeGen
         Method,
     }
 
-    public abstract class CSharpTypeMember : ICodeFragmentProvider
+    public abstract class CSharpTypeMember(string name, MemberKind kind) : ICodeFragmentProvider
     {
-        protected readonly List<string> _attributes = [];
+        protected readonly List<string> Attributes = [];
 
-        public string Name { get; }
+        public string Name { get; } = name;
         public string VisibilityModifier { get; set; } = "public";
-        public MemberKind Kind { get; }
-
-        public CSharpTypeMember(string name, MemberKind kind)
-        {
-            Name = name;
-            Kind = kind;
-        }
+        public MemberKind Kind { get; } = kind;
 
         public void AddAttribute(string attribute)
         {
-            _attributes.Add(attribute);
+            Attributes.Add(attribute);
         }
 
         public abstract void Generate(CodeGenContext context);

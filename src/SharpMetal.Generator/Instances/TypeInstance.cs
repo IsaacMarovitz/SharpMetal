@@ -1,12 +1,7 @@
 namespace SharpMetal.Generator.Instances
 {
-    public abstract class TypeInstance
+    public abstract class TypeInstance(string name)
     {
-        public string Name { get; }
-
-        protected TypeInstance(string name)
-        {
-            Name = name;
-        }
+        public string Name { get; } = name;
     }
 }

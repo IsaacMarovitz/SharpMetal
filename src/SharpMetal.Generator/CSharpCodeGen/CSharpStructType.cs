@@ -1,9 +1,4 @@
 namespace SharpMetal.Generator.CSharpCodeGen
 {
-    public class CSharpStructType : CSharpType
-    {
-        public CSharpStructType(string name) : base(TypeKind.Struct, name)
-        {
-        }
-    }
+    public class CSharpStructType(string name) : CSharpType(TypeKind.Struct, name);
 }

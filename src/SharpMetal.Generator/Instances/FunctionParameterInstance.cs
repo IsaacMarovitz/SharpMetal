@@ -5,12 +5,14 @@ namespace SharpMetal.Generator.Instances
         public readonly string Type;
         public readonly string Name;
         public readonly bool Reference;
+        public readonly bool Array;
 
-        public FunctionParameterInstance(string type, string name, bool reference = false)
+        public FunctionParameterInstance(string type, string name, bool reference, bool array)
         {
             Type = type;
             Name = name;
             Reference = reference;
+            Array = array;
         }
 
         public bool Equals(FunctionParameterInstance? other)
@@ -25,7 +27,7 @@ namespace SharpMetal.Generator.Instances
                 return true;
             }
 
-            return Type == other.Type && Name == other.Name && Reference == other.Reference;
+            return Type == other.Type && Name == other.Name && Reference == other.Reference && Array == other.Array;
         }
 
         public override bool Equals(object? obj)
@@ -40,17 +42,12 @@ namespace SharpMetal.Generator.Instances
                 return true;
             }
 
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
-
-            return Equals((FunctionParameterInstance)obj);
+            return obj.GetType() == GetType() && Equals((FunctionParameterInstance)obj);
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Type, Name, Reference);
+            return HashCode.Combine(Type, Name, Reference, Array);
         }
     }
 }

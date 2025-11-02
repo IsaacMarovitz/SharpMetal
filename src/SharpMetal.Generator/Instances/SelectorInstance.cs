@@ -24,9 +24,8 @@ namespace SharpMetal.Generator.Instances
 
             var methodSignatureString = "";
 
-            for (var i = 0; i < inlineInfo.Length; i++)
+            foreach (var section in inlineInfo)
             {
-                var section = inlineInfo[i];
                 if (section.Contains("::") && section.Contains('('))
                 {
                     var parentStructInfo = section.Split("::");
@@ -64,29 +63,31 @@ namespace SharpMetal.Generator.Instances
             var lookingFor = $"_{macroNamespaces}_PRIVATE_SEL(";
             var index = selector.IndexOf(lookingFor, StringComparison.Ordinal);
 
-            if (index != -1)
+            if (index == -1)
             {
-                // Only get stuff in the brackets of the _MTL_PRIVATE_SEL
-                selector = selector[(index + lookingFor.Length)..];
-                selector = selector[..selector.IndexOf(')')];
-                selector = selector.Replace("_", ":");
+                return;
+            }
 
-                // We don't want to deal with these functions
-                if (selector.Contains("std::function") || selector.Contains("Handler") || selector.Contains("Observer"))
-                {
-                    return;
-                }
+            // Only get stuff in the brackets of the _MTL_PRIVATE_SEL
+            selector = selector[(index + lookingFor.Length)..];
+            selector = selector[..selector.IndexOf(')')];
+            selector = selector.Replace("_", ":");
 
-                var parentIndex = propertyOwners.FindIndex(x => x.Name == parentStructName);
+            // We don't want to deal with these functions
+            if (selector.Contains("std::function") || selector.Contains("Handler") || selector.Contains("Observer"))
+            {
+                return;
+            }
 
-                if (parentIndex != -1)
-                {
-                    propertyOwners[parentIndex].AddSelector(new SelectorInstance(selector.Trim(), rawName, methodSignatureString));
-                }
-                else
-                {
-                    Console.WriteLine($"Orphaned Selector! Looking for {parentStructName}");
-                }
+            var parentIndex = propertyOwners.FindIndex(x => x.Name == parentStructName);
+
+            if (parentIndex != -1)
+            {
+                propertyOwners[parentIndex].AddSelector(new SelectorInstance(selector.Trim(), rawName, methodSignatureString));
+            }
+            else
+            {
+                Console.WriteLine($"Orphaned Selector! Looking for {parentStructName}");
             }
         }
     }

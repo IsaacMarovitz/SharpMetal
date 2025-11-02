@@ -1,15 +1,10 @@
 namespace SharpMetal.Generator.CSharpCodeGen
 {
-    public class CSharpNamespace : ICodeFragmentProvider
+    public class CSharpNamespace(string name) : ICodeFragmentProvider
     {
         private readonly List<CSharpType> _types = [];
 
-        public string Name { get; }
-
-        public CSharpNamespace(string name)
-        {
-            Name = name;
-        }
+        public string Name { get; } = name;
 
         public void AddType(CSharpType csType)
         {
@@ -25,6 +20,7 @@ namespace SharpMetal.Generator.CSharpCodeGen
             {
                 var type = _types[index];
                 type.Generate(context);
+
                 if (index != _types.Count - 1)
                 {
                     context.WriteLine();

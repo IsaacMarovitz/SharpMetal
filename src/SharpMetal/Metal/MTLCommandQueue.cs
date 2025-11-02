@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using SharpMetal.ObjectiveCCore;
 using SharpMetal.Foundation;
@@ -33,7 +34,7 @@ namespace SharpMetal.Metal
 
         public void AddResidencySets(MTLResidencySet[] residencySets, ulong count)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_addResidencySetscount, Marshal.UnsafeAddrOfPinnedArrayElement(residencySets, 0), count);
         }
 
         public MTLCommandBuffer CommandBuffer(MTLCommandBufferDescriptor descriptor)
@@ -58,7 +59,7 @@ namespace SharpMetal.Metal
 
         public void RemoveResidencySets(MTLResidencySet[] residencySets, ulong count)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_removeResidencySetscount, Marshal.UnsafeAddrOfPinnedArrayElement(residencySets, 0), count);
         }
 
         private static readonly Selector sel_addResidencySet = "addResidencySet:";

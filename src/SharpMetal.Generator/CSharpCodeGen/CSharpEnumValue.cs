@@ -1,12 +1,8 @@
 namespace SharpMetal.Generator.CSharpCodeGen
 {
-    public class CSharpEnumValue : CSharpTypeMember
+    public class CSharpEnumValue(string name) : CSharpTypeMember(name, MemberKind.Field)
     {
         public string? DefaultValue { get; set; }
-
-        public CSharpEnumValue(string name) : base(name, MemberKind.Field)
-        {
-        }
 
         public override void Generate(CodeGenContext context)
         {

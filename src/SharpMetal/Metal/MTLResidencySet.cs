@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using SharpMetal.ObjectiveCCore;
 using SharpMetal.Foundation;
@@ -33,7 +34,7 @@ namespace SharpMetal.Metal
 
         public void AddAllocations(MTLAllocation[] allocations, ulong count)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_addAllocationscount, Marshal.UnsafeAddrOfPinnedArrayElement(allocations, 0), count);
         }
 
         public void Commit()
@@ -63,7 +64,7 @@ namespace SharpMetal.Metal
 
         public void RemoveAllocations(MTLAllocation[] allocations, ulong count)
         {
-            throw new NotImplementedException();
+            ObjectiveCRuntime.objc_msgSend(NativePtr, sel_removeAllocationscount, Marshal.UnsafeAddrOfPinnedArrayElement(allocations, 0), count);
         }
 
         public void RequestResidency()

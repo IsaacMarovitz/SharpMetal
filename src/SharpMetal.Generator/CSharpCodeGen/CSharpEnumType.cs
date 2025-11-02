@@ -1,11 +1,7 @@
 namespace SharpMetal.Generator.CSharpCodeGen
 {
-    public class CSharpEnumType : CSharpType
+    public class CSharpEnumType(string name) : CSharpType(TypeKind.Enum, name)
     {
-        public CSharpEnumType(string name) : base(TypeKind.Enum, name)
-        {
-        }
-
         public void SetPrimitiveType(string type)
         {
             BaseTypes.Clear();
