@@ -96,7 +96,34 @@ namespace SharpMetal.ObjectiveCCore
         public static partial bool bool_objc_msgSend(IntPtr receiver, Selector selector);
 
         [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial byte byte_objc_msgSend(IntPtr receiver, Selector selector);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial sbyte sbyte_objc_msgSend(IntPtr receiver, Selector selector);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial short short_objc_msgSend(IntPtr receiver, Selector selector);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial ushort ushort_objc_msgSend(IntPtr receiver, Selector selector);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial int int_objc_msgSend(IntPtr receiver, Selector selector);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial uint uint_objc_msgSend(IntPtr receiver, Selector selector);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial long long_objc_msgSend(IntPtr receiver, Selector selector);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
         public static partial ulong ulong_objc_msgSend(IntPtr receiver, Selector selector);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial float float_objc_msgSend(IntPtr receiver, Selector selector);
+
+        [LibraryImport(ObjCRuntime, EntryPoint = "objc_msgSend")]
+        public static partial double double_objc_msgSend(IntPtr receiver, Selector selector);
 
         public static IntPtr LinkMetal()
         {
